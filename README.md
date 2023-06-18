@@ -16,7 +16,7 @@ npm install fireblocks-api-client-typescript
 
 ## Usage
 You can initialize you environment variables in your env file, or just provide them when you initialize and API module.    
-```java
+```javascript
 const FIREBLOCKS_API_SECRET_PATH = './fireblocks_secret.key';
 
 process.env.FIREBLOCKS_BASE_PATH = 'https://sandbox-api.fireblocks.io/v1';
@@ -25,7 +25,7 @@ process.env.FIREBLOCKS_SECRET_KEY = fs.readFileSync(FIREBLOCKS_API_SECRET_PATH, 
 ```
 
 Lets see an example. create a vault accounts and make a transaction! 
-```java
+```javascript
 import { VaultsApi, TransactionsApi, TransferPeerPath } from "fireblocks-sdk";
 import * as fs from "fs";
 const FIREBLOCKS_API_SECRET_PATH = './fireblocks_secret.key';
