@@ -1,32 +1,41 @@
 import localVarRequest from 'request';
 
-export * from './allocateFundsRequest';
-export * from './allocatedBalance';
+export * from './addAssetToContractRequest';
+export * from './addAssetToExternalWalletRequest';
+export * from './addCollateralRequestBody';
 export * from './amlScreeningResult';
 export * from './amountInfo';
 export * from './assetTypeResponse';
+export * from './assetWallet';
 export * from './authorizationGroups';
 export * from './authorizationInfo';
-export * from './autoNetworkRoutingDest';
 export * from './blockInfo';
 export * from './cancelTransactionResponse';
+export * from './checkThirdPartyRoutingForNetworkConnection200Response';
 export * from './configChangeRequestStatus';
-export * from './connectionsSessionIdPutRequest';
-export * from './contractsContractIdAssetIdPostRequest';
-export * from './contractsPostRequest';
+export * from './convertAssetsRequest';
 export * from './createAddressResponse';
 export * from './createConnectionRequest';
 export * from './createConnectionResponse';
 export * from './createConnectionResponseSessionMetadata';
+export * from './createContractRequest';
+export * from './createInternalWalletAssetRequest';
+export * from './createInternalWalletRequest';
+export * from './createNetworkIdRequest';
+export * from './createPayoutRequest';
 export * from './createTransactionResponse';
-export * from './createTransferTicketResponse';
+export * from './createVaultAccountAssetAddressRequest';
+export * from './createVaultAccountAssetRequest';
+export * from './createVaultAccountRequest';
 export * from './createVaultAssetResponse';
 export * from './customCryptoRoutingDest';
 export * from './customFiatRoutingDest';
-export * from './deallocateFundsRequest';
 export * from './defaultNetworkRoutingDest';
 export * from './destinationTransferPeerPath';
 export * from './destinationTransferPeerPathAllOf';
+export * from './destinationTransferPeerPathResponse';
+export * from './destinationTransferPeerPathResponseAllOf';
+export * from './dispatchPayoutResponse';
 export * from './dropTransactionRequest';
 export * from './dropTransactionResponse';
 export * from './errorResponse';
@@ -34,25 +43,27 @@ export * from './errorResponseError';
 export * from './estimatedNetworkFeeResponse';
 export * from './estimatedTransactionFeeResponse';
 export * from './exchangeAccount';
-export * from './exchangeAccountsExchangeAccountIdConvertPostRequest';
-export * from './exchangeAccountsExchangeAccountIdInternalTransferPostRequest';
 export * from './exchangeAsset';
 export * from './exchangeTradingAccount';
 export * from './exchangeType';
 export * from './externalWalletAsset';
-export * from './externalWalletsWalletIdAssetIdPostRequest';
 export * from './feeInfo';
 export * from './fiatAccount';
 export * from './fiatAccountType';
-export * from './fiatAccountsAccountIdRedeemToLinkedDdaPostRequest';
 export * from './fiatAsset';
 export * from './freezeTransactionResponse';
 export * from './gasStationConfiguration';
 export * from './gasStationPropertiesResponse';
-export * from './getAllXBSettlementConfigsResponse';
+export * from './getConnectionsFilterParameter';
+export * from './getConnectionsResponse';
+export * from './getNFTTokens200Response';
+export * from './getNetworkIds200ResponseInner';
+export * from './getOwnershipTokens200Response';
+export * from './getTransactionOperation';
 export * from './getUsersResponse';
-export * from './internalWalletsPostRequest';
-export * from './internalWalletsWalletIdAssetIdPostRequest';
+export * from './instructionAmount';
+export * from './internalTransferRequest';
+export * from './mediaEntityResponse';
 export * from './modelError';
 export * from './networkChannel';
 export * from './networkConnection';
@@ -65,9 +76,6 @@ export * from './networkConnectionRoutingPolicySen';
 export * from './networkConnectionRoutingPolicySenTest';
 export * from './networkConnectionRoutingPolicySignet';
 export * from './networkConnectionRoutingPolicySignetTest';
-export * from './networkConnectionsConnectionIdIsThirdPartyRoutingAssetTypeGet200Response';
-export * from './networkConnectionsConnectionIdSetRoutingPolicyPatch200Response';
-export * from './networkConnectionsConnectionIdSetRoutingPolicyPatchRequest';
 export * from './networkFee';
 export * from './networkId';
 export * from './networkIdResponse';
@@ -76,91 +84,136 @@ export * from './networkIdRoutingPolicy';
 export * from './networkIdRoutingPolicyCrypto';
 export * from './networkIdRoutingPolicySen';
 export * from './networkIdRoutingPolicySenTest';
-export * from './networkIdRoutingPolicySignet';
-export * from './networkIdRoutingPolicySignetTest';
-export * from './networkIdsGet200ResponseInner';
-export * from './networkIdsNetworkIdSetDiscoverabilityPatchRequest';
-export * from './networkIdsNetworkIdSetRoutingPolicyPatchRequest';
-export * from './networkIdsPostRequest';
 export * from './networkRecord';
 export * from './noneNetworkRoutingDest';
-export * from './offExchangeEntityResponse';
-export * from './offExchangeEntityResponseBalanceValue';
 export * from './oneTimeAddress';
-export * from './paymentsXbSettlementsFlowsFlowIdGet200Response';
+export * from './paginatedAssetWalletResponse';
+export * from './paginatedAssetWalletResponsePaging';
+export * from './paging';
+export * from './payeeAccount';
+export * from './payeeAccountResponse';
+export * from './payeeAccountType';
+export * from './paymentAccount';
+export * from './paymentAccountResponse';
+export * from './paymentAccountType';
+export * from './payoutInitMethod';
+export * from './payoutInstruction';
+export * from './payoutInstructionResponse';
+export * from './payoutInstructionState';
+export * from './payoutResponse';
+export * from './payoutState';
+export * from './payoutStatus';
 export * from './publicKeyInformation';
+export * from './redeemFundsToLinkedDDARequest';
+export * from './removeCollateralRequestBody';
+export * from './resendWebhooksForTransactionRequest';
 export * from './resendWebhooksResponse';
+export * from './respondToConnectionRequest';
 export * from './rewardInfo';
 export * from './rewardsInfo';
 export * from './sessionDTO';
 export * from './sessionDTOSessionMetadata';
 export * from './sessionMetadata';
+export * from './setAutoFuelForVaultAccountRequest';
 export * from './setConfirmationsThresholdRequest';
 export * from './setConfirmationsThresholdResponse';
+export * from './setCustomerRefIdForVaultAccountRequest';
+export * from './setDiscoverabilityForNetworkIdRequest';
+export * from './setNetworkIdNameRequest';
+export * from './setRoutingPolicyForNetworkConnection200Response';
+export * from './setRoutingPolicyForNetworkConnectionRequest';
+export * from './setRoutingPolicyForNetworkIdRequest';
+export * from './settlementRequestBody';
+export * from './settlementResponse';
 export * from './signedMessage';
 export * from './signedMessageSignature';
+export * from './sourceTransferPeerPathResponse';
+export * from './sourceTransferPeerPathResponseAllOf';
 export * from './systemMessageInfo';
 export * from './term';
+export * from './toCollateralTransaction';
+export * from './toExchangeTransaction';
+export * from './tokenCollectionResponse';
+export * from './tokenOwnershipResponse';
+export * from './tokenResponse';
+export * from './tokenResponseCollection';
 export * from './tradingAccountType';
+export * from './transaction';
 export * from './transactionFee';
 export * from './transactionOperation';
 export * from './transactionRequest';
 export * from './transactionRequestAmount';
 export * from './transactionRequestDestination';
 export * from './transactionRequestFee';
-export * from './transactionRequestFeePayerInfo';
 export * from './transactionRequestGasLimit';
 export * from './transactionRequestGasPrice';
+export * from './transactionRequestNetworkFee';
 export * from './transactionRequestNetworkStaking';
 export * from './transactionRequestPriorityFee';
 export * from './transactionResponse';
+export * from './transactionResponseContractCallDecodedData';
 export * from './transactionResponseDestination';
-export * from './transactionResponseFeePayerInfo';
-export * from './transactionSubStatus';
 export * from './transferPeerPath';
-export * from './transferPeerPathResponse';
-export * from './transferPeerPathResponseAllOf';
-export * from './transferTicketResponse';
-export * from './transferTicketTermResponse';
-export * from './transferTicketsPostRequest';
-export * from './transferTicketsTicketIdTermIdTransferPostRequest';
+export * from './travelRuleAddress';
+export * from './travelRuleGetAllVASPsResponse';
+export * from './travelRuleIssuer';
+export * from './travelRuleIssuers';
+export * from './travelRuleOwnershipProof';
+export * from './travelRulePiiIVMS';
+export * from './travelRuleTransactionBlockchainInfo';
+export * from './travelRuleUpdateVASPDetails';
+export * from './travelRuleVASP';
+export * from './travelRuleValidateFullTransactionRequest';
+export * from './travelRuleValidateFullTransactionRequestBeneficiary';
+export * from './travelRuleValidateFullTransactionRequestBeneficiaryProof';
+export * from './travelRuleValidateFullTransactionRequestOriginator';
+export * from './travelRuleValidateFullTransactionRequestOriginatorProof';
+export * from './travelRuleValidateFullTransactionRequestPii';
+export * from './travelRuleValidateFullTransactionRequestTransactionBlockchainInfo';
+export * from './travelRuleValidateTransactionRequest';
+export * from './travelRuleValidateTransactionRequestBeneficiaryAddress';
+export * from './travelRuleValidateTransactionResponse';
 export * from './unfreezeTransactionResponse';
 export * from './unmanagedWallet';
 export * from './unsignedMessage';
 export * from './unspentInput';
 export * from './unspentInputsResponse';
+export * from './updateTokenOwnershipStatusDto';
+export * from './updateVaultAccountAssetAddressRequest';
+export * from './updateVaultAccountRequest';
 export * from './userResponse';
 export * from './validateAddressResponse';
 export * from './vaultAccount';
 export * from './vaultAccountsPagedResponse';
 export * from './vaultAccountsPagedResponsePaging';
-export * from './vaultAccountsPostRequest';
-export * from './vaultAccountsVaultAccountIdAssetIdAddressesAddressIdPutRequest';
-export * from './vaultAccountsVaultAccountIdAssetIdAddressesPostRequest';
-export * from './vaultAccountsVaultAccountIdAssetIdPostRequest';
-export * from './vaultAccountsVaultAccountIdPutRequest';
-export * from './vaultAccountsVaultAccountIdSetAutoFuelPostRequest';
-export * from './vaultAccountsVaultAccountIdSetCustomerRefIdPostRequest';
 export * from './vaultAsset';
 export * from './vaultWalletAddress';
 export * from './walletAsset';
-export * from './webhooksResendTxIdPostRequest';
-export * from './xBCreateSettlementFlowRequestBody';
 export * from './xBSettlementAsset';
+export * from './xBSettlementAssetID';
 export * from './xBSettlementConfigCreationRequestBody';
-export * from './xBSettlementConfigDeletionResponse';
 export * from './xBSettlementConfigEditRequestBody';
 export * from './xBSettlementConfigModel';
 export * from './xBSettlementConfigStep';
 export * from './xBSettlementConfigStepsRecord';
 export * from './xBSettlementConfigStepsRecordValue';
+export * from './xBSettlementCorridorId';
+export * from './xBSettlementCreateFlowRequestBody';
+export * from './xBSettlementCryptoAsset';
+export * from './xBSettlementFiatAsset';
 export * from './xBSettlementFlowExecutionModel';
+export * from './xBSettlementFlowExecutionModelSelectedConversionSlippage';
+export * from './xBSettlementFlowExecutionRequestBody';
 export * from './xBSettlementFlowExecutionStatus';
 export * from './xBSettlementFlowExecutionStep';
 export * from './xBSettlementFlowExecutionStepStatus';
-export * from './xBSettlementFlowSetupModel';
+export * from './xBSettlementFlowPreviewModel';
+export * from './xBSettlementFlowSelectedConversionSlippageReason';
 export * from './xBSettlementFlowSetupStep';
+export * from './xBSettlementFlowStepsExecutionRecord';
 export * from './xBSettlementFlowStepsRecord';
+export * from './xBSettlementGetAllConfigsResponse';
+export * from './xBSettlementGetFlowResponse';
 export * from './xBSettlementStepType';
 
 import * as fs from 'fs';
@@ -176,33 +229,42 @@ export interface RequestDetailedFile {
 export type RequestFile = string | Buffer | fs.ReadStream | RequestDetailedFile;
 
 
-import { AllocateFundsRequest } from './allocateFundsRequest';
-import { AllocatedBalance } from './allocatedBalance';
+import { AddAssetToContractRequest } from './addAssetToContractRequest';
+import { AddAssetToExternalWalletRequest } from './addAssetToExternalWalletRequest';
+import { AddCollateralRequestBody } from './addCollateralRequestBody';
 import { AmlScreeningResult } from './amlScreeningResult';
 import { AmountInfo } from './amountInfo';
 import { AssetTypeResponse } from './assetTypeResponse';
+import { AssetWallet } from './assetWallet';
 import { AuthorizationGroups } from './authorizationGroups';
 import { AuthorizationInfo } from './authorizationInfo';
-import { AutoNetworkRoutingDest } from './autoNetworkRoutingDest';
 import { BlockInfo } from './blockInfo';
 import { CancelTransactionResponse } from './cancelTransactionResponse';
+import { CheckThirdPartyRoutingForNetworkConnection200Response } from './checkThirdPartyRoutingForNetworkConnection200Response';
 import { ConfigChangeRequestStatus } from './configChangeRequestStatus';
-import { ConnectionsSessionIdPutRequest } from './connectionsSessionIdPutRequest';
-import { ContractsContractIdAssetIdPostRequest } from './contractsContractIdAssetIdPostRequest';
-import { ContractsPostRequest } from './contractsPostRequest';
+import { ConvertAssetsRequest } from './convertAssetsRequest';
 import { CreateAddressResponse } from './createAddressResponse';
 import { CreateConnectionRequest } from './createConnectionRequest';
 import { CreateConnectionResponse } from './createConnectionResponse';
 import { CreateConnectionResponseSessionMetadata } from './createConnectionResponseSessionMetadata';
+import { CreateContractRequest } from './createContractRequest';
+import { CreateInternalWalletAssetRequest } from './createInternalWalletAssetRequest';
+import { CreateInternalWalletRequest } from './createInternalWalletRequest';
+import { CreateNetworkIdRequest } from './createNetworkIdRequest';
+import { CreatePayoutRequest } from './createPayoutRequest';
 import { CreateTransactionResponse } from './createTransactionResponse';
-import { CreateTransferTicketResponse } from './createTransferTicketResponse';
+import { CreateVaultAccountAssetAddressRequest } from './createVaultAccountAssetAddressRequest';
+import { CreateVaultAccountAssetRequest } from './createVaultAccountAssetRequest';
+import { CreateVaultAccountRequest } from './createVaultAccountRequest';
 import { CreateVaultAssetResponse } from './createVaultAssetResponse';
 import { CustomCryptoRoutingDest } from './customCryptoRoutingDest';
 import { CustomFiatRoutingDest } from './customFiatRoutingDest';
-import { DeallocateFundsRequest } from './deallocateFundsRequest';
 import { DefaultNetworkRoutingDest } from './defaultNetworkRoutingDest';
 import { DestinationTransferPeerPath } from './destinationTransferPeerPath';
 import { DestinationTransferPeerPathAllOf } from './destinationTransferPeerPathAllOf';
+import { DestinationTransferPeerPathResponse } from './destinationTransferPeerPathResponse';
+import { DestinationTransferPeerPathResponseAllOf } from './destinationTransferPeerPathResponseAllOf';
+import { DispatchPayoutResponse } from './dispatchPayoutResponse';
 import { DropTransactionRequest } from './dropTransactionRequest';
 import { DropTransactionResponse } from './dropTransactionResponse';
 import { ErrorResponse } from './errorResponse';
@@ -210,25 +272,27 @@ import { ErrorResponseError } from './errorResponseError';
 import { EstimatedNetworkFeeResponse } from './estimatedNetworkFeeResponse';
 import { EstimatedTransactionFeeResponse } from './estimatedTransactionFeeResponse';
 import { ExchangeAccount } from './exchangeAccount';
-import { ExchangeAccountsExchangeAccountIdConvertPostRequest } from './exchangeAccountsExchangeAccountIdConvertPostRequest';
-import { ExchangeAccountsExchangeAccountIdInternalTransferPostRequest } from './exchangeAccountsExchangeAccountIdInternalTransferPostRequest';
 import { ExchangeAsset } from './exchangeAsset';
 import { ExchangeTradingAccount } from './exchangeTradingAccount';
 import { ExchangeType } from './exchangeType';
 import { ExternalWalletAsset } from './externalWalletAsset';
-import { ExternalWalletsWalletIdAssetIdPostRequest } from './externalWalletsWalletIdAssetIdPostRequest';
 import { FeeInfo } from './feeInfo';
 import { FiatAccount } from './fiatAccount';
 import { FiatAccountType } from './fiatAccountType';
-import { FiatAccountsAccountIdRedeemToLinkedDdaPostRequest } from './fiatAccountsAccountIdRedeemToLinkedDdaPostRequest';
 import { FiatAsset } from './fiatAsset';
 import { FreezeTransactionResponse } from './freezeTransactionResponse';
 import { GasStationConfiguration } from './gasStationConfiguration';
 import { GasStationPropertiesResponse } from './gasStationPropertiesResponse';
-import { GetAllXBSettlementConfigsResponse } from './getAllXBSettlementConfigsResponse';
+import { GetConnectionsFilterParameter } from './getConnectionsFilterParameter';
+import { GetConnectionsResponse } from './getConnectionsResponse';
+import { GetNFTTokens200Response } from './getNFTTokens200Response';
+import { GetNetworkIds200ResponseInner } from './getNetworkIds200ResponseInner';
+import { GetOwnershipTokens200Response } from './getOwnershipTokens200Response';
+import { GetTransactionOperation } from './getTransactionOperation';
 import { GetUsersResponse } from './getUsersResponse';
-import { InternalWalletsPostRequest } from './internalWalletsPostRequest';
-import { InternalWalletsWalletIdAssetIdPostRequest } from './internalWalletsWalletIdAssetIdPostRequest';
+import { InstructionAmount } from './instructionAmount';
+import { InternalTransferRequest } from './internalTransferRequest';
+import { MediaEntityResponse } from './mediaEntityResponse';
 import { ModelError } from './modelError';
 import { NetworkChannel } from './networkChannel';
 import { NetworkConnection } from './networkConnection';
@@ -241,9 +305,6 @@ import { NetworkConnectionRoutingPolicySen } from './networkConnectionRoutingPol
 import { NetworkConnectionRoutingPolicySenTest } from './networkConnectionRoutingPolicySenTest';
 import { NetworkConnectionRoutingPolicySignet } from './networkConnectionRoutingPolicySignet';
 import { NetworkConnectionRoutingPolicySignetTest } from './networkConnectionRoutingPolicySignetTest';
-import { NetworkConnectionsConnectionIdIsThirdPartyRoutingAssetTypeGet200Response } from './networkConnectionsConnectionIdIsThirdPartyRoutingAssetTypeGet200Response';
-import { NetworkConnectionsConnectionIdSetRoutingPolicyPatch200Response } from './networkConnectionsConnectionIdSetRoutingPolicyPatch200Response';
-import { NetworkConnectionsConnectionIdSetRoutingPolicyPatchRequest } from './networkConnectionsConnectionIdSetRoutingPolicyPatchRequest';
 import { NetworkFee } from './networkFee';
 import { NetworkId } from './networkId';
 import { NetworkIdResponse } from './networkIdResponse';
@@ -252,91 +313,136 @@ import { NetworkIdRoutingPolicy } from './networkIdRoutingPolicy';
 import { NetworkIdRoutingPolicyCrypto } from './networkIdRoutingPolicyCrypto';
 import { NetworkIdRoutingPolicySen } from './networkIdRoutingPolicySen';
 import { NetworkIdRoutingPolicySenTest } from './networkIdRoutingPolicySenTest';
-import { NetworkIdRoutingPolicySignet } from './networkIdRoutingPolicySignet';
-import { NetworkIdRoutingPolicySignetTest } from './networkIdRoutingPolicySignetTest';
-import { NetworkIdsGet200ResponseInner } from './networkIdsGet200ResponseInner';
-import { NetworkIdsNetworkIdSetDiscoverabilityPatchRequest } from './networkIdsNetworkIdSetDiscoverabilityPatchRequest';
-import { NetworkIdsNetworkIdSetRoutingPolicyPatchRequest } from './networkIdsNetworkIdSetRoutingPolicyPatchRequest';
-import { NetworkIdsPostRequest } from './networkIdsPostRequest';
 import { NetworkRecord } from './networkRecord';
 import { NoneNetworkRoutingDest } from './noneNetworkRoutingDest';
-import { OffExchangeEntityResponse } from './offExchangeEntityResponse';
-import { OffExchangeEntityResponseBalanceValue } from './offExchangeEntityResponseBalanceValue';
 import { OneTimeAddress } from './oneTimeAddress';
-import { PaymentsXbSettlementsFlowsFlowIdGet200Response } from './paymentsXbSettlementsFlowsFlowIdGet200Response';
+import { PaginatedAssetWalletResponse } from './paginatedAssetWalletResponse';
+import { PaginatedAssetWalletResponsePaging } from './paginatedAssetWalletResponsePaging';
+import { Paging } from './paging';
+import { PayeeAccount } from './payeeAccount';
+import { PayeeAccountResponse } from './payeeAccountResponse';
+import { PayeeAccountType } from './payeeAccountType';
+import { PaymentAccount } from './paymentAccount';
+import { PaymentAccountResponse } from './paymentAccountResponse';
+import { PaymentAccountType } from './paymentAccountType';
+import { PayoutInitMethod } from './payoutInitMethod';
+import { PayoutInstruction } from './payoutInstruction';
+import { PayoutInstructionResponse } from './payoutInstructionResponse';
+import { PayoutInstructionState } from './payoutInstructionState';
+import { PayoutResponse } from './payoutResponse';
+import { PayoutState } from './payoutState';
+import { PayoutStatus } from './payoutStatus';
 import { PublicKeyInformation } from './publicKeyInformation';
+import { RedeemFundsToLinkedDDARequest } from './redeemFundsToLinkedDDARequest';
+import { RemoveCollateralRequestBody } from './removeCollateralRequestBody';
+import { ResendWebhooksForTransactionRequest } from './resendWebhooksForTransactionRequest';
 import { ResendWebhooksResponse } from './resendWebhooksResponse';
+import { RespondToConnectionRequest } from './respondToConnectionRequest';
 import { RewardInfo } from './rewardInfo';
 import { RewardsInfo } from './rewardsInfo';
 import { SessionDTO } from './sessionDTO';
 import { SessionDTOSessionMetadata } from './sessionDTOSessionMetadata';
 import { SessionMetadata } from './sessionMetadata';
+import { SetAutoFuelForVaultAccountRequest } from './setAutoFuelForVaultAccountRequest';
 import { SetConfirmationsThresholdRequest } from './setConfirmationsThresholdRequest';
 import { SetConfirmationsThresholdResponse } from './setConfirmationsThresholdResponse';
+import { SetCustomerRefIdForVaultAccountRequest } from './setCustomerRefIdForVaultAccountRequest';
+import { SetDiscoverabilityForNetworkIdRequest } from './setDiscoverabilityForNetworkIdRequest';
+import { SetNetworkIdNameRequest } from './setNetworkIdNameRequest';
+import { SetRoutingPolicyForNetworkConnection200Response } from './setRoutingPolicyForNetworkConnection200Response';
+import { SetRoutingPolicyForNetworkConnectionRequest } from './setRoutingPolicyForNetworkConnectionRequest';
+import { SetRoutingPolicyForNetworkIdRequest } from './setRoutingPolicyForNetworkIdRequest';
+import { SettlementRequestBody } from './settlementRequestBody';
+import { SettlementResponse } from './settlementResponse';
 import { SignedMessage } from './signedMessage';
 import { SignedMessageSignature } from './signedMessageSignature';
+import { SourceTransferPeerPathResponse } from './sourceTransferPeerPathResponse';
+import { SourceTransferPeerPathResponseAllOf } from './sourceTransferPeerPathResponseAllOf';
 import { SystemMessageInfo } from './systemMessageInfo';
 import { Term } from './term';
+import { ToCollateralTransaction } from './toCollateralTransaction';
+import { ToExchangeTransaction } from './toExchangeTransaction';
+import { TokenCollectionResponse } from './tokenCollectionResponse';
+import { TokenOwnershipResponse } from './tokenOwnershipResponse';
+import { TokenResponse } from './tokenResponse';
+import { TokenResponseCollection } from './tokenResponseCollection';
 import { TradingAccountType } from './tradingAccountType';
+import { Transaction } from './transaction';
 import { TransactionFee } from './transactionFee';
 import { TransactionOperation } from './transactionOperation';
 import { TransactionRequest } from './transactionRequest';
 import { TransactionRequestAmount } from './transactionRequestAmount';
 import { TransactionRequestDestination } from './transactionRequestDestination';
 import { TransactionRequestFee } from './transactionRequestFee';
-import { TransactionRequestFeePayerInfo } from './transactionRequestFeePayerInfo';
 import { TransactionRequestGasLimit } from './transactionRequestGasLimit';
 import { TransactionRequestGasPrice } from './transactionRequestGasPrice';
+import { TransactionRequestNetworkFee } from './transactionRequestNetworkFee';
 import { TransactionRequestNetworkStaking } from './transactionRequestNetworkStaking';
 import { TransactionRequestPriorityFee } from './transactionRequestPriorityFee';
 import { TransactionResponse } from './transactionResponse';
+import { TransactionResponseContractCallDecodedData } from './transactionResponseContractCallDecodedData';
 import { TransactionResponseDestination } from './transactionResponseDestination';
-import { TransactionResponseFeePayerInfo } from './transactionResponseFeePayerInfo';
-import { TransactionSubStatus } from './transactionSubStatus';
 import { TransferPeerPath } from './transferPeerPath';
-import { TransferPeerPathResponse } from './transferPeerPathResponse';
-import { TransferPeerPathResponseAllOf } from './transferPeerPathResponseAllOf';
-import { TransferTicketResponse } from './transferTicketResponse';
-import { TransferTicketTermResponse } from './transferTicketTermResponse';
-import { TransferTicketsPostRequest } from './transferTicketsPostRequest';
-import { TransferTicketsTicketIdTermIdTransferPostRequest } from './transferTicketsTicketIdTermIdTransferPostRequest';
+import { TravelRuleAddress } from './travelRuleAddress';
+import { TravelRuleGetAllVASPsResponse } from './travelRuleGetAllVASPsResponse';
+import { TravelRuleIssuer } from './travelRuleIssuer';
+import { TravelRuleIssuers } from './travelRuleIssuers';
+import { TravelRuleOwnershipProof } from './travelRuleOwnershipProof';
+import { TravelRulePiiIVMS } from './travelRulePiiIVMS';
+import { TravelRuleTransactionBlockchainInfo } from './travelRuleTransactionBlockchainInfo';
+import { TravelRuleUpdateVASPDetails } from './travelRuleUpdateVASPDetails';
+import { TravelRuleVASP } from './travelRuleVASP';
+import { TravelRuleValidateFullTransactionRequest } from './travelRuleValidateFullTransactionRequest';
+import { TravelRuleValidateFullTransactionRequestBeneficiary } from './travelRuleValidateFullTransactionRequestBeneficiary';
+import { TravelRuleValidateFullTransactionRequestBeneficiaryProof } from './travelRuleValidateFullTransactionRequestBeneficiaryProof';
+import { TravelRuleValidateFullTransactionRequestOriginator } from './travelRuleValidateFullTransactionRequestOriginator';
+import { TravelRuleValidateFullTransactionRequestOriginatorProof } from './travelRuleValidateFullTransactionRequestOriginatorProof';
+import { TravelRuleValidateFullTransactionRequestPii } from './travelRuleValidateFullTransactionRequestPii';
+import { TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo } from './travelRuleValidateFullTransactionRequestTransactionBlockchainInfo';
+import { TravelRuleValidateTransactionRequest } from './travelRuleValidateTransactionRequest';
+import { TravelRuleValidateTransactionRequestBeneficiaryAddress } from './travelRuleValidateTransactionRequestBeneficiaryAddress';
+import { TravelRuleValidateTransactionResponse } from './travelRuleValidateTransactionResponse';
 import { UnfreezeTransactionResponse } from './unfreezeTransactionResponse';
 import { UnmanagedWallet } from './unmanagedWallet';
 import { UnsignedMessage } from './unsignedMessage';
 import { UnspentInput } from './unspentInput';
 import { UnspentInputsResponse } from './unspentInputsResponse';
+import { UpdateTokenOwnershipStatusDto } from './updateTokenOwnershipStatusDto';
+import { UpdateVaultAccountAssetAddressRequest } from './updateVaultAccountAssetAddressRequest';
+import { UpdateVaultAccountRequest } from './updateVaultAccountRequest';
 import { UserResponse } from './userResponse';
 import { ValidateAddressResponse } from './validateAddressResponse';
 import { VaultAccount } from './vaultAccount';
 import { VaultAccountsPagedResponse } from './vaultAccountsPagedResponse';
 import { VaultAccountsPagedResponsePaging } from './vaultAccountsPagedResponsePaging';
-import { VaultAccountsPostRequest } from './vaultAccountsPostRequest';
-import { VaultAccountsVaultAccountIdAssetIdAddressesAddressIdPutRequest } from './vaultAccountsVaultAccountIdAssetIdAddressesAddressIdPutRequest';
-import { VaultAccountsVaultAccountIdAssetIdAddressesPostRequest } from './vaultAccountsVaultAccountIdAssetIdAddressesPostRequest';
-import { VaultAccountsVaultAccountIdAssetIdPostRequest } from './vaultAccountsVaultAccountIdAssetIdPostRequest';
-import { VaultAccountsVaultAccountIdPutRequest } from './vaultAccountsVaultAccountIdPutRequest';
-import { VaultAccountsVaultAccountIdSetAutoFuelPostRequest } from './vaultAccountsVaultAccountIdSetAutoFuelPostRequest';
-import { VaultAccountsVaultAccountIdSetCustomerRefIdPostRequest } from './vaultAccountsVaultAccountIdSetCustomerRefIdPostRequest';
 import { VaultAsset } from './vaultAsset';
 import { VaultWalletAddress } from './vaultWalletAddress';
 import { WalletAsset } from './walletAsset';
-import { WebhooksResendTxIdPostRequest } from './webhooksResendTxIdPostRequest';
-import { XBCreateSettlementFlowRequestBody } from './xBCreateSettlementFlowRequestBody';
 import { XBSettlementAsset } from './xBSettlementAsset';
+import { XBSettlementAssetID } from './xBSettlementAssetID';
 import { XBSettlementConfigCreationRequestBody } from './xBSettlementConfigCreationRequestBody';
-import { XBSettlementConfigDeletionResponse } from './xBSettlementConfigDeletionResponse';
 import { XBSettlementConfigEditRequestBody } from './xBSettlementConfigEditRequestBody';
 import { XBSettlementConfigModel } from './xBSettlementConfigModel';
 import { XBSettlementConfigStep } from './xBSettlementConfigStep';
 import { XBSettlementConfigStepsRecord } from './xBSettlementConfigStepsRecord';
 import { XBSettlementConfigStepsRecordValue } from './xBSettlementConfigStepsRecordValue';
+import { XBSettlementCorridorId } from './xBSettlementCorridorId';
+import { XBSettlementCreateFlowRequestBody } from './xBSettlementCreateFlowRequestBody';
+import { XBSettlementCryptoAsset } from './xBSettlementCryptoAsset';
+import { XBSettlementFiatAsset } from './xBSettlementFiatAsset';
 import { XBSettlementFlowExecutionModel } from './xBSettlementFlowExecutionModel';
+import { XBSettlementFlowExecutionModelSelectedConversionSlippage } from './xBSettlementFlowExecutionModelSelectedConversionSlippage';
+import { XBSettlementFlowExecutionRequestBody } from './xBSettlementFlowExecutionRequestBody';
 import { XBSettlementFlowExecutionStatus } from './xBSettlementFlowExecutionStatus';
 import { XBSettlementFlowExecutionStep } from './xBSettlementFlowExecutionStep';
 import { XBSettlementFlowExecutionStepStatus } from './xBSettlementFlowExecutionStepStatus';
-import { XBSettlementFlowSetupModel } from './xBSettlementFlowSetupModel';
+import { XBSettlementFlowPreviewModel } from './xBSettlementFlowPreviewModel';
+import { XBSettlementFlowSelectedConversionSlippageReason } from './xBSettlementFlowSelectedConversionSlippageReason';
 import { XBSettlementFlowSetupStep } from './xBSettlementFlowSetupStep';
+import { XBSettlementFlowStepsExecutionRecord } from './xBSettlementFlowStepsExecutionRecord';
 import { XBSettlementFlowStepsRecord } from './xBSettlementFlowStepsRecord';
+import { XBSettlementGetAllConfigsResponse } from './xBSettlementGetAllConfigsResponse';
+import { XBSettlementGetFlowResponse } from './xBSettlementGetFlowResponse';
 import { XBSettlementStepType } from './xBSettlementStepType';
 
 /* tslint:disable:no-unused-variable */
@@ -355,19 +461,20 @@ let enumsMap: {[index: string]: any} = {
         "AssetTypeResponse.TypeEnum": AssetTypeResponse.TypeEnum,
         "AuthorizationGroups.UsersEnum": AuthorizationGroups.UsersEnum,
         "AuthorizationInfo.LogicEnum": AuthorizationInfo.LogicEnum,
-        "AutoNetworkRoutingDest.SchemeEnum": AutoNetworkRoutingDest.SchemeEnum,
         "ConfigChangeRequestStatus": ConfigChangeRequestStatus,
         "CreateConnectionRequest.FeeLevelEnum": CreateConnectionRequest.FeeLevelEnum,
-        "CreateConnectionRequest.ConnectionTypeEnum": CreateConnectionRequest.ConnectionTypeEnum,
         "CustomCryptoRoutingDest.SchemeEnum": CustomCryptoRoutingDest.SchemeEnum,
         "CustomCryptoRoutingDest.DstTypeEnum": CustomCryptoRoutingDest.DstTypeEnum,
         "CustomFiatRoutingDest.SchemeEnum": CustomFiatRoutingDest.SchemeEnum,
         "CustomFiatRoutingDest.DstTypeEnum": CustomFiatRoutingDest.DstTypeEnum,
         "DefaultNetworkRoutingDest.SchemeEnum": DefaultNetworkRoutingDest.SchemeEnum,
         "DestinationTransferPeerPath.TypeEnum": DestinationTransferPeerPath.TypeEnum,
+        "DestinationTransferPeerPathResponse.TypeEnum": DestinationTransferPeerPathResponse.TypeEnum,
         "ErrorResponseError.TypeEnum": ErrorResponseError.TypeEnum,
         "ExchangeType": ExchangeType,
         "FiatAccountType": FiatAccountType,
+        "GetTransactionOperation": GetTransactionOperation,
+        "MediaEntityResponse.ContentTypeEnum": MediaEntityResponse.ContentTypeEnum,
         "NetworkConnectionRoutingPolicyCrypto.SchemeEnum": NetworkConnectionRoutingPolicyCrypto.SchemeEnum,
         "NetworkConnectionRoutingPolicyCrypto.DstTypeEnum": NetworkConnectionRoutingPolicyCrypto.DstTypeEnum,
         "NetworkConnectionRoutingPolicySen.SchemeEnum": NetworkConnectionRoutingPolicySen.SchemeEnum,
@@ -384,59 +491,74 @@ let enumsMap: {[index: string]: any} = {
         "NetworkIdRoutingPolicySen.DstTypeEnum": NetworkIdRoutingPolicySen.DstTypeEnum,
         "NetworkIdRoutingPolicySenTest.SchemeEnum": NetworkIdRoutingPolicySenTest.SchemeEnum,
         "NetworkIdRoutingPolicySenTest.DstTypeEnum": NetworkIdRoutingPolicySenTest.DstTypeEnum,
-        "NetworkIdRoutingPolicySignet.SchemeEnum": NetworkIdRoutingPolicySignet.SchemeEnum,
-        "NetworkIdRoutingPolicySignet.DstTypeEnum": NetworkIdRoutingPolicySignet.DstTypeEnum,
-        "NetworkIdRoutingPolicySignetTest.SchemeEnum": NetworkIdRoutingPolicySignetTest.SchemeEnum,
-        "NetworkIdRoutingPolicySignetTest.DstTypeEnum": NetworkIdRoutingPolicySignetTest.DstTypeEnum,
         "NoneNetworkRoutingDest.SchemeEnum": NoneNetworkRoutingDest.SchemeEnum,
+        "PayeeAccountType": PayeeAccountType,
+        "PaymentAccountType": PaymentAccountType,
+        "PayoutInitMethod": PayoutInitMethod,
+        "PayoutInstructionState": PayoutInstructionState,
+        "PayoutState": PayoutState,
+        "PayoutStatus": PayoutStatus,
         "SessionDTO.FeeLevelEnum": SessionDTO.FeeLevelEnum,
         "SessionDTO.ConnectionTypeEnum": SessionDTO.ConnectionTypeEnum,
         "SessionDTO.ConnectionMethodEnum": SessionDTO.ConnectionMethodEnum,
         "SignedMessage.AlgorithmEnum": SignedMessage.AlgorithmEnum,
+        "SourceTransferPeerPathResponse.TypeEnum": SourceTransferPeerPathResponse.TypeEnum,
+        "SystemMessageInfo.TypeEnum": SystemMessageInfo.TypeEnum,
+        "TokenOwnershipResponse.BlockchainDescriptorEnum": TokenOwnershipResponse.BlockchainDescriptorEnum,
+        "TokenResponse.BlockchainDescriptorEnum": TokenResponse.BlockchainDescriptorEnum,
         "TradingAccountType": TradingAccountType,
+        "Transaction.StateEnum": Transaction.StateEnum,
         "TransactionOperation": TransactionOperation,
         "TransactionRequest.FeeLevelEnum": TransactionRequest.FeeLevelEnum,
-        "TransactionResponse.StatusEnum": TransactionResponse.StatusEnum,
-        "TransactionSubStatus": TransactionSubStatus,
+        "TransactionResponse.AddressTypeEnum": TransactionResponse.AddressTypeEnum,
         "TransferPeerPath.TypeEnum": TransferPeerPath.TypeEnum,
-        "TransferPeerPathResponse.TypeEnum": TransferPeerPathResponse.TypeEnum,
-        "TransferPeerPathResponse.VirtualTypeEnum": TransferPeerPathResponse.VirtualTypeEnum,
-        "TransferPeerPathResponseAllOf.VirtualTypeEnum": TransferPeerPathResponseAllOf.VirtualTypeEnum,
-        "TransferTicketResponse.StatusEnum": TransferTicketResponse.StatusEnum,
-        "TransferTicketTermResponse.StatusEnum": TransferTicketTermResponse.StatusEnum,
+        "UpdateTokenOwnershipStatusDto.StatusEnum": UpdateTokenOwnershipStatusDto.StatusEnum,
         "VaultWalletAddress.AddressFormatEnum": VaultWalletAddress.AddressFormatEnum,
+        "XBSettlementCorridorId": XBSettlementCorridorId,
+        "XBSettlementCryptoAsset": XBSettlementCryptoAsset,
+        "XBSettlementFiatAsset": XBSettlementFiatAsset,
         "XBSettlementFlowExecutionStatus": XBSettlementFlowExecutionStatus,
         "XBSettlementFlowExecutionStepStatus": XBSettlementFlowExecutionStepStatus,
+        "XBSettlementFlowSelectedConversionSlippageReason": XBSettlementFlowSelectedConversionSlippageReason,
         "XBSettlementStepType": XBSettlementStepType,
 }
 
 let typeMap: {[index: string]: any} = {
-    "AllocateFundsRequest": AllocateFundsRequest,
-    "AllocatedBalance": AllocatedBalance,
+    "AddAssetToContractRequest": AddAssetToContractRequest,
+    "AddAssetToExternalWalletRequest": AddAssetToExternalWalletRequest,
+    "AddCollateralRequestBody": AddCollateralRequestBody,
     "AmlScreeningResult": AmlScreeningResult,
     "AmountInfo": AmountInfo,
     "AssetTypeResponse": AssetTypeResponse,
+    "AssetWallet": AssetWallet,
     "AuthorizationGroups": AuthorizationGroups,
     "AuthorizationInfo": AuthorizationInfo,
-    "AutoNetworkRoutingDest": AutoNetworkRoutingDest,
     "BlockInfo": BlockInfo,
     "CancelTransactionResponse": CancelTransactionResponse,
-    "ConnectionsSessionIdPutRequest": ConnectionsSessionIdPutRequest,
-    "ContractsContractIdAssetIdPostRequest": ContractsContractIdAssetIdPostRequest,
-    "ContractsPostRequest": ContractsPostRequest,
+    "CheckThirdPartyRoutingForNetworkConnection200Response": CheckThirdPartyRoutingForNetworkConnection200Response,
+    "ConvertAssetsRequest": ConvertAssetsRequest,
     "CreateAddressResponse": CreateAddressResponse,
     "CreateConnectionRequest": CreateConnectionRequest,
     "CreateConnectionResponse": CreateConnectionResponse,
     "CreateConnectionResponseSessionMetadata": CreateConnectionResponseSessionMetadata,
+    "CreateContractRequest": CreateContractRequest,
+    "CreateInternalWalletAssetRequest": CreateInternalWalletAssetRequest,
+    "CreateInternalWalletRequest": CreateInternalWalletRequest,
+    "CreateNetworkIdRequest": CreateNetworkIdRequest,
+    "CreatePayoutRequest": CreatePayoutRequest,
     "CreateTransactionResponse": CreateTransactionResponse,
-    "CreateTransferTicketResponse": CreateTransferTicketResponse,
+    "CreateVaultAccountAssetAddressRequest": CreateVaultAccountAssetAddressRequest,
+    "CreateVaultAccountAssetRequest": CreateVaultAccountAssetRequest,
+    "CreateVaultAccountRequest": CreateVaultAccountRequest,
     "CreateVaultAssetResponse": CreateVaultAssetResponse,
     "CustomCryptoRoutingDest": CustomCryptoRoutingDest,
     "CustomFiatRoutingDest": CustomFiatRoutingDest,
-    "DeallocateFundsRequest": DeallocateFundsRequest,
     "DefaultNetworkRoutingDest": DefaultNetworkRoutingDest,
     "DestinationTransferPeerPath": DestinationTransferPeerPath,
     "DestinationTransferPeerPathAllOf": DestinationTransferPeerPathAllOf,
+    "DestinationTransferPeerPathResponse": DestinationTransferPeerPathResponse,
+    "DestinationTransferPeerPathResponseAllOf": DestinationTransferPeerPathResponseAllOf,
+    "DispatchPayoutResponse": DispatchPayoutResponse,
     "DropTransactionRequest": DropTransactionRequest,
     "DropTransactionResponse": DropTransactionResponse,
     "ErrorResponse": ErrorResponse,
@@ -444,23 +566,24 @@ let typeMap: {[index: string]: any} = {
     "EstimatedNetworkFeeResponse": EstimatedNetworkFeeResponse,
     "EstimatedTransactionFeeResponse": EstimatedTransactionFeeResponse,
     "ExchangeAccount": ExchangeAccount,
-    "ExchangeAccountsExchangeAccountIdConvertPostRequest": ExchangeAccountsExchangeAccountIdConvertPostRequest,
-    "ExchangeAccountsExchangeAccountIdInternalTransferPostRequest": ExchangeAccountsExchangeAccountIdInternalTransferPostRequest,
     "ExchangeAsset": ExchangeAsset,
     "ExchangeTradingAccount": ExchangeTradingAccount,
     "ExternalWalletAsset": ExternalWalletAsset,
-    "ExternalWalletsWalletIdAssetIdPostRequest": ExternalWalletsWalletIdAssetIdPostRequest,
     "FeeInfo": FeeInfo,
     "FiatAccount": FiatAccount,
-    "FiatAccountsAccountIdRedeemToLinkedDdaPostRequest": FiatAccountsAccountIdRedeemToLinkedDdaPostRequest,
     "FiatAsset": FiatAsset,
     "FreezeTransactionResponse": FreezeTransactionResponse,
     "GasStationConfiguration": GasStationConfiguration,
     "GasStationPropertiesResponse": GasStationPropertiesResponse,
-    "GetAllXBSettlementConfigsResponse": GetAllXBSettlementConfigsResponse,
+    "GetConnectionsFilterParameter": GetConnectionsFilterParameter,
+    "GetConnectionsResponse": GetConnectionsResponse,
+    "GetNFTTokens200Response": GetNFTTokens200Response,
+    "GetNetworkIds200ResponseInner": GetNetworkIds200ResponseInner,
+    "GetOwnershipTokens200Response": GetOwnershipTokens200Response,
     "GetUsersResponse": GetUsersResponse,
-    "InternalWalletsPostRequest": InternalWalletsPostRequest,
-    "InternalWalletsWalletIdAssetIdPostRequest": InternalWalletsWalletIdAssetIdPostRequest,
+    "InstructionAmount": InstructionAmount,
+    "InternalTransferRequest": InternalTransferRequest,
+    "MediaEntityResponse": MediaEntityResponse,
     "ModelError": ModelError,
     "NetworkChannel": NetworkChannel,
     "NetworkConnection": NetworkConnection,
@@ -473,9 +596,6 @@ let typeMap: {[index: string]: any} = {
     "NetworkConnectionRoutingPolicySenTest": NetworkConnectionRoutingPolicySenTest,
     "NetworkConnectionRoutingPolicySignet": NetworkConnectionRoutingPolicySignet,
     "NetworkConnectionRoutingPolicySignetTest": NetworkConnectionRoutingPolicySignetTest,
-    "NetworkConnectionsConnectionIdIsThirdPartyRoutingAssetTypeGet200Response": NetworkConnectionsConnectionIdIsThirdPartyRoutingAssetTypeGet200Response,
-    "NetworkConnectionsConnectionIdSetRoutingPolicyPatch200Response": NetworkConnectionsConnectionIdSetRoutingPolicyPatch200Response,
-    "NetworkConnectionsConnectionIdSetRoutingPolicyPatchRequest": NetworkConnectionsConnectionIdSetRoutingPolicyPatchRequest,
     "NetworkFee": NetworkFee,
     "NetworkId": NetworkId,
     "NetworkIdResponse": NetworkIdResponse,
@@ -484,86 +604,122 @@ let typeMap: {[index: string]: any} = {
     "NetworkIdRoutingPolicyCrypto": NetworkIdRoutingPolicyCrypto,
     "NetworkIdRoutingPolicySen": NetworkIdRoutingPolicySen,
     "NetworkIdRoutingPolicySenTest": NetworkIdRoutingPolicySenTest,
-    "NetworkIdRoutingPolicySignet": NetworkIdRoutingPolicySignet,
-    "NetworkIdRoutingPolicySignetTest": NetworkIdRoutingPolicySignetTest,
-    "NetworkIdsGet200ResponseInner": NetworkIdsGet200ResponseInner,
-    "NetworkIdsNetworkIdSetDiscoverabilityPatchRequest": NetworkIdsNetworkIdSetDiscoverabilityPatchRequest,
-    "NetworkIdsNetworkIdSetRoutingPolicyPatchRequest": NetworkIdsNetworkIdSetRoutingPolicyPatchRequest,
-    "NetworkIdsPostRequest": NetworkIdsPostRequest,
     "NetworkRecord": NetworkRecord,
     "NoneNetworkRoutingDest": NoneNetworkRoutingDest,
-    "OffExchangeEntityResponse": OffExchangeEntityResponse,
-    "OffExchangeEntityResponseBalanceValue": OffExchangeEntityResponseBalanceValue,
     "OneTimeAddress": OneTimeAddress,
-    "PaymentsXbSettlementsFlowsFlowIdGet200Response": PaymentsXbSettlementsFlowsFlowIdGet200Response,
+    "PaginatedAssetWalletResponse": PaginatedAssetWalletResponse,
+    "PaginatedAssetWalletResponsePaging": PaginatedAssetWalletResponsePaging,
+    "Paging": Paging,
+    "PayeeAccount": PayeeAccount,
+    "PayeeAccountResponse": PayeeAccountResponse,
+    "PaymentAccount": PaymentAccount,
+    "PaymentAccountResponse": PaymentAccountResponse,
+    "PayoutInstruction": PayoutInstruction,
+    "PayoutInstructionResponse": PayoutInstructionResponse,
+    "PayoutResponse": PayoutResponse,
     "PublicKeyInformation": PublicKeyInformation,
+    "RedeemFundsToLinkedDDARequest": RedeemFundsToLinkedDDARequest,
+    "RemoveCollateralRequestBody": RemoveCollateralRequestBody,
+    "ResendWebhooksForTransactionRequest": ResendWebhooksForTransactionRequest,
     "ResendWebhooksResponse": ResendWebhooksResponse,
+    "RespondToConnectionRequest": RespondToConnectionRequest,
     "RewardInfo": RewardInfo,
     "RewardsInfo": RewardsInfo,
     "SessionDTO": SessionDTO,
     "SessionDTOSessionMetadata": SessionDTOSessionMetadata,
     "SessionMetadata": SessionMetadata,
+    "SetAutoFuelForVaultAccountRequest": SetAutoFuelForVaultAccountRequest,
     "SetConfirmationsThresholdRequest": SetConfirmationsThresholdRequest,
     "SetConfirmationsThresholdResponse": SetConfirmationsThresholdResponse,
+    "SetCustomerRefIdForVaultAccountRequest": SetCustomerRefIdForVaultAccountRequest,
+    "SetDiscoverabilityForNetworkIdRequest": SetDiscoverabilityForNetworkIdRequest,
+    "SetNetworkIdNameRequest": SetNetworkIdNameRequest,
+    "SetRoutingPolicyForNetworkConnection200Response": SetRoutingPolicyForNetworkConnection200Response,
+    "SetRoutingPolicyForNetworkConnectionRequest": SetRoutingPolicyForNetworkConnectionRequest,
+    "SetRoutingPolicyForNetworkIdRequest": SetRoutingPolicyForNetworkIdRequest,
+    "SettlementRequestBody": SettlementRequestBody,
+    "SettlementResponse": SettlementResponse,
     "SignedMessage": SignedMessage,
     "SignedMessageSignature": SignedMessageSignature,
+    "SourceTransferPeerPathResponse": SourceTransferPeerPathResponse,
+    "SourceTransferPeerPathResponseAllOf": SourceTransferPeerPathResponseAllOf,
     "SystemMessageInfo": SystemMessageInfo,
     "Term": Term,
+    "ToCollateralTransaction": ToCollateralTransaction,
+    "ToExchangeTransaction": ToExchangeTransaction,
+    "TokenCollectionResponse": TokenCollectionResponse,
+    "TokenOwnershipResponse": TokenOwnershipResponse,
+    "TokenResponse": TokenResponse,
+    "TokenResponseCollection": TokenResponseCollection,
+    "Transaction": Transaction,
     "TransactionFee": TransactionFee,
     "TransactionRequest": TransactionRequest,
     "TransactionRequestAmount": TransactionRequestAmount,
     "TransactionRequestDestination": TransactionRequestDestination,
     "TransactionRequestFee": TransactionRequestFee,
-    "TransactionRequestFeePayerInfo": TransactionRequestFeePayerInfo,
     "TransactionRequestGasLimit": TransactionRequestGasLimit,
     "TransactionRequestGasPrice": TransactionRequestGasPrice,
+    "TransactionRequestNetworkFee": TransactionRequestNetworkFee,
     "TransactionRequestNetworkStaking": TransactionRequestNetworkStaking,
     "TransactionRequestPriorityFee": TransactionRequestPriorityFee,
     "TransactionResponse": TransactionResponse,
+    "TransactionResponseContractCallDecodedData": TransactionResponseContractCallDecodedData,
     "TransactionResponseDestination": TransactionResponseDestination,
-    "TransactionResponseFeePayerInfo": TransactionResponseFeePayerInfo,
     "TransferPeerPath": TransferPeerPath,
-    "TransferPeerPathResponse": TransferPeerPathResponse,
-    "TransferPeerPathResponseAllOf": TransferPeerPathResponseAllOf,
-    "TransferTicketResponse": TransferTicketResponse,
-    "TransferTicketTermResponse": TransferTicketTermResponse,
-    "TransferTicketsPostRequest": TransferTicketsPostRequest,
-    "TransferTicketsTicketIdTermIdTransferPostRequest": TransferTicketsTicketIdTermIdTransferPostRequest,
+    "TravelRuleAddress": TravelRuleAddress,
+    "TravelRuleGetAllVASPsResponse": TravelRuleGetAllVASPsResponse,
+    "TravelRuleIssuer": TravelRuleIssuer,
+    "TravelRuleIssuers": TravelRuleIssuers,
+    "TravelRuleOwnershipProof": TravelRuleOwnershipProof,
+    "TravelRulePiiIVMS": TravelRulePiiIVMS,
+    "TravelRuleTransactionBlockchainInfo": TravelRuleTransactionBlockchainInfo,
+    "TravelRuleUpdateVASPDetails": TravelRuleUpdateVASPDetails,
+    "TravelRuleVASP": TravelRuleVASP,
+    "TravelRuleValidateFullTransactionRequest": TravelRuleValidateFullTransactionRequest,
+    "TravelRuleValidateFullTransactionRequestBeneficiary": TravelRuleValidateFullTransactionRequestBeneficiary,
+    "TravelRuleValidateFullTransactionRequestBeneficiaryProof": TravelRuleValidateFullTransactionRequestBeneficiaryProof,
+    "TravelRuleValidateFullTransactionRequestOriginator": TravelRuleValidateFullTransactionRequestOriginator,
+    "TravelRuleValidateFullTransactionRequestOriginatorProof": TravelRuleValidateFullTransactionRequestOriginatorProof,
+    "TravelRuleValidateFullTransactionRequestPii": TravelRuleValidateFullTransactionRequestPii,
+    "TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo": TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo,
+    "TravelRuleValidateTransactionRequest": TravelRuleValidateTransactionRequest,
+    "TravelRuleValidateTransactionRequestBeneficiaryAddress": TravelRuleValidateTransactionRequestBeneficiaryAddress,
+    "TravelRuleValidateTransactionResponse": TravelRuleValidateTransactionResponse,
     "UnfreezeTransactionResponse": UnfreezeTransactionResponse,
     "UnmanagedWallet": UnmanagedWallet,
     "UnsignedMessage": UnsignedMessage,
     "UnspentInput": UnspentInput,
     "UnspentInputsResponse": UnspentInputsResponse,
+    "UpdateTokenOwnershipStatusDto": UpdateTokenOwnershipStatusDto,
+    "UpdateVaultAccountAssetAddressRequest": UpdateVaultAccountAssetAddressRequest,
+    "UpdateVaultAccountRequest": UpdateVaultAccountRequest,
     "UserResponse": UserResponse,
     "ValidateAddressResponse": ValidateAddressResponse,
     "VaultAccount": VaultAccount,
     "VaultAccountsPagedResponse": VaultAccountsPagedResponse,
     "VaultAccountsPagedResponsePaging": VaultAccountsPagedResponsePaging,
-    "VaultAccountsPostRequest": VaultAccountsPostRequest,
-    "VaultAccountsVaultAccountIdAssetIdAddressesAddressIdPutRequest": VaultAccountsVaultAccountIdAssetIdAddressesAddressIdPutRequest,
-    "VaultAccountsVaultAccountIdAssetIdAddressesPostRequest": VaultAccountsVaultAccountIdAssetIdAddressesPostRequest,
-    "VaultAccountsVaultAccountIdAssetIdPostRequest": VaultAccountsVaultAccountIdAssetIdPostRequest,
-    "VaultAccountsVaultAccountIdPutRequest": VaultAccountsVaultAccountIdPutRequest,
-    "VaultAccountsVaultAccountIdSetAutoFuelPostRequest": VaultAccountsVaultAccountIdSetAutoFuelPostRequest,
-    "VaultAccountsVaultAccountIdSetCustomerRefIdPostRequest": VaultAccountsVaultAccountIdSetCustomerRefIdPostRequest,
     "VaultAsset": VaultAsset,
     "VaultWalletAddress": VaultWalletAddress,
     "WalletAsset": WalletAsset,
-    "WebhooksResendTxIdPostRequest": WebhooksResendTxIdPostRequest,
-    "XBCreateSettlementFlowRequestBody": XBCreateSettlementFlowRequestBody,
     "XBSettlementAsset": XBSettlementAsset,
+    "XBSettlementAssetID": XBSettlementAssetID,
     "XBSettlementConfigCreationRequestBody": XBSettlementConfigCreationRequestBody,
-    "XBSettlementConfigDeletionResponse": XBSettlementConfigDeletionResponse,
     "XBSettlementConfigEditRequestBody": XBSettlementConfigEditRequestBody,
     "XBSettlementConfigModel": XBSettlementConfigModel,
     "XBSettlementConfigStep": XBSettlementConfigStep,
     "XBSettlementConfigStepsRecord": XBSettlementConfigStepsRecord,
     "XBSettlementConfigStepsRecordValue": XBSettlementConfigStepsRecordValue,
+    "XBSettlementCreateFlowRequestBody": XBSettlementCreateFlowRequestBody,
     "XBSettlementFlowExecutionModel": XBSettlementFlowExecutionModel,
+    "XBSettlementFlowExecutionModelSelectedConversionSlippage": XBSettlementFlowExecutionModelSelectedConversionSlippage,
+    "XBSettlementFlowExecutionRequestBody": XBSettlementFlowExecutionRequestBody,
     "XBSettlementFlowExecutionStep": XBSettlementFlowExecutionStep,
-    "XBSettlementFlowSetupModel": XBSettlementFlowSetupModel,
+    "XBSettlementFlowPreviewModel": XBSettlementFlowPreviewModel,
     "XBSettlementFlowSetupStep": XBSettlementFlowSetupStep,
+    "XBSettlementFlowStepsExecutionRecord": XBSettlementFlowStepsExecutionRecord,
     "XBSettlementFlowStepsRecord": XBSettlementFlowStepsRecord,
+    "XBSettlementGetAllConfigsResponse": XBSettlementGetAllConfigsResponse,
+    "XBSettlementGetFlowResponse": XBSettlementGetFlowResponse,
 }
 
 export class ObjectSerializer {
