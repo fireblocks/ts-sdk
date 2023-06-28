@@ -13,12 +13,13 @@ export * from './blockInfo';
 export * from './cancelTransactionResponse';
 export * from './checkThirdPartyRoutingForNetworkConnection200Response';
 export * from './configChangeRequestStatus';
-export * from './convertAssetsRequest';
+export * from './convertExchangeAccountRequest';
 export * from './createAddressResponse';
 export * from './createConnectionRequest';
 export * from './createConnectionResponse';
 export * from './createConnectionResponseSessionMetadata';
 export * from './createContractRequest';
+export * from './createInternalTransferRequest';
 export * from './createInternalWalletAssetRequest';
 export * from './createInternalWalletRequest';
 export * from './createNetworkIdRequest';
@@ -62,7 +63,6 @@ export * from './getOwnershipTokens200Response';
 export * from './getTransactionOperation';
 export * from './getUsersResponse';
 export * from './instructionAmount';
-export * from './internalTransferRequest';
 export * from './mediaEntityResponse';
 export * from './modelError';
 export * from './networkChannel';
@@ -242,12 +242,13 @@ import { BlockInfo } from './blockInfo';
 import { CancelTransactionResponse } from './cancelTransactionResponse';
 import { CheckThirdPartyRoutingForNetworkConnection200Response } from './checkThirdPartyRoutingForNetworkConnection200Response';
 import { ConfigChangeRequestStatus } from './configChangeRequestStatus';
-import { ConvertAssetsRequest } from './convertAssetsRequest';
+import { ConvertExchangeAccountRequest } from './convertExchangeAccountRequest';
 import { CreateAddressResponse } from './createAddressResponse';
 import { CreateConnectionRequest } from './createConnectionRequest';
 import { CreateConnectionResponse } from './createConnectionResponse';
 import { CreateConnectionResponseSessionMetadata } from './createConnectionResponseSessionMetadata';
 import { CreateContractRequest } from './createContractRequest';
+import { CreateInternalTransferRequest } from './createInternalTransferRequest';
 import { CreateInternalWalletAssetRequest } from './createInternalWalletAssetRequest';
 import { CreateInternalWalletRequest } from './createInternalWalletRequest';
 import { CreateNetworkIdRequest } from './createNetworkIdRequest';
@@ -291,7 +292,6 @@ import { GetOwnershipTokens200Response } from './getOwnershipTokens200Response';
 import { GetTransactionOperation } from './getTransactionOperation';
 import { GetUsersResponse } from './getUsersResponse';
 import { InstructionAmount } from './instructionAmount';
-import { InternalTransferRequest } from './internalTransferRequest';
 import { MediaEntityResponse } from './mediaEntityResponse';
 import { ModelError } from './modelError';
 import { NetworkChannel } from './networkChannel';
@@ -536,12 +536,13 @@ let typeMap: {[index: string]: any} = {
     "BlockInfo": BlockInfo,
     "CancelTransactionResponse": CancelTransactionResponse,
     "CheckThirdPartyRoutingForNetworkConnection200Response": CheckThirdPartyRoutingForNetworkConnection200Response,
-    "ConvertAssetsRequest": ConvertAssetsRequest,
+    "ConvertExchangeAccountRequest": ConvertExchangeAccountRequest,
     "CreateAddressResponse": CreateAddressResponse,
     "CreateConnectionRequest": CreateConnectionRequest,
     "CreateConnectionResponse": CreateConnectionResponse,
     "CreateConnectionResponseSessionMetadata": CreateConnectionResponseSessionMetadata,
     "CreateContractRequest": CreateContractRequest,
+    "CreateInternalTransferRequest": CreateInternalTransferRequest,
     "CreateInternalWalletAssetRequest": CreateInternalWalletAssetRequest,
     "CreateInternalWalletRequest": CreateInternalWalletRequest,
     "CreateNetworkIdRequest": CreateNetworkIdRequest,
@@ -582,7 +583,6 @@ let typeMap: {[index: string]: any} = {
     "GetOwnershipTokens200Response": GetOwnershipTokens200Response,
     "GetUsersResponse": GetUsersResponse,
     "InstructionAmount": InstructionAmount,
-    "InternalTransferRequest": InternalTransferRequest,
     "MediaEntityResponse": MediaEntityResponse,
     "ModelError": ModelError,
     "NetworkChannel": NetworkChannel,
