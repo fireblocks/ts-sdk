@@ -26,7 +26,7 @@ export class XBSettlementConfigModel {
     'name': string;
     'steps': XBSettlementConfigStepsRecord;
     /**
-    * Slippage configuarion in basis points, the default value is 10% 
+    * Slippage configuarion in basis points, the default value is 10%
     */
     'conversionSlippageBasisPoints': number = 10000;
     /**
