@@ -10,10 +10,10 @@
  * Do not edit the class manually.
  */
 
-    import { ConvertAssetsRequest } from '../model/convertAssetsRequest';
+    import { ConvertExchangeAccountRequest } from '../model/convertExchangeAccountRequest';
+    import { CreateInternalTransferRequest } from '../model/createInternalTransferRequest';
     import { ExchangeAccount } from '../model/exchangeAccount';
     import { ExchangeAsset } from '../model/exchangeAsset';
-    import { InternalTransferRequest } from '../model/internalTransferRequest';
 import {HttpClient} from '../utils/http-client';
 import {Configuration, ConfigurationParameters} from '../utils/types/configuration';
 import {ObjectSerializer} from "../model/models";
@@ -33,9 +33,9 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
             * Convert assets within an exchange account
                 * @summary Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
                 * @param exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
-                * @param convertAssetsRequest 
+                * @param convertExchangeAccountRequest 
             */
-        public async convertAssets (exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, ) : Promise<any> {
+        public async convertAssets (exchangeAccountId: string, convertExchangeAccountRequest?: ConvertExchangeAccountRequest, ) : Promise<any> {
                 const path = this.configuration.basePath + '/exchange_accounts/{exchangeAccountId}/convert'
                 .replace('{' + 'exchangeAccountId' + '}', encodeURIComponent(String(exchangeAccountId)));
                 let params: any = {};
@@ -54,12 +54,12 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
                             params['exchangeAccountId'] = ObjectSerializer.serialize(exchangeAccountId, "string");
                     }
 
-                    if (typeof convertAssetsRequest === 'object') {
-                        for( const [key,value] of Object.entries(convertAssetsRequest)){
+                    if (typeof convertExchangeAccountRequest === 'object') {
+                        for( const [key,value] of Object.entries(convertExchangeAccountRequest)){
                             params[key] = ObjectSerializer.serialize(value, typeof value);
                         }
                     } else {
-                            params['ConvertAssetsRequest'] = ObjectSerializer.serialize(convertAssetsRequest, "ConvertAssetsRequest");
+                            params['ConvertExchangeAccountRequest'] = ObjectSerializer.serialize(convertExchangeAccountRequest, "ConvertExchangeAccountRequest");
                     }
 
                 let requestOptions: AxiosRequestConfig = {
@@ -161,11 +161,11 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
         }
             /**
             * Transfers funds between trading accounts under the same exchange account.
-                * @summary Internal tranfer for exchange accounts
+                * @summary Internal transfer for exchange accounts
                 * @param exchangeAccountId The ID of the exchange account to return
-                * @param internalTransferRequest 
+                * @param createInternalTransferRequest 
             */
-        public async internalTransfer (exchangeAccountId: string, internalTransferRequest?: InternalTransferRequest, ) : Promise<any> {
+        public async internalTransfer (exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest, ) : Promise<any> {
                 const path = this.configuration.basePath + '/exchange_accounts/{exchangeAccountId}/internal_transfer'
                 .replace('{' + 'exchangeAccountId' + '}', encodeURIComponent(String(exchangeAccountId)));
                 let params: any = {};
@@ -184,12 +184,12 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
                             params['exchangeAccountId'] = ObjectSerializer.serialize(exchangeAccountId, "string");
                     }
 
-                    if (typeof internalTransferRequest === 'object') {
-                        for( const [key,value] of Object.entries(internalTransferRequest)){
+                    if (typeof createInternalTransferRequest === 'object') {
+                        for( const [key,value] of Object.entries(createInternalTransferRequest)){
                             params[key] = ObjectSerializer.serialize(value, typeof value);
                         }
                     } else {
-                            params['InternalTransferRequest'] = ObjectSerializer.serialize(internalTransferRequest, "InternalTransferRequest");
+                            params['CreateInternalTransferRequest'] = ObjectSerializer.serialize(createInternalTransferRequest, "CreateInternalTransferRequest");
                     }
 
                 let requestOptions: AxiosRequestConfig = {
