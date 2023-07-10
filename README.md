@@ -2,7 +2,7 @@
 
 The Fireblocks SDK allows developers to integrate with the Fireblocks platform and perform various operations, such as managing vault accounts and executing transactions.
 
-For detailed documentation and additional resources, please refer to the [Fireblocks Developer Portal](https://developer.fireblocks.com/).
+For detailed documentation and additional resources, please refer to the [Fireblocks Developer Portal](https://developers.fireblocks.com/).
 
 ## Installation
 
