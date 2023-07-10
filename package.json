@@ -1,10 +1,11 @@
 {
     "name": "@fireblocks/fireblocks-api-client-typescript",
-    "version": "0.0.2-alpha",
-    "description": "NodeJS client for @fireblocks/fireblocks-api-client-typescript",
+    "version": "1.0.0",
+    "description": "Fireblocks API Client",
+    "private": true,
     "repository": {
         "type": "git",
-        "url": "https://github.com/GIT_USER_ID/GIT_REPO_ID.git"
+        "url": "https://github.com/fireblocks/fireblocks-api-client-typescript.git"
     },
     "main": "dist/api.js",
     "types": "dist/api.d.ts",
@@ -13,23 +14,24 @@
         "build": "tsc",
         "test": "npm run build && node dist/client.js"
     },
-    "author": "OpenAPI-Generator Contributors",
-    "license": "Unlicense",
+    "author": "Fireblocks SDK Generator",
+    "license": "MIT",
     "dependencies": {
-        "@notabene/pii-sdk": "^1.16.2",
+        "@notabene/pii-sdk": "^1.16.0",
         "bluebird": "^3.5.0",
-        "jsonwebtoken": "^8.5.1",
-        "platform": "^1.3.6",
+        "jsonwebtoken": "8.5.1",
+        "platform": "1.3.6",
         "request": "^2.81.0",
         "rewire": "^3.0.2",
-        "uuid": "^8.3.2"
+        "uuid": "8.3.2"
     },
     "devDependencies": {
         "@types/bluebird": "^3.5.33",
-        "@types/jsonwebtoken": "^8.5.0",
+        "@types/jsonwebtoken": "^9.0.2",
         "@types/node": "^12",
         "@types/request": "^2.48.8",
-        "@types/uuid": "^9.0.2",
+        "@types/uuid": "^8.3.1",
+        "tslint": "6.1.3",
         "typescript": "^4.0"
     }
 }
