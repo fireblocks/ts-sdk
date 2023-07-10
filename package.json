@@ -1,6 +1,6 @@
 {
     "name": "@fireblocks/fireblocks-api-client-typescript",
-    "version": "0.0.3-alpha",
+    "version": "1.0.0",
     "description": "Fireblocks API Client",
     "repository": {
         "type": "git",
