@@ -15,7 +15,7 @@ npm install @fireblocks/fireblocks-api-client-typescript
 ```
 
 ## Usage
-You can initialize you environment variables in your env file, or just provide them when you initialize and API module.    
+You can initialize you environment variables in your env file, or just provide them when you initialize and API module.
 ```javascript
 const FIREBLOCKS_API_SECRET_PATH = './fireblocks_secret.key';
 
@@ -24,7 +24,7 @@ process.env.FIREBLOCKS_API_KEY = 'my-api-key';
 process.env.FIREBLOCKS_SECRET_KEY = fs.readFileSync(FIREBLOCKS_API_SECRET_PATH, "utf8").replace(/\\n/gm, "\n");
 ```
 
-Lets see an example. create a vault accounts and make a transaction! 
+Lets see an example. create a vault accounts and make a transaction!
 ```javascript
 import { VaultsApi, TransactionsApi, TransferPeerPath } from "@fireblocks/fireblocks-api-client-typescript";
 import * as fs from "fs";
@@ -38,7 +38,9 @@ async function testAPI(){
     try {
         const vaultAPI = new VaultsApi()
         const vault = await vaultAPI.createVaultAccount({name:'My First Vault Account', hiddenOnUI: false,autoFuel: false});
-        const vaults = await vaultAPI.getPagedVaultAccounts();
+        const vaults = await vaultAPI.getPagedVaultAccounts({
+            limit:3
+        });
         console.log(vault.data);
         console.log(vaults.data);
     }catch (e){
@@ -61,7 +63,7 @@ async function createTransaction(assetId, amount, srcId, destId){
         },
         note: "Your first transaction!"
     };
-    const result = await transactionsApi.createTransaction(payload);
+    const result = await transactionsApi.createTransaction({transactionRequest:payload});
     console.log(JSON.stringify(result.data, null, 2));
 }
 testAPI();
