@@ -1,0 +1,87 @@
+{
+    "name": "@fireblocks/fireblocks-api-client-typescript",
+    "version": "1.0.0",
+    "description": "Fireblocks API Client",
+    "repository": {
+        "type": "git",
+        "url": "https://gitlab.com/fireblocks/shell/common/fireblocks-api-client-typescript.git"
+    },
+    "main": "dist/api.js",
+    "types": "dist/api.d.ts",
+    "scripts": {
+        "clean": "rm -Rf node_modules/ *.js",
+        "build": "tsc",
+        "test": "npm run build",
+        "semantic-release": "semantic-release"
+    },
+    "author": "Fireblocks SDK Generator",
+    "license": "MIT",
+    "dependencies": {
+        "jsonwebtoken":"8.5.1",
+        "uuid": "8.3.2",
+        "platform": "1.3.6",
+        "@notabene/pii-sdk": "^1.16.0",
+        "bluebird": "^3.5.0",
+        "request": "^2.81.0",
+        "rewire": "^3.0.2"
+    },
+    "devDependencies": {
+        "@types/jsonwebtoken": "^9.0.2",
+        "@semantic-release/changelog": "^6.0.0",
+        "@semantic-release/git": "latest",
+        "@semantic-release/gitlab": "^12.0.0",
+        "@commitlint/cli": "^17.0.0",
+        "@fireblocks/conventional-commit": "1.1.0",
+        "@types/bluebird": "^3.5.33",
+        "@types/node": "^12",
+        "@types/request": "^2.48.8",
+        "@types/uuid": "^8.3.1",
+        "tslint": "6.1.3",
+        "typescript": "^4.0"
+    },
+    "release": {
+        "plugins": [
+            [
+                "@semantic-release/commit-analyzer",
+                {
+                    "preset": "conventionalcommits",
+                    "releaseRules": [
+                        {
+                            "type": "breaking",
+                            "release": "major"
+                        }
+                    ]
+                }
+            ],
+            "@semantic-release/release-notes-generator",
+            [
+                "@semantic-release/npm",
+                {
+                    "npmPublish": true
+                }
+            ],
+            "@semantic-release/gitlab"
+        ],
+        "prepare": [
+            "@semantic-release/changelog",
+            "@semantic-release/npm",
+            {
+                "path": "@semantic-release/git",
+                "assets": [
+                    "package.json",
+                    "package-lock.json",
+                    "CHANGELOG.md"
+                ],
+                "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+            }
+        ],
+        "branches": [
+            {
+                "name": "master"
+            }
+        ]
+    },
+    "publishConfig": {
+        "@fireblocks:registry": "https://gitlab.com/api/v4/projects/20565764/packages/npm/"
+    }
+}

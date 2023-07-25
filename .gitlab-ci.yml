@@ -1,0 +1,5 @@
+include:
+  - project: 'fireblocks/shell/common/templates/ci-infra'
+    file:
+      - 'npm-package-ci.yml'
+
