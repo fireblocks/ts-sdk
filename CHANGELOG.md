@@ -2,11 +2,66 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v1.0.9-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.2-beta...v1.0.9-beta)
+#### [v1.0.10-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.9-beta...v1.0.10-beta)
+
+> 30 July 2023
+
+- trigger publish [`#13`](https://github.com/fireblocks/ts-sdk/pull/13)
+
+#### [v1.0.9-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.8-beta...v1.0.9-beta)
 
 > 30 July 2023
 
 - release 1.0.8-beta [`0341eea`](https://github.com/fireblocks/ts-sdk/commit/0341eea9b827604ebc5fb000ee571ba800f5b176)
+
+#### [v1.0.8-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.7...v1.0.8-beta)
+
+> 30 July 2023
+
+- release 1.0.7 [`59c7a47`](https://github.com/fireblocks/ts-sdk/commit/59c7a47d14a2d8c8b1148f3ebde96ef75b962782)
+
+#### [v1.0.7](https://github.com/fireblocks/ts-sdk/compare/v1.0.7-beta...v1.0.7)
+
+> 30 July 2023
+
+- release 1.0.7-beta [`46cfbf0`](https://github.com/fireblocks/ts-sdk/commit/46cfbf05356550f1a5d70b0fdd7d8d21cb41c837)
+- Update package.json [`16f5aa5`](https://github.com/fireblocks/ts-sdk/commit/16f5aa5d7acac12b42c004ce5e4e7457cd7d7473)
+- Update package.json [`1d92b7d`](https://github.com/fireblocks/ts-sdk/commit/1d92b7d29d1dd37f5cd10cc5ac40ddd0d152b188)
+
+#### [v1.0.7-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.6-beta...v1.0.7-beta)
+
+> 30 July 2023
+
+- release 1.0.6-beta [`e866765`](https://github.com/fireblocks/ts-sdk/commit/e8667659f3aa31c5204b3503642aad612d69bbde)
+- Update README.md [`2b74e45`](https://github.com/fireblocks/ts-sdk/commit/2b74e45d2316bee058c83900726942dcd1c9f4db)
+- Update package.json [`b2f1e0c`](https://github.com/fireblocks/ts-sdk/commit/b2f1e0c0e838fa662fee300af374aef2f18cd06d)
+
+#### [v1.0.6-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.5-beta...v1.0.6-beta)
+
+> 30 July 2023
+
+- release 1.0.5-beta [`2612b25`](https://github.com/fireblocks/ts-sdk/commit/2612b25785cdd3cce394f11ca186d9b2d317b33f)
+- Update package.json [`7f2d7cd`](https://github.com/fireblocks/ts-sdk/commit/7f2d7cd4b5bc443dd786816913e84fc631b6231f)
+
+#### [v1.0.5-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.4-beta...v1.0.5-beta)
+
+> 30 July 2023
+
+- release 1.0.4-beta [`b2748d9`](https://github.com/fireblocks/ts-sdk/commit/b2748d9054da11b40f91e096103af214bc55bf1f)
+- Update README.md [`ed1a42a`](https://github.com/fireblocks/ts-sdk/commit/ed1a42a36ae81e37e7f6c6be148aebca1e97de15)
+
+#### [v1.0.4-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.3-beta...v1.0.4-beta)
+
+> 30 July 2023
+
+- release 1.0.3-beta [`ed2a7e7`](https://github.com/fireblocks/ts-sdk/commit/ed2a7e714761a4c99d6bb56f9c3887adedadde54)
+- Update README.md [`e3c2c94`](https://github.com/fireblocks/ts-sdk/commit/e3c2c94ccfc806a95f4e0ec43d1ad664b7d8ecc1)
+
+#### [v1.0.3-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.2-beta...v1.0.3-beta)
+
+> 30 July 2023
+
+- update readme install package name [`#12`](https://github.com/fireblocks/ts-sdk/pull/12)
 
 #### [v1.0.2-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.1-beta...v1.0.2-beta)
 
