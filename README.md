@@ -26,7 +26,7 @@ process.env.FIREBLOCKS_SECRET_KEY = fs.readFileSync(FIREBLOCKS_API_SECRET_PATH, 
 
 Lets see an example. create a vault accounts and make a transaction!
 ```javascript
-import { VaultsApi, TransactionsApi, TransferPeerPath } from "@fireblocks/fireblocks-api-client-typescript";
+import { VaultsApi, TransactionsApi, TransferPeerPath } from "@fireblocks/ts-sdk";
 import * as fs from "fs";
 const FIREBLOCKS_API_SECRET_PATH = './fireblocks_secret.key';
 
