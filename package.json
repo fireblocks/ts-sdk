@@ -4,7 +4,7 @@
     "description": "Fireblocks API Client",
     "repository": {
         "type": "git",
-        "url": "https://gitlab.com/fireblocks/shell/common/fireblocks-api-client-typescript.git"
+        "url": "https://github.com/fireblocks/fireblocks-api-client-typescript"
     },
     "main": "dist/api.js",
     "types": "dist/api.d.ts",
@@ -39,49 +39,4 @@
         "tslint": "6.1.3",
         "typescript": "^4.0"
     },
-    "release": {
-        "plugins": [
-            [
-                "@semantic-release/commit-analyzer",
-                {
-                    "preset": "conventionalcommits",
-                    "releaseRules": [
-                        {
-                            "type": "breaking",
-                            "release": "major"
-                        }
-                    ]
-                }
-            ],
-            "@semantic-release/release-notes-generator",
-            [
-                "@semantic-release/npm",
-                {
-                    "npmPublish": true
-                }
-            ],
-            "@semantic-release/gitlab"
-        ],
-        "prepare": [
-            "@semantic-release/changelog",
-            "@semantic-release/npm",
-            {
-                "path": "@semantic-release/git",
-                "assets": [
-                    "package.json",
-                    "package-lock.json",
-                    "CHANGELOG.md"
-                ],
-                "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-            }
-        ],
-        "branches": [
-            {
-                "name": "master"
-            }
-        ]
-    },
-    "publishConfig": {
-        "@fireblocks:registry": "https://gitlab.com/api/v4/projects/20565764/packages/npm/"
-    }
 }
