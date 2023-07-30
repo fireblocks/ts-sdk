@@ -54,11 +54,11 @@ async function createTransaction(assetId, amount, srcId, destId){
         assetId,
         amount,
         source: {
-            type: TransferPeerPath.VaultAccount,
+            type: TransferPeerPathTypeEnum.VaultAccount,
             id: String(srcId)
         },
         destination: {
-            type: TransferPeerPath.VaultAccount,
+            type: TransferPeerPathTypeEnum.VaultAccount,
             id: String(destId)
         },
         note: "Your first transaction!"
