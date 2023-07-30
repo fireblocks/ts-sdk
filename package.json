@@ -1,7 +1,7 @@
 {
-    "name": "@fireblocks/fireblocks-api-client-typescript",
+    "name": "@fireblocks/ts-sdk",
     "version": "1.0.1-beta",
-    "description": "Fireblocks API Client",
+    "description": "Fireblocks Typescript SDK",
     "repository": {
         "type": "git",
         "url": "https://github.com/fireblocks/fireblocks-api-client-typescript"
