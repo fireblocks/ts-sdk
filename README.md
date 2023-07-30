@@ -11,7 +11,7 @@ To use the Fireblocks SDK, follow these steps:
 Install the SDK using npm:
 
 ```shell
-npm install @fireblocks/fireblocks-api-client-typescript
+npm install @fireblocks/ts-sdk
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ process.env.FIREBLOCKS_SECRET_KEY = fs.readFileSync(FIREBLOCKS_API_SECRET_PATH, 
 
 Lets see an example. create a vault accounts and make a transaction!
 ```javascript
-import { VaultsApi, TransactionsApi, TransferPeerPath } from "@fireblocks/fireblocks-api-client-typescript";
+import { VaultsApi, TransactionsApi, TransferPeerPathTypeEnum } from "@fireblocks/ts-sdk";
 import * as fs from "fs";
 const FIREBLOCKS_API_SECRET_PATH = './fireblocks_secret.key';
 
@@ -54,11 +54,11 @@ async function createTransaction(assetId, amount, srcId, destId){
         assetId,
         amount,
         source: {
-            type: TransferPeerPath.VaultAccount,
+            type: TransferPeerPathTypeEnum.VaultAccount,
             id: String(srcId)
         },
         destination: {
-            type: TransferPeerPath.VaultAccount,
+            type: TransferPeerPathTypeEnum.VaultAccount,
             id: String(destId)
         },
         note: "Your first transaction!"
