@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v1.0.2-beta](https://github.com/fireblocks/fireblocks-api-client-typescript/compare/v1.0.1-beta...v1.0.2-beta)
+
+> 30 July 2023
+
+- update package name [`#11`](https://github.com/fireblocks/fireblocks-api-client-typescript/pull/11)
+
 #### [v1.0.1-beta](https://github.com/fireblocks/fireblocks-api-client-typescript/compare/v1.0.0-beta...v1.0.1-beta)
 
 > 30 July 2023
