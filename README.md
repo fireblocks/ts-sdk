@@ -11,7 +11,7 @@ To use the Fireblocks SDK, follow these steps:
 Install the SDK using npm:
 
 ```shell
-npm install @fireblocks/fireblocks-api-client-typescript
+npm install @fireblocks/ts-sdk
 ```
 
 ## Usage
