@@ -2,11 +2,11 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v1.0.11-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.10-beta...v1.0.11-beta)
+#### [v1.0.12-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.10-beta...v1.0.12-beta)
 
 > 30 July 2023
 
-- update configuration [`#14`](https://github.com/fireblocks/ts-sdk/pull/14)
+- release 1.0.11-beta [`a65f14b`](https://github.com/fireblocks/ts-sdk/commit/a65f14bad211d85282b97bfd2db1db62485605a7)
 
 #### [v1.0.10-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.9-beta...v1.0.10-beta)
 
