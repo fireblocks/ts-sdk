@@ -6,7 +6,7 @@ import platform from "platform";
 import {AxiosProxyConfig} from "axios";
 import {TravelRuleOptions} from "./utils/types/travel-rules";
 
-const {version} = require("../package.json");
+const {version} = require("../../package.json");
 
 export interface ConfigurationParameters {
     basePath?: string; // override base path
