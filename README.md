@@ -1,4 +1,5 @@
 # Fireblocks Typescript SDK (Beta) 
+[![npm version](https://badge.fury.io/js/@fireblocks%2Fts-sdk.svg)](https://badge.fury.io/js/@fireblocks%2Fts-sdk)
 
 > **Warning**  
 > This package is currently in a beta stage and should be used at your own risk.  
