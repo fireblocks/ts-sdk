@@ -31,9 +31,9 @@ import { CreateConnectionRequest } from '../models';
 // @ts-ignore
 import { CreateConnectionResponse } from '../models';
 // @ts-ignore
-import { GetConnectionsFilterParameter } from '../models';
-// @ts-ignore
 import { GetConnectionsResponse } from '../models';
+// @ts-ignore
+import { GetFilterParameter } from '../models';
 // @ts-ignore
 import { RespondToConnectionRequest } from '../models';
 
@@ -52,9 +52,9 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWCConnection: async (createConnectionRequest: CreateConnectionRequest, ): Promise<AxiosRequestConfig> => {
+        create: async (createConnectionRequest: CreateConnectionRequest, ): Promise<AxiosRequestConfig> => {
             // verify required parameter 'createConnectionRequest' is not null or undefined
-            assertParamExists('createWCConnection', 'createConnectionRequest', createConnectionRequest)
+            assertParamExists('create', 'createConnectionRequest', createConnectionRequest)
             const localVarPath = `/connections/wc`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -77,46 +77,17 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Remove a Web3 connection
-         * @summary Remove an existing Web3 connection.
-         * @param {string} id The ID of the existing Web3 connection to remove.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteWCConnection: async (id: string, ): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('deleteWCConnection', 'id', id)
-            const localVarPath = `/connections/wc/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'DELETE'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
          * Get open Web3 connections.
          * @summary List all open Web3 connections.
          * @param {'ASC' | 'DESC'} [order] List order; ascending or descending.
-         * @param {GetConnectionsFilterParameter} [filter] Parsed filter object
+         * @param {GetFilterParameter} [filter] Parsed filter object
          * @param {'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName'} [sort] Property to sort Web3 connections by.
          * @param {number} [pageSize] Amount of results to return in the next page.
          * @param {string} [next] Cursor to the next page
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnections: async (order?: 'ASC' | 'DESC', filter?: GetConnectionsFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string, ): Promise<AxiosRequestConfig> => {
+        get: async (order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string, ): Promise<AxiosRequestConfig> => {
             const localVarPath = `/connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -156,6 +127,35 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
+         * Remove a Web3 connection
+         * @summary Remove an existing Web3 connection.
+         * @param {string} id The ID of the existing Web3 connection to remove.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        remove: async (id: string, ): Promise<AxiosRequestConfig> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('remove', 'id', id)
+            const localVarPath = `/connections/wc/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+
+            const localVarRequestOptions:AxiosRequestConfig = { method: 'DELETE'};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+            return {
+                url: localVarUrlObj.toString(),
+                ...localVarRequestOptions,
+            };
+        },
+        /**
          * Submit a response to *approve* or *reject* an initiated Web3 connection. * Note: This call is used to complete your `POST /v1/connections/wc/` request.  After this succeeds, your new Web3 connection is created and functioning.
          * @summary Respond to a pending Web3 connection request.
          * @param {RespondToConnectionRequest} respondToConnectionRequest 
@@ -163,11 +163,11 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateWCConnection: async (respondToConnectionRequest: RespondToConnectionRequest, id: string, ): Promise<AxiosRequestConfig> => {
+        submit: async (respondToConnectionRequest: RespondToConnectionRequest, id: string, ): Promise<AxiosRequestConfig> => {
             // verify required parameter 'respondToConnectionRequest' is not null or undefined
-            assertParamExists('updateWCConnection', 'respondToConnectionRequest', respondToConnectionRequest)
+            assertParamExists('submit', 'respondToConnectionRequest', respondToConnectionRequest)
             // verify required parameter 'id' is not null or undefined
-            assertParamExists('updateWCConnection', 'id', id)
+            assertParamExists('submit', 'id', id)
             const localVarPath = `/connections/wc/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -207,8 +207,23 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createWCConnection(createConnectionRequest: CreateConnectionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createWCConnection(createConnectionRequest, );
+        async create(createConnectionRequest: CreateConnectionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, );
+            return httpClient.request(localVarAxiosArgs);
+        },
+        /**
+         * Get open Web3 connections.
+         * @summary List all open Web3 connections.
+         * @param {'ASC' | 'DESC'} [order] List order; ascending or descending.
+         * @param {GetFilterParameter} [filter] Parsed filter object
+         * @param {'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName'} [sort] Property to sort Web3 connections by.
+         * @param {number} [pageSize] Amount of results to return in the next page.
+         * @param {string} [next] Cursor to the next page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async get(order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.get(order, filter, sort, pageSize, next, );
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -218,23 +233,8 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteWCConnection(id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWCConnection(id, );
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Get open Web3 connections.
-         * @summary List all open Web3 connections.
-         * @param {'ASC' | 'DESC'} [order] List order; ascending or descending.
-         * @param {GetConnectionsFilterParameter} [filter] Parsed filter object
-         * @param {'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName'} [sort] Property to sort Web3 connections by.
-         * @param {number} [pageSize] Amount of results to return in the next page.
-         * @param {string} [next] Cursor to the next page
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getConnections(order?: 'ASC' | 'DESC', filter?: GetConnectionsFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnections(order, filter, sort, pageSize, next, );
+        async remove(id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.remove(id, );
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -245,100 +245,100 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateWCConnection(respondToConnectionRequest: RespondToConnectionRequest, id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWCConnection(respondToConnectionRequest, id, );
+        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.submit(respondToConnectionRequest, id, );
             return httpClient.request(localVarAxiosArgs);
         },
     }
 };
 
 /**
- * Request parameters for createWCConnection operation in Web3ConnectionsApi.
+ * Request parameters for create operation in Web3ConnectionsApi.
  * @export
- * @interface Web3ConnectionsApiCreateWCConnectionRequest
+ * @interface Web3ConnectionsApiCreateRequest
  */
-export interface Web3ConnectionsApiCreateWCConnectionRequest {
+export interface Web3ConnectionsApiCreateRequest {
     /**
      * 
      * @type {CreateConnectionRequest}
-     * @memberof Web3ConnectionsApiCreateWCConnection
+     * @memberof Web3ConnectionsApiCreate
      */
     readonly createConnectionRequest: CreateConnectionRequest
 }
 
 /**
- * Request parameters for deleteWCConnection operation in Web3ConnectionsApi.
+ * Request parameters for get operation in Web3ConnectionsApi.
  * @export
- * @interface Web3ConnectionsApiDeleteWCConnectionRequest
+ * @interface Web3ConnectionsApiGetRequest
  */
-export interface Web3ConnectionsApiDeleteWCConnectionRequest {
-    /**
-     * The ID of the existing Web3 connection to remove.
-     * @type {string}
-     * @memberof Web3ConnectionsApiDeleteWCConnection
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for getConnections operation in Web3ConnectionsApi.
- * @export
- * @interface Web3ConnectionsApiGetConnectionsRequest
- */
-export interface Web3ConnectionsApiGetConnectionsRequest {
+export interface Web3ConnectionsApiGetRequest {
     /**
      * List order; ascending or descending.
      * @type {'ASC' | 'DESC'}
-     * @memberof Web3ConnectionsApiGetConnections
+     * @memberof Web3ConnectionsApiGet
      */
     readonly order?: 'ASC' | 'DESC'
 
     /**
      * Parsed filter object
-     * @type {GetConnectionsFilterParameter}
-     * @memberof Web3ConnectionsApiGetConnections
+     * @type {GetFilterParameter}
+     * @memberof Web3ConnectionsApiGet
      */
-    readonly filter?: GetConnectionsFilterParameter
+    readonly filter?: GetFilterParameter
 
     /**
      * Property to sort Web3 connections by.
      * @type {'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName'}
-     * @memberof Web3ConnectionsApiGetConnections
+     * @memberof Web3ConnectionsApiGet
      */
     readonly sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName'
 
     /**
      * Amount of results to return in the next page.
      * @type {number}
-     * @memberof Web3ConnectionsApiGetConnections
+     * @memberof Web3ConnectionsApiGet
      */
     readonly pageSize?: number
 
     /**
      * Cursor to the next page
      * @type {string}
-     * @memberof Web3ConnectionsApiGetConnections
+     * @memberof Web3ConnectionsApiGet
      */
     readonly next?: string
 }
 
 /**
- * Request parameters for updateWCConnection operation in Web3ConnectionsApi.
+ * Request parameters for remove operation in Web3ConnectionsApi.
  * @export
- * @interface Web3ConnectionsApiUpdateWCConnectionRequest
+ * @interface Web3ConnectionsApiRemoveRequest
  */
-export interface Web3ConnectionsApiUpdateWCConnectionRequest {
+export interface Web3ConnectionsApiRemoveRequest {
+    /**
+     * The ID of the existing Web3 connection to remove.
+     * @type {string}
+     * @memberof Web3ConnectionsApiRemove
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for submit operation in Web3ConnectionsApi.
+ * @export
+ * @interface Web3ConnectionsApiSubmitRequest
+ */
+export interface Web3ConnectionsApiSubmitRequest {
     /**
      * 
      * @type {RespondToConnectionRequest}
-     * @memberof Web3ConnectionsApiUpdateWCConnection
+     * @memberof Web3ConnectionsApiSubmit
      */
     readonly respondToConnectionRequest: RespondToConnectionRequest
 
     /**
      * The ID of the initiated Web3 connection to approve.
      * @type {string}
-     * @memberof Web3ConnectionsApiUpdateWCConnection
+     * @memberof Web3ConnectionsApiSubmit
      */
     readonly id: string
 }
@@ -353,48 +353,48 @@ export class Web3ConnectionsApi extends BaseAPI {
     /**
      * Initiate a new Web3 connection.  * Note: After this succeeds, make a request to `PUT /v1/connections/wc/{id}` (below) to approve or reject the new Web3 connection.
      * @summary Create a new Web3 connection.
-     * @param {Web3ConnectionsApiCreateWCConnectionRequest} requestParameters Request parameters.
+     * @param {Web3ConnectionsApiCreateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public createWCConnection(requestParameters: Web3ConnectionsApiCreateWCConnectionRequest, ) {
-        return Web3ConnectionsApiFp(this.httpClient).createWCConnection(requestParameters.createConnectionRequest, );
-    }
-
-    /**
-     * Remove a Web3 connection
-     * @summary Remove an existing Web3 connection.
-     * @param {Web3ConnectionsApiDeleteWCConnectionRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof Web3ConnectionsApi
-     */
-    public deleteWCConnection(requestParameters: Web3ConnectionsApiDeleteWCConnectionRequest, ) {
-        return Web3ConnectionsApiFp(this.httpClient).deleteWCConnection(requestParameters.id, );
+    public create(requestParameters: Web3ConnectionsApiCreateRequest, ) {
+        return Web3ConnectionsApiFp(this.httpClient).create(requestParameters.createConnectionRequest, );
     }
 
     /**
      * Get open Web3 connections.
      * @summary List all open Web3 connections.
-     * @param {Web3ConnectionsApiGetConnectionsRequest} requestParameters Request parameters.
+     * @param {Web3ConnectionsApiGetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public getConnections(requestParameters: Web3ConnectionsApiGetConnectionsRequest = {}, ) {
-        return Web3ConnectionsApiFp(this.httpClient).getConnections(requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next, );
+    public get(requestParameters: Web3ConnectionsApiGetRequest = {}, ) {
+        return Web3ConnectionsApiFp(this.httpClient).get(requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next, );
+    }
+
+    /**
+     * Remove a Web3 connection
+     * @summary Remove an existing Web3 connection.
+     * @param {Web3ConnectionsApiRemoveRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof Web3ConnectionsApi
+     */
+    public remove(requestParameters: Web3ConnectionsApiRemoveRequest, ) {
+        return Web3ConnectionsApiFp(this.httpClient).remove(requestParameters.id, );
     }
 
     /**
      * Submit a response to *approve* or *reject* an initiated Web3 connection. * Note: This call is used to complete your `POST /v1/connections/wc/` request.  After this succeeds, your new Web3 connection is created and functioning.
      * @summary Respond to a pending Web3 connection request.
-     * @param {Web3ConnectionsApiUpdateWCConnectionRequest} requestParameters Request parameters.
+     * @param {Web3ConnectionsApiSubmitRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public updateWCConnection(requestParameters: Web3ConnectionsApiUpdateWCConnectionRequest, ) {
-        return Web3ConnectionsApiFp(this.httpClient).updateWCConnection(requestParameters.respondToConnectionRequest, requestParameters.id, );
+    public submit(requestParameters: Web3ConnectionsApiSubmitRequest, ) {
+        return Web3ConnectionsApiFp(this.httpClient).submit(requestParameters.respondToConnectionRequest, requestParameters.id, );
     }
 }

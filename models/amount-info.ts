@@ -21,25 +21,25 @@
  */
 export interface AmountInfo {
     /**
-     * If the transfer is a withdrawal from an exchange, the actual amount that was requested to be transferred. Otherwise, the requested amount
+     * If the transfer is a withdrawal from an exchange, the actual amount that was requested to be transferred. Otherwise, the requested amount.
      * @type {string}
      * @memberof AmountInfo
      */
     'amount'?: string;
     /**
-     * 
+     * The amount requested by the user.
      * @type {string}
      * @memberof AmountInfo
      */
     'requestedAmount'?: string;
     /**
-     * The net amount of the transaction, after fee deduction
+     * The net amount of the transaction, after fee deduction.
      * @type {string}
      * @memberof AmountInfo
      */
     'netAmount'?: string;
     /**
-     * The USD value of the requested amount
+     * The USD value of the requested amount.
      * @type {string}
      * @memberof AmountInfo
      */
