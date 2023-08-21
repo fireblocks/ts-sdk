@@ -171,7 +171,7 @@ export interface TransactionResponse {
      */
     'amountInfo'?: AmountInfo;
     /**
-     * For transactions initiated via this Fireblocks workspace, when set to `true`, the fee is deducted from the requested amount.
+     * For transactions initiated via this Fireblocks workspace, when set to `true`, the fee is deducted from the requested amount.  **Note**: This parameter can only be considered if a transaction\'s asset is a base asset, such as ETH or MATIC. If the asset can\'t be used for transaction fees, like USDC, this parameter is ignored and the fee is deducted from the relevant base asset wallet in the source account.
      * @type {boolean}
      * @memberof TransactionResponse
      */
