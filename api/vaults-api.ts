@@ -337,8 +337,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [nameSuffix] 
          * @param {number} [minAmountThreshold] 
          * @param {string} [assetId] 
-         * @param {number} [maxBip44AddressIndexUsed] 
-         * @param {number} [maxBip44ChangeAddressIndexUsed] 
          * @param {'ASC' | 'DESC'} [orderBy] 
          * @param {string} [before] 
          * @param {string} [after] 
@@ -346,7 +344,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, maxBip44AddressIndexUsed?: number, maxBip44ChangeAddressIndexUsed?: number, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number, ): Promise<AxiosRequestConfig> => {
+        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number, ): Promise<AxiosRequestConfig> => {
             const localVarPath = `/vault/accounts_paged`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -369,14 +367,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (assetId !== undefined) {
                 localVarQueryParameter['assetId'] = assetId;
-            }
-
-            if (maxBip44AddressIndexUsed !== undefined) {
-                localVarQueryParameter['maxBip44AddressIndexUsed'] = maxBip44AddressIndexUsed;
-            }
-
-            if (maxBip44ChangeAddressIndexUsed !== undefined) {
-                localVarQueryParameter['maxBip44ChangeAddressIndexUsed'] = maxBip44ChangeAddressIndexUsed;
             }
 
             if (orderBy !== undefined) {
@@ -630,12 +620,10 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [nameSuffix] 
          * @param {number} [minAmountThreshold] 
          * @param {string} [assetId] 
-         * @param {number} [maxBip44AddressIndexUsed] 
-         * @param {number} [maxBip44ChangeAddressIndexUsed] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, maxBip44AddressIndexUsed?: number, maxBip44ChangeAddressIndexUsed?: number, ): Promise<AxiosRequestConfig> => {
+        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, ): Promise<AxiosRequestConfig> => {
             const localVarPath = `/vault/accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -658,14 +646,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (assetId !== undefined) {
                 localVarQueryParameter['assetId'] = assetId;
-            }
-
-            if (maxBip44AddressIndexUsed !== undefined) {
-                localVarQueryParameter['maxBip44AddressIndexUsed'] = maxBip44AddressIndexUsed;
-            }
-
-            if (maxBip44ChangeAddressIndexUsed !== undefined) {
-                localVarQueryParameter['maxBip44ChangeAddressIndexUsed'] = maxBip44ChangeAddressIndexUsed;
             }
 
 
@@ -1133,8 +1113,6 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} [nameSuffix] 
          * @param {number} [minAmountThreshold] 
          * @param {string} [assetId] 
-         * @param {number} [maxBip44AddressIndexUsed] 
-         * @param {number} [maxBip44ChangeAddressIndexUsed] 
          * @param {'ASC' | 'DESC'} [orderBy] 
          * @param {string} [before] 
          * @param {string} [after] 
@@ -1142,8 +1120,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, maxBip44AddressIndexUsed?: number, maxBip44ChangeAddressIndexUsed?: number, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, maxBip44AddressIndexUsed, maxBip44ChangeAddressIndexUsed, orderBy, before, after, limit, );
+        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, );
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1228,13 +1206,11 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} [nameSuffix] 
          * @param {number} [minAmountThreshold] 
          * @param {string} [assetId] 
-         * @param {number} [maxBip44AddressIndexUsed] 
-         * @param {number} [maxBip44ChangeAddressIndexUsed] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, maxBip44AddressIndexUsed?: number, maxBip44ChangeAddressIndexUsed?: number, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, maxBip44AddressIndexUsed, maxBip44ChangeAddressIndexUsed, );
+        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, );
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1587,20 +1563,6 @@ export interface VaultsApiGetPagedVaultAccountsRequest {
 
     /**
      * 
-     * @type {number}
-     * @memberof VaultsApiGetPagedVaultAccounts
-     */
-    readonly maxBip44AddressIndexUsed?: number
-
-    /**
-     * 
-     * @type {number}
-     * @memberof VaultsApiGetPagedVaultAccounts
-     */
-    readonly maxBip44ChangeAddressIndexUsed?: number
-
-    /**
-     * 
      * @type {'ASC' | 'DESC'}
      * @memberof VaultsApiGetPagedVaultAccounts
      */
@@ -1808,20 +1770,6 @@ export interface VaultsApiGetVaultAccountsRequest {
      * @memberof VaultsApiGetVaultAccounts
      */
     readonly assetId?: string
-
-    /**
-     * 
-     * @type {number}
-     * @memberof VaultsApiGetVaultAccounts
-     */
-    readonly maxBip44AddressIndexUsed?: number
-
-    /**
-     * 
-     * @type {number}
-     * @memberof VaultsApiGetVaultAccounts
-     */
-    readonly maxBip44ChangeAddressIndexUsed?: number
 }
 
 /**
@@ -2148,7 +2096,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {}, ) {
-        return VaultsApiFp(this.httpClient).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.maxBip44AddressIndexUsed, requestParameters.maxBip44ChangeAddressIndexUsed, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, );
+        return VaultsApiFp(this.httpClient).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, );
     }
 
     /**
@@ -2232,7 +2180,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}, ) {
-        return VaultsApiFp(this.httpClient).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.maxBip44AddressIndexUsed, requestParameters.maxBip44ChangeAddressIndexUsed, );
+        return VaultsApiFp(this.httpClient).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, );
     }
 
     /**

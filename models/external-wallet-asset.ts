@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { ConfigChangeRequestStatus } from './config-change-request-status';
+// May contain unused imports in some cases
+// @ts-ignore
+import { WalletAssetAdditionalInfo } from './wallet-asset-additional-info';
 
 /**
  * 
@@ -53,6 +56,12 @@ export interface ExternalWalletAsset {
      * @memberof ExternalWalletAsset
      */
     'activationTime'?: string;
+    /**
+     * 
+     * @type {Array<WalletAssetAdditionalInfo>}
+     * @memberof ExternalWalletAsset
+     */
+    'additionalInfo'?: Array<WalletAssetAdditionalInfo>;
 }
 
 

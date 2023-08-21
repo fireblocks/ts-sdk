@@ -31,7 +31,19 @@ export interface TransferPeerPath {
      * @type {string}
      * @memberof TransferPeerPath
      */
+    'subType'?: TransferPeerPathSubTypeEnum;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferPeerPath
+     */
     'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TransferPeerPath
+     */
+    'name'?: string;
     /**
      * 
      * @type {string}
@@ -55,5 +67,41 @@ export const TransferPeerPathTypeEnum = {
 } as const;
 
 export type TransferPeerPathTypeEnum = typeof TransferPeerPathTypeEnum[keyof typeof TransferPeerPathTypeEnum];
+export const TransferPeerPathSubTypeEnum = {
+    Binance: 'BINANCE',
+    Binanceus: 'BINANCEUS',
+    Bitfinex: 'BITFINEX',
+    Bithumb: 'BITHUMB',
+    Bitmex: 'BITMEX',
+    Bitso: 'BITSO',
+    Bitstamp: 'BITSTAMP',
+    Bittrex: 'BITTREX',
+    Blinc: 'BLINC',
+    Bybit: 'BYBIT',
+    Circle: 'CIRCLE',
+    Coinbaseexchange: 'COINBASEEXCHANGE',
+    Coinbasepro: 'COINBASEPRO',
+    Coinmetro: 'COINMETRO',
+    Coinspro: 'COINSPRO',
+    Cryptocom: 'CRYPTOCOM',
+    Deribit: 'DERIBIT',
+    Gemini: 'GEMINI',
+    Hitbtc: 'HITBTC',
+    Huobi: 'HUOBI',
+    Independentreserve: 'INDEPENDENTRESERVE',
+    Korbit: 'KORBIT',
+    Kraken: 'KRAKEN',
+    Krakenintl: 'KRAKENINTL',
+    Kucoin: 'KUCOIN',
+    Liquid: 'LIQUID',
+    Okcoin: 'OKCOIN',
+    Okex: 'OKEX',
+    Paxos: 'PAXOS',
+    Poloniex: 'POLONIEX',
+    External: 'External',
+    Internal: 'Internal'
+} as const;
+
+export type TransferPeerPathSubTypeEnum = typeof TransferPeerPathSubTypeEnum[keyof typeof TransferPeerPathSubTypeEnum];
 
 

@@ -30,13 +30,25 @@ import { DestinationTransferPeerPathResponse } from './destination-transfer-peer
  */
 export interface TransactionResponseDestination {
     /**
-     * 
+     * Address where the asset was transferred.
+     * @type {any}
+     * @memberof TransactionResponseDestination
+     */
+    'destinationAddress'?: any;
+    /**
+     * Description of the address.
+     * @type {any}
+     * @memberof TransactionResponseDestination
+     */
+    'destinationAddressDescription'?: any;
+    /**
+     * The amount to be sent to this destination.
      * @type {string}
      * @memberof TransactionResponseDestination
      */
     'amount'?: string;
     /**
-     * 
+     * The USD value of the requested amount.
      * @type {string}
      * @memberof TransactionResponseDestination
      */
