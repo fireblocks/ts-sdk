@@ -13,24 +13,20 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AddAssetToExternalWalletRequestOneOf } from './add-asset-to-external-wallet-request-one-of';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AddAssetToExternalWalletRequestOneOf1 } from './add-asset-to-external-wallet-request-one-of1';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AddAssetToExternalWalletRequestOneOf1AdditionalInfo } from './add-asset-to-external-wallet-request-one-of1-additional-info';
 
 /**
- * 
+ * @type AddAssetToExternalWalletRequest
  * @export
- * @interface AddAssetToExternalWalletRequest
  */
-export interface AddAssetToExternalWalletRequest {
-    /**
-     * The wallet\'s address (or xpub) of the wallet
-     * @type {string}
-     * @memberof AddAssetToExternalWalletRequest
-     */
-    'address': string;
-    /**
-     * For XRP wallets, the destination tag; for EOS/XLM, the memo; for the fiat providers (BLINC by BCB Group), the Bank Transfer Description
-     * @type {string}
-     * @memberof AddAssetToExternalWalletRequest
-     */
-    'tag'?: string;
-}
+export type AddAssetToExternalWalletRequest = AddAssetToExternalWalletRequestOneOf | AddAssetToExternalWalletRequestOneOf1;
+
 

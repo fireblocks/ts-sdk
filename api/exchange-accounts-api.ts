@@ -27,7 +27,7 @@ import { assertParamExists, setSearchParams, toPathString, createRequestFunction
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
 
 // @ts-ignore
-import { ConvertExchangeAccountRequest } from '../models';
+import { ConvertAssetsRequest } from '../models';
 // @ts-ignore
 import { CreateInternalTransferRequest } from '../models';
 // @ts-ignore
@@ -44,14 +44,14 @@ import { ExchangeAsset } from '../models';
 export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Convert assets within an exchange account
+         * 
          * @summary Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
          * @param {string} exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
-         * @param {ConvertExchangeAccountRequest} [convertExchangeAccountRequest] 
+         * @param {ConvertAssetsRequest} [convertAssetsRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        convertAssets: async (exchangeAccountId: string, convertExchangeAccountRequest?: ConvertExchangeAccountRequest, ): Promise<AxiosRequestConfig> => {
+        convertAssets: async (exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, ): Promise<AxiosRequestConfig> => {
             // verify required parameter 'exchangeAccountId' is not null or undefined
             assertParamExists('convertAssets', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/convert`
@@ -69,7 +69,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            localVarRequestOptions.data = convertExchangeAccountRequest as any;
+            localVarRequestOptions.data = convertAssetsRequest as any;
 
             return {
                 url: localVarUrlObj.toString(),
@@ -165,7 +165,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
         },
         /**
          * Transfers funds between trading accounts under the same exchange account.
-         * @summary Internal transfer for exchange accounts
+         * @summary Internal tranfer for exchange accounts
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {CreateInternalTransferRequest} [createInternalTransferRequest] 
          * @param {*} [options] Override http request option.
@@ -207,15 +207,15 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
     const localVarAxiosParamCreator = ExchangeAccountsApiAxiosParamCreator(httpClient.configuration)
     return {
         /**
-         * Convert assets within an exchange account
+         * 
          * @summary Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
          * @param {string} exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
-         * @param {ConvertExchangeAccountRequest} [convertExchangeAccountRequest] 
+         * @param {ConvertAssetsRequest} [convertAssetsRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async convertAssets(exchangeAccountId: string, convertExchangeAccountRequest?: ConvertExchangeAccountRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.convertAssets(exchangeAccountId, convertExchangeAccountRequest, );
+        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.convertAssets(exchangeAccountId, convertAssetsRequest, );
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -253,7 +253,7 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
         },
         /**
          * Transfers funds between trading accounts under the same exchange account.
-         * @summary Internal transfer for exchange accounts
+         * @summary Internal tranfer for exchange accounts
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {CreateInternalTransferRequest} [createInternalTransferRequest] 
          * @param {*} [options] Override http request option.
@@ -281,10 +281,10 @@ export interface ExchangeAccountsApiConvertAssetsRequest {
 
     /**
      * 
-     * @type {ConvertExchangeAccountRequest}
+     * @type {ConvertAssetsRequest}
      * @memberof ExchangeAccountsApiConvertAssets
      */
-    readonly convertExchangeAccountRequest?: ConvertExchangeAccountRequest
+    readonly convertAssetsRequest?: ConvertAssetsRequest
 }
 
 /**
@@ -351,7 +351,7 @@ export interface ExchangeAccountsApiInternalTransferRequest {
  */
 export class ExchangeAccountsApi extends BaseAPI {
     /**
-     * Convert assets within an exchange account
+     * 
      * @summary Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
      * @param {ExchangeAccountsApiConvertAssetsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -359,7 +359,7 @@ export class ExchangeAccountsApi extends BaseAPI {
      * @memberof ExchangeAccountsApi
      */
     public convertAssets(requestParameters: ExchangeAccountsApiConvertAssetsRequest, ) {
-        return ExchangeAccountsApiFp(this.httpClient).convertAssets(requestParameters.exchangeAccountId, requestParameters.convertExchangeAccountRequest, );
+        return ExchangeAccountsApiFp(this.httpClient).convertAssets(requestParameters.exchangeAccountId, requestParameters.convertAssetsRequest, );
     }
 
     /**
@@ -399,7 +399,7 @@ export class ExchangeAccountsApi extends BaseAPI {
 
     /**
      * Transfers funds between trading accounts under the same exchange account.
-     * @summary Internal transfer for exchange accounts
+     * @summary Internal tranfer for exchange accounts
      * @param {ExchangeAccountsApiInternalTransferRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

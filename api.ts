@@ -15,21 +15,24 @@
 
 
 export * from './api/audit-logs-api';
+export * from './api/blockchains-assets-api';
 export * from './api/contracts-api';
 export * from './api/exchange-accounts-api';
 export * from './api/external-wallets-api';
 export * from './api/fiat-accounts-api';
 export * from './api/gas-stations-api';
 export * from './api/internal-wallets-api';
-export * from './api/nfts-beta-api';
+export * from './api/nfts-api';
 export * from './api/network-connections-api';
+export * from './api/otabeta-api';
 export * from './api/off-exchanges-api';
 export * from './api/payments-cross-border-settlement-api';
 export * from './api/payments-payout-api';
-export * from './api/supported-assets-api';
+export * from './api/policy-editor-beta-api';
 export * from './api/transactions-api';
 export * from './api/travel-rule-beta-api';
 export * from './api/users-api';
+export * from './api/users-groups-beta-api';
 export * from './api/vaults-api';
 export * from './api/web3-connections-api';
 export * from './api/webhooks-api';

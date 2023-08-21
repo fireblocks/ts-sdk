@@ -36,7 +36,7 @@ export interface XBSettlementConfigEditRequestBody {
      */
     'steps': XBSettlementConfigStepsRecord;
     /**
-     * Slippage configuarion in basis points, the default value is 10%
+     * Slippage configuarion in basis points, the default value is 10% 
      * @type {number}
      * @memberof XBSettlementConfigEditRequestBody
      */
