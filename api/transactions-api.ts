@@ -306,19 +306,21 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {string} [before] Unix timestamp in milliseconds. Returns only transactions created before the specified date
          * @param {string} [after] Unix timestamp in milliseconds. Returns only transactions created after the specified date
          * @param {string} [status] You can filter by one of the statuses.
-         * @param {'createdAt' | 'lastUpdated'} [orderBy] The field to order the results by
+         * @param {'createdAt' | 'lastUpdated'} [orderBy] The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
          * @param {'ASC' | 'DESC'} [sort] The direction to order the results by
          * @param {number} [limit] Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'OEC_PARTNER' | 'END_USER_WALLET'} [sourceType] The source type of the transaction
+         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'} [sourceType] The source type of the transaction
          * @param {string} [sourceId] The source ID of the transaction
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'OEC_PARTNER' | 'END_USER_WALLET'} [destType] The destination type of the transaction
+         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'} [destType] The destination type of the transaction
          * @param {string} [destId] The destination ID of the transaction
          * @param {string} [assets] A list of assets to filter by, seperated by commas
          * @param {string} [txHash] Returns only results with a specified txHash
+         * @param {string} [sourceWalletId] Returns only results where the source is a specific end user wallet
+         * @param {string} [destWalletId] Returns only results where the destination is a specific end user wallet
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'OEC_PARTNER' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'OEC_PARTNER' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, ): Promise<AxiosRequestConfig> => {
+        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, ): Promise<AxiosRequestConfig> => {
             const localVarPath = `/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -373,6 +375,14 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
 
             if (txHash !== undefined) {
                 localVarQueryParameter['txHash'] = txHash;
+            }
+
+            if (sourceWalletId !== undefined) {
+                localVarQueryParameter['sourceWalletId'] = sourceWalletId;
+            }
+
+            if (destWalletId !== undefined) {
+                localVarQueryParameter['destWalletId'] = destWalletId;
             }
 
 
@@ -618,20 +628,22 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {string} [before] Unix timestamp in milliseconds. Returns only transactions created before the specified date
          * @param {string} [after] Unix timestamp in milliseconds. Returns only transactions created after the specified date
          * @param {string} [status] You can filter by one of the statuses.
-         * @param {'createdAt' | 'lastUpdated'} [orderBy] The field to order the results by
+         * @param {'createdAt' | 'lastUpdated'} [orderBy] The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
          * @param {'ASC' | 'DESC'} [sort] The direction to order the results by
          * @param {number} [limit] Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'OEC_PARTNER' | 'END_USER_WALLET'} [sourceType] The source type of the transaction
+         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'} [sourceType] The source type of the transaction
          * @param {string} [sourceId] The source ID of the transaction
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'OEC_PARTNER' | 'END_USER_WALLET'} [destType] The destination type of the transaction
+         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'} [destType] The destination type of the transaction
          * @param {string} [destId] The destination ID of the transaction
          * @param {string} [assets] A list of assets to filter by, seperated by commas
          * @param {string} [txHash] Returns only results with a specified txHash
+         * @param {string} [sourceWalletId] Returns only results where the source is a specific end user wallet
+         * @param {string} [destWalletId] Returns only results where the destination is a specific end user wallet
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'OEC_PARTNER' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'OEC_PARTNER' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, );
+        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, );
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -831,7 +843,7 @@ export interface TransactionsApiGetTransactionsRequest {
     readonly status?: string
 
     /**
-     * The field to order the results by
+     * The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
      * @type {'createdAt' | 'lastUpdated'}
      * @memberof TransactionsApiGetTransactions
      */
@@ -853,10 +865,10 @@ export interface TransactionsApiGetTransactionsRequest {
 
     /**
      * The source type of the transaction
-     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'OEC_PARTNER' | 'END_USER_WALLET'}
+     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'}
      * @memberof TransactionsApiGetTransactions
      */
-    readonly sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'OEC_PARTNER' | 'END_USER_WALLET'
+    readonly sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'
 
     /**
      * The source ID of the transaction
@@ -867,10 +879,10 @@ export interface TransactionsApiGetTransactionsRequest {
 
     /**
      * The destination type of the transaction
-     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'OEC_PARTNER' | 'END_USER_WALLET'}
+     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'}
      * @memberof TransactionsApiGetTransactions
      */
-    readonly destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'OEC_PARTNER' | 'END_USER_WALLET'
+    readonly destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'
 
     /**
      * The destination ID of the transaction
@@ -892,6 +904,20 @@ export interface TransactionsApiGetTransactionsRequest {
      * @memberof TransactionsApiGetTransactions
      */
     readonly txHash?: string
+
+    /**
+     * Returns only results where the source is a specific end user wallet
+     * @type {string}
+     * @memberof TransactionsApiGetTransactions
+     */
+    readonly sourceWalletId?: string
+
+    /**
+     * Returns only results where the destination is a specific end user wallet
+     * @type {string}
+     * @memberof TransactionsApiGetTransactions
+     */
+    readonly destWalletId?: string
 }
 
 /**
@@ -1083,7 +1109,7 @@ export class TransactionsApi extends BaseAPI {
      * @memberof TransactionsApi
      */
     public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, ) {
-        return TransactionsApiFp(this.httpClient).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, );
+        return TransactionsApiFp(this.httpClient).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, );
     }
 
     /**

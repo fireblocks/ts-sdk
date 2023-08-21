@@ -102,7 +102,7 @@ export interface TransactionRequest {
      */
     'amount'?: TransactionRequestAmount;
     /**
-     * When set to `true`, the fee will be deducted from the requested amount.
+     * \"When set to `true`, the fee will be deducted from the requested amount.\"  **Note**: This parameter can only be considered if a transaction’s asset is a base asset, such as ETH or MATIC. If the asset can’t be used for transaction fees, like USDC, this parameter is ignored and the fee is deducted from the relevant base asset wallet in the source account.
      * @type {boolean}
      * @memberof TransactionRequest
      */

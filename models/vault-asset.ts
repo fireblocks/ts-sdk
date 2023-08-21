@@ -73,18 +73,6 @@ export interface VaultAsset {
      */
     'staked'?: string;
     /**
-     * The maximum BIP44 index used in deriving addresses for this wallet
-     * @type {number}
-     * @memberof VaultAsset
-     */
-    'maxBip44AddressIndexUsed'?: number;
-    /**
-     * The maximum BIP44 index used in deriving change addresses for this wallet
-     * @type {number}
-     * @memberof VaultAsset
-     */
-    'maxBip44ChangeAddressIndexUsed'?: number;
-    /**
      * Deprecated
      * @type {number}
      * @memberof VaultAsset
