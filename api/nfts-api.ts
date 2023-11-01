@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -43,7 +44,7 @@ import { UpdateTokenOwnershipStatusDto } from '../models';
  * NFTsApi - axios parameter creator
  * @export
  */
-export const NFTsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const NFTsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Returns the requested token data. 
@@ -52,7 +53,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNFT: async (id: string, ): Promise<AxiosRequestConfig> => {
+        getNFT: async (id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getNFT', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
@@ -64,11 +65,18 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -85,7 +93,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNFTs: async (ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', ): Promise<AxiosRequestConfig> => {
+        getNFTs: async (ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'ids' is not null or undefined
             assertParamExists('getNFTs', 'ids', ids)
             const localVarPath = `/nfts/tokens`;
@@ -95,7 +103,6 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (ids !== undefined) {
                 localVarQueryParameter['ids'] = ids;
             }
@@ -119,8 +126,16 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -142,7 +157,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOwnershipTokens: async (blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string, ): Promise<AxiosRequestConfig> => {
+        getOwnershipTokens: async (blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/nfts/ownership/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -150,7 +165,6 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (blockchainDescriptor !== undefined) {
                 localVarQueryParameter['blockchainDescriptor'] = blockchainDescriptor;
             }
@@ -194,8 +208,16 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -212,7 +234,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOwnedCollections: async (search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC', ): Promise<AxiosRequestConfig> => {
+        listOwnedCollections: async (search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/nfts/ownership/collections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -220,7 +242,6 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (search !== undefined) {
                 localVarQueryParameter['search'] = search;
             }
@@ -244,8 +265,16 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -258,7 +287,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshNFTMetadata: async (id: string, ): Promise<AxiosRequestConfig> => {
+        refreshNFTMetadata: async (id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('refreshNFTMetadata', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
@@ -270,11 +299,18 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -288,7 +324,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOwnershipTokens: async (blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        updateOwnershipTokens: async (blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'blockchainDescriptor' is not null or undefined
             assertParamExists('updateOwnershipTokens', 'blockchainDescriptor', blockchainDescriptor)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -300,7 +336,6 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (blockchainDescriptor !== undefined) {
                 localVarQueryParameter['blockchainDescriptor'] = blockchainDescriptor;
             }
@@ -312,8 +347,16 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -327,7 +370,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, ): Promise<AxiosRequestConfig> => {
+        updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'updateTokenOwnershipStatusDto' is not null or undefined
             assertParamExists('updateTokenOwnershipStatus', 'updateTokenOwnershipStatusDto', updateTokenOwnershipStatusDto)
             // verify required parameter 'id' is not null or undefined
@@ -341,14 +384,21 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = updateTokenOwnershipStatusDto as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -371,8 +421,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFT(id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFT(id, );
+        async getNFT(id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFT(id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -386,8 +436,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNFTs200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFTs(ids, pageCursor, pageSize, sort, order, );
+        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNFTs200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFTs(ids, pageCursor, pageSize, sort, order, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -406,8 +456,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOwnershipTokens(blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOwnershipTokens200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, );
+        async getOwnershipTokens(blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOwnershipTokens200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -421,8 +471,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOwnedCollections(search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC', ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedCollections200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedCollections(search, pageCursor, pageSize, sort, order, );
+        async listOwnedCollections(search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedCollections200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedCollections(search, pageCursor, pageSize, sort, order, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -432,8 +482,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async refreshNFTMetadata(id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, );
+        async refreshNFTMetadata(id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -444,8 +494,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOwnershipTokens(blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, );
+        async updateOwnershipTokens(blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -456,8 +506,8 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, );
+        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -709,8 +759,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public getNFT(requestParameters: NFTsApiGetNFTRequest, ) {
-        return NFTsApiFp(this.httpClient).getNFT(requestParameters.id, );
+     public getNFT(requestParameters: NFTsApiGetNFTRequest,  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).getNFT(requestParameters.id, requestOptions);
     }
 
     /**
@@ -721,8 +771,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public getNFTs(requestParameters: NFTsApiGetNFTsRequest, ) {
-        return NFTsApiFp(this.httpClient).getNFTs(requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, );
+     public getNFTs(requestParameters: NFTsApiGetNFTsRequest,  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).getNFTs(requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestOptions);
     }
 
     /**
@@ -733,8 +783,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {}, ) {
-        return NFTsApiFp(this.httpClient).getOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountIds, requestParameters.ids, requestParameters.collectionIds, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, );
+     public getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {},  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).getOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountIds, requestParameters.ids, requestParameters.collectionIds, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestOptions);
     }
 
     /**
@@ -745,8 +795,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {}, ) {
-        return NFTsApiFp(this.httpClient).listOwnedCollections(requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, );
+     public listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {},  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).listOwnedCollections(requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestOptions);
     }
 
     /**
@@ -757,8 +807,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest, ) {
-        return NFTsApiFp(this.httpClient).refreshNFTMetadata(requestParameters.id, );
+     public refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest,  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).refreshNFTMetadata(requestParameters.id, requestOptions);
     }
 
     /**
@@ -769,8 +819,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public updateOwnershipTokens(requestParameters: NFTsApiUpdateOwnershipTokensRequest, ) {
-        return NFTsApiFp(this.httpClient).updateOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountId, );
+     public updateOwnershipTokens(requestParameters: NFTsApiUpdateOwnershipTokensRequest,  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).updateOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -781,7 +831,7 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-    public updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest, ) {
-        return NFTsApiFp(this.httpClient).updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, );
+     public updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest,  requestOptions?: RequestOptions) {
+        return NFTsApiFp(this.httpClient).updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestOptions);
     }
 }

@@ -88,7 +88,7 @@ export class Configuration {
     }
 
     getUserAgent(): string {
-        let userAgent = `fireblocks-sdk-js/${version}`;
+        let userAgent = `fireblocks-ts-sdk/${version}`;
         if (!this._options?.anonymousPlatform) {
             userAgent += ` (${os.type()} ${os.release()}; ${platform.name} ${platform.version}; ${os.arch()})`;
         }

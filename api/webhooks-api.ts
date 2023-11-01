@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -37,7 +38,7 @@ import { ResendWebhooksResponse } from '../models';
  * WebhooksApi - axios parameter creator
  * @export
  */
-export const WebhooksApiAxiosParamCreator = function (configuration?: Configuration) {
+export const WebhooksApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Resends all failed webhook notifications.
@@ -45,7 +46,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendWebhooks: async (): Promise<AxiosRequestConfig> => {
+        resendWebhooks: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/webhooks/resend`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -54,11 +55,18 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -72,7 +80,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendWebhooksForTransaction: async (resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string, ): Promise<AxiosRequestConfig> => {
+        resendWebhooksForTransaction: async (resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'resendWebhooksForTransactionRequest' is not null or undefined
             assertParamExists('resendWebhooksForTransaction', 'resendWebhooksForTransactionRequest', resendWebhooksForTransactionRequest)
             // verify required parameter 'txId' is not null or undefined
@@ -86,14 +94,21 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = resendWebhooksForTransactionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -115,8 +130,8 @@ export const WebhooksApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendWebhooks(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendWebhooksResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooks();
+        async resendWebhooks( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendWebhooksResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooks(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -127,8 +142,8 @@ export const WebhooksApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendWebhooksForTransaction(resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooksForTransaction(resendWebhooksForTransactionRequest, txId, );
+        async resendWebhooksForTransaction(resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooksForTransaction(resendWebhooksForTransactionRequest, txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -169,8 +184,8 @@ export class WebhooksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public resendWebhooks() {
-        return WebhooksApiFp(this.httpClient).resendWebhooks();
+     public resendWebhooks( requestOptions?: RequestOptions) {
+        return WebhooksApiFp(this.httpClient).resendWebhooks(requestOptions);
     }
 
     /**
@@ -181,7 +196,7 @@ export class WebhooksApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-    public resendWebhooksForTransaction(requestParameters: WebhooksApiResendWebhooksForTransactionRequest, ) {
-        return WebhooksApiFp(this.httpClient).resendWebhooksForTransaction(requestParameters.resendWebhooksForTransactionRequest, requestParameters.txId, );
+     public resendWebhooksForTransaction(requestParameters: WebhooksApiResendWebhooksForTransactionRequest,  requestOptions?: RequestOptions) {
+        return WebhooksApiFp(this.httpClient).resendWebhooksForTransaction(requestParameters.resendWebhooksForTransactionRequest, requestParameters.txId, requestOptions);
     }
 }

@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -53,7 +54,7 @@ import { XBSettlementGetFlowResponse } from '../models';
  * PaymentsCrossBorderSettlementApi - axios parameter creator
  * @export
  */
-export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (configuration?: Configuration) {
+export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * <u><b>Create a new cross-border settlement configuration. </u></b></br>Configurations define the default assets, on-ramps, and off-ramps to use for the cross-border settlement. </br>  A configuration must contain at least two steps - `ON_RAMP` and `VAULT_ACCOUNT`. </br> All other steps (e.g., `OFF_RAMP`, `FIAT_DESTINATION`, etc.) are optional. </br> Every step must include the `accountId` to be used, while `inputAssetId` and `outputAssetId` are optional.  If those are not provided, a default value will be used from the Corridor Settings.</br> If the inputAssetId or the outputAssetId is provided for one of the objects, all assets in the objects must be consistent. For example, if the output asset of ON_RAMP is XLM_USDC_5F3T, then the input asset of the VAULT_ACCOUNT must also be XLM_USDC_5F3T..</br> You can set a slippage amount for your configuration. Slippage is defined by basis points (bps). This value can be overloaded on execution. If you do not configure a slippage amount, the default slippage of 10000 bps (10%) is used. </br> **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoint includes APIs available only for customers with the Payments Engine enabled on their accounts. These endpoints are currently in beta and might be subject to changes. If you want to learn more about the Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -62,7 +63,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createXBSettlementConfig: async (xBSettlementConfigCreationRequestBody?: XBSettlementConfigCreationRequestBody, ): Promise<AxiosRequestConfig> => {
+        createXBSettlementConfig: async (xBSettlementConfigCreationRequestBody?: XBSettlementConfigCreationRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/payments/xb-settlements/configs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -71,14 +72,21 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = xBSettlementConfigCreationRequestBody as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -91,7 +99,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createXBSettlementFlow: async (xBSettlementCreateFlowRequestBody?: XBSettlementCreateFlowRequestBody, ): Promise<AxiosRequestConfig> => {
+        createXBSettlementFlow: async (xBSettlementCreateFlowRequestBody?: XBSettlementCreateFlowRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/payments/xb-settlements/flows`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -100,14 +108,21 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = xBSettlementCreateFlowRequestBody as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -120,7 +135,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteXBSettlementConfig: async (configId: string, ): Promise<AxiosRequestConfig> => {
+        deleteXBSettlementConfig: async (configId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'configId' is not null or undefined
             assertParamExists('deleteXBSettlementConfig', 'configId', configId)
             const localVarPath = `/payments/xb-settlements/configs/{configId}`
@@ -132,11 +147,18 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -150,7 +172,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        executeXBSettlementFlowAction: async (flowId: string, xBSettlementFlowExecutionRequestBody?: XBSettlementFlowExecutionRequestBody, ): Promise<AxiosRequestConfig> => {
+        executeXBSettlementFlowAction: async (flowId: string, xBSettlementFlowExecutionRequestBody?: XBSettlementFlowExecutionRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'flowId' is not null or undefined
             assertParamExists('executeXBSettlementFlowAction', 'flowId', flowId)
             const localVarPath = `/payments/xb-settlements/flows/{flowId}/actions/execute`
@@ -162,14 +184,21 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = xBSettlementFlowExecutionRequestBody as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -182,7 +211,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getXBSettlementConfigById: async (configId: string, ): Promise<AxiosRequestConfig> => {
+        getXBSettlementConfigById: async (configId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'configId' is not null or undefined
             assertParamExists('getXBSettlementConfigById', 'configId', configId)
             const localVarPath = `/payments/xb-settlements/configs/{configId}`
@@ -194,11 +223,18 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -210,7 +246,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getXBSettlementConfigs: async (): Promise<AxiosRequestConfig> => {
+        getXBSettlementConfigs: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/payments/xb-settlements/configs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -219,11 +255,18 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -236,7 +279,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getXBSettlementFlowById: async (flowId: string, ): Promise<AxiosRequestConfig> => {
+        getXBSettlementFlowById: async (flowId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'flowId' is not null or undefined
             assertParamExists('getXBSettlementFlowById', 'flowId', flowId)
             const localVarPath = `/payments/xb-settlements/flows/{flowId}`
@@ -248,11 +291,18 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -266,7 +316,7 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateXBSettlementConfig: async (configId: string, xBSettlementConfigEditRequestBody?: XBSettlementConfigEditRequestBody, ): Promise<AxiosRequestConfig> => {
+        updateXBSettlementConfig: async (configId: string, xBSettlementConfigEditRequestBody?: XBSettlementConfigEditRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'configId' is not null or undefined
             assertParamExists('updateXBSettlementConfig', 'configId', configId)
             const localVarPath = `/payments/xb-settlements/configs/{configId}`
@@ -278,14 +328,21 @@ export const PaymentsCrossBorderSettlementApiAxiosParamCreator = function (confi
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = xBSettlementConfigEditRequestBody as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -308,8 +365,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createXBSettlementConfig(xBSettlementConfigCreationRequestBody?: XBSettlementConfigCreationRequestBody, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createXBSettlementConfig(xBSettlementConfigCreationRequestBody, );
+        async createXBSettlementConfig(xBSettlementConfigCreationRequestBody?: XBSettlementConfigCreationRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createXBSettlementConfig(xBSettlementConfigCreationRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -319,8 +376,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createXBSettlementFlow(xBSettlementCreateFlowRequestBody?: XBSettlementCreateFlowRequestBody, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementFlowPreviewModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createXBSettlementFlow(xBSettlementCreateFlowRequestBody, );
+        async createXBSettlementFlow(xBSettlementCreateFlowRequestBody?: XBSettlementCreateFlowRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementFlowPreviewModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createXBSettlementFlow(xBSettlementCreateFlowRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -330,8 +387,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteXBSettlementConfig(configId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteXBSettlementConfig(configId, );
+        async deleteXBSettlementConfig(configId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteXBSettlementConfig(configId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -342,8 +399,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executeXBSettlementFlowAction(flowId: string, xBSettlementFlowExecutionRequestBody?: XBSettlementFlowExecutionRequestBody, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementFlowExecutionModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.executeXBSettlementFlowAction(flowId, xBSettlementFlowExecutionRequestBody, );
+        async executeXBSettlementFlowAction(flowId: string, xBSettlementFlowExecutionRequestBody?: XBSettlementFlowExecutionRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementFlowExecutionModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executeXBSettlementFlowAction(flowId, xBSettlementFlowExecutionRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -353,8 +410,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getXBSettlementConfigById(configId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementConfigById(configId, );
+        async getXBSettlementConfigById(configId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementConfigById(configId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -363,8 +420,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getXBSettlementConfigs(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementGetAllConfigsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementConfigs();
+        async getXBSettlementConfigs( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementGetAllConfigsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementConfigs(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -374,8 +431,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getXBSettlementFlowById(flowId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementGetFlowResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementFlowById(flowId, );
+        async getXBSettlementFlowById(flowId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementGetFlowResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementFlowById(flowId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -386,8 +443,8 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateXBSettlementConfig(configId: string, xBSettlementConfigEditRequestBody?: XBSettlementConfigEditRequestBody, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateXBSettlementConfig(configId, xBSettlementConfigEditRequestBody, );
+        async updateXBSettlementConfig(configId: string, xBSettlementConfigEditRequestBody?: XBSettlementConfigEditRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateXBSettlementConfig(configId, xBSettlementConfigEditRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -520,8 +577,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public createXBSettlementConfig(requestParameters: PaymentsCrossBorderSettlementApiCreateXBSettlementConfigRequest = {}, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).createXBSettlementConfig(requestParameters.xBSettlementConfigCreationRequestBody, );
+     public createXBSettlementConfig(requestParameters: PaymentsCrossBorderSettlementApiCreateXBSettlementConfigRequest = {},  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).createXBSettlementConfig(requestParameters.xBSettlementConfigCreationRequestBody, requestOptions);
     }
 
     /**
@@ -532,8 +589,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public createXBSettlementFlow(requestParameters: PaymentsCrossBorderSettlementApiCreateXBSettlementFlowRequest = {}, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).createXBSettlementFlow(requestParameters.xBSettlementCreateFlowRequestBody, );
+     public createXBSettlementFlow(requestParameters: PaymentsCrossBorderSettlementApiCreateXBSettlementFlowRequest = {},  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).createXBSettlementFlow(requestParameters.xBSettlementCreateFlowRequestBody, requestOptions);
     }
 
     /**
@@ -544,8 +601,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public deleteXBSettlementConfig(requestParameters: PaymentsCrossBorderSettlementApiDeleteXBSettlementConfigRequest, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).deleteXBSettlementConfig(requestParameters.configId, );
+     public deleteXBSettlementConfig(requestParameters: PaymentsCrossBorderSettlementApiDeleteXBSettlementConfigRequest,  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).deleteXBSettlementConfig(requestParameters.configId, requestOptions);
     }
 
     /**
@@ -556,8 +613,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public executeXBSettlementFlowAction(requestParameters: PaymentsCrossBorderSettlementApiExecuteXBSettlementFlowActionRequest, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).executeXBSettlementFlowAction(requestParameters.flowId, requestParameters.xBSettlementFlowExecutionRequestBody, );
+     public executeXBSettlementFlowAction(requestParameters: PaymentsCrossBorderSettlementApiExecuteXBSettlementFlowActionRequest,  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).executeXBSettlementFlowAction(requestParameters.flowId, requestParameters.xBSettlementFlowExecutionRequestBody, requestOptions);
     }
 
     /**
@@ -568,8 +625,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public getXBSettlementConfigById(requestParameters: PaymentsCrossBorderSettlementApiGetXBSettlementConfigByIdRequest, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).getXBSettlementConfigById(requestParameters.configId, );
+     public getXBSettlementConfigById(requestParameters: PaymentsCrossBorderSettlementApiGetXBSettlementConfigByIdRequest,  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).getXBSettlementConfigById(requestParameters.configId, requestOptions);
     }
 
     /**
@@ -579,8 +636,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public getXBSettlementConfigs() {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).getXBSettlementConfigs();
+     public getXBSettlementConfigs( requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).getXBSettlementConfigs(requestOptions);
     }
 
     /**
@@ -591,8 +648,8 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public getXBSettlementFlowById(requestParameters: PaymentsCrossBorderSettlementApiGetXBSettlementFlowByIdRequest, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).getXBSettlementFlowById(requestParameters.flowId, );
+     public getXBSettlementFlowById(requestParameters: PaymentsCrossBorderSettlementApiGetXBSettlementFlowByIdRequest,  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).getXBSettlementFlowById(requestParameters.flowId, requestOptions);
     }
 
     /**
@@ -603,7 +660,7 @@ export class PaymentsCrossBorderSettlementApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsCrossBorderSettlementApi
      */
-    public updateXBSettlementConfig(requestParameters: PaymentsCrossBorderSettlementApiUpdateXBSettlementConfigRequest, ) {
-        return PaymentsCrossBorderSettlementApiFp(this.httpClient).updateXBSettlementConfig(requestParameters.configId, requestParameters.xBSettlementConfigEditRequestBody, );
+     public updateXBSettlementConfig(requestParameters: PaymentsCrossBorderSettlementApiUpdateXBSettlementConfigRequest,  requestOptions?: RequestOptions) {
+        return PaymentsCrossBorderSettlementApiFp(this.httpClient).updateXBSettlementConfig(requestParameters.configId, requestParameters.xBSettlementConfigEditRequestBody, requestOptions);
     }
 }

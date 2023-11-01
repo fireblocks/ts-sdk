@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -43,7 +44,7 @@ import { RespondToConnectionRequest } from '../models';
  * Web3ConnectionsApi - axios parameter creator
  * @export
  */
-export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Initiate a new Web3 connection.  * Note: After this succeeds, make a request to `PUT /v1/connections/wc/{id}` (below) to approve or reject the new Web3 connection.
@@ -52,7 +53,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create: async (createConnectionRequest: CreateConnectionRequest, ): Promise<AxiosRequestConfig> => {
+        create: async (createConnectionRequest: CreateConnectionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'createConnectionRequest' is not null or undefined
             assertParamExists('create', 'createConnectionRequest', createConnectionRequest)
             const localVarPath = `/connections/wc`;
@@ -63,14 +64,21 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createConnectionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -87,7 +95,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get: async (order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string, ): Promise<AxiosRequestConfig> => {
+        get: async (order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -95,7 +103,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (order !== undefined) {
                 localVarQueryParameter['order'] = order;
             }
@@ -119,8 +126,16 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -133,7 +148,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        remove: async (id: string, ): Promise<AxiosRequestConfig> => {
+        remove: async (id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('remove', 'id', id)
             const localVarPath = `/connections/wc/{id}`
@@ -145,11 +160,18 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -163,7 +185,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submit: async (respondToConnectionRequest: RespondToConnectionRequest, id: string, ): Promise<AxiosRequestConfig> => {
+        submit: async (respondToConnectionRequest: RespondToConnectionRequest, id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'respondToConnectionRequest' is not null or undefined
             assertParamExists('submit', 'respondToConnectionRequest', respondToConnectionRequest)
             // verify required parameter 'id' is not null or undefined
@@ -177,14 +199,21 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = respondToConnectionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -207,8 +236,8 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async create(createConnectionRequest: CreateConnectionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, );
+        async create(createConnectionRequest: CreateConnectionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -222,8 +251,8 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async get(order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.get(order, filter, sort, pageSize, next, );
+        async get(order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.get(order, filter, sort, pageSize, next, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -233,8 +262,8 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async remove(id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.remove(id, );
+        async remove(id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.remove(id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -245,8 +274,8 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.submit(respondToConnectionRequest, id, );
+        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.submit(respondToConnectionRequest, id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -358,8 +387,8 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public create(requestParameters: Web3ConnectionsApiCreateRequest, ) {
-        return Web3ConnectionsApiFp(this.httpClient).create(requestParameters.createConnectionRequest, );
+     public create(requestParameters: Web3ConnectionsApiCreateRequest,  requestOptions?: RequestOptions) {
+        return Web3ConnectionsApiFp(this.httpClient).create(requestParameters.createConnectionRequest, requestOptions);
     }
 
     /**
@@ -370,8 +399,8 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public get(requestParameters: Web3ConnectionsApiGetRequest = {}, ) {
-        return Web3ConnectionsApiFp(this.httpClient).get(requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next, );
+     public get(requestParameters: Web3ConnectionsApiGetRequest = {},  requestOptions?: RequestOptions) {
+        return Web3ConnectionsApiFp(this.httpClient).get(requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next, requestOptions);
     }
 
     /**
@@ -382,8 +411,8 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public remove(requestParameters: Web3ConnectionsApiRemoveRequest, ) {
-        return Web3ConnectionsApiFp(this.httpClient).remove(requestParameters.id, );
+     public remove(requestParameters: Web3ConnectionsApiRemoveRequest,  requestOptions?: RequestOptions) {
+        return Web3ConnectionsApiFp(this.httpClient).remove(requestParameters.id, requestOptions);
     }
 
     /**
@@ -394,7 +423,7 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof Web3ConnectionsApi
      */
-    public submit(requestParameters: Web3ConnectionsApiSubmitRequest, ) {
-        return Web3ConnectionsApiFp(this.httpClient).submit(requestParameters.respondToConnectionRequest, requestParameters.id, );
+     public submit(requestParameters: Web3ConnectionsApiSubmitRequest,  requestOptions?: RequestOptions) {
+        return Web3ConnectionsApiFp(this.httpClient).submit(requestParameters.respondToConnectionRequest, requestParameters.id, requestOptions);
     }
 }

@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -37,7 +38,7 @@ import { GasStationPropertiesResponse } from '../models';
  * GasStationsApi - axios parameter creator
  * @export
  */
-export const GasStationsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const GasStationsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Returns gas station settings and ETH balance.
@@ -45,7 +46,7 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGasStation: async (): Promise<AxiosRequestConfig> => {
+        getGasStation: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/gas_station`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -54,11 +55,18 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -71,7 +79,7 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getGasStationByAssetId: async (assetId: string, ): Promise<AxiosRequestConfig> => {
+        getGasStationByAssetId: async (assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'assetId' is not null or undefined
             assertParamExists('getGasStationByAssetId', 'assetId', assetId)
             const localVarPath = `/gas_station/{assetId}`
@@ -83,11 +91,18 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -100,7 +115,7 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateGasStationConfiguration: async (gasStationConfiguration: GasStationConfiguration, ): Promise<AxiosRequestConfig> => {
+        updateGasStationConfiguration: async (gasStationConfiguration: GasStationConfiguration,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'gasStationConfiguration' is not null or undefined
             assertParamExists('updateGasStationConfiguration', 'gasStationConfiguration', gasStationConfiguration)
             const localVarPath = `/gas_station/configuration`;
@@ -111,14 +126,21 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = gasStationConfiguration as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -132,7 +154,7 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateGasStationConfigurationByAssetId: async (gasStationConfiguration: GasStationConfiguration, assetId: string, ): Promise<AxiosRequestConfig> => {
+        updateGasStationConfigurationByAssetId: async (gasStationConfiguration: GasStationConfiguration, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'gasStationConfiguration' is not null or undefined
             assertParamExists('updateGasStationConfigurationByAssetId', 'gasStationConfiguration', gasStationConfiguration)
             // verify required parameter 'assetId' is not null or undefined
@@ -146,14 +168,21 @@ export const GasStationsApiAxiosParamCreator = function (configuration?: Configu
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = gasStationConfiguration as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -175,8 +204,8 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGasStation(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GasStationPropertiesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getGasStation();
+        async getGasStation( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GasStationPropertiesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGasStation(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -186,8 +215,8 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGasStationByAssetId(assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GasStationPropertiesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getGasStationByAssetId(assetId, );
+        async getGasStationByAssetId(assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GasStationPropertiesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getGasStationByAssetId(assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -197,8 +226,8 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateGasStationConfiguration(gasStationConfiguration: GasStationConfiguration, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfiguration(gasStationConfiguration, );
+        async updateGasStationConfiguration(gasStationConfiguration: GasStationConfiguration,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfiguration(gasStationConfiguration, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -209,8 +238,8 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateGasStationConfigurationByAssetId(gasStationConfiguration: GasStationConfiguration, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, );
+        async updateGasStationConfigurationByAssetId(gasStationConfiguration: GasStationConfiguration, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -279,8 +308,8 @@ export class GasStationsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GasStationsApi
      */
-    public getGasStation() {
-        return GasStationsApiFp(this.httpClient).getGasStation();
+     public getGasStation( requestOptions?: RequestOptions) {
+        return GasStationsApiFp(this.httpClient).getGasStation(requestOptions);
     }
 
     /**
@@ -291,8 +320,8 @@ export class GasStationsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GasStationsApi
      */
-    public getGasStationByAssetId(requestParameters: GasStationsApiGetGasStationByAssetIdRequest, ) {
-        return GasStationsApiFp(this.httpClient).getGasStationByAssetId(requestParameters.assetId, );
+     public getGasStationByAssetId(requestParameters: GasStationsApiGetGasStationByAssetIdRequest,  requestOptions?: RequestOptions) {
+        return GasStationsApiFp(this.httpClient).getGasStationByAssetId(requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -303,8 +332,8 @@ export class GasStationsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GasStationsApi
      */
-    public updateGasStationConfiguration(requestParameters: GasStationsApiUpdateGasStationConfigurationRequest, ) {
-        return GasStationsApiFp(this.httpClient).updateGasStationConfiguration(requestParameters.gasStationConfiguration, );
+     public updateGasStationConfiguration(requestParameters: GasStationsApiUpdateGasStationConfigurationRequest,  requestOptions?: RequestOptions) {
+        return GasStationsApiFp(this.httpClient).updateGasStationConfiguration(requestParameters.gasStationConfiguration, requestOptions);
     }
 
     /**
@@ -315,7 +344,7 @@ export class GasStationsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof GasStationsApi
      */
-    public updateGasStationConfigurationByAssetId(requestParameters: GasStationsApiUpdateGasStationConfigurationByAssetIdRequest, ) {
-        return GasStationsApiFp(this.httpClient).updateGasStationConfigurationByAssetId(requestParameters.gasStationConfiguration, requestParameters.assetId, );
+     public updateGasStationConfigurationByAssetId(requestParameters: GasStationsApiUpdateGasStationConfigurationByAssetIdRequest,  requestOptions?: RequestOptions) {
+        return GasStationsApiFp(this.httpClient).updateGasStationConfigurationByAssetId(requestParameters.gasStationConfiguration, requestParameters.assetId, requestOptions);
     }
 }

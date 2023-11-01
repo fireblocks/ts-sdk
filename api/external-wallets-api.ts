@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -43,7 +44,7 @@ import { UnmanagedWallet } from '../models';
  * ExternalWalletsApi - axios parameter creator
  * @export
  */
-export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Adds an asset to an existing external wallet.
@@ -54,7 +55,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAssetToExternalWallet: async (walletId: string, assetId: string, addAssetToExternalWalletRequest?: AddAssetToExternalWalletRequest, ): Promise<AxiosRequestConfig> => {
+        addAssetToExternalWallet: async (walletId: string, assetId: string, addAssetToExternalWalletRequest?: AddAssetToExternalWalletRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'walletId' is not null or undefined
             assertParamExists('addAssetToExternalWallet', 'walletId', walletId)
             // verify required parameter 'assetId' is not null or undefined
@@ -69,14 +70,21 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = addAssetToExternalWalletRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -89,7 +97,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createExternalWallet: async (createInternalWalletRequest?: CreateInternalWalletRequest, ): Promise<AxiosRequestConfig> => {
+        createExternalWallet: async (createInternalWalletRequest?: CreateInternalWalletRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/external_wallets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -98,14 +106,21 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createInternalWalletRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -118,7 +133,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteExternalWallet: async (walletId: string, ): Promise<AxiosRequestConfig> => {
+        deleteExternalWallet: async (walletId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'walletId' is not null or undefined
             assertParamExists('deleteExternalWallet', 'walletId', walletId)
             const localVarPath = `/external_wallets/{walletId}`
@@ -130,11 +145,18 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -148,7 +170,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetInExternalWallet: async (walletId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        getAssetInExternalWallet: async (walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'walletId' is not null or undefined
             assertParamExists('getAssetInExternalWallet', 'walletId', walletId)
             // verify required parameter 'assetId' is not null or undefined
@@ -163,11 +185,18 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -180,7 +209,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getExternalWalletById: async (walletId: string, ): Promise<AxiosRequestConfig> => {
+        getExternalWalletById: async (walletId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'walletId' is not null or undefined
             assertParamExists('getExternalWalletById', 'walletId', walletId)
             const localVarPath = `/external_wallets/{walletId}`
@@ -192,11 +221,18 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -208,7 +244,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getExternalWallets: async (): Promise<AxiosRequestConfig> => {
+        getExternalWallets: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/external_wallets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -217,11 +253,18 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -235,7 +278,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeAssetFromExternalWallet: async (walletId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        removeAssetFromExternalWallet: async (walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'walletId' is not null or undefined
             assertParamExists('removeAssetFromExternalWallet', 'walletId', walletId)
             // verify required parameter 'assetId' is not null or undefined
@@ -250,11 +293,18 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -268,7 +318,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForExternalWallet: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string, ): Promise<AxiosRequestConfig> => {
+        setCustomerRefIdForExternalWallet: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
             assertParamExists('setCustomerRefIdForExternalWallet', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
             // verify required parameter 'walletId' is not null or undefined
@@ -282,14 +332,21 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setCustomerRefIdForVaultAccountRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -314,8 +371,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addAssetToExternalWallet(walletId: string, assetId: string, addAssetToExternalWalletRequest?: AddAssetToExternalWalletRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExternalWalletAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, );
+        async addAssetToExternalWallet(walletId: string, assetId: string, addAssetToExternalWalletRequest?: AddAssetToExternalWalletRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExternalWalletAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addAssetToExternalWallet(walletId, assetId, addAssetToExternalWalletRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -325,8 +382,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createExternalWallet(createInternalWalletRequest?: CreateInternalWalletRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createExternalWallet(createInternalWalletRequest, );
+        async createExternalWallet(createInternalWalletRequest?: CreateInternalWalletRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createExternalWallet(createInternalWalletRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -336,8 +393,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteExternalWallet(walletId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteExternalWallet(walletId, );
+        async deleteExternalWallet(walletId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteExternalWallet(walletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -348,8 +405,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetInExternalWallet(walletId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExternalWalletAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetInExternalWallet(walletId, assetId, );
+        async getAssetInExternalWallet(walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExternalWalletAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetInExternalWallet(walletId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -359,8 +416,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExternalWalletById(walletId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getExternalWalletById(walletId, );
+        async getExternalWalletById(walletId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExternalWalletById(walletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -369,8 +426,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExternalWallets(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getExternalWallets();
+        async getExternalWallets( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExternalWallets(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -381,8 +438,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeAssetFromExternalWallet(walletId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.removeAssetFromExternalWallet(walletId, assetId, );
+        async removeAssetFromExternalWallet(walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeAssetFromExternalWallet(walletId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -393,8 +450,8 @@ export const ExternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest, walletId, );
+        async setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest, walletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -548,8 +605,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public addAssetToExternalWallet(requestParameters: ExternalWalletsApiAddAssetToExternalWalletRequest, ) {
-        return ExternalWalletsApiFp(this.httpClient).addAssetToExternalWallet(requestParameters.walletId, requestParameters.assetId, requestParameters.addAssetToExternalWalletRequest, );
+     public addAssetToExternalWallet(requestParameters: ExternalWalletsApiAddAssetToExternalWalletRequest,  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).addAssetToExternalWallet(requestParameters.walletId, requestParameters.assetId, requestParameters.addAssetToExternalWalletRequest, requestOptions);
     }
 
     /**
@@ -560,8 +617,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public createExternalWallet(requestParameters: ExternalWalletsApiCreateExternalWalletRequest = {}, ) {
-        return ExternalWalletsApiFp(this.httpClient).createExternalWallet(requestParameters.createInternalWalletRequest, );
+     public createExternalWallet(requestParameters: ExternalWalletsApiCreateExternalWalletRequest = {},  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).createExternalWallet(requestParameters.createInternalWalletRequest, requestOptions);
     }
 
     /**
@@ -572,8 +629,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public deleteExternalWallet(requestParameters: ExternalWalletsApiDeleteExternalWalletRequest, ) {
-        return ExternalWalletsApiFp(this.httpClient).deleteExternalWallet(requestParameters.walletId, );
+     public deleteExternalWallet(requestParameters: ExternalWalletsApiDeleteExternalWalletRequest,  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).deleteExternalWallet(requestParameters.walletId, requestOptions);
     }
 
     /**
@@ -584,8 +641,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public getAssetInExternalWallet(requestParameters: ExternalWalletsApiGetAssetInExternalWalletRequest, ) {
-        return ExternalWalletsApiFp(this.httpClient).getAssetInExternalWallet(requestParameters.walletId, requestParameters.assetId, );
+     public getAssetInExternalWallet(requestParameters: ExternalWalletsApiGetAssetInExternalWalletRequest,  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).getAssetInExternalWallet(requestParameters.walletId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -596,8 +653,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public getExternalWalletById(requestParameters: ExternalWalletsApiGetExternalWalletByIdRequest, ) {
-        return ExternalWalletsApiFp(this.httpClient).getExternalWalletById(requestParameters.walletId, );
+     public getExternalWalletById(requestParameters: ExternalWalletsApiGetExternalWalletByIdRequest,  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).getExternalWalletById(requestParameters.walletId, requestOptions);
     }
 
     /**
@@ -607,8 +664,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public getExternalWallets() {
-        return ExternalWalletsApiFp(this.httpClient).getExternalWallets();
+     public getExternalWallets( requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).getExternalWallets(requestOptions);
     }
 
     /**
@@ -619,8 +676,8 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public removeAssetFromExternalWallet(requestParameters: ExternalWalletsApiRemoveAssetFromExternalWalletRequest, ) {
-        return ExternalWalletsApiFp(this.httpClient).removeAssetFromExternalWallet(requestParameters.walletId, requestParameters.assetId, );
+     public removeAssetFromExternalWallet(requestParameters: ExternalWalletsApiRemoveAssetFromExternalWalletRequest,  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).removeAssetFromExternalWallet(requestParameters.walletId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -631,7 +688,7 @@ export class ExternalWalletsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public setCustomerRefIdForExternalWallet(requestParameters: ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest, ) {
-        return ExternalWalletsApiFp(this.httpClient).setCustomerRefIdForExternalWallet(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.walletId, );
+     public setCustomerRefIdForExternalWallet(requestParameters: ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest,  requestOptions?: RequestOptions) {
+        return ExternalWalletsApiFp(this.httpClient).setCustomerRefIdForExternalWallet(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.walletId, requestOptions);
     }
 }

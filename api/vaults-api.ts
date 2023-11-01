@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -65,7 +66,7 @@ import { VaultWalletAddress } from '../models';
  * VaultsApi - axios parameter creator
  * @export
  */
-export const VaultsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const VaultsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Initiates activation for a wallet in a vault account.
@@ -75,7 +76,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('activateAssetForVaultAccount', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -90,11 +91,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -109,7 +117,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLegacyAddressForVaultAccountAsset: async (vaultAccountId: string, assetId: string, addressId: string, ): Promise<AxiosRequestConfig> => {
+        createLegacyAddressForVaultAccountAsset: async (vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createLegacyAddressForVaultAccountAsset', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -127,11 +135,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -144,7 +159,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccount: async (createVaultAccountRequest: CreateVaultAccountRequest, ): Promise<AxiosRequestConfig> => {
+        createVaultAccount: async (createVaultAccountRequest: CreateVaultAccountRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'createVaultAccountRequest' is not null or undefined
             assertParamExists('createVaultAccount', 'createVaultAccountRequest', createVaultAccountRequest)
             const localVarPath = `/vault/accounts`;
@@ -155,14 +170,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createVaultAccountRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -177,7 +199,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest, ): Promise<AxiosRequestConfig> => {
+        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createVaultAccountAsset', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -192,14 +214,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createVaultAccountAssetRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -214,7 +243,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest, ): Promise<AxiosRequestConfig> => {
+        createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -229,14 +258,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createVaultAccountAssetAddressRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -253,7 +289,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetWallets: async (totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number, ): Promise<AxiosRequestConfig> => {
+        getAssetWallets: async (totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/vault/asset_wallets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -261,7 +297,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (totalAmountLargerThan !== undefined) {
                 localVarQueryParameter['totalAmountLargerThan'] = totalAmountLargerThan;
             }
@@ -285,8 +320,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -301,7 +344,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean, ): Promise<AxiosRequestConfig> => {
+        getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getMaxSpendableAmount', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -315,7 +358,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (manualSignging !== undefined) {
                 localVarQueryParameter['manualSignging'] = manualSignging;
             }
@@ -323,8 +365,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -344,7 +394,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number, ): Promise<AxiosRequestConfig> => {
+        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/vault/accounts_paged`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -352,7 +402,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (namePrefix !== undefined) {
                 localVarQueryParameter['namePrefix'] = namePrefix;
             }
@@ -388,8 +437,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -404,7 +461,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfo: async (derivationPath: string, algorithm: string, compressed?: boolean, ): Promise<AxiosRequestConfig> => {
+        getPublicKeyInfo: async (derivationPath: string, algorithm: string, compressed?: boolean,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'derivationPath' is not null or undefined
             assertParamExists('getPublicKeyInfo', 'derivationPath', derivationPath)
             // verify required parameter 'algorithm' is not null or undefined
@@ -416,7 +473,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (derivationPath !== undefined) {
                 localVarQueryParameter['derivationPath'] = derivationPath;
             }
@@ -432,8 +488,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -450,7 +514,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfoForAddress: async (vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, ): Promise<AxiosRequestConfig> => {
+        getPublicKeyInfoForAddress: async (vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getPublicKeyInfoForAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -470,7 +534,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (compressed !== undefined) {
                 localVarQueryParameter['compressed'] = compressed;
             }
@@ -478,8 +541,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -493,7 +564,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccountAsset: async (vaultAccountId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAccountAsset: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getVaultAccountAsset', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -508,11 +579,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -526,7 +604,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccountAssetAddresses: async (vaultAccountId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAccountAssetAddresses: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getVaultAccountAssetAddresses', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -541,11 +619,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -559,7 +644,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccountAssetUnspentInputs: async (vaultAccountId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAccountAssetUnspentInputs: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getVaultAccountAssetUnspentInputs', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -574,11 +659,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -591,7 +683,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccountById: async (vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAccountById: async (vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getVaultAccountById', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}`
@@ -603,11 +695,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -623,7 +722,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/vault/accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -631,7 +730,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (namePrefix !== undefined) {
                 localVarQueryParameter['namePrefix'] = namePrefix;
             }
@@ -651,8 +749,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -665,7 +771,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAssetById: async (assetId: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAssetById: async (assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'assetId' is not null or undefined
             assertParamExists('getVaultAssetById', 'assetId', assetId)
             const localVarPath = `/vault/assets/{assetId}`
@@ -677,11 +783,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -695,7 +808,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAssets: async (accountNamePrefix?: string, accountNameSuffix?: string, ): Promise<AxiosRequestConfig> => {
+        getVaultAssets: async (accountNamePrefix?: string, accountNameSuffix?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/vault/assets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -703,7 +816,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (accountNamePrefix !== undefined) {
                 localVarQueryParameter['accountNamePrefix'] = accountNamePrefix;
             }
@@ -715,8 +827,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -729,7 +849,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hideVaultAccount: async (vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        hideVaultAccount: async (vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('hideVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/hide`
@@ -741,11 +861,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -759,7 +886,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAutoFuelForVaultAccount: async (setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        setAutoFuelForVaultAccount: async (setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setAutoFuelForVaultAccountRequest' is not null or undefined
             assertParamExists('setAutoFuelForVaultAccount', 'setAutoFuelForVaultAccountRequest', setAutoFuelForVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -773,14 +900,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setAutoFuelForVaultAccountRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -794,7 +928,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForVaultAccount: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        setCustomerRefIdForVaultAccount: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
             assertParamExists('setCustomerRefIdForVaultAccount', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -808,14 +942,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setCustomerRefIdForVaultAccountRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -831,7 +972,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForVaultAccountAssetAddress: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string, ): Promise<AxiosRequestConfig> => {
+        setCustomerRefIdForVaultAccountAssetAddress: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
             assertParamExists('setCustomerRefIdForVaultAccountAssetAddress', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -851,14 +992,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setCustomerRefIdForVaultAccountRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -871,7 +1019,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unhideVaultAccount: async (vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        unhideVaultAccount: async (vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('unhideVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/unhide`
@@ -883,11 +1031,18 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -901,7 +1056,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccount: async (updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, ): Promise<AxiosRequestConfig> => {
+        updateVaultAccount: async (updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'updateVaultAccountRequest' is not null or undefined
             assertParamExists('updateVaultAccount', 'updateVaultAccountRequest', updateVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -915,14 +1070,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = updateVaultAccountRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -938,7 +1100,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, ): Promise<AxiosRequestConfig> => {
+        updateVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('updateVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -956,14 +1118,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = updateVaultAccountAssetAddressRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -978,7 +1147,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, body?: object, ): Promise<AxiosRequestConfig> => {
+        updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, body?: object,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('updateVaultAccountAssetBalance', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -993,14 +1162,21 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = body as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -1024,8 +1200,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, );
+        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1037,8 +1213,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createLegacyAddressForVaultAccountAsset(vaultAccountId: string, assetId: string, addressId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createLegacyAddressForVaultAccountAsset(vaultAccountId, assetId, addressId, );
+        async createLegacyAddressForVaultAccountAsset(vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createLegacyAddressForVaultAccountAsset(vaultAccountId, assetId, addressId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1048,8 +1224,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccount(createVaultAccountRequest: CreateVaultAccountRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccount(createVaultAccountRequest, );
+        async createVaultAccount(createVaultAccountRequest: CreateVaultAccountRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccount(createVaultAccountRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1061,8 +1237,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createVaultAccountAssetRequest, );
+        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createVaultAccountAssetRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1074,8 +1250,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createVaultAccountAssetAddressRequest, );
+        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createVaultAccountAssetAddressRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1089,8 +1265,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetWallets(totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedAssetWalletResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, before, after, limit, );
+        async getAssetWallets(totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedAssetWalletResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, before, after, limit, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1102,8 +1278,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, );
+        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1120,8 +1296,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, );
+        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1133,8 +1309,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfo(derivationPath: string, algorithm: string, compressed?: boolean, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfo(derivationPath, algorithm, compressed, );
+        async getPublicKeyInfo(derivationPath: string, algorithm: string, compressed?: boolean,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfo(derivationPath, algorithm, compressed, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1148,8 +1324,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfoForAddress(vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed, );
+        async getPublicKeyInfoForAddress(vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1160,8 +1336,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAsset(vaultAccountId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAsset(vaultAccountId, assetId, );
+        async getVaultAccountAsset(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAsset(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1172,8 +1348,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultWalletAddress>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, );
+        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultWalletAddress>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1184,8 +1360,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAssetUnspentInputs(vaultAccountId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnspentInputsResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetUnspentInputs(vaultAccountId, assetId, );
+        async getVaultAccountAssetUnspentInputs(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnspentInputsResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetUnspentInputs(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1195,8 +1371,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountById(vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountById(vaultAccountId, );
+        async getVaultAccountById(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountById(vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1209,8 +1385,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, );
+        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1220,8 +1396,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAssetById(assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssetById(assetId, );
+        async getVaultAssetById(assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssetById(assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1232,8 +1408,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAsset>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssets(accountNamePrefix, accountNameSuffix, );
+        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAsset>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssets(accountNamePrefix, accountNameSuffix, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1243,8 +1419,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hideVaultAccount(vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, );
+        async hideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1255,8 +1431,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, vaultAccountId, );
+        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1267,8 +1443,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, vaultAccountId, );
+        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1281,8 +1457,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest, vaultAccountId, assetId, addressId, );
+        async setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest, vaultAccountId, assetId, addressId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1292,8 +1468,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unhideVaultAccount(vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, );
+        async unhideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1304,8 +1480,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, );
+        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1318,8 +1494,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, );
+        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -1331,8 +1507,8 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, body, );
+        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, body, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -2011,8 +2187,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, );
+     public activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -2023,8 +2199,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public createLegacyAddressForVaultAccountAsset(requestParameters: VaultsApiCreateLegacyAddressForVaultAccountAssetRequest, ) {
-        return VaultsApiFp(this.httpClient).createLegacyAddressForVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, );
+     public createLegacyAddressForVaultAccountAsset(requestParameters: VaultsApiCreateLegacyAddressForVaultAccountAssetRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).createLegacyAddressForVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestOptions);
     }
 
     /**
@@ -2035,8 +2211,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public createVaultAccount(requestParameters: VaultsApiCreateVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).createVaultAccount(requestParameters.createVaultAccountRequest, );
+     public createVaultAccount(requestParameters: VaultsApiCreateVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).createVaultAccount(requestParameters.createVaultAccountRequest, requestOptions);
     }
 
     /**
@@ -2047,8 +2223,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest, ) {
-        return VaultsApiFp(this.httpClient).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, );
+     public createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, requestOptions);
     }
 
     /**
@@ -2059,8 +2235,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest, ) {
-        return VaultsApiFp(this.httpClient).createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, );
+     public createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, requestOptions);
     }
 
     /**
@@ -2071,8 +2247,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}, ) {
-        return VaultsApiFp(this.httpClient).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.before, requestParameters.after, requestParameters.limit, );
+     public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {},  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.before, requestParameters.after, requestParameters.limit, requestOptions);
     }
 
     /**
@@ -2083,8 +2259,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest, ) {
-        return VaultsApiFp(this.httpClient).getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, );
+     public getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, requestOptions);
     }
 
     /**
@@ -2095,8 +2271,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {}, ) {
-        return VaultsApiFp(this.httpClient).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, );
+     public getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {},  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, requestOptions);
     }
 
     /**
@@ -2107,8 +2283,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getPublicKeyInfo(requestParameters: VaultsApiGetPublicKeyInfoRequest, ) {
-        return VaultsApiFp(this.httpClient).getPublicKeyInfo(requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, );
+     public getPublicKeyInfo(requestParameters: VaultsApiGetPublicKeyInfoRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getPublicKeyInfo(requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, requestOptions);
     }
 
     /**
@@ -2119,8 +2295,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getPublicKeyInfoForAddress(requestParameters: VaultsApiGetPublicKeyInfoForAddressRequest, ) {
-        return VaultsApiFp(this.httpClient).getPublicKeyInfoForAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, );
+     public getPublicKeyInfoForAddress(requestParameters: VaultsApiGetPublicKeyInfoForAddressRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getPublicKeyInfoForAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, requestOptions);
     }
 
     /**
@@ -2131,8 +2307,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAccountAsset(requestParameters: VaultsApiGetVaultAccountAssetRequest, ) {
-        return VaultsApiFp(this.httpClient).getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, );
+     public getVaultAccountAsset(requestParameters: VaultsApiGetVaultAccountAssetRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -2143,8 +2319,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest, ) {
-        return VaultsApiFp(this.httpClient).getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId, );
+     public getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -2155,8 +2331,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAccountAssetUnspentInputs(requestParameters: VaultsApiGetVaultAccountAssetUnspentInputsRequest, ) {
-        return VaultsApiFp(this.httpClient).getVaultAccountAssetUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, );
+     public getVaultAccountAssetUnspentInputs(requestParameters: VaultsApiGetVaultAccountAssetUnspentInputsRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAccountAssetUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -2167,8 +2343,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAccountById(requestParameters: VaultsApiGetVaultAccountByIdRequest, ) {
-        return VaultsApiFp(this.httpClient).getVaultAccountById(requestParameters.vaultAccountId, );
+     public getVaultAccountById(requestParameters: VaultsApiGetVaultAccountByIdRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAccountById(requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -2179,8 +2355,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}, ) {
-        return VaultsApiFp(this.httpClient).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, );
+     public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {},  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -2191,8 +2367,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAssetById(requestParameters: VaultsApiGetVaultAssetByIdRequest, ) {
-        return VaultsApiFp(this.httpClient).getVaultAssetById(requestParameters.assetId, );
+     public getVaultAssetById(requestParameters: VaultsApiGetVaultAssetByIdRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAssetById(requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -2203,8 +2379,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {}, ) {
-        return VaultsApiFp(this.httpClient).getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix, );
+     public getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {},  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix, requestOptions);
     }
 
     /**
@@ -2215,8 +2391,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).hideVaultAccount(requestParameters.vaultAccountId, );
+     public hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).hideVaultAccount(requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -2227,8 +2403,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, );
+     public setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -2239,8 +2415,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, );
+     public setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -2251,8 +2427,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public setCustomerRefIdForVaultAccountAssetAddress(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountAssetAddressRequest, ) {
-        return VaultsApiFp(this.httpClient).setCustomerRefIdForVaultAccountAssetAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, );
+     public setCustomerRefIdForVaultAccountAssetAddress(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).setCustomerRefIdForVaultAccountAssetAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestOptions);
     }
 
     /**
@@ -2263,8 +2439,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).unhideVaultAccount(requestParameters.vaultAccountId, );
+     public unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).unhideVaultAccount(requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -2275,8 +2451,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest, ) {
-        return VaultsApiFp(this.httpClient).updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, );
+     public updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, requestOptions);
     }
 
     /**
@@ -2287,8 +2463,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest, ) {
-        return VaultsApiFp(this.httpClient).updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, );
+     public updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, requestOptions);
     }
 
     /**
@@ -2299,7 +2475,7 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest, ) {
-        return VaultsApiFp(this.httpClient).updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, );
+     public updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest,  requestOptions?: RequestOptions) {
+        return VaultsApiFp(this.httpClient).updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, requestOptions);
     }
 }

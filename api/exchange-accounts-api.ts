@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -41,7 +42,7 @@ import { ExchangeAsset } from '../models';
  * ExchangeAccountsApi - axios parameter creator
  * @export
  */
-export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * 
@@ -51,7 +52,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        convertAssets: async (exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, ): Promise<AxiosRequestConfig> => {
+        convertAssets: async (exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'exchangeAccountId' is not null or undefined
             assertParamExists('convertAssets', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/convert`
@@ -63,14 +64,21 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = convertAssetsRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -84,7 +92,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getExchangeAccountAsset: async (exchangeAccountId: string, assetId: string, ): Promise<AxiosRequestConfig> => {
+        getExchangeAccountAsset: async (exchangeAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'exchangeAccountId' is not null or undefined
             assertParamExists('getExchangeAccountAsset', 'exchangeAccountId', exchangeAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -99,11 +107,18 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -116,7 +131,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getExchangeAccountById: async (exchangeAccountId: string, ): Promise<AxiosRequestConfig> => {
+        getExchangeAccountById: async (exchangeAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'exchangeAccountId' is not null or undefined
             assertParamExists('getExchangeAccountById', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}`
@@ -128,11 +143,18 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -144,7 +166,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getExchangeAccounts: async (): Promise<AxiosRequestConfig> => {
+        getExchangeAccounts: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/exchange_accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -153,11 +175,18 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -171,7 +200,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        internalTransfer: async (exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest, ): Promise<AxiosRequestConfig> => {
+        internalTransfer: async (exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'exchangeAccountId' is not null or undefined
             assertParamExists('internalTransfer', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/internal_transfer`
@@ -183,14 +212,21 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createInternalTransferRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -214,8 +250,8 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.convertAssets(exchangeAccountId, convertAssetsRequest, );
+        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.convertAssets(exchangeAccountId, convertAssetsRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -226,8 +262,8 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExchangeAccountAsset(exchangeAccountId: string, assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountAsset(exchangeAccountId, assetId, );
+        async getExchangeAccountAsset(exchangeAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountAsset(exchangeAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -237,8 +273,8 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExchangeAccountById(exchangeAccountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAccount>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountById(exchangeAccountId, );
+        async getExchangeAccountById(exchangeAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountById(exchangeAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -247,8 +283,8 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExchangeAccounts(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExchangeAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccounts();
+        async getExchangeAccounts( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExchangeAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccounts(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -259,8 +295,8 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async internalTransfer(exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.internalTransfer(exchangeAccountId, createInternalTransferRequest, );
+        async internalTransfer(exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.internalTransfer(exchangeAccountId, createInternalTransferRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -358,8 +394,8 @@ export class ExchangeAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExchangeAccountsApi
      */
-    public convertAssets(requestParameters: ExchangeAccountsApiConvertAssetsRequest, ) {
-        return ExchangeAccountsApiFp(this.httpClient).convertAssets(requestParameters.exchangeAccountId, requestParameters.convertAssetsRequest, );
+     public convertAssets(requestParameters: ExchangeAccountsApiConvertAssetsRequest,  requestOptions?: RequestOptions) {
+        return ExchangeAccountsApiFp(this.httpClient).convertAssets(requestParameters.exchangeAccountId, requestParameters.convertAssetsRequest, requestOptions);
     }
 
     /**
@@ -370,8 +406,8 @@ export class ExchangeAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExchangeAccountsApi
      */
-    public getExchangeAccountAsset(requestParameters: ExchangeAccountsApiGetExchangeAccountAssetRequest, ) {
-        return ExchangeAccountsApiFp(this.httpClient).getExchangeAccountAsset(requestParameters.exchangeAccountId, requestParameters.assetId, );
+     public getExchangeAccountAsset(requestParameters: ExchangeAccountsApiGetExchangeAccountAssetRequest,  requestOptions?: RequestOptions) {
+        return ExchangeAccountsApiFp(this.httpClient).getExchangeAccountAsset(requestParameters.exchangeAccountId, requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -382,8 +418,8 @@ export class ExchangeAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExchangeAccountsApi
      */
-    public getExchangeAccountById(requestParameters: ExchangeAccountsApiGetExchangeAccountByIdRequest, ) {
-        return ExchangeAccountsApiFp(this.httpClient).getExchangeAccountById(requestParameters.exchangeAccountId, );
+     public getExchangeAccountById(requestParameters: ExchangeAccountsApiGetExchangeAccountByIdRequest,  requestOptions?: RequestOptions) {
+        return ExchangeAccountsApiFp(this.httpClient).getExchangeAccountById(requestParameters.exchangeAccountId, requestOptions);
     }
 
     /**
@@ -393,8 +429,8 @@ export class ExchangeAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExchangeAccountsApi
      */
-    public getExchangeAccounts() {
-        return ExchangeAccountsApiFp(this.httpClient).getExchangeAccounts();
+     public getExchangeAccounts( requestOptions?: RequestOptions) {
+        return ExchangeAccountsApiFp(this.httpClient).getExchangeAccounts(requestOptions);
     }
 
     /**
@@ -405,7 +441,7 @@ export class ExchangeAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ExchangeAccountsApi
      */
-    public internalTransfer(requestParameters: ExchangeAccountsApiInternalTransferRequest, ) {
-        return ExchangeAccountsApiFp(this.httpClient).internalTransfer(requestParameters.exchangeAccountId, requestParameters.createInternalTransferRequest, );
+     public internalTransfer(requestParameters: ExchangeAccountsApiInternalTransferRequest,  requestOptions?: RequestOptions) {
+        return ExchangeAccountsApiFp(this.httpClient).internalTransfer(requestParameters.exchangeAccountId, requestParameters.createInternalTransferRequest, requestOptions);
     }
 }

@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -35,7 +36,7 @@ import { AssetTypeResponse } from '../models';
  * BlockchainsAssetsApi - axios parameter creator
  * @export
  */
-export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Returns all asset types supported by Fireblocks.
@@ -43,7 +44,7 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSupportedAssets: async (): Promise<AxiosRequestConfig> => {
+        getSupportedAssets: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/supported_assets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -52,11 +53,18 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -78,8 +86,8 @@ export const BlockchainsAssetsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportedAssets(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssetTypeResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportedAssets();
+        async getSupportedAssets( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssetTypeResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportedAssets(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -99,7 +107,7 @@ export class BlockchainsAssetsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BlockchainsAssetsApi
      */
-    public getSupportedAssets() {
-        return BlockchainsAssetsApiFp(this.httpClient).getSupportedAssets();
+     public getSupportedAssets( requestOptions?: RequestOptions) {
+        return BlockchainsAssetsApiFp(this.httpClient).getSupportedAssets(requestOptions);
     }
 }

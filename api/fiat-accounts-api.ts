@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -37,7 +38,7 @@ import { RedeemFundsToLinkedDDARequest } from '../models';
  * FiatAccountsApi - axios parameter creator
  * @export
  */
-export const FiatAccountsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const FiatAccountsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Deposits funds from the linked DDA.
@@ -47,7 +48,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        depositFundsFromLinkedDDA: async (accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest, ): Promise<AxiosRequestConfig> => {
+        depositFundsFromLinkedDDA: async (accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('depositFundsFromLinkedDDA', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}/deposit_from_linked_dda`
@@ -59,14 +60,21 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = redeemFundsToLinkedDDARequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -79,7 +87,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFiatAccountById: async (accountId: string, ): Promise<AxiosRequestConfig> => {
+        getFiatAccountById: async (accountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('getFiatAccountById', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}`
@@ -91,11 +99,18 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -107,7 +122,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFiatAccounts: async (): Promise<AxiosRequestConfig> => {
+        getFiatAccounts: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/fiat_accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -116,11 +131,18 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -134,7 +156,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        redeemFundsToLinkedDDA: async (accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest, ): Promise<AxiosRequestConfig> => {
+        redeemFundsToLinkedDDA: async (accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('redeemFundsToLinkedDDA', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}/redeem_to_linked_dda`
@@ -146,14 +168,21 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = redeemFundsToLinkedDDARequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -177,8 +206,8 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async depositFundsFromLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.depositFundsFromLinkedDDA(accountId, redeemFundsToLinkedDDARequest, );
+        async depositFundsFromLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.depositFundsFromLinkedDDA(accountId, redeemFundsToLinkedDDARequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -188,8 +217,8 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFiatAccountById(accountId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FiatAccount>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccountById(accountId, );
+        async getFiatAccountById(accountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FiatAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccountById(accountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -198,8 +227,8 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFiatAccounts(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FiatAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccounts();
+        async getFiatAccounts( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FiatAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccounts(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -210,8 +239,8 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async redeemFundsToLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.redeemFundsToLinkedDDA(accountId, redeemFundsToLinkedDDARequest, );
+        async redeemFundsToLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.redeemFundsToLinkedDDA(accountId, redeemFundsToLinkedDDARequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -288,8 +317,8 @@ export class FiatAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FiatAccountsApi
      */
-    public depositFundsFromLinkedDDA(requestParameters: FiatAccountsApiDepositFundsFromLinkedDDARequest, ) {
-        return FiatAccountsApiFp(this.httpClient).depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.redeemFundsToLinkedDDARequest, );
+     public depositFundsFromLinkedDDA(requestParameters: FiatAccountsApiDepositFundsFromLinkedDDARequest,  requestOptions?: RequestOptions) {
+        return FiatAccountsApiFp(this.httpClient).depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.redeemFundsToLinkedDDARequest, requestOptions);
     }
 
     /**
@@ -300,8 +329,8 @@ export class FiatAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FiatAccountsApi
      */
-    public getFiatAccountById(requestParameters: FiatAccountsApiGetFiatAccountByIdRequest, ) {
-        return FiatAccountsApiFp(this.httpClient).getFiatAccountById(requestParameters.accountId, );
+     public getFiatAccountById(requestParameters: FiatAccountsApiGetFiatAccountByIdRequest,  requestOptions?: RequestOptions) {
+        return FiatAccountsApiFp(this.httpClient).getFiatAccountById(requestParameters.accountId, requestOptions);
     }
 
     /**
@@ -311,8 +340,8 @@ export class FiatAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FiatAccountsApi
      */
-    public getFiatAccounts() {
-        return FiatAccountsApiFp(this.httpClient).getFiatAccounts();
+     public getFiatAccounts( requestOptions?: RequestOptions) {
+        return FiatAccountsApiFp(this.httpClient).getFiatAccounts(requestOptions);
     }
 
     /**
@@ -323,7 +352,7 @@ export class FiatAccountsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof FiatAccountsApi
      */
-    public redeemFundsToLinkedDDA(requestParameters: FiatAccountsApiRedeemFundsToLinkedDDARequest, ) {
-        return FiatAccountsApiFp(this.httpClient).redeemFundsToLinkedDDA(requestParameters.accountId, requestParameters.redeemFundsToLinkedDDARequest, );
+     public redeemFundsToLinkedDDA(requestParameters: FiatAccountsApiRedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions) {
+        return FiatAccountsApiFp(this.httpClient).redeemFundsToLinkedDDA(requestParameters.accountId, requestParameters.redeemFundsToLinkedDDARequest, requestOptions);
     }
 }

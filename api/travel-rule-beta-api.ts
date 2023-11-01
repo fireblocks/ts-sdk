@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -45,7 +46,7 @@ import { TravelRuleValidateTransactionResponse } from '../models';
  * TravelRuleBetaApi - axios parameter creator
  * @export
  */
-export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Get VASP Details.  Returns information about a VASP that has the specified DID.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
@@ -55,7 +56,7 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVASPByDID: async (did: string, fields?: string, ): Promise<AxiosRequestConfig> => {
+        getVASPByDID: async (did: string, fields?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'did' is not null or undefined
             assertParamExists('getVASPByDID', 'did', did)
             const localVarPath = `/screening/travel_rule/vasp/{did}`
@@ -66,7 +67,6 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (fields !== undefined) {
                 localVarQueryParameter['fields'] = fields;
             }
@@ -74,8 +74,16 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -91,7 +99,7 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVASPs: async (order?: string, perPage?: number, page?: number, fields?: string, ): Promise<AxiosRequestConfig> => {
+        getVASPs: async (order?: string, perPage?: number, page?: number, fields?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/screening/travel_rule/vasp`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -99,7 +107,6 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (order !== undefined) {
                 localVarQueryParameter['order'] = order;
             }
@@ -119,8 +126,16 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -133,7 +148,7 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        travelRuleApiControllerUpdateVasp: async (travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails, ): Promise<AxiosRequestConfig> => {
+        travelRuleApiControllerUpdateVasp: async (travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'travelRuleUpdateVASPDetails' is not null or undefined
             assertParamExists('travelRuleApiControllerUpdateVasp', 'travelRuleUpdateVASPDetails', travelRuleUpdateVASPDetails)
             const localVarPath = `/screeening/travel_rule/vasp/update`;
@@ -144,14 +159,21 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = travelRuleUpdateVASPDetails as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -164,7 +186,7 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateFullTravelRuleTransaction: async (travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest, ): Promise<AxiosRequestConfig> => {
+        validateFullTravelRuleTransaction: async (travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'travelRuleValidateFullTransactionRequest' is not null or undefined
             assertParamExists('validateFullTravelRuleTransaction', 'travelRuleValidateFullTransactionRequest', travelRuleValidateFullTransactionRequest)
             const localVarPath = `/screening/travel_rule/transaction/validate/full`;
@@ -175,14 +197,21 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = travelRuleValidateFullTransactionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -195,7 +224,7 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateTravelRuleTransaction: async (travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, ): Promise<AxiosRequestConfig> => {
+        validateTravelRuleTransaction: async (travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'travelRuleValidateTransactionRequest' is not null or undefined
             assertParamExists('validateTravelRuleTransaction', 'travelRuleValidateTransactionRequest', travelRuleValidateTransactionRequest)
             const localVarPath = `/screening/travel_rule/transaction/validate`;
@@ -206,14 +235,21 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = travelRuleValidateTransactionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -237,8 +273,8 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVASPByDID(did: string, fields?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleVASP>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPByDID(did, fields, );
+        async getVASPByDID(did: string, fields?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleVASP>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPByDID(did, fields, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -251,8 +287,8 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVASPs(order?: string, perPage?: number, page?: number, fields?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleGetAllVASPsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPs(order, perPage, page, fields, );
+        async getVASPs(order?: string, perPage?: number, page?: number, fields?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleGetAllVASPsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPs(order, perPage, page, fields, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -262,8 +298,8 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleUpdateVASPDetails>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails, );
+        async travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleUpdateVASPDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -273,8 +309,8 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, );
+        async validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -284,8 +320,8 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, );
+        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -404,8 +440,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-    public getVASPByDID(requestParameters: TravelRuleBetaApiGetVASPByDIDRequest, ) {
-        return TravelRuleBetaApiFp(this.httpClient).getVASPByDID(requestParameters.did, requestParameters.fields, );
+     public getVASPByDID(requestParameters: TravelRuleBetaApiGetVASPByDIDRequest,  requestOptions?: RequestOptions) {
+        return TravelRuleBetaApiFp(this.httpClient).getVASPByDID(requestParameters.did, requestParameters.fields, requestOptions);
     }
 
     /**
@@ -416,8 +452,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-    public getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {}, ) {
-        return TravelRuleBetaApiFp(this.httpClient).getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields, );
+     public getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {},  requestOptions?: RequestOptions) {
+        return TravelRuleBetaApiFp(this.httpClient).getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields, requestOptions);
     }
 
     /**
@@ -428,8 +464,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-    public travelRuleApiControllerUpdateVasp(requestParameters: TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest, ) {
-        return TravelRuleBetaApiFp(this.httpClient).travelRuleApiControllerUpdateVasp(requestParameters.travelRuleUpdateVASPDetails, );
+     public travelRuleApiControllerUpdateVasp(requestParameters: TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest,  requestOptions?: RequestOptions) {
+        return TravelRuleBetaApiFp(this.httpClient).travelRuleApiControllerUpdateVasp(requestParameters.travelRuleUpdateVASPDetails, requestOptions);
     }
 
     /**
@@ -440,8 +476,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-    public validateFullTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateFullTravelRuleTransactionRequest, ) {
-        return TravelRuleBetaApiFp(this.httpClient).validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, );
+     public validateFullTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateFullTravelRuleTransactionRequest,  requestOptions?: RequestOptions) {
+        return TravelRuleBetaApiFp(this.httpClient).validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, requestOptions);
     }
 
     /**
@@ -452,7 +488,7 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-    public validateTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateTravelRuleTransactionRequest, ) {
-        return TravelRuleBetaApiFp(this.httpClient).validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, );
+     public validateTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateTravelRuleTransactionRequest,  requestOptions?: RequestOptions) {
+        return TravelRuleBetaApiFp(this.httpClient).validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, requestOptions);
     }
 }

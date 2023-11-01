@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -43,7 +44,7 @@ import { UsersGroupResponse } from '../models';
  * UsersGroupsBetaApi - axios parameter creator
  * @export
  */
-export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Create a new users group.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
@@ -52,7 +53,7 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createUserGroup: async (userGroupCreateRequest: UserGroupCreateRequest, ): Promise<AxiosRequestConfig> => {
+        createUserGroup: async (userGroupCreateRequest: UserGroupCreateRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'userGroupCreateRequest' is not null or undefined
             assertParamExists('createUserGroup', 'userGroupCreateRequest', userGroupCreateRequest)
             const localVarPath = `/users_groups`;
@@ -63,14 +64,21 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = userGroupCreateRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -83,7 +91,7 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteUserGroup: async (groupId: string, ): Promise<AxiosRequestConfig> => {
+        deleteUserGroup: async (groupId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'groupId' is not null or undefined
             assertParamExists('deleteUserGroup', 'groupId', groupId)
             const localVarPath = `/users_groups/{groupId}`
@@ -95,11 +103,18 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -112,7 +127,7 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserGroup: async (groupId: string, ): Promise<AxiosRequestConfig> => {
+        getUserGroup: async (groupId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'groupId' is not null or undefined
             assertParamExists('getUserGroup', 'groupId', groupId)
             const localVarPath = `/users_groups/{groupId}`
@@ -124,11 +139,18 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -140,7 +162,7 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserGroups: async (): Promise<AxiosRequestConfig> => {
+        getUserGroups: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/users_groups`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -149,11 +171,18 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -167,7 +196,7 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUserGroup: async (userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string, ): Promise<AxiosRequestConfig> => {
+        updateUserGroup: async (userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'userGroupUpdateRequest' is not null or undefined
             assertParamExists('updateUserGroup', 'userGroupUpdateRequest', userGroupUpdateRequest)
             // verify required parameter 'groupId' is not null or undefined
@@ -181,14 +210,21 @@ export const UsersGroupsBetaApiAxiosParamCreator = function (configuration?: Con
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = userGroupUpdateRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -211,8 +247,8 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createUserGroup(userGroupCreateRequest: UserGroupCreateRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUsersGroupResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createUserGroup(userGroupCreateRequest, );
+        async createUserGroup(userGroupCreateRequest: UserGroupCreateRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUsersGroupResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createUserGroup(userGroupCreateRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -222,8 +258,8 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteUserGroup(groupId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUserGroup(groupId, );
+        async deleteUserGroup(groupId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUserGroup(groupId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -233,8 +269,8 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserGroup(groupId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersGroupResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroup(groupId, );
+        async getUserGroup(groupId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersGroupResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroup(groupId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -243,8 +279,8 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserGroups(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UsersGroupResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroups();
+        async getUserGroups( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UsersGroupResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroups(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -255,8 +291,8 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserGroup(userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroupCreateResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserGroup(userGroupUpdateRequest, groupId, );
+        async updateUserGroup(userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroupCreateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserGroup(userGroupUpdateRequest, groupId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -340,8 +376,8 @@ export class UsersGroupsBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersGroupsBetaApi
      */
-    public createUserGroup(requestParameters: UsersGroupsBetaApiCreateUserGroupRequest, ) {
-        return UsersGroupsBetaApiFp(this.httpClient).createUserGroup(requestParameters.userGroupCreateRequest, );
+     public createUserGroup(requestParameters: UsersGroupsBetaApiCreateUserGroupRequest,  requestOptions?: RequestOptions) {
+        return UsersGroupsBetaApiFp(this.httpClient).createUserGroup(requestParameters.userGroupCreateRequest, requestOptions);
     }
 
     /**
@@ -352,8 +388,8 @@ export class UsersGroupsBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersGroupsBetaApi
      */
-    public deleteUserGroup(requestParameters: UsersGroupsBetaApiDeleteUserGroupRequest, ) {
-        return UsersGroupsBetaApiFp(this.httpClient).deleteUserGroup(requestParameters.groupId, );
+     public deleteUserGroup(requestParameters: UsersGroupsBetaApiDeleteUserGroupRequest,  requestOptions?: RequestOptions) {
+        return UsersGroupsBetaApiFp(this.httpClient).deleteUserGroup(requestParameters.groupId, requestOptions);
     }
 
     /**
@@ -364,8 +400,8 @@ export class UsersGroupsBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersGroupsBetaApi
      */
-    public getUserGroup(requestParameters: UsersGroupsBetaApiGetUserGroupRequest, ) {
-        return UsersGroupsBetaApiFp(this.httpClient).getUserGroup(requestParameters.groupId, );
+     public getUserGroup(requestParameters: UsersGroupsBetaApiGetUserGroupRequest,  requestOptions?: RequestOptions) {
+        return UsersGroupsBetaApiFp(this.httpClient).getUserGroup(requestParameters.groupId, requestOptions);
     }
 
     /**
@@ -375,8 +411,8 @@ export class UsersGroupsBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersGroupsBetaApi
      */
-    public getUserGroups() {
-        return UsersGroupsBetaApiFp(this.httpClient).getUserGroups();
+     public getUserGroups( requestOptions?: RequestOptions) {
+        return UsersGroupsBetaApiFp(this.httpClient).getUserGroups(requestOptions);
     }
 
     /**
@@ -387,7 +423,7 @@ export class UsersGroupsBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof UsersGroupsBetaApi
      */
-    public updateUserGroup(requestParameters: UsersGroupsBetaApiUpdateUserGroupRequest, ) {
-        return UsersGroupsBetaApiFp(this.httpClient).updateUserGroup(requestParameters.userGroupUpdateRequest, requestParameters.groupId, );
+     public updateUserGroup(requestParameters: UsersGroupsBetaApiUpdateUserGroupRequest,  requestOptions?: RequestOptions) {
+        return UsersGroupsBetaApiFp(this.httpClient).updateUserGroup(requestParameters.userGroupUpdateRequest, requestParameters.groupId, requestOptions);
     }
 }

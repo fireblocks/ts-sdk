@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -59,7 +60,7 @@ import { ValidateAddressResponse } from '../models';
  * TransactionsApi - axios parameter creator
  * @export
  */
-export const TransactionsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const TransactionsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Cancels a transaction by ID.
@@ -68,7 +69,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelTransaction: async (txId: string, ): Promise<AxiosRequestConfig> => {
+        cancelTransaction: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('cancelTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/cancel`
@@ -80,11 +81,18 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -97,7 +105,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createTransaction: async (transactionRequest?: TransactionRequest, ): Promise<AxiosRequestConfig> => {
+        createTransaction: async (transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -106,14 +114,25 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = transactionRequest as any;
+            if (localVarRequestOptions.data?.source?.type === 'END_USER_WALLET' && !requestOptions?.ncw?.walletId) {
+                const { walletId } = localVarRequestOptions.data?.source;
+                requestOptions.ncw = { ...requestOptions.ncw, walletId };
+            }
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -127,7 +146,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dropTransaction: async (txId: string, dropTransactionRequest?: DropTransactionRequest, ): Promise<AxiosRequestConfig> => {
+        dropTransaction: async (txId: string, dropTransactionRequest?: DropTransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('dropTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/drop`
@@ -139,14 +158,21 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = dropTransactionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -159,7 +185,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        estimateNetworkFee: async (assetId: string, ): Promise<AxiosRequestConfig> => {
+        estimateNetworkFee: async (assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'assetId' is not null or undefined
             assertParamExists('estimateNetworkFee', 'assetId', assetId)
             const localVarPath = `/estimate_network_fee`;
@@ -169,7 +195,6 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (assetId !== undefined) {
                 localVarQueryParameter['assetId'] = assetId;
             }
@@ -177,8 +202,16 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -191,7 +224,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        estimateTransactionFee: async (transactionRequest?: TransactionRequest, ): Promise<AxiosRequestConfig> => {
+        estimateTransactionFee: async (transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/transactions/estimate_fee`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -200,14 +233,21 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = transactionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -220,7 +260,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        freezeTransaction: async (txId: string, ): Promise<AxiosRequestConfig> => {
+        freezeTransaction: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('freezeTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/freeze`
@@ -232,11 +272,18 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -249,7 +296,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactionByExternalId: async (externalTxId: string, ): Promise<AxiosRequestConfig> => {
+        getTransactionByExternalId: async (externalTxId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'externalTxId' is not null or undefined
             assertParamExists('getTransactionByExternalId', 'externalTxId', externalTxId)
             const localVarPath = `/transactions/external_tx_id/{externalTxId}/`
@@ -261,11 +308,18 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -278,7 +332,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactionById: async (txId: string, ): Promise<AxiosRequestConfig> => {
+        getTransactionById: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('getTransactionById', 'txId', txId)
             const localVarPath = `/transactions/{txId}`
@@ -290,11 +344,18 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -320,7 +381,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, ): Promise<AxiosRequestConfig> => {
+        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -328,7 +389,6 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (before !== undefined) {
                 localVarQueryParameter['before'] = before;
             }
@@ -388,8 +448,16 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -403,7 +471,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setConfirmationThresholdForTransaction: async (txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, ): Promise<AxiosRequestConfig> => {
+        setConfirmationThresholdForTransaction: async (txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('setConfirmationThresholdForTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/set_confirmation_threshold`
@@ -415,14 +483,21 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setConfirmationsThresholdRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -436,7 +511,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setConfirmationThresholdForTransactionByHash: async (txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, ): Promise<AxiosRequestConfig> => {
+        setConfirmationThresholdForTransactionByHash: async (txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txHash' is not null or undefined
             assertParamExists('setConfirmationThresholdForTransactionByHash', 'txHash', txHash)
             const localVarPath = `/txHash/{txHash}/set_confirmation_threshold`
@@ -448,14 +523,21 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setConfirmationsThresholdRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -468,7 +550,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unfreezeTransaction: async (txId: string, ): Promise<AxiosRequestConfig> => {
+        unfreezeTransaction: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('unfreezeTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/unfreeze`
@@ -480,11 +562,18 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -498,7 +587,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateAddress: async (assetId: string, address: string, ): Promise<AxiosRequestConfig> => {
+        validateAddress: async (assetId: string, address: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'assetId' is not null or undefined
             assertParamExists('validateAddress', 'assetId', assetId)
             // verify required parameter 'address' is not null or undefined
@@ -513,11 +602,18 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -540,8 +636,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cancelTransaction(txId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CancelTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTransaction(txId, );
+        async cancelTransaction(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CancelTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTransaction(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -551,8 +647,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createTransaction(transactionRequest?: TransactionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createTransaction(transactionRequest, );
+        async createTransaction(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTransaction(transactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -563,8 +659,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dropTransaction(txId: string, dropTransactionRequest?: DropTransactionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DropTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.dropTransaction(txId, dropTransactionRequest, );
+        async dropTransaction(txId: string, dropTransactionRequest?: DropTransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DropTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.dropTransaction(txId, dropTransactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -574,8 +670,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async estimateNetworkFee(assetId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedNetworkFeeResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateNetworkFee(assetId, );
+        async estimateNetworkFee(assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedNetworkFeeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateNetworkFee(assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -585,8 +681,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async estimateTransactionFee(transactionRequest?: TransactionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedTransactionFeeResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateTransactionFee(transactionRequest, );
+        async estimateTransactionFee(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedTransactionFeeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateTransactionFee(transactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -596,8 +692,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async freezeTransaction(txId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FreezeTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.freezeTransaction(txId, );
+        async freezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FreezeTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.freezeTransaction(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -607,8 +703,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionByExternalId(externalTxId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionByExternalId(externalTxId, );
+        async getTransactionByExternalId(externalTxId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionByExternalId(externalTxId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -618,8 +714,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionById(txId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionById(txId, );
+        async getTransactionById(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionById(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -642,8 +738,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, );
+        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -654,8 +750,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setConfirmationThresholdForTransaction(txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransaction(txId, setConfirmationsThresholdRequest, );
+        async setConfirmationThresholdForTransaction(txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransaction(txId, setConfirmationsThresholdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -666,8 +762,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setConfirmationThresholdForTransactionByHash(txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransactionByHash(txHash, setConfirmationsThresholdRequest, );
+        async setConfirmationThresholdForTransactionByHash(txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransactionByHash(txHash, setConfirmationsThresholdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -677,8 +773,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unfreezeTransaction(txId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnfreezeTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.unfreezeTransaction(txId, );
+        async unfreezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnfreezeTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unfreezeTransaction(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -689,8 +785,8 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateAddress(assetId: string, address: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidateAddressResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateAddress(assetId, address, );
+        async validateAddress(assetId: string, address: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateAddress(assetId, address, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -1012,8 +1108,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public cancelTransaction(requestParameters: TransactionsApiCancelTransactionRequest, ) {
-        return TransactionsApiFp(this.httpClient).cancelTransaction(requestParameters.txId, );
+     public cancelTransaction(requestParameters: TransactionsApiCancelTransactionRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).cancelTransaction(requestParameters.txId, requestOptions);
     }
 
     /**
@@ -1024,8 +1120,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public createTransaction(requestParameters: TransactionsApiCreateTransactionRequest = {}, ) {
-        return TransactionsApiFp(this.httpClient).createTransaction(requestParameters.transactionRequest, );
+     public createTransaction(requestParameters: TransactionsApiCreateTransactionRequest = {},  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).createTransaction(requestParameters.transactionRequest, requestOptions);
     }
 
     /**
@@ -1036,8 +1132,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public dropTransaction(requestParameters: TransactionsApiDropTransactionRequest, ) {
-        return TransactionsApiFp(this.httpClient).dropTransaction(requestParameters.txId, requestParameters.dropTransactionRequest, );
+     public dropTransaction(requestParameters: TransactionsApiDropTransactionRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).dropTransaction(requestParameters.txId, requestParameters.dropTransactionRequest, requestOptions);
     }
 
     /**
@@ -1048,8 +1144,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public estimateNetworkFee(requestParameters: TransactionsApiEstimateNetworkFeeRequest, ) {
-        return TransactionsApiFp(this.httpClient).estimateNetworkFee(requestParameters.assetId, );
+     public estimateNetworkFee(requestParameters: TransactionsApiEstimateNetworkFeeRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).estimateNetworkFee(requestParameters.assetId, requestOptions);
     }
 
     /**
@@ -1060,8 +1156,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public estimateTransactionFee(requestParameters: TransactionsApiEstimateTransactionFeeRequest = {}, ) {
-        return TransactionsApiFp(this.httpClient).estimateTransactionFee(requestParameters.transactionRequest, );
+     public estimateTransactionFee(requestParameters: TransactionsApiEstimateTransactionFeeRequest = {},  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).estimateTransactionFee(requestParameters.transactionRequest, requestOptions);
     }
 
     /**
@@ -1072,8 +1168,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public freezeTransaction(requestParameters: TransactionsApiFreezeTransactionRequest, ) {
-        return TransactionsApiFp(this.httpClient).freezeTransaction(requestParameters.txId, );
+     public freezeTransaction(requestParameters: TransactionsApiFreezeTransactionRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).freezeTransaction(requestParameters.txId, requestOptions);
     }
 
     /**
@@ -1084,8 +1180,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public getTransactionByExternalId(requestParameters: TransactionsApiGetTransactionByExternalIdRequest, ) {
-        return TransactionsApiFp(this.httpClient).getTransactionByExternalId(requestParameters.externalTxId, );
+     public getTransactionByExternalId(requestParameters: TransactionsApiGetTransactionByExternalIdRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).getTransactionByExternalId(requestParameters.externalTxId, requestOptions);
     }
 
     /**
@@ -1096,8 +1192,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public getTransactionById(requestParameters: TransactionsApiGetTransactionByIdRequest, ) {
-        return TransactionsApiFp(this.httpClient).getTransactionById(requestParameters.txId, );
+     public getTransactionById(requestParameters: TransactionsApiGetTransactionByIdRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).getTransactionById(requestParameters.txId, requestOptions);
     }
 
     /**
@@ -1108,8 +1204,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, ) {
-        return TransactionsApiFp(this.httpClient).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, );
+     public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {},  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, requestOptions);
     }
 
     /**
@@ -1120,8 +1216,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public setConfirmationThresholdForTransaction(requestParameters: TransactionsApiSetConfirmationThresholdForTransactionRequest, ) {
-        return TransactionsApiFp(this.httpClient).setConfirmationThresholdForTransaction(requestParameters.txId, requestParameters.setConfirmationsThresholdRequest, );
+     public setConfirmationThresholdForTransaction(requestParameters: TransactionsApiSetConfirmationThresholdForTransactionRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).setConfirmationThresholdForTransaction(requestParameters.txId, requestParameters.setConfirmationsThresholdRequest, requestOptions);
     }
 
     /**
@@ -1132,8 +1228,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public setConfirmationThresholdForTransactionByHash(requestParameters: TransactionsApiSetConfirmationThresholdForTransactionByHashRequest, ) {
-        return TransactionsApiFp(this.httpClient).setConfirmationThresholdForTransactionByHash(requestParameters.txHash, requestParameters.setConfirmationsThresholdRequest, );
+     public setConfirmationThresholdForTransactionByHash(requestParameters: TransactionsApiSetConfirmationThresholdForTransactionByHashRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).setConfirmationThresholdForTransactionByHash(requestParameters.txHash, requestParameters.setConfirmationsThresholdRequest, requestOptions);
     }
 
     /**
@@ -1144,8 +1240,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public unfreezeTransaction(requestParameters: TransactionsApiUnfreezeTransactionRequest, ) {
-        return TransactionsApiFp(this.httpClient).unfreezeTransaction(requestParameters.txId, );
+     public unfreezeTransaction(requestParameters: TransactionsApiUnfreezeTransactionRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).unfreezeTransaction(requestParameters.txId, requestOptions);
     }
 
     /**
@@ -1156,7 +1252,7 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-    public validateAddress(requestParameters: TransactionsApiValidateAddressRequest, ) {
-        return TransactionsApiFp(this.httpClient).validateAddress(requestParameters.assetId, requestParameters.address, );
+     public validateAddress(requestParameters: TransactionsApiValidateAddressRequest,  requestOptions?: RequestOptions) {
+        return TransactionsApiFp(this.httpClient).validateAddress(requestParameters.assetId, requestParameters.address, requestOptions);
     }
 }
