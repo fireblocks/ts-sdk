@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -45,7 +46,7 @@ import { UpdateDraftRequest } from '../models';
  * PolicyEditorBetaApi - axios parameter creator
  * @export
  */
-export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -53,7 +54,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActivePolicy: async (): Promise<AxiosRequestConfig> => {
+        getActivePolicy: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/tap/active_policy`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -62,11 +63,18 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -78,7 +86,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDraft: async (): Promise<AxiosRequestConfig> => {
+        getDraft: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -87,11 +95,18 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -104,7 +119,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishDraft: async (publishDraftRequest: PublishDraftRequest, ): Promise<AxiosRequestConfig> => {
+        publishDraft: async (publishDraftRequest: PublishDraftRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'publishDraftRequest' is not null or undefined
             assertParamExists('publishDraft', 'publishDraftRequest', publishDraftRequest)
             const localVarPath = `/tap/draft`;
@@ -115,14 +130,21 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = publishDraftRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -135,7 +157,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPolicyRules: async (publishPolicyRulesRequest: PublishPolicyRulesRequest, ): Promise<AxiosRequestConfig> => {
+        publishPolicyRules: async (publishPolicyRulesRequest: PublishPolicyRulesRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'publishPolicyRulesRequest' is not null or undefined
             assertParamExists('publishPolicyRules', 'publishPolicyRulesRequest', publishPolicyRulesRequest)
             const localVarPath = `/tap/publish`;
@@ -146,14 +168,21 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = publishPolicyRulesRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -166,7 +195,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDraft: async (updateDraftRequest: UpdateDraftRequest, ): Promise<AxiosRequestConfig> => {
+        updateDraft: async (updateDraftRequest: UpdateDraftRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'updateDraftRequest' is not null or undefined
             assertParamExists('updateDraft', 'updateDraftRequest', updateDraftRequest)
             const localVarPath = `/tap/draft`;
@@ -177,14 +206,21 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = updateDraftRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -206,8 +242,8 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getActivePolicy(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PolicyAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicy();
+        async getActivePolicy( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PolicyAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicy(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -216,8 +252,8 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDraft(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft();
+        async getDraft( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -227,8 +263,8 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishDraft(publishDraftRequest: PublishDraftRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraft(publishDraftRequest, );
+        async publishDraft(publishDraftRequest: PublishDraftRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraft(publishDraftRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -238,8 +274,8 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(publishPolicyRulesRequest, );
+        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(publishPolicyRulesRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -249,8 +285,8 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateDraft(updateDraftRequest: UpdateDraftRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(updateDraftRequest, );
+        async updateDraft(updateDraftRequest: UpdateDraftRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(updateDraftRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -312,8 +348,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public getActivePolicy() {
-        return PolicyEditorBetaApiFp(this.httpClient).getActivePolicy();
+     public getActivePolicy( requestOptions?: RequestOptions) {
+        return PolicyEditorBetaApiFp(this.httpClient).getActivePolicy(requestOptions);
     }
 
     /**
@@ -323,8 +359,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public getDraft() {
-        return PolicyEditorBetaApiFp(this.httpClient).getDraft();
+     public getDraft( requestOptions?: RequestOptions) {
+        return PolicyEditorBetaApiFp(this.httpClient).getDraft(requestOptions);
     }
 
     /**
@@ -335,8 +371,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest, ) {
-        return PolicyEditorBetaApiFp(this.httpClient).publishDraft(requestParameters.publishDraftRequest, );
+     public publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest,  requestOptions?: RequestOptions) {
+        return PolicyEditorBetaApiFp(this.httpClient).publishDraft(requestParameters.publishDraftRequest, requestOptions);
     }
 
     /**
@@ -347,8 +383,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest, ) {
-        return PolicyEditorBetaApiFp(this.httpClient).publishPolicyRules(requestParameters.publishPolicyRulesRequest, );
+     public publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest,  requestOptions?: RequestOptions) {
+        return PolicyEditorBetaApiFp(this.httpClient).publishPolicyRules(requestParameters.publishPolicyRulesRequest, requestOptions);
     }
 
     /**
@@ -359,7 +395,7 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest, ) {
-        return PolicyEditorBetaApiFp(this.httpClient).updateDraft(requestParameters.updateDraftRequest, );
+     public updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest,  requestOptions?: RequestOptions) {
+        return PolicyEditorBetaApiFp(this.httpClient).updateDraft(requestParameters.updateDraftRequest, requestOptions);
     }
 }

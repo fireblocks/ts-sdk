@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -55,7 +56,7 @@ import { SetRoutingPolicyForNetworkIdRequest } from '../models';
  * NetworkConnectionsApi - axios parameter creator
  * @export
  */
-export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
@@ -65,7 +66,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        checkThirdPartyRoutingForNetworkConnection: async (connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST', ): Promise<AxiosRequestConfig> => {
+        checkThirdPartyRoutingForNetworkConnection: async (connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'connectionId' is not null or undefined
             assertParamExists('checkThirdPartyRoutingForNetworkConnection', 'connectionId', connectionId)
             // verify required parameter 'assetType' is not null or undefined
@@ -80,11 +81,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -97,7 +105,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNetworkConnection: async (networkConnection?: NetworkConnection, ): Promise<AxiosRequestConfig> => {
+        createNetworkConnection: async (networkConnection?: NetworkConnection,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/network_connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -106,14 +114,21 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = networkConnection as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -126,7 +141,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNetworkId: async (createNetworkIdRequest?: CreateNetworkIdRequest, ): Promise<AxiosRequestConfig> => {
+        createNetworkId: async (createNetworkIdRequest?: CreateNetworkIdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/network_ids`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -135,14 +150,21 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createNetworkIdRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -155,7 +177,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNetworkConnection: async (connectionId: string, ): Promise<AxiosRequestConfig> => {
+        deleteNetworkConnection: async (connectionId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'connectionId' is not null or undefined
             assertParamExists('deleteNetworkConnection', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}`
@@ -167,11 +189,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -184,7 +213,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNetworkId: async (networkId: string, ): Promise<AxiosRequestConfig> => {
+        deleteNetworkId: async (networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'networkId' is not null or undefined
             assertParamExists('deleteNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}`
@@ -196,11 +225,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -213,7 +249,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkConnectionById: async (connectionId: string, ): Promise<AxiosRequestConfig> => {
+        getNetworkConnectionById: async (connectionId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'connectionId' is not null or undefined
             assertParamExists('getNetworkConnectionById', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}`
@@ -225,11 +261,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -241,7 +284,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkConnections: async (): Promise<AxiosRequestConfig> => {
+        getNetworkConnections: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/network_connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -250,11 +293,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -267,7 +317,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkIdById: async (networkId: string, ): Promise<AxiosRequestConfig> => {
+        getNetworkIdById: async (networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'networkId' is not null or undefined
             assertParamExists('getNetworkIdById', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}`
@@ -279,11 +329,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -295,7 +352,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkIds: async (): Promise<AxiosRequestConfig> => {
+        getNetworkIds: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/network_ids`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -304,11 +361,18 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -322,7 +386,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setDiscoverabilityForNetworkId: async (setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string, ): Promise<AxiosRequestConfig> => {
+        setDiscoverabilityForNetworkId: async (setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setDiscoverabilityForNetworkIdRequest' is not null or undefined
             assertParamExists('setDiscoverabilityForNetworkId', 'setDiscoverabilityForNetworkIdRequest', setDiscoverabilityForNetworkIdRequest)
             // verify required parameter 'networkId' is not null or undefined
@@ -336,14 +400,21 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setDiscoverabilityForNetworkIdRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -357,7 +428,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setNetworkIdName: async (setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string, ): Promise<AxiosRequestConfig> => {
+        setNetworkIdName: async (setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setNetworkIdNameRequest' is not null or undefined
             assertParamExists('setNetworkIdName', 'setNetworkIdNameRequest', setNetworkIdNameRequest)
             // verify required parameter 'networkId' is not null or undefined
@@ -371,14 +442,21 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setNetworkIdNameRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -392,7 +470,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setRoutingPolicyForNetworkConnection: async (connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest, ): Promise<AxiosRequestConfig> => {
+        setRoutingPolicyForNetworkConnection: async (connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'connectionId' is not null or undefined
             assertParamExists('setRoutingPolicyForNetworkConnection', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}/set_routing_policy`
@@ -404,14 +482,21 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setRoutingPolicyForNetworkConnectionRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -425,7 +510,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setRoutingPolicyForNetworkId: async (networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest, ): Promise<AxiosRequestConfig> => {
+        setRoutingPolicyForNetworkId: async (networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'networkId' is not null or undefined
             assertParamExists('setRoutingPolicyForNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}/set_routing_policy`
@@ -437,14 +522,21 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setRoutingPolicyForNetworkIdRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -468,8 +560,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkThirdPartyRoutingForNetworkConnection(connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST', ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckThirdPartyRoutingForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.checkThirdPartyRoutingForNetworkConnection(connectionId, assetType, );
+        async checkThirdPartyRoutingForNetworkConnection(connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckThirdPartyRoutingForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.checkThirdPartyRoutingForNetworkConnection(connectionId, assetType, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -479,8 +571,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNetworkConnection(networkConnection?: NetworkConnection, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkConnection(networkConnection, );
+        async createNetworkConnection(networkConnection?: NetworkConnection,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkConnection(networkConnection, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -490,8 +582,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNetworkId(createNetworkIdRequest?: CreateNetworkIdRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkId(createNetworkIdRequest, );
+        async createNetworkId(createNetworkIdRequest?: CreateNetworkIdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkId(createNetworkIdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -501,8 +593,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNetworkConnection(connectionId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkConnection(connectionId, );
+        async deleteNetworkConnection(connectionId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkConnection(connectionId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -512,8 +604,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNetworkId(networkId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkId(networkId, );
+        async deleteNetworkId(networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkId(networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -523,8 +615,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkConnectionById(connectionId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnectionById(connectionId, );
+        async getNetworkConnectionById(connectionId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnectionById(connectionId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -533,8 +625,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkConnections(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<NetworkConnectionResponse>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnections();
+        async getNetworkConnections( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<NetworkConnectionResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnections(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -544,8 +636,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkIdById(networkId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIdById(networkId, );
+        async getNetworkIdById(networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIdById(networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -554,8 +646,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkIds(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetNetworkIds200ResponseInner>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIds();
+        async getNetworkIds( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetNetworkIds200ResponseInner>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIds(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -566,8 +658,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest, networkId, );
+        async setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest, networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -578,8 +670,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setNetworkIdName(setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setNetworkIdName(setNetworkIdNameRequest, networkId, );
+        async setNetworkIdName(setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setNetworkIdName(setNetworkIdNameRequest, networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -590,8 +682,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setRoutingPolicyForNetworkConnection(connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkConnection(connectionId, setRoutingPolicyForNetworkConnectionRequest, );
+        async setRoutingPolicyForNetworkConnection(connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkConnection(connectionId, setRoutingPolicyForNetworkConnectionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -602,8 +694,8 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setRoutingPolicyForNetworkId(networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkId(networkId, setRoutingPolicyForNetworkIdRequest, );
+        async setRoutingPolicyForNetworkId(networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkId(networkId, setRoutingPolicyForNetworkIdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -813,8 +905,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public checkThirdPartyRoutingForNetworkConnection(requestParameters: NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnectionRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).checkThirdPartyRoutingForNetworkConnection(requestParameters.connectionId, requestParameters.assetType, );
+     public checkThirdPartyRoutingForNetworkConnection(requestParameters: NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnectionRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).checkThirdPartyRoutingForNetworkConnection(requestParameters.connectionId, requestParameters.assetType, requestOptions);
     }
 
     /**
@@ -825,8 +917,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public createNetworkConnection(requestParameters: NetworkConnectionsApiCreateNetworkConnectionRequest = {}, ) {
-        return NetworkConnectionsApiFp(this.httpClient).createNetworkConnection(requestParameters.networkConnection, );
+     public createNetworkConnection(requestParameters: NetworkConnectionsApiCreateNetworkConnectionRequest = {},  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).createNetworkConnection(requestParameters.networkConnection, requestOptions);
     }
 
     /**
@@ -837,8 +929,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public createNetworkId(requestParameters: NetworkConnectionsApiCreateNetworkIdRequest = {}, ) {
-        return NetworkConnectionsApiFp(this.httpClient).createNetworkId(requestParameters.createNetworkIdRequest, );
+     public createNetworkId(requestParameters: NetworkConnectionsApiCreateNetworkIdRequest = {},  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).createNetworkId(requestParameters.createNetworkIdRequest, requestOptions);
     }
 
     /**
@@ -849,8 +941,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public deleteNetworkConnection(requestParameters: NetworkConnectionsApiDeleteNetworkConnectionRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).deleteNetworkConnection(requestParameters.connectionId, );
+     public deleteNetworkConnection(requestParameters: NetworkConnectionsApiDeleteNetworkConnectionRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).deleteNetworkConnection(requestParameters.connectionId, requestOptions);
     }
 
     /**
@@ -861,8 +953,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public deleteNetworkId(requestParameters: NetworkConnectionsApiDeleteNetworkIdRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).deleteNetworkId(requestParameters.networkId, );
+     public deleteNetworkId(requestParameters: NetworkConnectionsApiDeleteNetworkIdRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).deleteNetworkId(requestParameters.networkId, requestOptions);
     }
 
     /**
@@ -873,8 +965,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public getNetworkConnectionById(requestParameters: NetworkConnectionsApiGetNetworkConnectionByIdRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkConnectionById(requestParameters.connectionId, );
+     public getNetworkConnectionById(requestParameters: NetworkConnectionsApiGetNetworkConnectionByIdRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).getNetworkConnectionById(requestParameters.connectionId, requestOptions);
     }
 
     /**
@@ -884,8 +976,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public getNetworkConnections() {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkConnections();
+     public getNetworkConnections( requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).getNetworkConnections(requestOptions);
     }
 
     /**
@@ -896,8 +988,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public getNetworkIdById(requestParameters: NetworkConnectionsApiGetNetworkIdByIdRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkIdById(requestParameters.networkId, );
+     public getNetworkIdById(requestParameters: NetworkConnectionsApiGetNetworkIdByIdRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).getNetworkIdById(requestParameters.networkId, requestOptions);
     }
 
     /**
@@ -907,8 +999,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public getNetworkIds() {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkIds();
+     public getNetworkIds( requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).getNetworkIds(requestOptions);
     }
 
     /**
@@ -919,8 +1011,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public setDiscoverabilityForNetworkId(requestParameters: NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).setDiscoverabilityForNetworkId(requestParameters.setDiscoverabilityForNetworkIdRequest, requestParameters.networkId, );
+     public setDiscoverabilityForNetworkId(requestParameters: NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).setDiscoverabilityForNetworkId(requestParameters.setDiscoverabilityForNetworkIdRequest, requestParameters.networkId, requestOptions);
     }
 
     /**
@@ -931,8 +1023,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public setNetworkIdName(requestParameters: NetworkConnectionsApiSetNetworkIdNameRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).setNetworkIdName(requestParameters.setNetworkIdNameRequest, requestParameters.networkId, );
+     public setNetworkIdName(requestParameters: NetworkConnectionsApiSetNetworkIdNameRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).setNetworkIdName(requestParameters.setNetworkIdNameRequest, requestParameters.networkId, requestOptions);
     }
 
     /**
@@ -943,8 +1035,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public setRoutingPolicyForNetworkConnection(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkConnectionRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).setRoutingPolicyForNetworkConnection(requestParameters.connectionId, requestParameters.setRoutingPolicyForNetworkConnectionRequest, );
+     public setRoutingPolicyForNetworkConnection(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).setRoutingPolicyForNetworkConnection(requestParameters.connectionId, requestParameters.setRoutingPolicyForNetworkConnectionRequest, requestOptions);
     }
 
     /**
@@ -955,7 +1047,7 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-    public setRoutingPolicyForNetworkId(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest, ) {
-        return NetworkConnectionsApiFp(this.httpClient).setRoutingPolicyForNetworkId(requestParameters.networkId, requestParameters.setRoutingPolicyForNetworkIdRequest, );
+     public setRoutingPolicyForNetworkId(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions) {
+        return NetworkConnectionsApiFp(this.httpClient).setRoutingPolicyForNetworkId(requestParameters.networkId, requestParameters.setRoutingPolicyForNetworkIdRequest, requestOptions);
     }
 }

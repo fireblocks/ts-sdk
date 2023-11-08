@@ -49,6 +49,18 @@ export interface ExternalWalletAsset {
      * @type {string}
      * @memberof ExternalWalletAsset
      */
+    'balance'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExternalWalletAsset
+     */
+    'lockedAmount'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExternalWalletAsset
+     */
     'tag'?: string;
     /**
      * 

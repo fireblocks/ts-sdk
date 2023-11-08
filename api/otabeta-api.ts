@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -37,7 +38,7 @@ import { SetOtaStatusRequest } from '../models';
  * OTABetaApi - axios parameter creator
  * @export
  */
-export const OTABetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const OTABetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Returns current OTA status
@@ -45,7 +46,7 @@ export const OTABetaApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOtaStatus: async (): Promise<AxiosRequestConfig> => {
+        getOtaStatus: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/management/ota`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -54,11 +55,18 @@ export const OTABetaApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -71,7 +79,7 @@ export const OTABetaApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setOtaStatus: async (setOtaStatusRequest: SetOtaStatusRequest, ): Promise<AxiosRequestConfig> => {
+        setOtaStatus: async (setOtaStatusRequest: SetOtaStatusRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'setOtaStatusRequest' is not null or undefined
             assertParamExists('setOtaStatus', 'setOtaStatusRequest', setOtaStatusRequest)
             const localVarPath = `/management/ota`;
@@ -82,14 +90,21 @@ export const OTABetaApiAxiosParamCreator = function (configuration?: Configurati
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = setOtaStatusRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -111,8 +126,8 @@ export const OTABetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOtaStatus(): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtaStatus200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOtaStatus();
+        async getOtaStatus( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtaStatus200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOtaStatus(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -122,8 +137,8 @@ export const OTABetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setOtaStatus(setOtaStatusRequest, );
+        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setOtaStatus(setOtaStatusRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -157,8 +172,8 @@ export class OTABetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OTABetaApi
      */
-    public getOtaStatus() {
-        return OTABetaApiFp(this.httpClient).getOtaStatus();
+     public getOtaStatus( requestOptions?: RequestOptions) {
+        return OTABetaApiFp(this.httpClient).getOtaStatus(requestOptions);
     }
 
     /**
@@ -169,7 +184,7 @@ export class OTABetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OTABetaApi
      */
-    public setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest, ) {
-        return OTABetaApiFp(this.httpClient).setOtaStatus(requestParameters.setOtaStatusRequest, );
+     public setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest,  requestOptions?: RequestOptions) {
+        return OTABetaApiFp(this.httpClient).setOtaStatus(requestParameters.setOtaStatusRequest, requestOptions);
     }
 }

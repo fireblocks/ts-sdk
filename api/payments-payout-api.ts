@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -41,7 +42,7 @@ import { PayoutResponse } from '../models';
  * PaymentsPayoutApi - axios parameter creator
  * @export
  */
-export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Configuration) {
+export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br> <b u>Create a payout instruction set.</b> </u></br> A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. </br> The instruction set defines: </br> <ul> <li>the payment account and its account type (vault, exchange, or fiat). </li> <li>the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.</li> </ul> 
@@ -50,7 +51,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPayout: async (createPayoutRequest?: CreatePayoutRequest, ): Promise<AxiosRequestConfig> => {
+        createPayout: async (createPayoutRequest?: CreatePayoutRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             const localVarPath = `/payments/payout`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(configuration.basePath + localVarPath);
@@ -59,14 +60,21 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             localVarRequestOptions.data = createPayoutRequest as any;
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -79,7 +87,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        executePayoutAction: async (payoutId: string, ): Promise<AxiosRequestConfig> => {
+        executePayoutAction: async (payoutId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'payoutId' is not null or undefined
             assertParamExists('executePayoutAction', 'payoutId', payoutId)
             const localVarPath = `/payments/payout/{payoutId}/actions/execute`
@@ -91,11 +99,18 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -108,7 +123,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPayoutById: async (payoutId: string, ): Promise<AxiosRequestConfig> => {
+        getPayoutById: async (payoutId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'payoutId' is not null or undefined
             assertParamExists('getPayoutById', 'payoutId', payoutId)
             const localVarPath = `/payments/payout/{payoutId}`
@@ -120,11 +135,18 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -147,8 +169,8 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPayout(createPayoutRequest?: CreatePayoutRequest, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPayout(createPayoutRequest, );
+        async createPayout(createPayoutRequest?: CreatePayoutRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPayout(createPayoutRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -158,8 +180,8 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executePayoutAction(payoutId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DispatchPayoutResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.executePayoutAction(payoutId, );
+        async executePayoutAction(payoutId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DispatchPayoutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executePayoutAction(payoutId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
         /**
@@ -169,8 +191,8 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPayoutById(payoutId: string, ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPayoutById(payoutId, );
+        async getPayoutById(payoutId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPayoutById(payoutId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -233,8 +255,8 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
-    public createPayout(requestParameters: PaymentsPayoutApiCreatePayoutRequest = {}, ) {
-        return PaymentsPayoutApiFp(this.httpClient).createPayout(requestParameters.createPayoutRequest, );
+     public createPayout(requestParameters: PaymentsPayoutApiCreatePayoutRequest = {},  requestOptions?: RequestOptions) {
+        return PaymentsPayoutApiFp(this.httpClient).createPayout(requestParameters.createPayoutRequest, requestOptions);
     }
 
     /**
@@ -245,8 +267,8 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
-    public executePayoutAction(requestParameters: PaymentsPayoutApiExecutePayoutActionRequest, ) {
-        return PaymentsPayoutApiFp(this.httpClient).executePayoutAction(requestParameters.payoutId, );
+     public executePayoutAction(requestParameters: PaymentsPayoutApiExecutePayoutActionRequest,  requestOptions?: RequestOptions) {
+        return PaymentsPayoutApiFp(this.httpClient).executePayoutAction(requestParameters.payoutId, requestOptions);
     }
 
     /**
@@ -257,7 +279,7 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
-    public getPayoutById(requestParameters: PaymentsPayoutApiGetPayoutByIdRequest, ) {
-        return PaymentsPayoutApiFp(this.httpClient).getPayoutById(requestParameters.payoutId, );
+     public getPayoutById(requestParameters: PaymentsPayoutApiGetPayoutByIdRequest,  requestOptions?: RequestOptions) {
+        return PaymentsPayoutApiFp(this.httpClient).getPayoutById(requestParameters.payoutId, requestOptions);
     }
 }

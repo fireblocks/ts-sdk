@@ -14,6 +14,7 @@
 
 import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
 import {Configuration} from "../configuration";
+import {RequestOptions} from "../models/request-options";
 import {HttpClient} from "../utils/http-client";
 // URLSearchParams not necessarily used
 // @ts-ignore
@@ -33,7 +34,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
  * AuditLogsApi - axios parameter creator
  * @export
  */
-export const AuditLogsApiAxiosParamCreator = function (configuration?: Configuration) {
+export const AuditLogsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
     return {
         /**
          * Get all audits
@@ -42,7 +43,7 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAudits: async (timePeriod: 'DAY' | 'WEEK', ): Promise<AxiosRequestConfig> => {
+        getAudits: async (timePeriod: 'DAY' | 'WEEK',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
             // verify required parameter 'timePeriod' is not null or undefined
             assertParamExists('getAudits', 'timePeriod', timePeriod)
             const localVarPath = `/audits`;
@@ -52,7 +53,6 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
             const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
             if (timePeriod !== undefined) {
                 localVarQueryParameter['timePeriod'] = timePeriod;
             }
@@ -60,8 +60,16 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const idempotencyKey = requestOptions?.idempotencyKey;
+            if (idempotencyKey) {
+                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            }
 
+            const ncwWalletId = requestOptions?.ncw?.walletId;
+            if (ncwWalletId) {
+                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            }
+            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
                 url: localVarUrlObj.toString(),
                 ...localVarRequestOptions,
@@ -84,8 +92,8 @@ export const AuditLogsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAudits(timePeriod: 'DAY' | 'WEEK', ): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAudits(timePeriod, );
+        async getAudits(timePeriod: 'DAY' | 'WEEK',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAudits(timePeriod, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
     }
@@ -120,7 +128,7 @@ export class AuditLogsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof AuditLogsApi
      */
-    public getAudits(requestParameters: AuditLogsApiGetAuditsRequest, ) {
-        return AuditLogsApiFp(this.httpClient).getAudits(requestParameters.timePeriod, );
+     public getAudits(requestParameters: AuditLogsApiGetAuditsRequest,  requestOptions?: RequestOptions) {
+        return AuditLogsApiFp(this.httpClient).getAudits(requestParameters.timePeriod, requestOptions);
     }
 }

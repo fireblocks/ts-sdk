@@ -1,6 +1,6 @@
 {
     "name": "@fireblocks/ts-sdk",
-    "version": "2.0.19-beta",
+    "version": "1.0.9-beta",
     "description": "Fireblocks Typescript SDK",
     "repository": {
         "type": "git",
