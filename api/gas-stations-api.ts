@@ -204,7 +204,7 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGasStation( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GasStationPropertiesResponse>> {
+        async getGasStation( requestOptions?: RequestOptions): Promise<GasStationPropertiesResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getGasStation(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -215,7 +215,7 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getGasStationByAssetId(assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GasStationPropertiesResponse>> {
+        async getGasStationByAssetId(assetId: string,  requestOptions?: RequestOptions): Promise<GasStationPropertiesResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getGasStationByAssetId(assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -226,7 +226,7 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateGasStationConfiguration(gasStationConfiguration: GasStationConfiguration,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateGasStationConfiguration(gasStationConfiguration: GasStationConfiguration,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfiguration(gasStationConfiguration, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -238,7 +238,7 @@ export const GasStationsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateGasStationConfigurationByAssetId(gasStationConfiguration: GasStationConfiguration, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateGasStationConfigurationByAssetId(gasStationConfiguration: GasStationConfiguration, assetId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

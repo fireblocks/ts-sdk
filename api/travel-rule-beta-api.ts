@@ -273,7 +273,7 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVASPByDID(did: string, fields?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleVASP>> {
+        async getVASPByDID(did: string, fields?: string,  requestOptions?: RequestOptions): Promise<TravelRuleVASP> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPByDID(did, fields, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -287,7 +287,7 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVASPs(order?: string, perPage?: number, page?: number, fields?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleGetAllVASPsResponse>> {
+        async getVASPs(order?: string, perPage?: number, page?: number, fields?: string,  requestOptions?: RequestOptions): Promise<TravelRuleGetAllVASPsResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPs(order, perPage, page, fields, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -298,7 +298,7 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleUpdateVASPDetails>> {
+        async travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails,  requestOptions?: RequestOptions): Promise<TravelRuleUpdateVASPDetails> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -309,7 +309,7 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+        async validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest,  requestOptions?: RequestOptions): Promise<TravelRuleValidateTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -320,7 +320,7 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest,  requestOptions?: RequestOptions): Promise<TravelRuleValidateTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

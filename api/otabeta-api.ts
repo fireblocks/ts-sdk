@@ -126,7 +126,7 @@ export const OTABetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOtaStatus( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtaStatus200Response>> {
+        async getOtaStatus( requestOptions?: RequestOptions): Promise<GetOtaStatus200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOtaStatus(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -137,7 +137,7 @@ export const OTABetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setOtaStatus(setOtaStatusRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

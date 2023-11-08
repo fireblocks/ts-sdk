@@ -169,7 +169,7 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPayout(createPayoutRequest?: CreatePayoutRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
+        async createPayout(createPayoutRequest?: CreatePayoutRequest,  requestOptions?: RequestOptions): Promise<PayoutResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createPayout(createPayoutRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -180,7 +180,7 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executePayoutAction(payoutId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DispatchPayoutResponse>> {
+        async executePayoutAction(payoutId: string,  requestOptions?: RequestOptions): Promise<DispatchPayoutResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.executePayoutAction(payoutId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -191,7 +191,7 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPayoutById(payoutId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
+        async getPayoutById(payoutId: string,  requestOptions?: RequestOptions): Promise<PayoutResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPayoutById(payoutId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

@@ -130,7 +130,7 @@ export const WebhooksApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendWebhooks( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendWebhooksResponse>> {
+        async resendWebhooks( requestOptions?: RequestOptions): Promise<ResendWebhooksResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooks(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -142,7 +142,7 @@ export const WebhooksApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendWebhooksForTransaction(resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async resendWebhooksForTransaction(resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooksForTransaction(resendWebhooksForTransactionRequest, txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

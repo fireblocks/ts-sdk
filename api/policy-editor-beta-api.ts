@@ -242,7 +242,7 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getActivePolicy( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PolicyAndValidationResponse>> {
+        async getActivePolicy( requestOptions?: RequestOptions): Promise<PolicyAndValidationResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicy(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -252,7 +252,7 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDraft( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+        async getDraft( requestOptions?: RequestOptions): Promise<DraftReviewAndValidationResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -263,7 +263,7 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishDraft(publishDraftRequest: PublishDraftRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+        async publishDraft(publishDraftRequest: PublishDraftRequest,  requestOptions?: RequestOptions): Promise<PublishResult> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraft(publishDraftRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -274,7 +274,7 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest,  requestOptions?: RequestOptions): Promise<PublishResult> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(publishPolicyRulesRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -285,7 +285,7 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateDraft(updateDraftRequest: UpdateDraftRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+        async updateDraft(updateDraftRequest: UpdateDraftRequest,  requestOptions?: RequestOptions): Promise<DraftReviewAndValidationResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(updateDraftRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

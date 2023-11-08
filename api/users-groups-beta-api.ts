@@ -247,7 +247,7 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createUserGroup(userGroupCreateRequest: UserGroupCreateRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateUsersGroupResponse>> {
+        async createUserGroup(userGroupCreateRequest: UserGroupCreateRequest,  requestOptions?: RequestOptions): Promise<CreateUsersGroupResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createUserGroup(userGroupCreateRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -258,7 +258,7 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteUserGroup(groupId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async deleteUserGroup(groupId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteUserGroup(groupId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -269,7 +269,7 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserGroup(groupId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsersGroupResponse>> {
+        async getUserGroup(groupId: string,  requestOptions?: RequestOptions): Promise<UsersGroupResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroup(groupId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -279,7 +279,7 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserGroups( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UsersGroupResponse>>> {
+        async getUserGroups( requestOptions?: RequestOptions): Promise<Array<UsersGroupResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroups(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -291,7 +291,7 @@ export const UsersGroupsBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateUserGroup(userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroupCreateResponse>> {
+        async updateUserGroup(userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string,  requestOptions?: RequestOptions): Promise<UserGroupCreateResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUserGroup(userGroupUpdateRequest, groupId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
