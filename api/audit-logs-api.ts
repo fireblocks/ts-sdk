@@ -92,7 +92,7 @@ export const AuditLogsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAudits(timePeriod: 'DAY' | 'WEEK',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getAudits(timePeriod: 'DAY' | 'WEEK',  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAudits(timePeriod, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

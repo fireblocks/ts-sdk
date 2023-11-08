@@ -421,7 +421,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFT(id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenResponse>> {
+        async getNFT(id: string,  requestOptions?: RequestOptions): Promise<TokenResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNFT(id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -436,7 +436,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNFTs200Response>> {
+        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<GetNFTs200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNFTs(ids, pageCursor, pageSize, sort, order, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -456,7 +456,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOwnershipTokens(blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOwnershipTokens200Response>> {
+        async getOwnershipTokens(blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string,  requestOptions?: RequestOptions): Promise<GetOwnershipTokens200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -471,7 +471,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOwnedCollections(search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedCollections200Response>> {
+        async listOwnedCollections(search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<ListOwnedCollections200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedCollections(search, pageCursor, pageSize, sort, order, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -482,7 +482,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async refreshNFTMetadata(id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async refreshNFTMetadata(id: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -494,7 +494,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOwnershipTokens(blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateOwnershipTokens(blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -506,7 +506,7 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

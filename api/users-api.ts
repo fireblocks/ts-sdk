@@ -86,7 +86,7 @@ export const UsersApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsers( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUsersResponse>> {
+        async getUsers( requestOptions?: RequestOptions): Promise<GetUsersResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUsers(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

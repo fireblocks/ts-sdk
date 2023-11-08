@@ -206,7 +206,7 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async depositFundsFromLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async depositFundsFromLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.depositFundsFromLinkedDDA(accountId, redeemFundsToLinkedDDARequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -217,7 +217,7 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFiatAccountById(accountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FiatAccount>> {
+        async getFiatAccountById(accountId: string,  requestOptions?: RequestOptions): Promise<FiatAccount> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccountById(accountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -227,7 +227,7 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFiatAccounts( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FiatAccount>>> {
+        async getFiatAccounts( requestOptions?: RequestOptions): Promise<Array<FiatAccount>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccounts(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -239,7 +239,7 @@ export const FiatAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async redeemFundsToLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async redeemFundsToLinkedDDA(accountId: string, redeemFundsToLinkedDDARequest?: RedeemFundsToLinkedDDARequest,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.redeemFundsToLinkedDDA(accountId, redeemFundsToLinkedDDARequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

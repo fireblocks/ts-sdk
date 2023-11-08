@@ -248,7 +248,7 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addOffExchange(addCollateralRequestBody?: AddCollateralRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+        async addOffExchange(addCollateralRequestBody?: AddCollateralRequestBody,  requestOptions?: RequestOptions): Promise<CreateTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addOffExchange(addCollateralRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -259,7 +259,7 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOffExchangeCollateralAccounts(mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAccount>> {
+        async getOffExchangeCollateralAccounts(mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<ExchangeAccount> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOffExchangeCollateralAccounts(mainExchangeAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -270,7 +270,7 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOffExchangeSettlementTransactions(mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettlementResponse>> {
+        async getOffExchangeSettlementTransactions(mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<SettlementResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOffExchangeSettlementTransactions(mainExchangeAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -281,7 +281,7 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeOffExchange(removeCollateralRequestBody?: RemoveCollateralRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+        async removeOffExchange(removeCollateralRequestBody?: RemoveCollateralRequestBody,  requestOptions?: RequestOptions): Promise<CreateTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.removeOffExchange(removeCollateralRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -292,7 +292,7 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async settleOffExchangeTrades(settlementRequestBody?: SettlementRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettlementResponse>> {
+        async settleOffExchangeTrades(settlementRequestBody?: SettlementRequestBody,  requestOptions?: RequestOptions): Promise<SettlementResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.settleOffExchangeTrades(settlementRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

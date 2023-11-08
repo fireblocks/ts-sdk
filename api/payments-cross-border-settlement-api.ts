@@ -365,7 +365,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createXBSettlementConfig(xBSettlementConfigCreationRequestBody?: XBSettlementConfigCreationRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+        async createXBSettlementConfig(xBSettlementConfigCreationRequestBody?: XBSettlementConfigCreationRequestBody,  requestOptions?: RequestOptions): Promise<XBSettlementConfigModel> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createXBSettlementConfig(xBSettlementConfigCreationRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -376,7 +376,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createXBSettlementFlow(xBSettlementCreateFlowRequestBody?: XBSettlementCreateFlowRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementFlowPreviewModel>> {
+        async createXBSettlementFlow(xBSettlementCreateFlowRequestBody?: XBSettlementCreateFlowRequestBody,  requestOptions?: RequestOptions): Promise<XBSettlementFlowPreviewModel> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createXBSettlementFlow(xBSettlementCreateFlowRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -387,7 +387,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteXBSettlementConfig(configId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+        async deleteXBSettlementConfig(configId: string,  requestOptions?: RequestOptions): Promise<XBSettlementConfigModel> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteXBSettlementConfig(configId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -399,7 +399,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executeXBSettlementFlowAction(flowId: string, xBSettlementFlowExecutionRequestBody?: XBSettlementFlowExecutionRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementFlowExecutionModel>> {
+        async executeXBSettlementFlowAction(flowId: string, xBSettlementFlowExecutionRequestBody?: XBSettlementFlowExecutionRequestBody,  requestOptions?: RequestOptions): Promise<XBSettlementFlowExecutionModel> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.executeXBSettlementFlowAction(flowId, xBSettlementFlowExecutionRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -410,7 +410,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getXBSettlementConfigById(configId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+        async getXBSettlementConfigById(configId: string,  requestOptions?: RequestOptions): Promise<XBSettlementConfigModel> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementConfigById(configId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -420,7 +420,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getXBSettlementConfigs( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementGetAllConfigsResponse>> {
+        async getXBSettlementConfigs( requestOptions?: RequestOptions): Promise<XBSettlementGetAllConfigsResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementConfigs(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -431,7 +431,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getXBSettlementFlowById(flowId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementGetFlowResponse>> {
+        async getXBSettlementFlowById(flowId: string,  requestOptions?: RequestOptions): Promise<XBSettlementGetFlowResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getXBSettlementFlowById(flowId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -443,7 +443,7 @@ export const PaymentsCrossBorderSettlementApiFp = function(httpClient: HttpClien
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateXBSettlementConfig(configId: string, xBSettlementConfigEditRequestBody?: XBSettlementConfigEditRequestBody,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<XBSettlementConfigModel>> {
+        async updateXBSettlementConfig(configId: string, xBSettlementConfigEditRequestBody?: XBSettlementConfigEditRequestBody,  requestOptions?: RequestOptions): Promise<XBSettlementConfigModel> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateXBSettlementConfig(configId, xBSettlementConfigEditRequestBody, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

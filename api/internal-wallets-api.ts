@@ -369,7 +369,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createInternalWallet(createInternalWalletRequest?: CreateInternalWalletRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+        async createInternalWallet(createInternalWalletRequest?: CreateInternalWalletRequest,  requestOptions?: RequestOptions): Promise<UnmanagedWallet> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createInternalWallet(createInternalWalletRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -382,7 +382,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createInternalWalletAsset(walletId: string, assetId: string, createInternalWalletAssetRequest?: CreateInternalWalletAssetRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WalletAsset>> {
+        async createInternalWalletAsset(walletId: string, assetId: string, createInternalWalletAssetRequest?: CreateInternalWalletAssetRequest,  requestOptions?: RequestOptions): Promise<WalletAsset> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createInternalWalletAsset(walletId, assetId, createInternalWalletAssetRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -393,7 +393,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteInternalWallet(walletId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async deleteInternalWallet(walletId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInternalWallet(walletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -405,7 +405,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteInternalWalletAsset(walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async deleteInternalWalletAsset(walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteInternalWalletAsset(walletId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -417,7 +417,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInternalWalletAsset(walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WalletAsset>> {
+        async getInternalWalletAsset(walletId: string, assetId: string,  requestOptions?: RequestOptions): Promise<WalletAsset> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInternalWalletAsset(walletId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -428,7 +428,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInternalWalletById(walletId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+        async getInternalWalletById(walletId: string,  requestOptions?: RequestOptions): Promise<UnmanagedWallet> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInternalWalletById(walletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -438,7 +438,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInternalWallets( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
+        async getInternalWallets( requestOptions?: RequestOptions): Promise<Array<UnmanagedWallet>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInternalWallets(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -450,7 +450,7 @@ export const InternalWalletsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForInternalWallet(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setCustomerRefIdForInternalWallet(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForInternalWallet(setCustomerRefIdForVaultAccountRequest, walletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

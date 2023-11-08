@@ -250,7 +250,7 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.convertAssets(exchangeAccountId, convertAssetsRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -262,7 +262,7 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExchangeAccountAsset(exchangeAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAsset>> {
+        async getExchangeAccountAsset(exchangeAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<ExchangeAsset> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountAsset(exchangeAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -273,7 +273,7 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExchangeAccountById(exchangeAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAccount>> {
+        async getExchangeAccountById(exchangeAccountId: string,  requestOptions?: RequestOptions): Promise<ExchangeAccount> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountById(exchangeAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -283,7 +283,7 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExchangeAccounts( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExchangeAccount>>> {
+        async getExchangeAccounts( requestOptions?: RequestOptions): Promise<Array<ExchangeAccount>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccounts(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -295,7 +295,7 @@ export const ExchangeAccountsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async internalTransfer(exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async internalTransfer(exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.internalTransfer(exchangeAccountId, createInternalTransferRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

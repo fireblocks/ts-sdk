@@ -236,7 +236,7 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async create(createConnectionRequest: CreateConnectionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
+        async create(createConnectionRequest: CreateConnectionRequest,  requestOptions?: RequestOptions): Promise<CreateConnectionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -251,7 +251,7 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async get(order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
+        async get(order?: 'ASC' | 'DESC', filter?: GetFilterParameter, sort?: 'id' | 'userId' | 'vaultAccountId' | 'createdAt' | 'feeLevel' | 'appUrl' | 'appName', pageSize?: number, next?: string,  requestOptions?: RequestOptions): Promise<GetConnectionsResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.get(order, filter, sort, pageSize, next, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -262,7 +262,7 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async remove(id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async remove(id: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.remove(id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -274,7 +274,7 @@ export const Web3ConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.submit(respondToConnectionRequest, id, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

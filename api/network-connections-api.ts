@@ -560,7 +560,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkThirdPartyRoutingForNetworkConnection(connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST',  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckThirdPartyRoutingForNetworkConnection200Response>> {
+        async checkThirdPartyRoutingForNetworkConnection(connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST',  requestOptions?: RequestOptions): Promise<CheckThirdPartyRoutingForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.checkThirdPartyRoutingForNetworkConnection(connectionId, assetType, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -571,7 +571,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNetworkConnection(networkConnection?: NetworkConnection,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
+        async createNetworkConnection(networkConnection?: NetworkConnection,  requestOptions?: RequestOptions): Promise<NetworkConnectionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkConnection(networkConnection, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -582,7 +582,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNetworkId(createNetworkIdRequest?: CreateNetworkIdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
+        async createNetworkId(createNetworkIdRequest?: CreateNetworkIdRequest,  requestOptions?: RequestOptions): Promise<NetworkIdResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkId(createNetworkIdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -593,7 +593,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNetworkConnection(connectionId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+        async deleteNetworkConnection(connectionId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkConnection(connectionId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -604,7 +604,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNetworkId(networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+        async deleteNetworkId(networkId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkId(networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -615,7 +615,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkConnectionById(connectionId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
+        async getNetworkConnectionById(connectionId: string,  requestOptions?: RequestOptions): Promise<NetworkConnectionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnectionById(connectionId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -625,7 +625,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkConnections( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<NetworkConnectionResponse>>> {
+        async getNetworkConnections( requestOptions?: RequestOptions): Promise<Array<NetworkConnectionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnections(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -636,7 +636,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkIdById(networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
+        async getNetworkIdById(networkId: string,  requestOptions?: RequestOptions): Promise<NetworkIdResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIdById(networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -646,7 +646,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkIds( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<GetNetworkIds200ResponseInner>>> {
+        async getNetworkIds( requestOptions?: RequestOptions): Promise<Array<GetNetworkIds200ResponseInner>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIds(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -658,7 +658,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+        async setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest, networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -670,7 +670,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setNetworkIdName(setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+        async setNetworkIdName(setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setNetworkIdName(setNetworkIdNameRequest, networkId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -682,7 +682,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setRoutingPolicyForNetworkConnection(connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+        async setRoutingPolicyForNetworkConnection(connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkConnection(connectionId, setRoutingPolicyForNetworkConnectionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -694,7 +694,7 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setRoutingPolicyForNetworkId(networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicyForNetworkConnection200Response>> {
+        async setRoutingPolicyForNetworkId(networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkId(networkId, setRoutingPolicyForNetworkIdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

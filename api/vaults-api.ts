@@ -1200,7 +1200,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<CreateVaultAssetResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1213,7 +1213,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createLegacyAddressForVaultAccountAsset(vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+        async createLegacyAddressForVaultAccountAsset(vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<CreateAddressResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createLegacyAddressForVaultAccountAsset(vaultAccountId, assetId, addressId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1224,7 +1224,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccount(createVaultAccountRequest: CreateVaultAccountRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
+        async createVaultAccount(createVaultAccountRequest: CreateVaultAccountRequest,  requestOptions?: RequestOptions): Promise<VaultAccount> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccount(createVaultAccountRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1237,7 +1237,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest,  requestOptions?: RequestOptions): Promise<CreateVaultAssetResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createVaultAccountAssetRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1250,7 +1250,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<CreateAddressResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createVaultAccountAssetAddressRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1265,7 +1265,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetWallets(totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedAssetWalletResponse>> {
+        async getAssetWallets(totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<PaginatedAssetWalletResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, before, after, limit, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1278,7 +1278,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1296,7 +1296,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
+        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<VaultAccountsPagedResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1309,7 +1309,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfo(derivationPath: string, algorithm: string, compressed?: boolean,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+        async getPublicKeyInfo(derivationPath: string, algorithm: string, compressed?: boolean,  requestOptions?: RequestOptions): Promise<PublicKeyInformation> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfo(derivationPath, algorithm, compressed, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1324,7 +1324,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfoForAddress(vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+        async getPublicKeyInfoForAddress(vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean,  requestOptions?: RequestOptions): Promise<PublicKeyInformation> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1336,7 +1336,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAsset(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+        async getVaultAccountAsset(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<VaultAsset> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAsset(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1348,7 +1348,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultWalletAddress>>> {
+        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<Array<VaultWalletAddress>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1360,7 +1360,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAssetUnspentInputs(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnspentInputsResponse>>> {
+        async getVaultAccountAssetUnspentInputs(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<Array<UnspentInputsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetUnspentInputs(vaultAccountId, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1371,7 +1371,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountById(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
+        async getVaultAccountById(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<VaultAccount> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountById(vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1385,7 +1385,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
+        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string,  requestOptions?: RequestOptions): Promise<Array<VaultAccount>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1396,7 +1396,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAssetById(assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+        async getVaultAssetById(assetId: string,  requestOptions?: RequestOptions): Promise<VaultAsset> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssetById(assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1408,7 +1408,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAsset>>> {
+        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string,  requestOptions?: RequestOptions): Promise<Array<VaultAsset>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssets(accountNamePrefix, accountNameSuffix, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1419,7 +1419,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async hideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1431,7 +1431,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1443,7 +1443,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1457,7 +1457,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest, vaultAccountId, assetId, addressId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1468,7 +1468,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unhideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async unhideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1480,7 +1480,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1494,7 +1494,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<void> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -1507,7 +1507,7 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object,  requestOptions?: RequestOptions): Promise<VaultAsset> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, body, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

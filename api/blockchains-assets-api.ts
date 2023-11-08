@@ -86,7 +86,7 @@ export const BlockchainsAssetsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportedAssets( requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssetTypeResponse>>> {
+        async getSupportedAssets( requestOptions?: RequestOptions): Promise<Array<AssetTypeResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportedAssets(requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },

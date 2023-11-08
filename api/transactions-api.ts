@@ -636,7 +636,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cancelTransaction(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CancelTransactionResponse>> {
+        async cancelTransaction(txId: string,  requestOptions?: RequestOptions): Promise<CancelTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTransaction(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -647,7 +647,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createTransaction(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+        async createTransaction(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<CreateTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createTransaction(transactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -659,7 +659,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dropTransaction(txId: string, dropTransactionRequest?: DropTransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DropTransactionResponse>> {
+        async dropTransaction(txId: string, dropTransactionRequest?: DropTransactionRequest,  requestOptions?: RequestOptions): Promise<DropTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.dropTransaction(txId, dropTransactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -670,7 +670,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async estimateNetworkFee(assetId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedNetworkFeeResponse>> {
+        async estimateNetworkFee(assetId: string,  requestOptions?: RequestOptions): Promise<EstimatedNetworkFeeResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.estimateNetworkFee(assetId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -681,7 +681,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async estimateTransactionFee(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedTransactionFeeResponse>> {
+        async estimateTransactionFee(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<EstimatedTransactionFeeResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.estimateTransactionFee(transactionRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -692,7 +692,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async freezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FreezeTransactionResponse>> {
+        async freezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<FreezeTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.freezeTransaction(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -703,7 +703,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionByExternalId(externalTxId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
+        async getTransactionByExternalId(externalTxId: string,  requestOptions?: RequestOptions): Promise<TransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionByExternalId(externalTxId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -714,7 +714,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionById(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
+        async getTransactionById(txId: string,  requestOptions?: RequestOptions): Promise<TransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionById(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -738,7 +738,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
+        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string,  requestOptions?: RequestOptions): Promise<Array<TransactionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -750,7 +750,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setConfirmationThresholdForTransaction(txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
+        async setConfirmationThresholdForTransaction(txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<SetConfirmationsThresholdResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransaction(txId, setConfirmationsThresholdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -762,7 +762,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setConfirmationThresholdForTransactionByHash(txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
+        async setConfirmationThresholdForTransactionByHash(txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<SetConfirmationsThresholdResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransactionByHash(txHash, setConfirmationsThresholdRequest, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -773,7 +773,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unfreezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnfreezeTransactionResponse>> {
+        async unfreezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<UnfreezeTransactionResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.unfreezeTransaction(txId, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
@@ -785,7 +785,7 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateAddress(assetId: string, address: string,  requestOptions?: RequestOptions): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidateAddressResponse>> {
+        async validateAddress(assetId: string, address: string,  requestOptions?: RequestOptions): Promise<ValidateAddressResponse> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.validateAddress(assetId, address, requestOptions);
             return httpClient.request(localVarAxiosArgs);
         },
