@@ -12,39 +12,38 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
-// @ts-ignore
-import { GetNFTs200Response } from '../models';
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { GetOwnershipTokens200Response } from '../models';
 // @ts-ignore
 import { ListOwnedCollections200Response } from '../models';
 // @ts-ignore
+import { ListOwnedTokens200Response } from '../models';
+// @ts-ignore
+import { TokenOwnershipSpamUpdatePayload } from '../models';
+// @ts-ignore
+import { TokenOwnershipStatusUpdatePayload } from '../models';
+// @ts-ignore
 import { TokenResponse } from '../models';
 // @ts-ignore
 import { UpdateTokenOwnershipStatusDto } from '../models';
-
-
-
-    /**
+/**
  * NFTsApi - axios parameter creator
  * @export
  */
-export const NFTsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const NFTsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Returns the requested token data. 
@@ -53,33 +52,31 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNFT: async (id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getNFT: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('getNFT', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -88,21 +85,26 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
          * @param {string} ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 100)
-         * @param {Array<'collection.name' | 'name' | 'blockchainDescriptor'>} [sort] Sort by param, it can be one param or a list of params separated by comma
-         * @param {'DESC' | 'ASC'} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {Array<GetNFTsSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {GetNFTsOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNFTs: async (ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getNFTs: async (ids: string, pageCursor?: string, pageSize?: number, sort?: Array<GetNFTsSortEnum>, order?: GetNFTsOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'ids' is not null or undefined
             assertParamExists('getNFTs', 'ids', ids)
             const localVarPath = `/nfts/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (ids !== undefined) {
                 localVarQueryParameter['ids'] = ids;
             }
@@ -126,51 +128,65 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Returns all tokens and their data in your workspace. 
          * @summary List all owned tokens (paginated)
-         * @param {'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'} [blockchainDescriptor] Blockchain descriptor filter
-         * @param {string} [vaultAccountIds] A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request
+         * @param {GetOwnershipTokensBlockchainDescriptorEnum} [blockchainDescriptor] Blockchain descriptor filter
+         * @param {string} [vaultAccountIds] A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided.
+         * @param {string} [ncwId] Tenant\&#39;s Non-Custodial Wallet ID
+         * @param {string} [ncwAccountIds] A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided.
+         * @param {GetOwnershipTokensWalletTypeEnum} [walletType] Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
          * @param {string} [ids] A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
          * @param {string} [collectionIds] A comma separated list of collection IDs. Up to 100 are allowed in a single request.
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 100)
-         * @param {Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>} [sort] Sort by param, it can be one param or a list of params separated by comma
-         * @param {'DESC' | 'ASC'} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
-         * @param {'LISTED' | 'ARCHIVED'} [status] Token ownership status
+         * @param {Array<GetOwnershipTokensSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {GetOwnershipTokensOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {GetOwnershipTokensStatusEnum} [status] Token ownership status
          * @param {string} [search] Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name.
+         * @param {GetOwnershipTokensSpamEnum} [spam] Token ownership spam status.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOwnershipTokens: async (blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getOwnershipTokens: async (blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum, vaultAccountIds?: string, ncwId?: string, ncwAccountIds?: string, walletType?: GetOwnershipTokensWalletTypeEnum, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<GetOwnershipTokensSortEnum>, order?: GetOwnershipTokensOrderEnum, status?: GetOwnershipTokensStatusEnum, search?: string, spam?: GetOwnershipTokensSpamEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/nfts/ownership/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (blockchainDescriptor !== undefined) {
                 localVarQueryParameter['blockchainDescriptor'] = blockchainDescriptor;
             }
 
             if (vaultAccountIds !== undefined) {
                 localVarQueryParameter['vaultAccountIds'] = vaultAccountIds;
+            }
+
+            if (ncwId !== undefined) {
+                localVarQueryParameter['ncwId'] = ncwId;
+            }
+
+            if (ncwAccountIds !== undefined) {
+                localVarQueryParameter['ncwAccountIds'] = ncwAccountIds;
+            }
+
+            if (walletType !== undefined) {
+                localVarQueryParameter['walletType'] = walletType;
             }
 
             if (ids !== undefined) {
@@ -205,43 +221,56 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
                 localVarQueryParameter['search'] = search;
             }
 
+            if (spam !== undefined) {
+                localVarQueryParameter['spam'] = spam;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Returns all collections in your workspace 
          * @summary List owned collections (paginated)
+         * @param {string} [ncwId] Tenant\&#39;s Non-Custodial Wallet ID
+         * @param {ListOwnedCollectionsWalletTypeEnum} [walletType] Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
          * @param {string} [search] Search owned collections. Possible criteria for search: collection name, collection contract address.
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 100)
-         * @param {Array<'name'>} [sort] Sort by param, it can be one param or a list of params separated by comma
-         * @param {'DESC' | 'ASC'} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {Array<ListOwnedCollectionsSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {ListOwnedCollectionsOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {ListOwnedCollectionsStatusEnum} [status] Token ownership status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOwnedCollections: async (search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        listOwnedCollections: async (ncwId?: string, walletType?: ListOwnedCollectionsWalletTypeEnum, search?: string, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedCollectionsSortEnum>, order?: ListOwnedCollectionsOrderEnum, status?: ListOwnedCollectionsStatusEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/nfts/ownership/collections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (ncwId !== undefined) {
+                localVarQueryParameter['ncwId'] = ncwId;
+            }
+
+            if (walletType !== undefined) {
+                localVarQueryParameter['walletType'] = walletType;
+            }
+
             if (search !== undefined) {
                 localVarQueryParameter['search'] = search;
             }
@@ -262,80 +291,161 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
                 localVarQueryParameter['order'] = order;
             }
 
+            if (status !== undefined) {
+                localVarQueryParameter['status'] = status;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
+         * @summary List all distinct owned tokens (paginated)
+         * @param {string} [ncwId] Tenant\&#39;s Non-Custodial Wallet ID
+         * @param {ListOwnedTokensWalletTypeEnum} [walletType] Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
+         * @param {string} [pageCursor] Page cursor to fetch
+         * @param {number} [pageSize] Items per page (max 100)
+         * @param {Array<ListOwnedTokensSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {ListOwnedTokensOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {ListOwnedTokensStatusEnum} [status] Token ownership status
+         * @param {string} [search] Search owned tokens by token name
+         * @param {ListOwnedTokensSpamEnum} [spam] Token ownership spam status.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOwnedTokens: async (ncwId?: string, walletType?: ListOwnedTokensWalletTypeEnum, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedTokensSortEnum>, order?: ListOwnedTokensOrderEnum, status?: ListOwnedTokensStatusEnum, search?: string, spam?: ListOwnedTokensSpamEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/nfts/ownership/assets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (ncwId !== undefined) {
+                localVarQueryParameter['ncwId'] = ncwId;
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+            if (walletType !== undefined) {
+                localVarQueryParameter['walletType'] = walletType;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sort) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (status !== undefined) {
+                localVarQueryParameter['status'] = status;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (spam !== undefined) {
+                localVarQueryParameter['spam'] = spam;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Updates the latest token metadata. 
          * @summary Refresh token metadata
          * @param {string} id NFT ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshNFTMetadata: async (id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        refreshNFTMetadata: async (id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('refreshNFTMetadata', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Updates all tokens and balances per blockchain and vault account. 
          * @summary Refresh vault account tokens
-         * @param {'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'} blockchainDescriptor Blockchain descriptor filter
+         * @param {UpdateOwnershipTokensBlockchainDescriptorEnum} blockchainDescriptor Blockchain descriptor filter
          * @param {string} vaultAccountId Vault account filter
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateOwnershipTokens: async (blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        updateOwnershipTokens: async (blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'blockchainDescriptor' is not null or undefined
             assertParamExists('updateOwnershipTokens', 'blockchainDescriptor', blockchainDescriptor)
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('updateOwnershipTokens', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/nfts/ownership/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (blockchainDescriptor !== undefined) {
                 localVarQueryParameter['blockchainDescriptor'] = blockchainDescriptor;
             }
@@ -344,33 +454,31 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
                 localVarQueryParameter['vaultAccountId'] = vaultAccountId;
             }
 
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
-         * Updates token ownership status for a tenant, in all tenant vaults. 
+         * Updates token status for a tenant, in all tenant vaults. 
          * @summary Update token ownership status
          * @param {UpdateTokenOwnershipStatusDto} updateTokenOwnershipStatusDto 
          * @param {string} id NFT ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'updateTokenOwnershipStatusDto' is not null or undefined
             assertParamExists('updateTokenOwnershipStatus', 'updateTokenOwnershipStatusDto', updateTokenOwnershipStatusDto)
             // verify required parameter 'id' is not null or undefined
@@ -378,30 +486,114 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
             const localVarPath = `/nfts/ownership/tokens/{id}/status`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = updateTokenOwnershipStatusDto as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateTokenOwnershipStatusDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
+         * @summary Update tokens ownership spam property
+         * @param {Array<TokenOwnershipSpamUpdatePayload>} tokenOwnershipSpamUpdatePayload 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTokensOwnershipSpam: async (tokenOwnershipSpamUpdatePayload: Array<TokenOwnershipSpamUpdatePayload>, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenOwnershipSpamUpdatePayload' is not null or undefined
+            assertParamExists('updateTokensOwnershipSpam', 'tokenOwnershipSpamUpdatePayload', tokenOwnershipSpamUpdatePayload)
+            const localVarPath = `/nfts/ownership/tokens/spam`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenOwnershipSpamUpdatePayload, localVarRequestOptions, configuration)
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates tokens status for a tenant, in all tenant vaults.
+         * @summary Update tokens ownership status
+         * @param {Array<TokenOwnershipStatusUpdatePayload>} tokenOwnershipStatusUpdatePayload 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTokensOwnershipStatus: async (tokenOwnershipStatusUpdatePayload: Array<TokenOwnershipStatusUpdatePayload>, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'tokenOwnershipStatusUpdatePayload' is not null or undefined
+            assertParamExists('updateTokensOwnershipStatus', 'tokenOwnershipStatusUpdatePayload', tokenOwnershipStatusUpdatePayload)
+            const localVarPath = `/nfts/ownership/tokens/status`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tokenOwnershipStatusUpdatePayload, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -411,8 +603,8 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration,
  * NFTsApi - functional programming interface
  * @export
  */
-export const NFTsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = NFTsApiAxiosParamCreator(httpClient.configuration)
+export const NFTsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = NFTsApiAxiosParamCreator(configuration)
     return {
         /**
          * Returns the requested token data. 
@@ -421,9 +613,11 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFT(id: string,  requestOptions?: RequestOptions): Promise<TokenResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFT(id, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getNFT(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFT(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.getNFT']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns the requested tokens data. 
@@ -431,86 +625,267 @@ export const NFTsApiFp = function(httpClient: HttpClient) {
          * @param {string} ids A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 100)
-         * @param {Array<'collection.name' | 'name' | 'blockchainDescriptor'>} [sort] Sort by param, it can be one param or a list of params separated by comma
-         * @param {'DESC' | 'ASC'} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {Array<GetNFTsSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {GetNFTsOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<GetNFTs200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFTs(ids, pageCursor, pageSize, sort, order, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<GetNFTsSortEnum>, order?: GetNFTsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedTokens200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNFTs(ids, pageCursor, pageSize, sort, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.getNFTs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns all tokens and their data in your workspace. 
          * @summary List all owned tokens (paginated)
-         * @param {'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'} [blockchainDescriptor] Blockchain descriptor filter
-         * @param {string} [vaultAccountIds] A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request
+         * @param {GetOwnershipTokensBlockchainDescriptorEnum} [blockchainDescriptor] Blockchain descriptor filter
+         * @param {string} [vaultAccountIds] A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided.
+         * @param {string} [ncwId] Tenant\&#39;s Non-Custodial Wallet ID
+         * @param {string} [ncwAccountIds] A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided.
+         * @param {GetOwnershipTokensWalletTypeEnum} [walletType] Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
          * @param {string} [ids] A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
          * @param {string} [collectionIds] A comma separated list of collection IDs. Up to 100 are allowed in a single request.
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 100)
-         * @param {Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>} [sort] Sort by param, it can be one param or a list of params separated by comma
-         * @param {'DESC' | 'ASC'} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
-         * @param {'LISTED' | 'ARCHIVED'} [status] Token ownership status
+         * @param {Array<GetOwnershipTokensSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {GetOwnershipTokensOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {GetOwnershipTokensStatusEnum} [status] Token ownership status
          * @param {string} [search] Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name.
+         * @param {GetOwnershipTokensSpamEnum} [spam] Token ownership spam status.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOwnershipTokens(blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountIds?: string, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>, order?: 'DESC' | 'ASC', status?: 'LISTED' | 'ARCHIVED', search?: string,  requestOptions?: RequestOptions): Promise<GetOwnershipTokens200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getOwnershipTokens(blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum, vaultAccountIds?: string, ncwId?: string, ncwAccountIds?: string, walletType?: GetOwnershipTokensWalletTypeEnum, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<GetOwnershipTokensSortEnum>, order?: GetOwnershipTokensOrderEnum, status?: GetOwnershipTokensStatusEnum, search?: string, spam?: GetOwnershipTokensSpamEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOwnershipTokens200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.getOwnershipTokens']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns all collections in your workspace 
          * @summary List owned collections (paginated)
+         * @param {string} [ncwId] Tenant\&#39;s Non-Custodial Wallet ID
+         * @param {ListOwnedCollectionsWalletTypeEnum} [walletType] Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
          * @param {string} [search] Search owned collections. Possible criteria for search: collection name, collection contract address.
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 100)
-         * @param {Array<'name'>} [sort] Sort by param, it can be one param or a list of params separated by comma
-         * @param {'DESC' | 'ASC'} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {Array<ListOwnedCollectionsSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {ListOwnedCollectionsOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {ListOwnedCollectionsStatusEnum} [status] Token ownership status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOwnedCollections(search?: string, pageCursor?: string, pageSize?: number, sort?: Array<'name'>, order?: 'DESC' | 'ASC',  requestOptions?: RequestOptions): Promise<ListOwnedCollections200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedCollections(search, pageCursor, pageSize, sort, order, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async listOwnedCollections(ncwId?: string, walletType?: ListOwnedCollectionsWalletTypeEnum, search?: string, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedCollectionsSortEnum>, order?: ListOwnedCollectionsOrderEnum, status?: ListOwnedCollectionsStatusEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedCollections200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.listOwnedCollections']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
+         * @summary List all distinct owned tokens (paginated)
+         * @param {string} [ncwId] Tenant\&#39;s Non-Custodial Wallet ID
+         * @param {ListOwnedTokensWalletTypeEnum} [walletType] Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
+         * @param {string} [pageCursor] Page cursor to fetch
+         * @param {number} [pageSize] Items per page (max 100)
+         * @param {Array<ListOwnedTokensSortEnum>} [sort] Sort by param, it can be one param or a list of params separated by comma
+         * @param {ListOwnedTokensOrderEnum} [order] Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+         * @param {ListOwnedTokensStatusEnum} [status] Token ownership status
+         * @param {string} [search] Search owned tokens by token name
+         * @param {ListOwnedTokensSpamEnum} [spam] Token ownership spam status.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listOwnedTokens(ncwId?: string, walletType?: ListOwnedTokensWalletTypeEnum, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedTokensSortEnum>, order?: ListOwnedTokensOrderEnum, status?: ListOwnedTokensStatusEnum, search?: string, spam?: ListOwnedTokensSpamEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedTokens200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.listOwnedTokens']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates the latest token metadata. 
          * @summary Refresh token metadata
          * @param {string} id NFT ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async refreshNFTMetadata(id: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async refreshNFTMetadata(id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.refreshNFTMetadata']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates all tokens and balances per blockchain and vault account. 
          * @summary Refresh vault account tokens
-         * @param {'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'} blockchainDescriptor Blockchain descriptor filter
+         * @param {UpdateOwnershipTokensBlockchainDescriptorEnum} blockchainDescriptor Blockchain descriptor filter
          * @param {string} vaultAccountId Vault account filter
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateOwnershipTokens(blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI', vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async updateOwnershipTokens(blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateOwnershipTokens(blockchainDescriptor, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.updateOwnershipTokens']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates token ownership status for a tenant, in all tenant vaults. 
+         * Updates token status for a tenant, in all tenant vaults. 
          * @summary Update token ownership status
          * @param {UpdateTokenOwnershipStatusDto} updateTokenOwnershipStatusDto 
          * @param {string} id NFT ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.updateTokenOwnershipStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
+         * @summary Update tokens ownership spam property
+         * @param {Array<TokenOwnershipSpamUpdatePayload>} tokenOwnershipSpamUpdatePayload 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload: Array<TokenOwnershipSpamUpdatePayload>, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.updateTokensOwnershipSpam']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Updates tokens status for a tenant, in all tenant vaults.
+         * @summary Update tokens ownership status
+         * @param {Array<TokenOwnershipStatusUpdatePayload>} tokenOwnershipStatusUpdatePayload 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload: Array<TokenOwnershipStatusUpdatePayload>, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NFTsApi.updateTokensOwnershipStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * NFTsApi - factory interface
+ * @export
+ */
+export const NFTsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = NFTsApiFp(configuration)
+    return {
+        /**
+         * Returns the requested token data. 
+         * @summary List token data by ID
+         * @param {NFTsApiGetNFTRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNFT(requestParameters: NFTsApiGetNFTRequest, options?: RawAxiosRequestConfig): AxiosPromise<TokenResponse> {
+            return localVarFp.getNFT(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the requested tokens data. 
+         * @summary List tokens by IDs
+         * @param {NFTsApiGetNFTsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNFTs(requestParameters: NFTsApiGetNFTsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedTokens200Response> {
+            return localVarFp.getNFTs(requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns all tokens and their data in your workspace. 
+         * @summary List all owned tokens (paginated)
+         * @param {NFTsApiGetOwnershipTokensRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetOwnershipTokens200Response> {
+            return localVarFp.getOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountIds, requestParameters.ncwId, requestParameters.ncwAccountIds, requestParameters.walletType, requestParameters.ids, requestParameters.collectionIds, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestParameters.spam, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns all collections in your workspace 
+         * @summary List owned collections (paginated)
+         * @param {NFTsApiListOwnedCollectionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedCollections200Response> {
+            return localVarFp.listOwnedCollections(requestParameters.ncwId, requestParameters.walletType, requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
+         * @summary List all distinct owned tokens (paginated)
+         * @param {NFTsApiListOwnedTokensRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listOwnedTokens(requestParameters: NFTsApiListOwnedTokensRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedTokens200Response> {
+            return localVarFp.listOwnedTokens(requestParameters.ncwId, requestParameters.walletType, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestParameters.spam, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the latest token metadata. 
+         * @summary Refresh token metadata
+         * @param {NFTsApiRefreshNFTMetadataRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.refreshNFTMetadata(requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates all tokens and balances per blockchain and vault account. 
+         * @summary Refresh vault account tokens
+         * @param {NFTsApiUpdateOwnershipTokensRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateOwnershipTokens(requestParameters: NFTsApiUpdateOwnershipTokensRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates token status for a tenant, in all tenant vaults. 
+         * @summary Update token ownership status
+         * @param {NFTsApiUpdateTokenOwnershipStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
+         * @summary Update tokens ownership spam property
+         * @param {NFTsApiUpdateTokensOwnershipSpamRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTokensOwnershipSpam(requestParameters: NFTsApiUpdateTokensOwnershipSpamRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateTokensOwnershipSpam(requestParameters.tokenOwnershipSpamUpdatePayload, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates tokens status for a tenant, in all tenant vaults.
+         * @summary Update tokens ownership status
+         * @param {NFTsApiUpdateTokensOwnershipStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateTokensOwnershipStatus(requestParameters: NFTsApiUpdateTokensOwnershipStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateTokensOwnershipStatus(requestParameters.tokenOwnershipStatusUpdatePayload, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -559,14 +934,14 @@ export interface NFTsApiGetNFTsRequest {
      * @type {Array<'collection.name' | 'name' | 'blockchainDescriptor'>}
      * @memberof NFTsApiGetNFTs
      */
-    readonly sort?: Array<'collection.name' | 'name' | 'blockchainDescriptor'>
+    readonly sort?: Array<GetNFTsSortEnum>
 
     /**
      * Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
      * @type {'DESC' | 'ASC'}
      * @memberof NFTsApiGetNFTs
      */
-    readonly order?: 'DESC' | 'ASC'
+    readonly order?: GetNFTsOrderEnum
 }
 
 /**
@@ -577,17 +952,38 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH'}
      * @memberof NFTsApiGetOwnershipTokens
      */
-    readonly blockchainDescriptor?: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'
+    readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
 
     /**
-     * A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request
+     * A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided.
      * @type {string}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly vaultAccountIds?: string
+
+    /**
+     * Tenant\&#39;s Non-Custodial Wallet ID
+     * @type {string}
+     * @memberof NFTsApiGetOwnershipTokens
+     */
+    readonly ncwId?: string
+
+    /**
+     * A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided.
+     * @type {string}
+     * @memberof NFTsApiGetOwnershipTokens
+     */
+    readonly ncwAccountIds?: string
+
+    /**
+     * Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
+     * @type {'VAULT_ACCOUNT' | 'END_USER_WALLET'}
+     * @memberof NFTsApiGetOwnershipTokens
+     */
+    readonly walletType?: GetOwnershipTokensWalletTypeEnum
 
     /**
      * A comma separated list of NFT IDs. Up to 100 are allowed in a single request.
@@ -622,21 +1018,21 @@ export interface NFTsApiGetOwnershipTokensRequest {
      * @type {Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>}
      * @memberof NFTsApiGetOwnershipTokens
      */
-    readonly sort?: Array<'ownershipLastUpdateTime' | 'name' | 'collection.name' | 'blockchainDescriptor'>
+    readonly sort?: Array<GetOwnershipTokensSortEnum>
 
     /**
      * Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
      * @type {'DESC' | 'ASC'}
      * @memberof NFTsApiGetOwnershipTokens
      */
-    readonly order?: 'DESC' | 'ASC'
+    readonly order?: GetOwnershipTokensOrderEnum
 
     /**
      * Token ownership status
      * @type {'LISTED' | 'ARCHIVED'}
      * @memberof NFTsApiGetOwnershipTokens
      */
-    readonly status?: 'LISTED' | 'ARCHIVED'
+    readonly status?: GetOwnershipTokensStatusEnum
 
     /**
      * Search owned tokens and their collections. Possible criteria for search:  token name and id within the contract/collection, collection name, blockchain descriptor and name.
@@ -644,6 +1040,13 @@ export interface NFTsApiGetOwnershipTokensRequest {
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly search?: string
+
+    /**
+     * Token ownership spam status.
+     * @type {'true' | 'false' | 'all'}
+     * @memberof NFTsApiGetOwnershipTokens
+     */
+    readonly spam?: GetOwnershipTokensSpamEnum
 }
 
 /**
@@ -652,6 +1055,20 @@ export interface NFTsApiGetOwnershipTokensRequest {
  * @interface NFTsApiListOwnedCollectionsRequest
  */
 export interface NFTsApiListOwnedCollectionsRequest {
+    /**
+     * Tenant\&#39;s Non-Custodial Wallet ID
+     * @type {string}
+     * @memberof NFTsApiListOwnedCollections
+     */
+    readonly ncwId?: string
+
+    /**
+     * Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
+     * @type {'VAULT_ACCOUNT' | 'END_USER_WALLET'}
+     * @memberof NFTsApiListOwnedCollections
+     */
+    readonly walletType?: ListOwnedCollectionsWalletTypeEnum
+
     /**
      * Search owned collections. Possible criteria for search: collection name, collection contract address.
      * @type {string}
@@ -678,14 +1095,91 @@ export interface NFTsApiListOwnedCollectionsRequest {
      * @type {Array<'name'>}
      * @memberof NFTsApiListOwnedCollections
      */
-    readonly sort?: Array<'name'>
+    readonly sort?: Array<ListOwnedCollectionsSortEnum>
 
     /**
      * Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
      * @type {'DESC' | 'ASC'}
      * @memberof NFTsApiListOwnedCollections
      */
-    readonly order?: 'DESC' | 'ASC'
+    readonly order?: ListOwnedCollectionsOrderEnum
+
+    /**
+     * Token ownership status
+     * @type {'LISTED' | 'ARCHIVED'}
+     * @memberof NFTsApiListOwnedCollections
+     */
+    readonly status?: ListOwnedCollectionsStatusEnum
+}
+
+/**
+ * Request parameters for listOwnedTokens operation in NFTsApi.
+ * @export
+ * @interface NFTsApiListOwnedTokensRequest
+ */
+export interface NFTsApiListOwnedTokensRequest {
+    /**
+     * Tenant\&#39;s Non-Custodial Wallet ID
+     * @type {string}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly ncwId?: string
+
+    /**
+     * Wallet type, it can be &#x60;VAULT_ACCOUNT&#x60; or &#x60;END_USER_WALLET&#x60;
+     * @type {'VAULT_ACCOUNT' | 'END_USER_WALLET'}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly walletType?: ListOwnedTokensWalletTypeEnum
+
+    /**
+     * Page cursor to fetch
+     * @type {string}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Items per page (max 100)
+     * @type {number}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sort by param, it can be one param or a list of params separated by comma
+     * @type {Array<'name'>}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly sort?: Array<ListOwnedTokensSortEnum>
+
+    /**
+     * Order direction, it can be &#x60;ASC&#x60; for ascending or &#x60;DESC&#x60; for descending
+     * @type {'DESC' | 'ASC'}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly order?: ListOwnedTokensOrderEnum
+
+    /**
+     * Token ownership status
+     * @type {'LISTED' | 'ARCHIVED'}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly status?: ListOwnedTokensStatusEnum
+
+    /**
+     * Search owned tokens by token name
+     * @type {string}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly search?: string
+
+    /**
+     * Token ownership spam status.
+     * @type {'true' | 'false' | 'all'}
+     * @memberof NFTsApiListOwnedTokens
+     */
+    readonly spam?: ListOwnedTokensSpamEnum
 }
 
 /**
@@ -700,6 +1194,13 @@ export interface NFTsApiRefreshNFTMetadataRequest {
      * @memberof NFTsApiRefreshNFTMetadata
      */
     readonly id: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NFTsApiRefreshNFTMetadata
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -710,10 +1211,10 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'BASECHAIN_ETH'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
-    readonly blockchainDescriptor: 'ETH' | 'ETH_TEST3' | 'POLYGON' | 'POLYGON_TEST_MUMBAI'
+    readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
 
     /**
      * Vault account filter
@@ -721,6 +1222,13 @@ export interface NFTsApiUpdateOwnershipTokensRequest {
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NFTsApiUpdateOwnershipTokens
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -742,6 +1250,55 @@ export interface NFTsApiUpdateTokenOwnershipStatusRequest {
      * @memberof NFTsApiUpdateTokenOwnershipStatus
      */
     readonly id: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NFTsApiUpdateTokenOwnershipStatus
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for updateTokensOwnershipSpam operation in NFTsApi.
+ * @export
+ * @interface NFTsApiUpdateTokensOwnershipSpamRequest
+ */
+export interface NFTsApiUpdateTokensOwnershipSpamRequest {
+    /**
+     * 
+     * @type {Array<TokenOwnershipSpamUpdatePayload>}
+     * @memberof NFTsApiUpdateTokensOwnershipSpam
+     */
+    readonly tokenOwnershipSpamUpdatePayload: Array<TokenOwnershipSpamUpdatePayload>
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NFTsApiUpdateTokensOwnershipSpam
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for updateTokensOwnershipStatus operation in NFTsApi.
+ * @export
+ * @interface NFTsApiUpdateTokensOwnershipStatusRequest
+ */
+export interface NFTsApiUpdateTokensOwnershipStatusRequest {
+    /**
+     * 
+     * @type {Array<TokenOwnershipStatusUpdatePayload>}
+     * @memberof NFTsApiUpdateTokensOwnershipStatus
+     */
+    readonly tokenOwnershipStatusUpdatePayload: Array<TokenOwnershipStatusUpdatePayload>
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NFTsApiUpdateTokensOwnershipStatus
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -759,8 +1316,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public getNFT(requestParameters: NFTsApiGetNFTRequest,  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).getNFT(requestParameters.id, requestOptions);
+    public getNFT(requestParameters: NFTsApiGetNFTRequest) {
+        return NFTsApiFp(this.configuration).getNFT(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -771,8 +1328,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public getNFTs(requestParameters: NFTsApiGetNFTsRequest,  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).getNFTs(requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestOptions);
+    public getNFTs(requestParameters: NFTsApiGetNFTsRequest) {
+        return NFTsApiFp(this.configuration).getNFTs(requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -783,8 +1340,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {},  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).getOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountIds, requestParameters.ids, requestParameters.collectionIds, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestOptions);
+    public getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {}) {
+        return NFTsApiFp(this.configuration).getOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountIds, requestParameters.ncwId, requestParameters.ncwAccountIds, requestParameters.walletType, requestParameters.ids, requestParameters.collectionIds, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestParameters.spam).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -795,8 +1352,20 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {},  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).listOwnedCollections(requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestOptions);
+    public listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {}) {
+        return NFTsApiFp(this.configuration).listOwnedCollections(requestParameters.ncwId, requestParameters.walletType, requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
+     * @summary List all distinct owned tokens (paginated)
+     * @param {NFTsApiListOwnedTokensRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsApi
+     */
+    public listOwnedTokens(requestParameters: NFTsApiListOwnedTokensRequest = {}) {
+        return NFTsApiFp(this.configuration).listOwnedTokens(requestParameters.ncwId, requestParameters.walletType, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestParameters.spam).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -807,8 +1376,8 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest,  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).refreshNFTMetadata(requestParameters.id, requestOptions);
+    public refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest) {
+        return NFTsApiFp(this.configuration).refreshNFTMetadata(requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -819,19 +1388,201 @@ export class NFTsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public updateOwnershipTokens(requestParameters: NFTsApiUpdateOwnershipTokensRequest,  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).updateOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountId, requestOptions);
+    public updateOwnershipTokens(requestParameters: NFTsApiUpdateOwnershipTokensRequest) {
+        return NFTsApiFp(this.configuration).updateOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Updates token ownership status for a tenant, in all tenant vaults. 
+     * Updates token status for a tenant, in all tenant vaults. 
      * @summary Update token ownership status
      * @param {NFTsApiUpdateTokenOwnershipStatusRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NFTsApi
      */
-     public updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest,  requestOptions?: RequestOptions) {
-        return NFTsApiFp(this.httpClient).updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestOptions);
+    public updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest) {
+        return NFTsApiFp(this.configuration).updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
+     * @summary Update tokens ownership spam property
+     * @param {NFTsApiUpdateTokensOwnershipSpamRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsApi
+     */
+    public updateTokensOwnershipSpam(requestParameters: NFTsApiUpdateTokensOwnershipSpamRequest) {
+        return NFTsApiFp(this.configuration).updateTokensOwnershipSpam(requestParameters.tokenOwnershipSpamUpdatePayload, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates tokens status for a tenant, in all tenant vaults.
+     * @summary Update tokens ownership status
+     * @param {NFTsApiUpdateTokensOwnershipStatusRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof NFTsApi
+     */
+    public updateTokensOwnershipStatus(requestParameters: NFTsApiUpdateTokensOwnershipStatusRequest) {
+        return NFTsApiFp(this.configuration).updateTokensOwnershipStatus(requestParameters.tokenOwnershipStatusUpdatePayload, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+
+/**
+ * @export
+ */
+export const GetNFTsSortEnum = {
+    CollectionName: 'collection.name',
+    Name: 'name',
+    BlockchainDescriptor: 'blockchainDescriptor'
+} as const;
+export type GetNFTsSortEnum = typeof GetNFTsSortEnum[keyof typeof GetNFTsSortEnum];
+/**
+ * @export
+ */
+export const GetNFTsOrderEnum = {
+    Desc: 'DESC',
+    Asc: 'ASC'
+} as const;
+export type GetNFTsOrderEnum = typeof GetNFTsOrderEnum[keyof typeof GetNFTsOrderEnum];
+/**
+ * @export
+ */
+export const GetOwnershipTokensBlockchainDescriptorEnum = {
+    Eth: 'ETH',
+    EthTest3: 'ETH_TEST3',
+    EthTest5: 'ETH_TEST5',
+    Polygon: 'POLYGON',
+    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    Xtz: 'XTZ',
+    XtzTest: 'XTZ_TEST',
+    BasechainEth: 'BASECHAIN_ETH'
+} as const;
+export type GetOwnershipTokensBlockchainDescriptorEnum = typeof GetOwnershipTokensBlockchainDescriptorEnum[keyof typeof GetOwnershipTokensBlockchainDescriptorEnum];
+/**
+ * @export
+ */
+export const GetOwnershipTokensWalletTypeEnum = {
+    VaultAccount: 'VAULT_ACCOUNT',
+    EndUserWallet: 'END_USER_WALLET'
+} as const;
+export type GetOwnershipTokensWalletTypeEnum = typeof GetOwnershipTokensWalletTypeEnum[keyof typeof GetOwnershipTokensWalletTypeEnum];
+/**
+ * @export
+ */
+export const GetOwnershipTokensSortEnum = {
+    OwnershipLastUpdateTime: 'ownershipLastUpdateTime',
+    Name: 'name',
+    CollectionName: 'collection.name',
+    BlockchainDescriptor: 'blockchainDescriptor'
+} as const;
+export type GetOwnershipTokensSortEnum = typeof GetOwnershipTokensSortEnum[keyof typeof GetOwnershipTokensSortEnum];
+/**
+ * @export
+ */
+export const GetOwnershipTokensOrderEnum = {
+    Desc: 'DESC',
+    Asc: 'ASC'
+} as const;
+export type GetOwnershipTokensOrderEnum = typeof GetOwnershipTokensOrderEnum[keyof typeof GetOwnershipTokensOrderEnum];
+/**
+ * @export
+ */
+export const GetOwnershipTokensStatusEnum = {
+    Listed: 'LISTED',
+    Archived: 'ARCHIVED'
+} as const;
+export type GetOwnershipTokensStatusEnum = typeof GetOwnershipTokensStatusEnum[keyof typeof GetOwnershipTokensStatusEnum];
+/**
+ * @export
+ */
+export const GetOwnershipTokensSpamEnum = {
+    True: 'true',
+    False: 'false',
+    All: 'all'
+} as const;
+export type GetOwnershipTokensSpamEnum = typeof GetOwnershipTokensSpamEnum[keyof typeof GetOwnershipTokensSpamEnum];
+/**
+ * @export
+ */
+export const ListOwnedCollectionsWalletTypeEnum = {
+    VaultAccount: 'VAULT_ACCOUNT',
+    EndUserWallet: 'END_USER_WALLET'
+} as const;
+export type ListOwnedCollectionsWalletTypeEnum = typeof ListOwnedCollectionsWalletTypeEnum[keyof typeof ListOwnedCollectionsWalletTypeEnum];
+/**
+ * @export
+ */
+export const ListOwnedCollectionsSortEnum = {
+    Name: 'name'
+} as const;
+export type ListOwnedCollectionsSortEnum = typeof ListOwnedCollectionsSortEnum[keyof typeof ListOwnedCollectionsSortEnum];
+/**
+ * @export
+ */
+export const ListOwnedCollectionsOrderEnum = {
+    Desc: 'DESC',
+    Asc: 'ASC'
+} as const;
+export type ListOwnedCollectionsOrderEnum = typeof ListOwnedCollectionsOrderEnum[keyof typeof ListOwnedCollectionsOrderEnum];
+/**
+ * @export
+ */
+export const ListOwnedCollectionsStatusEnum = {
+    Listed: 'LISTED',
+    Archived: 'ARCHIVED'
+} as const;
+export type ListOwnedCollectionsStatusEnum = typeof ListOwnedCollectionsStatusEnum[keyof typeof ListOwnedCollectionsStatusEnum];
+/**
+ * @export
+ */
+export const ListOwnedTokensWalletTypeEnum = {
+    VaultAccount: 'VAULT_ACCOUNT',
+    EndUserWallet: 'END_USER_WALLET'
+} as const;
+export type ListOwnedTokensWalletTypeEnum = typeof ListOwnedTokensWalletTypeEnum[keyof typeof ListOwnedTokensWalletTypeEnum];
+/**
+ * @export
+ */
+export const ListOwnedTokensSortEnum = {
+    Name: 'name'
+} as const;
+export type ListOwnedTokensSortEnum = typeof ListOwnedTokensSortEnum[keyof typeof ListOwnedTokensSortEnum];
+/**
+ * @export
+ */
+export const ListOwnedTokensOrderEnum = {
+    Desc: 'DESC',
+    Asc: 'ASC'
+} as const;
+export type ListOwnedTokensOrderEnum = typeof ListOwnedTokensOrderEnum[keyof typeof ListOwnedTokensOrderEnum];
+/**
+ * @export
+ */
+export const ListOwnedTokensStatusEnum = {
+    Listed: 'LISTED',
+    Archived: 'ARCHIVED'
+} as const;
+export type ListOwnedTokensStatusEnum = typeof ListOwnedTokensStatusEnum[keyof typeof ListOwnedTokensStatusEnum];
+/**
+ * @export
+ */
+export const ListOwnedTokensSpamEnum = {
+    True: 'true',
+    False: 'false',
+    All: 'all'
+} as const;
+export type ListOwnedTokensSpamEnum = typeof ListOwnedTokensSpamEnum[keyof typeof ListOwnedTokensSpamEnum];
+/**
+ * @export
+ */
+export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
+    Eth: 'ETH',
+    EthTest3: 'ETH_TEST3',
+    EthTest5: 'ETH_TEST5',
+    Polygon: 'POLYGON',
+    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    BasechainEth: 'BASECHAIN_ETH'
+} as const;
+export type UpdateOwnershipTokensBlockchainDescriptorEnum = typeof UpdateOwnershipTokensBlockchainDescriptorEnum[keyof typeof UpdateOwnershipTokensBlockchainDescriptorEnum];

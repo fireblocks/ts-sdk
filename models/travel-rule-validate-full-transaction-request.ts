@@ -15,22 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { TravelRuleValidateFullTransactionRequestBeneficiary } from './travel-rule-validate-full-transaction-request-beneficiary';
+import { TravelRuleOwnershipProof } from './travel-rule-ownership-proof';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TravelRuleValidateFullTransactionRequestBeneficiaryProof } from './travel-rule-validate-full-transaction-request-beneficiary-proof';
+import { TravelRulePiiIVMS } from './travel-rule-pii-ivms';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TravelRuleValidateFullTransactionRequestOriginator } from './travel-rule-validate-full-transaction-request-originator';
-// May contain unused imports in some cases
-// @ts-ignore
-import { TravelRuleValidateFullTransactionRequestOriginatorProof } from './travel-rule-validate-full-transaction-request-originator-proof';
-// May contain unused imports in some cases
-// @ts-ignore
-import { TravelRuleValidateFullTransactionRequestPii } from './travel-rule-validate-full-transaction-request-pii';
-// May contain unused imports in some cases
-// @ts-ignore
-import { TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo } from './travel-rule-validate-full-transaction-request-transaction-blockchain-info';
+import { TravelRuleTransactionBlockchainInfo } from './travel-rule-transaction-blockchain-info';
 
 /**
  * 
@@ -51,18 +42,6 @@ export interface TravelRuleValidateFullTransactionRequest {
      */
     'transactionAmount': string;
     /**
-     * The DID of the transaction originator
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originatorDid': string;
-    /**
-     * The DID of the transaction beneficiary
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryDid': string;
-    /**
      * The VASP ID of the transaction originator
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
@@ -75,76 +54,88 @@ export interface TravelRuleValidateFullTransactionRequest {
      */
     'beneficiaryVASPdid': string;
     /**
+     * 
+     * @type {TravelRuleTransactionBlockchainInfo}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'transactionBlockchainInfo': TravelRuleTransactionBlockchainInfo;
+    /**
+     * 
+     * @type {TravelRulePiiIVMS}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'originator': TravelRulePiiIVMS;
+    /**
+     * 
+     * @type {TravelRulePiiIVMS}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'beneficiary': TravelRulePiiIVMS;
+    /**
+     * The DID of the transaction originator
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'originatorDid'?: string;
+    /**
+     * The DID of the transaction beneficiary
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'beneficiaryDid'?: string;
+    /**
      * The name of the VASP acting as the beneficiary
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'beneficiaryVASPname': string;
-    /**
-     * 
-     * @type {TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'transactionBlockchainInfo': TravelRuleValidateFullTransactionRequestTransactionBlockchainInfo;
-    /**
-     * 
-     * @type {TravelRuleValidateFullTransactionRequestOriginator}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originator': TravelRuleValidateFullTransactionRequestOriginator;
-    /**
-     * 
-     * @type {TravelRuleValidateFullTransactionRequestBeneficiary}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiary': TravelRuleValidateFullTransactionRequestBeneficiary;
+    'beneficiaryVASPname'?: string;
     /**
      * Encrypted data related to the transaction
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'encrypted': string;
+    'encrypted'?: string;
     /**
      * The protocol used to perform the travel rule
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'protocol': string;
+    'protocol'?: string;
     /**
      * The email address where a notification should be sent upon completion of the travel rule
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'notificationEmail': string;
+    'notificationEmail'?: string;
     /**
      * Whether to skip validation of beneficiary data
      * @type {boolean}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'skipBeneficiaryDataValidation': boolean;
+    'skipBeneficiaryDataValidation'?: boolean;
     /**
      * Whether to check if the transaction is a TRAVEL_RULE in the beneficiary VASP\'s jurisdiction
      * @type {boolean}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'travelRuleBehavior': boolean;
+    'travelRuleBehavior'?: boolean;
     /**
      * 
-     * @type {TravelRuleValidateFullTransactionRequestOriginatorProof}
+     * @type {TravelRuleOwnershipProof}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'originatorProof': TravelRuleValidateFullTransactionRequestOriginatorProof;
+    'originatorProof'?: TravelRuleOwnershipProof;
     /**
      * 
-     * @type {TravelRuleValidateFullTransactionRequestBeneficiaryProof}
+     * @type {TravelRuleOwnershipProof}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'beneficiaryProof': TravelRuleValidateFullTransactionRequestBeneficiaryProof;
+    'beneficiaryProof'?: TravelRuleOwnershipProof;
     /**
      * 
-     * @type {TravelRuleValidateFullTransactionRequestPii}
+     * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'pii': TravelRuleValidateFullTransactionRequestPii;
+    'pii'?: TravelRulePiiIVMS;
 }
 

@@ -25,6 +25,6 @@ export interface SetOtaStatusRequest {
      * @type {boolean}
      * @memberof SetOtaStatusRequest
      */
-    'enable'?: boolean;
+    'enabled'?: boolean;
 }
 

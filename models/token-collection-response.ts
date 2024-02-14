@@ -31,12 +31,12 @@ export interface TokenCollectionResponse {
      * @type {string}
      * @memberof TokenCollectionResponse
      */
-    'name': string;
+    'name'?: string;
     /**
      * 
      * @type {string}
      * @memberof TokenCollectionResponse
      */
-    'symbol': string;
+    'symbol'?: string;
 }
 

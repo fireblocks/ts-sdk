@@ -21,7 +21,7 @@
  */
 export interface CreateConnectionRequest {
     /**
-     * The ID of the vault to connect to the Web3 connection.
+     * The ID of the vault to connect to the dApp.
      * @type {number}
      * @memberof CreateConnectionRequest
      */
@@ -39,11 +39,11 @@ export interface CreateConnectionRequest {
      */
     'uri': string;
     /**
-     * The ID of the blockchain network used in the Web3 connection.
+     * The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only).
      * @type {Array<string>}
      * @memberof CreateConnectionRequest
      */
-    'chainIds': Array<string>;
+    'chainIds'?: Array<string>;
 }
 
 export const CreateConnectionRequestFeeLevelEnum = {

@@ -12,116 +12,119 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { AddAssetToContractRequest } from '../models';
+import { AddContractAssetRequest } from '../models';
 // @ts-ignore
 import { CreateContractRequest } from '../models';
+// @ts-ignore
+import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ExternalWalletAsset } from '../models';
 // @ts-ignore
 import { UnmanagedWallet } from '../models';
-
-
-
-    /**
+/**
  * ContractsApi - axios parameter creator
  * @export
  */
-export const ContractsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const ContractsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Adds an asset to an existing contract.
          * @summary Add an asset to a contract
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to add
-         * @param {AddAssetToContractRequest} [addAssetToContractRequest] 
+         * @param {AddContractAssetRequest} [addContractAssetRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addAssetToContract: async (contractId: string, assetId: string, addAssetToContractRequest?: AddAssetToContractRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        addContractAsset: async (contractId: string, assetId: string, addContractAssetRequest?: AddContractAssetRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('addAssetToContract', 'contractId', contractId)
+            assertParamExists('addContractAsset', 'contractId', contractId)
             // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('addAssetToContract', 'assetId', assetId)
+            assertParamExists('addContractAsset', 'assetId', assetId)
             const localVarPath = `/contracts/{contractId}/{assetId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = addAssetToContractRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addContractAssetRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Creates a new contract.
          * @summary Create a contract
          * @param {CreateContractRequest} [createContractRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createContract: async (createContractRequest?: CreateContractRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createContract: async (createContractRequest?: CreateContractRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/contracts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = createContractRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createContractRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -131,141 +134,31 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteContract: async (contractId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        deleteContract: async (contractId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'contractId' is not null or undefined
             assertParamExists('deleteContract', 'contractId', contractId)
             const localVarPath = `/contracts/{contractId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'DELETE'};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns a contract asset by ID.
-         * @summary Find a contract asset
-         * @param {string} contractId The ID of the contract
-         * @param {string} assetId The ID of the asset to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAssetInContract: async (contractId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('getAssetInContract', 'contractId', contractId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getAssetInContract', 'assetId', assetId)
-            const localVarPath = `/contracts/{contractId}/{assetId}`
-                .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns a contract by ID.
-         * @summary Find a specific contract
-         * @param {string} contractId The ID of the contract to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContractById: async (contractId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('getContractById', 'contractId', contractId)
-            const localVarPath = `/contracts/{contractId}`
-                .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Gets a list of contracts.
-         * @summary List contracts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getContracts: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            const localVarPath = `/contracts`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -276,36 +169,136 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeAssetFromContract: async (contractId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        deleteContractAsset: async (contractId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('removeAssetFromContract', 'contractId', contractId)
+            assertParamExists('deleteContractAsset', 'contractId', contractId)
             // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('removeAssetFromContract', 'assetId', assetId)
+            assertParamExists('deleteContractAsset', 'assetId', assetId)
             const localVarPath = `/contracts/{contractId}/{assetId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'DELETE'};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a contract by ID.
+         * @summary Find a specific contract
+         * @param {string} contractId The ID of the contract to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContract: async (contractId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'contractId' is not null or undefined
+            assertParamExists('getContract', 'contractId', contractId)
+            const localVarPath = `/contracts/{contractId}`
+                .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a contract asset by ID.
+         * @summary Find a contract asset
+         * @param {string} contractId The ID of the contract
+         * @param {string} assetId The ID of the asset to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContractAsset: async (contractId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'contractId' is not null or undefined
+            assertParamExists('getContractAsset', 'contractId', contractId)
+            // verify required parameter 'assetId' is not null or undefined
+            assertParamExists('getContractAsset', 'assetId', assetId)
+            const localVarPath = `/contracts/{contractId}/{assetId}`
+                .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Gets a list of contracts.
+         * @summary List contracts
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContracts: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/contracts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -315,32 +308,38 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
  * ContractsApi - functional programming interface
  * @export
  */
-export const ContractsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = ContractsApiAxiosParamCreator(httpClient.configuration)
+export const ContractsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ContractsApiAxiosParamCreator(configuration)
     return {
         /**
          * Adds an asset to an existing contract.
          * @summary Add an asset to a contract
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to add
-         * @param {AddAssetToContractRequest} [addAssetToContractRequest] 
+         * @param {AddContractAssetRequest} [addContractAssetRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addAssetToContract(contractId: string, assetId: string, addAssetToContractRequest?: AddAssetToContractRequest,  requestOptions?: RequestOptions): Promise<ExternalWalletAsset> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addAssetToContract(contractId, assetId, addAssetToContractRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async addContractAsset(contractId: string, assetId: string, addContractAssetRequest?: AddContractAssetRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExternalWalletAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addContractAsset(contractId, assetId, addContractAssetRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.addContractAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Creates a new contract.
          * @summary Create a contract
          * @param {CreateContractRequest} [createContractRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createContract(createContractRequest?: CreateContractRequest,  requestOptions?: RequestOptions): Promise<UnmanagedWallet> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createContract(createContractRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createContract(createContractRequest?: CreateContractRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createContract(createContractRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.createContract']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Deletes a contract by ID.
@@ -349,42 +348,11 @@ export const ContractsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteContract(contractId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteContract(contractId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Returns a contract asset by ID.
-         * @summary Find a contract asset
-         * @param {string} contractId The ID of the contract
-         * @param {string} assetId The ID of the asset to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getAssetInContract(contractId: string, assetId: string,  requestOptions?: RequestOptions): Promise<ExternalWalletAsset> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetInContract(contractId, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Returns a contract by ID.
-         * @summary Find a specific contract
-         * @param {string} contractId The ID of the contract to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getContractById(contractId: string,  requestOptions?: RequestOptions): Promise<UnmanagedWallet> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getContractById(contractId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Gets a list of contracts.
-         * @summary List contracts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getContracts( requestOptions?: RequestOptions): Promise<Array<UnmanagedWallet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getContracts(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async deleteContract(contractId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteContract(contractId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.deleteContract']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Deletes a contract asset by ID.
@@ -394,39 +362,166 @@ export const ContractsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeAssetFromContract(contractId: string, assetId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.removeAssetFromContract(contractId, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async deleteContractAsset(contractId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteContractAsset(contractId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.deleteContractAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a contract by ID.
+         * @summary Find a specific contract
+         * @param {string} contractId The ID of the contract to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getContract(contractId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getContract(contractId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.getContract']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a contract asset by ID.
+         * @summary Find a contract asset
+         * @param {string} contractId The ID of the contract
+         * @param {string} assetId The ID of the asset to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getContractAsset(contractId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExternalWalletAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getContractAsset(contractId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.getContractAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Gets a list of contracts.
+         * @summary List contracts
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getContracts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getContracts(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractsApi.getContracts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * Request parameters for addAssetToContract operation in ContractsApi.
+ * ContractsApi - factory interface
  * @export
- * @interface ContractsApiAddAssetToContractRequest
  */
-export interface ContractsApiAddAssetToContractRequest {
+export const ContractsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ContractsApiFp(configuration)
+    return {
+        /**
+         * Adds an asset to an existing contract.
+         * @summary Add an asset to a contract
+         * @param {ContractsApiAddContractAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addContractAsset(requestParameters: ContractsApiAddContractAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExternalWalletAsset> {
+            return localVarFp.addContractAsset(requestParameters.contractId, requestParameters.assetId, requestParameters.addContractAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new contract.
+         * @summary Create a contract
+         * @param {ContractsApiCreateContractRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createContract(requestParameters: ContractsApiCreateContractRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<UnmanagedWallet> {
+            return localVarFp.createContract(requestParameters.createContractRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes a contract by ID.
+         * @summary Delete a contract
+         * @param {ContractsApiDeleteContractRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteContract(requestParameters: ContractsApiDeleteContractRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteContract(requestParameters.contractId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes a contract asset by ID.
+         * @summary Delete a contract asset
+         * @param {ContractsApiDeleteContractAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteContractAsset(requestParameters: ContractsApiDeleteContractAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteContractAsset(requestParameters.contractId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a contract by ID.
+         * @summary Find a specific contract
+         * @param {ContractsApiGetContractRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContract(requestParameters: ContractsApiGetContractRequest, options?: RawAxiosRequestConfig): AxiosPromise<UnmanagedWallet> {
+            return localVarFp.getContract(requestParameters.contractId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a contract asset by ID.
+         * @summary Find a contract asset
+         * @param {ContractsApiGetContractAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContractAsset(requestParameters: ContractsApiGetContractAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExternalWalletAsset> {
+            return localVarFp.getContractAsset(requestParameters.contractId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets a list of contracts.
+         * @summary List contracts
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getContracts(options?: RawAxiosRequestConfig): AxiosPromise<Array<UnmanagedWallet>> {
+            return localVarFp.getContracts(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for addContractAsset operation in ContractsApi.
+ * @export
+ * @interface ContractsApiAddContractAssetRequest
+ */
+export interface ContractsApiAddContractAssetRequest {
     /**
      * The ID of the contract
      * @type {string}
-     * @memberof ContractsApiAddAssetToContract
+     * @memberof ContractsApiAddContractAsset
      */
     readonly contractId: string
 
     /**
      * The ID of the asset to add
      * @type {string}
-     * @memberof ContractsApiAddAssetToContract
+     * @memberof ContractsApiAddContractAsset
      */
     readonly assetId: string
 
     /**
      * 
-     * @type {AddAssetToContractRequest}
-     * @memberof ContractsApiAddAssetToContract
+     * @type {AddContractAssetRequest}
+     * @memberof ContractsApiAddContractAsset
      */
-    readonly addAssetToContractRequest?: AddAssetToContractRequest
+    readonly addContractAssetRequest?: AddContractAssetRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ContractsApiAddContractAsset
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -441,6 +536,13 @@ export interface ContractsApiCreateContractRequest {
      * @memberof ContractsApiCreateContract
      */
     readonly createContractRequest?: CreateContractRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ContractsApiCreateContract
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -458,57 +560,57 @@ export interface ContractsApiDeleteContractRequest {
 }
 
 /**
- * Request parameters for getAssetInContract operation in ContractsApi.
+ * Request parameters for deleteContractAsset operation in ContractsApi.
  * @export
- * @interface ContractsApiGetAssetInContractRequest
+ * @interface ContractsApiDeleteContractAssetRequest
  */
-export interface ContractsApiGetAssetInContractRequest {
+export interface ContractsApiDeleteContractAssetRequest {
     /**
      * The ID of the contract
      * @type {string}
-     * @memberof ContractsApiGetAssetInContract
-     */
-    readonly contractId: string
-
-    /**
-     * The ID of the asset to return
-     * @type {string}
-     * @memberof ContractsApiGetAssetInContract
-     */
-    readonly assetId: string
-}
-
-/**
- * Request parameters for getContractById operation in ContractsApi.
- * @export
- * @interface ContractsApiGetContractByIdRequest
- */
-export interface ContractsApiGetContractByIdRequest {
-    /**
-     * The ID of the contract to return
-     * @type {string}
-     * @memberof ContractsApiGetContractById
-     */
-    readonly contractId: string
-}
-
-/**
- * Request parameters for removeAssetFromContract operation in ContractsApi.
- * @export
- * @interface ContractsApiRemoveAssetFromContractRequest
- */
-export interface ContractsApiRemoveAssetFromContractRequest {
-    /**
-     * The ID of the contract
-     * @type {string}
-     * @memberof ContractsApiRemoveAssetFromContract
+     * @memberof ContractsApiDeleteContractAsset
      */
     readonly contractId: string
 
     /**
      * The ID of the asset to delete
      * @type {string}
-     * @memberof ContractsApiRemoveAssetFromContract
+     * @memberof ContractsApiDeleteContractAsset
+     */
+    readonly assetId: string
+}
+
+/**
+ * Request parameters for getContract operation in ContractsApi.
+ * @export
+ * @interface ContractsApiGetContractRequest
+ */
+export interface ContractsApiGetContractRequest {
+    /**
+     * The ID of the contract to return
+     * @type {string}
+     * @memberof ContractsApiGetContract
+     */
+    readonly contractId: string
+}
+
+/**
+ * Request parameters for getContractAsset operation in ContractsApi.
+ * @export
+ * @interface ContractsApiGetContractAssetRequest
+ */
+export interface ContractsApiGetContractAssetRequest {
+    /**
+     * The ID of the contract
+     * @type {string}
+     * @memberof ContractsApiGetContractAsset
+     */
+    readonly contractId: string
+
+    /**
+     * The ID of the asset to return
+     * @type {string}
+     * @memberof ContractsApiGetContractAsset
      */
     readonly assetId: string
 }
@@ -523,13 +625,13 @@ export class ContractsApi extends BaseAPI {
     /**
      * Adds an asset to an existing contract.
      * @summary Add an asset to a contract
-     * @param {ContractsApiAddAssetToContractRequest} requestParameters Request parameters.
+     * @param {ContractsApiAddContractAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContractsApi
      */
-     public addAssetToContract(requestParameters: ContractsApiAddAssetToContractRequest,  requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).addAssetToContract(requestParameters.contractId, requestParameters.assetId, requestParameters.addAssetToContractRequest, requestOptions);
+    public addContractAsset(requestParameters: ContractsApiAddContractAssetRequest) {
+        return ContractsApiFp(this.configuration).addContractAsset(requestParameters.contractId, requestParameters.assetId, requestParameters.addContractAssetRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -540,8 +642,8 @@ export class ContractsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ContractsApi
      */
-     public createContract(requestParameters: ContractsApiCreateContractRequest = {},  requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).createContract(requestParameters.createContractRequest, requestOptions);
+    public createContract(requestParameters: ContractsApiCreateContractRequest = {}) {
+        return ContractsApiFp(this.configuration).createContract(requestParameters.createContractRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -552,32 +654,44 @@ export class ContractsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ContractsApi
      */
-     public deleteContract(requestParameters: ContractsApiDeleteContractRequest,  requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).deleteContract(requestParameters.contractId, requestOptions);
+    public deleteContract(requestParameters: ContractsApiDeleteContractRequest) {
+        return ContractsApiFp(this.configuration).deleteContract(requestParameters.contractId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns a contract asset by ID.
-     * @summary Find a contract asset
-     * @param {ContractsApiGetAssetInContractRequest} requestParameters Request parameters.
+     * Deletes a contract asset by ID.
+     * @summary Delete a contract asset
+     * @param {ContractsApiDeleteContractAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContractsApi
      */
-     public getAssetInContract(requestParameters: ContractsApiGetAssetInContractRequest,  requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).getAssetInContract(requestParameters.contractId, requestParameters.assetId, requestOptions);
+    public deleteContractAsset(requestParameters: ContractsApiDeleteContractAssetRequest) {
+        return ContractsApiFp(this.configuration).deleteContractAsset(requestParameters.contractId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Returns a contract by ID.
      * @summary Find a specific contract
-     * @param {ContractsApiGetContractByIdRequest} requestParameters Request parameters.
+     * @param {ContractsApiGetContractRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ContractsApi
      */
-     public getContractById(requestParameters: ContractsApiGetContractByIdRequest,  requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).getContractById(requestParameters.contractId, requestOptions);
+    public getContract(requestParameters: ContractsApiGetContractRequest) {
+        return ContractsApiFp(this.configuration).getContract(requestParameters.contractId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a contract asset by ID.
+     * @summary Find a contract asset
+     * @param {ContractsApiGetContractAssetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ContractsApi
+     */
+    public getContractAsset(requestParameters: ContractsApiGetContractAssetRequest) {
+        return ContractsApiFp(this.configuration).getContractAsset(requestParameters.contractId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -587,19 +701,8 @@ export class ContractsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ContractsApi
      */
-     public getContracts( requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).getContracts(requestOptions);
-    }
-
-    /**
-     * Deletes a contract asset by ID.
-     * @summary Delete a contract asset
-     * @param {ContractsApiRemoveAssetFromContractRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ContractsApi
-     */
-     public removeAssetFromContract(requestParameters: ContractsApiRemoveAssetFromContractRequest,  requestOptions?: RequestOptions) {
-        return ContractsApiFp(this.httpClient).removeAssetFromContract(requestParameters.contractId, requestParameters.assetId, requestOptions);
+    public getContracts() {
+        return ContractsApiFp(this.configuration).getContracts().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

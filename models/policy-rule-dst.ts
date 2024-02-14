@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { PolicyRuleSrcIdsInnerInner } from './policy-rule-src-ids-inner-inner';
+import { SrcOrDestAttributesInner } from './src-or-dest-attributes-inner';
 
 /**
  * Defines the destination accounts the rule allows transfers to
@@ -24,10 +24,10 @@ import { PolicyRuleSrcIdsInnerInner } from './policy-rule-src-ids-inner-inner';
  */
 export interface PolicyRuleDst {
     /**
-     * A set of ids
-     * @type {Array<Array<PolicyRuleSrcIdsInnerInner>>}
+     * A set of ids in a tuple format
+     * @type {Array<Array<SrcOrDestAttributesInner>>}
      * @memberof PolicyRuleDst
      */
-    'ids'?: Array<Array<PolicyRuleSrcIdsInnerInner>>;
+    'ids'?: Array<Array<SrcOrDestAttributesInner>>;
 }
 

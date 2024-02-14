@@ -18,7 +18,10 @@
 import { MediaEntityResponse } from './media-entity-response';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TokenResponseCollection } from './token-response-collection';
+import { SpamTokenResponse } from './spam-token-response';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TokenCollectionResponse } from './token-collection-response';
 
 /**
  * 
@@ -45,29 +48,11 @@ export interface TokenResponse {
      */
     'standard': string;
     /**
-     * Media items extracted from metadata JSON
-     * @type {Array<MediaEntityResponse>}
-     * @memberof TokenResponse
-     */
-    'media': Array<MediaEntityResponse>;
-    /**
      * 
      * @type {string}
      * @memberof TokenResponse
      */
     'blockchainDescriptor': TokenResponseBlockchainDescriptorEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenResponse
-     */
-    'description': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenResponse
-     */
-    'name': string;
     /**
      * URL of the original token JSON metadata
      * @type {string}
@@ -81,18 +66,46 @@ export interface TokenResponse {
      */
     'cachedMetadataURI'?: string;
     /**
-     * 
-     * @type {TokenResponseCollection}
+     * Media items extracted from metadata JSON
+     * @type {Array<MediaEntityResponse>}
      * @memberof TokenResponse
      */
-    'collection'?: TokenResponseCollection;
+    'media'?: Array<MediaEntityResponse>;
+    /**
+     * 
+     * @type {SpamTokenResponse}
+     * @memberof TokenResponse
+     */
+    'spam'?: SpamTokenResponse;
+    /**
+     * 
+     * @type {TokenCollectionResponse}
+     * @memberof TokenResponse
+     */
+    'collection'?: TokenCollectionResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenResponse
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenResponse
+     */
+    'name'?: string;
 }
 
 export const TokenResponseBlockchainDescriptorEnum = {
     Eth: 'ETH',
     EthTest3: 'ETH_TEST3',
+    EthTest5: 'ETH_TEST5',
     Polygon: 'POLYGON',
-    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI'
+    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    Xtz: 'XTZ',
+    XtzTest: 'XTZ_TEST',
+    BasechainEth: 'BASECHAIN_ETH'
 } as const;
 
 export type TokenResponseBlockchainDescriptorEnum = typeof TokenResponseBlockchainDescriptorEnum[keyof typeof TokenResponseBlockchainDescriptorEnum];

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { TravelRuleValidateTransactionRequestBeneficiaryAddress } from './travel-rule-validate-transaction-request-beneficiary-address';
+import { TravelRuleAddress } from './travel-rule-address';
 
 /**
  * 
@@ -58,36 +58,36 @@ export interface TravelRuleValidateTransactionRequest {
      * @type {boolean}
      * @memberof TravelRuleValidateTransactionRequest
      */
-    'travelRuleBehavior': boolean;
+    'travelRuleBehavior'?: boolean;
     /**
      * This is the identifier assigned to the VASP the funds are being sent to
      * @type {string}
      * @memberof TravelRuleValidateTransactionRequest
      */
-    'beneficiaryVASPdid': string;
+    'beneficiaryVASPdid'?: string;
     /**
      * Beneficiary VASP name
      * @type {string}
      * @memberof TravelRuleValidateTransactionRequest
      */
-    'beneficiaryVASPname': string;
+    'beneficiaryVASPname'?: string;
     /**
      * Beneficiary  name
      * @type {string}
      * @memberof TravelRuleValidateTransactionRequest
      */
-    'beneficiaryName': string;
+    'beneficiaryName'?: string;
     /**
      * Beneficiary  name
      * @type {string}
      * @memberof TravelRuleValidateTransactionRequest
      */
-    'beneficiaryAccountNumber': string;
+    'beneficiaryAccountNumber'?: string;
     /**
      * 
-     * @type {TravelRuleValidateTransactionRequestBeneficiaryAddress}
+     * @type {TravelRuleAddress}
      * @memberof TravelRuleValidateTransactionRequest
      */
-    'beneficiaryAddress': TravelRuleValidateTransactionRequestBeneficiaryAddress;
+    'beneficiaryAddress'?: TravelRuleAddress;
 }
 

@@ -18,7 +18,10 @@
 import { MediaEntityResponse } from './media-entity-response';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TokenResponseCollection } from './token-response-collection';
+import { SpamOwnershipResponse } from './spam-ownership-response';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TokenCollectionResponse } from './token-collection-response';
 
 /**
  * 
@@ -45,23 +48,11 @@ export interface TokenOwnershipResponse {
      */
     'standard': string;
     /**
-     * Media items extracted from metadata JSON
-     * @type {Array<MediaEntityResponse>}
-     * @memberof TokenOwnershipResponse
-     */
-    'media': Array<MediaEntityResponse>;
-    /**
      * 
      * @type {string}
      * @memberof TokenOwnershipResponse
      */
     'balance': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenOwnershipResponse
-     */
-    'vaultAccountId': string;
     /**
      * 
      * @type {number}
@@ -81,17 +72,11 @@ export interface TokenOwnershipResponse {
      */
     'blockchainDescriptor': TokenOwnershipResponseBlockchainDescriptorEnum;
     /**
-     * 
+     * Owned Token\'s status
      * @type {string}
      * @memberof TokenOwnershipResponse
      */
-    'description': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TokenOwnershipResponse
-     */
-    'name': string;
+    'status': TokenOwnershipResponseStatusEnum;
     /**
      * URL of the original token JSON metadata
      * @type {string}
@@ -105,20 +90,72 @@ export interface TokenOwnershipResponse {
      */
     'cachedMetadataURI'?: string;
     /**
-     * 
-     * @type {TokenResponseCollection}
+     * Media items extracted from metadata JSON
+     * @type {Array<MediaEntityResponse>}
      * @memberof TokenOwnershipResponse
      */
-    'collection'?: TokenResponseCollection;
+    'media'?: Array<MediaEntityResponse>;
+    /**
+     * 
+     * @type {SpamOwnershipResponse}
+     * @memberof TokenOwnershipResponse
+     */
+    'spam'?: SpamOwnershipResponse;
+    /**
+     * 
+     * @type {TokenCollectionResponse}
+     * @memberof TokenOwnershipResponse
+     */
+    'collection'?: TokenCollectionResponse;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenOwnershipResponse
+     */
+    'vaultAccountId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenOwnershipResponse
+     */
+    'description'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TokenOwnershipResponse
+     */
+    'name'?: string;
+    /**
+     * Ownership Non-Custodial Wallet ID
+     * @type {string}
+     * @memberof TokenOwnershipResponse
+     */
+    'ncwId'?: string;
+    /**
+     * Ownership Non-Custodial Wallet\'s account ID
+     * @type {string}
+     * @memberof TokenOwnershipResponse
+     */
+    'ncwAccountId'?: string;
 }
 
 export const TokenOwnershipResponseBlockchainDescriptorEnum = {
     Eth: 'ETH',
     EthTest3: 'ETH_TEST3',
+    EthTest5: 'ETH_TEST5',
     Polygon: 'POLYGON',
-    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI'
+    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    Xtz: 'XTZ',
+    XtzTest: 'XTZ_TEST',
+    BasechainEth: 'BASECHAIN_ETH'
 } as const;
 
 export type TokenOwnershipResponseBlockchainDescriptorEnum = typeof TokenOwnershipResponseBlockchainDescriptorEnum[keyof typeof TokenOwnershipResponseBlockchainDescriptorEnum];
+export const TokenOwnershipResponseStatusEnum = {
+    Listed: 'LISTED',
+    Archived: 'ARCHIVED'
+} as const;
+
+export type TokenOwnershipResponseStatusEnum = typeof TokenOwnershipResponseStatusEnum[keyof typeof TokenOwnershipResponseStatusEnum];
 
 

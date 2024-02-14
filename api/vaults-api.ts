@@ -12,23 +12,23 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { CreateAddressResponse } from '../models';
+// @ts-ignore
+import { CreateMultipleAccountsRequest } from '../models';
 // @ts-ignore
 import { CreateVaultAccountAssetAddressRequest } from '../models';
 // @ts-ignore
@@ -37,6 +37,12 @@ import { CreateVaultAccountAssetRequest } from '../models';
 import { CreateVaultAccountRequest } from '../models';
 // @ts-ignore
 import { CreateVaultAssetResponse } from '../models';
+// @ts-ignore
+import { ErrorSchema } from '../models';
+// @ts-ignore
+import { JobCreated } from '../models';
+// @ts-ignore
+import { PaginatedAddressResponse } from '../models';
 // @ts-ignore
 import { PaginatedAssetWalletResponse } from '../models';
 // @ts-ignore
@@ -59,24 +65,22 @@ import { VaultAccountsPagedResponse } from '../models';
 import { VaultAsset } from '../models';
 // @ts-ignore
 import { VaultWalletAddress } from '../models';
-
-
-
-    /**
+/**
  * VaultsApi - axios parameter creator
  * @export
  */
-export const VaultsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const VaultsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Initiates activation for a wallet in a vault account.
          * @summary Activate a wallet in a vault account
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('activateAssetForVaultAccount', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -85,27 +89,29 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -114,80 +120,127 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The segwit address to translate
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createLegacyAddressForVaultAccountAsset: async (vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createLegacyAddress: async (vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('createLegacyAddressForVaultAccountAsset', 'vaultAccountId', vaultAccountId)
+            assertParamExists('createLegacyAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('createLegacyAddressForVaultAccountAsset', 'assetId', assetId)
+            assertParamExists('createLegacyAddress', 'assetId', assetId)
             // verify required parameter 'addressId' is not null or undefined
-            assertParamExists('createLegacyAddressForVaultAccountAsset', 'addressId', addressId)
+            assertParamExists('createLegacyAddress', 'addressId', addressId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
                 .replace(`{${"addressId"}}`, encodeURIComponent(String(addressId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
+         * @summary Bulk creation of new vault accounts
+         * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createMultipleAccounts: async (createMultipleAccountsRequest: CreateMultipleAccountsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createMultipleAccountsRequest' is not null or undefined
+            assertParamExists('createMultipleAccounts', 'createMultipleAccountsRequest', createMultipleAccountsRequest)
+            const localVarPath = `/vault/accounts/bulk`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createMultipleAccountsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Creates a new vault account with the requested name.
          * @summary Create a new vault account
          * @param {CreateVaultAccountRequest} createVaultAccountRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccount: async (createVaultAccountRequest: CreateVaultAccountRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createVaultAccount: async (createVaultAccountRequest: CreateVaultAccountRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createVaultAccountRequest' is not null or undefined
             assertParamExists('createVaultAccount', 'createVaultAccountRequest', createVaultAccountRequest)
             const localVarPath = `/vault/accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = createVaultAccountRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createVaultAccountRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -196,10 +249,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
          * @param {CreateVaultAccountAssetRequest} [createVaultAccountAssetRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createVaultAccountAsset', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -208,30 +262,32 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = createVaultAccountAssetRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createVaultAccountAssetRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -240,10 +296,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
          * @param {CreateVaultAccountAssetAddressRequest} [createVaultAccountAssetAddressRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -252,57 +309,69 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = createVaultAccountAssetAddressRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createVaultAccountAssetAddressRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
-         * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. **Note:**   - This API endpoint is in limited availability and available for selected customers. If you would like to get early access to this endpoint, please reach out to [Fireblocks Support](https://support.fireblocks.io/hc/en-us/requests/new?ticket_form_id=36000337220)   - This API call is subject to [rate limits](https://developers.fireblocks.com/reference/rate-limiting). 
+         * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
          * @summary List asset wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only asset wallets with total balance larger than this amount are returned.
          * @param {string} [assetId] When specified, only asset wallets cross vault accounts that have this asset ID are returned.
+         * @param {GetAssetWalletsOrderByEnum} [orderBy] 
          * @param {string} [before] Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page.
          * @param {string} [after] Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page.
          * @param {number} [limit] The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetWallets: async (totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getAssetWallets: async (totalAmountLargerThan?: number, assetId?: string, orderBy?: GetAssetWalletsOrderByEnum, before?: string, after?: string, limit?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/vault/asset_wallets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (totalAmountLargerThan !== undefined) {
                 localVarQueryParameter['totalAmountLargerThan'] = totalAmountLargerThan;
             }
 
             if (assetId !== undefined) {
                 localVarQueryParameter['assetId'] = assetId;
+            }
+
+            if (orderBy !== undefined) {
+                localVarQueryParameter['orderBy'] = orderBy;
             }
 
             if (before !== undefined) {
@@ -320,19 +389,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -344,7 +406,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getMaxSpendableAmount', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -353,11 +415,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (manualSignging !== undefined) {
                 localVarQueryParameter['manualSignging'] = manualSignging;
             }
@@ -365,43 +432,41 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
-         * @summary List vault acounts (Paginated)
+         * @summary List vault accounts (Paginated)
          * @param {string} [namePrefix] 
          * @param {string} [nameSuffix] 
-         * @param {number} [minAmountThreshold] 
+         * @param {number} [minAmountThreshold] Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts.
          * @param {string} [assetId] 
-         * @param {'ASC' | 'DESC'} [orderBy] 
+         * @param {GetPagedVaultAccountsOrderByEnum} [orderBy] 
          * @param {string} [before] 
          * @param {string} [after] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: GetPagedVaultAccountsOrderByEnum, before?: string, after?: string, limit?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/vault/accounts_paged`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (namePrefix !== undefined) {
                 localVarQueryParameter['namePrefix'] = namePrefix;
             }
@@ -437,19 +502,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -461,18 +519,23 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfo: async (derivationPath: string, algorithm: string, compressed?: boolean,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getPublicKeyInfo: async (derivationPath: string, algorithm: string, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'derivationPath' is not null or undefined
             assertParamExists('getPublicKeyInfo', 'derivationPath', derivationPath)
             // verify required parameter 'algorithm' is not null or undefined
             assertParamExists('getPublicKeyInfo', 'algorithm', algorithm)
-            const localVarPath = `/vault/public_key_info/`;
+            const localVarPath = `/vault/public_key_info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (derivationPath !== undefined) {
                 localVarQueryParameter['derivationPath'] = derivationPath;
             }
@@ -488,19 +551,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -514,7 +570,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfoForAddress: async (vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getPublicKeyInfoForAddress: async (vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('getPublicKeyInfoForAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -529,11 +585,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"change"}}`, encodeURIComponent(String(change)))
                 .replace(`{${"addressIndex"}}`, encodeURIComponent(String(addressIndex)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (compressed !== undefined) {
                 localVarQueryParameter['compressed'] = compressed;
             }
@@ -541,99 +602,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns a wallet for a specific asset of a vault account.
-         * @summary Get the asset balance for a vault account
-         * @param {string} vaultAccountId The ID of the vault account to return
-         * @param {string} assetId The ID of the asset
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAccountAsset: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountAsset', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAccountAsset', 'assetId', assetId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}`
-                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Lists all addresses for specific asset of vault account.
-         * @summary Get asset addresses
-         * @param {string} vaultAccountId The ID of the vault account to return
-         * @param {string} assetId The ID of the asset
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAccountAssetAddresses: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountAssetAddresses', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAccountAssetAddresses', 'assetId', assetId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses`
-                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -644,36 +618,34 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccountAssetUnspentInputs: async (vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getUnspentInputs: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountAssetUnspentInputs', 'vaultAccountId', vaultAccountId)
+            assertParamExists('getUnspentInputs', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAccountAssetUnspentInputs', 'assetId', assetId)
+            assertParamExists('getUnspentInputs', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -683,33 +655,160 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccountById: async (vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getVaultAccount: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountById', 'vaultAccountId', vaultAccountId)
+            assertParamExists('getVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a wallet for a specific asset of a vault account.
+         * @summary Get the asset balance for a vault account
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccountAsset: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'vaultAccountId' is not null or undefined
+            assertParamExists('getVaultAccountAsset', 'vaultAccountId', vaultAccountId)
+            // verify required parameter 'assetId' is not null or undefined
+            assertParamExists('getVaultAccountAsset', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
+         * @summary Get asset addresses
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccountAssetAddresses: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'vaultAccountId' is not null or undefined
+            assertParamExists('getVaultAccountAssetAddresses', 'vaultAccountId', vaultAccountId)
+            // verify required parameter 'assetId' is not null or undefined
+            assertParamExists('getVaultAccountAssetAddresses', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a paginated response of the addresses for a given vault account and asset.
+         * @summary List addresses (Paginated)
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {number} [limit] 
+         * @param {string} [before] 
+         * @param {string} [after] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccountAssetAddressesPaginated: async (vaultAccountId: string, assetId: string, limit?: number, before?: string, after?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'vaultAccountId' is not null or undefined
+            assertParamExists('getVaultAccountAssetAddressesPaginated', 'vaultAccountId', vaultAccountId)
+            // verify required parameter 'assetId' is not null or undefined
+            assertParamExists('getVaultAccountAssetAddressesPaginated', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (limit !== undefined) {
+                localVarQueryParameter['limit'] = limit;
+            }
+
+            if (before !== undefined) {
+                localVarQueryParameter['before'] = before;
+            }
+
+            if (after !== undefined) {
+                localVarQueryParameter['after'] = after;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -722,14 +821,19 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/vault/accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (namePrefix !== undefined) {
                 localVarQueryParameter['namePrefix'] = namePrefix;
             }
@@ -749,55 +853,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Gets the vault balance summary for an asset.
-         * @summary Get vault balance by asset
-         * @param {string} assetId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAssetById: async (assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAssetById', 'assetId', assetId)
-            const localVarPath = `/vault/assets/{assetId}`
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -808,14 +869,19 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAssets: async (accountNamePrefix?: string, accountNameSuffix?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getVaultAssets: async (accountNamePrefix?: string, accountNameSuffix?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/vault/assets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (accountNamePrefix !== undefined) {
                 localVarQueryParameter['accountNamePrefix'] = accountNamePrefix;
             }
@@ -827,55 +893,85 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Gets the vault balance summary for an asset.
+         * @summary Get vault balance by asset
+         * @param {string} assetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultBalanceByAsset: async (assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'assetId' is not null or undefined
+            assertParamExists('getVaultBalanceByAsset', 'assetId', assetId)
+            const localVarPath = `/vault/assets/{assetId}`
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Hides the requested vault account from the web console view.
          * @summary Hide a vault account in the console
          * @param {string} vaultAccountId The vault account to hide
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hideVaultAccount: async (vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        hideVaultAccount: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('hideVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/hide`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -883,10 +979,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Turn autofueling on or off
          * @param {SetAutoFuelForVaultAccountRequest} setAutoFuelForVaultAccountRequest 
          * @param {string} vaultAccountId The vault account ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAutoFuelForVaultAccount: async (setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setAutoFuelForVaultAccount: async (setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'setAutoFuelForVaultAccountRequest' is not null or undefined
             assertParamExists('setAutoFuelForVaultAccount', 'setAutoFuelForVaultAccountRequest', setAutoFuelForVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -894,72 +991,32 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarPath = `/vault/accounts/{vaultAccountId}/set_auto_fuel`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setAutoFuelForVaultAccountRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setAutoFuelForVaultAccountRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Assigns an AML/KYT customer reference ID for the vault account.
-         * @summary Set an AML/KYT customer reference ID for a vault account
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
-         * @param {string} vaultAccountId The vault account ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setCustomerRefIdForVaultAccount: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccount', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccount', 'vaultAccountId', vaultAccountId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/set_customer_ref_id`
-                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setCustomerRefIdForVaultAccountRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -969,83 +1026,134 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForVaultAccountAssetAddress: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setCustomerRefIdForAddress: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccountAssetAddress', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
+            assertParamExists('setCustomerRefIdForAddress', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
+            assertParamExists('setCustomerRefIdForAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccountAssetAddress', 'assetId', assetId)
+            assertParamExists('setCustomerRefIdForAddress', 'assetId', assetId)
             // verify required parameter 'addressId' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccountAssetAddress', 'addressId', addressId)
+            assertParamExists('setCustomerRefIdForAddress', 'addressId', addressId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
                 .replace(`{${"addressId"}}`, encodeURIComponent(String(addressId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setCustomerRefIdForVaultAccountRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForVaultAccountRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Assigns an AML/KYT customer reference ID for the vault account.
+         * @summary Set an AML/KYT customer reference ID for a vault account
+         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {string} vaultAccountId The vault account ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setCustomerRefIdForVaultAccount: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
+            assertParamExists('setCustomerRefIdForVaultAccount', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
+            // verify required parameter 'vaultAccountId' is not null or undefined
+            assertParamExists('setCustomerRefIdForVaultAccount', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/set_customer_ref_id`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForVaultAccountRequest, localVarRequestOptions, configuration)
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Makes a hidden vault account visible in web console view.
          * @summary Unhide a vault account in the console
          * @param {string} vaultAccountId The vault account to unhide
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unhideVaultAccount: async (vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        unhideVaultAccount: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('unhideVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/unhide`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -1053,10 +1161,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Rename a vault account
          * @param {UpdateVaultAccountRequest} updateVaultAccountRequest 
          * @param {string} vaultAccountId The ID of the vault account to edit
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccount: async (updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        updateVaultAccount: async (updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'updateVaultAccountRequest' is not null or undefined
             assertParamExists('updateVaultAccount', 'updateVaultAccountRequest', updateVaultAccountRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
@@ -1064,30 +1173,32 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarPath = `/vault/accounts/{vaultAccountId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = updateVaultAccountRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateVaultAccountRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -1097,10 +1208,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
          * @param {UpdateVaultAccountAssetAddressRequest} [updateVaultAccountAssetAddressRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        updateVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('updateVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -1112,30 +1224,32 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
                 .replace(`{${"addressId"}}`, encodeURIComponent(String(addressId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = updateVaultAccountAssetAddressRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateVaultAccountAssetAddressRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -1144,10 +1258,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
          * @param {object} [body] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, body?: object,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, body?: object, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('updateVaultAccountAssetBalance', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -1156,30 +1271,32 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = body as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -1189,20 +1306,23 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
  * VaultsApi - functional programming interface
  * @export
  */
-export const VaultsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = VaultsApiAxiosParamCreator(httpClient.configuration)
+export const VaultsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = VaultsApiAxiosParamCreator(configuration)
     return {
         /**
          * Initiates activation for a wallet in a vault account.
          * @summary Activate a wallet in a vault account
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<CreateVaultAssetResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.activateAssetForVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Converts an existing segwit address to the legacy format.
@@ -1210,23 +1330,43 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The segwit address to translate
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createLegacyAddressForVaultAccountAsset(vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<CreateAddressResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createLegacyAddressForVaultAccountAsset(vaultAccountId, assetId, addressId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createLegacyAddress(vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createLegacyAddress(vaultAccountId, assetId, addressId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createLegacyAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
+         * @summary Bulk creation of new vault accounts
+         * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createMultipleAccounts(createMultipleAccountsRequest: CreateMultipleAccountsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobCreated>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createMultipleAccounts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Creates a new vault account with the requested name.
          * @summary Create a new vault account
          * @param {CreateVaultAccountRequest} createVaultAccountRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccount(createVaultAccountRequest: CreateVaultAccountRequest,  requestOptions?: RequestOptions): Promise<VaultAccount> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccount(createVaultAccountRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createVaultAccount(createVaultAccountRequest: CreateVaultAccountRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccount(createVaultAccountRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Creates a wallet for a specific asset in a vault account.
@@ -1234,12 +1374,15 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
          * @param {CreateVaultAccountAssetRequest} [createVaultAccountAssetRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest,  requestOptions?: RequestOptions): Promise<CreateVaultAssetResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createVaultAccountAssetRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createVaultAccountAssetRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createVaultAccountAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Creates a new deposit address for an asset of a vault account.
@@ -1247,27 +1390,33 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
          * @param {CreateVaultAccountAssetAddressRequest} [createVaultAccountAssetAddressRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<CreateAddressResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createVaultAccountAssetAddressRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createVaultAccountAssetAddressRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createVaultAccountAssetAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. **Note:**   - This API endpoint is in limited availability and available for selected customers. If you would like to get early access to this endpoint, please reach out to [Fireblocks Support](https://support.fireblocks.io/hc/en-us/requests/new?ticket_form_id=36000337220)   - This API call is subject to [rate limits](https://developers.fireblocks.com/reference/rate-limiting). 
+         * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
          * @summary List asset wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only asset wallets with total balance larger than this amount are returned.
          * @param {string} [assetId] When specified, only asset wallets cross vault accounts that have this asset ID are returned.
+         * @param {GetAssetWalletsOrderByEnum} [orderBy] 
          * @param {string} [before] Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page.
          * @param {string} [after] Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page.
          * @param {number} [limit] The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetWallets(totalAmountLargerThan?: number, assetId?: string, before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<PaginatedAssetWalletResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, before, after, limit, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getAssetWallets(totalAmountLargerThan?: number, assetId?: string, orderBy?: GetAssetWalletsOrderByEnum, before?: string, after?: string, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedAssetWalletResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getAssetWallets']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
@@ -1278,27 +1427,31 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getMaxSpendableAmount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
-         * @summary List vault acounts (Paginated)
+         * @summary List vault accounts (Paginated)
          * @param {string} [namePrefix] 
          * @param {string} [nameSuffix] 
-         * @param {number} [minAmountThreshold] 
+         * @param {number} [minAmountThreshold] Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts.
          * @param {string} [assetId] 
-         * @param {'ASC' | 'DESC'} [orderBy] 
+         * @param {GetPagedVaultAccountsOrderByEnum} [orderBy] 
          * @param {string} [before] 
          * @param {string} [after] 
          * @param {number} [limit] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: 'ASC' | 'DESC', before?: string, after?: string, limit?: number,  requestOptions?: RequestOptions): Promise<VaultAccountsPagedResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: GetPagedVaultAccountsOrderByEnum, before?: string, after?: string, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getPagedVaultAccounts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets the public key information based on derivation path and signing algorithm.
@@ -1309,9 +1462,11 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfo(derivationPath: string, algorithm: string, compressed?: boolean,  requestOptions?: RequestOptions): Promise<PublicKeyInformation> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfo(derivationPath, algorithm, compressed, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getPublicKeyInfo(derivationPath: string, algorithm: string, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfo(derivationPath, algorithm, compressed, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getPublicKeyInfo']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets the public key information for the vault account.
@@ -1324,33 +1479,11 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfoForAddress(vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean,  requestOptions?: RequestOptions): Promise<PublicKeyInformation> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Returns a wallet for a specific asset of a vault account.
-         * @summary Get the asset balance for a vault account
-         * @param {string} vaultAccountId The ID of the vault account to return
-         * @param {string} assetId The ID of the asset
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getVaultAccountAsset(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<VaultAsset> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAsset(vaultAccountId, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Lists all addresses for specific asset of vault account.
-         * @summary Get asset addresses
-         * @param {string} vaultAccountId The ID of the vault account to return
-         * @param {string} assetId The ID of the asset
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<Array<VaultWalletAddress>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getPublicKeyInfoForAddress(vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddress(vaultAccountId, assetId, change, addressIndex, compressed, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getPublicKeyInfoForAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns unspent inputs information of an asset in a vault account.
@@ -1360,9 +1493,11 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountAssetUnspentInputs(vaultAccountId: string, assetId: string,  requestOptions?: RequestOptions): Promise<Array<UnspentInputsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetUnspentInputs(vaultAccountId, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getUnspentInputs(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnspentInputsResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUnspentInputs(vaultAccountId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getUnspentInputs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns the requested vault account.
@@ -1371,9 +1506,56 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccountById(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<VaultAccount> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountById(vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getVaultAccount(vaultAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccount(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a wallet for a specific asset of a vault account.
+         * @summary Get the asset balance for a vault account
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVaultAccountAsset(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAsset(vaultAccountId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
+         * @summary Get asset addresses
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultWalletAddress>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAssetAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a paginated response of the addresses for a given vault account and asset.
+         * @summary List addresses (Paginated)
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {number} [limit] 
+         * @param {string} [before] 
+         * @param {string} [after] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVaultAccountAssetAddressesPaginated(vaultAccountId: string, assetId: string, limit?: number, before?: string, after?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAssetAddressesPaginated']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets all vault accounts in your workspace.
@@ -1385,20 +1567,11 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string,  requestOptions?: RequestOptions): Promise<Array<VaultAccount>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Gets the vault balance summary for an asset.
-         * @summary Get vault balance by asset
-         * @param {string} assetId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getVaultAssetById(assetId: string,  requestOptions?: RequestOptions): Promise<VaultAsset> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssetById(assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccounts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets the assets amount summary for all accounts or filtered accounts.
@@ -1408,44 +1581,53 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string,  requestOptions?: RequestOptions): Promise<Array<VaultAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssets(accountNamePrefix, accountNameSuffix, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAsset>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssets(accountNamePrefix, accountNameSuffix, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAssets']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Gets the vault balance summary for an asset.
+         * @summary Get vault balance by asset
+         * @param {string} assetId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVaultBalanceByAsset(assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultBalanceByAsset(assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultBalanceByAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Hides the requested vault account from the web console view.
          * @summary Hide a vault account in the console
          * @param {string} vaultAccountId The vault account to hide
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async hideVaultAccount(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.hideVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Sets the autofueling property of the vault account to enabled or disabled.
          * @summary Turn autofueling on or off
          * @param {SetAutoFuelForVaultAccountRequest} setAutoFuelForVaultAccountRequest 
          * @param {string} vaultAccountId The vault account ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Assigns an AML/KYT customer reference ID for the vault account.
-         * @summary Set an AML/KYT customer reference ID for a vault account
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
-         * @param {string} vaultAccountId The vault account ID
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.setAutoFuelForVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Sets an AML/KYT customer reference ID for a specific address.
@@ -1454,35 +1636,59 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccountAssetAddress(setCustomerRefIdForVaultAccountRequest, vaultAccountId, assetId, addressId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setCustomerRefIdForAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForAddress(setCustomerRefIdForVaultAccountRequest, vaultAccountId, assetId, addressId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.setCustomerRefIdForAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Assigns an AML/KYT customer reference ID for the vault account.
+         * @summary Set an AML/KYT customer reference ID for a vault account
+         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {string} vaultAccountId The vault account ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.setCustomerRefIdForVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Makes a hidden vault account visible in web console view.
          * @summary Unhide a vault account in the console
          * @param {string} vaultAccountId The vault account to unhide
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unhideVaultAccount(vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async unhideVaultAccount(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.unhideVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Renames the requested vault account.
          * @summary Rename a vault account
          * @param {UpdateVaultAccountRequest} updateVaultAccountRequest 
          * @param {string} vaultAccountId The ID of the vault account to edit
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.updateVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates the description of an existing address of an asset in a vault account.
@@ -1491,12 +1697,15 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
          * @param {UpdateVaultAccountAssetAddressRequest} [updateVaultAccountAssetAddressRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.updateVaultAccountAssetAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates the balance of a specific asset in a vault account.
@@ -1504,14 +1713,297 @@ export const VaultsApiFp = function(httpClient: HttpClient) {
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
          * @param {object} [body] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object,  requestOptions?: RequestOptions): Promise<VaultAsset> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, body, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, body, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.updateVaultAccountAssetBalance']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * VaultsApi - factory interface
+ * @export
+ */
+export const VaultsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = VaultsApiFp(configuration)
+    return {
+        /**
+         * Initiates activation for a wallet in a vault account.
+         * @summary Activate a wallet in a vault account
+         * @param {VaultsApiActivateAssetForVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateVaultAssetResponse> {
+            return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Converts an existing segwit address to the legacy format.
+         * @summary Convert a segwit address to legacy format
+         * @param {VaultsApiCreateLegacyAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createLegacyAddress(requestParameters: VaultsApiCreateLegacyAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateAddressResponse> {
+            return localVarFp.createLegacyAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
+         * @summary Bulk creation of new vault accounts
+         * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createMultipleAccounts(requestParameters: VaultsApiCreateMultipleAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
+            return localVarFp.createMultipleAccounts(requestParameters.createMultipleAccountsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new vault account with the requested name.
+         * @summary Create a new vault account
+         * @param {VaultsApiCreateVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVaultAccount(requestParameters: VaultsApiCreateVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAccount> {
+            return localVarFp.createVaultAccount(requestParameters.createVaultAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a wallet for a specific asset in a vault account.
+         * @summary Create a new wallet
+         * @param {VaultsApiCreateVaultAccountAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateVaultAssetResponse> {
+            return localVarFp.createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new deposit address for an asset of a vault account.
+         * @summary Create new asset deposit address
+         * @param {VaultsApiCreateVaultAccountAssetAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateAddressResponse> {
+            return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
+         * @summary List asset wallets (Paginated)
+         * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAssetWalletResponse> {
+            return localVarFp.getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
+         * @summary Get the maximum spendable amount in a single transaction.
+         * @param {VaultsApiGetMaxSpendableAmountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
+         * @summary List vault accounts (Paginated)
+         * @param {VaultsApiGetPagedVaultAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<VaultAccountsPagedResponse> {
+            return localVarFp.getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the public key information based on derivation path and signing algorithm.
+         * @summary Get the public key information
+         * @param {VaultsApiGetPublicKeyInfoRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPublicKeyInfo(requestParameters: VaultsApiGetPublicKeyInfoRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublicKeyInformation> {
+            return localVarFp.getPublicKeyInfo(requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the public key information for the vault account.
+         * @summary Get the public key for a vault account
+         * @param {VaultsApiGetPublicKeyInfoForAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPublicKeyInfoForAddress(requestParameters: VaultsApiGetPublicKeyInfoForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublicKeyInformation> {
+            return localVarFp.getPublicKeyInfoForAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns unspent inputs information of an asset in a vault account.
+         * @summary Get UTXO unspent inputs information
+         * @param {VaultsApiGetUnspentInputsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUnspentInputs(requestParameters: VaultsApiGetUnspentInputsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<UnspentInputsResponse>> {
+            return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the requested vault account.
+         * @summary Find a vault account by ID
+         * @param {VaultsApiGetVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccount(requestParameters: VaultsApiGetVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAccount> {
+            return localVarFp.getVaultAccount(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a wallet for a specific asset of a vault account.
+         * @summary Get the asset balance for a vault account
+         * @param {VaultsApiGetVaultAccountAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccountAsset(requestParameters: VaultsApiGetVaultAccountAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAsset> {
+            return localVarFp.getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
+         * @summary Get asset addresses
+         * @param {VaultsApiGetVaultAccountAssetAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<VaultWalletAddress>> {
+            return localVarFp.getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a paginated response of the addresses for a given vault account and asset.
+         * @summary List addresses (Paginated)
+         * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccountAssetAddressesPaginated(requestParameters: VaultsApiGetVaultAccountAssetAddressesPaginatedRequest, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAddressResponse> {
+            return localVarFp.getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets all vault accounts in your workspace.
+         * @summary List vault accounts
+         * @param {VaultsApiGetVaultAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<VaultAccount>> {
+            return localVarFp.getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the assets amount summary for all accounts or filtered accounts.
+         * @summary Get asset balance for chosen assets
+         * @param {VaultsApiGetVaultAssetsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<VaultAsset>> {
+            return localVarFp.getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the vault balance summary for an asset.
+         * @summary Get vault balance by asset
+         * @param {VaultsApiGetVaultBalanceByAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaultBalanceByAsset(requestParameters: VaultsApiGetVaultBalanceByAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAsset> {
+            return localVarFp.getVaultBalanceByAsset(requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Hides the requested vault account from the web console view.
+         * @summary Hide a vault account in the console
+         * @param {VaultsApiHideVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sets the autofueling property of the vault account to enabled or disabled.
+         * @summary Turn autofueling on or off
+         * @param {VaultsApiSetAutoFuelForVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sets an AML/KYT customer reference ID for a specific address.
+         * @summary Assign AML customer reference ID
+         * @param {VaultsApiSetCustomerRefIdForAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setCustomerRefIdForAddress(requestParameters: VaultsApiSetCustomerRefIdForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Assigns an AML/KYT customer reference ID for the vault account.
+         * @summary Set an AML/KYT customer reference ID for a vault account
+         * @param {VaultsApiSetCustomerRefIdForVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Makes a hidden vault account visible in web console view.
+         * @summary Unhide a vault account in the console
+         * @param {VaultsApiUnhideVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Renames the requested vault account.
+         * @summary Rename a vault account
+         * @param {VaultsApiUpdateVaultAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the description of an existing address of an asset in a vault account.
+         * @summary Update address description
+         * @param {VaultsApiUpdateVaultAccountAssetAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the balance of a specific asset in a vault account.
+         * @summary Refresh asset balance data
+         * @param {VaultsApiUpdateVaultAccountAssetBalanceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAsset> {
+            return localVarFp.updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -1533,34 +2025,69 @@ export interface VaultsApiActivateAssetForVaultAccountRequest {
      * @memberof VaultsApiActivateAssetForVaultAccount
      */
     readonly assetId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiActivateAssetForVaultAccount
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for createLegacyAddressForVaultAccountAsset operation in VaultsApi.
+ * Request parameters for createLegacyAddress operation in VaultsApi.
  * @export
- * @interface VaultsApiCreateLegacyAddressForVaultAccountAssetRequest
+ * @interface VaultsApiCreateLegacyAddressRequest
  */
-export interface VaultsApiCreateLegacyAddressForVaultAccountAssetRequest {
+export interface VaultsApiCreateLegacyAddressRequest {
     /**
      * The ID of the vault account
      * @type {string}
-     * @memberof VaultsApiCreateLegacyAddressForVaultAccountAsset
+     * @memberof VaultsApiCreateLegacyAddress
      */
     readonly vaultAccountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof VaultsApiCreateLegacyAddressForVaultAccountAsset
+     * @memberof VaultsApiCreateLegacyAddress
      */
     readonly assetId: string
 
     /**
      * The segwit address to translate
      * @type {string}
-     * @memberof VaultsApiCreateLegacyAddressForVaultAccountAsset
+     * @memberof VaultsApiCreateLegacyAddress
      */
     readonly addressId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateLegacyAddress
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createMultipleAccounts operation in VaultsApi.
+ * @export
+ * @interface VaultsApiCreateMultipleAccountsRequest
+ */
+export interface VaultsApiCreateMultipleAccountsRequest {
+    /**
+     * 
+     * @type {CreateMultipleAccountsRequest}
+     * @memberof VaultsApiCreateMultipleAccounts
+     */
+    readonly createMultipleAccountsRequest: CreateMultipleAccountsRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateMultipleAccounts
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1575,6 +2102,13 @@ export interface VaultsApiCreateVaultAccountRequest {
      * @memberof VaultsApiCreateVaultAccount
      */
     readonly createVaultAccountRequest: CreateVaultAccountRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateVaultAccount
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1603,6 +2137,13 @@ export interface VaultsApiCreateVaultAccountAssetRequest {
      * @memberof VaultsApiCreateVaultAccountAsset
      */
     readonly createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateVaultAccountAsset
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1631,6 +2172,13 @@ export interface VaultsApiCreateVaultAccountAssetAddressRequest {
      * @memberof VaultsApiCreateVaultAccountAssetAddress
      */
     readonly createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateVaultAccountAssetAddress
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1652,6 +2200,13 @@ export interface VaultsApiGetAssetWalletsRequest {
      * @memberof VaultsApiGetAssetWallets
      */
     readonly assetId?: string
+
+    /**
+     * 
+     * @type {'ASC' | 'DESC'}
+     * @memberof VaultsApiGetAssetWallets
+     */
+    readonly orderBy?: GetAssetWalletsOrderByEnum
 
     /**
      * Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page.
@@ -1724,7 +2279,7 @@ export interface VaultsApiGetPagedVaultAccountsRequest {
     readonly nameSuffix?: string
 
     /**
-     * 
+     * Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts.
      * @type {number}
      * @memberof VaultsApiGetPagedVaultAccounts
      */
@@ -1742,7 +2297,7 @@ export interface VaultsApiGetPagedVaultAccountsRequest {
      * @type {'ASC' | 'DESC'}
      * @memberof VaultsApiGetPagedVaultAccounts
      */
-    readonly orderBy?: 'ASC' | 'DESC'
+    readonly orderBy?: GetPagedVaultAccountsOrderByEnum
 
     /**
      * 
@@ -1837,6 +2392,41 @@ export interface VaultsApiGetPublicKeyInfoForAddressRequest {
 }
 
 /**
+ * Request parameters for getUnspentInputs operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetUnspentInputsRequest
+ */
+export interface VaultsApiGetUnspentInputsRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiGetUnspentInputs
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof VaultsApiGetUnspentInputs
+     */
+    readonly assetId: string
+}
+
+/**
+ * Request parameters for getVaultAccount operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetVaultAccountRequest
+ */
+export interface VaultsApiGetVaultAccountRequest {
+    /**
+     * The ID of the vault account to return type: string
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccount
+     */
+    readonly vaultAccountId: string
+}
+
+/**
  * Request parameters for getVaultAccountAsset operation in VaultsApi.
  * @export
  * @interface VaultsApiGetVaultAccountAssetRequest
@@ -1879,38 +2469,45 @@ export interface VaultsApiGetVaultAccountAssetAddressesRequest {
 }
 
 /**
- * Request parameters for getVaultAccountAssetUnspentInputs operation in VaultsApi.
+ * Request parameters for getVaultAccountAssetAddressesPaginated operation in VaultsApi.
  * @export
- * @interface VaultsApiGetVaultAccountAssetUnspentInputsRequest
+ * @interface VaultsApiGetVaultAccountAssetAddressesPaginatedRequest
  */
-export interface VaultsApiGetVaultAccountAssetUnspentInputsRequest {
+export interface VaultsApiGetVaultAccountAssetAddressesPaginatedRequest {
     /**
-     * The ID of the vault account
+     * The ID of the vault account to return
      * @type {string}
-     * @memberof VaultsApiGetVaultAccountAssetUnspentInputs
+     * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
      */
     readonly vaultAccountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof VaultsApiGetVaultAccountAssetUnspentInputs
+     * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
      */
     readonly assetId: string
-}
 
-/**
- * Request parameters for getVaultAccountById operation in VaultsApi.
- * @export
- * @interface VaultsApiGetVaultAccountByIdRequest
- */
-export interface VaultsApiGetVaultAccountByIdRequest {
     /**
-     * The ID of the vault account to return type: string
-     * @type {string}
-     * @memberof VaultsApiGetVaultAccountById
+     * 
+     * @type {number}
+     * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
      */
-    readonly vaultAccountId: string
+    readonly limit?: number
+
+    /**
+     * 
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
+     */
+    readonly before?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
+     */
+    readonly after?: string
 }
 
 /**
@@ -1949,20 +2546,6 @@ export interface VaultsApiGetVaultAccountsRequest {
 }
 
 /**
- * Request parameters for getVaultAssetById operation in VaultsApi.
- * @export
- * @interface VaultsApiGetVaultAssetByIdRequest
- */
-export interface VaultsApiGetVaultAssetByIdRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof VaultsApiGetVaultAssetById
-     */
-    readonly assetId: string
-}
-
-/**
  * Request parameters for getVaultAssets operation in VaultsApi.
  * @export
  * @interface VaultsApiGetVaultAssetsRequest
@@ -1984,6 +2567,20 @@ export interface VaultsApiGetVaultAssetsRequest {
 }
 
 /**
+ * Request parameters for getVaultBalanceByAsset operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetVaultBalanceByAssetRequest
+ */
+export interface VaultsApiGetVaultBalanceByAssetRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof VaultsApiGetVaultBalanceByAsset
+     */
+    readonly assetId: string
+}
+
+/**
  * Request parameters for hideVaultAccount operation in VaultsApi.
  * @export
  * @interface VaultsApiHideVaultAccountRequest
@@ -1995,6 +2592,13 @@ export interface VaultsApiHideVaultAccountRequest {
      * @memberof VaultsApiHideVaultAccount
      */
     readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiHideVaultAccount
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2016,6 +2620,55 @@ export interface VaultsApiSetAutoFuelForVaultAccountRequest {
      * @memberof VaultsApiSetAutoFuelForVaultAccount
      */
     readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiSetAutoFuelForVaultAccount
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setCustomerRefIdForAddress operation in VaultsApi.
+ * @export
+ * @interface VaultsApiSetCustomerRefIdForAddressRequest
+ */
+export interface VaultsApiSetCustomerRefIdForAddressRequest {
+    /**
+     * 
+     * @type {SetCustomerRefIdForVaultAccountRequest}
+     * @memberof VaultsApiSetCustomerRefIdForAddress
+     */
+    readonly setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest
+
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiSetCustomerRefIdForAddress
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof VaultsApiSetCustomerRefIdForAddress
+     */
+    readonly assetId: string
+
+    /**
+     * The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
+     * @type {string}
+     * @memberof VaultsApiSetCustomerRefIdForAddress
+     */
+    readonly addressId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiSetCustomerRefIdForAddress
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2037,41 +2690,13 @@ export interface VaultsApiSetCustomerRefIdForVaultAccountRequest {
      * @memberof VaultsApiSetCustomerRefIdForVaultAccount
      */
     readonly vaultAccountId: string
-}
-
-/**
- * Request parameters for setCustomerRefIdForVaultAccountAssetAddress operation in VaultsApi.
- * @export
- * @interface VaultsApiSetCustomerRefIdForVaultAccountAssetAddressRequest
- */
-export interface VaultsApiSetCustomerRefIdForVaultAccountAssetAddressRequest {
-    /**
-     * 
-     * @type {SetCustomerRefIdForVaultAccountRequest}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccountAssetAddress
-     */
-    readonly setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest
 
     /**
-     * The ID of the vault account
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccountAssetAddress
+     * @memberof VaultsApiSetCustomerRefIdForVaultAccount
      */
-    readonly vaultAccountId: string
-
-    /**
-     * The ID of the asset
-     * @type {string}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccountAssetAddress
-     */
-    readonly assetId: string
-
-    /**
-     * The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
-     * @type {string}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccountAssetAddress
-     */
-    readonly addressId: string
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2086,6 +2711,13 @@ export interface VaultsApiUnhideVaultAccountRequest {
      * @memberof VaultsApiUnhideVaultAccount
      */
     readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiUnhideVaultAccount
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2107,6 +2739,13 @@ export interface VaultsApiUpdateVaultAccountRequest {
      * @memberof VaultsApiUpdateVaultAccount
      */
     readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiUpdateVaultAccount
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2142,6 +2781,13 @@ export interface VaultsApiUpdateVaultAccountAssetAddressRequest {
      * @memberof VaultsApiUpdateVaultAccountAssetAddress
      */
     readonly updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiUpdateVaultAccountAssetAddress
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2170,6 +2816,13 @@ export interface VaultsApiUpdateVaultAccountAssetBalanceRequest {
      * @memberof VaultsApiUpdateVaultAccountAssetBalance
      */
     readonly body?: object
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiUpdateVaultAccountAssetBalance
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2187,20 +2840,32 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
+    public activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Converts an existing segwit address to the legacy format.
      * @summary Convert a segwit address to legacy format
-     * @param {VaultsApiCreateLegacyAddressForVaultAccountAssetRequest} requestParameters Request parameters.
+     * @param {VaultsApiCreateLegacyAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public createLegacyAddressForVaultAccountAsset(requestParameters: VaultsApiCreateLegacyAddressForVaultAccountAssetRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).createLegacyAddressForVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestOptions);
+    public createLegacyAddress(requestParameters: VaultsApiCreateLegacyAddressRequest) {
+        return VaultsApiFp(this.configuration).createLegacyAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
+     * @summary Bulk creation of new vault accounts
+     * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public createMultipleAccounts(requestParameters: VaultsApiCreateMultipleAccountsRequest) {
+        return VaultsApiFp(this.configuration).createMultipleAccounts(requestParameters.createMultipleAccountsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2211,8 +2876,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public createVaultAccount(requestParameters: VaultsApiCreateVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).createVaultAccount(requestParameters.createVaultAccountRequest, requestOptions);
+    public createVaultAccount(requestParameters: VaultsApiCreateVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).createVaultAccount(requestParameters.createVaultAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2223,8 +2888,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, requestOptions);
+    public createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest) {
+        return VaultsApiFp(this.configuration).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2235,20 +2900,20 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, requestOptions);
+    public createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest) {
+        return VaultsApiFp(this.configuration).createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. **Note:**   - This API endpoint is in limited availability and available for selected customers. If you would like to get early access to this endpoint, please reach out to [Fireblocks Support](https://support.fireblocks.io/hc/en-us/requests/new?ticket_form_id=36000337220)   - This API call is subject to [rate limits](https://developers.fireblocks.com/reference/rate-limiting). 
+     * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
      * @summary List asset wallets (Paginated)
      * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {},  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.before, requestParameters.after, requestParameters.limit, requestOptions);
+    public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}) {
+        return VaultsApiFp(this.configuration).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2259,20 +2924,20 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, requestOptions);
+    public getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest) {
+        return VaultsApiFp(this.configuration).getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
-     * @summary List vault acounts (Paginated)
+     * @summary List vault accounts (Paginated)
      * @param {VaultsApiGetPagedVaultAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {},  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, requestOptions);
+    public getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {}) {
+        return VaultsApiFp(this.configuration).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2283,8 +2948,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getPublicKeyInfo(requestParameters: VaultsApiGetPublicKeyInfoRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getPublicKeyInfo(requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, requestOptions);
+    public getPublicKeyInfo(requestParameters: VaultsApiGetPublicKeyInfoRequest) {
+        return VaultsApiFp(this.configuration).getPublicKeyInfo(requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2295,8 +2960,32 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getPublicKeyInfoForAddress(requestParameters: VaultsApiGetPublicKeyInfoForAddressRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getPublicKeyInfoForAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, requestOptions);
+    public getPublicKeyInfoForAddress(requestParameters: VaultsApiGetPublicKeyInfoForAddressRequest) {
+        return VaultsApiFp(this.configuration).getPublicKeyInfoForAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns unspent inputs information of an asset in a vault account.
+     * @summary Get UTXO unspent inputs information
+     * @param {VaultsApiGetUnspentInputsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getUnspentInputs(requestParameters: VaultsApiGetUnspentInputsRequest) {
+        return VaultsApiFp(this.configuration).getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the requested vault account.
+     * @summary Find a vault account by ID
+     * @param {VaultsApiGetVaultAccountRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getVaultAccount(requestParameters: VaultsApiGetVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).getVaultAccount(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2307,44 +2996,32 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getVaultAccountAsset(requestParameters: VaultsApiGetVaultAccountAssetRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
+    public getVaultAccountAsset(requestParameters: VaultsApiGetVaultAccountAssetRequest) {
+        return VaultsApiFp(this.configuration).getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Lists all addresses for specific asset of vault account.
+     * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
      * @summary Get asset addresses
      * @param {VaultsApiGetVaultAccountAssetAddressesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
+    public getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest) {
+        return VaultsApiFp(this.configuration).getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns unspent inputs information of an asset in a vault account.
-     * @summary Get UTXO unspent inputs information
-     * @param {VaultsApiGetVaultAccountAssetUnspentInputsRequest} requestParameters Request parameters.
+     * Returns a paginated response of the addresses for a given vault account and asset.
+     * @summary List addresses (Paginated)
+     * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getVaultAccountAssetUnspentInputs(requestParameters: VaultsApiGetVaultAccountAssetUnspentInputsRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAccountAssetUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, requestOptions);
-    }
-
-    /**
-     * Returns the requested vault account.
-     * @summary Find a vault account by ID
-     * @param {VaultsApiGetVaultAccountByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-     public getVaultAccountById(requestParameters: VaultsApiGetVaultAccountByIdRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAccountById(requestParameters.vaultAccountId, requestOptions);
+    public getVaultAccountAssetAddressesPaginated(requestParameters: VaultsApiGetVaultAccountAssetAddressesPaginatedRequest) {
+        return VaultsApiFp(this.configuration).getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2355,20 +3032,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {},  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestOptions);
-    }
-
-    /**
-     * Gets the vault balance summary for an asset.
-     * @summary Get vault balance by asset
-     * @param {VaultsApiGetVaultAssetByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-     public getVaultAssetById(requestParameters: VaultsApiGetVaultAssetByIdRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAssetById(requestParameters.assetId, requestOptions);
+    public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}) {
+        return VaultsApiFp(this.configuration).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2379,8 +3044,20 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {},  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix, requestOptions);
+    public getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {}) {
+        return VaultsApiFp(this.configuration).getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Gets the vault balance summary for an asset.
+     * @summary Get vault balance by asset
+     * @param {VaultsApiGetVaultBalanceByAssetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getVaultBalanceByAsset(requestParameters: VaultsApiGetVaultBalanceByAssetRequest) {
+        return VaultsApiFp(this.configuration).getVaultBalanceByAsset(requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2391,8 +3068,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).hideVaultAccount(requestParameters.vaultAccountId, requestOptions);
+    public hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2403,8 +3080,20 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, requestOptions);
+    public setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Sets an AML/KYT customer reference ID for a specific address.
+     * @summary Assign AML customer reference ID
+     * @param {VaultsApiSetCustomerRefIdForAddressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public setCustomerRefIdForAddress(requestParameters: VaultsApiSetCustomerRefIdForAddressRequest) {
+        return VaultsApiFp(this.configuration).setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2415,20 +3104,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestOptions);
-    }
-
-    /**
-     * Sets an AML/KYT customer reference ID for a specific address.
-     * @summary Assign AML customer reference ID
-     * @param {VaultsApiSetCustomerRefIdForVaultAccountAssetAddressRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-     public setCustomerRefIdForVaultAccountAssetAddress(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).setCustomerRefIdForVaultAccountAssetAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestOptions);
+    public setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2439,8 +3116,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).unhideVaultAccount(requestParameters.vaultAccountId, requestOptions);
+    public unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2451,8 +3128,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, requestOptions);
+    public updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest) {
+        return VaultsApiFp(this.configuration).updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2463,8 +3140,8 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, requestOptions);
+    public updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest) {
+        return VaultsApiFp(this.configuration).updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2475,7 +3152,24 @@ export class VaultsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-     public updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest,  requestOptions?: RequestOptions) {
-        return VaultsApiFp(this.httpClient).updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, requestOptions);
+    public updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest) {
+        return VaultsApiFp(this.configuration).updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+
+/**
+ * @export
+ */
+export const GetAssetWalletsOrderByEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetAssetWalletsOrderByEnum = typeof GetAssetWalletsOrderByEnum[keyof typeof GetAssetWalletsOrderByEnum];
+/**
+ * @export
+ */
+export const GetPagedVaultAccountsOrderByEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetPagedVaultAccountsOrderByEnum = typeof GetPagedVaultAccountsOrderByEnum[keyof typeof GetPagedVaultAccountsOrderByEnum];

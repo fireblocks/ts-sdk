@@ -13,6 +13,9 @@
  */
 
 
+export { ConfigurationOptions, AdditionalOptions, BaseServerPathEnum } from "./client/clientConfiguration"
+export { Fireblocks } from "./client/client"
+export { FireblocksResponse } from "./response/fireblocksResponse"
+export { FireblocksError } from "./error/fireblocksError"
 export * from "./api";
-export * from "./configuration";
 export * from "./models";

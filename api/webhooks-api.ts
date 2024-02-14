@@ -12,106 +12,109 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { ResendWebhooksForTransactionRequest } from '../models';
+import { ErrorSchema } from '../models';
+// @ts-ignore
+import { ResendTransactionWebhooksRequest } from '../models';
 // @ts-ignore
 import { ResendWebhooksResponse } from '../models';
-
-
-
-    /**
+/**
  * WebhooksApi - axios parameter creator
  * @export
  */
-export const WebhooksApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const WebhooksApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
-        /**
-         * Resends all failed webhook notifications.
-         * @summary Resend failed webhooks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        resendWebhooks: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            const localVarPath = `/webhooks/resend`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
         /**
          * Resends failed webhook notifications for a transaction by ID.
          * @summary Resend failed webhooks for a transaction by ID
-         * @param {ResendWebhooksForTransactionRequest} resendWebhooksForTransactionRequest 
+         * @param {ResendTransactionWebhooksRequest} resendTransactionWebhooksRequest 
          * @param {string} txId The ID of the transaction for webhooks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendWebhooksForTransaction: async (resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'resendWebhooksForTransactionRequest' is not null or undefined
-            assertParamExists('resendWebhooksForTransaction', 'resendWebhooksForTransactionRequest', resendWebhooksForTransactionRequest)
+        resendTransactionWebhooks: async (resendTransactionWebhooksRequest: ResendTransactionWebhooksRequest, txId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'resendTransactionWebhooksRequest' is not null or undefined
+            assertParamExists('resendTransactionWebhooks', 'resendTransactionWebhooksRequest', resendTransactionWebhooksRequest)
             // verify required parameter 'txId' is not null or undefined
-            assertParamExists('resendWebhooksForTransaction', 'txId', txId)
+            assertParamExists('resendTransactionWebhooks', 'txId', txId)
             const localVarPath = `/webhooks/resend/{txId}`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = resendWebhooksForTransactionRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resendTransactionWebhooksRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Resends all failed webhook notifications.
+         * @summary Resend failed webhooks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendWebhooks: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks/resend`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -121,53 +124,110 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
  * WebhooksApi - functional programming interface
  * @export
  */
-export const WebhooksApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = WebhooksApiAxiosParamCreator(httpClient.configuration)
+export const WebhooksApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WebhooksApiAxiosParamCreator(configuration)
     return {
-        /**
-         * Resends all failed webhook notifications.
-         * @summary Resend failed webhooks
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async resendWebhooks( requestOptions?: RequestOptions): Promise<ResendWebhooksResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooks(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
         /**
          * Resends failed webhook notifications for a transaction by ID.
          * @summary Resend failed webhooks for a transaction by ID
-         * @param {ResendWebhooksForTransactionRequest} resendWebhooksForTransactionRequest 
+         * @param {ResendTransactionWebhooksRequest} resendTransactionWebhooksRequest 
          * @param {string} txId The ID of the transaction for webhooks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendWebhooksForTransaction(resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest, txId: string,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooksForTransaction(resendWebhooksForTransactionRequest, txId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async resendTransactionWebhooks(resendTransactionWebhooksRequest: ResendTransactionWebhooksRequest, txId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksApi.resendTransactionWebhooks']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Resends all failed webhook notifications.
+         * @summary Resend failed webhooks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resendWebhooks(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendWebhooksResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendWebhooks(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksApi.resendWebhooks']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * Request parameters for resendWebhooksForTransaction operation in WebhooksApi.
+ * WebhooksApi - factory interface
  * @export
- * @interface WebhooksApiResendWebhooksForTransactionRequest
  */
-export interface WebhooksApiResendWebhooksForTransactionRequest {
+export const WebhooksApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WebhooksApiFp(configuration)
+    return {
+        /**
+         * Resends failed webhook notifications for a transaction by ID.
+         * @summary Resend failed webhooks for a transaction by ID
+         * @param {WebhooksApiResendTransactionWebhooksRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendTransactionWebhooks(requestParameters: WebhooksApiResendTransactionWebhooksRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.resendTransactionWebhooks(requestParameters.resendTransactionWebhooksRequest, requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resends all failed webhook notifications.
+         * @summary Resend failed webhooks
+         * @param {WebhooksApiResendWebhooksRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendWebhooks(requestParameters: WebhooksApiResendWebhooksRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ResendWebhooksResponse> {
+            return localVarFp.resendWebhooks(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for resendTransactionWebhooks operation in WebhooksApi.
+ * @export
+ * @interface WebhooksApiResendTransactionWebhooksRequest
+ */
+export interface WebhooksApiResendTransactionWebhooksRequest {
     /**
      * 
-     * @type {ResendWebhooksForTransactionRequest}
-     * @memberof WebhooksApiResendWebhooksForTransaction
+     * @type {ResendTransactionWebhooksRequest}
+     * @memberof WebhooksApiResendTransactionWebhooks
      */
-    readonly resendWebhooksForTransactionRequest: ResendWebhooksForTransactionRequest
+    readonly resendTransactionWebhooksRequest: ResendTransactionWebhooksRequest
 
     /**
      * The ID of the transaction for webhooks
      * @type {string}
-     * @memberof WebhooksApiResendWebhooksForTransaction
+     * @memberof WebhooksApiResendTransactionWebhooks
      */
     readonly txId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksApiResendTransactionWebhooks
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for resendWebhooks operation in WebhooksApi.
+ * @export
+ * @interface WebhooksApiResendWebhooksRequest
+ */
+export interface WebhooksApiResendWebhooksRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksApiResendWebhooks
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -178,25 +238,27 @@ export interface WebhooksApiResendWebhooksForTransactionRequest {
  */
 export class WebhooksApi extends BaseAPI {
     /**
-     * Resends all failed webhook notifications.
-     * @summary Resend failed webhooks
+     * Resends failed webhook notifications for a transaction by ID.
+     * @summary Resend failed webhooks for a transaction by ID
+     * @param {WebhooksApiResendTransactionWebhooksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-     public resendWebhooks( requestOptions?: RequestOptions) {
-        return WebhooksApiFp(this.httpClient).resendWebhooks(requestOptions);
+    public resendTransactionWebhooks(requestParameters: WebhooksApiResendTransactionWebhooksRequest) {
+        return WebhooksApiFp(this.configuration).resendTransactionWebhooks(requestParameters.resendTransactionWebhooksRequest, requestParameters.txId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Resends failed webhook notifications for a transaction by ID.
-     * @summary Resend failed webhooks for a transaction by ID
-     * @param {WebhooksApiResendWebhooksForTransactionRequest} requestParameters Request parameters.
+     * Resends all failed webhook notifications.
+     * @summary Resend failed webhooks
+     * @param {WebhooksApiResendWebhooksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksApi
      */
-     public resendWebhooksForTransaction(requestParameters: WebhooksApiResendWebhooksForTransactionRequest,  requestOptions?: RequestOptions) {
-        return WebhooksApiFp(this.httpClient).resendWebhooksForTransaction(requestParameters.resendWebhooksForTransactionRequest, requestParameters.txId, requestOptions);
+    public resendWebhooks(requestParameters: WebhooksApiResendWebhooksRequest = {}) {
+        return WebhooksApiFp(this.configuration).resendWebhooks(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

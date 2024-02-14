@@ -15,15 +15,12 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { DestinationTransferPeerPathResponseAllOf } from './destination-transfer-peer-path-response-all-of';
-// May contain unused imports in some cases
-// @ts-ignore
 import { TransferPeerPath } from './transfer-peer-path';
 
 /**
  * @type DestinationTransferPeerPathResponse
  * @export
  */
-export type DestinationTransferPeerPathResponse = DestinationTransferPeerPathResponseAllOf & TransferPeerPath;
+export type DestinationTransferPeerPathResponse = TransferPeerPath;
 
 

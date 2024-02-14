@@ -12,27 +12,25 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { CheckThirdPartyRoutingForNetworkConnection200Response } from '../models';
+import { CheckThirdPartyRouting200Response } from '../models';
 // @ts-ignore
 import { CreateNetworkIdRequest } from '../models';
 // @ts-ignore
-import { GetNetworkIds200ResponseInner } from '../models';
+import { ErrorSchema } from '../models';
 // @ts-ignore
 import { NetworkConnection } from '../models';
 // @ts-ignore
@@ -44,130 +42,131 @@ import { SetDiscoverabilityForNetworkIdRequest } from '../models';
 // @ts-ignore
 import { SetNetworkIdNameRequest } from '../models';
 // @ts-ignore
-import { SetRoutingPolicyForNetworkConnection200Response } from '../models';
-// @ts-ignore
-import { SetRoutingPolicyForNetworkConnectionRequest } from '../models';
+import { SetRoutingPolicy200Response } from '../models';
 // @ts-ignore
 import { SetRoutingPolicyForNetworkIdRequest } from '../models';
-
-
-
-    /**
+// @ts-ignore
+import { SetRoutingPolicyRequest } from '../models';
+/**
  * NetworkConnectionsApi - axios parameter creator
  * @export
  */
-export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
          * @summary Retrieve third-party network routing validation by asset type.
          * @param {string} connectionId The ID of the network connection
-         * @param {'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST'} assetType The destination asset type
+         * @param {CheckThirdPartyRoutingAssetTypeEnum} assetType The destination asset type
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        checkThirdPartyRoutingForNetworkConnection: async (connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        checkThirdPartyRouting: async (connectionId: string, assetType: CheckThirdPartyRoutingAssetTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('checkThirdPartyRoutingForNetworkConnection', 'connectionId', connectionId)
+            assertParamExists('checkThirdPartyRouting', 'connectionId', connectionId)
             // verify required parameter 'assetType' is not null or undefined
-            assertParamExists('checkThirdPartyRoutingForNetworkConnection', 'assetType', assetType)
+            assertParamExists('checkThirdPartyRouting', 'assetType', assetType)
             const localVarPath = `/network_connections/{connectionId}/is_third_party_routing/{assetType}`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)))
                 .replace(`{${"assetType"}}`, encodeURIComponent(String(assetType)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
          * @summary Creates a new network connection
          * @param {NetworkConnection} [networkConnection] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNetworkConnection: async (networkConnection?: NetworkConnection,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createNetworkConnection: async (networkConnection?: NetworkConnection, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/network_connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = networkConnection as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(networkConnection, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
          * @summary Creates a new Network ID
          * @param {CreateNetworkIdRequest} [createNetworkIdRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createNetworkId: async (createNetworkIdRequest?: CreateNetworkIdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createNetworkId: async (createNetworkIdRequest?: CreateNetworkIdRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/network_ids`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = createNetworkIdRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createNetworkIdRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -177,33 +176,31 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNetworkConnection: async (connectionId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        deleteNetworkConnection: async (connectionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'connectionId' is not null or undefined
             assertParamExists('deleteNetworkConnection', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'DELETE'};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -213,33 +210,31 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteNetworkId: async (networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        deleteNetworkId: async (networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'networkId' is not null or undefined
             assertParamExists('deleteNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'DELETE'};
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -249,33 +244,31 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkConnectionById: async (connectionId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getNetwork: async (connectionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('getNetworkConnectionById', 'connectionId', connectionId)
+            assertParamExists('getNetwork', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -284,30 +277,28 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkConnections: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getNetworkConnections: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/network_connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -317,33 +308,31 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkIdById: async (networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getNetworkId: async (networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'networkId' is not null or undefined
-            assertParamExists('getNetworkIdById', 'networkId', networkId)
+            assertParamExists('getNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -352,30 +341,28 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNetworkIds: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getNetworkIds: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/network_ids`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -386,7 +373,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setDiscoverabilityForNetworkId: async (setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setDiscoverabilityForNetworkId: async (setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'setDiscoverabilityForNetworkIdRequest' is not null or undefined
             assertParamExists('setDiscoverabilityForNetworkId', 'setDiscoverabilityForNetworkIdRequest', setDiscoverabilityForNetworkIdRequest)
             // verify required parameter 'networkId' is not null or undefined
@@ -394,30 +381,28 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarPath = `/network_ids/{networkId}/set_discoverability`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PATCH'};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setDiscoverabilityForNetworkIdRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setDiscoverabilityForNetworkIdRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -428,7 +413,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setNetworkIdName: async (setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setNetworkIdName: async (setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'setNetworkIdNameRequest' is not null or undefined
             assertParamExists('setNetworkIdName', 'setNetworkIdNameRequest', setNetworkIdNameRequest)
             // verify required parameter 'networkId' is not null or undefined
@@ -436,70 +421,66 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             const localVarPath = `/network_ids/{networkId}/set_name`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PATCH'};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setNetworkIdNameRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setNetworkIdNameRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Updates an existing network connection\'s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
          * @summary Update network connection routing policy.
          * @param {string} connectionId The ID of the network connection
-         * @param {SetRoutingPolicyForNetworkConnectionRequest} [setRoutingPolicyForNetworkConnectionRequest] 
+         * @param {SetRoutingPolicyRequest} [setRoutingPolicyRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setRoutingPolicyForNetworkConnection: async (connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setRoutingPolicy: async (connectionId: string, setRoutingPolicyRequest?: SetRoutingPolicyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('setRoutingPolicyForNetworkConnection', 'connectionId', connectionId)
+            assertParamExists('setRoutingPolicy', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}/set_routing_policy`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PATCH'};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setRoutingPolicyForNetworkConnectionRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setRoutingPolicyRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -510,36 +491,34 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setRoutingPolicyForNetworkId: async (networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setRoutingPolicyForNetworkId: async (networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'networkId' is not null or undefined
             assertParamExists('setRoutingPolicyForNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}/set_routing_policy`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PATCH'};
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setRoutingPolicyForNetworkIdRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setRoutingPolicyForNetworkIdRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -549,42 +528,50 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
  * NetworkConnectionsApi - functional programming interface
  * @export
  */
-export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = NetworkConnectionsApiAxiosParamCreator(httpClient.configuration)
+export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = NetworkConnectionsApiAxiosParamCreator(configuration)
     return {
         /**
          * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
          * @summary Retrieve third-party network routing validation by asset type.
          * @param {string} connectionId The ID of the network connection
-         * @param {'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST'} assetType The destination asset type
+         * @param {CheckThirdPartyRoutingAssetTypeEnum} assetType The destination asset type
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkThirdPartyRoutingForNetworkConnection(connectionId: string, assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST',  requestOptions?: RequestOptions): Promise<CheckThirdPartyRoutingForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.checkThirdPartyRoutingForNetworkConnection(connectionId, assetType, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async checkThirdPartyRouting(connectionId: string, assetType: CheckThirdPartyRoutingAssetTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CheckThirdPartyRouting200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.checkThirdPartyRouting(connectionId, assetType, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.checkThirdPartyRouting']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
          * @summary Creates a new network connection
          * @param {NetworkConnection} [networkConnection] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNetworkConnection(networkConnection?: NetworkConnection,  requestOptions?: RequestOptions): Promise<NetworkConnectionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkConnection(networkConnection, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createNetworkConnection(networkConnection?: NetworkConnection, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkConnection(networkConnection, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.createNetworkConnection']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
          * @summary Creates a new Network ID
          * @param {CreateNetworkIdRequest} [createNetworkIdRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createNetworkId(createNetworkIdRequest?: CreateNetworkIdRequest,  requestOptions?: RequestOptions): Promise<NetworkIdResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkId(createNetworkIdRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createNetworkId(createNetworkIdRequest?: CreateNetworkIdRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createNetworkId(createNetworkIdRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.createNetworkId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Deletes an existing network connection specified by its connection ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -593,9 +580,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNetworkConnection(connectionId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkConnection(connectionId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async deleteNetworkConnection(connectionId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicy200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkConnection(connectionId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.deleteNetworkConnection']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Deletes a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -604,9 +593,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteNetworkId(networkId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkId(networkId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async deleteNetworkId(networkId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicy200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNetworkId(networkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.deleteNetworkId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets a network connection by ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -615,9 +606,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkConnectionById(connectionId: string,  requestOptions?: RequestOptions): Promise<NetworkConnectionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnectionById(connectionId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getNetwork(connectionId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetwork(connectionId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.getNetwork']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns all network connections.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -625,9 +618,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkConnections( requestOptions?: RequestOptions): Promise<Array<NetworkConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnections(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getNetworkConnections(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<NetworkConnectionResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkConnections(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.getNetworkConnections']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Retrieves a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -636,9 +631,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkIdById(networkId: string,  requestOptions?: RequestOptions): Promise<NetworkIdResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIdById(networkId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getNetworkId(networkId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NetworkIdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkId(networkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.getNetworkId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Retrieves a list of all local and discoverable remote network IDs.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -646,9 +643,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNetworkIds( requestOptions?: RequestOptions): Promise<Array<GetNetworkIds200ResponseInner>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIds(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getNetworkIds(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<NetworkIdResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNetworkIds(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.getNetworkIds']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Update whether or not the network ID is discoverable by others.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -658,9 +657,11 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest, networkId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest: SetDiscoverabilityForNetworkIdRequest, networkId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicy200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest, networkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.setDiscoverabilityForNetworkId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates name of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -670,21 +671,25 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setNetworkIdName(setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setNetworkIdName(setNetworkIdNameRequest, networkId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setNetworkIdName(setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicy200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setNetworkIdName(setNetworkIdNameRequest, networkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.setNetworkIdName']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates an existing network connection\'s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
          * @summary Update network connection routing policy.
          * @param {string} connectionId The ID of the network connection
-         * @param {SetRoutingPolicyForNetworkConnectionRequest} [setRoutingPolicyForNetworkConnectionRequest] 
+         * @param {SetRoutingPolicyRequest} [setRoutingPolicyRequest] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setRoutingPolicyForNetworkConnection(connectionId: string, setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkConnection(connectionId, setRoutingPolicyForNetworkConnectionRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setRoutingPolicy(connectionId: string, setRoutingPolicyRequest?: SetRoutingPolicyRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicy200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicy(connectionId, setRoutingPolicyRequest, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.setRoutingPolicy']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -694,32 +699,172 @@ export const NetworkConnectionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setRoutingPolicyForNetworkId(networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions): Promise<SetRoutingPolicyForNetworkConnection200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkId(networkId, setRoutingPolicyForNetworkIdRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setRoutingPolicyForNetworkId(networkId: string, setRoutingPolicyForNetworkIdRequest?: SetRoutingPolicyForNetworkIdRequest, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetRoutingPolicy200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setRoutingPolicyForNetworkId(networkId, setRoutingPolicyForNetworkIdRequest, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['NetworkConnectionsApi.setRoutingPolicyForNetworkId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * Request parameters for checkThirdPartyRoutingForNetworkConnection operation in NetworkConnectionsApi.
+ * NetworkConnectionsApi - factory interface
  * @export
- * @interface NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnectionRequest
  */
-export interface NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnectionRequest {
+export const NetworkConnectionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = NetworkConnectionsApiFp(configuration)
+    return {
+        /**
+         * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
+         * @summary Retrieve third-party network routing validation by asset type.
+         * @param {NetworkConnectionsApiCheckThirdPartyRoutingRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        checkThirdPartyRouting(requestParameters: NetworkConnectionsApiCheckThirdPartyRoutingRequest, options?: RawAxiosRequestConfig): AxiosPromise<CheckThirdPartyRouting200Response> {
+            return localVarFp.checkThirdPartyRouting(requestParameters.connectionId, requestParameters.assetType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Initiates a new network connection.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Creates a new network connection
+         * @param {NetworkConnectionsApiCreateNetworkConnectionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createNetworkConnection(requestParameters: NetworkConnectionsApiCreateNetworkConnectionRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<NetworkConnectionResponse> {
+            return localVarFp.createNetworkConnection(requestParameters.networkConnection, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new Network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Creates a new Network ID
+         * @param {NetworkConnectionsApiCreateNetworkIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createNetworkId(requestParameters: NetworkConnectionsApiCreateNetworkIdRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<NetworkIdResponse> {
+            return localVarFp.createNetworkId(requestParameters.createNetworkIdRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes an existing network connection specified by its connection ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Deletes a network connection by ID
+         * @param {NetworkConnectionsApiDeleteNetworkConnectionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNetworkConnection(requestParameters: NetworkConnectionsApiDeleteNetworkConnectionRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetRoutingPolicy200Response> {
+            return localVarFp.deleteNetworkConnection(requestParameters.connectionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Deletes specific network ID.
+         * @param {NetworkConnectionsApiDeleteNetworkIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNetworkId(requestParameters: NetworkConnectionsApiDeleteNetworkIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetRoutingPolicy200Response> {
+            return localVarFp.deleteNetworkId(requestParameters.networkId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets a network connection by ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Get a network connection
+         * @param {NetworkConnectionsApiGetNetworkRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNetwork(requestParameters: NetworkConnectionsApiGetNetworkRequest, options?: RawAxiosRequestConfig): AxiosPromise<NetworkConnectionResponse> {
+            return localVarFp.getNetwork(requestParameters.connectionId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns all network connections.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary List network connections
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNetworkConnections(options?: RawAxiosRequestConfig): AxiosPromise<Array<NetworkConnectionResponse>> {
+            return localVarFp.getNetworkConnections(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieves a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Returns specific network ID.
+         * @param {NetworkConnectionsApiGetNetworkIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNetworkId(requestParameters: NetworkConnectionsApiGetNetworkIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<NetworkIdResponse> {
+            return localVarFp.getNetworkId(requestParameters.networkId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieves a list of all local and discoverable remote network IDs.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Returns all network IDs, both local IDs and discoverable remote IDs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNetworkIds(options?: RawAxiosRequestConfig): AxiosPromise<Array<NetworkIdResponse>> {
+            return localVarFp.getNetworkIds(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update whether or not the network ID is discoverable by others.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Update network ID\'s discoverability.
+         * @param {NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setDiscoverabilityForNetworkId(requestParameters: NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetRoutingPolicy200Response> {
+            return localVarFp.setDiscoverabilityForNetworkId(requestParameters.setDiscoverabilityForNetworkIdRequest, requestParameters.networkId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates name of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Update network ID\'s name.
+         * @param {NetworkConnectionsApiSetNetworkIdNameRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setNetworkIdName(requestParameters: NetworkConnectionsApiSetNetworkIdNameRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetRoutingPolicy200Response> {
+            return localVarFp.setNetworkIdName(requestParameters.setNetworkIdNameRequest, requestParameters.networkId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates an existing network connection\'s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Update network connection routing policy.
+         * @param {NetworkConnectionsApiSetRoutingPolicyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setRoutingPolicy(requestParameters: NetworkConnectionsApiSetRoutingPolicyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetRoutingPolicy200Response> {
+            return localVarFp.setRoutingPolicy(requestParameters.connectionId, requestParameters.setRoutingPolicyRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+         * @summary Update network id routing policy.
+         * @param {NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setRoutingPolicyForNetworkId(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetRoutingPolicy200Response> {
+            return localVarFp.setRoutingPolicyForNetworkId(requestParameters.networkId, requestParameters.setRoutingPolicyForNetworkIdRequest, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for checkThirdPartyRouting operation in NetworkConnectionsApi.
+ * @export
+ * @interface NetworkConnectionsApiCheckThirdPartyRoutingRequest
+ */
+export interface NetworkConnectionsApiCheckThirdPartyRoutingRequest {
     /**
      * The ID of the network connection
      * @type {string}
-     * @memberof NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnection
+     * @memberof NetworkConnectionsApiCheckThirdPartyRouting
      */
     readonly connectionId: string
 
     /**
      * The destination asset type
      * @type {'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST'}
-     * @memberof NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnection
+     * @memberof NetworkConnectionsApiCheckThirdPartyRouting
      */
-    readonly assetType: 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST'
+    readonly assetType: CheckThirdPartyRoutingAssetTypeEnum
 }
 
 /**
@@ -734,6 +879,13 @@ export interface NetworkConnectionsApiCreateNetworkConnectionRequest {
      * @memberof NetworkConnectionsApiCreateNetworkConnection
      */
     readonly networkConnection?: NetworkConnection
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NetworkConnectionsApiCreateNetworkConnection
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -748,6 +900,13 @@ export interface NetworkConnectionsApiCreateNetworkIdRequest {
      * @memberof NetworkConnectionsApiCreateNetworkId
      */
     readonly createNetworkIdRequest?: CreateNetworkIdRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof NetworkConnectionsApiCreateNetworkId
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -779,29 +938,29 @@ export interface NetworkConnectionsApiDeleteNetworkIdRequest {
 }
 
 /**
- * Request parameters for getNetworkConnectionById operation in NetworkConnectionsApi.
+ * Request parameters for getNetwork operation in NetworkConnectionsApi.
  * @export
- * @interface NetworkConnectionsApiGetNetworkConnectionByIdRequest
+ * @interface NetworkConnectionsApiGetNetworkRequest
  */
-export interface NetworkConnectionsApiGetNetworkConnectionByIdRequest {
+export interface NetworkConnectionsApiGetNetworkRequest {
     /**
      * The ID of the connection
      * @type {string}
-     * @memberof NetworkConnectionsApiGetNetworkConnectionById
+     * @memberof NetworkConnectionsApiGetNetwork
      */
     readonly connectionId: string
 }
 
 /**
- * Request parameters for getNetworkIdById operation in NetworkConnectionsApi.
+ * Request parameters for getNetworkId operation in NetworkConnectionsApi.
  * @export
- * @interface NetworkConnectionsApiGetNetworkIdByIdRequest
+ * @interface NetworkConnectionsApiGetNetworkIdRequest
  */
-export interface NetworkConnectionsApiGetNetworkIdByIdRequest {
+export interface NetworkConnectionsApiGetNetworkIdRequest {
     /**
      * The ID of the network
      * @type {string}
-     * @memberof NetworkConnectionsApiGetNetworkIdById
+     * @memberof NetworkConnectionsApiGetNetworkId
      */
     readonly networkId: string
 }
@@ -849,24 +1008,24 @@ export interface NetworkConnectionsApiSetNetworkIdNameRequest {
 }
 
 /**
- * Request parameters for setRoutingPolicyForNetworkConnection operation in NetworkConnectionsApi.
+ * Request parameters for setRoutingPolicy operation in NetworkConnectionsApi.
  * @export
- * @interface NetworkConnectionsApiSetRoutingPolicyForNetworkConnectionRequest
+ * @interface NetworkConnectionsApiSetRoutingPolicyRequest
  */
-export interface NetworkConnectionsApiSetRoutingPolicyForNetworkConnectionRequest {
+export interface NetworkConnectionsApiSetRoutingPolicyRequest {
     /**
      * The ID of the network connection
      * @type {string}
-     * @memberof NetworkConnectionsApiSetRoutingPolicyForNetworkConnection
+     * @memberof NetworkConnectionsApiSetRoutingPolicy
      */
     readonly connectionId: string
 
     /**
      * 
-     * @type {SetRoutingPolicyForNetworkConnectionRequest}
-     * @memberof NetworkConnectionsApiSetRoutingPolicyForNetworkConnection
+     * @type {SetRoutingPolicyRequest}
+     * @memberof NetworkConnectionsApiSetRoutingPolicy
      */
-    readonly setRoutingPolicyForNetworkConnectionRequest?: SetRoutingPolicyForNetworkConnectionRequest
+    readonly setRoutingPolicyRequest?: SetRoutingPolicyRequest
 }
 
 /**
@@ -900,13 +1059,13 @@ export class NetworkConnectionsApi extends BaseAPI {
     /**
      * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
      * @summary Retrieve third-party network routing validation by asset type.
-     * @param {NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnectionRequest} requestParameters Request parameters.
+     * @param {NetworkConnectionsApiCheckThirdPartyRoutingRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public checkThirdPartyRoutingForNetworkConnection(requestParameters: NetworkConnectionsApiCheckThirdPartyRoutingForNetworkConnectionRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).checkThirdPartyRoutingForNetworkConnection(requestParameters.connectionId, requestParameters.assetType, requestOptions);
+    public checkThirdPartyRouting(requestParameters: NetworkConnectionsApiCheckThirdPartyRoutingRequest) {
+        return NetworkConnectionsApiFp(this.configuration).checkThirdPartyRouting(requestParameters.connectionId, requestParameters.assetType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -917,8 +1076,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public createNetworkConnection(requestParameters: NetworkConnectionsApiCreateNetworkConnectionRequest = {},  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).createNetworkConnection(requestParameters.networkConnection, requestOptions);
+    public createNetworkConnection(requestParameters: NetworkConnectionsApiCreateNetworkConnectionRequest = {}) {
+        return NetworkConnectionsApiFp(this.configuration).createNetworkConnection(requestParameters.networkConnection, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -929,8 +1088,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public createNetworkId(requestParameters: NetworkConnectionsApiCreateNetworkIdRequest = {},  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).createNetworkId(requestParameters.createNetworkIdRequest, requestOptions);
+    public createNetworkId(requestParameters: NetworkConnectionsApiCreateNetworkIdRequest = {}) {
+        return NetworkConnectionsApiFp(this.configuration).createNetworkId(requestParameters.createNetworkIdRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -941,8 +1100,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public deleteNetworkConnection(requestParameters: NetworkConnectionsApiDeleteNetworkConnectionRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).deleteNetworkConnection(requestParameters.connectionId, requestOptions);
+    public deleteNetworkConnection(requestParameters: NetworkConnectionsApiDeleteNetworkConnectionRequest) {
+        return NetworkConnectionsApiFp(this.configuration).deleteNetworkConnection(requestParameters.connectionId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -953,20 +1112,20 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public deleteNetworkId(requestParameters: NetworkConnectionsApiDeleteNetworkIdRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).deleteNetworkId(requestParameters.networkId, requestOptions);
+    public deleteNetworkId(requestParameters: NetworkConnectionsApiDeleteNetworkIdRequest) {
+        return NetworkConnectionsApiFp(this.configuration).deleteNetworkId(requestParameters.networkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Gets a network connection by ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
      * @summary Get a network connection
-     * @param {NetworkConnectionsApiGetNetworkConnectionByIdRequest} requestParameters Request parameters.
+     * @param {NetworkConnectionsApiGetNetworkRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public getNetworkConnectionById(requestParameters: NetworkConnectionsApiGetNetworkConnectionByIdRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkConnectionById(requestParameters.connectionId, requestOptions);
+    public getNetwork(requestParameters: NetworkConnectionsApiGetNetworkRequest) {
+        return NetworkConnectionsApiFp(this.configuration).getNetwork(requestParameters.connectionId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -976,20 +1135,20 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public getNetworkConnections( requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkConnections(requestOptions);
+    public getNetworkConnections() {
+        return NetworkConnectionsApiFp(this.configuration).getNetworkConnections().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Retrieves a network by its ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
      * @summary Returns specific network ID.
-     * @param {NetworkConnectionsApiGetNetworkIdByIdRequest} requestParameters Request parameters.
+     * @param {NetworkConnectionsApiGetNetworkIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public getNetworkIdById(requestParameters: NetworkConnectionsApiGetNetworkIdByIdRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkIdById(requestParameters.networkId, requestOptions);
+    public getNetworkId(requestParameters: NetworkConnectionsApiGetNetworkIdRequest) {
+        return NetworkConnectionsApiFp(this.configuration).getNetworkId(requestParameters.networkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -999,8 +1158,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public getNetworkIds( requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).getNetworkIds(requestOptions);
+    public getNetworkIds() {
+        return NetworkConnectionsApiFp(this.configuration).getNetworkIds().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1011,8 +1170,8 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public setDiscoverabilityForNetworkId(requestParameters: NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).setDiscoverabilityForNetworkId(requestParameters.setDiscoverabilityForNetworkIdRequest, requestParameters.networkId, requestOptions);
+    public setDiscoverabilityForNetworkId(requestParameters: NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest) {
+        return NetworkConnectionsApiFp(this.configuration).setDiscoverabilityForNetworkId(requestParameters.setDiscoverabilityForNetworkIdRequest, requestParameters.networkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1023,20 +1182,20 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public setNetworkIdName(requestParameters: NetworkConnectionsApiSetNetworkIdNameRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).setNetworkIdName(requestParameters.setNetworkIdNameRequest, requestParameters.networkId, requestOptions);
+    public setNetworkIdName(requestParameters: NetworkConnectionsApiSetNetworkIdNameRequest) {
+        return NetworkConnectionsApiFp(this.configuration).setNetworkIdName(requestParameters.setNetworkIdNameRequest, requestParameters.networkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Updates an existing network connection\'s routing policy.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
      * @summary Update network connection routing policy.
-     * @param {NetworkConnectionsApiSetRoutingPolicyForNetworkConnectionRequest} requestParameters Request parameters.
+     * @param {NetworkConnectionsApiSetRoutingPolicyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public setRoutingPolicyForNetworkConnection(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkConnectionRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).setRoutingPolicyForNetworkConnection(requestParameters.connectionId, requestParameters.setRoutingPolicyForNetworkConnectionRequest, requestOptions);
+    public setRoutingPolicy(requestParameters: NetworkConnectionsApiSetRoutingPolicyRequest) {
+        return NetworkConnectionsApiFp(this.configuration).setRoutingPolicy(requestParameters.connectionId, requestParameters.setRoutingPolicyRequest).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1047,7 +1206,19 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi
      */
-     public setRoutingPolicyForNetworkId(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest,  requestOptions?: RequestOptions) {
-        return NetworkConnectionsApiFp(this.httpClient).setRoutingPolicyForNetworkId(requestParameters.networkId, requestParameters.setRoutingPolicyForNetworkIdRequest, requestOptions);
+    public setRoutingPolicyForNetworkId(requestParameters: NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest) {
+        return NetworkConnectionsApiFp(this.configuration).setRoutingPolicyForNetworkId(requestParameters.networkId, requestParameters.setRoutingPolicyForNetworkIdRequest).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+
+/**
+ * @export
+ */
+export const CheckThirdPartyRoutingAssetTypeEnum = {
+    Crypto: 'CRYPTO',
+    Signet: 'SIGNET',
+    Sen: 'SEN',
+    SignetTest: 'SIGNET_TEST',
+    SenTest: 'SEN_TEST'
+} as const;
+export type CheckThirdPartyRoutingAssetTypeEnum = typeof CheckThirdPartyRoutingAssetTypeEnum[keyof typeof CheckThirdPartyRoutingAssetTypeEnum];

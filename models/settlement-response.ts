@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ExchangeSettlementTransactionsResponse } from './exchange-settlement-transactions-response';
 
 /**
  * 
@@ -46,9 +49,9 @@ export interface SettlementResponse {
     'fireblocksInitiatedTransactions'?: object;
     /**
      * 
-     * @type {SettlementResponse}
+     * @type {ExchangeSettlementTransactionsResponse}
      * @memberof SettlementResponse
      */
-    'exchangeRequestedTransactions'?: SettlementResponse;
+    'exchangeRequestedTransactions'?: ExchangeSettlementTransactionsResponse;
 }
 

@@ -15,9 +15,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { DestinationTransferPeerPathAllOf } from './destination-transfer-peer-path-all-of';
-// May contain unused imports in some cases
-// @ts-ignore
 import { OneTimeAddress } from './one-time-address';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -27,6 +24,6 @@ import { TransferPeerPath } from './transfer-peer-path';
  * @type DestinationTransferPeerPath
  * @export
  */
-export type DestinationTransferPeerPath = DestinationTransferPeerPathAllOf & TransferPeerPath;
+export type DestinationTransferPeerPath = TransferPeerPath;
 
 

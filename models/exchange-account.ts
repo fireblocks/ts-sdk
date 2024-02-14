@@ -60,6 +60,12 @@ export interface ExchangeAccount {
      */
     'assets'?: Array<ExchangeAsset>;
     /**
+     * Did succeed in retrieve balance data
+     * @type {boolean}
+     * @memberof ExchangeAccount
+     */
+    'success'?: boolean;
+    /**
      * 
      * @type {Array<ExchangeTradingAccount>}
      * @memberof ExchangeAccount

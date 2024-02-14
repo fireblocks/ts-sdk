@@ -12,23 +12,23 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { DraftReviewAndValidationResponse } from '../models';
+// @ts-ignore
+import { ErrorSchema } from '../models';
 // @ts-ignore
 import { PolicyAndValidationResponse } from '../models';
 // @ts-ignore
@@ -39,14 +39,11 @@ import { PublishPolicyRulesRequest } from '../models';
 import { PublishResult } from '../models';
 // @ts-ignore
 import { UpdateDraftRequest } from '../models';
-
-
-
-    /**
+/**
  * PolicyEditorBetaApi - axios parameter creator
  * @export
  */
-export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -54,30 +51,28 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActivePolicy: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getActivePolicy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tap/active_policy`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -86,144 +81,151 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDraft: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getDraft: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PublishDraftRequest} publishDraftRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishDraft: async (publishDraftRequest: PublishDraftRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        publishDraft: async (publishDraftRequest: PublishDraftRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'publishDraftRequest' is not null or undefined
             assertParamExists('publishDraft', 'publishDraftRequest', publishDraftRequest)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = publishDraftRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(publishDraftRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a set of policy rules
          * @param {PublishPolicyRulesRequest} publishPolicyRulesRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPolicyRules: async (publishPolicyRulesRequest: PublishPolicyRulesRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        publishPolicyRules: async (publishPolicyRulesRequest: PublishPolicyRulesRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'publishPolicyRulesRequest' is not null or undefined
             assertParamExists('publishPolicyRules', 'publishPolicyRulesRequest', publishPolicyRulesRequest)
             const localVarPath = `/tap/publish`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = publishPolicyRulesRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(publishPolicyRulesRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
          * @param {UpdateDraftRequest} updateDraftRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDraft: async (updateDraftRequest: UpdateDraftRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        updateDraft: async (updateDraftRequest: UpdateDraftRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'updateDraftRequest' is not null or undefined
             assertParamExists('updateDraft', 'updateDraftRequest', updateDraftRequest)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = updateDraftRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateDraftRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -233,8 +235,8 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
  * PolicyEditorBetaApi - functional programming interface
  * @export
  */
-export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = PolicyEditorBetaApiAxiosParamCreator(httpClient.configuration)
+export const PolicyEditorBetaApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PolicyEditorBetaApiAxiosParamCreator(configuration)
     return {
         /**
          * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -242,9 +244,11 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getActivePolicy( requestOptions?: RequestOptions): Promise<PolicyAndValidationResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicy(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getActivePolicy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PolicyAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicy(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.getActivePolicy']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns the active draft and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -252,44 +256,113 @@ export const PolicyEditorBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDraft( requestOptions?: RequestOptions): Promise<DraftReviewAndValidationResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getDraft(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.getDraft']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PublishDraftRequest} publishDraftRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishDraft(publishDraftRequest: PublishDraftRequest,  requestOptions?: RequestOptions): Promise<PublishResult> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraft(publishDraftRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async publishDraft(publishDraftRequest: PublishDraftRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraft(publishDraftRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.publishDraft']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a set of policy rules
          * @param {PublishPolicyRulesRequest} publishPolicyRulesRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest,  requestOptions?: RequestOptions): Promise<PublishResult> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(publishPolicyRulesRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(publishPolicyRulesRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.publishPolicyRules']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
          * @param {UpdateDraftRequest} updateDraftRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateDraft(updateDraftRequest: UpdateDraftRequest,  requestOptions?: RequestOptions): Promise<DraftReviewAndValidationResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(updateDraftRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async updateDraft(updateDraftRequest: UpdateDraftRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(updateDraftRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.updateDraft']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * PolicyEditorBetaApi - factory interface
+ * @export
+ */
+export const PolicyEditorBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PolicyEditorBetaApiFp(configuration)
+    return {
+        /**
+         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * @summary Get the active policy and its validation
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getActivePolicy(options?: RawAxiosRequestConfig): AxiosPromise<PolicyAndValidationResponse> {
+            return localVarFp.getActivePolicy(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the active draft and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * @summary Get the active draft
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDraft(options?: RawAxiosRequestConfig): AxiosPromise<DraftReviewAndValidationResponse> {
+            return localVarFp.getDraft(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * @summary Send publish request for a certain draft id
+         * @param {PolicyEditorBetaApiPublishDraftRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublishResult> {
+            return localVarFp.publishDraft(requestParameters.publishDraftRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * @summary Send publish request for a set of policy rules
+         * @param {PolicyEditorBetaApiPublishPolicyRulesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublishResult> {
+            return localVarFp.publishPolicyRules(requestParameters.publishPolicyRulesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * @summary Update the draft with a new set of rules
+         * @param {PolicyEditorBetaApiUpdateDraftRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest, options?: RawAxiosRequestConfig): AxiosPromise<DraftReviewAndValidationResponse> {
+            return localVarFp.updateDraft(requestParameters.updateDraftRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -304,6 +377,13 @@ export interface PolicyEditorBetaApiPublishDraftRequest {
      * @memberof PolicyEditorBetaApiPublishDraft
      */
     readonly publishDraftRequest: PublishDraftRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof PolicyEditorBetaApiPublishDraft
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -318,6 +398,13 @@ export interface PolicyEditorBetaApiPublishPolicyRulesRequest {
      * @memberof PolicyEditorBetaApiPublishPolicyRules
      */
     readonly publishPolicyRulesRequest: PublishPolicyRulesRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof PolicyEditorBetaApiPublishPolicyRules
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -332,6 +419,13 @@ export interface PolicyEditorBetaApiUpdateDraftRequest {
      * @memberof PolicyEditorBetaApiUpdateDraft
      */
     readonly updateDraftRequest: UpdateDraftRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof PolicyEditorBetaApiUpdateDraft
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -348,8 +442,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-     public getActivePolicy( requestOptions?: RequestOptions) {
-        return PolicyEditorBetaApiFp(this.httpClient).getActivePolicy(requestOptions);
+    public getActivePolicy() {
+        return PolicyEditorBetaApiFp(this.configuration).getActivePolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -359,8 +453,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-     public getDraft( requestOptions?: RequestOptions) {
-        return PolicyEditorBetaApiFp(this.httpClient).getDraft(requestOptions);
+    public getDraft() {
+        return PolicyEditorBetaApiFp(this.configuration).getDraft().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -371,8 +465,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-     public publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest,  requestOptions?: RequestOptions) {
-        return PolicyEditorBetaApiFp(this.httpClient).publishDraft(requestParameters.publishDraftRequest, requestOptions);
+    public publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest) {
+        return PolicyEditorBetaApiFp(this.configuration).publishDraft(requestParameters.publishDraftRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -383,8 +477,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-     public publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest,  requestOptions?: RequestOptions) {
-        return PolicyEditorBetaApiFp(this.httpClient).publishPolicyRules(requestParameters.publishPolicyRulesRequest, requestOptions);
+    public publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest) {
+        return PolicyEditorBetaApiFp(this.configuration).publishPolicyRules(requestParameters.publishPolicyRulesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -395,7 +489,8 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-     public updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest,  requestOptions?: RequestOptions) {
-        return PolicyEditorBetaApiFp(this.httpClient).updateDraft(requestParameters.updateDraftRequest, requestOptions);
+    public updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest) {
+        return PolicyEditorBetaApiFp(this.configuration).updateDraft(requestParameters.updateDraftRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

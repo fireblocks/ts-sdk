@@ -12,21 +12,19 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { CancelTransactionResponse } from '../models';
 // @ts-ignore
@@ -35,6 +33,8 @@ import { CreateTransactionResponse } from '../models';
 import { DropTransactionRequest } from '../models';
 // @ts-ignore
 import { DropTransactionResponse } from '../models';
+// @ts-ignore
+import { ErrorSchema } from '../models';
 // @ts-ignore
 import { EstimatedNetworkFeeResponse } from '../models';
 // @ts-ignore
@@ -53,89 +53,98 @@ import { TransactionResponse } from '../models';
 import { UnfreezeTransactionResponse } from '../models';
 // @ts-ignore
 import { ValidateAddressResponse } from '../models';
-
-
-
-    /**
+/**
  * TransactionsApi - axios parameter creator
  * @export
  */
-export const TransactionsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const TransactionsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Cancels a transaction by ID.
          * @summary Cancel a transaction
          * @param {string} txId The ID of the transaction to cancel
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelTransaction: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        cancelTransaction: async (txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('cancelTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/cancel`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Creates a new transaction.
          * @summary Create a new transaction
          * @param {TransactionRequest} [transactionRequest] 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createTransaction: async (transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createTransaction: async (transactionRequest?: TransactionRequest, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = transactionRequest as any;
-            if (localVarRequestOptions.data?.source?.type === 'END_USER_WALLET' && !requestOptions?.ncw?.walletId) {
-                const { walletId } = localVarRequestOptions.data?.source;
-                requestOptions.ncw = { ...requestOptions.ncw, walletId };
-            }
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(transactionRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -143,39 +152,47 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @summary Drop ETH transaction by ID
          * @param {string} txId The ID of the transaction
          * @param {DropTransactionRequest} [dropTransactionRequest] 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        dropTransaction: async (txId: string, dropTransactionRequest?: DropTransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        dropTransaction: async (txId: string, dropTransactionRequest?: DropTransactionRequest, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('dropTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/drop`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = dropTransactionRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(dropTransactionRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -185,16 +202,21 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        estimateNetworkFee: async (assetId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        estimateNetworkFee: async (assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'assetId' is not null or undefined
             assertParamExists('estimateNetworkFee', 'assetId', assetId)
             const localVarPath = `/estimate_network_fee`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (assetId !== undefined) {
                 localVarQueryParameter['assetId'] = assetId;
             }
@@ -202,127 +224,95 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
          * @summary Estimate transaction fee
          * @param {TransactionRequest} [transactionRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        estimateTransactionFee: async (transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        estimateTransactionFee: async (transactionRequest?: TransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/transactions/estimate_fee`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = transactionRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(transactionRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Freezes a transaction by ID.
          * @summary Freeze a transaction
          * @param {string} txId The ID of the transaction to freeze
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        freezeTransaction: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        freezeTransaction: async (txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('freezeTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/freeze`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns transaction by external transaction ID.
-         * @summary Find a specific transaction by external transaction ID
-         * @param {string} externalTxId The external ID of the transaction to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getTransactionByExternalId: async (externalTxId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'externalTxId' is not null or undefined
-            assertParamExists('getTransactionByExternalId', 'externalTxId', externalTxId)
-            const localVarPath = `/transactions/external_tx_id/{externalTxId}/`
-                .replace(`{${"externalTxId"}}`, encodeURIComponent(String(externalTxId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -332,33 +322,65 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactionById: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getTransaction: async (txId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'txId' is not null or undefined
-            assertParamExists('getTransactionById', 'txId', txId)
+            assertParamExists('getTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns transaction by external transaction ID.
+         * @summary Find a specific transaction by external transaction ID
+         * @param {string} externalTxId The external ID of the transaction to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactionByExternalId: async (externalTxId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'externalTxId' is not null or undefined
+            assertParamExists('getTransactionByExternalId', 'externalTxId', externalTxId)
+            const localVarPath = `/transactions/external_tx_id/{externalTxId}`
+                .replace(`{${"externalTxId"}}`, encodeURIComponent(String(externalTxId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -367,12 +389,12 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {string} [before] Unix timestamp in milliseconds. Returns only transactions created before the specified date
          * @param {string} [after] Unix timestamp in milliseconds. Returns only transactions created after the specified date
          * @param {string} [status] You can filter by one of the statuses.
-         * @param {'createdAt' | 'lastUpdated'} [orderBy] The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
-         * @param {'ASC' | 'DESC'} [sort] The direction to order the results by
+         * @param {GetTransactionsOrderByEnum} [orderBy] The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
+         * @param {GetTransactionsSortEnum} [sort] The direction to order the results by
          * @param {number} [limit] Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'} [sourceType] The source type of the transaction
+         * @param {GetTransactionsSourceTypeEnum} [sourceType] The source type of the transaction
          * @param {string} [sourceId] The source ID of the transaction
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'} [destType] The destination type of the transaction
+         * @param {GetTransactionsDestTypeEnum} [destType] The destination type of the transaction
          * @param {string} [destId] The destination ID of the transaction
          * @param {string} [assets] A list of assets to filter by, seperated by commas
          * @param {string} [txHash] Returns only results with a specified txHash
@@ -381,14 +403,19 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (before !== undefined) {
                 localVarQueryParameter['before'] = before;
             }
@@ -448,59 +475,12 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
-            };
-        },
-        /**
-         * Overrides the required number of confirmations for transaction completion by transaction ID.
-         * @summary Set confirmation threshold by transaction ID
-         * @param {string} txId The ID of the transaction
-         * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setConfirmationThresholdForTransaction: async (txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('setConfirmationThresholdForTransaction', 'txId', txId)
-            const localVarPath = `/transactions/{txId}/set_confirmation_threshold`
-                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
-
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setConfirmationsThresholdRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
-
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
-            return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -508,75 +488,129 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @summary Set confirmation threshold by transaction hash
          * @param {string} txHash The TxHash
          * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setConfirmationThresholdForTransactionByHash: async (txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setConfirmationThresholdByTransactionHash: async (txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'txHash' is not null or undefined
-            assertParamExists('setConfirmationThresholdForTransactionByHash', 'txHash', txHash)
+            assertParamExists('setConfirmationThresholdByTransactionHash', 'txHash', txHash)
             const localVarPath = `/txHash/{txHash}/set_confirmation_threshold`
                 .replace(`{${"txHash"}}`, encodeURIComponent(String(txHash)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setConfirmationsThresholdRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setConfirmationsThresholdRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Overrides the required number of confirmations for transaction completion by transaction ID.
+         * @summary Set confirmation threshold by transaction ID
+         * @param {string} txId The ID of the transaction
+         * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setTransactionConfirmationThreshold: async (txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'txId' is not null or undefined
+            assertParamExists('setTransactionConfirmationThreshold', 'txId', txId)
+            const localVarPath = `/transactions/{txId}/set_confirmation_threshold`
+                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setConfirmationsThresholdRequest, localVarRequestOptions, configuration)
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Unfreezes a transaction by ID and makes the transaction available again.
          * @summary Unfreeze a transaction
          * @param {string} txId The ID of the transaction to unfreeze
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unfreezeTransaction: async (txId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        unfreezeTransaction: async (txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'txId' is not null or undefined
             assertParamExists('unfreezeTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/unfreeze`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -587,7 +621,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateAddress: async (assetId: string, address: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        validateAddress: async (assetId: string, address: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'assetId' is not null or undefined
             assertParamExists('validateAddress', 'assetId', assetId)
             // verify required parameter 'address' is not null or undefined
@@ -596,27 +630,25 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
                 .replace(`{${"address"}}`, encodeURIComponent(String(address)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -626,42 +658,54 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
  * TransactionsApi - functional programming interface
  * @export
  */
-export const TransactionsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = TransactionsApiAxiosParamCreator(httpClient.configuration)
+export const TransactionsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TransactionsApiAxiosParamCreator(configuration)
     return {
         /**
          * Cancels a transaction by ID.
          * @summary Cancel a transaction
          * @param {string} txId The ID of the transaction to cancel
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cancelTransaction(txId: string,  requestOptions?: RequestOptions): Promise<CancelTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTransaction(txId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async cancelTransaction(txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CancelTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTransaction(txId, xEndUserWalletId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.cancelTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Creates a new transaction.
          * @summary Create a new transaction
          * @param {TransactionRequest} [transactionRequest] 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createTransaction(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<CreateTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createTransaction(transactionRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createTransaction(transactionRequest?: TransactionRequest, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTransaction(transactionRequest, xEndUserWalletId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.createTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Drops a stuck ETH transaction and creates a replacement transaction.
          * @summary Drop ETH transaction by ID
          * @param {string} txId The ID of the transaction
          * @param {DropTransactionRequest} [dropTransactionRequest] 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async dropTransaction(txId: string, dropTransactionRequest?: DropTransactionRequest,  requestOptions?: RequestOptions): Promise<DropTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.dropTransaction(txId, dropTransactionRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async dropTransaction(txId: string, dropTransactionRequest?: DropTransactionRequest, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DropTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.dropTransaction(txId, dropTransactionRequest, xEndUserWalletId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.dropTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
@@ -670,42 +714,40 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async estimateNetworkFee(assetId: string,  requestOptions?: RequestOptions): Promise<EstimatedNetworkFeeResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateNetworkFee(assetId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async estimateNetworkFee(assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedNetworkFeeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateNetworkFee(assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.estimateNetworkFee']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
          * @summary Estimate transaction fee
          * @param {TransactionRequest} [transactionRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async estimateTransactionFee(transactionRequest?: TransactionRequest,  requestOptions?: RequestOptions): Promise<EstimatedTransactionFeeResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateTransactionFee(transactionRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async estimateTransactionFee(transactionRequest?: TransactionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EstimatedTransactionFeeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.estimateTransactionFee(transactionRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.estimateTransactionFee']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Freezes a transaction by ID.
          * @summary Freeze a transaction
          * @param {string} txId The ID of the transaction to freeze
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async freezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<FreezeTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.freezeTransaction(txId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Returns transaction by external transaction ID.
-         * @summary Find a specific transaction by external transaction ID
-         * @param {string} externalTxId The external ID of the transaction to return
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getTransactionByExternalId(externalTxId: string,  requestOptions?: RequestOptions): Promise<TransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionByExternalId(externalTxId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async freezeTransaction(txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FreezeTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.freezeTransaction(txId, xEndUserWalletId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.freezeTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns a transaction by ID.
@@ -714,9 +756,24 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactionById(txId: string,  requestOptions?: RequestOptions): Promise<TransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionById(txId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getTransaction(txId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransaction(txId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.getTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns transaction by external transaction ID.
+         * @summary Find a specific transaction by external transaction ID
+         * @param {string} externalTxId The external ID of the transaction to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTransactionByExternalId(externalTxId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionByExternalId(externalTxId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.getTransactionByExternalId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Lists the transaction history for your workspace.
@@ -724,12 +781,12 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {string} [before] Unix timestamp in milliseconds. Returns only transactions created before the specified date
          * @param {string} [after] Unix timestamp in milliseconds. Returns only transactions created after the specified date
          * @param {string} [status] You can filter by one of the statuses.
-         * @param {'createdAt' | 'lastUpdated'} [orderBy] The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
-         * @param {'ASC' | 'DESC'} [sort] The direction to order the results by
+         * @param {GetTransactionsOrderByEnum} [orderBy] The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions.
+         * @param {GetTransactionsSortEnum} [sort] The direction to order the results by
          * @param {number} [limit] Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'} [sourceType] The source type of the transaction
+         * @param {GetTransactionsSourceTypeEnum} [sourceType] The source type of the transaction
          * @param {string} [sourceId] The source ID of the transaction
-         * @param {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'} [destType] The destination type of the transaction
+         * @param {GetTransactionsDestTypeEnum} [destType] The destination type of the transaction
          * @param {string} [destId] The destination ID of the transaction
          * @param {string} [assets] A list of assets to filter by, seperated by commas
          * @param {string} [txHash] Returns only results with a specified txHash
@@ -738,44 +795,56 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactions(before?: string, after?: string, status?: string, orderBy?: 'createdAt' | 'lastUpdated', sort?: 'ASC' | 'DESC', limit?: number, sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET', sourceId?: string, destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET', destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string,  requestOptions?: RequestOptions): Promise<Array<TransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
-        },
-        /**
-         * Overrides the required number of confirmations for transaction completion by transaction ID.
-         * @summary Set confirmation threshold by transaction ID
-         * @param {string} txId The ID of the transaction
-         * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async setConfirmationThresholdForTransaction(txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<SetConfirmationsThresholdResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransaction(txId, setConfirmationsThresholdRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getTransactions(before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.getTransactions']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Overrides the required number of confirmations for transaction completion by transaction hash.
          * @summary Set confirmation threshold by transaction hash
          * @param {string} txHash The TxHash
          * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setConfirmationThresholdForTransactionByHash(txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest,  requestOptions?: RequestOptions): Promise<SetConfirmationsThresholdResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdForTransactionByHash(txHash, setConfirmationsThresholdRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setConfirmationThresholdByTransactionHash(txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setConfirmationThresholdByTransactionHash(txHash, setConfirmationsThresholdRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.setConfirmationThresholdByTransactionHash']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Overrides the required number of confirmations for transaction completion by transaction ID.
+         * @summary Set confirmation threshold by transaction ID
+         * @param {string} txId The ID of the transaction
+         * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setTransactionConfirmationThreshold(txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetConfirmationsThresholdResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setTransactionConfirmationThreshold(txId, setConfirmationsThresholdRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.setTransactionConfirmationThreshold']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Unfreezes a transaction by ID and makes the transaction available again.
          * @summary Unfreeze a transaction
          * @param {string} txId The ID of the transaction to unfreeze
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unfreezeTransaction(txId: string,  requestOptions?: RequestOptions): Promise<UnfreezeTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.unfreezeTransaction(txId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async unfreezeTransaction(txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnfreezeTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unfreezeTransaction(txId, xEndUserWalletId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.unfreezeTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Checks if an address is valid (for XRP, DOT, XLM, and EOS).
@@ -785,11 +854,153 @@ export const TransactionsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateAddress(assetId: string, address: string,  requestOptions?: RequestOptions): Promise<ValidateAddressResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateAddress(assetId, address, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async validateAddress(assetId: string, address: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateAddress(assetId, address, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.validateAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * TransactionsApi - factory interface
+ * @export
+ */
+export const TransactionsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TransactionsApiFp(configuration)
+    return {
+        /**
+         * Cancels a transaction by ID.
+         * @summary Cancel a transaction
+         * @param {TransactionsApiCancelTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cancelTransaction(requestParameters: TransactionsApiCancelTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<CancelTransactionResponse> {
+            return localVarFp.cancelTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new transaction.
+         * @summary Create a new transaction
+         * @param {TransactionsApiCreateTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTransaction(requestParameters: TransactionsApiCreateTransactionRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CreateTransactionResponse> {
+            return localVarFp.createTransaction(requestParameters.transactionRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Drops a stuck ETH transaction and creates a replacement transaction.
+         * @summary Drop ETH transaction by ID
+         * @param {TransactionsApiDropTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        dropTransaction(requestParameters: TransactionsApiDropTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<DropTransactionResponse> {
+            return localVarFp.dropTransaction(requestParameters.txId, requestParameters.dropTransactionRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
+         * @summary Estimate the required fee for an asset
+         * @param {TransactionsApiEstimateNetworkFeeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        estimateNetworkFee(requestParameters: TransactionsApiEstimateNetworkFeeRequest, options?: RawAxiosRequestConfig): AxiosPromise<EstimatedNetworkFeeResponse> {
+            return localVarFp.estimateNetworkFee(requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
+         * @summary Estimate transaction fee
+         * @param {TransactionsApiEstimateTransactionFeeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        estimateTransactionFee(requestParameters: TransactionsApiEstimateTransactionFeeRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<EstimatedTransactionFeeResponse> {
+            return localVarFp.estimateTransactionFee(requestParameters.transactionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Freezes a transaction by ID.
+         * @summary Freeze a transaction
+         * @param {TransactionsApiFreezeTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        freezeTransaction(requestParameters: TransactionsApiFreezeTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<FreezeTransactionResponse> {
+            return localVarFp.freezeTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a transaction by ID.
+         * @summary Find a specific transaction by Fireblocks transaction ID
+         * @param {TransactionsApiGetTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransaction(requestParameters: TransactionsApiGetTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TransactionResponse> {
+            return localVarFp.getTransaction(requestParameters.txId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns transaction by external transaction ID.
+         * @summary Find a specific transaction by external transaction ID
+         * @param {TransactionsApiGetTransactionByExternalIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactionByExternalId(requestParameters: TransactionsApiGetTransactionByExternalIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<TransactionResponse> {
+            return localVarFp.getTransactionByExternalId(requestParameters.externalTxId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists the transaction history for your workspace.
+         * @summary List transaction history
+         * @param {TransactionsApiGetTransactionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<TransactionResponse>> {
+            return localVarFp.getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Overrides the required number of confirmations for transaction completion by transaction hash.
+         * @summary Set confirmation threshold by transaction hash
+         * @param {TransactionsApiSetConfirmationThresholdByTransactionHashRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setConfirmationThresholdByTransactionHash(requestParameters: TransactionsApiSetConfirmationThresholdByTransactionHashRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetConfirmationsThresholdResponse> {
+            return localVarFp.setConfirmationThresholdByTransactionHash(requestParameters.txHash, requestParameters.setConfirmationsThresholdRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Overrides the required number of confirmations for transaction completion by transaction ID.
+         * @summary Set confirmation threshold by transaction ID
+         * @param {TransactionsApiSetTransactionConfirmationThresholdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setTransactionConfirmationThreshold(requestParameters: TransactionsApiSetTransactionConfirmationThresholdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetConfirmationsThresholdResponse> {
+            return localVarFp.setTransactionConfirmationThreshold(requestParameters.txId, requestParameters.setConfirmationsThresholdRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Unfreezes a transaction by ID and makes the transaction available again.
+         * @summary Unfreeze a transaction
+         * @param {TransactionsApiUnfreezeTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unfreezeTransaction(requestParameters: TransactionsApiUnfreezeTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<UnfreezeTransactionResponse> {
+            return localVarFp.unfreezeTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Checks if an address is valid (for XRP, DOT, XLM, and EOS).
+         * @summary Validate destination address
+         * @param {TransactionsApiValidateAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateAddress(requestParameters: TransactionsApiValidateAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidateAddressResponse> {
+            return localVarFp.validateAddress(requestParameters.assetId, requestParameters.address, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -804,6 +1015,20 @@ export interface TransactionsApiCancelTransactionRequest {
      * @memberof TransactionsApiCancelTransaction
      */
     readonly txId: string
+
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof TransactionsApiCancelTransaction
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiCancelTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -818,6 +1043,20 @@ export interface TransactionsApiCreateTransactionRequest {
      * @memberof TransactionsApiCreateTransaction
      */
     readonly transactionRequest?: TransactionRequest
+
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof TransactionsApiCreateTransaction
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiCreateTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -839,6 +1078,20 @@ export interface TransactionsApiDropTransactionRequest {
      * @memberof TransactionsApiDropTransaction
      */
     readonly dropTransactionRequest?: DropTransactionRequest
+
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof TransactionsApiDropTransaction
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiDropTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -867,6 +1120,13 @@ export interface TransactionsApiEstimateTransactionFeeRequest {
      * @memberof TransactionsApiEstimateTransactionFee
      */
     readonly transactionRequest?: TransactionRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiEstimateTransactionFee
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -879,6 +1139,34 @@ export interface TransactionsApiFreezeTransactionRequest {
      * The ID of the transaction to freeze
      * @type {string}
      * @memberof TransactionsApiFreezeTransaction
+     */
+    readonly txId: string
+
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof TransactionsApiFreezeTransaction
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiFreezeTransaction
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for getTransaction operation in TransactionsApi.
+ * @export
+ * @interface TransactionsApiGetTransactionRequest
+ */
+export interface TransactionsApiGetTransactionRequest {
+    /**
+     * The ID of the transaction to return
+     * @type {string}
+     * @memberof TransactionsApiGetTransaction
      */
     readonly txId: string
 }
@@ -895,20 +1183,6 @@ export interface TransactionsApiGetTransactionByExternalIdRequest {
      * @memberof TransactionsApiGetTransactionByExternalId
      */
     readonly externalTxId: string
-}
-
-/**
- * Request parameters for getTransactionById operation in TransactionsApi.
- * @export
- * @interface TransactionsApiGetTransactionByIdRequest
- */
-export interface TransactionsApiGetTransactionByIdRequest {
-    /**
-     * The ID of the transaction to return
-     * @type {string}
-     * @memberof TransactionsApiGetTransactionById
-     */
-    readonly txId: string
 }
 
 /**
@@ -943,14 +1217,14 @@ export interface TransactionsApiGetTransactionsRequest {
      * @type {'createdAt' | 'lastUpdated'}
      * @memberof TransactionsApiGetTransactions
      */
-    readonly orderBy?: 'createdAt' | 'lastUpdated'
+    readonly orderBy?: GetTransactionsOrderByEnum
 
     /**
      * The direction to order the results by
      * @type {'ASC' | 'DESC'}
      * @memberof TransactionsApiGetTransactions
      */
-    readonly sort?: 'ASC' | 'DESC'
+    readonly sort?: GetTransactionsSortEnum
 
     /**
      * Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500
@@ -961,10 +1235,10 @@ export interface TransactionsApiGetTransactionsRequest {
 
     /**
      * The source type of the transaction
-     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'}
+     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'CONTRACT' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'}
      * @memberof TransactionsApiGetTransactions
      */
-    readonly sourceType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'
+    readonly sourceType?: GetTransactionsSourceTypeEnum
 
     /**
      * The source ID of the transaction
@@ -975,10 +1249,10 @@ export interface TransactionsApiGetTransactionsRequest {
 
     /**
      * The destination type of the transaction
-     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'}
+     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'CONTRACT' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'}
      * @memberof TransactionsApiGetTransactions
      */
-    readonly destType?: 'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'ONE_TIME_ADDRESS' | 'END_USER_WALLET'
+    readonly destType?: GetTransactionsDestTypeEnum
 
     /**
      * The destination ID of the transaction
@@ -1017,45 +1291,59 @@ export interface TransactionsApiGetTransactionsRequest {
 }
 
 /**
- * Request parameters for setConfirmationThresholdForTransaction operation in TransactionsApi.
+ * Request parameters for setConfirmationThresholdByTransactionHash operation in TransactionsApi.
  * @export
- * @interface TransactionsApiSetConfirmationThresholdForTransactionRequest
+ * @interface TransactionsApiSetConfirmationThresholdByTransactionHashRequest
  */
-export interface TransactionsApiSetConfirmationThresholdForTransactionRequest {
-    /**
-     * The ID of the transaction
-     * @type {string}
-     * @memberof TransactionsApiSetConfirmationThresholdForTransaction
-     */
-    readonly txId: string
-
-    /**
-     * 
-     * @type {SetConfirmationsThresholdRequest}
-     * @memberof TransactionsApiSetConfirmationThresholdForTransaction
-     */
-    readonly setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest
-}
-
-/**
- * Request parameters for setConfirmationThresholdForTransactionByHash operation in TransactionsApi.
- * @export
- * @interface TransactionsApiSetConfirmationThresholdForTransactionByHashRequest
- */
-export interface TransactionsApiSetConfirmationThresholdForTransactionByHashRequest {
+export interface TransactionsApiSetConfirmationThresholdByTransactionHashRequest {
     /**
      * The TxHash
      * @type {string}
-     * @memberof TransactionsApiSetConfirmationThresholdForTransactionByHash
+     * @memberof TransactionsApiSetConfirmationThresholdByTransactionHash
      */
     readonly txHash: string
 
     /**
      * 
      * @type {SetConfirmationsThresholdRequest}
-     * @memberof TransactionsApiSetConfirmationThresholdForTransactionByHash
+     * @memberof TransactionsApiSetConfirmationThresholdByTransactionHash
      */
     readonly setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiSetConfirmationThresholdByTransactionHash
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setTransactionConfirmationThreshold operation in TransactionsApi.
+ * @export
+ * @interface TransactionsApiSetTransactionConfirmationThresholdRequest
+ */
+export interface TransactionsApiSetTransactionConfirmationThresholdRequest {
+    /**
+     * The ID of the transaction
+     * @type {string}
+     * @memberof TransactionsApiSetTransactionConfirmationThreshold
+     */
+    readonly txId: string
+
+    /**
+     * 
+     * @type {SetConfirmationsThresholdRequest}
+     * @memberof TransactionsApiSetTransactionConfirmationThreshold
+     */
+    readonly setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiSetTransactionConfirmationThreshold
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1070,6 +1358,20 @@ export interface TransactionsApiUnfreezeTransactionRequest {
      * @memberof TransactionsApiUnfreezeTransaction
      */
     readonly txId: string
+
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof TransactionsApiUnfreezeTransaction
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiUnfreezeTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1108,8 +1410,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public cancelTransaction(requestParameters: TransactionsApiCancelTransactionRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).cancelTransaction(requestParameters.txId, requestOptions);
+    public cancelTransaction(requestParameters: TransactionsApiCancelTransactionRequest) {
+        return TransactionsApiFp(this.configuration).cancelTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1120,8 +1422,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public createTransaction(requestParameters: TransactionsApiCreateTransactionRequest = {},  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).createTransaction(requestParameters.transactionRequest, requestOptions);
+    public createTransaction(requestParameters: TransactionsApiCreateTransactionRequest = {}) {
+        return TransactionsApiFp(this.configuration).createTransaction(requestParameters.transactionRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1132,8 +1434,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public dropTransaction(requestParameters: TransactionsApiDropTransactionRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).dropTransaction(requestParameters.txId, requestParameters.dropTransactionRequest, requestOptions);
+    public dropTransaction(requestParameters: TransactionsApiDropTransactionRequest) {
+        return TransactionsApiFp(this.configuration).dropTransaction(requestParameters.txId, requestParameters.dropTransactionRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1144,8 +1446,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public estimateNetworkFee(requestParameters: TransactionsApiEstimateNetworkFeeRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).estimateNetworkFee(requestParameters.assetId, requestOptions);
+    public estimateNetworkFee(requestParameters: TransactionsApiEstimateNetworkFeeRequest) {
+        return TransactionsApiFp(this.configuration).estimateNetworkFee(requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1156,8 +1458,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public estimateTransactionFee(requestParameters: TransactionsApiEstimateTransactionFeeRequest = {},  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).estimateTransactionFee(requestParameters.transactionRequest, requestOptions);
+    public estimateTransactionFee(requestParameters: TransactionsApiEstimateTransactionFeeRequest = {}) {
+        return TransactionsApiFp(this.configuration).estimateTransactionFee(requestParameters.transactionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1168,8 +1470,20 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public freezeTransaction(requestParameters: TransactionsApiFreezeTransactionRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).freezeTransaction(requestParameters.txId, requestOptions);
+    public freezeTransaction(requestParameters: TransactionsApiFreezeTransactionRequest) {
+        return TransactionsApiFp(this.configuration).freezeTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a transaction by ID.
+     * @summary Find a specific transaction by Fireblocks transaction ID
+     * @param {TransactionsApiGetTransactionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionsApi
+     */
+    public getTransaction(requestParameters: TransactionsApiGetTransactionRequest) {
+        return TransactionsApiFp(this.configuration).getTransaction(requestParameters.txId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1180,20 +1494,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public getTransactionByExternalId(requestParameters: TransactionsApiGetTransactionByExternalIdRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).getTransactionByExternalId(requestParameters.externalTxId, requestOptions);
-    }
-
-    /**
-     * Returns a transaction by ID.
-     * @summary Find a specific transaction by Fireblocks transaction ID
-     * @param {TransactionsApiGetTransactionByIdRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TransactionsApi
-     */
-     public getTransactionById(requestParameters: TransactionsApiGetTransactionByIdRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).getTransactionById(requestParameters.txId, requestOptions);
+    public getTransactionByExternalId(requestParameters: TransactionsApiGetTransactionByExternalIdRequest) {
+        return TransactionsApiFp(this.configuration).getTransactionByExternalId(requestParameters.externalTxId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1204,32 +1506,32 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {},  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, requestOptions);
-    }
-
-    /**
-     * Overrides the required number of confirmations for transaction completion by transaction ID.
-     * @summary Set confirmation threshold by transaction ID
-     * @param {TransactionsApiSetConfirmationThresholdForTransactionRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TransactionsApi
-     */
-     public setConfirmationThresholdForTransaction(requestParameters: TransactionsApiSetConfirmationThresholdForTransactionRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).setConfirmationThresholdForTransaction(requestParameters.txId, requestParameters.setConfirmationsThresholdRequest, requestOptions);
+    public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}) {
+        return TransactionsApiFp(this.configuration).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Overrides the required number of confirmations for transaction completion by transaction hash.
      * @summary Set confirmation threshold by transaction hash
-     * @param {TransactionsApiSetConfirmationThresholdForTransactionByHashRequest} requestParameters Request parameters.
+     * @param {TransactionsApiSetConfirmationThresholdByTransactionHashRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public setConfirmationThresholdForTransactionByHash(requestParameters: TransactionsApiSetConfirmationThresholdForTransactionByHashRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).setConfirmationThresholdForTransactionByHash(requestParameters.txHash, requestParameters.setConfirmationsThresholdRequest, requestOptions);
+    public setConfirmationThresholdByTransactionHash(requestParameters: TransactionsApiSetConfirmationThresholdByTransactionHashRequest) {
+        return TransactionsApiFp(this.configuration).setConfirmationThresholdByTransactionHash(requestParameters.txHash, requestParameters.setConfirmationsThresholdRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Overrides the required number of confirmations for transaction completion by transaction ID.
+     * @summary Set confirmation threshold by transaction ID
+     * @param {TransactionsApiSetTransactionConfirmationThresholdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionsApi
+     */
+    public setTransactionConfirmationThreshold(requestParameters: TransactionsApiSetTransactionConfirmationThresholdRequest) {
+        return TransactionsApiFp(this.configuration).setTransactionConfirmationThreshold(requestParameters.txId, requestParameters.setConfirmationsThresholdRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1240,8 +1542,8 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public unfreezeTransaction(requestParameters: TransactionsApiUnfreezeTransactionRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).unfreezeTransaction(requestParameters.txId, requestOptions);
+    public unfreezeTransaction(requestParameters: TransactionsApiUnfreezeTransactionRequest) {
+        return TransactionsApiFp(this.configuration).unfreezeTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1252,7 +1554,57 @@ export class TransactionsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TransactionsApi
      */
-     public validateAddress(requestParameters: TransactionsApiValidateAddressRequest,  requestOptions?: RequestOptions) {
-        return TransactionsApiFp(this.httpClient).validateAddress(requestParameters.assetId, requestParameters.address, requestOptions);
+    public validateAddress(requestParameters: TransactionsApiValidateAddressRequest) {
+        return TransactionsApiFp(this.configuration).validateAddress(requestParameters.assetId, requestParameters.address).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+
+/**
+ * @export
+ */
+export const GetTransactionsOrderByEnum = {
+    CreatedAt: 'createdAt',
+    LastUpdated: 'lastUpdated'
+} as const;
+export type GetTransactionsOrderByEnum = typeof GetTransactionsOrderByEnum[keyof typeof GetTransactionsOrderByEnum];
+/**
+ * @export
+ */
+export const GetTransactionsSortEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTransactionsSortEnum = typeof GetTransactionsSortEnum[keyof typeof GetTransactionsSortEnum];
+/**
+ * @export
+ */
+export const GetTransactionsSourceTypeEnum = {
+    VaultAccount: 'VAULT_ACCOUNT',
+    ExchangeAccount: 'EXCHANGE_ACCOUNT',
+    InternalWallet: 'INTERNAL_WALLET',
+    ExternalWallet: 'EXTERNAL_WALLET',
+    Contract: 'CONTRACT',
+    FiatAccount: 'FIAT_ACCOUNT',
+    NetworkConnection: 'NETWORK_CONNECTION',
+    Compound: 'COMPOUND',
+    Unknown: 'UNKNOWN',
+    GasStation: 'GAS_STATION',
+    EndUserWallet: 'END_USER_WALLET'
+} as const;
+export type GetTransactionsSourceTypeEnum = typeof GetTransactionsSourceTypeEnum[keyof typeof GetTransactionsSourceTypeEnum];
+/**
+ * @export
+ */
+export const GetTransactionsDestTypeEnum = {
+    VaultAccount: 'VAULT_ACCOUNT',
+    ExchangeAccount: 'EXCHANGE_ACCOUNT',
+    InternalWallet: 'INTERNAL_WALLET',
+    ExternalWallet: 'EXTERNAL_WALLET',
+    Contract: 'CONTRACT',
+    FiatAccount: 'FIAT_ACCOUNT',
+    NetworkConnection: 'NETWORK_CONNECTION',
+    Compound: 'COMPOUND',
+    OneTimeAddress: 'ONE_TIME_ADDRESS',
+    EndUserWallet: 'END_USER_WALLET'
+} as const;
+export type GetTransactionsDestTypeEnum = typeof GetTransactionsDestTypeEnum[keyof typeof GetTransactionsDestTypeEnum];
