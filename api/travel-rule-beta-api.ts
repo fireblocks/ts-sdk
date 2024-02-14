@@ -12,21 +12,19 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { TravelRuleGetAllVASPsResponse } from '../models';
 // @ts-ignore
@@ -39,14 +37,11 @@ import { TravelRuleValidateFullTransactionRequest } from '../models';
 import { TravelRuleValidateTransactionRequest } from '../models';
 // @ts-ignore
 import { TravelRuleValidateTransactionResponse } from '../models';
-
-
-
-    /**
+/**
  * TravelRuleBetaApi - axios parameter creator
  * @export
  */
-export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Get VASP Details.  Returns information about a VASP that has the specified DID.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
@@ -56,17 +51,22 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVASPByDID: async (did: string, fields?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getVASPByDID: async (did: string, fields?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'did' is not null or undefined
             assertParamExists('getVASPByDID', 'did', did)
             const localVarPath = `/screening/travel_rule/vasp/{did}`
                 .replace(`{${"did"}}`, encodeURIComponent(String(did)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (fields !== undefined) {
                 localVarQueryParameter['fields'] = fields;
             }
@@ -74,19 +74,12 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -99,14 +92,19 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVASPs: async (order?: string, perPage?: number, page?: number, fields?: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getVASPs: async (order?: string, perPage?: number, page?: number, fields?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/screening/travel_rule/vasp`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (order !== undefined) {
                 localVarQueryParameter['order'] = order;
             }
@@ -126,133 +124,135 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Update VASP Details.  Updates a VASP with the provided parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Add jsonDidKey to VASP details
          * @param {TravelRuleUpdateVASPDetails} travelRuleUpdateVASPDetails 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        travelRuleApiControllerUpdateVasp: async (travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        travelRuleApiControllerUpdateVasp: async (travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'travelRuleUpdateVASPDetails' is not null or undefined
             assertParamExists('travelRuleApiControllerUpdateVasp', 'travelRuleUpdateVASPDetails', travelRuleUpdateVASPDetails)
-            const localVarPath = `/screeening/travel_rule/vasp/update`;
+            const localVarPath = `/screening/travel_rule/vasp/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'PUT'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = travelRuleUpdateVASPDetails as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(travelRuleUpdateVASPDetails, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Validate Full Travel Rule transactions.  Checks for all required information on the originator and beneficiary VASPs.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Validate Full Travel Rule Transaction
          * @param {TravelRuleValidateFullTransactionRequest} travelRuleValidateFullTransactionRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateFullTravelRuleTransaction: async (travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        validateFullTravelRuleTransaction: async (travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'travelRuleValidateFullTransactionRequest' is not null or undefined
             assertParamExists('validateFullTravelRuleTransaction', 'travelRuleValidateFullTransactionRequest', travelRuleValidateFullTransactionRequest)
             const localVarPath = `/screening/travel_rule/transaction/validate/full`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = travelRuleValidateFullTransactionRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(travelRuleValidateFullTransactionRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Validate Travel Rule transactions.  Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Validate Travel Rule Transaction
          * @param {TravelRuleValidateTransactionRequest} travelRuleValidateTransactionRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        validateTravelRuleTransaction: async (travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        validateTravelRuleTransaction: async (travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'travelRuleValidateTransactionRequest' is not null or undefined
             assertParamExists('validateTravelRuleTransaction', 'travelRuleValidateTransactionRequest', travelRuleValidateTransactionRequest)
             const localVarPath = `/screening/travel_rule/transaction/validate`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = travelRuleValidateTransactionRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(travelRuleValidateTransactionRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -262,8 +262,8 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
  * TravelRuleBetaApi - functional programming interface
  * @export
  */
-export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = TravelRuleBetaApiAxiosParamCreator(httpClient.configuration)
+export const TravelRuleBetaApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TravelRuleBetaApiAxiosParamCreator(configuration)
     return {
         /**
          * Get VASP Details.  Returns information about a VASP that has the specified DID.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
@@ -273,9 +273,11 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVASPByDID(did: string, fields?: string,  requestOptions?: RequestOptions): Promise<TravelRuleVASP> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPByDID(did, fields, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getVASPByDID(did: string, fields?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleVASP>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPByDID(did, fields, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.getVASPByDID']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted and results are paginated.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
@@ -287,44 +289,115 @@ export const TravelRuleBetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVASPs(order?: string, perPage?: number, page?: number, fields?: string,  requestOptions?: RequestOptions): Promise<TravelRuleGetAllVASPsResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPs(order, perPage, page, fields, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getVASPs(order?: string, perPage?: number, page?: number, fields?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleGetAllVASPsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVASPs(order, perPage, page, fields, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.getVASPs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Update VASP Details.  Updates a VASP with the provided parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Add jsonDidKey to VASP details
          * @param {TravelRuleUpdateVASPDetails} travelRuleUpdateVASPDetails 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails,  requestOptions?: RequestOptions): Promise<TravelRuleUpdateVASPDetails> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleUpdateVASPDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerUpdateVasp(travelRuleUpdateVASPDetails, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.travelRuleApiControllerUpdateVasp']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Validate Full Travel Rule transactions.  Checks for all required information on the originator and beneficiary VASPs.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Validate Full Travel Rule Transaction
          * @param {TravelRuleValidateFullTransactionRequest} travelRuleValidateFullTransactionRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest,  requestOptions?: RequestOptions): Promise<TravelRuleValidateTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateFullTravelRuleTransaction(travelRuleValidateFullTransactionRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.validateFullTravelRuleTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Validate Travel Rule transactions.  Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Validate Travel Rule Transaction
          * @param {TravelRuleValidateTransactionRequest} travelRuleValidateTransactionRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest,  requestOptions?: RequestOptions): Promise<TravelRuleValidateTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.validateTravelRuleTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * TravelRuleBetaApi - factory interface
+ * @export
+ */
+export const TravelRuleBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TravelRuleBetaApiFp(configuration)
+    return {
+        /**
+         * Get VASP Details.  Returns information about a VASP that has the specified DID.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+         * @summary Get VASP details
+         * @param {TravelRuleBetaApiGetVASPByDIDRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVASPByDID(requestParameters: TravelRuleBetaApiGetVASPByDIDRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleVASP> {
+            return localVarFp.getVASPByDID(requestParameters.did, requestParameters.fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted and results are paginated.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+         * @summary Get All VASPs
+         * @param {TravelRuleBetaApiGetVASPsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleGetAllVASPsResponse> {
+            return localVarFp.getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update VASP Details.  Updates a VASP with the provided parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+         * @summary Add jsonDidKey to VASP details
+         * @param {TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        travelRuleApiControllerUpdateVasp(requestParameters: TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleUpdateVASPDetails> {
+            return localVarFp.travelRuleApiControllerUpdateVasp(requestParameters.travelRuleUpdateVASPDetails, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate Full Travel Rule transactions.  Checks for all required information on the originator and beneficiary VASPs.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+         * @summary Validate Full Travel Rule Transaction
+         * @param {TravelRuleBetaApiValidateFullTravelRuleTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateFullTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateFullTravelRuleTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleValidateTransactionResponse> {
+            return localVarFp.validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate Travel Rule transactions.  Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
+         * @summary Validate Travel Rule Transaction
+         * @param {TravelRuleBetaApiValidateTravelRuleTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateTravelRuleTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleValidateTransactionResponse> {
+            return localVarFp.validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -395,6 +468,13 @@ export interface TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest {
      * @memberof TravelRuleBetaApiTravelRuleApiControllerUpdateVasp
      */
     readonly travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TravelRuleBetaApiTravelRuleApiControllerUpdateVasp
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -409,6 +489,13 @@ export interface TravelRuleBetaApiValidateFullTravelRuleTransactionRequest {
      * @memberof TravelRuleBetaApiValidateFullTravelRuleTransaction
      */
     readonly travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TravelRuleBetaApiValidateFullTravelRuleTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -423,6 +510,13 @@ export interface TravelRuleBetaApiValidateTravelRuleTransactionRequest {
      * @memberof TravelRuleBetaApiValidateTravelRuleTransaction
      */
     readonly travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TravelRuleBetaApiValidateTravelRuleTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -440,8 +534,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-     public getVASPByDID(requestParameters: TravelRuleBetaApiGetVASPByDIDRequest,  requestOptions?: RequestOptions) {
-        return TravelRuleBetaApiFp(this.httpClient).getVASPByDID(requestParameters.did, requestParameters.fields, requestOptions);
+    public getVASPByDID(requestParameters: TravelRuleBetaApiGetVASPByDIDRequest) {
+        return TravelRuleBetaApiFp(this.configuration).getVASPByDID(requestParameters.did, requestParameters.fields).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -452,8 +546,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-     public getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {},  requestOptions?: RequestOptions) {
-        return TravelRuleBetaApiFp(this.httpClient).getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields, requestOptions);
+    public getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {}) {
+        return TravelRuleBetaApiFp(this.configuration).getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -464,8 +558,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-     public travelRuleApiControllerUpdateVasp(requestParameters: TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest,  requestOptions?: RequestOptions) {
-        return TravelRuleBetaApiFp(this.httpClient).travelRuleApiControllerUpdateVasp(requestParameters.travelRuleUpdateVASPDetails, requestOptions);
+    public travelRuleApiControllerUpdateVasp(requestParameters: TravelRuleBetaApiTravelRuleApiControllerUpdateVaspRequest) {
+        return TravelRuleBetaApiFp(this.configuration).travelRuleApiControllerUpdateVasp(requestParameters.travelRuleUpdateVASPDetails, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -476,8 +570,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-     public validateFullTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateFullTravelRuleTransactionRequest,  requestOptions?: RequestOptions) {
-        return TravelRuleBetaApiFp(this.httpClient).validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, requestOptions);
+    public validateFullTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateFullTravelRuleTransactionRequest) {
+        return TravelRuleBetaApiFp(this.configuration).validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -488,7 +582,8 @@ export class TravelRuleBetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof TravelRuleBetaApi
      */
-     public validateTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateTravelRuleTransactionRequest,  requestOptions?: RequestOptions) {
-        return TravelRuleBetaApiFp(this.httpClient).validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, requestOptions);
+    public validateTravelRuleTransaction(requestParameters: TravelRuleBetaApiValidateTravelRuleTransactionRequest) {
+        return TravelRuleBetaApiFp(this.configuration).validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

@@ -18,15 +18,12 @@
 import { NetworkId } from './network-id';
 // May contain unused imports in some cases
 // @ts-ignore
-import { NetworkIdResponseAllOf } from './network-id-response-all-of';
-// May contain unused imports in some cases
-// @ts-ignore
 import { NetworkIdRoutingPolicy } from './network-id-routing-policy';
 
 /**
  * @type NetworkIdResponse
  * @export
  */
-export type NetworkIdResponse = NetworkId & NetworkIdResponseAllOf;
+export type NetworkIdResponse = NetworkId;
 
 
