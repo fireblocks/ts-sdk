@@ -27,23 +27,23 @@ export interface CollectionOwnershipResponse {
      */
     'id': string;
     /**
-     * Collection name
-     * @type {string}
-     * @memberof CollectionOwnershipResponse
-     */
-    'name': string;
-    /**
-     * Collection symbol
-     * @type {string}
-     * @memberof CollectionOwnershipResponse
-     */
-    'symbol': string;
-    /**
      * Collection\'s blockchain
      * @type {string}
      * @memberof CollectionOwnershipResponse
      */
     'blockchainDescriptor': CollectionOwnershipResponseBlockchainDescriptorEnum;
+    /**
+     * Collection name
+     * @type {string}
+     * @memberof CollectionOwnershipResponse
+     */
+    'name'?: string;
+    /**
+     * Collection symbol
+     * @type {string}
+     * @memberof CollectionOwnershipResponse
+     */
+    'symbol'?: string;
     /**
      * Collection contract standard
      * @type {string}
@@ -61,8 +61,12 @@ export interface CollectionOwnershipResponse {
 export const CollectionOwnershipResponseBlockchainDescriptorEnum = {
     Eth: 'ETH',
     EthTest3: 'ETH_TEST3',
+    EthTest5: 'ETH_TEST5',
     Polygon: 'POLYGON',
-    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI'
+    PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    Xtz: 'XTZ',
+    XtzTest: 'XTZ_TEST',
+    BasechainEth: 'BASECHAIN_ETH'
 } as const;
 
 export type CollectionOwnershipResponseBlockchainDescriptorEnum = typeof CollectionOwnershipResponseBlockchainDescriptorEnum[keyof typeof CollectionOwnershipResponseBlockchainDescriptorEnum];

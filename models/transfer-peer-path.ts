@@ -57,6 +57,7 @@ export const TransferPeerPathTypeEnum = {
     ExchangeAccount: 'EXCHANGE_ACCOUNT',
     InternalWallet: 'INTERNAL_WALLET',
     ExternalWallet: 'EXTERNAL_WALLET',
+    Contract: 'CONTRACT',
     NetworkConnection: 'NETWORK_CONNECTION',
     FiatAccount: 'FIAT_ACCOUNT',
     Compound: 'COMPOUND',

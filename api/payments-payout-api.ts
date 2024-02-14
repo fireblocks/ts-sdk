@@ -12,21 +12,19 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { CreatePayoutRequest } from '../models';
 // @ts-ignore
@@ -35,85 +33,88 @@ import { DispatchPayoutResponse } from '../models';
 import { ErrorResponse } from '../models';
 // @ts-ignore
 import { PayoutResponse } from '../models';
-
-
-
-    /**
+/**
  * PaymentsPayoutApi - axios parameter creator
  * @export
  */
-export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br> <b u>Create a payout instruction set.</b> </u></br> A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. </br> The instruction set defines: </br> <ul> <li>the payment account and its account type (vault, exchange, or fiat). </li> <li>the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.</li> </ul> 
          * @summary Create a payout instruction set
          * @param {CreatePayoutRequest} [createPayoutRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createPayout: async (createPayoutRequest?: CreatePayoutRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        createPayout: async (createPayoutRequest?: CreatePayoutRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/payments/payout`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = createPayoutRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createPayoutRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br><b u>Execute a payout instruction set.</b> </u> </br> </br>The instruction set will be verified and executed.</br> <b><u>Source locking</br></b> </u> If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. </br> You cannot execute the same payout instruction set more than once. 
          * @summary Execute a payout instruction set
          * @param {string} payoutId the payout id received from the creation of the payout instruction set
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        executePayoutAction: async (payoutId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        executePayoutAction: async (payoutId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'payoutId' is not null or undefined
             assertParamExists('executePayoutAction', 'payoutId', payoutId)
             const localVarPath = `/payments/payout/{payoutId}/actions/execute`
                 .replace(`{${"payoutId"}}`, encodeURIComponent(String(payoutId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -123,33 +124,31 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPayoutById: async (payoutId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getPayout: async (payoutId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'payoutId' is not null or undefined
-            assertParamExists('getPayoutById', 'payoutId', payoutId)
+            assertParamExists('getPayout', 'payoutId', payoutId)
             const localVarPath = `/payments/payout/{payoutId}`
                 .replace(`{${"payoutId"}}`, encodeURIComponent(String(payoutId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -159,30 +158,36 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
  * PaymentsPayoutApi - functional programming interface
  * @export
  */
-export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = PaymentsPayoutApiAxiosParamCreator(httpClient.configuration)
+export const PaymentsPayoutApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = PaymentsPayoutApiAxiosParamCreator(configuration)
     return {
         /**
          * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br> <b u>Create a payout instruction set.</b> </u></br> A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. </br> The instruction set defines: </br> <ul> <li>the payment account and its account type (vault, exchange, or fiat). </li> <li>the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.</li> </ul> 
          * @summary Create a payout instruction set
          * @param {CreatePayoutRequest} [createPayoutRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createPayout(createPayoutRequest?: CreatePayoutRequest,  requestOptions?: RequestOptions): Promise<PayoutResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createPayout(createPayoutRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async createPayout(createPayoutRequest?: CreatePayoutRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createPayout(createPayoutRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PaymentsPayoutApi.createPayout']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br><b u>Execute a payout instruction set.</b> </u> </br> </br>The instruction set will be verified and executed.</br> <b><u>Source locking</br></b> </u> If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. </br> You cannot execute the same payout instruction set more than once. 
          * @summary Execute a payout instruction set
          * @param {string} payoutId the payout id received from the creation of the payout instruction set
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executePayoutAction(payoutId: string,  requestOptions?: RequestOptions): Promise<DispatchPayoutResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.executePayoutAction(payoutId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async executePayoutAction(payoutId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DispatchPayoutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.executePayoutAction(payoutId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PaymentsPayoutApi.executePayoutAction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> 
@@ -191,11 +196,53 @@ export const PaymentsPayoutApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPayoutById(payoutId: string,  requestOptions?: RequestOptions): Promise<PayoutResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPayoutById(payoutId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getPayout(payoutId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPayout(payoutId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PaymentsPayoutApi.getPayout']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * PaymentsPayoutApi - factory interface
+ * @export
+ */
+export const PaymentsPayoutApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = PaymentsPayoutApiFp(configuration)
+    return {
+        /**
+         * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br> <b u>Create a payout instruction set.</b> </u></br> A payout instruction set is a set of instructions for distributing payments from a single payment account to a list of payee accounts. </br> The instruction set defines: </br> <ul> <li>the payment account and its account type (vault, exchange, or fiat). </li> <li>the account type (vault account, exchange account, whitelisted address, network connection, fiat account, or merchant account), the amount, and the asset of payment for each payee account.</li> </ul> 
+         * @summary Create a payout instruction set
+         * @param {PaymentsPayoutApiCreatePayoutRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createPayout(requestParameters: PaymentsPayoutApiCreatePayoutRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PayoutResponse> {
+            return localVarFp.createPayout(requestParameters.createPayoutRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> </br><b u>Execute a payout instruction set.</b> </u> </br> </br>The instruction set will be verified and executed.</br> <b><u>Source locking</br></b> </u> If you are executing a payout instruction set from a payment account with an already active payout the active payout will complete before the new payout instruction set can be executed. </br> You cannot execute the same payout instruction set more than once. 
+         * @summary Execute a payout instruction set
+         * @param {PaymentsPayoutApiExecutePayoutActionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        executePayoutAction(requestParameters: PaymentsPayoutApiExecutePayoutActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<DispatchPayoutResponse> {
+            return localVarFp.executePayoutAction(requestParameters.payoutId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> 
+         * @summary Get the status of a payout instruction set
+         * @param {PaymentsPayoutApiGetPayoutRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPayout(requestParameters: PaymentsPayoutApiGetPayoutRequest, options?: RawAxiosRequestConfig): AxiosPromise<PayoutResponse> {
+            return localVarFp.getPayout(requestParameters.payoutId, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -210,6 +257,13 @@ export interface PaymentsPayoutApiCreatePayoutRequest {
      * @memberof PaymentsPayoutApiCreatePayout
      */
     readonly createPayoutRequest?: CreatePayoutRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof PaymentsPayoutApiCreatePayout
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -224,18 +278,25 @@ export interface PaymentsPayoutApiExecutePayoutActionRequest {
      * @memberof PaymentsPayoutApiExecutePayoutAction
      */
     readonly payoutId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof PaymentsPayoutApiExecutePayoutAction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for getPayoutById operation in PaymentsPayoutApi.
+ * Request parameters for getPayout operation in PaymentsPayoutApi.
  * @export
- * @interface PaymentsPayoutApiGetPayoutByIdRequest
+ * @interface PaymentsPayoutApiGetPayoutRequest
  */
-export interface PaymentsPayoutApiGetPayoutByIdRequest {
+export interface PaymentsPayoutApiGetPayoutRequest {
     /**
      * the payout id received from the creation of the payout instruction set
      * @type {string}
-     * @memberof PaymentsPayoutApiGetPayoutById
+     * @memberof PaymentsPayoutApiGetPayout
      */
     readonly payoutId: string
 }
@@ -255,8 +316,8 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
-     public createPayout(requestParameters: PaymentsPayoutApiCreatePayoutRequest = {},  requestOptions?: RequestOptions) {
-        return PaymentsPayoutApiFp(this.httpClient).createPayout(requestParameters.createPayoutRequest, requestOptions);
+    public createPayout(requestParameters: PaymentsPayoutApiCreatePayoutRequest = {}) {
+        return PaymentsPayoutApiFp(this.configuration).createPayout(requestParameters.createPayoutRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -267,19 +328,20 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
-     public executePayoutAction(requestParameters: PaymentsPayoutApiExecutePayoutActionRequest,  requestOptions?: RequestOptions) {
-        return PaymentsPayoutApiFp(this.httpClient).executePayoutAction(requestParameters.payoutId, requestOptions);
+    public executePayoutAction(requestParameters: PaymentsPayoutApiExecutePayoutActionRequest) {
+        return PaymentsPayoutApiFp(this.configuration).executePayoutAction(requestParameters.payoutId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * **Note:** The reference content in this section documents the Payments Engine endpoint. The Payments Engine endpoints include APIs available only for customers with Payments Engine enabled on their accounts. </br> </br>These endpoints are currently in beta and might be subject to changes.</br> </br>If you want to learn more about Fireblocks Payments Engine, please contact your Fireblocks Customer Success Manager or email CSM@fireblocks.com. </br> 
      * @summary Get the status of a payout instruction set
-     * @param {PaymentsPayoutApiGetPayoutByIdRequest} requestParameters Request parameters.
+     * @param {PaymentsPayoutApiGetPayoutRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
-     public getPayoutById(requestParameters: PaymentsPayoutApiGetPayoutByIdRequest,  requestOptions?: RequestOptions) {
-        return PaymentsPayoutApiFp(this.httpClient).getPayoutById(requestParameters.payoutId, requestOptions);
+    public getPayout(requestParameters: PaymentsPayoutApiGetPayoutRequest) {
+        return PaymentsPayoutApiFp(this.configuration).getPayout(requestParameters.payoutId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

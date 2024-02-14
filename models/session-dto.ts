@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { SessionDTOSessionMetadata } from './session-dtosession-metadata';
+import { SessionMetadata } from './session-metadata';
 
 /**
  * 
@@ -37,10 +37,10 @@ export interface SessionDTO {
     'userId': string;
     /**
      * 
-     * @type {SessionDTOSessionMetadata}
+     * @type {SessionMetadata}
      * @memberof SessionDTO
      */
-    'sessionMetadata': SessionDTOSessionMetadata;
+    'sessionMetadata': SessionMetadata;
     /**
      * The vault to connect
      * @type {number}

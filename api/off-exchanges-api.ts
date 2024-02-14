@@ -12,76 +12,78 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { AddCollateralRequestBody } from '../models';
 // @ts-ignore
 import { CreateTransactionResponse } from '../models';
 // @ts-ignore
+import { ErrorSchema } from '../models';
+// @ts-ignore
 import { ExchangeAccount } from '../models';
+// @ts-ignore
+import { ExchangeSettlementTransactionsResponse } from '../models';
 // @ts-ignore
 import { RemoveCollateralRequestBody } from '../models';
 // @ts-ignore
 import { SettlementRequestBody } from '../models';
 // @ts-ignore
 import { SettlementResponse } from '../models';
-
-
-
-    /**
+/**
  * OffExchangesApi - axios parameter creator
  * @export
  */
-export const OffExchangesApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const OffExchangesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * add collateral, create deposit request
          * @summary add collateral
          * @param {AddCollateralRequestBody} [addCollateralRequestBody] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addOffExchange: async (addCollateralRequestBody?: AddCollateralRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        addOffExchange: async (addCollateralRequestBody?: AddCollateralRequestBody, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/off_exchange/add`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = addCollateralRequestBody as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addCollateralRequestBody, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -91,33 +93,31 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOffExchangeCollateralAccounts: async (mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getOffExchangeCollateralAccounts: async (mainExchangeAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'mainExchangeAccountId' is not null or undefined
             assertParamExists('getOffExchangeCollateralAccounts', 'mainExchangeAccountId', mainExchangeAccountId)
             const localVarPath = `/off_exchange/collateral_accounts/{mainExchangeAccountId}`
                 .replace(`{${"mainExchangeAccountId"}}`, encodeURIComponent(String(mainExchangeAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
@@ -127,16 +127,21 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOffExchangeSettlementTransactions: async (mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getOffExchangeSettlementTransactions: async (mainExchangeAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'mainExchangeAccountId' is not null or undefined
             assertParamExists('getOffExchangeSettlementTransactions', 'mainExchangeAccountId', mainExchangeAccountId)
             const localVarPath = `/off_exchange/settlements/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
             if (mainExchangeAccountId !== undefined) {
                 localVarQueryParameter['mainExchangeAccountId'] = mainExchangeAccountId;
             }
@@ -144,91 +149,90 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * remove collateral, create withdraw request
          * @summary remove collateral
          * @param {RemoveCollateralRequestBody} [removeCollateralRequestBody] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        removeOffExchange: async (removeCollateralRequestBody?: RemoveCollateralRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        removeOffExchange: async (removeCollateralRequestBody?: RemoveCollateralRequestBody, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/off_exchange/remove`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = removeCollateralRequestBody as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(removeCollateralRequestBody, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * create settlement for a trader
          * @summary create settlement for a trader
          * @param {SettlementRequestBody} [settlementRequestBody] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        settleOffExchangeTrades: async (settlementRequestBody?: SettlementRequestBody,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        settleOffExchangeTrades: async (settlementRequestBody?: SettlementRequestBody, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/off_exchange/settlements/trader`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = settlementRequestBody as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(settlementRequestBody, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -238,19 +242,22 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
  * OffExchangesApi - functional programming interface
  * @export
  */
-export const OffExchangesApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = OffExchangesApiAxiosParamCreator(httpClient.configuration)
+export const OffExchangesApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OffExchangesApiAxiosParamCreator(configuration)
     return {
         /**
          * add collateral, create deposit request
          * @summary add collateral
          * @param {AddCollateralRequestBody} [addCollateralRequestBody] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async addOffExchange(addCollateralRequestBody?: AddCollateralRequestBody,  requestOptions?: RequestOptions): Promise<CreateTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.addOffExchange(addCollateralRequestBody, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async addOffExchange(addCollateralRequestBody?: AddCollateralRequestBody, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addOffExchange(addCollateralRequestBody, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OffExchangesApi.addOffExchange']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Returns a collateral account by mainExchangeAccountId.
@@ -259,9 +266,11 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOffExchangeCollateralAccounts(mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<ExchangeAccount> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOffExchangeCollateralAccounts(mainExchangeAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getOffExchangeCollateralAccounts(mainExchangeAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOffExchangeCollateralAccounts(mainExchangeAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OffExchangesApi.getOffExchangeCollateralAccounts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * get settlements transactions from exchange
@@ -270,33 +279,101 @@ export const OffExchangesApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOffExchangeSettlementTransactions(mainExchangeAccountId: string,  requestOptions?: RequestOptions): Promise<SettlementResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOffExchangeSettlementTransactions(mainExchangeAccountId, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getOffExchangeSettlementTransactions(mainExchangeAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExchangeSettlementTransactionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOffExchangeSettlementTransactions(mainExchangeAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OffExchangesApi.getOffExchangeSettlementTransactions']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * remove collateral, create withdraw request
          * @summary remove collateral
          * @param {RemoveCollateralRequestBody} [removeCollateralRequestBody] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async removeOffExchange(removeCollateralRequestBody?: RemoveCollateralRequestBody,  requestOptions?: RequestOptions): Promise<CreateTransactionResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.removeOffExchange(removeCollateralRequestBody, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async removeOffExchange(removeCollateralRequestBody?: RemoveCollateralRequestBody, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeOffExchange(removeCollateralRequestBody, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OffExchangesApi.removeOffExchange']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * create settlement for a trader
          * @summary create settlement for a trader
          * @param {SettlementRequestBody} [settlementRequestBody] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async settleOffExchangeTrades(settlementRequestBody?: SettlementRequestBody,  requestOptions?: RequestOptions): Promise<SettlementResponse> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.settleOffExchangeTrades(settlementRequestBody, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async settleOffExchangeTrades(settlementRequestBody?: SettlementRequestBody, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SettlementResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.settleOffExchangeTrades(settlementRequestBody, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OffExchangesApi.settleOffExchangeTrades']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * OffExchangesApi - factory interface
+ * @export
+ */
+export const OffExchangesApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OffExchangesApiFp(configuration)
+    return {
+        /**
+         * add collateral, create deposit request
+         * @summary add collateral
+         * @param {OffExchangesApiAddOffExchangeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addOffExchange(requestParameters: OffExchangesApiAddOffExchangeRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CreateTransactionResponse> {
+            return localVarFp.addOffExchange(requestParameters.addCollateralRequestBody, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a collateral account by mainExchangeAccountId.
+         * @summary Find a specific collateral exchange account
+         * @param {OffExchangesApiGetOffExchangeCollateralAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOffExchangeCollateralAccounts(requestParameters: OffExchangesApiGetOffExchangeCollateralAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExchangeAccount> {
+            return localVarFp.getOffExchangeCollateralAccounts(requestParameters.mainExchangeAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * get settlements transactions from exchange
+         * @summary get settlements transactions from exchange
+         * @param {OffExchangesApiGetOffExchangeSettlementTransactionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOffExchangeSettlementTransactions(requestParameters: OffExchangesApiGetOffExchangeSettlementTransactionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExchangeSettlementTransactionsResponse> {
+            return localVarFp.getOffExchangeSettlementTransactions(requestParameters.mainExchangeAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * remove collateral, create withdraw request
+         * @summary remove collateral
+         * @param {OffExchangesApiRemoveOffExchangeRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeOffExchange(requestParameters: OffExchangesApiRemoveOffExchangeRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CreateTransactionResponse> {
+            return localVarFp.removeOffExchange(requestParameters.removeCollateralRequestBody, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * create settlement for a trader
+         * @summary create settlement for a trader
+         * @param {OffExchangesApiSettleOffExchangeTradesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        settleOffExchangeTrades(requestParameters: OffExchangesApiSettleOffExchangeTradesRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<SettlementResponse> {
+            return localVarFp.settleOffExchangeTrades(requestParameters.settlementRequestBody, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -311,6 +388,13 @@ export interface OffExchangesApiAddOffExchangeRequest {
      * @memberof OffExchangesApiAddOffExchange
      */
     readonly addCollateralRequestBody?: AddCollateralRequestBody
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof OffExchangesApiAddOffExchange
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -353,6 +437,13 @@ export interface OffExchangesApiRemoveOffExchangeRequest {
      * @memberof OffExchangesApiRemoveOffExchange
      */
     readonly removeCollateralRequestBody?: RemoveCollateralRequestBody
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof OffExchangesApiRemoveOffExchange
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -367,6 +458,13 @@ export interface OffExchangesApiSettleOffExchangeTradesRequest {
      * @memberof OffExchangesApiSettleOffExchangeTrades
      */
     readonly settlementRequestBody?: SettlementRequestBody
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof OffExchangesApiSettleOffExchangeTrades
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -384,8 +482,8 @@ export class OffExchangesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OffExchangesApi
      */
-     public addOffExchange(requestParameters: OffExchangesApiAddOffExchangeRequest = {},  requestOptions?: RequestOptions) {
-        return OffExchangesApiFp(this.httpClient).addOffExchange(requestParameters.addCollateralRequestBody, requestOptions);
+    public addOffExchange(requestParameters: OffExchangesApiAddOffExchangeRequest = {}) {
+        return OffExchangesApiFp(this.configuration).addOffExchange(requestParameters.addCollateralRequestBody, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -396,8 +494,8 @@ export class OffExchangesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OffExchangesApi
      */
-     public getOffExchangeCollateralAccounts(requestParameters: OffExchangesApiGetOffExchangeCollateralAccountsRequest,  requestOptions?: RequestOptions) {
-        return OffExchangesApiFp(this.httpClient).getOffExchangeCollateralAccounts(requestParameters.mainExchangeAccountId, requestOptions);
+    public getOffExchangeCollateralAccounts(requestParameters: OffExchangesApiGetOffExchangeCollateralAccountsRequest) {
+        return OffExchangesApiFp(this.configuration).getOffExchangeCollateralAccounts(requestParameters.mainExchangeAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -408,8 +506,8 @@ export class OffExchangesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OffExchangesApi
      */
-     public getOffExchangeSettlementTransactions(requestParameters: OffExchangesApiGetOffExchangeSettlementTransactionsRequest,  requestOptions?: RequestOptions) {
-        return OffExchangesApiFp(this.httpClient).getOffExchangeSettlementTransactions(requestParameters.mainExchangeAccountId, requestOptions);
+    public getOffExchangeSettlementTransactions(requestParameters: OffExchangesApiGetOffExchangeSettlementTransactionsRequest) {
+        return OffExchangesApiFp(this.configuration).getOffExchangeSettlementTransactions(requestParameters.mainExchangeAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -420,8 +518,8 @@ export class OffExchangesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OffExchangesApi
      */
-     public removeOffExchange(requestParameters: OffExchangesApiRemoveOffExchangeRequest = {},  requestOptions?: RequestOptions) {
-        return OffExchangesApiFp(this.httpClient).removeOffExchange(requestParameters.removeCollateralRequestBody, requestOptions);
+    public removeOffExchange(requestParameters: OffExchangesApiRemoveOffExchangeRequest = {}) {
+        return OffExchangesApiFp(this.configuration).removeOffExchange(requestParameters.removeCollateralRequestBody, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -432,7 +530,8 @@ export class OffExchangesApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OffExchangesApi
      */
-     public settleOffExchangeTrades(requestParameters: OffExchangesApiSettleOffExchangeTradesRequest = {},  requestOptions?: RequestOptions) {
-        return OffExchangesApiFp(this.httpClient).settleOffExchangeTrades(requestParameters.settlementRequestBody, requestOptions);
+    public settleOffExchangeTrades(requestParameters: OffExchangesApiSettleOffExchangeTradesRequest = {}) {
+        return OffExchangesApiFp(this.configuration).settleOffExchangeTrades(requestParameters.settlementRequestBody, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+
