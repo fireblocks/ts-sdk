@@ -2,11 +2,18 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.0.1-beta](https://github.com/fireblocks/ts-sdk/compare/v2.1.0-beta...v3.0.1-beta)
+
+> 15 February 2024
+
+- Generated SDK for version 9817 [`#24`](https://github.com/fireblocks/ts-sdk/pull/24)
+
 #### [v2.1.0-beta](https://github.com/fireblocks/ts-sdk/compare/v2.0.19-beta...v2.1.0-beta)
 
 > 8 November 2023
 
 - Generated SDK for version master [`#23`](https://github.com/fireblocks/ts-sdk/pull/23)
+- Added Idempotency & NCW headers support [`#22`](https://github.com/fireblocks/ts-sdk/pull/22)
 
 #### [v2.0.19-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.19-beta...v2.0.19-beta)
 
