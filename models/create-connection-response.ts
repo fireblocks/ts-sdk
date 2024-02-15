@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CreateConnectionResponseSessionMetadata } from './create-connection-response-session-metadata';
+import { SessionMetadata } from './session-metadata';
 
 /**
  * 
@@ -31,9 +31,9 @@ export interface CreateConnectionResponse {
     'id': string;
     /**
      * 
-     * @type {CreateConnectionResponseSessionMetadata}
+     * @type {SessionMetadata}
      * @memberof CreateConnectionResponse
      */
-    'sessionMetadata': CreateConnectionResponseSessionMetadata;
+    'sessionMetadata': SessionMetadata;
 }
 

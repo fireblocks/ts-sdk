@@ -13,12 +13,11 @@
  */
 
 
-import { Configuration , ConfigurationParameters} from './configuration';
+import type { Configuration } from './configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
 import globalAxios from 'axios';
-import {HttpClient} from "./utils/http-client";
 
 export const BASE_PATH = "https://api.fireblocks.io/v1".replace(/\/+$/, "");
 
@@ -40,7 +39,7 @@ export const COLLECTION_FORMATS = {
  */
 export interface RequestArgs {
     url: string;
-    options: AxiosRequestConfig;
+    options: RawAxiosRequestConfig;
 }
 
 /**
@@ -49,12 +48,13 @@ export interface RequestArgs {
  * @class BaseAPI
  */
 export class BaseAPI {
-    configuration: Configuration;
-    httpClient: HttpClient;
+    protected configuration: Configuration | undefined;
 
-    constructor(configurationParameters?: ConfigurationParameters) {
-        this.configuration = new Configuration(configurationParameters);
-        this.httpClient = new HttpClient(this.configuration);
+    constructor(configuration?: Configuration, protected basePath: string = BASE_PATH, protected axios: AxiosInstance = globalAxios) {
+        if (configuration) {
+            this.configuration = configuration;
+            this.basePath = configuration.basePath ?? basePath;
+        }
     }
 };
 
@@ -69,4 +69,18 @@ export class RequiredError extends Error {
         super(msg);
         this.name = "RequiredError"
     }
+}
+
+interface ServerMap {
+    [key: string]: {
+        url: string,
+        description: string,
+    }[];
+}
+
+/**
+ *
+ * @export
+ */
+export const operationServerMap: ServerMap = {
 }

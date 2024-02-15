@@ -1,39 +1,39 @@
 {
-    "name": "@fireblocks/ts-sdk",
-    "version": "2.1.0-beta",
-    "description": "Fireblocks Typescript SDK",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/fireblocks/fireblocks-api-client-typescript"
-    },
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc",
-        "prepare": "npm run build",
-        "postversion": "git push && git push --tags"
-    },
-    "author": "Fireblocks SDK Generator",
-    "license": "MIT",
-    "dependencies": {
-        "@notabene/pii-sdk": "^1.16.0",
-        "bluebird": "^3.5.0",
-        "jsonwebtoken": "8.5.1",
-        "platform": "1.3.6",
-        "request": "^2.81.0",
-        "rewire": "^3.0.2",
-        "uuid": "8.3.2"
-    },
-    "devDependencies": {
-        "@types/bluebird": "^3.5.33",
-        "@types/jsonwebtoken": "^9.0.2",
-        "@types/node": "^12",
-        "@types/request": "^2.48.8",
-        "@types/uuid": "^8.3.1",
-        "tslint": "6.1.3",
-        "typescript": "^4.0"
-    },
-    "files": [
-        "dist/"
-    ]
+  "name": "@fireblocks/ts-sdk",
+  "version": "3.0.1-beta",
+  "description": "OpenAPI client for @fireblocks/ts-sdk",
+  "author": "Fireblocks SDK Generator",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fireblocks/ts-sdk.git"
+  },
+  "keywords": [
+    "axios",
+    "typescript",
+    "openapi-client",
+    "openapi-generator",
+    "@fireblocks/ts-sdk"
+  ],
+  "license": "Unlicense",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc && npm run copy:package",
+    "copy:package": "cp package.json dist/",
+    "prepare": "npm run build",
+    "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "jsonwebtoken": "8.5.1",
+    "uuid": "8.3.2",
+    "platform": "1.3.6",
+    "axios": "^1.6.7"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^8.5.1",
+    "@types/uuid": "^8.3.2",
+    "@types/platform": "^1.3.6",
+    "@types/node": "^12.11.5",
+    "typescript": "^4.0"
+  }
 }

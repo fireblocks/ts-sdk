@@ -12,31 +12,28 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { AssetTypeResponse } from '../models';
-
-
-
-    /**
+// @ts-ignore
+import { ErrorSchema } from '../models';
+/**
  * BlockchainsAssetsApi - axios parameter creator
  * @export
  */
-export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Returns all asset types supported by Fireblocks.
@@ -44,30 +41,28 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSupportedAssets: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getSupportedAssets: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/supported_assets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -77,8 +72,8 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
  * BlockchainsAssetsApi - functional programming interface
  * @export
  */
-export const BlockchainsAssetsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = BlockchainsAssetsApiAxiosParamCreator(httpClient.configuration)
+export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = BlockchainsAssetsApiAxiosParamCreator(configuration)
     return {
         /**
          * Returns all asset types supported by Fireblocks.
@@ -86,11 +81,32 @@ export const BlockchainsAssetsApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportedAssets( requestOptions?: RequestOptions): Promise<Array<AssetTypeResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportedAssets(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getSupportedAssets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssetTypeResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportedAssets(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['BlockchainsAssetsApi.getSupportedAssets']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * BlockchainsAssetsApi - factory interface
+ * @export
+ */
+export const BlockchainsAssetsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = BlockchainsAssetsApiFp(configuration)
+    return {
+        /**
+         * Returns all asset types supported by Fireblocks.
+         * @summary List all asset types supported by Fireblocks
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSupportedAssets(options?: RawAxiosRequestConfig): AxiosPromise<Array<AssetTypeResponse>> {
+            return localVarFp.getSupportedAssets(options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -107,7 +123,8 @@ export class BlockchainsAssetsApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof BlockchainsAssetsApi
      */
-     public getSupportedAssets( requestOptions?: RequestOptions) {
-        return BlockchainsAssetsApiFp(this.httpClient).getSupportedAssets(requestOptions);
+    public getSupportedAssets() {
+        return BlockchainsAssetsApiFp(this.configuration).getSupportedAssets().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

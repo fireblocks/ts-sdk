@@ -14,26 +14,37 @@
 
 
 
+export * from './api/admin-quorum-api';
+export * from './api/api-user-api';
+export * from './api/assets-api';
 export * from './api/audit-logs-api';
 export * from './api/blockchains-assets-api';
+export * from './api/compliance-screening-configuration-api';
+export * from './api/console-user-api';
 export * from './api/contracts-api';
 export * from './api/exchange-accounts-api';
 export * from './api/external-wallets-api';
 export * from './api/fiat-accounts-api';
+export * from './api/fireblocks-public-openapi-other-api';
 export * from './api/gas-stations-api';
 export * from './api/internal-wallets-api';
 export * from './api/nfts-api';
 export * from './api/network-connections-api';
 export * from './api/otabeta-api';
 export * from './api/off-exchanges-api';
-export * from './api/payments-cross-border-settlement-api';
 export * from './api/payments-payout-api';
 export * from './api/policy-editor-beta-api';
+export * from './api/reset-device-api';
+export * from './api/smart-transfer-api';
+export * from './api/staking-beta-api';
 export * from './api/transactions-api';
 export * from './api/travel-rule-beta-api';
+export * from './api/user-groups-beta-api';
 export * from './api/users-api';
-export * from './api/users-groups-beta-api';
 export * from './api/vaults-api';
 export * from './api/web3-connections-api';
 export * from './api/webhooks-api';
+export * from './api/whitelist-ip-addresses-api';
+export * from './api/workspace-api';
+export * from './api/workspace-status-beta-api';
 

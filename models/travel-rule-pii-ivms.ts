@@ -25,54 +25,54 @@ export interface TravelRulePiiIVMS {
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'fullName': string;
+    'fullName'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'dateOfBirth': string;
+    'dateOfBirth'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'placeOfBirth': string;
+    'placeOfBirth'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'address': string;
+    'address'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'identificationNumber': string;
+    'identificationNumber'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'nationality': string;
+    'nationality'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'countryOfResidence': string;
+    'countryOfResidence'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'taxIdentificationNumber': string;
+    'taxIdentificationNumber'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'customerNumber': string;
+    'customerNumber'?: string;
 }
 

@@ -12,33 +12,28 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
 import { GetOtaStatus200Response } from '../models';
 // @ts-ignore
 import { SetOtaStatusRequest } from '../models';
-
-
-
-    /**
+/**
  * OTABetaApi - axios parameter creator
  * @export
  */
-export const OTABetaApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const OTABetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Returns current OTA status
@@ -46,68 +41,69 @@ export const OTABetaApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOtaStatus: async ( requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        getOtaStatus: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/management/ota`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
         /**
          * Enable or disable transactions to OTA
          * @summary Enable or disable transactions to OTA
          * @param {SetOtaStatusRequest} setOtaStatusRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setOtaStatus: async (setOtaStatusRequest: SetOtaStatusRequest,  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
+        setOtaStatus: async (setOtaStatusRequest: SetOtaStatusRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'setOtaStatusRequest' is not null or undefined
             assertParamExists('setOtaStatus', 'setOtaStatusRequest', setOtaStatusRequest)
             const localVarPath = `/management/ota`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'POST'};
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             localVarHeaderParameter['Content-Type'] = 'application/json';
 
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            localVarRequestOptions.data = setOtaStatusRequest as any;
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setOtaStatusRequest, localVarRequestOptions, configuration)
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -117,8 +113,8 @@ export const OTABetaApiAxiosParamCreator = function (configuration?: Configurati
  * OTABetaApi - functional programming interface
  * @export
  */
-export const OTABetaApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = OTABetaApiAxiosParamCreator(httpClient.configuration)
+export const OTABetaApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = OTABetaApiAxiosParamCreator(configuration)
     return {
         /**
          * Returns current OTA status
@@ -126,22 +122,56 @@ export const OTABetaApiFp = function(httpClient: HttpClient) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOtaStatus( requestOptions?: RequestOptions): Promise<GetOtaStatus200Response> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getOtaStatus(requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getOtaStatus(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOtaStatus200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOtaStatus(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OTABetaApi.getOtaStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Enable or disable transactions to OTA
          * @summary Enable or disable transactions to OTA
          * @param {SetOtaStatusRequest} setOtaStatusRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest,  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setOtaStatus(setOtaStatusRequest, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setOtaStatus(setOtaStatusRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['OTABetaApi.setOtaStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
+};
+
+/**
+ * OTABetaApi - factory interface
+ * @export
+ */
+export const OTABetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = OTABetaApiFp(configuration)
+    return {
+        /**
+         * Returns current OTA status
+         * @summary Returns current OTA status
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOtaStatus(options?: RawAxiosRequestConfig): AxiosPromise<GetOtaStatus200Response> {
+            return localVarFp.getOtaStatus(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Enable or disable transactions to OTA
+         * @summary Enable or disable transactions to OTA
+         * @param {OTABetaApiSetOtaStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setOtaStatus(requestParameters.setOtaStatusRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+    };
 };
 
 /**
@@ -156,6 +186,13 @@ export interface OTABetaApiSetOtaStatusRequest {
      * @memberof OTABetaApiSetOtaStatus
      */
     readonly setOtaStatusRequest: SetOtaStatusRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof OTABetaApiSetOtaStatus
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -172,8 +209,8 @@ export class OTABetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OTABetaApi
      */
-     public getOtaStatus( requestOptions?: RequestOptions) {
-        return OTABetaApiFp(this.httpClient).getOtaStatus(requestOptions);
+    public getOtaStatus() {
+        return OTABetaApiFp(this.configuration).getOtaStatus().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -184,7 +221,8 @@ export class OTABetaApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof OTABetaApi
      */
-     public setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest,  requestOptions?: RequestOptions) {
-        return OTABetaApiFp(this.httpClient).setOtaStatus(requestParameters.setOtaStatusRequest, requestOptions);
+    public setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest) {
+        return OTABetaApiFp(this.configuration).setOtaStatus(requestParameters.setOtaStatusRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+

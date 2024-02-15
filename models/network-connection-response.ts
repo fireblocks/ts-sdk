@@ -18,10 +18,7 @@
 import { ConfigChangeRequestStatus } from './config-change-request-status';
 // May contain unused imports in some cases
 // @ts-ignore
-import { NetworkConnectionResponseLocalChannel } from './network-connection-response-local-channel';
-// May contain unused imports in some cases
-// @ts-ignore
-import { NetworkConnectionResponseRemoteChannel } from './network-connection-response-remote-channel';
+import { NetworkChannel } from './network-channel';
 // May contain unused imports in some cases
 // @ts-ignore
 import { NetworkConnectionRoutingPolicy } from './network-connection-routing-policy';
@@ -67,18 +64,18 @@ export interface NetworkConnectionResponse {
     'routingPolicy': NetworkConnectionRoutingPolicy;
     /**
      * 
-     * @type {NetworkConnectionResponseLocalChannel}
+     * @type {NetworkChannel}
      * @memberof NetworkConnectionResponse
      * @deprecated
      */
-    'localChannel'?: NetworkConnectionResponseLocalChannel;
+    'localChannel'?: NetworkChannel;
     /**
      * 
-     * @type {NetworkConnectionResponseRemoteChannel}
+     * @type {NetworkChannel}
      * @memberof NetworkConnectionResponse
      * @deprecated
      */
-    'remoteChannel'?: NetworkConnectionResponseRemoteChannel;
+    'remoteChannel'?: NetworkChannel;
 }
 
 

@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { PolicyRuleAmount } from './policy-rule-amount';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PolicyRuleAmountAggregation } from './policy-rule-amount-aggregation';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -78,23 +81,17 @@ export interface PolicyRule {
      */
     'amountScope': PolicyRuleAmountScopeEnum;
     /**
-     * Defines the value a transaction must exceed for the rule to apply to it (according to the amountCurrency field)
-     * @type {number}
+     * 
+     * @type {PolicyRuleAmount}
      * @memberof PolicyRule
      */
-    'amount': number;
+    'amount': PolicyRuleAmount;
     /**
      * Time period in seconds applied by the amountScope field to accumulate transferred amounts in transactions that match the rule, until the total exceeds the value you specify under Minimum. When the specified amount is reached within that period, whether by one or many transactions, further transactions in that period either fail or require more approvals. 
      * @type {number}
      * @memberof PolicyRule
      */
     'periodSec': number;
-    /**
-     * A unique id identifying the rule
-     * @type {string}
-     * @memberof PolicyRule
-     */
-    'externalDescriptor': string;
     /**
      * (deprecated - replaced by \"operators\")  | Defines users who can initiate the type of transaction to which the rule applies. options are * \"*\" - All users are allowed * Specific User id
      * @type {string}
@@ -131,18 +128,21 @@ export interface PolicyRule {
      * 
      * @type {PolicySrcOrDestType}
      * @memberof PolicyRule
+     * @deprecated
      */
     'srcType'?: PolicySrcOrDestType;
     /**
      * 
      * @type {PolicySrcOrDestSubType}
      * @memberof PolicyRule
+     * @deprecated
      */
     'srcSubType'?: PolicySrcOrDestSubType;
     /**
      * Defines the account id, options are * \"*\" - All accounts * Specific account id 
      * @type {string}
      * @memberof PolicyRule
+     * @deprecated
      */
     'srcId'?: string;
     /**
@@ -155,18 +155,21 @@ export interface PolicyRule {
      * 
      * @type {PolicySrcOrDestType}
      * @memberof PolicyRule
+     * @deprecated
      */
     'dstType'?: PolicySrcOrDestType;
     /**
      * 
      * @type {PolicySrcOrDestSubType}
      * @memberof PolicyRule
+     * @deprecated
      */
     'dstSubType'?: PolicySrcOrDestSubType;
     /**
      * Defines the account id, options are * \"*\" - All accounts * Specific account id 
      * @type {string}
      * @memberof PolicyRule
+     * @deprecated
      */
     'dstId'?: string;
     /**
@@ -225,6 +228,12 @@ export interface PolicyRule {
      * @memberof PolicyRule
      */
     'applyForTypedMessage'?: boolean;
+    /**
+     * A unique id identifying the rule
+     * @type {string}
+     * @memberof PolicyRule
+     */
+    'externalDescriptor'?: string;
 }
 
 export const PolicyRuleTypeEnum = {

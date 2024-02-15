@@ -46,6 +46,9 @@ import { TransactionRequestPriorityFee } from './transaction-request-priority-fe
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransferPeerPath } from './transfer-peer-path';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRuleCreateTransactionRequest } from './travel-rule-create-transaction-request';
 
 /**
  * 
@@ -179,6 +182,12 @@ export interface TransactionRequest {
      * @memberof TransactionRequest
      */
     'customerRefId'?: string;
+    /**
+     * 
+     * @type {TravelRuleCreateTransactionRequest}
+     * @memberof TransactionRequest
+     */
+    'travelRuleMessage'?: TravelRuleCreateTransactionRequest;
     /**
      * This feature is no longer supported.
      * @type {boolean}

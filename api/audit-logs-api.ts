@@ -12,47 +12,89 @@
  * Do not edit the class manually.
  */
 
-import {AxiosInstance, AxiosPromise, AxiosRequestConfig} from 'axios';
-import {Configuration} from "../configuration";
-import {RequestOptions} from "../models/request-options";
-import {HttpClient} from "../utils/http-client";
+
+import type { Configuration } from '../configuration';
+import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
+import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 // URLSearchParams not necessarily used
 // @ts-ignore
 import { URL, URLSearchParams } from 'url';
-
-
 // Some imports not used depending on template conditions
 // @ts-ignore
-import { assertParamExists, setSearchParams, toPathString, createRequestFunction } from '../common';
+import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-
-
-
-
-    /**
+import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
+// @ts-ignore
+import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetAuditLogsResponseDTO } from '../models';
+/**
  * AuditLogsApi - axios parameter creator
  * @export
  */
-export const AuditLogsApiAxiosParamCreator = function (configuration?: Configuration, requestOptions?:RequestOptions) {
+export const AuditLogsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Get all audits
          * @summary Get audit logs
-         * @param {'DAY' | 'WEEK'} timePeriod The last time period to fetch audit logs
+         * @param {GetAuditLogsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
+         * @param {string} [cursor] The next id to start fetch audit logs from
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAudits: async (timePeriod: 'DAY' | 'WEEK',  requestOptions?: RequestOptions): Promise<AxiosRequestConfig> => {
-            // verify required parameter 'timePeriod' is not null or undefined
-            assertParamExists('getAudits', 'timePeriod', timePeriod)
-            const localVarPath = `/audits`;
+        getAuditLogs: async (timePeriod?: GetAuditLogsTimePeriodEnum, cursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/management/audit_logs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(configuration.basePath + localVarPath);
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
 
-            const localVarRequestOptions:AxiosRequestConfig = { method: 'GET'};
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (timePeriod !== undefined) {
+                localVarQueryParameter['timePeriod'] = timePeriod;
+            }
+
+            if (cursor !== undefined) {
+                localVarQueryParameter['cursor'] = cursor;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {GetAuditsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAudits: async (timePeriod?: GetAuditsTimePeriodEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/audits`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
             if (timePeriod !== undefined) {
                 localVarQueryParameter['timePeriod'] = timePeriod;
             }
@@ -60,19 +102,12 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
-            const idempotencyKey = requestOptions?.idempotencyKey;
-            if (idempotencyKey) {
-                localVarHeaderParameter["Idempotency-Key"] = idempotencyKey;
-            }
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
-            const ncwWalletId = requestOptions?.ncw?.walletId;
-            if (ncwWalletId) {
-                localVarHeaderParameter["X-End-User-Wallet-Id"] = ncwWalletId;
-            }
-            localVarRequestOptions.headers = {...localVarHeaderParameter, };
             return {
-                url: localVarUrlObj.toString(),
-                ...localVarRequestOptions,
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
             };
         },
     }
@@ -82,22 +117,89 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
  * AuditLogsApi - functional programming interface
  * @export
  */
-export const AuditLogsApiFp = function(httpClient: HttpClient) {
-    const localVarAxiosParamCreator = AuditLogsApiAxiosParamCreator(httpClient.configuration)
+export const AuditLogsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = AuditLogsApiAxiosParamCreator(configuration)
     return {
         /**
          * Get all audits
          * @summary Get audit logs
-         * @param {'DAY' | 'WEEK'} timePeriod The last time period to fetch audit logs
+         * @param {GetAuditLogsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
+         * @param {string} [cursor] The next id to start fetch audit logs from
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAudits(timePeriod: 'DAY' | 'WEEK',  requestOptions?: RequestOptions): Promise<void> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAudits(timePeriod, requestOptions);
-            return httpClient.request(localVarAxiosArgs);
+        async getAuditLogs(timePeriod?: GetAuditLogsTimePeriodEnum, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAuditLogs(timePeriod, cursor, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['AuditLogsApi.getAuditLogs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {GetAuditsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAudits(timePeriod?: GetAuditsTimePeriodEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAuditLogsResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAudits(timePeriod, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['AuditLogsApi.getAudits']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
+
+/**
+ * AuditLogsApi - factory interface
+ * @export
+ */
+export const AuditLogsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = AuditLogsApiFp(configuration)
+    return {
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {AuditLogsApiGetAuditLogsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.getAuditLogs(requestParameters.timePeriod, requestParameters.cursor, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {AuditLogsApiGetAuditsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAudits(requestParameters: AuditLogsApiGetAuditsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetAuditLogsResponseDTO> {
+            return localVarFp.getAudits(requestParameters.timePeriod, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * Request parameters for getAuditLogs operation in AuditLogsApi.
+ * @export
+ * @interface AuditLogsApiGetAuditLogsRequest
+ */
+export interface AuditLogsApiGetAuditLogsRequest {
+    /**
+     * The last time period to fetch audit logs
+     * @type {'DAY' | 'WEEK'}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly timePeriod?: GetAuditLogsTimePeriodEnum
+
+    /**
+     * The next id to start fetch audit logs from
+     * @type {string}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly cursor?: string
+}
 
 /**
  * Request parameters for getAudits operation in AuditLogsApi.
@@ -110,7 +212,7 @@ export interface AuditLogsApiGetAuditsRequest {
      * @type {'DAY' | 'WEEK'}
      * @memberof AuditLogsApiGetAudits
      */
-    readonly timePeriod: 'DAY' | 'WEEK'
+    readonly timePeriod?: GetAuditsTimePeriodEnum
 }
 
 /**
@@ -123,12 +225,41 @@ export class AuditLogsApi extends BaseAPI {
     /**
      * Get all audits
      * @summary Get audit logs
+     * @param {AuditLogsApiGetAuditLogsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuditLogsApi
+     */
+    public getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}) {
+        return AuditLogsApiFp(this.configuration).getAuditLogs(requestParameters.timePeriod, requestParameters.cursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get all audits
+     * @summary Get audit logs
      * @param {AuditLogsApiGetAuditsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AuditLogsApi
      */
-     public getAudits(requestParameters: AuditLogsApiGetAuditsRequest,  requestOptions?: RequestOptions) {
-        return AuditLogsApiFp(this.httpClient).getAudits(requestParameters.timePeriod, requestOptions);
+    public getAudits(requestParameters: AuditLogsApiGetAuditsRequest = {}) {
+        return AuditLogsApiFp(this.configuration).getAudits(requestParameters.timePeriod).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
+
+/**
+ * @export
+ */
+export const GetAuditLogsTimePeriodEnum = {
+    Day: 'DAY',
+    Week: 'WEEK'
+} as const;
+export type GetAuditLogsTimePeriodEnum = typeof GetAuditLogsTimePeriodEnum[keyof typeof GetAuditLogsTimePeriodEnum];
+/**
+ * @export
+ */
+export const GetAuditsTimePeriodEnum = {
+    Day: 'DAY',
+    Week: 'WEEK'
+} as const;
+export type GetAuditsTimePeriodEnum = typeof GetAuditsTimePeriodEnum[keyof typeof GetAuditsTimePeriodEnum];
