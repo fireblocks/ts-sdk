@@ -2,11 +2,23 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
-#### [v3.0.2-beta](https://github.com/fireblocks/ts-sdk/compare/v2.1.0-beta...v3.0.2-beta)
+#### [v3.0.3-beta](https://github.com/fireblocks/ts-sdk/compare/v3.0.2-beta...v3.0.3-beta)
+
+> 21 February 2024
+
+- Fireblocks api spec/generated/9818 [`#25`](https://github.com/fireblocks/ts-sdk/pull/25)
+
+#### [v3.0.2-beta](https://github.com/fireblocks/ts-sdk/compare/v3.0.1-beta...v3.0.2-beta)
 
 > 15 February 2024
 
 - release 3.0.1-beta [`7f8d519`](https://github.com/fireblocks/ts-sdk/commit/7f8d519e5b80efbb6598c7faba636b697080154d)
+
+#### [v3.0.1-beta](https://github.com/fireblocks/ts-sdk/compare/v2.1.0-beta...v3.0.1-beta)
+
+> 15 February 2024
+
+- Generated SDK for version 9817 [`#24`](https://github.com/fireblocks/ts-sdk/pull/24)
 
 #### [v2.1.0-beta](https://github.com/fireblocks/ts-sdk/compare/v2.0.19-beta...v2.1.0-beta)
 
