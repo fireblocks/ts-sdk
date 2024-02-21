@@ -50,7 +50,7 @@ export interface AdditionalOptions {
 
 export enum BaseServerPathEnum {
     Sandbox = 'https://sandbox-api.fireblocks.io/v1',
-    ProdUS = 'https://api.fireblocks.io/v1',
-    ProdEU = 'https://eu-api.fireblocks.io/v1',
-    ProdEU2 = 'https://eu2-api.fireblocks.io/v1',
+    US = 'https://api.fireblocks.io/v1',
+    EU = 'https://eu-api.fireblocks.io/v1',
+    EU2 = 'https://eu2-api.fireblocks.io/v1',
 }
