@@ -36,7 +36,7 @@ import { Fireblocks, BaseServerPathEnum } from "@fireblocks/ts-sdk";
 // Set the environment variables
 process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8").replace(/\\n/gm, "\n");
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 // Create a Fireblocks API instance
 const fireblocks = new Fireblocks();
@@ -55,7 +55,7 @@ const FIREBLOCKS_API_SECRET_PATH = "./fireblocks_secret.key";
 const fireblocks = new Fireblocks({
     apiKey: "my-api-key",
     baseServerPath: BaseServerPathEnum.Sandbox, // or assign directly to "https://sandbox-api.fireblocks.io/v1";
-    secretKey: readFileSync(FIREBLOCKS_API_SECRET_PATH, "utf8").replace(/\\n/gm, "\n"),
+    secretKey: readFileSync(FIREBLOCKS_API_SECRET_PATH, "utf8"),
 });
 ```
 
