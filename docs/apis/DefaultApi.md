@@ -1,22 +1,21 @@
-# ContractsApi
+# DefaultApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addContractAsset**](#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a contract
-[**createContract**](#createContract) | **POST** /contracts | Create a contract
-[**deleteContract**](#deleteContract) | **DELETE** /contracts/{contractId} | Delete a contract
-[**deleteContractAsset**](#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete a contract asset
-[**getContract**](#getContract) | **GET** /contracts/{contractId} | Find a specific contract
-[**getContractAsset**](#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset
-[**getContracts**](#getContracts) | **GET** /contracts | List contracts
+[**cancelJob**](#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
+[**continueJob**](#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
+[**getJob**](#getJob) | **GET** /batch/{jobId} | Get job details
+[**getJobTasks**](#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
+[**getJobs**](#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
+[**pauseJob**](#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
 
 
-# **addContractAsset**
-> ExternalWalletAsset addContractAsset()
+# **cancelJob**
+> cancelJob()
 
-Adds an asset to an existing contract.
+Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
 
 ### Example
 
@@ -24,7 +23,7 @@ Adds an asset to an existing contract.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ContractsApiAddContractAssetRequest, ExternalWalletAsset } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, DefaultApiCancelJobRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -33,18 +32,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ContractsApiAddContractAssetRequest = {
-  // string | The ID of the contract
-  contractId: contractId_example,
-  // string | The ID of the asset to add
-  assetId: assetId_example,
-  // AddContractAssetRequest (optional)
-  addContractAssetRequest: param_value,
+let body: DefaultApiCancelJobRequest = {
+  // string | The requested job id
+  jobId: jobId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.contracts.addContractAsset(body).then((res: FireblocksResponse<ExternalWalletAsset>) => {
+fireblocks._default.cancelJob(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -54,133 +49,8 @@ fireblocks.contracts.addContractAsset(body).then((res: FireblocksResponse<Extern
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **addContractAssetRequest** | **[AddContractAssetRequest](../models/AddContractAssetRequest.md)**|  |
- **contractId** | [**string**] | The ID of the contract | defaults to undefined
- **assetId** | [**string**] | The ID of the asset to add | defaults to undefined
+ **jobId** | [**string**] | The requested job id | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-**[ExternalWalletAsset](../models/ExternalWalletAsset.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: */*, application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A Wallet Asset object |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **createContract**
-> UnmanagedWallet createContract()
-
-Creates a new contract.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ContractsApiCreateContractRequest, UnmanagedWallet } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: ContractsApiCreateContractRequest = {
-  // CreateContractRequest (optional)
-  createContractRequest: param_value,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
-
-fireblocks.contracts.createContract(body).then((res: FireblocksResponse<UnmanagedWallet>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createContractRequest** | **[CreateContractRequest](../models/CreateContractRequest.md)**|  |
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-**[UnmanagedWallet](../models/UnmanagedWallet.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: */*, application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A Wallet object |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **deleteContract**
-> deleteContract()
-
-Deletes a contract by ID.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ContractsApiDeleteContractRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: ContractsApiDeleteContractRequest = {
-  // string | The ID of the contract to delete
-  contractId: contractId_example,
-};
-
-fireblocks.contracts.deleteContract(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **contractId** | [**string**] | The ID of the contract to delete | defaults to undefined
 
 
 ### Return type
@@ -200,15 +70,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | OK |  * X-Request-ID -  <br>  |
+**200** | canceled successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **deleteContractAsset**
-> deleteContractAsset()
+# **continueJob**
+> continueJob()
 
-Deletes a contract asset by ID.
+Continue the given paused job.
 
 ### Example
 
@@ -216,7 +86,7 @@ Deletes a contract asset by ID.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ContractsApiDeleteContractAssetRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, DefaultApiContinueJobRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -225,14 +95,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ContractsApiDeleteContractAssetRequest = {
-  // string | The ID of the contract
-  contractId: contractId_example,
-  // string | The ID of the asset to delete
-  assetId: assetId_example,
+let body: DefaultApiContinueJobRequest = {
+  // string | The requested job id
+  jobId: jobId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.contracts.deleteContractAsset(body).then((res: FireblocksResponse<any>) => {
+fireblocks._default.continueJob(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -242,8 +112,8 @@ fireblocks.contracts.deleteContractAsset(body).then((res: FireblocksResponse<any
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | [**string**] | The ID of the contract | defaults to undefined
- **assetId** | [**string**] | The ID of the asset to delete | defaults to undefined
+ **jobId** | [**string**] | The requested job id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
@@ -263,15 +133,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | OK |  * X-Request-ID -  <br>  |
+**200** | continued successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getContract**
-> UnmanagedWallet getContract()
+# **getJob**
+> Job getJob()
 
-Returns a contract by ID.
+Get an object describing the given job
 
 ### Example
 
@@ -279,7 +149,7 @@ Returns a contract by ID.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ContractsApiGetContractRequest, UnmanagedWallet } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, DefaultApiGetJobRequest, Job } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -288,12 +158,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ContractsApiGetContractRequest = {
-  // string | The ID of the contract to return
-  contractId: contractId_example,
+let body: DefaultApiGetJobRequest = {
+  // string | The requested job id
+  jobId: jobId_example,
 };
 
-fireblocks.contracts.getContract(body).then((res: FireblocksResponse<UnmanagedWallet>) => {
+fireblocks._default.getJob(body).then((res: FireblocksResponse<Job>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -303,12 +173,12 @@ fireblocks.contracts.getContract(body).then((res: FireblocksResponse<UnmanagedWa
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | [**string**] | The ID of the contract to return | defaults to undefined
+ **jobId** | [**string**] | The requested job id | defaults to undefined
 
 
 ### Return type
 
-**[UnmanagedWallet](../models/UnmanagedWallet.md)**
+**[Job](../models/Job.md)**
 
 ### Authorization
 
@@ -323,15 +193,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A Wallet object |  * X-Request-ID -  <br>  |
+**200** | A JSON object that describes the job |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getContractAsset**
-> ExternalWalletAsset getContractAsset()
+# **getJobTasks**
+> Array<Task> getJobTasks()
 
-Returns a contract asset by ID.
+Return a list of tasks for given job
 
 ### Example
 
@@ -339,7 +209,7 @@ Returns a contract asset by ID.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ContractsApiGetContractAssetRequest, ExternalWalletAsset } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, DefaultApiGetJobTasksRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -348,14 +218,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ContractsApiGetContractAssetRequest = {
-  // string | The ID of the contract
-  contractId: contractId_example,
-  // string | The ID of the asset to return
-  assetId: assetId_example,
+let body: DefaultApiGetJobTasksRequest = {
+  // string | The requested job id
+  jobId: jobId_example,
 };
 
-fireblocks.contracts.getContractAsset(body).then((res: FireblocksResponse<ExternalWalletAsset>) => {
+fireblocks._default.getJobTasks(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -365,13 +233,12 @@ fireblocks.contracts.getContractAsset(body).then((res: FireblocksResponse<Extern
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **contractId** | [**string**] | The ID of the contract | defaults to undefined
- **assetId** | [**string**] | The ID of the asset to return | defaults to undefined
+ **jobId** | [**string**] | The requested job id | defaults to undefined
 
 
 ### Return type
 
-**[ExternalWalletAsset](../models/ExternalWalletAsset.md)**
+**[Array<Task>](../models/Array<Task>.md)**
 
 ### Authorization
 
@@ -386,15 +253,15 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A Wallet Asset object |  * X-Request-ID -  <br>  |
+**200** | An array of tasks |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getContracts**
-> Array<UnmanagedWallet> getContracts()
+# **getJobs**
+> Array<Job> getJobs()
 
-Gets a list of contracts.
+Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
 
 ### Example
 
@@ -402,7 +269,7 @@ Gets a list of contracts.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, DefaultApiGetJobsRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -411,21 +278,30 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body:any = {};
+let body: DefaultApiGetJobsRequest = {
+  // number | Start of time range in ms since 1970 (optional)
+  fromTime: 56,
+  // number | End of time range in ms since 1970 (optional)
+  toTime: 56,
+};
 
-fireblocks.contracts.getContracts(body).then((res: FireblocksResponse<any>) => {
+fireblocks._default.getJobs(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **fromTime** | [**number**] | Start of time range in ms since 1970 | (optional) defaults to undefined
+ **toTime** | [**number**] | End of time range in ms since 1970 | (optional) defaults to undefined
 
 
 ### Return type
 
-**[Array<UnmanagedWallet>](../models/Array<UnmanagedWallet>.md)**
+**[Array<Job>](../models/Array<Job>.md)**
 
 ### Authorization
 
@@ -440,7 +316,70 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A list of contracts |  * X-Request-ID -  <br>  |
+**200** | An array of jobs |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **pauseJob**
+> pauseJob()
+
+Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, DefaultApiPauseJobRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: DefaultApiPauseJobRequest = {
+  // string | The requested job id
+  jobId: jobId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks._default.pauseJob(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **jobId** | [**string**] | The requested job id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | paused successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -31,10 +31,10 @@ You can initialize the SDK using environment variables from your .env file or by
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from "@fireblocks/ts-sdk";
+import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
 
 // Set the environment variables
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -47,14 +47,14 @@ Alternatively, you can directly pass the required parameters when initializing t
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from "@fireblocks/ts-sdk";
+import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
 
 const FIREBLOCKS_API_SECRET_PATH = "./fireblocks_secret.key";
 
 // Initialize a Fireblocks API instance with local variables
 const fireblocks = new Fireblocks({
     apiKey: "my-api-key",
-    baseServerPath: BaseServerPathEnum.Sandbox, // or assign directly to "https://sandbox-api.fireblocks.io/v1";
+    basePath: BasePath.Sandbox, // or assign directly to "https://sandbox-api.fireblocks.io/v1";
     secretKey: readFileSync(FIREBLOCKS_API_SECRET_PATH, "utf8"),
 });
 ```
@@ -151,6 +151,12 @@ Class | Method | HTTP request | Description
 *ContractsApi* | [**getContract**](docs/apis/ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a specific contract
 *ContractsApi* | [**getContractAsset**](docs/apis/ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset
 *ContractsApi* | [**getContracts**](docs/apis/ContractsApi.md#getContracts) | **GET** /contracts | List contracts
+*DefaultApi* | [**cancelJob**](docs/apis/DefaultApi.md#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
+*DefaultApi* | [**continueJob**](docs/apis/DefaultApi.md#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
+*DefaultApi* | [**getJob**](docs/apis/DefaultApi.md#getJob) | **GET** /batch/{jobId} | Get job details
+*DefaultApi* | [**getJobTasks**](docs/apis/DefaultApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
+*DefaultApi* | [**getJobs**](docs/apis/DefaultApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
+*DefaultApi* | [**pauseJob**](docs/apis/DefaultApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
 *ExchangeAccountsApi* | [**convertAssets**](docs/apis/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/apis/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/apis/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
@@ -169,12 +175,6 @@ Class | Method | HTTP request | Description
 *FiatAccountsApi* | [**getFiatAccount**](docs/apis/FiatAccountsApi.md#getFiatAccount) | **GET** /fiat_accounts/{accountId} | Find a specific fiat account
 *FiatAccountsApi* | [**getFiatAccounts**](docs/apis/FiatAccountsApi.md#getFiatAccounts) | **GET** /fiat_accounts | List fiat accounts
 *FiatAccountsApi* | [**redeemFundsToLinkedDda**](docs/apis/FiatAccountsApi.md#redeemFundsToLinkedDda) | **POST** /fiat_accounts/{accountId}/redeem_to_linked_dda | Redeem funds to DDA
-*FireblocksPublicOpenapiOtherApi* | [**cancelJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
-*FireblocksPublicOpenapiOtherApi* | [**continueJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
-*FireblocksPublicOpenapiOtherApi* | [**getJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#getJob) | **GET** /batch/{jobId} | Get job details
-*FireblocksPublicOpenapiOtherApi* | [**getJobTasks**](docs/apis/FireblocksPublicOpenapiOtherApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
-*FireblocksPublicOpenapiOtherApi* | [**getJobs**](docs/apis/FireblocksPublicOpenapiOtherApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
-*FireblocksPublicOpenapiOtherApi* | [**pauseJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
 *GasStationsApi* | [**getGasStationByAssetId**](docs/apis/GasStationsApi.md#getGasStationByAssetId) | **GET** /gas_station/{assetId} | Get gas station settings by asset
 *GasStationsApi* | [**getGasStationInfo**](docs/apis/GasStationsApi.md#getGasStationInfo) | **GET** /gas_station | Get gas station settings
 *GasStationsApi* | [**updateGasStationConfiguration**](docs/apis/GasStationsApi.md#updateGasStationConfiguration) | **PUT** /gas_station/configuration | Edit gas station settings
@@ -414,7 +414,6 @@ Class | Method | HTTP request | Description
  - [ListOwnedCollections200Response](docs/models/ListOwnedCollections200Response.md)
  - [ListOwnedTokens200Response](docs/models/ListOwnedTokens200Response.md)
  - [MediaEntityResponse](docs/models/MediaEntityResponse.md)
- - [Ncw](docs/models/Ncw.md)
  - [NetworkChannel](docs/models/NetworkChannel.md)
  - [NetworkConnection](docs/models/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/models/NetworkConnectionResponse.md)
@@ -481,7 +480,6 @@ Class | Method | HTTP request | Description
  - [RedeemFundsToLinkedDdaRequest](docs/models/RedeemFundsToLinkedDdaRequest.md)
  - [RelatedTransactionDto](docs/models/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
- - [RequestOptions](docs/models/RequestOptions.md)
  - [ResendTransactionWebhooksRequest](docs/models/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksResponse](docs/models/ResendWebhooksResponse.md)
  - [RespondToConnectionRequest](docs/models/RespondToConnectionRequest.md)

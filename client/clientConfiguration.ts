@@ -30,7 +30,7 @@ export interface ConfigurationOptions {
     * The base path for the server against which to make requests. This can
     * also be set as an environment variable FIREBLOCKS_BASE_PATH.
     */
-    baseServerPath?: BaseServerPathEnum | string;
+    basePath?: BasePath | string;
     /**
     * Additional options to configure the SDK
     */
@@ -48,7 +48,7 @@ export interface AdditionalOptions {
     userAgent?: string;
 }
 
-export enum BaseServerPathEnum {
+export enum BasePath {
     Sandbox = 'https://sandbox-api.fireblocks.io/v1',
     US = 'https://api.fireblocks.io/v1',
     EU = 'https://eu-api.fireblocks.io/v1',

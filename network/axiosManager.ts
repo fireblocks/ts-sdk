@@ -62,7 +62,7 @@ export class AxiosManager {
         );
     }
 
-    private getHeaders(config: InternalAxiosRequestConfig): Record<string, string> {
+    public getHeaders(config: InternalAxiosRequestConfig): Record<string, string> {
         return {
             ...this.getApiKeyHeader(),
             ...this.getAuthorizationHeader(config),
