@@ -13,11 +13,14 @@
 import { isAxiosError } from "axios";
 import { convertToFireblocksResponse, FireblocksResponse } from "../response/fireblocksResponse";
 
-export class FireblocksError<T> extends Error {
+export class FireblocksError<T> {
+    public readonly message: string;
     public readonly response?: FireblocksResponse<T>;
-    constructor(message: string, response?: FireblocksResponse<T>) {
-        super(message);
+    public readonly request?: any;
+    constructor(message: string, response?: FireblocksResponse<T>, request?: any) {
+        this.message = message;
         this.response = response;
+        this.request = request;
     }
 }
 
@@ -25,7 +28,7 @@ export function handleError(error: any) {
     if (isAxiosError(error)) {
         const errorMessage = error.response?.data.message || error.message || "No response from server";
         const response = error.response ? convertToFireblocksResponse(error.response) : undefined;
-        return new FireblocksError(errorMessage, response);
+        return new FireblocksError(errorMessage, response, error.request);
     }
     return error;
 }

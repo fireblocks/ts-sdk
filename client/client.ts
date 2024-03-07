@@ -20,10 +20,10 @@ import { AdminQuorumApi,
          ComplianceScreeningConfigurationApi, 
          ConsoleUserApi, 
          ContractsApi, 
+         DefaultApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
-         FireblocksPublicOpenapiOtherApi, 
          GasStationsApi, 
          InternalWalletsApi, 
          NFTsApi, 
@@ -60,10 +60,10 @@ export class Fireblocks {
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _consoleUser?: ConsoleUserApi;
     private _contracts?: ContractsApi;
+    private __default?: DefaultApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
-    private _fireblocksPublicOpenapiOther?: FireblocksPublicOpenapiOtherApi;
     private _gasStations?: GasStationsApi;
     private _internalWallets?: InternalWalletsApi;
     private _nFTs?: NFTsApi;
@@ -98,11 +98,11 @@ export class Fireblocks {
             throw new Error("apiKey is required either in the configuration or as environment variable FIREBLOCKS_API_KEY");
         }
 
-        let baseServerPath = conf.baseServerPath || process.env.FIREBLOCKS_BASE_PATH;
-        if (!baseServerPath) {
-            throw new Error("baseServerPath or baseServer are required either in the configuration or as environment variable FIREBLOCKS_BASE_PATH or baseServer");
+        let basePath = conf.basePath || process.env.FIREBLOCKS_BASE_PATH;
+        if (!basePath) {
+            throw new Error("basePath is required either in the configuration or as environment variable FIREBLOCKS_BASE_PATH");
         }
-        this.config = new Configuration({ basePath: baseServerPath, baseOptions: conf.additionalOptions?.baseOptions });
+        this.config = new Configuration({ basePath, baseOptions: conf.additionalOptions?.baseOptions });
         this.axiosManager = new AxiosManager(apiKey, secretKey, conf?.additionalOptions);
     }
 
@@ -130,6 +130,9 @@ export class Fireblocks {
     get contracts(): ContractsApi {
         return this._contracts ?? new ContractsApi(this.config, undefined, this.axiosManager.axios);
     }
+    get _default(): DefaultApi {
+        return this.__default ?? new DefaultApi(this.config, undefined, this.axiosManager.axios);
+    }
     get exchangeAccounts(): ExchangeAccountsApi {
         return this._exchangeAccounts ?? new ExchangeAccountsApi(this.config, undefined, this.axiosManager.axios);
     }
@@ -138,9 +141,6 @@ export class Fireblocks {
     }
     get fiatAccounts(): FiatAccountsApi {
         return this._fiatAccounts ?? new FiatAccountsApi(this.config, undefined, this.axiosManager.axios);
-    }
-    get fireblocksPublicOpenapiOther(): FireblocksPublicOpenapiOtherApi {
-        return this._fireblocksPublicOpenapiOther ?? new FireblocksPublicOpenapiOtherApi(this.config, undefined, this.axiosManager.axios);
     }
     get gasStations(): GasStationsApi {
         return this._gasStations ?? new GasStationsApi(this.config, undefined, this.axiosManager.axios);

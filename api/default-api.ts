@@ -32,10 +32,10 @@ import { Job } from '../models';
 // @ts-ignore
 import { Task } from '../models';
 /**
- * FireblocksPublicOpenapiOtherApi - axios parameter creator
+ * DefaultApi - axios parameter creator
  * @export
  */
-export const FireblocksPublicOpenapiOtherApiAxiosParamCreator = function (configuration?: Configuration) {
+export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
@@ -266,11 +266,11 @@ export const FireblocksPublicOpenapiOtherApiAxiosParamCreator = function (config
 };
 
 /**
- * FireblocksPublicOpenapiOtherApi - functional programming interface
+ * DefaultApi - functional programming interface
  * @export
  */
-export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = FireblocksPublicOpenapiOtherApiAxiosParamCreator(configuration)
+export const DefaultApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
     return {
         /**
          * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
@@ -283,7 +283,7 @@ export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Config
         async cancelJob(jobId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.cancelJob(jobId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FireblocksPublicOpenapiOtherApi.cancelJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['DefaultApi.cancelJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -297,7 +297,7 @@ export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Config
         async continueJob(jobId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.continueJob(jobId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FireblocksPublicOpenapiOtherApi.continueJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['DefaultApi.continueJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -310,7 +310,7 @@ export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Config
         async getJob(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJob(jobId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FireblocksPublicOpenapiOtherApi.getJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['DefaultApi.getJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -323,7 +323,7 @@ export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Config
         async getJobTasks(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobTasks(jobId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FireblocksPublicOpenapiOtherApi.getJobTasks']?.[index]?.url;
+            const operationBasePath = operationServerMap['DefaultApi.getJobTasks']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -337,7 +337,7 @@ export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Config
         async getJobs(fromTime?: number, toTime?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Job>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobs(fromTime, toTime, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FireblocksPublicOpenapiOtherApi.getJobs']?.[index]?.url;
+            const operationBasePath = operationServerMap['DefaultApi.getJobs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -351,271 +351,271 @@ export const FireblocksPublicOpenapiOtherApiFp = function(configuration?: Config
         async pauseJob(jobId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.pauseJob(jobId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FireblocksPublicOpenapiOtherApi.pauseJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['DefaultApi.pauseJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * FireblocksPublicOpenapiOtherApi - factory interface
+ * DefaultApi - factory interface
  * @export
  */
-export const FireblocksPublicOpenapiOtherApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = FireblocksPublicOpenapiOtherApiFp(configuration)
+export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = DefaultApiFp(configuration)
     return {
         /**
          * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
          * @summary Cancel a running job
-         * @param {FireblocksPublicOpenapiOtherApiCancelJobRequest} requestParameters Request parameters.
+         * @param {DefaultApiCancelJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelJob(requestParameters: FireblocksPublicOpenapiOtherApiCancelJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        cancelJob(requestParameters: DefaultApiCancelJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.cancelJob(requestParameters.jobId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Continue the given paused job.
          * @summary Continue a paused job
-         * @param {FireblocksPublicOpenapiOtherApiContinueJobRequest} requestParameters Request parameters.
+         * @param {DefaultApiContinueJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        continueJob(requestParameters: FireblocksPublicOpenapiOtherApiContinueJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        continueJob(requestParameters: DefaultApiContinueJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.continueJob(requestParameters.jobId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get an object describing the given job
          * @summary Get job details
-         * @param {FireblocksPublicOpenapiOtherApiGetJobRequest} requestParameters Request parameters.
+         * @param {DefaultApiGetJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob(requestParameters: FireblocksPublicOpenapiOtherApiGetJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<Job> {
+        getJob(requestParameters: DefaultApiGetJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<Job> {
             return localVarFp.getJob(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Return a list of tasks for given job
          * @summary Return a list of tasks for given job
-         * @param {FireblocksPublicOpenapiOtherApiGetJobTasksRequest} requestParameters Request parameters.
+         * @param {DefaultApiGetJobTasksRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobTasks(requestParameters: FireblocksPublicOpenapiOtherApiGetJobTasksRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<Task>> {
+        getJobTasks(requestParameters: DefaultApiGetJobTasksRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<Task>> {
             return localVarFp.getJobTasks(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
          * @summary Return a list of jobs belonging to tenant
-         * @param {FireblocksPublicOpenapiOtherApiGetJobsRequest} requestParameters Request parameters.
+         * @param {DefaultApiGetJobsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobs(requestParameters: FireblocksPublicOpenapiOtherApiGetJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<Job>> {
+        getJobs(requestParameters: DefaultApiGetJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<Job>> {
             return localVarFp.getJobs(requestParameters.fromTime, requestParameters.toTime, options).then((request) => request(axios, basePath));
         },
         /**
          * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
          * @summary Pause a job
-         * @param {FireblocksPublicOpenapiOtherApiPauseJobRequest} requestParameters Request parameters.
+         * @param {DefaultApiPauseJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pauseJob(requestParameters: FireblocksPublicOpenapiOtherApiPauseJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        pauseJob(requestParameters: DefaultApiPauseJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.pauseJob(requestParameters.jobId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for cancelJob operation in FireblocksPublicOpenapiOtherApi.
+ * Request parameters for cancelJob operation in DefaultApi.
  * @export
- * @interface FireblocksPublicOpenapiOtherApiCancelJobRequest
+ * @interface DefaultApiCancelJobRequest
  */
-export interface FireblocksPublicOpenapiOtherApiCancelJobRequest {
+export interface DefaultApiCancelJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiCancelJob
+     * @memberof DefaultApiCancelJob
      */
     readonly jobId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiCancelJob
+     * @memberof DefaultApiCancelJob
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for continueJob operation in FireblocksPublicOpenapiOtherApi.
+ * Request parameters for continueJob operation in DefaultApi.
  * @export
- * @interface FireblocksPublicOpenapiOtherApiContinueJobRequest
+ * @interface DefaultApiContinueJobRequest
  */
-export interface FireblocksPublicOpenapiOtherApiContinueJobRequest {
+export interface DefaultApiContinueJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiContinueJob
+     * @memberof DefaultApiContinueJob
      */
     readonly jobId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiContinueJob
+     * @memberof DefaultApiContinueJob
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for getJob operation in FireblocksPublicOpenapiOtherApi.
+ * Request parameters for getJob operation in DefaultApi.
  * @export
- * @interface FireblocksPublicOpenapiOtherApiGetJobRequest
+ * @interface DefaultApiGetJobRequest
  */
-export interface FireblocksPublicOpenapiOtherApiGetJobRequest {
+export interface DefaultApiGetJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiGetJob
+     * @memberof DefaultApiGetJob
      */
     readonly jobId: string
 }
 
 /**
- * Request parameters for getJobTasks operation in FireblocksPublicOpenapiOtherApi.
+ * Request parameters for getJobTasks operation in DefaultApi.
  * @export
- * @interface FireblocksPublicOpenapiOtherApiGetJobTasksRequest
+ * @interface DefaultApiGetJobTasksRequest
  */
-export interface FireblocksPublicOpenapiOtherApiGetJobTasksRequest {
+export interface DefaultApiGetJobTasksRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiGetJobTasks
+     * @memberof DefaultApiGetJobTasks
      */
     readonly jobId: string
 }
 
 /**
- * Request parameters for getJobs operation in FireblocksPublicOpenapiOtherApi.
+ * Request parameters for getJobs operation in DefaultApi.
  * @export
- * @interface FireblocksPublicOpenapiOtherApiGetJobsRequest
+ * @interface DefaultApiGetJobsRequest
  */
-export interface FireblocksPublicOpenapiOtherApiGetJobsRequest {
+export interface DefaultApiGetJobsRequest {
     /**
      * Start of time range in ms since 1970
      * @type {number}
-     * @memberof FireblocksPublicOpenapiOtherApiGetJobs
+     * @memberof DefaultApiGetJobs
      */
     readonly fromTime?: number
 
     /**
      * End of time range in ms since 1970
      * @type {number}
-     * @memberof FireblocksPublicOpenapiOtherApiGetJobs
+     * @memberof DefaultApiGetJobs
      */
     readonly toTime?: number
 }
 
 /**
- * Request parameters for pauseJob operation in FireblocksPublicOpenapiOtherApi.
+ * Request parameters for pauseJob operation in DefaultApi.
  * @export
- * @interface FireblocksPublicOpenapiOtherApiPauseJobRequest
+ * @interface DefaultApiPauseJobRequest
  */
-export interface FireblocksPublicOpenapiOtherApiPauseJobRequest {
+export interface DefaultApiPauseJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiPauseJob
+     * @memberof DefaultApiPauseJob
      */
     readonly jobId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof FireblocksPublicOpenapiOtherApiPauseJob
+     * @memberof DefaultApiPauseJob
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * FireblocksPublicOpenapiOtherApi - object-oriented interface
+ * DefaultApi - object-oriented interface
  * @export
- * @class FireblocksPublicOpenapiOtherApi
+ * @class DefaultApi
  * @extends {BaseAPI}
  */
-export class FireblocksPublicOpenapiOtherApi extends BaseAPI {
+export class DefaultApi extends BaseAPI {
     /**
      * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
      * @summary Cancel a running job
-     * @param {FireblocksPublicOpenapiOtherApiCancelJobRequest} requestParameters Request parameters.
+     * @param {DefaultApiCancelJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FireblocksPublicOpenapiOtherApi
+     * @memberof DefaultApi
      */
-    public cancelJob(requestParameters: FireblocksPublicOpenapiOtherApiCancelJobRequest) {
-        return FireblocksPublicOpenapiOtherApiFp(this.configuration).cancelJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public cancelJob(requestParameters: DefaultApiCancelJobRequest) {
+        return DefaultApiFp(this.configuration).cancelJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Continue the given paused job.
      * @summary Continue a paused job
-     * @param {FireblocksPublicOpenapiOtherApiContinueJobRequest} requestParameters Request parameters.
+     * @param {DefaultApiContinueJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FireblocksPublicOpenapiOtherApi
+     * @memberof DefaultApi
      */
-    public continueJob(requestParameters: FireblocksPublicOpenapiOtherApiContinueJobRequest) {
-        return FireblocksPublicOpenapiOtherApiFp(this.configuration).continueJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public continueJob(requestParameters: DefaultApiContinueJobRequest) {
+        return DefaultApiFp(this.configuration).continueJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Get an object describing the given job
      * @summary Get job details
-     * @param {FireblocksPublicOpenapiOtherApiGetJobRequest} requestParameters Request parameters.
+     * @param {DefaultApiGetJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FireblocksPublicOpenapiOtherApi
+     * @memberof DefaultApi
      */
-    public getJob(requestParameters: FireblocksPublicOpenapiOtherApiGetJobRequest) {
-        return FireblocksPublicOpenapiOtherApiFp(this.configuration).getJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getJob(requestParameters: DefaultApiGetJobRequest) {
+        return DefaultApiFp(this.configuration).getJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Return a list of tasks for given job
      * @summary Return a list of tasks for given job
-     * @param {FireblocksPublicOpenapiOtherApiGetJobTasksRequest} requestParameters Request parameters.
+     * @param {DefaultApiGetJobTasksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FireblocksPublicOpenapiOtherApi
+     * @memberof DefaultApi
      */
-    public getJobTasks(requestParameters: FireblocksPublicOpenapiOtherApiGetJobTasksRequest) {
-        return FireblocksPublicOpenapiOtherApiFp(this.configuration).getJobTasks(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getJobTasks(requestParameters: DefaultApiGetJobTasksRequest) {
+        return DefaultApiFp(this.configuration).getJobTasks(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
      * @summary Return a list of jobs belonging to tenant
-     * @param {FireblocksPublicOpenapiOtherApiGetJobsRequest} requestParameters Request parameters.
+     * @param {DefaultApiGetJobsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FireblocksPublicOpenapiOtherApi
+     * @memberof DefaultApi
      */
-    public getJobs(requestParameters: FireblocksPublicOpenapiOtherApiGetJobsRequest = {}) {
-        return FireblocksPublicOpenapiOtherApiFp(this.configuration).getJobs(requestParameters.fromTime, requestParameters.toTime).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getJobs(requestParameters: DefaultApiGetJobsRequest = {}) {
+        return DefaultApiFp(this.configuration).getJobs(requestParameters.fromTime, requestParameters.toTime).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
      * @summary Pause a job
-     * @param {FireblocksPublicOpenapiOtherApiPauseJobRequest} requestParameters Request parameters.
+     * @param {DefaultApiPauseJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof FireblocksPublicOpenapiOtherApi
+     * @memberof DefaultApi
      */
-    public pauseJob(requestParameters: FireblocksPublicOpenapiOtherApiPauseJobRequest) {
-        return FireblocksPublicOpenapiOtherApiFp(this.configuration).pauseJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public pauseJob(requestParameters: DefaultApiPauseJobRequest) {
+        return DefaultApiFp(this.configuration).pauseJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
