@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**originatorVASPdid** | **string** | The VASP ID of the transaction originator | [default to undefined]|
-|**beneficiaryVASPdid** | **string** | The VASP ID of the transaction beneficiary | [default to undefined]|
 |**originator** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  | [default to undefined]|
 |**beneficiary** | [**TravelRulePiiIVMS**](TravelRulePiiIVMS.md) |  | [default to undefined]|
+|**originatorVASPdid** | **string** | The VASP ID of the transaction originator | [optional] [default to undefined]|
+|**beneficiaryVASPdid** | **string** | The VASP ID of the transaction beneficiary | [optional] [default to undefined]|
 |**beneficiaryVASPname** | **string** | The name of the VASP acting as the beneficiary | [optional] [default to undefined]|
 |**transactionBlockchainInfo** | [**TravelRuleTransactionBlockchainInfo**](TravelRuleTransactionBlockchainInfo.md) |  | [optional] [default to undefined]|
 |**encrypted** | **string** | Encrypted data related to the transaction | [optional] [default to undefined]|

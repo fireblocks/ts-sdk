@@ -17,11 +17,11 @@ List all users for the workspace.  Please note that this endpoint is available o
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, GetUsersResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -50,7 +50,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

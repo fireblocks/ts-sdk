@@ -4,11 +4,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAssetBalance**](#getAssetBalance) | **POST** /vault/assets/bulk | Bulk creation of wallets
+[**createAssetsBulk**](#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets
 
 
-# **getAssetBalance**
-> JobCreated getAssetBalance(getAssetBalanceRequest)
+# **createAssetsBulk**
+> JobCreated createAssetsBulk(createAssetsBulkRequest)
 
 Create multiple wallets for a given vault account by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
 
@@ -17,24 +17,24 @@ Create multiple wallets for a given vault account by running an async job. </br>
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, AssetsApiGetAssetBalanceRequest, JobCreated } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, AssetsApiCreateAssetsBulkRequest, JobCreated } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: AssetsApiGetAssetBalanceRequest = {
-  // GetAssetBalanceRequest
-  getAssetBalanceRequest: param_value,
+let body: AssetsApiCreateAssetsBulkRequest = {
+  // CreateAssetsBulkRequest
+  createAssetsBulkRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.assets.getAssetBalance(body).then((res: FireblocksResponse<JobCreated>) => {
+fireblocks.assets.createAssetsBulk(body).then((res: FireblocksResponse<JobCreated>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -44,7 +44,7 @@ fireblocks.assets.getAssetBalance(body).then((res: FireblocksResponse<JobCreated
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **getAssetBalanceRequest** | **[GetAssetBalanceRequest](../models/GetAssetBalanceRequest.md)**|  |
+ **createAssetsBulkRequest** | **[CreateAssetsBulkRequest](../models/CreateAssetsBulkRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -59,7 +59,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

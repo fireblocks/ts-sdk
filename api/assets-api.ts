@@ -26,9 +26,9 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { ErrorSchema } from '../models';
+import { CreateAssetsBulkRequest } from '../models';
 // @ts-ignore
-import { GetAssetBalanceRequest } from '../models';
+import { ErrorSchema } from '../models';
 // @ts-ignore
 import { JobCreated } from '../models';
 /**
@@ -40,14 +40,14 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Create multiple wallets for a given vault account by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
          * @summary Bulk creation of wallets
-         * @param {GetAssetBalanceRequest} getAssetBalanceRequest 
+         * @param {CreateAssetsBulkRequest} createAssetsBulkRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetBalance: async (getAssetBalanceRequest: GetAssetBalanceRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'getAssetBalanceRequest' is not null or undefined
-            assertParamExists('getAssetBalance', 'getAssetBalanceRequest', getAssetBalanceRequest)
+        createAssetsBulk: async (createAssetsBulkRequest: CreateAssetsBulkRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createAssetsBulkRequest' is not null or undefined
+            assertParamExists('createAssetsBulk', 'createAssetsBulkRequest', createAssetsBulkRequest)
             const localVarPath = `/vault/assets/bulk`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -71,7 +71,7 @@ export const AssetsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(getAssetBalanceRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createAssetsBulkRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -91,15 +91,15 @@ export const AssetsApiFp = function(configuration?: Configuration) {
         /**
          * Create multiple wallets for a given vault account by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
          * @summary Bulk creation of wallets
-         * @param {GetAssetBalanceRequest} getAssetBalanceRequest 
+         * @param {CreateAssetsBulkRequest} createAssetsBulkRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAssetBalance(getAssetBalanceRequest: GetAssetBalanceRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobCreated>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetBalance(getAssetBalanceRequest, idempotencyKey, options);
+        async createAssetsBulk(createAssetsBulkRequest: CreateAssetsBulkRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobCreated>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createAssetsBulk(createAssetsBulkRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['AssetsApi.getAssetBalance']?.[index]?.url;
+            const operationBasePath = operationServerMap['AssetsApi.createAssetsBulk']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -115,33 +115,33 @@ export const AssetsApiFactory = function (configuration?: Configuration, basePat
         /**
          * Create multiple wallets for a given vault account by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
          * @summary Bulk creation of wallets
-         * @param {AssetsApiGetAssetBalanceRequest} requestParameters Request parameters.
+         * @param {AssetsApiCreateAssetsBulkRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAssetBalance(requestParameters: AssetsApiGetAssetBalanceRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
-            return localVarFp.getAssetBalance(requestParameters.getAssetBalanceRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        createAssetsBulk(requestParameters: AssetsApiCreateAssetsBulkRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
+            return localVarFp.createAssetsBulk(requestParameters.createAssetsBulkRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for getAssetBalance operation in AssetsApi.
+ * Request parameters for createAssetsBulk operation in AssetsApi.
  * @export
- * @interface AssetsApiGetAssetBalanceRequest
+ * @interface AssetsApiCreateAssetsBulkRequest
  */
-export interface AssetsApiGetAssetBalanceRequest {
+export interface AssetsApiCreateAssetsBulkRequest {
     /**
      * 
-     * @type {GetAssetBalanceRequest}
-     * @memberof AssetsApiGetAssetBalance
+     * @type {CreateAssetsBulkRequest}
+     * @memberof AssetsApiCreateAssetsBulk
      */
-    readonly getAssetBalanceRequest: GetAssetBalanceRequest
+    readonly createAssetsBulkRequest: CreateAssetsBulkRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof AssetsApiGetAssetBalance
+     * @memberof AssetsApiCreateAssetsBulk
      */
     readonly idempotencyKey?: string
 }
@@ -156,13 +156,13 @@ export class AssetsApi extends BaseAPI {
     /**
      * Create multiple wallets for a given vault account by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. - Currently, we are only supporting EVM wallets. 
      * @summary Bulk creation of wallets
-     * @param {AssetsApiGetAssetBalanceRequest} requestParameters Request parameters.
+     * @param {AssetsApiCreateAssetsBulkRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof AssetsApi
      */
-    public getAssetBalance(requestParameters: AssetsApiGetAssetBalanceRequest) {
-        return AssetsApiFp(this.configuration).getAssetBalance(requestParameters.getAssetBalanceRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createAssetsBulk(requestParameters: AssetsApiCreateAssetsBulkRequest) {
+        return AssetsApiFp(this.configuration).createAssetsBulk(requestParameters.createAssetsBulkRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

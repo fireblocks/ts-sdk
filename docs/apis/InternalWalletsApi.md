@@ -24,19 +24,19 @@ Creates a new internal wallet with the requested name.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiCreateInternalWalletRequest, UnmanagedWallet } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
 let body: InternalWalletsApiCreateInternalWalletRequest = {
-  // CreateInternalWalletRequest (optional)
-  createInternalWalletRequest: param_value,
+  // CreateWalletRequest (optional)
+  createWalletRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -51,7 +51,7 @@ fireblocks.internalWallets.createInternalWallet(body).then((res: FireblocksRespo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createInternalWalletRequest** | **[CreateInternalWalletRequest](../models/CreateInternalWalletRequest.md)**|  |
+ **createWalletRequest** | **[CreateWalletRequest](../models/CreateWalletRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -66,7 +66,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -87,11 +87,11 @@ Adds an asset to an existing internal wallet.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiCreateInternalWalletAssetRequest, WalletAsset } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -135,7 +135,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -156,11 +156,11 @@ Deletes an internal wallet by ID.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiDeleteInternalWalletRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -216,11 +216,11 @@ Deletes a whitelisted address (for an asset) from an internal wallet.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiDeleteInternalWalletAssetRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -279,11 +279,11 @@ Returns all assets in an internal wallet by ID.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiGetInternalWalletRequest, UnmanagedWallet } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -318,7 +318,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -339,11 +339,11 @@ Returns information for an asset in an internal wallet.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiGetInternalWalletAssetRequest, WalletAsset } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -381,7 +381,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -402,11 +402,11 @@ Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitel
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -435,7 +435,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -447,7 +447,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setCustomerRefIdForInternalWallet**
-> setCustomerRefIdForInternalWallet(setCustomerRefIdForVaultAccountRequest, )
+> setCustomerRefIdForInternalWallet(setCustomerRefIdRequest, )
 
 Sets an AML/KYT customer reference ID for the specific internal wallet.
 
@@ -456,19 +456,19 @@ Sets an AML/KYT customer reference ID for the specific internal wallet.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, InternalWalletsApiSetCustomerRefIdForInternalWalletRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
 let body: InternalWalletsApiSetCustomerRefIdForInternalWalletRequest = {
-  // SetCustomerRefIdForVaultAccountRequest
-  setCustomerRefIdForVaultAccountRequest: param_value,
+  // SetCustomerRefIdRequest
+  setCustomerRefIdRequest: param_value,
   // string | The wallet ID
   walletId: walletId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
@@ -485,7 +485,7 @@ fireblocks.internalWallets.setCustomerRefIdForInternalWallet(body).then((res: Fi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setCustomerRefIdForVaultAccountRequest** | **[SetCustomerRefIdForVaultAccountRequest](../models/SetCustomerRefIdForVaultAccountRequest.md)**|  |
+ **setCustomerRefIdRequest** | **[SetCustomerRefIdRequest](../models/SetCustomerRefIdRequest.md)**|  |
  **walletId** | [**string**] | The wallet ID | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 

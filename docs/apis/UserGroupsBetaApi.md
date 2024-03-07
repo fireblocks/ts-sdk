@@ -21,11 +21,11 @@ Create a new user group.</br>  **Note**: - This endpoint is now in Beta, disable
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, UserGroupsBetaApiCreateUserGroupRequest, CreateUserGroupResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -63,7 +63,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -84,11 +84,11 @@ Delete a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disab
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, UserGroupsBetaApiDeleteUserGroupRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -144,11 +144,11 @@ Get a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, UserGroupsBetaApiGetUserGroupRequest, UserGroupResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -183,7 +183,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -204,11 +204,11 @@ Get all user groups in your workspace. </br>  **Note**: - This endpoint is now i
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -237,7 +237,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -258,11 +258,11 @@ Update a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disab
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, UserGroupsBetaApiUpdateUserGroupRequest, UserGroupCreateResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -303,7 +303,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

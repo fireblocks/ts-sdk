@@ -27,6 +27,9 @@ import { AuthorizationInfo } from './authorization-info';
 import { BlockInfo } from './block-info';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ComplianceResult } from './compliance-result';
+// May contain unused imports in some cases
+// @ts-ignore
 import { DestinationTransferPeerPathResponse } from './destination-transfer-peer-path-response';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -249,6 +252,12 @@ export interface TransactionResponse {
      */
     'amlScreeningResult'?: AmlScreeningResult;
     /**
+     * 
+     * @type {ComplianceResult}
+     * @memberof TransactionResponse
+     */
+    'complianceResult'?: ComplianceResult;
+    /**
      * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. 
      * @type {object}
      * @memberof TransactionResponse
@@ -256,10 +265,10 @@ export interface TransactionResponse {
     'extraParameters'?: object;
     /**
      * 
-     * @type {SignedMessage}
+     * @type {Array<SignedMessage>}
      * @memberof TransactionResponse
      */
-    'signedMessages'?: SignedMessage;
+    'signedMessages'?: Array<SignedMessage>;
     /**
      * The number of confirmations of the transaction. The number will increase until the transaction will be considered completed according to the confirmation policy.
      * @type {number}
@@ -348,6 +357,7 @@ export interface TransactionResponse {
 }
 
 export const TransactionResponseAddressTypeEnum = {
+    Empty: '',
     Whitelisted: 'WHITELISTED',
     OneTime: 'ONE_TIME'
 } as const;

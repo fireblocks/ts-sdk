@@ -31,10 +31,10 @@ You can initialize the SDK using environment variables from your .env file or by
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from "@fireblocks/ts-sdk";
+import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
 
 // Set the environment variables
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -47,14 +47,14 @@ Alternatively, you can directly pass the required parameters when initializing t
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from "@fireblocks/ts-sdk";
+import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
 
 const FIREBLOCKS_API_SECRET_PATH = "./fireblocks_secret.key";
 
 // Initialize a Fireblocks API instance with local variables
 const fireblocks = new Fireblocks({
     apiKey: "my-api-key",
-    baseServerPath: BaseServerPathEnum.Sandbox, // or assign directly to "https://sandbox-api.fireblocks.io/v1";
+    basePath: BasePath.Sandbox, // or assign directly to "https://sandbox-api.fireblocks.io/v1";
     secretKey: readFileSync(FIREBLOCKS_API_SECRET_PATH, "utf8"),
 });
 ```
@@ -134,14 +134,19 @@ Class | Method | HTTP request | Description
 *AdminQuorumApi* | [**setAdminQuorumThreshold**](docs/apis/AdminQuorumApi.md#setAdminQuorumThreshold) | **PUT** /admin_quorum | Update admin quorum threshold
 *ApiUserApi* | [**createApiUser**](docs/apis/ApiUserApi.md#createApiUser) | **POST** /management/api_users | create api user
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | get api users
-*AssetsApi* | [**getAssetBalance**](docs/apis/AssetsApi.md#getAssetBalance) | **POST** /vault/assets/bulk | Bulk creation of wallets
+*AssetsApi* | [**createAssetsBulk**](docs/apis/AssetsApi.md#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
 *AuditLogsApi* | [**getAudits**](docs/apis/AuditLogsApi.md#getAudits) | **GET** /audits | Get audit logs
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/apis/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
-*ComplianceScreeningConfigurationApi* | [**travelRuleApiControllerGetPostScreeningPolicy**](docs/apis/ComplianceScreeningConfigurationApi.md#travelRuleApiControllerGetPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
-*ComplianceScreeningConfigurationApi* | [**travelRuleApiControllerGetScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#travelRuleApiControllerGetScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
-*ComplianceScreeningConfigurationApi* | [**travelRuleApiControllerGetScreeningPolicy**](docs/apis/ComplianceScreeningConfigurationApi.md#travelRuleApiControllerGetScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
-*ComplianceScreeningConfigurationApi* | [**travelRuleApiControllerUpdateTravelRuleConfig**](docs/apis/ComplianceScreeningConfigurationApi.md#travelRuleApiControllerUpdateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
+*ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
+*ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
+*ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
+*ComplianceApi* | [**getScreeningPolicy**](docs/apis/ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
+*ComplianceApi* | [**updateAmlScreeningConfiguration**](docs/apis/ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
+*ComplianceApi* | [**updateScreeningConfiguration**](docs/apis/ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
+*ComplianceApi* | [**updateTravelRuleConfig**](docs/apis/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
+*ComplianceScreeningConfigurationApi* | [**getAmlScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getAmlScreeningConfiguration) | **GET** /screening/aml/policy_configuration | Get AML Screening Policy Configuration
+*ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
 *ConsoleUserApi* | [**createConsoleUser**](docs/apis/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/apis/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | get console users
 *ContractsApi* | [**addContractAsset**](docs/apis/ContractsApi.md#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a contract
@@ -164,17 +169,11 @@ Class | Method | HTTP request | Description
 *ExternalWalletsApi* | [**getExternalWalletAsset**](docs/apis/ExternalWalletsApi.md#getExternalWalletAsset) | **GET** /external_wallets/{walletId}/{assetId} | Get an asset from an external wallet
 *ExternalWalletsApi* | [**getExternalWallets**](docs/apis/ExternalWalletsApi.md#getExternalWallets) | **GET** /external_wallets | List external wallets
 *ExternalWalletsApi* | [**removeAssetFromExternalWallet**](docs/apis/ExternalWalletsApi.md#removeAssetFromExternalWallet) | **DELETE** /external_wallets/{walletId}/{assetId} | Delete an asset from an external wallet
-*ExternalWalletsApi* | [**setCustomerRefIdForExternalWallet**](docs/apis/ExternalWalletsApi.md#setCustomerRefIdForExternalWallet) | **POST** /external_wallets/{walletId}/set_customer_ref_id | Set an AML customer reference ID for an external wallet
+*ExternalWalletsApi* | [**setExternalWalletCustomerRefId**](docs/apis/ExternalWalletsApi.md#setExternalWalletCustomerRefId) | **POST** /external_wallets/{walletId}/set_customer_ref_id | Set an AML customer reference ID for an external wallet
 *FiatAccountsApi* | [**depositFundsFromLinkedDDA**](docs/apis/FiatAccountsApi.md#depositFundsFromLinkedDDA) | **POST** /fiat_accounts/{accountId}/deposit_from_linked_dda | Deposit funds from DDA
 *FiatAccountsApi* | [**getFiatAccount**](docs/apis/FiatAccountsApi.md#getFiatAccount) | **GET** /fiat_accounts/{accountId} | Find a specific fiat account
 *FiatAccountsApi* | [**getFiatAccounts**](docs/apis/FiatAccountsApi.md#getFiatAccounts) | **GET** /fiat_accounts | List fiat accounts
-*FiatAccountsApi* | [**redeemFundsToLinkedDda**](docs/apis/FiatAccountsApi.md#redeemFundsToLinkedDda) | **POST** /fiat_accounts/{accountId}/redeem_to_linked_dda | Redeem funds to DDA
-*FireblocksPublicOpenapiOtherApi* | [**cancelJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
-*FireblocksPublicOpenapiOtherApi* | [**continueJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
-*FireblocksPublicOpenapiOtherApi* | [**getJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#getJob) | **GET** /batch/{jobId} | Get job details
-*FireblocksPublicOpenapiOtherApi* | [**getJobTasks**](docs/apis/FireblocksPublicOpenapiOtherApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
-*FireblocksPublicOpenapiOtherApi* | [**getJobs**](docs/apis/FireblocksPublicOpenapiOtherApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
-*FireblocksPublicOpenapiOtherApi* | [**pauseJob**](docs/apis/FireblocksPublicOpenapiOtherApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
+*FiatAccountsApi* | [**redeemFundsToLinkedDDA**](docs/apis/FiatAccountsApi.md#redeemFundsToLinkedDDA) | **POST** /fiat_accounts/{accountId}/redeem_to_linked_dda | Redeem funds to DDA
 *GasStationsApi* | [**getGasStationByAssetId**](docs/apis/GasStationsApi.md#getGasStationByAssetId) | **GET** /gas_station/{assetId} | Get gas station settings by asset
 *GasStationsApi* | [**getGasStationInfo**](docs/apis/GasStationsApi.md#getGasStationInfo) | **GET** /gas_station | Get gas station settings
 *GasStationsApi* | [**updateGasStationConfiguration**](docs/apis/GasStationsApi.md#updateGasStationConfiguration) | **PUT** /gas_station/configuration | Edit gas station settings
@@ -187,6 +186,12 @@ Class | Method | HTTP request | Description
 *InternalWalletsApi* | [**getInternalWalletAsset**](docs/apis/InternalWalletsApi.md#getInternalWalletAsset) | **GET** /internal_wallets/{walletId}/{assetId} | Get an asset from an internal wallet
 *InternalWalletsApi* | [**getInternalWallets**](docs/apis/InternalWalletsApi.md#getInternalWallets) | **GET** /internal_wallets | List internal wallets
 *InternalWalletsApi* | [**setCustomerRefIdForInternalWallet**](docs/apis/InternalWalletsApi.md#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for an internal wallet
+*JobManagementApi* | [**cancelJob**](docs/apis/JobManagementApi.md#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
+*JobManagementApi* | [**continueJob**](docs/apis/JobManagementApi.md#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
+*JobManagementApi* | [**getJob**](docs/apis/JobManagementApi.md#getJob) | **GET** /batch/{jobId} | Get job details
+*JobManagementApi* | [**getJobTasks**](docs/apis/JobManagementApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
+*JobManagementApi* | [**getJobs**](docs/apis/JobManagementApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
+*JobManagementApi* | [**pauseJob**](docs/apis/JobManagementApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
 *NFTsApi* | [**getNFT**](docs/apis/NFTsApi.md#getNFT) | **GET** /nfts/tokens/{id} | List token data by ID
 *NFTsApi* | [**getNFTs**](docs/apis/NFTsApi.md#getNFTs) | **GET** /nfts/tokens | List tokens by IDs
 *NFTsApi* | [**getOwnershipTokens**](docs/apis/NFTsApi.md#getOwnershipTokens) | **GET** /nfts/ownership/tokens | List all owned tokens (paginated)
@@ -206,10 +211,10 @@ Class | Method | HTTP request | Description
 *NetworkConnectionsApi* | [**getNetworkConnections**](docs/apis/NetworkConnectionsApi.md#getNetworkConnections) | **GET** /network_connections | List network connections
 *NetworkConnectionsApi* | [**getNetworkId**](docs/apis/NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID.
 *NetworkConnectionsApi* | [**getNetworkIds**](docs/apis/NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Returns all network IDs, both local IDs and discoverable remote IDs
-*NetworkConnectionsApi* | [**setDiscoverabilityForNetworkId**](docs/apis/NetworkConnectionsApi.md#setDiscoverabilityForNetworkId) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
+*NetworkConnectionsApi* | [**setNetworkIdDiscoverability**](docs/apis/NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
 *NetworkConnectionsApi* | [**setNetworkIdName**](docs/apis/NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID\&#39;s name.
+*NetworkConnectionsApi* | [**setNetworkIdRoutingPolicy**](docs/apis/NetworkConnectionsApi.md#setNetworkIdRoutingPolicy) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy.
 *NetworkConnectionsApi* | [**setRoutingPolicy**](docs/apis/NetworkConnectionsApi.md#setRoutingPolicy) | **PATCH** /network_connections/{connectionId}/set_routing_policy | Update network connection routing policy.
-*NetworkConnectionsApi* | [**setRoutingPolicyForNetworkId**](docs/apis/NetworkConnectionsApi.md#setRoutingPolicyForNetworkId) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy.
 *OTABetaApi* | [**getOtaStatus**](docs/apis/OTABetaApi.md#getOtaStatus) | **GET** /management/ota | Returns current OTA status
 *OTABetaApi* | [**setOtaStatus**](docs/apis/OTABetaApi.md#setOtaStatus) | **PUT** /management/ota | Enable or disable transactions to OTA
 *OffExchangesApi* | [**addOffExchange**](docs/apis/OffExchangesApi.md#addOffExchange) | **POST** /off_exchange/add | add collateral
@@ -266,7 +271,7 @@ Class | Method | HTTP request | Description
 *TransactionsApi* | [**validateAddress**](docs/apis/TransactionsApi.md#validateAddress) | **GET** /transactions/validate_address/{assetId}/{address} | Validate destination address
 *TravelRuleBetaApi* | [**getVASPByDID**](docs/apis/TravelRuleBetaApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
 *TravelRuleBetaApi* | [**getVASPs**](docs/apis/TravelRuleBetaApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
-*TravelRuleBetaApi* | [**travelRuleApiControllerUpdateVasp**](docs/apis/TravelRuleBetaApi.md#travelRuleApiControllerUpdateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
+*TravelRuleBetaApi* | [**updateVasp**](docs/apis/TravelRuleBetaApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
 *TravelRuleBetaApi* | [**validateFullTravelRuleTransaction**](docs/apis/TravelRuleBetaApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
 *TravelRuleBetaApi* | [**validateTravelRuleTransaction**](docs/apis/TravelRuleBetaApi.md#validateTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate | Validate Travel Rule Transaction
 *UserGroupsBetaApi* | [**createUserGroup**](docs/apis/UserGroupsBetaApi.md#createUserGroup) | **POST** /management/user_groups | Create user group
@@ -295,9 +300,9 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getVaultAssets**](docs/apis/VaultsApi.md#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
 *VaultsApi* | [**getVaultBalanceByAsset**](docs/apis/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset
 *VaultsApi* | [**hideVaultAccount**](docs/apis/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
-*VaultsApi* | [**setAutoFuelForVaultAccount**](docs/apis/VaultsApi.md#setAutoFuelForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off
 *VaultsApi* | [**setCustomerRefIdForAddress**](docs/apis/VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
-*VaultsApi* | [**setCustomerRefIdForVaultAccount**](docs/apis/VaultsApi.md#setCustomerRefIdForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account
+*VaultsApi* | [**setVaultAccountAutoFuel**](docs/apis/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off
+*VaultsApi* | [**setVaultAccountCustomerRefId**](docs/apis/VaultsApi.md#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account
 *VaultsApi* | [**unhideVaultAccount**](docs/apis/VaultsApi.md#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console
 *VaultsApi* | [**updateVaultAccount**](docs/apis/VaultsApi.md#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account
 *VaultsApi* | [**updateVaultAccountAssetAddress**](docs/apis/VaultsApi.md#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description
@@ -325,6 +330,7 @@ Class | Method | HTTP request | Description
  - [AddCollateralRequestBody](docs/models/AddCollateralRequestBody.md)
  - [AddContractAssetRequest](docs/models/AddContractAssetRequest.md)
  - [AdditionalInfoDto](docs/models/AdditionalInfoDto.md)
+ - [AmlRegistrationResult](docs/models/AmlRegistrationResult.md)
  - [AmlScreeningResult](docs/models/AmlScreeningResult.md)
  - [AmountAggregationTimePeriodMethod](docs/models/AmountAggregationTimePeriodMethod.md)
  - [AmountAndChainDescriptor](docs/models/AmountAndChainDescriptor.md)
@@ -336,32 +342,32 @@ Class | Method | HTTP request | Description
  - [BlockInfo](docs/models/BlockInfo.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
  - [ChainInfoResponseDto](docs/models/ChainInfoResponseDto.md)
- - [CheckThirdPartyRouting200Response](docs/models/CheckThirdPartyRouting200Response.md)
  - [CollectionOwnershipResponse](docs/models/CollectionOwnershipResponse.md)
+ - [ComplianceResult](docs/models/ComplianceResult.md)
+ - [ComplianceScreeningResult](docs/models/ComplianceScreeningResult.md)
  - [ConfigChangeRequestStatus](docs/models/ConfigChangeRequestStatus.md)
  - [ConvertAssetsRequest](docs/models/ConvertAssetsRequest.md)
  - [CreateAPIUser](docs/models/CreateAPIUser.md)
+ - [CreateAddressRequest](docs/models/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/models/CreateAddressResponse.md)
+ - [CreateAssetsBulkRequest](docs/models/CreateAssetsBulkRequest.md)
+ - [CreateAssetsRequest](docs/models/CreateAssetsRequest.md)
  - [CreateConnectionRequest](docs/models/CreateConnectionRequest.md)
  - [CreateConnectionResponse](docs/models/CreateConnectionResponse.md)
  - [CreateConsoleUser](docs/models/CreateConsoleUser.md)
  - [CreateContractRequest](docs/models/CreateContractRequest.md)
  - [CreateInternalTransferRequest](docs/models/CreateInternalTransferRequest.md)
  - [CreateInternalWalletAssetRequest](docs/models/CreateInternalWalletAssetRequest.md)
- - [CreateInternalWalletRequest](docs/models/CreateInternalWalletRequest.md)
  - [CreateMultipleAccountsRequest](docs/models/CreateMultipleAccountsRequest.md)
  - [CreateNcwConnectionRequest](docs/models/CreateNcwConnectionRequest.md)
  - [CreateNetworkIdRequest](docs/models/CreateNetworkIdRequest.md)
  - [CreatePayoutRequest](docs/models/CreatePayoutRequest.md)
  - [CreateRequest](docs/models/CreateRequest.md)
- - [CreateTicket201Response](docs/models/CreateTicket201Response.md)
- - [CreateTicketTerm201Response](docs/models/CreateTicketTerm201Response.md)
  - [CreateTransactionResponse](docs/models/CreateTransactionResponse.md)
  - [CreateUserGroupResponse](docs/models/CreateUserGroupResponse.md)
- - [CreateVaultAccountAssetAddressRequest](docs/models/CreateVaultAccountAssetAddressRequest.md)
- - [CreateVaultAccountAssetRequest](docs/models/CreateVaultAccountAssetRequest.md)
  - [CreateVaultAccountRequest](docs/models/CreateVaultAccountRequest.md)
  - [CreateVaultAssetResponse](docs/models/CreateVaultAssetResponse.md)
+ - [CreateWalletRequest](docs/models/CreateWalletRequest.md)
  - [CustomCryptoRoutingDest](docs/models/CustomCryptoRoutingDest.md)
  - [CustomFiatRoutingDest](docs/models/CustomFiatRoutingDest.md)
  - [DefaultNetworkRoutingDest](docs/models/DefaultNetworkRoutingDest.md)
@@ -386,25 +392,22 @@ Class | Method | HTTP request | Description
  - [ExchangeSettlementTransactionsResponse](docs/models/ExchangeSettlementTransactionsResponse.md)
  - [ExchangeTradingAccount](docs/models/ExchangeTradingAccount.md)
  - [ExchangeType](docs/models/ExchangeType.md)
- - [ExecuteAction201Response](docs/models/ExecuteAction201Response.md)
  - [ExecuteActionRequest](docs/models/ExecuteActionRequest.md)
+ - [ExecuteActionResponse](docs/models/ExecuteActionResponse.md)
  - [ExternalWalletAsset](docs/models/ExternalWalletAsset.md)
  - [FeeInfo](docs/models/FeeInfo.md)
  - [FiatAccount](docs/models/FiatAccount.md)
  - [FiatAccountType](docs/models/FiatAccountType.md)
  - [FiatAsset](docs/models/FiatAsset.md)
- - [FindTicketById200Response](docs/models/FindTicketById200Response.md)
- - [FindTicketTermById200Response](docs/models/FindTicketTermById200Response.md)
  - [FreezeTransactionResponse](docs/models/FreezeTransactionResponse.md)
+ - [Funds](docs/models/Funds.md)
  - [GasStationConfiguration](docs/models/GasStationConfiguration.md)
  - [GasStationPropertiesResponse](docs/models/GasStationPropertiesResponse.md)
- - [GetAssetBalanceRequest](docs/models/GetAssetBalanceRequest.md)
  - [GetAuditLogsResponseDTO](docs/models/GetAuditLogsResponseDTO.md)
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
  - [GetFilterParameter](docs/models/GetFilterParameter.md)
  - [GetOtaStatus200Response](docs/models/GetOtaStatus200Response.md)
  - [GetOwnershipTokens200Response](docs/models/GetOwnershipTokens200Response.md)
- - [GetSmartTransferUserGroups200Response](docs/models/GetSmartTransferUserGroups200Response.md)
  - [GetTransactionOperation](docs/models/GetTransactionOperation.md)
  - [GetUsersResponse](docs/models/GetUsersResponse.md)
  - [GetWorkspaceStatus200Response](docs/models/GetWorkspaceStatus200Response.md)
@@ -414,7 +417,6 @@ Class | Method | HTTP request | Description
  - [ListOwnedCollections200Response](docs/models/ListOwnedCollections200Response.md)
  - [ListOwnedTokens200Response](docs/models/ListOwnedTokens200Response.md)
  - [MediaEntityResponse](docs/models/MediaEntityResponse.md)
- - [Ncw](docs/models/Ncw.md)
  - [NetworkChannel](docs/models/NetworkChannel.md)
  - [NetworkConnection](docs/models/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/models/NetworkConnectionResponse.md)
@@ -469,6 +471,7 @@ Class | Method | HTTP request | Description
  - [PolicyRuleRawMessageSigning](docs/models/PolicyRuleRawMessageSigning.md)
  - [PolicyRuleRawMessageSigningDerivationPath](docs/models/PolicyRuleRawMessageSigningDerivationPath.md)
  - [PolicyRuleSrc](docs/models/PolicyRuleSrc.md)
+ - [PolicyRules](docs/models/PolicyRules.md)
  - [PolicySrcOrDestSubType](docs/models/PolicySrcOrDestSubType.md)
  - [PolicySrcOrDestType](docs/models/PolicySrcOrDestType.md)
  - [PolicyStatus](docs/models/PolicyStatus.md)
@@ -476,58 +479,56 @@ Class | Method | HTTP request | Description
  - [ProviderDto](docs/models/ProviderDto.md)
  - [PublicKeyInformation](docs/models/PublicKeyInformation.md)
  - [PublishDraftRequest](docs/models/PublishDraftRequest.md)
- - [PublishPolicyRulesRequest](docs/models/PublishPolicyRulesRequest.md)
  - [PublishResult](docs/models/PublishResult.md)
- - [RedeemFundsToLinkedDdaRequest](docs/models/RedeemFundsToLinkedDdaRequest.md)
  - [RelatedTransactionDto](docs/models/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
- - [RequestOptions](docs/models/RequestOptions.md)
  - [ResendTransactionWebhooksRequest](docs/models/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksResponse](docs/models/ResendWebhooksResponse.md)
  - [RespondToConnectionRequest](docs/models/RespondToConnectionRequest.md)
  - [RewardInfo](docs/models/RewardInfo.md)
  - [RewardsInfo](docs/models/RewardsInfo.md)
- - [SearchTickets200Response](docs/models/SearchTickets200Response.md)
+ - [ScreeningConfigurationsRequest](docs/models/ScreeningConfigurationsRequest.md)
+ - [ScreeningPolicyResponse](docs/models/ScreeningPolicyResponse.md)
+ - [ScreeningProviderRulesConfigurationResponse](docs/models/ScreeningProviderRulesConfigurationResponse.md)
+ - [ScreeningUpdateConfigurationsRequest](docs/models/ScreeningUpdateConfigurationsRequest.md)
  - [SessionDTO](docs/models/SessionDTO.md)
  - [SessionMetadata](docs/models/SessionMetadata.md)
  - [SetAdminQuorumThresholdRequest](docs/models/SetAdminQuorumThresholdRequest.md)
- - [SetAutoFuelForVaultAccountRequest](docs/models/SetAutoFuelForVaultAccountRequest.md)
+ - [SetAutoFuelRequest](docs/models/SetAutoFuelRequest.md)
  - [SetConfirmationsThresholdRequest](docs/models/SetConfirmationsThresholdRequest.md)
  - [SetConfirmationsThresholdResponse](docs/models/SetConfirmationsThresholdResponse.md)
- - [SetCustomerRefIdForVaultAccountRequest](docs/models/SetCustomerRefIdForVaultAccountRequest.md)
- - [SetDiscoverabilityForNetworkIdRequest](docs/models/SetDiscoverabilityForNetworkIdRequest.md)
+ - [SetCustomerRefIdForAddressRequest](docs/models/SetCustomerRefIdForAddressRequest.md)
+ - [SetCustomerRefIdRequest](docs/models/SetCustomerRefIdRequest.md)
+ - [SetNetworkIdDiscoverabilityRequest](docs/models/SetNetworkIdDiscoverabilityRequest.md)
  - [SetNetworkIdNameRequest](docs/models/SetNetworkIdNameRequest.md)
+ - [SetNetworkIdResponse](docs/models/SetNetworkIdResponse.md)
+ - [SetNetworkIdRoutingPolicyRequest](docs/models/SetNetworkIdRoutingPolicyRequest.md)
  - [SetOtaStatusRequest](docs/models/SetOtaStatusRequest.md)
  - [SetRoutingPolicy200Response](docs/models/SetRoutingPolicy200Response.md)
- - [SetRoutingPolicyForNetworkIdRequest](docs/models/SetRoutingPolicyForNetworkIdRequest.md)
  - [SetRoutingPolicyRequest](docs/models/SetRoutingPolicyRequest.md)
- - [SetUserGroups201Response](docs/models/SetUserGroups201Response.md)
  - [SettlementRequestBody](docs/models/SettlementRequestBody.md)
  - [SettlementResponse](docs/models/SettlementResponse.md)
  - [SignedMessage](docs/models/SignedMessage.md)
  - [SignedMessageSignature](docs/models/SignedMessageSignature.md)
  - [SmartTransferBadRequestResponse](docs/models/SmartTransferBadRequestResponse.md)
- - [SmartTransferCreateTicketDto](docs/models/SmartTransferCreateTicketDto.md)
- - [SmartTransferCreateTicketTermDto](docs/models/SmartTransferCreateTicketTermDto.md)
+ - [SmartTransferCreateTicket](docs/models/SmartTransferCreateTicket.md)
+ - [SmartTransferCreateTicketTerm](docs/models/SmartTransferCreateTicketTerm.md)
  - [SmartTransferForbiddenResponse](docs/models/SmartTransferForbiddenResponse.md)
- - [SmartTransferFundTermDto](docs/models/SmartTransferFundTermDto.md)
- - [SmartTransferManuallyFundTermDto](docs/models/SmartTransferManuallyFundTermDto.md)
+ - [SmartTransferFundTerm](docs/models/SmartTransferFundTerm.md)
+ - [SmartTransferManuallyFundTerm](docs/models/SmartTransferManuallyFundTerm.md)
  - [SmartTransferNotFoundResponse](docs/models/SmartTransferNotFoundResponse.md)
- - [SmartTransferSetTicketExpirationDto](docs/models/SmartTransferSetTicketExpirationDto.md)
- - [SmartTransferSetTicketExternalIdDto](docs/models/SmartTransferSetTicketExternalIdDto.md)
- - [SmartTransferSetUserGroupsDto](docs/models/SmartTransferSetUserGroupsDto.md)
- - [SmartTransferSubmitTicketDto](docs/models/SmartTransferSubmitTicketDto.md)
- - [SmartTransferTicketDto](docs/models/SmartTransferTicketDto.md)
- - [SmartTransferTicketFilteredResponseDto](docs/models/SmartTransferTicketFilteredResponseDto.md)
- - [SmartTransferTicketResponseDto](docs/models/SmartTransferTicketResponseDto.md)
- - [SmartTransferTicketResponseDtoData](docs/models/SmartTransferTicketResponseDtoData.md)
- - [SmartTransferTicketTermDto](docs/models/SmartTransferTicketTermDto.md)
- - [SmartTransferTicketTermResponseDto](docs/models/SmartTransferTicketTermResponseDto.md)
- - [SmartTransferTicketTermResponseDtoData](docs/models/SmartTransferTicketTermResponseDtoData.md)
- - [SmartTransferUpdateTicketTermDto](docs/models/SmartTransferUpdateTicketTermDto.md)
- - [SmartTransferUserGroupsDto](docs/models/SmartTransferUserGroupsDto.md)
- - [SmartTransferUserGroupsResponseDto](docs/models/SmartTransferUserGroupsResponseDto.md)
- - [SmartTransferUserGroupsResponseDtoData](docs/models/SmartTransferUserGroupsResponseDtoData.md)
+ - [SmartTransferSetTicketExpiration](docs/models/SmartTransferSetTicketExpiration.md)
+ - [SmartTransferSetTicketExternalId](docs/models/SmartTransferSetTicketExternalId.md)
+ - [SmartTransferSetUserGroups](docs/models/SmartTransferSetUserGroups.md)
+ - [SmartTransferSubmitTicket](docs/models/SmartTransferSubmitTicket.md)
+ - [SmartTransferTicket](docs/models/SmartTransferTicket.md)
+ - [SmartTransferTicketFilteredResponse](docs/models/SmartTransferTicketFilteredResponse.md)
+ - [SmartTransferTicketResponse](docs/models/SmartTransferTicketResponse.md)
+ - [SmartTransferTicketTerm](docs/models/SmartTransferTicketTerm.md)
+ - [SmartTransferTicketTermResponse](docs/models/SmartTransferTicketTermResponse.md)
+ - [SmartTransferUpdateTicketTerm](docs/models/SmartTransferUpdateTicketTerm.md)
+ - [SmartTransferUserGroups](docs/models/SmartTransferUserGroups.md)
+ - [SmartTransferUserGroupsResponse](docs/models/SmartTransferUserGroupsResponse.md)
  - [SolanaBlockchainDataDto](docs/models/SolanaBlockchainDataDto.md)
  - [SourceTransferPeerPathResponse](docs/models/SourceTransferPeerPathResponse.md)
  - [SpamOwnershipResponse](docs/models/SpamOwnershipResponse.md)
@@ -537,6 +538,7 @@ Class | Method | HTTP request | Description
  - [StakeResponseDto](docs/models/StakeResponseDto.md)
  - [SystemMessageInfo](docs/models/SystemMessageInfo.md)
  - [Task](docs/models/Task.md)
+ - [ThirdPartyRouting](docs/models/ThirdPartyRouting.md)
  - [ToCollateralTransaction](docs/models/ToCollateralTransaction.md)
  - [ToExchangeTransaction](docs/models/ToExchangeTransaction.md)
  - [TokenCollectionResponse](docs/models/TokenCollectionResponse.md)
@@ -561,17 +563,15 @@ Class | Method | HTTP request | Description
  - [TransactionResponseContractCallDecodedData](docs/models/TransactionResponseContractCallDecodedData.md)
  - [TransactionResponseDestination](docs/models/TransactionResponseDestination.md)
  - [TransferPeerPath](docs/models/TransferPeerPath.md)
+ - [TransferPeerPathType](docs/models/TransferPeerPathType.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
- - [TravelRuleConfigurationsRequest](docs/models/TravelRuleConfigurationsRequest.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)
  - [TravelRuleGetAllVASPsResponse](docs/models/TravelRuleGetAllVASPsResponse.md)
  - [TravelRuleIssuer](docs/models/TravelRuleIssuer.md)
  - [TravelRuleIssuers](docs/models/TravelRuleIssuers.md)
  - [TravelRuleOwnershipProof](docs/models/TravelRuleOwnershipProof.md)
  - [TravelRulePiiIVMS](docs/models/TravelRulePiiIVMS.md)
- - [TravelRulePolicyResponse](docs/models/TravelRulePolicyResponse.md)
  - [TravelRulePolicyRuleResponse](docs/models/TravelRulePolicyRuleResponse.md)
- - [TravelRuleProviderRulesConfigurationResponse](docs/models/TravelRuleProviderRulesConfigurationResponse.md)
  - [TravelRuleTransactionBlockchainInfo](docs/models/TravelRuleTransactionBlockchainInfo.md)
  - [TravelRuleUpdateVASPDetails](docs/models/TravelRuleUpdateVASPDetails.md)
  - [TravelRuleVASP](docs/models/TravelRuleVASP.md)
@@ -583,7 +583,6 @@ Class | Method | HTTP request | Description
  - [UnspentInput](docs/models/UnspentInput.md)
  - [UnspentInputsResponse](docs/models/UnspentInputsResponse.md)
  - [UnstakeRequestDto](docs/models/UnstakeRequestDto.md)
- - [UpdateDraftRequest](docs/models/UpdateDraftRequest.md)
  - [UpdateTokenOwnershipStatusDto](docs/models/UpdateTokenOwnershipStatusDto.md)
  - [UpdateVaultAccountAssetAddressRequest](docs/models/UpdateVaultAccountAssetAddressRequest.md)
  - [UpdateVaultAccountRequest](docs/models/UpdateVaultAccountRequest.md)

@@ -25,18 +25,18 @@ export interface TravelRuleTransactionBlockchainInfo {
      * @type {string}
      * @memberof TravelRuleTransactionBlockchainInfo
      */
-    'txHash': string;
+    'txHash'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRuleTransactionBlockchainInfo
      */
-    'origin': string;
+    'origin'?: string;
     /**
      * 
      * @type {string}
      * @memberof TravelRuleTransactionBlockchainInfo
      */
-    'destination': string;
+    'destination'?: string;
 }
 

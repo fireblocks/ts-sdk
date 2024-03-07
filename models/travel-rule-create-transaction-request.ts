@@ -30,18 +30,6 @@ import { TravelRuleTransactionBlockchainInfo } from './travel-rule-transaction-b
  */
 export interface TravelRuleCreateTransactionRequest {
     /**
-     * The VASP ID of the transaction originator
-     * @type {string}
-     * @memberof TravelRuleCreateTransactionRequest
-     */
-    'originatorVASPdid': string;
-    /**
-     * The VASP ID of the transaction beneficiary
-     * @type {string}
-     * @memberof TravelRuleCreateTransactionRequest
-     */
-    'beneficiaryVASPdid': string;
-    /**
      * 
      * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleCreateTransactionRequest
@@ -53,6 +41,18 @@ export interface TravelRuleCreateTransactionRequest {
      * @memberof TravelRuleCreateTransactionRequest
      */
     'beneficiary': TravelRulePiiIVMS;
+    /**
+     * The VASP ID of the transaction originator
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'originatorVASPdid'?: string;
+    /**
+     * The VASP ID of the transaction beneficiary
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'beneficiaryVASPdid'?: string;
     /**
      * The name of the VASP acting as the beneficiary
      * @type {string}

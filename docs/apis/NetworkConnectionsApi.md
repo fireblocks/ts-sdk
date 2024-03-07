@@ -13,14 +13,14 @@ Method | HTTP request | Description
 [**getNetworkConnections**](#getNetworkConnections) | **GET** /network_connections | List network connections
 [**getNetworkId**](#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID.
 [**getNetworkIds**](#getNetworkIds) | **GET** /network_ids | Returns all network IDs, both local IDs and discoverable remote IDs
-[**setDiscoverabilityForNetworkId**](#setDiscoverabilityForNetworkId) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
+[**setNetworkIdDiscoverability**](#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
 [**setNetworkIdName**](#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID\&#39;s name.
+[**setNetworkIdRoutingPolicy**](#setNetworkIdRoutingPolicy) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy.
 [**setRoutingPolicy**](#setRoutingPolicy) | **PATCH** /network_connections/{connectionId}/set_routing_policy | Update network connection routing policy.
-[**setRoutingPolicyForNetworkId**](#setRoutingPolicyForNetworkId) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy.
 
 
 # **checkThirdPartyRouting**
-> CheckThirdPartyRouting200Response checkThirdPartyRouting()
+> ThirdPartyRouting checkThirdPartyRouting()
 
 The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
 
@@ -29,11 +29,11 @@ The Fireblocks Network allows for flexibility around incoming deposits. A receiv
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NetworkConnectionsApiCheckThirdPartyRoutingRequest, CheckThirdPartyRouting200Response } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NetworkConnectionsApiCheckThirdPartyRoutingRequest, ThirdPartyRouting } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -46,7 +46,7 @@ let body: NetworkConnectionsApiCheckThirdPartyRoutingRequest = {
   assetType: assetType_example,
 };
 
-fireblocks.networkConnections.checkThirdPartyRouting(body).then((res: FireblocksResponse<CheckThirdPartyRouting200Response>) => {
+fireblocks.networkConnections.checkThirdPartyRouting(body).then((res: FireblocksResponse<ThirdPartyRouting>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[CheckThirdPartyRouting200Response](../models/CheckThirdPartyRouting200Response.md)**
+**[ThirdPartyRouting](../models/ThirdPartyRouting.md)**
 
 ### Authorization
 
@@ -71,7 +71,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -92,11 +92,11 @@ Initiates a new network connection.  **Note:** This API call is subject to Flexi
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiCreateNetworkConnectionRequest, NetworkConnectionResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -134,7 +134,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -155,11 +155,11 @@ Creates a new Network ID.  **Note:** This API call is subject to Flexible Routin
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiCreateNetworkIdRequest, NetworkIdResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -197,7 +197,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -218,11 +218,11 @@ Deletes an existing network connection specified by its connection ID.  **Note:*
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiDeleteNetworkConnectionRequest, SetRoutingPolicy200Response } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -257,7 +257,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -278,11 +278,11 @@ Deletes a network by its ID.  **Note:** This API call is subject to Flexible Rou
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiDeleteNetworkIdRequest, SetRoutingPolicy200Response } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -317,7 +317,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -338,11 +338,11 @@ Gets a network connection by ID.  **Note:** This API call is subject to Flexible
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiGetNetworkRequest, NetworkConnectionResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -377,7 +377,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -398,11 +398,11 @@ Returns all network connections.  **Note:** This API call is subject to Flexible
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -431,7 +431,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -452,11 +452,11 @@ Retrieves a network by its ID.  **Note:** This API call is subject to Flexible R
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiGetNetworkIdRequest, NetworkIdResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -491,7 +491,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -512,11 +512,11 @@ Retrieves a list of all local and discoverable remote network IDs.  **Note:** Th
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -545,7 +545,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -556,8 +556,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **setDiscoverabilityForNetworkId**
-> SetRoutingPolicy200Response setDiscoverabilityForNetworkId(setDiscoverabilityForNetworkIdRequest, )
+# **setNetworkIdDiscoverability**
+> SetNetworkIdResponse setNetworkIdDiscoverability(setNetworkIdDiscoverabilityRequest, )
 
 Update whether or not the network ID is discoverable by others.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
 
@@ -566,24 +566,24 @@ Update whether or not the network ID is discoverable by others.  **Note:** This 
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest, SetRoutingPolicy200Response } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NetworkConnectionsApiSetNetworkIdDiscoverabilityRequest, SetNetworkIdResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: NetworkConnectionsApiSetDiscoverabilityForNetworkIdRequest = {
-  // SetDiscoverabilityForNetworkIdRequest
-  setDiscoverabilityForNetworkIdRequest: param_value,
+let body: NetworkConnectionsApiSetNetworkIdDiscoverabilityRequest = {
+  // SetNetworkIdDiscoverabilityRequest
+  setNetworkIdDiscoverabilityRequest: param_value,
   // string | The ID of the network
   networkId: networkId_example,
 };
 
-fireblocks.networkConnections.setDiscoverabilityForNetworkId(body).then((res: FireblocksResponse<SetRoutingPolicy200Response>) => {
+fireblocks.networkConnections.setNetworkIdDiscoverability(body).then((res: FireblocksResponse<SetNetworkIdResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -593,13 +593,13 @@ fireblocks.networkConnections.setDiscoverabilityForNetworkId(body).then((res: Fi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setDiscoverabilityForNetworkIdRequest** | **[SetDiscoverabilityForNetworkIdRequest](../models/SetDiscoverabilityForNetworkIdRequest.md)**|  |
+ **setNetworkIdDiscoverabilityRequest** | **[SetNetworkIdDiscoverabilityRequest](../models/SetNetworkIdDiscoverabilityRequest.md)**|  |
  **networkId** | [**string**] | The ID of the network | defaults to undefined
 
 
 ### Return type
 
-**[SetRoutingPolicy200Response](../models/SetRoutingPolicy200Response.md)**
+**[SetNetworkIdResponse](../models/SetNetworkIdResponse.md)**
 
 ### Authorization
 
@@ -608,7 +608,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -620,7 +620,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setNetworkIdName**
-> SetRoutingPolicy200Response setNetworkIdName(setNetworkIdNameRequest, )
+> SetNetworkIdResponse setNetworkIdName(setNetworkIdNameRequest, )
 
 Updates name of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
 
@@ -629,11 +629,11 @@ Updates name of a specified network ID.  **Note:** This API call is subject to F
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NetworkConnectionsApiSetNetworkIdNameRequest, SetRoutingPolicy200Response } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NetworkConnectionsApiSetNetworkIdNameRequest, SetNetworkIdResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -646,7 +646,7 @@ let body: NetworkConnectionsApiSetNetworkIdNameRequest = {
   networkId: networkId_example,
 };
 
-fireblocks.networkConnections.setNetworkIdName(body).then((res: FireblocksResponse<SetRoutingPolicy200Response>) => {
+fireblocks.networkConnections.setNetworkIdName(body).then((res: FireblocksResponse<SetNetworkIdResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -662,7 +662,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[SetRoutingPolicy200Response](../models/SetRoutingPolicy200Response.md)**
+**[SetNetworkIdResponse](../models/SetNetworkIdResponse.md)**
 
 ### Authorization
 
@@ -671,7 +671,70 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Network ID |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **setNetworkIdRoutingPolicy**
+> SetNetworkIdResponse setNetworkIdRoutingPolicy()
+
+Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NetworkConnectionsApiSetNetworkIdRoutingPolicyRequest, SetNetworkIdResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: NetworkConnectionsApiSetNetworkIdRoutingPolicyRequest = {
+  // string | The ID of the network
+  networkId: networkId_example,
+  // SetNetworkIdRoutingPolicyRequest (optional)
+  setNetworkIdRoutingPolicyRequest: param_value,
+};
+
+fireblocks.networkConnections.setNetworkIdRoutingPolicy(body).then((res: FireblocksResponse<SetNetworkIdResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **setNetworkIdRoutingPolicyRequest** | **[SetNetworkIdRoutingPolicyRequest](../models/SetNetworkIdRoutingPolicyRequest.md)**|  |
+ **networkId** | [**string**] | The ID of the network | defaults to undefined
+
+
+### Return type
+
+**[SetNetworkIdResponse](../models/SetNetworkIdResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -692,11 +755,11 @@ Updates an existing network connection\'s routing policy.  **Note:** This API ca
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
 import type { FireblocksResponse, NetworkConnectionsApiSetRoutingPolicyRequest, SetRoutingPolicy200Response } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
@@ -734,70 +797,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Network ID |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **setRoutingPolicyForNetworkId**
-> SetRoutingPolicy200Response setRoutingPolicyForNetworkId()
-
-Updates the routing policy of a specified network ID.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest, SetRoutingPolicy200Response } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: NetworkConnectionsApiSetRoutingPolicyForNetworkIdRequest = {
-  // string | The ID of the network
-  networkId: networkId_example,
-  // SetRoutingPolicyForNetworkIdRequest (optional)
-  setRoutingPolicyForNetworkIdRequest: param_value,
-};
-
-fireblocks.networkConnections.setRoutingPolicyForNetworkId(body).then((res: FireblocksResponse<SetRoutingPolicy200Response>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **setRoutingPolicyForNetworkIdRequest** | **[SetRoutingPolicyForNetworkIdRequest](../models/SetRoutingPolicyForNetworkIdRequest.md)**|  |
- **networkId** | [**string**] | The ID of the network | defaults to undefined
-
-
-### Return type
-
-**[SetRoutingPolicy200Response](../models/SetRoutingPolicy200Response.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

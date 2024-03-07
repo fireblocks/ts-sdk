@@ -30,36 +30,6 @@ import { TravelRuleTransactionBlockchainInfo } from './travel-rule-transaction-b
  */
 export interface TravelRuleValidateFullTransactionRequest {
     /**
-     * The asset involved in the transaction
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'transactionAsset': string;
-    /**
-     * The amount of the transaction
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'transactionAmount': string;
-    /**
-     * The VASP ID of the transaction originator
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originatorVASPdid': string;
-    /**
-     * The VASP ID of the transaction beneficiary
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryVASPdid': string;
-    /**
-     * 
-     * @type {TravelRuleTransactionBlockchainInfo}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'transactionBlockchainInfo': TravelRuleTransactionBlockchainInfo;
-    /**
      * 
      * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleValidateFullTransactionRequest
@@ -71,6 +41,18 @@ export interface TravelRuleValidateFullTransactionRequest {
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'beneficiary': TravelRulePiiIVMS;
+    /**
+     * The asset involved in the transaction
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'transactionAsset'?: string;
+    /**
+     * The amount of the transaction
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'transactionAmount'?: string;
     /**
      * The DID of the transaction originator
      * @type {string}
@@ -84,11 +66,29 @@ export interface TravelRuleValidateFullTransactionRequest {
      */
     'beneficiaryDid'?: string;
     /**
+     * The VASP ID of the transaction originator
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'originatorVASPdid'?: string;
+    /**
+     * The VASP ID of the transaction beneficiary
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'beneficiaryVASPdid'?: string;
+    /**
      * The name of the VASP acting as the beneficiary
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'beneficiaryVASPname'?: string;
+    /**
+     * 
+     * @type {TravelRuleTransactionBlockchainInfo}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'transactionBlockchainInfo'?: TravelRuleTransactionBlockchainInfo;
     /**
      * Encrypted data related to the transaction
      * @type {string}

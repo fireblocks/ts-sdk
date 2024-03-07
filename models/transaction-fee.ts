@@ -28,10 +28,10 @@ export interface TransactionFee {
     'feePerByte'?: string;
     /**
      * 
-     * @type {string}
+     * @type {number}
      * @memberof TransactionFee
      */
-    'gasPrice'?: string;
+    'gasPrice'?: number;
     /**
      * 
      * @type {string}
@@ -46,15 +46,15 @@ export interface TransactionFee {
     'networkFee'?: string;
     /**
      * (optional) Base Fee according to EIP-1559 (ETH assets)
-     * @type {string}
+     * @type {number}
      * @memberof TransactionFee
      */
-    'baseFee'?: string;
+    'baseFee'?: number;
     /**
      * (optional) Priority Fee according to EIP-1559 (ETH assets)
-     * @type {string}
+     * @type {number}
      * @memberof TransactionFee
      */
-    'priorityFee'?: string;
+    'priorityFee'?: number;
 }
 

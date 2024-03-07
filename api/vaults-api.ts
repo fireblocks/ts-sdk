@@ -26,13 +26,13 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { CreateAddressRequest } from '../models';
+// @ts-ignore
 import { CreateAddressResponse } from '../models';
 // @ts-ignore
+import { CreateAssetsRequest } from '../models';
+// @ts-ignore
 import { CreateMultipleAccountsRequest } from '../models';
-// @ts-ignore
-import { CreateVaultAccountAssetAddressRequest } from '../models';
-// @ts-ignore
-import { CreateVaultAccountAssetRequest } from '../models';
 // @ts-ignore
 import { CreateVaultAccountRequest } from '../models';
 // @ts-ignore
@@ -48,9 +48,11 @@ import { PaginatedAssetWalletResponse } from '../models';
 // @ts-ignore
 import { PublicKeyInformation } from '../models';
 // @ts-ignore
-import { SetAutoFuelForVaultAccountRequest } from '../models';
+import { SetAutoFuelRequest } from '../models';
 // @ts-ignore
-import { SetCustomerRefIdForVaultAccountRequest } from '../models';
+import { SetCustomerRefIdForAddressRequest } from '../models';
+// @ts-ignore
+import { SetCustomerRefIdRequest } from '../models';
 // @ts-ignore
 import { UnspentInputsResponse } from '../models';
 // @ts-ignore
@@ -248,12 +250,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Create a new wallet
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
-         * @param {CreateVaultAccountAssetRequest} [createVaultAccountAssetRequest] 
+         * @param {CreateAssetsRequest} [createAssetsRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createVaultAccountAsset', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -283,7 +285,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createVaultAccountAssetRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createAssetsRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -295,12 +297,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Create new asset deposit address
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
-         * @param {CreateVaultAccountAssetAddressRequest} [createVaultAccountAssetAddressRequest] 
+         * @param {CreateAddressRequest} [createAddressRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createAddressRequest?: CreateAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('createVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -330,7 +332,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createVaultAccountAssetAddressRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createAddressRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -975,54 +977,9 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Sets the autofueling property of the vault account to enabled or disabled.
-         * @summary Turn autofueling on or off
-         * @param {SetAutoFuelForVaultAccountRequest} setAutoFuelForVaultAccountRequest 
-         * @param {string} vaultAccountId The vault account ID
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setAutoFuelForVaultAccount: async (setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setAutoFuelForVaultAccountRequest' is not null or undefined
-            assertParamExists('setAutoFuelForVaultAccount', 'setAutoFuelForVaultAccountRequest', setAutoFuelForVaultAccountRequest)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setAutoFuelForVaultAccount', 'vaultAccountId', vaultAccountId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/set_auto_fuel`
-                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setAutoFuelForVaultAccountRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Sets an AML/KYT customer reference ID for a specific address.
          * @summary Assign AML customer reference ID
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdForAddressRequest} setCustomerRefIdForAddressRequest 
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
@@ -1030,9 +987,9 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForAddress: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
-            assertParamExists('setCustomerRefIdForAddress', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
+        setCustomerRefIdForAddress: async (setCustomerRefIdForAddressRequest: SetCustomerRefIdForAddressRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'setCustomerRefIdForAddressRequest' is not null or undefined
+            assertParamExists('setCustomerRefIdForAddress', 'setCustomerRefIdForAddressRequest', setCustomerRefIdForAddressRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('setCustomerRefIdForAddress', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -1065,7 +1022,52 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForVaultAccountRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForAddressRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Sets the autofueling property of the vault account to enabled or disabled.
+         * @summary Turn autofueling on or off
+         * @param {SetAutoFuelRequest} setAutoFuelRequest 
+         * @param {string} vaultAccountId The vault account ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setVaultAccountAutoFuel: async (setAutoFuelRequest: SetAutoFuelRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'setAutoFuelRequest' is not null or undefined
+            assertParamExists('setVaultAccountAutoFuel', 'setAutoFuelRequest', setAutoFuelRequest)
+            // verify required parameter 'vaultAccountId' is not null or undefined
+            assertParamExists('setVaultAccountAutoFuel', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/set_auto_fuel`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setAutoFuelRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1075,17 +1077,17 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Assigns an AML/KYT customer reference ID for the vault account.
          * @summary Set an AML/KYT customer reference ID for a vault account
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} vaultAccountId The vault account ID
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForVaultAccount: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccount', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
+        setVaultAccountCustomerRefId: async (setCustomerRefIdRequest: SetCustomerRefIdRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'setCustomerRefIdRequest' is not null or undefined
+            assertParamExists('setVaultAccountCustomerRefId', 'setCustomerRefIdRequest', setCustomerRefIdRequest)
             // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setCustomerRefIdForVaultAccount', 'vaultAccountId', vaultAccountId)
+            assertParamExists('setVaultAccountCustomerRefId', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/set_customer_ref_id`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1110,7 +1112,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForVaultAccountRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1257,12 +1259,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Refresh asset balance data
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
-         * @param {object} [body] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, body?: object, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'vaultAccountId' is not null or undefined
             assertParamExists('updateVaultAccountAssetBalance', 'vaultAccountId', vaultAccountId)
             // verify required parameter 'assetId' is not null or undefined
@@ -1287,12 +1288,9 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1373,13 +1371,13 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @summary Create a new wallet
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
-         * @param {CreateVaultAccountAssetRequest} [createVaultAccountAssetRequest] 
+         * @param {CreateAssetsRequest} [createAssetsRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createVaultAccountAssetRequest, idempotencyKey, options);
+        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.createVaultAccountAsset']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1389,13 +1387,13 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @summary Create new asset deposit address
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
-         * @param {CreateVaultAccountAssetAddressRequest} [createVaultAccountAssetAddressRequest] 
+         * @param {CreateAddressRequest} [createAddressRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createVaultAccountAssetAddressRequest, idempotencyKey, options);
+        async createVaultAccountAssetAddress(vaultAccountId: string, assetId: string, createAddressRequest?: CreateAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAssetAddress(vaultAccountId, assetId, createAddressRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.createVaultAccountAssetAddress']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1615,24 +1613,9 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Sets the autofueling property of the vault account to enabled or disabled.
-         * @summary Turn autofueling on or off
-         * @param {SetAutoFuelForVaultAccountRequest} setAutoFuelForVaultAccountRequest 
-         * @param {string} vaultAccountId The vault account ID
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, vaultAccountId, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.setAutoFuelForVaultAccount']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Sets an AML/KYT customer reference ID for a specific address.
          * @summary Assign AML customer reference ID
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdForAddressRequest} setCustomerRefIdForAddressRequest 
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {string} addressId The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address
@@ -1640,25 +1623,40 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForAddress(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForAddress(setCustomerRefIdForVaultAccountRequest, vaultAccountId, assetId, addressId, idempotencyKey, options);
+        async setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest: SetCustomerRefIdForAddressRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, vaultAccountId, assetId, addressId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.setCustomerRefIdForAddress']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Assigns an AML/KYT customer reference ID for the vault account.
-         * @summary Set an AML/KYT customer reference ID for a vault account
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * Sets the autofueling property of the vault account to enabled or disabled.
+         * @summary Turn autofueling on or off
+         * @param {SetAutoFuelRequest} setAutoFuelRequest 
          * @param {string} vaultAccountId The vault account ID
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, vaultAccountId, idempotencyKey, options);
+        async setVaultAccountAutoFuel(setAutoFuelRequest: SetAutoFuelRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.setCustomerRefIdForVaultAccount']?.[index]?.url;
+            const operationBasePath = operationServerMap['VaultsApi.setVaultAccountAutoFuel']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Assigns an AML/KYT customer reference ID for the vault account.
+         * @summary Set an AML/KYT customer reference ID for a vault account
+         * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
+         * @param {string} vaultAccountId The vault account ID
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setVaultAccountCustomerRefId(setCustomerRefIdRequest: SetCustomerRefIdRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setVaultAccountCustomerRefId(setCustomerRefIdRequest, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.setVaultAccountCustomerRefId']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1712,13 +1710,12 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @summary Refresh asset balance data
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
-         * @param {object} [body] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, body?: object, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, body, idempotencyKey, options);
+        async updateVaultAccountAssetBalance(vaultAccountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAsset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetBalance(vaultAccountId, assetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.updateVaultAccountAssetBalance']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1781,7 +1778,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateVaultAssetResponse> {
-            return localVarFp.createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new deposit address for an asset of a vault account.
@@ -1791,7 +1788,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateAddressResponse> {
-            return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
@@ -1934,16 +1931,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Sets the autofueling property of the vault account to enabled or disabled.
-         * @summary Turn autofueling on or off
-         * @param {VaultsApiSetAutoFuelForVaultAccountRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Sets an AML/KYT customer reference ID for a specific address.
          * @summary Assign AML customer reference ID
          * @param {VaultsApiSetCustomerRefIdForAddressRequest} requestParameters Request parameters.
@@ -1951,17 +1938,27 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         setCustomerRefIdForAddress(requestParameters: VaultsApiSetCustomerRefIdForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForAddressRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sets the autofueling property of the vault account to enabled or disabled.
+         * @summary Turn autofueling on or off
+         * @param {VaultsApiSetVaultAccountAutoFuelRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setVaultAccountAutoFuel(requestParameters: VaultsApiSetVaultAccountAutoFuelRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setVaultAccountAutoFuel(requestParameters.setAutoFuelRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Assigns an AML/KYT customer reference ID for the vault account.
          * @summary Set an AML/KYT customer reference ID for a vault account
-         * @param {VaultsApiSetCustomerRefIdForVaultAccountRequest} requestParameters Request parameters.
+         * @param {VaultsApiSetVaultAccountCustomerRefIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        setVaultAccountCustomerRefId(requestParameters: VaultsApiSetVaultAccountCustomerRefIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setVaultAccountCustomerRefId(requestParameters.setCustomerRefIdRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Makes a hidden vault account visible in web console view.
@@ -2001,7 +1998,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAsset> {
-            return localVarFp.updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -2133,10 +2130,10 @@ export interface VaultsApiCreateVaultAccountAssetRequest {
 
     /**
      * 
-     * @type {CreateVaultAccountAssetRequest}
+     * @type {CreateAssetsRequest}
      * @memberof VaultsApiCreateVaultAccountAsset
      */
-    readonly createVaultAccountAssetRequest?: CreateVaultAccountAssetRequest
+    readonly createAssetsRequest?: CreateAssetsRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -2168,10 +2165,10 @@ export interface VaultsApiCreateVaultAccountAssetAddressRequest {
 
     /**
      * 
-     * @type {CreateVaultAccountAssetAddressRequest}
+     * @type {CreateAddressRequest}
      * @memberof VaultsApiCreateVaultAccountAssetAddress
      */
-    readonly createVaultAccountAssetAddressRequest?: CreateVaultAccountAssetAddressRequest
+    readonly createAddressRequest?: CreateAddressRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -2602,34 +2599,6 @@ export interface VaultsApiHideVaultAccountRequest {
 }
 
 /**
- * Request parameters for setAutoFuelForVaultAccount operation in VaultsApi.
- * @export
- * @interface VaultsApiSetAutoFuelForVaultAccountRequest
- */
-export interface VaultsApiSetAutoFuelForVaultAccountRequest {
-    /**
-     * 
-     * @type {SetAutoFuelForVaultAccountRequest}
-     * @memberof VaultsApiSetAutoFuelForVaultAccount
-     */
-    readonly setAutoFuelForVaultAccountRequest: SetAutoFuelForVaultAccountRequest
-
-    /**
-     * The vault account ID
-     * @type {string}
-     * @memberof VaultsApiSetAutoFuelForVaultAccount
-     */
-    readonly vaultAccountId: string
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof VaultsApiSetAutoFuelForVaultAccount
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
  * Request parameters for setCustomerRefIdForAddress operation in VaultsApi.
  * @export
  * @interface VaultsApiSetCustomerRefIdForAddressRequest
@@ -2637,10 +2606,10 @@ export interface VaultsApiSetAutoFuelForVaultAccountRequest {
 export interface VaultsApiSetCustomerRefIdForAddressRequest {
     /**
      * 
-     * @type {SetCustomerRefIdForVaultAccountRequest}
+     * @type {SetCustomerRefIdForAddressRequest}
      * @memberof VaultsApiSetCustomerRefIdForAddress
      */
-    readonly setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest
+    readonly setCustomerRefIdForAddressRequest: SetCustomerRefIdForAddressRequest
 
     /**
      * The ID of the vault account
@@ -2672,29 +2641,57 @@ export interface VaultsApiSetCustomerRefIdForAddressRequest {
 }
 
 /**
- * Request parameters for setCustomerRefIdForVaultAccount operation in VaultsApi.
+ * Request parameters for setVaultAccountAutoFuel operation in VaultsApi.
  * @export
- * @interface VaultsApiSetCustomerRefIdForVaultAccountRequest
+ * @interface VaultsApiSetVaultAccountAutoFuelRequest
  */
-export interface VaultsApiSetCustomerRefIdForVaultAccountRequest {
+export interface VaultsApiSetVaultAccountAutoFuelRequest {
     /**
      * 
-     * @type {SetCustomerRefIdForVaultAccountRequest}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccount
+     * @type {SetAutoFuelRequest}
+     * @memberof VaultsApiSetVaultAccountAutoFuel
      */
-    readonly setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest
+    readonly setAutoFuelRequest: SetAutoFuelRequest
 
     /**
      * The vault account ID
      * @type {string}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccount
+     * @memberof VaultsApiSetVaultAccountAutoFuel
      */
     readonly vaultAccountId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof VaultsApiSetCustomerRefIdForVaultAccount
+     * @memberof VaultsApiSetVaultAccountAutoFuel
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setVaultAccountCustomerRefId operation in VaultsApi.
+ * @export
+ * @interface VaultsApiSetVaultAccountCustomerRefIdRequest
+ */
+export interface VaultsApiSetVaultAccountCustomerRefIdRequest {
+    /**
+     * 
+     * @type {SetCustomerRefIdRequest}
+     * @memberof VaultsApiSetVaultAccountCustomerRefId
+     */
+    readonly setCustomerRefIdRequest: SetCustomerRefIdRequest
+
+    /**
+     * The vault account ID
+     * @type {string}
+     * @memberof VaultsApiSetVaultAccountCustomerRefId
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiSetVaultAccountCustomerRefId
      */
     readonly idempotencyKey?: string
 }
@@ -2811,13 +2808,6 @@ export interface VaultsApiUpdateVaultAccountAssetBalanceRequest {
     readonly assetId: string
 
     /**
-     * 
-     * @type {object}
-     * @memberof VaultsApiUpdateVaultAccountAssetBalance
-     */
-    readonly body?: object
-
-    /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof VaultsApiUpdateVaultAccountAssetBalance
@@ -2889,7 +2879,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest) {
-        return VaultsApiFp(this.configuration).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2901,7 +2891,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public createVaultAccountAssetAddress(requestParameters: VaultsApiCreateVaultAccountAssetAddressRequest) {
-        return VaultsApiFp(this.configuration).createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createVaultAccountAssetAddressRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3073,18 +3063,6 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Sets the autofueling property of the vault account to enabled or disabled.
-     * @summary Turn autofueling on or off
-     * @param {VaultsApiSetAutoFuelForVaultAccountRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public setAutoFuelForVaultAccount(requestParameters: VaultsApiSetAutoFuelForVaultAccountRequest) {
-        return VaultsApiFp(this.configuration).setAutoFuelForVaultAccount(requestParameters.setAutoFuelForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
      * Sets an AML/KYT customer reference ID for a specific address.
      * @summary Assign AML customer reference ID
      * @param {VaultsApiSetCustomerRefIdForAddressRequest} requestParameters Request parameters.
@@ -3093,19 +3071,31 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public setCustomerRefIdForAddress(requestParameters: VaultsApiSetCustomerRefIdForAddressRequest) {
-        return VaultsApiFp(this.configuration).setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForAddressRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Sets the autofueling property of the vault account to enabled or disabled.
+     * @summary Turn autofueling on or off
+     * @param {VaultsApiSetVaultAccountAutoFuelRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public setVaultAccountAutoFuel(requestParameters: VaultsApiSetVaultAccountAutoFuelRequest) {
+        return VaultsApiFp(this.configuration).setVaultAccountAutoFuel(requestParameters.setAutoFuelRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Assigns an AML/KYT customer reference ID for the vault account.
      * @summary Set an AML/KYT customer reference ID for a vault account
-     * @param {VaultsApiSetCustomerRefIdForVaultAccountRequest} requestParameters Request parameters.
+     * @param {VaultsApiSetVaultAccountCustomerRefIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public setCustomerRefIdForVaultAccount(requestParameters: VaultsApiSetCustomerRefIdForVaultAccountRequest) {
-        return VaultsApiFp(this.configuration).setCustomerRefIdForVaultAccount(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public setVaultAccountCustomerRefId(requestParameters: VaultsApiSetVaultAccountCustomerRefIdRequest) {
+        return VaultsApiFp(this.configuration).setVaultAccountCustomerRefId(requestParameters.setCustomerRefIdRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3153,7 +3143,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public updateVaultAccountAssetBalance(requestParameters: VaultsApiUpdateVaultAccountAssetBalanceRequest) {
-        return VaultsApiFp(this.configuration).updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.body, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).updateVaultAccountAssetBalance(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

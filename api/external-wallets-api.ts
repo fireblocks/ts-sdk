@@ -28,13 +28,13 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { AddAssetToExternalWalletRequest } from '../models';
 // @ts-ignore
-import { CreateInternalWalletRequest } from '../models';
+import { CreateWalletRequest } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ExternalWalletAsset } from '../models';
 // @ts-ignore
-import { SetCustomerRefIdForVaultAccountRequest } from '../models';
+import { SetCustomerRefIdRequest } from '../models';
 // @ts-ignore
 import { UnmanagedWallet } from '../models';
 /**
@@ -93,12 +93,12 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Creates a new external wallet with the requested name.
          * @summary Create an external wallet
-         * @param {CreateInternalWalletRequest} [createInternalWalletRequest] 
+         * @param {CreateWalletRequest} [createWalletRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createExternalWallet: async (createInternalWalletRequest?: CreateInternalWalletRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createExternalWallet: async (createWalletRequest?: CreateWalletRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/external_wallets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -122,7 +122,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createInternalWalletRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createWalletRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -306,17 +306,17 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Sets an AML/KYT customer reference ID for the specific external wallet.
          * @summary Set an AML customer reference ID for an external wallet
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} walletId The wallet ID
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForExternalWallet: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
-            assertParamExists('setCustomerRefIdForExternalWallet', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
+        setExternalWalletCustomerRefId: async (setCustomerRefIdRequest: SetCustomerRefIdRequest, walletId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'setCustomerRefIdRequest' is not null or undefined
+            assertParamExists('setExternalWalletCustomerRefId', 'setCustomerRefIdRequest', setCustomerRefIdRequest)
             // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('setCustomerRefIdForExternalWallet', 'walletId', walletId)
+            assertParamExists('setExternalWalletCustomerRefId', 'walletId', walletId)
             const localVarPath = `/external_wallets/{walletId}/set_customer_ref_id`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -341,7 +341,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForVaultAccountRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -377,13 +377,13 @@ export const ExternalWalletsApiFp = function(configuration?: Configuration) {
         /**
          * Creates a new external wallet with the requested name.
          * @summary Create an external wallet
-         * @param {CreateInternalWalletRequest} [createInternalWalletRequest] 
+         * @param {CreateWalletRequest} [createWalletRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createExternalWallet(createInternalWalletRequest?: CreateInternalWalletRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createExternalWallet(createInternalWalletRequest, idempotencyKey, options);
+        async createExternalWallet(createWalletRequest?: CreateWalletRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createExternalWallet(createWalletRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ExternalWalletsApi.createExternalWallet']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -457,16 +457,16 @@ export const ExternalWalletsApiFp = function(configuration?: Configuration) {
         /**
          * Sets an AML/KYT customer reference ID for the specific external wallet.
          * @summary Set an AML customer reference ID for an external wallet
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} walletId The wallet ID
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest, walletId, idempotencyKey, options);
+        async setExternalWalletCustomerRefId(setCustomerRefIdRequest: SetCustomerRefIdRequest, walletId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setExternalWalletCustomerRefId(setCustomerRefIdRequest, walletId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ExternalWalletsApi.setCustomerRefIdForExternalWallet']?.[index]?.url;
+            const operationBasePath = operationServerMap['ExternalWalletsApi.setExternalWalletCustomerRefId']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -497,7 +497,7 @@ export const ExternalWalletsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         createExternalWallet(requestParameters: ExternalWalletsApiCreateExternalWalletRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<UnmanagedWallet> {
-            return localVarFp.createExternalWallet(requestParameters.createInternalWalletRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.createExternalWallet(requestParameters.createWalletRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Deletes an external wallet by ID.
@@ -551,12 +551,12 @@ export const ExternalWalletsApiFactory = function (configuration?: Configuration
         /**
          * Sets an AML/KYT customer reference ID for the specific external wallet.
          * @summary Set an AML customer reference ID for an external wallet
-         * @param {ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest} requestParameters Request parameters.
+         * @param {ExternalWalletsApiSetExternalWalletCustomerRefIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForExternalWallet(requestParameters: ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.setCustomerRefIdForExternalWallet(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.walletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        setExternalWalletCustomerRefId(requestParameters: ExternalWalletsApiSetExternalWalletCustomerRefIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.setExternalWalletCustomerRefId(requestParameters.setCustomerRefIdRequest, requestParameters.walletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -604,10 +604,10 @@ export interface ExternalWalletsApiAddAssetToExternalWalletRequest {
 export interface ExternalWalletsApiCreateExternalWalletRequest {
     /**
      * 
-     * @type {CreateInternalWalletRequest}
+     * @type {CreateWalletRequest}
      * @memberof ExternalWalletsApiCreateExternalWallet
      */
-    readonly createInternalWalletRequest?: CreateInternalWalletRequest
+    readonly createWalletRequest?: CreateWalletRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -688,29 +688,29 @@ export interface ExternalWalletsApiRemoveAssetFromExternalWalletRequest {
 }
 
 /**
- * Request parameters for setCustomerRefIdForExternalWallet operation in ExternalWalletsApi.
+ * Request parameters for setExternalWalletCustomerRefId operation in ExternalWalletsApi.
  * @export
- * @interface ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest
+ * @interface ExternalWalletsApiSetExternalWalletCustomerRefIdRequest
  */
-export interface ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest {
+export interface ExternalWalletsApiSetExternalWalletCustomerRefIdRequest {
     /**
      * 
-     * @type {SetCustomerRefIdForVaultAccountRequest}
-     * @memberof ExternalWalletsApiSetCustomerRefIdForExternalWallet
+     * @type {SetCustomerRefIdRequest}
+     * @memberof ExternalWalletsApiSetExternalWalletCustomerRefId
      */
-    readonly setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest
+    readonly setCustomerRefIdRequest: SetCustomerRefIdRequest
 
     /**
      * The wallet ID
      * @type {string}
-     * @memberof ExternalWalletsApiSetCustomerRefIdForExternalWallet
+     * @memberof ExternalWalletsApiSetExternalWalletCustomerRefId
      */
     readonly walletId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof ExternalWalletsApiSetCustomerRefIdForExternalWallet
+     * @memberof ExternalWalletsApiSetExternalWalletCustomerRefId
      */
     readonly idempotencyKey?: string
 }
@@ -743,7 +743,7 @@ export class ExternalWalletsApi extends BaseAPI {
      * @memberof ExternalWalletsApi
      */
     public createExternalWallet(requestParameters: ExternalWalletsApiCreateExternalWalletRequest = {}) {
-        return ExternalWalletsApiFp(this.configuration).createExternalWallet(requestParameters.createInternalWalletRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ExternalWalletsApiFp(this.configuration).createExternalWallet(requestParameters.createWalletRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -808,13 +808,13 @@ export class ExternalWalletsApi extends BaseAPI {
     /**
      * Sets an AML/KYT customer reference ID for the specific external wallet.
      * @summary Set an AML customer reference ID for an external wallet
-     * @param {ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest} requestParameters Request parameters.
+     * @param {ExternalWalletsApiSetExternalWalletCustomerRefIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ExternalWalletsApi
      */
-    public setCustomerRefIdForExternalWallet(requestParameters: ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest) {
-        return ExternalWalletsApiFp(this.configuration).setCustomerRefIdForExternalWallet(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.walletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public setExternalWalletCustomerRefId(requestParameters: ExternalWalletsApiSetExternalWalletCustomerRefIdRequest) {
+        return ExternalWalletsApiFp(this.configuration).setExternalWalletCustomerRefId(requestParameters.setCustomerRefIdRequest, requestParameters.walletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

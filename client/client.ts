@@ -17,15 +17,16 @@ import { AdminQuorumApi,
          AssetsApi, 
          AuditLogsApi, 
          BlockchainsAssetsApi, 
+         ComplianceApi, 
          ComplianceScreeningConfigurationApi, 
          ConsoleUserApi, 
          ContractsApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
-         FireblocksPublicOpenapiOtherApi, 
          GasStationsApi, 
          InternalWalletsApi, 
+         JobManagementApi, 
          NFTsApi, 
          NetworkConnectionsApi, 
          OTABetaApi, 
@@ -57,15 +58,16 @@ export class Fireblocks {
     private _assets?: AssetsApi;
     private _auditLogs?: AuditLogsApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
+    private _compliance?: ComplianceApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _consoleUser?: ConsoleUserApi;
     private _contracts?: ContractsApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
-    private _fireblocksPublicOpenapiOther?: FireblocksPublicOpenapiOtherApi;
     private _gasStations?: GasStationsApi;
     private _internalWallets?: InternalWalletsApi;
+    private _jobManagement?: JobManagementApi;
     private _nFTs?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
     private _oTABeta?: OTABetaApi;
@@ -98,11 +100,11 @@ export class Fireblocks {
             throw new Error("apiKey is required either in the configuration or as environment variable FIREBLOCKS_API_KEY");
         }
 
-        let baseServerPath = conf.baseServerPath || process.env.FIREBLOCKS_BASE_PATH;
-        if (!baseServerPath) {
-            throw new Error("baseServerPath or baseServer are required either in the configuration or as environment variable FIREBLOCKS_BASE_PATH or baseServer");
+        let basePath = conf.basePath || process.env.FIREBLOCKS_BASE_PATH;
+        if (!basePath) {
+            throw new Error("basePath is required either in the configuration or as environment variable FIREBLOCKS_BASE_PATH");
         }
-        this.config = new Configuration({ basePath: baseServerPath, baseOptions: conf.additionalOptions?.baseOptions });
+        this.config = new Configuration({ basePath, baseOptions: conf.additionalOptions?.baseOptions });
         this.axiosManager = new AxiosManager(apiKey, secretKey, conf?.additionalOptions);
     }
 
@@ -120,6 +122,9 @@ export class Fireblocks {
     }
     get blockchainsAssets(): BlockchainsAssetsApi {
         return this._blockchainsAssets ?? new BlockchainsAssetsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get compliance(): ComplianceApi {
+        return this._compliance ?? new ComplianceApi(this.config, undefined, this.axiosManager.axios);
     }
     get complianceScreeningConfiguration(): ComplianceScreeningConfigurationApi {
         return this._complianceScreeningConfiguration ?? new ComplianceScreeningConfigurationApi(this.config, undefined, this.axiosManager.axios);
@@ -139,14 +144,14 @@ export class Fireblocks {
     get fiatAccounts(): FiatAccountsApi {
         return this._fiatAccounts ?? new FiatAccountsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get fireblocksPublicOpenapiOther(): FireblocksPublicOpenapiOtherApi {
-        return this._fireblocksPublicOpenapiOther ?? new FireblocksPublicOpenapiOtherApi(this.config, undefined, this.axiosManager.axios);
-    }
     get gasStations(): GasStationsApi {
         return this._gasStations ?? new GasStationsApi(this.config, undefined, this.axiosManager.axios);
     }
     get internalWallets(): InternalWalletsApi {
         return this._internalWallets ?? new InternalWalletsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get jobManagement(): JobManagementApi {
+        return this._jobManagement ?? new JobManagementApi(this.config, undefined, this.axiosManager.axios);
     }
     get nFTs(): NFTsApi {
         return this._nFTs ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);

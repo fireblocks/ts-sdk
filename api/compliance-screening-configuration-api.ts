@@ -26,11 +26,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { TravelRuleConfigurationsRequest } from '../models';
-// @ts-ignore
-import { TravelRulePolicyResponse } from '../models';
-// @ts-ignore
-import { TravelRuleProviderRulesConfigurationResponse } from '../models';
+import { ScreeningConfigurationsRequest } from '../models';
 /**
  * ComplianceScreeningConfigurationApi - axios parameter creator
  * @export
@@ -38,13 +34,13 @@ import { TravelRuleProviderRulesConfigurationResponse } from '../models';
 export const ComplianceScreeningConfigurationApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get the post-screening policy for Travel Rule.
-         * @summary Travel Rule - View Post-Screening Policy
+         * Retrieves the configuration for Travel Rule screening policy.
+         * @summary Get AML Screening Policy Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        travelRuleApiControllerGetPostScreeningPolicy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/screening/travel_rule/post_screening_policy`;
+        getAmlScreeningConfiguration: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/screening/aml/policy_configuration`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -73,7 +69,7 @@ export const ComplianceScreeningConfigurationApiAxiosParamCreator = function (co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        travelRuleApiControllerGetScreeningConfiguration: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getScreeningConfiguration: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/screening/travel_rule/policy_configuration`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -85,71 +81,6 @@ export const ComplianceScreeningConfigurationApiAxiosParamCreator = function (co
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get the screening policy for Travel Rule.
-         * @summary Travel Rule - View Screening Policy
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        travelRuleApiControllerGetScreeningPolicy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/screening/travel_rule/screening_policy`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
-         * @summary Update Travel Rule Configuration
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        travelRuleApiControllerUpdateTravelRuleConfig: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/screening/travel_rule/policy_configuration`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
 
 
     
@@ -173,15 +104,15 @@ export const ComplianceScreeningConfigurationApiFp = function(configuration?: Co
     const localVarAxiosParamCreator = ComplianceScreeningConfigurationApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get the post-screening policy for Travel Rule.
-         * @summary Travel Rule - View Post-Screening Policy
+         * Retrieves the configuration for Travel Rule screening policy.
+         * @summary Get AML Screening Policy Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async travelRuleApiControllerGetPostScreeningPolicy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRulePolicyResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerGetPostScreeningPolicy(options);
+        async getAmlScreeningConfiguration(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ScreeningConfigurationsRequest>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAmlScreeningConfiguration(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceScreeningConfigurationApi.travelRuleApiControllerGetPostScreeningPolicy']?.[index]?.url;
+            const operationBasePath = operationServerMap['ComplianceScreeningConfigurationApi.getAmlScreeningConfiguration']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -190,35 +121,10 @@ export const ComplianceScreeningConfigurationApiFp = function(configuration?: Co
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async travelRuleApiControllerGetScreeningConfiguration(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleConfigurationsRequest>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerGetScreeningConfiguration(options);
+        async getScreeningConfiguration(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ScreeningConfigurationsRequest>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreeningConfiguration(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceScreeningConfigurationApi.travelRuleApiControllerGetScreeningConfiguration']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Get the screening policy for Travel Rule.
-         * @summary Travel Rule - View Screening Policy
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async travelRuleApiControllerGetScreeningPolicy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleProviderRulesConfigurationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerGetScreeningPolicy(options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceScreeningConfigurationApi.travelRuleApiControllerGetScreeningPolicy']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
-         * @summary Update Travel Rule Configuration
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async travelRuleApiControllerUpdateTravelRuleConfig(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleConfigurationsRequest>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.travelRuleApiControllerUpdateTravelRuleConfig(idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceScreeningConfigurationApi.travelRuleApiControllerUpdateTravelRuleConfig']?.[index]?.url;
+            const operationBasePath = operationServerMap['ComplianceScreeningConfigurationApi.getScreeningConfiguration']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -232,13 +138,13 @@ export const ComplianceScreeningConfigurationApiFactory = function (configuratio
     const localVarFp = ComplianceScreeningConfigurationApiFp(configuration)
     return {
         /**
-         * Get the post-screening policy for Travel Rule.
-         * @summary Travel Rule - View Post-Screening Policy
+         * Retrieves the configuration for Travel Rule screening policy.
+         * @summary Get AML Screening Policy Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        travelRuleApiControllerGetPostScreeningPolicy(options?: RawAxiosRequestConfig): AxiosPromise<TravelRulePolicyResponse> {
-            return localVarFp.travelRuleApiControllerGetPostScreeningPolicy(options).then((request) => request(axios, basePath));
+        getAmlScreeningConfiguration(options?: RawAxiosRequestConfig): AxiosPromise<ScreeningConfigurationsRequest> {
+            return localVarFp.getAmlScreeningConfiguration(options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves the configuration for Travel Rule screening policy.
@@ -246,44 +152,11 @@ export const ComplianceScreeningConfigurationApiFactory = function (configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        travelRuleApiControllerGetScreeningConfiguration(options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleConfigurationsRequest> {
-            return localVarFp.travelRuleApiControllerGetScreeningConfiguration(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get the screening policy for Travel Rule.
-         * @summary Travel Rule - View Screening Policy
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        travelRuleApiControllerGetScreeningPolicy(options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleProviderRulesConfigurationResponse> {
-            return localVarFp.travelRuleApiControllerGetScreeningPolicy(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
-         * @summary Update Travel Rule Configuration
-         * @param {ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfigRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        travelRuleApiControllerUpdateTravelRuleConfig(requestParameters: ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleConfigurationsRequest> {
-            return localVarFp.travelRuleApiControllerUpdateTravelRuleConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        getScreeningConfiguration(options?: RawAxiosRequestConfig): AxiosPromise<ScreeningConfigurationsRequest> {
+            return localVarFp.getScreeningConfiguration(options).then((request) => request(axios, basePath));
         },
     };
 };
-
-/**
- * Request parameters for travelRuleApiControllerUpdateTravelRuleConfig operation in ComplianceScreeningConfigurationApi.
- * @export
- * @interface ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfigRequest
- */
-export interface ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfigRequest {
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfig
-     */
-    readonly idempotencyKey?: string
-}
 
 /**
  * ComplianceScreeningConfigurationApi - object-oriented interface
@@ -293,14 +166,14 @@ export interface ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdat
  */
 export class ComplianceScreeningConfigurationApi extends BaseAPI {
     /**
-     * Get the post-screening policy for Travel Rule.
-     * @summary Travel Rule - View Post-Screening Policy
+     * Retrieves the configuration for Travel Rule screening policy.
+     * @summary Get AML Screening Policy Configuration
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ComplianceScreeningConfigurationApi
      */
-    public travelRuleApiControllerGetPostScreeningPolicy() {
-        return ComplianceScreeningConfigurationApiFp(this.configuration).travelRuleApiControllerGetPostScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getAmlScreeningConfiguration() {
+        return ComplianceScreeningConfigurationApiFp(this.configuration).getAmlScreeningConfiguration().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -310,31 +183,8 @@ export class ComplianceScreeningConfigurationApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ComplianceScreeningConfigurationApi
      */
-    public travelRuleApiControllerGetScreeningConfiguration() {
-        return ComplianceScreeningConfigurationApiFp(this.configuration).travelRuleApiControllerGetScreeningConfiguration().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Get the screening policy for Travel Rule.
-     * @summary Travel Rule - View Screening Policy
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ComplianceScreeningConfigurationApi
-     */
-    public travelRuleApiControllerGetScreeningPolicy() {
-        return ComplianceScreeningConfigurationApiFp(this.configuration).travelRuleApiControllerGetScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
-     * @summary Update Travel Rule Configuration
-     * @param {ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfigRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ComplianceScreeningConfigurationApi
-     */
-    public travelRuleApiControllerUpdateTravelRuleConfig(requestParameters: ComplianceScreeningConfigurationApiTravelRuleApiControllerUpdateTravelRuleConfigRequest = {}) {
-        return ComplianceScreeningConfigurationApiFp(this.configuration).travelRuleApiControllerUpdateTravelRuleConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getScreeningConfiguration() {
+        return ComplianceScreeningConfigurationApiFp(this.configuration).getScreeningConfiguration().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

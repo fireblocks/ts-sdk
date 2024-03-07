@@ -4,40 +4,11 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
+|**type** | [**TransferPeerPathType**](TransferPeerPathType.md) |  | [default to undefined]|
 |**subType** | **string** |  | [optional] [default to undefined]|
 |**id** | **string** |  | [optional] [default to undefined]|
 |**name** | **string** |  | [optional] [default to undefined]|
 |**walletId** | **string** |  | [optional] [default to undefined]|
-
-
-## Enum: TransferPeerPathTypeEnum
-
-
-* `VaultAccount` (value: `'VAULT_ACCOUNT'`)
-
-* `ExchangeAccount` (value: `'EXCHANGE_ACCOUNT'`)
-
-* `InternalWallet` (value: `'INTERNAL_WALLET'`)
-
-* `ExternalWallet` (value: `'EXTERNAL_WALLET'`)
-
-* `Contract` (value: `'CONTRACT'`)
-
-* `NetworkConnection` (value: `'NETWORK_CONNECTION'`)
-
-* `FiatAccount` (value: `'FIAT_ACCOUNT'`)
-
-* `Compound` (value: `'COMPOUND'`)
-
-* `GasStation` (value: `'GAS_STATION'`)
-
-* `OneTimeAddress` (value: `'ONE_TIME_ADDRESS'`)
-
-* `Unknown` (value: `'UNKNOWN'`)
-
-* `EndUserWallet` (value: `'END_USER_WALLET'`)
-
 
 
 ## Enum: TransferPeerPathSubTypeEnum

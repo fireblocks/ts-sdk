@@ -32,9 +32,9 @@ import { DelegationDto } from '../models';
 // @ts-ignore
 import { DelegationSummaryDto } from '../models';
 // @ts-ignore
-import { ExecuteAction201Response } from '../models';
-// @ts-ignore
 import { ExecuteActionRequest } from '../models';
+// @ts-ignore
+import { ExecuteActionResponse } from '../models';
 // @ts-ignore
 import { ProviderDto } from '../models';
 /**
@@ -388,7 +388,7 @@ export const StakingBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async executeAction(executeActionRequest: ExecuteActionRequest, chainDescriptor: ExecuteActionChainDescriptorEnum, actionId: ExecuteActionActionIdEnum, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExecuteAction201Response>> {
+        async executeAction(executeActionRequest: ExecuteActionRequest, chainDescriptor: ExecuteActionChainDescriptorEnum, actionId: ExecuteActionActionIdEnum, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ExecuteActionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.executeAction(executeActionRequest, chainDescriptor, actionId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingBetaApi.executeAction']?.[index]?.url;
@@ -508,7 +508,7 @@ export const StakingBetaApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        executeAction(requestParameters: StakingBetaApiExecuteActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExecuteAction201Response> {
+        executeAction(requestParameters: StakingBetaApiExecuteActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExecuteActionResponse> {
             return localVarFp.executeAction(requestParameters.executeActionRequest, requestParameters.chainDescriptor, requestParameters.actionId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
