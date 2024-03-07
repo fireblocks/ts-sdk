@@ -66,7 +66,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -105,7 +105,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -139,7 +139,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             const localVarQueryParameter = {} as any;
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -173,7 +173,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             const localVarQueryParameter = {} as any;
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -213,7 +213,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -252,7 +252,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
