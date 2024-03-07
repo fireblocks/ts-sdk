@@ -31,6 +31,6 @@ export interface BlockInfo {
      * @type {string}
      * @memberof BlockInfo
      */
-    'blockHash'?: string;
+    'blockHash'?: string | null;
 }
 

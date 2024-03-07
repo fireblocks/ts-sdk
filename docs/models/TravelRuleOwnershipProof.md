@@ -4,12 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Type of ownership proof | [default to undefined]|
-|**id** | **string** | Identification number | [default to undefined]|
-|**name** | **string** | Name of owner | [default to undefined]|
-|**country** | **string** | Country of issuance | [default to undefined]|
-|**issueDate** | **string** | Date of issuance | [default to undefined]|
-|**issuer** | **string** | Name of issuing entity | [default to undefined]|
+|**type** | **string** | Type of ownership proof | [optional] [default to undefined]|
+|**proof** | **string** | Identification number | [optional] [default to undefined]|
 
 
 

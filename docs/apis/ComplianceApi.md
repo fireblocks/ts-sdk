@@ -1,21 +1,22 @@
-# DefaultApi
+# ComplianceApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancelJob**](#cancelJob) | **POST** /batch/{jobId}/cancel | Cancel a running job
-[**continueJob**](#continueJob) | **POST** /batch/{jobId}/continue | Continue a paused job
-[**getJob**](#getJob) | **GET** /batch/{jobId} | Get job details
-[**getJobTasks**](#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
-[**getJobs**](#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
-[**pauseJob**](#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
+[**getAmlPostScreeningPolicy**](#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
+[**getAmlScreeningPolicy**](#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
+[**getPostScreeningPolicy**](#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
+[**getScreeningPolicy**](#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
+[**updateAmlScreeningConfiguration**](#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
+[**updateScreeningConfiguration**](#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
+[**updateTravelRuleConfig**](#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
 
 
-# **cancelJob**
-> cancelJob()
+# **getAmlPostScreeningPolicy**
+> ScreeningPolicyResponse getAmlPostScreeningPolicy()
 
-Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+Get the post-screening policy for AML.
 
 ### Example
 
@@ -23,7 +24,7 @@ Stop the given job immediately. If the job is in the ‘Active’ state, the job
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, DefaultApiCancelJobRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ScreeningPolicyResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -32,30 +33,21 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: DefaultApiCancelJobRequest = {
-  // string | The requested job id
-  jobId: jobId_example,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
+let body:any = {};
 
-fireblocks._default.cancelJob(body).then((res: FireblocksResponse<any>) => {
+fireblocks.compliance.getAmlPostScreeningPolicy(body).then((res: FireblocksResponse<ScreeningPolicyResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobId** | [**string**] | The requested job id | defaults to undefined
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+This endpoint does not need any parameter.
 
 
 ### Return type
 
-void (empty response body)
+**[ScreeningPolicyResponse](../models/ScreeningPolicyResponse.md)**
 
 ### Authorization
 
@@ -70,15 +62,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | canceled successfully |  -  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
+**200** | Post-screening policy retrieved successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **continueJob**
-> continueJob()
+# **getAmlScreeningPolicy**
+> ScreeningProviderRulesConfigurationResponse getAmlScreeningPolicy()
 
-Continue the given paused job.
+Get the screening policy for AML.
 
 ### Example
 
@@ -86,7 +77,7 @@ Continue the given paused job.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, DefaultApiContinueJobRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ScreeningProviderRulesConfigurationResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -95,30 +86,21 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: DefaultApiContinueJobRequest = {
-  // string | The requested job id
-  jobId: jobId_example,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
+let body:any = {};
 
-fireblocks._default.continueJob(body).then((res: FireblocksResponse<any>) => {
+fireblocks.compliance.getAmlScreeningPolicy(body).then((res: FireblocksResponse<ScreeningProviderRulesConfigurationResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobId** | [**string**] | The requested job id | defaults to undefined
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+This endpoint does not need any parameter.
 
 
 ### Return type
 
-void (empty response body)
+**[ScreeningProviderRulesConfigurationResponse](../models/ScreeningProviderRulesConfigurationResponse.md)**
 
 ### Authorization
 
@@ -133,15 +115,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | continued successfully |  -  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
+**200** | Screening policy retrieved successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getJob**
-> Job getJob()
+# **getPostScreeningPolicy**
+> ScreeningPolicyResponse getPostScreeningPolicy()
 
-Get an object describing the given job
+Get the post-screening policy for Travel Rule.
 
 ### Example
 
@@ -149,7 +130,7 @@ Get an object describing the given job
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, DefaultApiGetJobRequest, Job } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ScreeningPolicyResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -158,213 +139,21 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: DefaultApiGetJobRequest = {
-  // string | The requested job id
-  jobId: jobId_example,
-};
+let body:any = {};
 
-fireblocks._default.getJob(body).then((res: FireblocksResponse<Job>) => {
+fireblocks.compliance.getPostScreeningPolicy(body).then((res: FireblocksResponse<ScreeningPolicyResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
 
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobId** | [**string**] | The requested job id | defaults to undefined
+This endpoint does not need any parameter.
 
 
 ### Return type
 
-**[Job](../models/Job.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*, application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A JSON object that describes the job |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getJobTasks**
-> Array<Task> getJobTasks()
-
-Return a list of tasks for given job
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, DefaultApiGetJobTasksRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: DefaultApiGetJobTasksRequest = {
-  // string | The requested job id
-  jobId: jobId_example,
-};
-
-fireblocks._default.getJobTasks(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobId** | [**string**] | The requested job id | defaults to undefined
-
-
-### Return type
-
-**[Array<Task>](../models/Array<Task>.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*, application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | An array of tasks |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getJobs**
-> Array<Job> getJobs()
-
-Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, DefaultApiGetJobsRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: DefaultApiGetJobsRequest = {
-  // number | Start of time range in ms since 1970 (optional)
-  fromTime: 56,
-  // number | End of time range in ms since 1970 (optional)
-  toTime: 56,
-};
-
-fireblocks._default.getJobs(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **fromTime** | [**number**] | Start of time range in ms since 1970 | (optional) defaults to undefined
- **toTime** | [**number**] | End of time range in ms since 1970 | (optional) defaults to undefined
-
-
-### Return type
-
-**[Array<Job>](../models/Array<Job>.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: */*, application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | An array of jobs |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **pauseJob**
-> pauseJob()
-
-Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, DefaultApiPauseJobRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: DefaultApiPauseJobRequest = {
-  // string | The requested job id
-  jobId: jobId_example,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
-
-fireblocks._default.pauseJob(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **jobId** | [**string**] | The requested job id | defaults to undefined
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-void (empty response body)
+**[ScreeningPolicyResponse](../models/ScreeningPolicyResponse.md)**
 
 ### Authorization
 
@@ -379,8 +168,237 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | paused successfully |  -  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
+**200** | Post-screening policy retrieved successfully. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getScreeningPolicy**
+> ScreeningProviderRulesConfigurationResponse getScreeningPolicy()
+
+Get the screening policy for Travel Rule.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ScreeningProviderRulesConfigurationResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.compliance.getScreeningPolicy(body).then((res: FireblocksResponse<ScreeningProviderRulesConfigurationResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[ScreeningProviderRulesConfigurationResponse](../models/ScreeningProviderRulesConfigurationResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Screening policy retrieved successfully. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateAmlScreeningConfiguration**
+> ScreeningConfigurationsRequest updateAmlScreeningConfiguration()
+
+Updates bypass screening, inbound delay, or outbound delay configurations for AML.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiUpdateAmlScreeningConfigurationRequest, ScreeningConfigurationsRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiUpdateAmlScreeningConfigurationRequest = {
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.updateAmlScreeningConfiguration(body).then((res: FireblocksResponse<ScreeningConfigurationsRequest>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ScreeningConfigurationsRequest](../models/ScreeningConfigurationsRequest.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Configuration updated successfully. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateScreeningConfiguration**
+> ScreeningUpdateConfigurationsRequest updateScreeningConfiguration()
+
+Update tenant screening configuration.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiUpdateScreeningConfigurationRequest, ScreeningUpdateConfigurationsRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiUpdateScreeningConfigurationRequest = {
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.updateScreeningConfiguration(body).then((res: FireblocksResponse<ScreeningUpdateConfigurationsRequest>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ScreeningUpdateConfigurationsRequest](../models/ScreeningUpdateConfigurationsRequest.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Tenant Screening configuration updated successfully. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateTravelRuleConfig**
+> ScreeningConfigurationsRequest updateTravelRuleConfig()
+
+Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiUpdateTravelRuleConfigRequest, ScreeningConfigurationsRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiUpdateTravelRuleConfigRequest = {
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.updateTravelRuleConfig(body).then((res: FireblocksResponse<ScreeningConfigurationsRequest>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ScreeningConfigurationsRequest](../models/ScreeningConfigurationsRequest.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Configuration updated successfully. |  -  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

@@ -11,38 +11,39 @@
  */
 
 import { Fireblocks  } from '../client/client';
-import { AdminQuorumApi, 
-ApiUserApi, 
-AssetsApi, 
-AuditLogsApi, 
-BlockchainsAssetsApi, 
-ComplianceScreeningConfigurationApi, 
-ConsoleUserApi, 
-ContractsApi, 
-DefaultApi, 
-ExchangeAccountsApi, 
-ExternalWalletsApi, 
-FiatAccountsApi, 
-GasStationsApi, 
-InternalWalletsApi, 
-NFTsApi, 
-NetworkConnectionsApi, 
-OTABetaApi, 
-OffExchangesApi, 
-PaymentsPayoutApi, 
-PolicyEditorBetaApi, 
-ResetDeviceApi, 
-SmartTransferApi, 
-StakingBetaApi, 
-TransactionsApi, 
-TravelRuleBetaApi, 
-UserGroupsBetaApi, 
-UsersApi, 
-VaultsApi, 
-Web3ConnectionsApi, 
-WebhooksApi, 
-WhitelistIpAddressesApi, 
-WorkspaceApi, 
+import { AdminQuorumApi,
+ApiUserApi,
+AssetsApi,
+AuditLogsApi,
+BlockchainsAssetsApi,
+ComplianceApi,
+ComplianceScreeningConfigurationApi,
+ConsoleUserApi,
+ContractsApi,
+ExchangeAccountsApi,
+ExternalWalletsApi,
+FiatAccountsApi,
+GasStationsApi,
+InternalWalletsApi,
+JobManagementApi,
+NFTsApi,
+NetworkConnectionsApi,
+OTABetaApi,
+OffExchangesApi,
+PaymentsPayoutApi,
+PolicyEditorBetaApi,
+ResetDeviceApi,
+SmartTransferApi,
+StakingBetaApi,
+TransactionsApi,
+TravelRuleBetaApi,
+UserGroupsBetaApi,
+UsersApi,
+VaultsApi,
+Web3ConnectionsApi,
+WebhooksApi,
+WhitelistIpAddressesApi,
+WorkspaceApi,
 WorkspaceStatusBetaApi
 } from '../api';
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -54,15 +55,16 @@ let mockApiUserApi: jest.Mock;
 let mockAssetsApi: jest.Mock;
 let mockAuditLogsApi: jest.Mock;
 let mockBlockchainsAssetsApi: jest.Mock;
+let mockComplianceApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
 let mockConsoleUserApi: jest.Mock;
 let mockContractsApi: jest.Mock;
-let mockDefaultApi: jest.Mock;
 let mockExchangeAccountsApi: jest.Mock;
 let mockExternalWalletsApi: jest.Mock;
 let mockFiatAccountsApi: jest.Mock;
 let mockGasStationsApi: jest.Mock;
 let mockInternalWalletsApi: jest.Mock;
+let mockJobManagementApi: jest.Mock;
 let mockNFTsApi: jest.Mock;
 let mockNetworkConnectionsApi: jest.Mock;
 let mockOTABetaApi: jest.Mock;
@@ -89,15 +91,16 @@ jest.mock('../api', () => {
     mockAssetsApi = jest.fn();
     mockAuditLogsApi = jest.fn();
     mockBlockchainsAssetsApi = jest.fn();
+    mockComplianceApi = jest.fn();
     mockComplianceScreeningConfigurationApi = jest.fn();
     mockConsoleUserApi = jest.fn();
     mockContractsApi = jest.fn();
-    mockDefaultApi = jest.fn();
     mockExchangeAccountsApi = jest.fn();
     mockExternalWalletsApi = jest.fn();
     mockFiatAccountsApi = jest.fn();
     mockGasStationsApi = jest.fn();
     mockInternalWalletsApi = jest.fn();
+    mockJobManagementApi = jest.fn();
     mockNFTsApi = jest.fn();
     mockNetworkConnectionsApi = jest.fn();
     mockOTABetaApi = jest.fn();
@@ -125,15 +128,16 @@ jest.mock('../api', () => {
         AssetsApi: mockAssetsApi,
         AuditLogsApi: mockAuditLogsApi,
         BlockchainsAssetsApi: mockBlockchainsAssetsApi,
+        ComplianceApi: mockComplianceApi,
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
         ConsoleUserApi: mockConsoleUserApi,
         ContractsApi: mockContractsApi,
-        DefaultApi: mockDefaultApi,
         ExchangeAccountsApi: mockExchangeAccountsApi,
         ExternalWalletsApi: mockExternalWalletsApi,
         FiatAccountsApi: mockFiatAccountsApi,
         GasStationsApi: mockGasStationsApi,
         InternalWalletsApi: mockInternalWalletsApi,
+        JobManagementApi: mockJobManagementApi,
         NFTsApi: mockNFTsApi,
         NetworkConnectionsApi: mockNetworkConnectionsApi,
         OTABetaApi: mockOTABetaApi,
@@ -219,6 +223,10 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.blockchainsAssets).toBeInstanceOf(BlockchainsAssetsApi);
             expect(mockBlockchainsAssetsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
+        it('Should return ComplianceApi', async () => {
+            expect(fireblocks.compliance).toBeInstanceOf(ComplianceApi);
+            expect(mockComplianceApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
         it('Should return ComplianceScreeningConfigurationApi', async () => {
             expect(fireblocks.complianceScreeningConfiguration).toBeInstanceOf(ComplianceScreeningConfigurationApi);
             expect(mockComplianceScreeningConfigurationApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
@@ -230,10 +238,6 @@ describe("Fireblocks Client Tests", () => {
         it('Should return ContractsApi', async () => {
             expect(fireblocks.contracts).toBeInstanceOf(ContractsApi);
             expect(mockContractsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
-        });
-        it('Should return DefaultApi', async () => {
-            expect(fireblocks._default).toBeInstanceOf(DefaultApi);
-            expect(mockDefaultApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ExchangeAccountsApi', async () => {
             expect(fireblocks.exchangeAccounts).toBeInstanceOf(ExchangeAccountsApi);
@@ -254,6 +258,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return InternalWalletsApi', async () => {
             expect(fireblocks.internalWallets).toBeInstanceOf(InternalWalletsApi);
             expect(mockInternalWalletsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return JobManagementApi', async () => {
+            expect(fireblocks.jobManagement).toBeInstanceOf(JobManagementApi);
+            expect(mockJobManagementApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return NFTsApi', async () => {
             expect(fireblocks.nFTs).toBeInstanceOf(NFTsApi);

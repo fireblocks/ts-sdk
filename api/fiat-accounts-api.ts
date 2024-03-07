@@ -30,7 +30,7 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { FiatAccount } from '../models';
 // @ts-ignore
-import { RedeemFundsToLinkedDdaRequest } from '../models';
+import { Funds } from '../models';
 /**
  * FiatAccountsApi - axios parameter creator
  * @export
@@ -41,12 +41,12 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * Deposits funds from the linked DDA.
          * @summary Deposit funds from DDA
          * @param {string} accountId The ID of the fiat account to use
-         * @param {RedeemFundsToLinkedDdaRequest} [redeemFundsToLinkedDdaRequest] 
+         * @param {Funds} [funds] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        depositFundsFromLinkedDDA: async (accountId: string, redeemFundsToLinkedDdaRequest?: RedeemFundsToLinkedDdaRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        depositFundsFromLinkedDDA: async (accountId: string, funds?: Funds, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
             assertParamExists('depositFundsFromLinkedDDA', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}/deposit_from_linked_dda`
@@ -73,7 +73,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(redeemFundsToLinkedDdaRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(funds, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -148,14 +148,14 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * Redeems funds to the linked DDA.
          * @summary Redeem funds to DDA
          * @param {string} accountId The ID of the fiat account to use
-         * @param {RedeemFundsToLinkedDdaRequest} [redeemFundsToLinkedDdaRequest] 
+         * @param {Funds} [funds] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        redeemFundsToLinkedDda: async (accountId: string, redeemFundsToLinkedDdaRequest?: RedeemFundsToLinkedDdaRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        redeemFundsToLinkedDDA: async (accountId: string, funds?: Funds, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('redeemFundsToLinkedDda', 'accountId', accountId)
+            assertParamExists('redeemFundsToLinkedDDA', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}/redeem_to_linked_dda`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -180,7 +180,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(redeemFundsToLinkedDdaRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(funds, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -201,13 +201,13 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
          * Deposits funds from the linked DDA.
          * @summary Deposit funds from DDA
          * @param {string} accountId The ID of the fiat account to use
-         * @param {RedeemFundsToLinkedDdaRequest} [redeemFundsToLinkedDdaRequest] 
+         * @param {Funds} [funds] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async depositFundsFromLinkedDDA(accountId: string, redeemFundsToLinkedDdaRequest?: RedeemFundsToLinkedDdaRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.depositFundsFromLinkedDDA(accountId, redeemFundsToLinkedDdaRequest, idempotencyKey, options);
+        async depositFundsFromLinkedDDA(accountId: string, funds?: Funds, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.depositFundsFromLinkedDDA(accountId, funds, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['FiatAccountsApi.depositFundsFromLinkedDDA']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -241,15 +241,15 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
          * Redeems funds to the linked DDA.
          * @summary Redeem funds to DDA
          * @param {string} accountId The ID of the fiat account to use
-         * @param {RedeemFundsToLinkedDdaRequest} [redeemFundsToLinkedDdaRequest] 
+         * @param {Funds} [funds] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async redeemFundsToLinkedDda(accountId: string, redeemFundsToLinkedDdaRequest?: RedeemFundsToLinkedDdaRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.redeemFundsToLinkedDda(accountId, redeemFundsToLinkedDdaRequest, idempotencyKey, options);
+        async redeemFundsToLinkedDDA(accountId: string, funds?: Funds, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.redeemFundsToLinkedDDA(accountId, funds, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['FiatAccountsApi.redeemFundsToLinkedDda']?.[index]?.url;
+            const operationBasePath = operationServerMap['FiatAccountsApi.redeemFundsToLinkedDDA']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -270,7 +270,7 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
          * @throws {RequiredError}
          */
         depositFundsFromLinkedDDA(requestParameters: FiatAccountsApiDepositFundsFromLinkedDDARequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.redeemFundsToLinkedDdaRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a fiat account by ID.
@@ -294,12 +294,12 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
         /**
          * Redeems funds to the linked DDA.
          * @summary Redeem funds to DDA
-         * @param {FiatAccountsApiRedeemFundsToLinkedDdaRequest} requestParameters Request parameters.
+         * @param {FiatAccountsApiRedeemFundsToLinkedDDARequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        redeemFundsToLinkedDda(requestParameters: FiatAccountsApiRedeemFundsToLinkedDdaRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.redeemFundsToLinkedDda(requestParameters.accountId, requestParameters.redeemFundsToLinkedDdaRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        redeemFundsToLinkedDDA(requestParameters: FiatAccountsApiRedeemFundsToLinkedDDARequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.redeemFundsToLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -319,10 +319,10 @@ export interface FiatAccountsApiDepositFundsFromLinkedDDARequest {
 
     /**
      * 
-     * @type {RedeemFundsToLinkedDdaRequest}
+     * @type {Funds}
      * @memberof FiatAccountsApiDepositFundsFromLinkedDDA
      */
-    readonly redeemFundsToLinkedDdaRequest?: RedeemFundsToLinkedDdaRequest
+    readonly funds?: Funds
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -347,29 +347,29 @@ export interface FiatAccountsApiGetFiatAccountRequest {
 }
 
 /**
- * Request parameters for redeemFundsToLinkedDda operation in FiatAccountsApi.
+ * Request parameters for redeemFundsToLinkedDDA operation in FiatAccountsApi.
  * @export
- * @interface FiatAccountsApiRedeemFundsToLinkedDdaRequest
+ * @interface FiatAccountsApiRedeemFundsToLinkedDDARequest
  */
-export interface FiatAccountsApiRedeemFundsToLinkedDdaRequest {
+export interface FiatAccountsApiRedeemFundsToLinkedDDARequest {
     /**
      * The ID of the fiat account to use
      * @type {string}
-     * @memberof FiatAccountsApiRedeemFundsToLinkedDda
+     * @memberof FiatAccountsApiRedeemFundsToLinkedDDA
      */
     readonly accountId: string
 
     /**
      * 
-     * @type {RedeemFundsToLinkedDdaRequest}
-     * @memberof FiatAccountsApiRedeemFundsToLinkedDda
+     * @type {Funds}
+     * @memberof FiatAccountsApiRedeemFundsToLinkedDDA
      */
-    readonly redeemFundsToLinkedDdaRequest?: RedeemFundsToLinkedDdaRequest
+    readonly funds?: Funds
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof FiatAccountsApiRedeemFundsToLinkedDda
+     * @memberof FiatAccountsApiRedeemFundsToLinkedDDA
      */
     readonly idempotencyKey?: string
 }
@@ -390,7 +390,7 @@ export class FiatAccountsApi extends BaseAPI {
      * @memberof FiatAccountsApi
      */
     public depositFundsFromLinkedDDA(requestParameters: FiatAccountsApiDepositFundsFromLinkedDDARequest) {
-        return FiatAccountsApiFp(this.configuration).depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.redeemFundsToLinkedDdaRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return FiatAccountsApiFp(this.configuration).depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -419,13 +419,13 @@ export class FiatAccountsApi extends BaseAPI {
     /**
      * Redeems funds to the linked DDA.
      * @summary Redeem funds to DDA
-     * @param {FiatAccountsApiRedeemFundsToLinkedDdaRequest} requestParameters Request parameters.
+     * @param {FiatAccountsApiRedeemFundsToLinkedDDARequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FiatAccountsApi
      */
-    public redeemFundsToLinkedDda(requestParameters: FiatAccountsApiRedeemFundsToLinkedDdaRequest) {
-        return FiatAccountsApiFp(this.configuration).redeemFundsToLinkedDda(requestParameters.accountId, requestParameters.redeemFundsToLinkedDdaRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public redeemFundsToLinkedDDA(requestParameters: FiatAccountsApiRedeemFundsToLinkedDDARequest) {
+        return FiatAccountsApiFp(this.configuration).redeemFundsToLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 [**getExternalWalletAsset**](#getExternalWalletAsset) | **GET** /external_wallets/{walletId}/{assetId} | Get an asset from an external wallet
 [**getExternalWallets**](#getExternalWallets) | **GET** /external_wallets | List external wallets
 [**removeAssetFromExternalWallet**](#removeAssetFromExternalWallet) | **DELETE** /external_wallets/{walletId}/{assetId} | Delete an asset from an external wallet
-[**setCustomerRefIdForExternalWallet**](#setCustomerRefIdForExternalWallet) | **POST** /external_wallets/{walletId}/set_customer_ref_id | Set an AML customer reference ID for an external wallet
+[**setExternalWalletCustomerRefId**](#setExternalWalletCustomerRefId) | **POST** /external_wallets/{walletId}/set_customer_ref_id | Set an AML customer reference ID for an external wallet
 
 
 # **addAssetToExternalWallet**
@@ -72,7 +72,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -104,8 +104,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: ExternalWalletsApiCreateExternalWalletRequest = {
-  // CreateInternalWalletRequest (optional)
-  createInternalWalletRequest: param_value,
+  // CreateWalletRequest (optional)
+  createWalletRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -120,7 +120,7 @@ fireblocks.externalWallets.createExternalWallet(body).then((res: FireblocksRespo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createInternalWalletRequest** | **[CreateInternalWalletRequest](../models/CreateInternalWalletRequest.md)**|  |
+ **createWalletRequest** | **[CreateWalletRequest](../models/CreateWalletRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -135,7 +135,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -255,7 +255,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -318,7 +318,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -372,7 +372,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -446,8 +446,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **setCustomerRefIdForExternalWallet**
-> setCustomerRefIdForExternalWallet(setCustomerRefIdForVaultAccountRequest, )
+# **setExternalWalletCustomerRefId**
+> setExternalWalletCustomerRefId(setCustomerRefIdRequest, )
 
 Sets an AML/KYT customer reference ID for the specific external wallet.
 
@@ -457,7 +457,7 @@ Sets an AML/KYT customer reference ID for the specific external wallet.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ExternalWalletsApiSetExternalWalletCustomerRefIdRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -466,16 +466,16 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ExternalWalletsApiSetCustomerRefIdForExternalWalletRequest = {
-  // SetCustomerRefIdForVaultAccountRequest
-  setCustomerRefIdForVaultAccountRequest: param_value,
+let body: ExternalWalletsApiSetExternalWalletCustomerRefIdRequest = {
+  // SetCustomerRefIdRequest
+  setCustomerRefIdRequest: param_value,
   // string | The wallet ID
   walletId: walletId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.externalWallets.setCustomerRefIdForExternalWallet(body).then((res: FireblocksResponse<any>) => {
+fireblocks.externalWallets.setExternalWalletCustomerRefId(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -485,7 +485,7 @@ fireblocks.externalWallets.setCustomerRefIdForExternalWallet(body).then((res: Fi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setCustomerRefIdForVaultAccountRequest** | **[SetCustomerRefIdForVaultAccountRequest](../models/SetCustomerRefIdForVaultAccountRequest.md)**|  |
+ **setCustomerRefIdRequest** | **[SetCustomerRefIdRequest](../models/SetCustomerRefIdRequest.md)**|  |
  **walletId** | [**string**] | The wallet ID | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 

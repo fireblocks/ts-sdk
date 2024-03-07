@@ -24,9 +24,9 @@ Method | HTTP request | Description
 [**getVaultAssets**](#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
 [**getVaultBalanceByAsset**](#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset
 [**hideVaultAccount**](#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
-[**setAutoFuelForVaultAccount**](#setAutoFuelForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off
 [**setCustomerRefIdForAddress**](#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
-[**setCustomerRefIdForVaultAccount**](#setCustomerRefIdForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account
+[**setVaultAccountAutoFuel**](#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off
+[**setVaultAccountCustomerRefId**](#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account
 [**unhideVaultAccount**](#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console
 [**updateVaultAccount**](#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account
 [**updateVaultAccountAssetAddress**](#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description
@@ -88,7 +88,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -157,7 +157,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -220,7 +220,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -283,7 +283,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -319,8 +319,8 @@ let body: VaultsApiCreateVaultAccountAssetRequest = {
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
   assetId: assetId_example,
-  // CreateVaultAccountAssetRequest (optional)
-  createVaultAccountAssetRequest: param_value,
+  // CreateAssetsRequest (optional)
+  createAssetsRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -335,7 +335,7 @@ fireblocks.vaults.createVaultAccountAsset(body).then((res: FireblocksResponse<Cr
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createVaultAccountAssetRequest** | **[CreateVaultAccountAssetRequest](../models/CreateVaultAccountAssetRequest.md)**|  |
+ **createAssetsRequest** | **[CreateAssetsRequest](../models/CreateAssetsRequest.md)**|  |
  **vaultAccountId** | [**string**] | The ID of the vault account to return, or \&#39;default\&#39; for the default vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -352,7 +352,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -388,8 +388,8 @@ let body: VaultsApiCreateVaultAccountAssetAddressRequest = {
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
   assetId: assetId_example,
-  // CreateVaultAccountAssetAddressRequest (optional)
-  createVaultAccountAssetAddressRequest: param_value,
+  // CreateAddressRequest (optional)
+  createAddressRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -404,7 +404,7 @@ fireblocks.vaults.createVaultAccountAssetAddress(body).then((res: FireblocksResp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createVaultAccountAssetAddressRequest** | **[CreateVaultAccountAssetAddressRequest](../models/CreateVaultAccountAssetAddressRequest.md)**|  |
+ **createAddressRequest** | **[CreateAddressRequest](../models/CreateAddressRequest.md)**|  |
  **vaultAccountId** | [**string**] | The ID of the vault account to return | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -421,7 +421,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -496,7 +496,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -642,7 +642,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -707,7 +707,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -779,7 +779,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -842,7 +842,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -902,7 +902,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -965,7 +965,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1028,7 +1028,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1100,7 +1100,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1169,7 +1169,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1232,7 +1232,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1292,7 +1292,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -1366,74 +1366,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **setAutoFuelForVaultAccount**
-> setAutoFuelForVaultAccount(setAutoFuelForVaultAccountRequest, )
-
-Sets the autofueling property of the vault account to enabled or disabled.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiSetAutoFuelForVaultAccountRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: VaultsApiSetAutoFuelForVaultAccountRequest = {
-  // SetAutoFuelForVaultAccountRequest
-  setAutoFuelForVaultAccountRequest: param_value,
-  // string | The vault account ID
-  vaultAccountId: vaultAccountId_example,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
-
-fireblocks.vaults.setAutoFuelForVaultAccount(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **setAutoFuelForVaultAccountRequest** | **[SetAutoFuelForVaultAccountRequest](../models/SetAutoFuelForVaultAccountRequest.md)**|  |
- **vaultAccountId** | [**string**] | The vault account ID | defaults to undefined
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | OK |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **setCustomerRefIdForAddress**
-> setCustomerRefIdForAddress(setCustomerRefIdForVaultAccountRequest, )
+> setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, )
 
 Sets an AML/KYT customer reference ID for a specific address.
 
@@ -1453,8 +1387,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: VaultsApiSetCustomerRefIdForAddressRequest = {
-  // SetCustomerRefIdForVaultAccountRequest
-  setCustomerRefIdForVaultAccountRequest: param_value,
+  // SetCustomerRefIdForAddressRequest
+  setCustomerRefIdForAddressRequest: param_value,
   // string | The ID of the vault account
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
@@ -1475,7 +1409,7 @@ fireblocks.vaults.setCustomerRefIdForAddress(body).then((res: FireblocksResponse
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setCustomerRefIdForVaultAccountRequest** | **[SetCustomerRefIdForVaultAccountRequest](../models/SetCustomerRefIdForVaultAccountRequest.md)**|  |
+ **setCustomerRefIdForAddressRequest** | **[SetCustomerRefIdForAddressRequest](../models/SetCustomerRefIdForAddressRequest.md)**|  |
  **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **addressId** | [**string**] | The address for which to add a description. For XRP, use &lt;address&gt;:&lt;tag&gt;, for all other assets, use only the address | defaults to undefined
@@ -1504,10 +1438,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **setCustomerRefIdForVaultAccount**
-> setCustomerRefIdForVaultAccount(setCustomerRefIdForVaultAccountRequest, )
+# **setVaultAccountAutoFuel**
+> setVaultAccountAutoFuel(setAutoFuelRequest, )
 
-Assigns an AML/KYT customer reference ID for the vault account.
+Sets the autofueling property of the vault account to enabled or disabled.
 
 ### Example
 
@@ -1515,7 +1449,7 @@ Assigns an AML/KYT customer reference ID for the vault account.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiSetCustomerRefIdForVaultAccountRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiSetVaultAccountAutoFuelRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1524,16 +1458,16 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: VaultsApiSetCustomerRefIdForVaultAccountRequest = {
-  // SetCustomerRefIdForVaultAccountRequest
-  setCustomerRefIdForVaultAccountRequest: param_value,
+let body: VaultsApiSetVaultAccountAutoFuelRequest = {
+  // SetAutoFuelRequest
+  setAutoFuelRequest: param_value,
   // string | The vault account ID
   vaultAccountId: vaultAccountId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.setCustomerRefIdForVaultAccount(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.setVaultAccountAutoFuel(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1543,7 +1477,73 @@ fireblocks.vaults.setCustomerRefIdForVaultAccount(body).then((res: FireblocksRes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **setCustomerRefIdForVaultAccountRequest** | **[SetCustomerRefIdForVaultAccountRequest](../models/SetCustomerRefIdForVaultAccountRequest.md)**|  |
+ **setAutoFuelRequest** | **[SetAutoFuelRequest](../models/SetAutoFuelRequest.md)**|  |
+ **vaultAccountId** | [**string**] | The vault account ID | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | OK |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **setVaultAccountCustomerRefId**
+> setVaultAccountCustomerRefId(setCustomerRefIdRequest, )
+
+Assigns an AML/KYT customer reference ID for the vault account.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiSetVaultAccountCustomerRefIdRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiSetVaultAccountCustomerRefIdRequest = {
+  // SetCustomerRefIdRequest
+  setCustomerRefIdRequest: param_value,
+  // string | The vault account ID
+  vaultAccountId: vaultAccountId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.setVaultAccountCustomerRefId(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **setCustomerRefIdRequest** | **[SetCustomerRefIdRequest](../models/SetCustomerRefIdRequest.md)**|  |
  **vaultAccountId** | [**string**] | The vault account ID | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
@@ -1796,8 +1796,6 @@ let body: VaultsApiUpdateVaultAccountAssetBalanceRequest = {
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
   assetId: assetId_example,
-  // object (optional)
-  body: Object,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -1812,7 +1810,6 @@ fireblocks.vaults.updateVaultAccountAssetBalance(body).then((res: FireblocksResp
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **body** | **object**|  |
  **vaultAccountId** | [**string**] | The ID of the vault account to return | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -1829,7 +1826,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

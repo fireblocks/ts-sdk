@@ -78,7 +78,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **executeAction**
-> ExecuteAction201Response executeAction(executeActionRequest, )
+> ExecuteActionResponse executeAction(executeActionRequest, )
 
 Perform a chain-specific staking action (e.g. stake, unstake, withdraw).
 
@@ -88,7 +88,7 @@ Perform a chain-specific staking action (e.g. stake, unstake, withdraw).
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, StakingBetaApiExecuteActionRequest, ExecuteAction201Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingBetaApiExecuteActionRequest, ExecuteActionResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -108,7 +108,7 @@ let body: StakingBetaApiExecuteActionRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.stakingBeta.executeAction(body).then((res: FireblocksResponse<ExecuteAction201Response>) => {
+fireblocks.stakingBeta.executeAction(body).then((res: FireblocksResponse<ExecuteActionResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[ExecuteAction201Response](../models/ExecuteAction201Response.md)**
+**[ExecuteActionResponse](../models/ExecuteActionResponse.md)**
 
 ### Authorization
 

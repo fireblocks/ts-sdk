@@ -1,4 +1,4 @@
-# FireblocksPublicOpenapiOtherApi
+# JobManagementApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -22,24 +22,24 @@ Stop the given job immediately. If the job is in the ‘Active’ state, the job
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FireblocksPublicOpenapiOtherApiCancelJobRequest } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiCancelJobRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: FireblocksPublicOpenapiOtherApiCancelJobRequest = {
+let body: JobManagementApiCancelJobRequest = {
   // string | The requested job id
   jobId: jobId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.fireblocksPublicOpenapiOther.cancelJob(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.cancelJob(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -85,24 +85,24 @@ Continue the given paused job.
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FireblocksPublicOpenapiOtherApiContinueJobRequest } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiContinueJobRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: FireblocksPublicOpenapiOtherApiContinueJobRequest = {
+let body: JobManagementApiContinueJobRequest = {
   // string | The requested job id
   jobId: jobId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.fireblocksPublicOpenapiOther.continueJob(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.continueJob(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -148,22 +148,22 @@ Get an object describing the given job
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FireblocksPublicOpenapiOtherApiGetJobRequest, Job } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiGetJobRequest, Job } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: FireblocksPublicOpenapiOtherApiGetJobRequest = {
+let body: JobManagementApiGetJobRequest = {
   // string | The requested job id
   jobId: jobId_example,
 };
 
-fireblocks.fireblocksPublicOpenapiOther.getJob(body).then((res: FireblocksResponse<Job>) => {
+fireblocks.jobManagement.getJob(body).then((res: FireblocksResponse<Job>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -187,7 +187,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -208,22 +208,22 @@ Return a list of tasks for given job
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FireblocksPublicOpenapiOtherApiGetJobTasksRequest } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiGetJobTasksRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: FireblocksPublicOpenapiOtherApiGetJobTasksRequest = {
+let body: JobManagementApiGetJobTasksRequest = {
   // string | The requested job id
   jobId: jobId_example,
 };
 
-fireblocks.fireblocksPublicOpenapiOther.getJobTasks(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.getJobTasks(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -247,7 +247,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -268,24 +268,24 @@ Get an array of objects including all active, paused, canceled, and complete job
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FireblocksPublicOpenapiOtherApiGetJobsRequest } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiGetJobsRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: FireblocksPublicOpenapiOtherApiGetJobsRequest = {
+let body: JobManagementApiGetJobsRequest = {
   // number | Start of time range in ms since 1970 (optional)
   fromTime: 56,
   // number | End of time range in ms since 1970 (optional)
   toTime: 56,
 };
 
-fireblocks.fireblocksPublicOpenapiOther.getJobs(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.getJobs(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -310,7 +310,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -331,24 +331,24 @@ Pause the given job, after the current task is done. A paused job can later be r
 
 ```typescript
 import { readFileSync } from 'fs';
-import { Fireblocks, BaseServerPathEnum } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FireblocksPublicOpenapiOtherApiPauseJobRequest } from '@fireblocks/ts-sdk';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiPauseJobRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BaseServerPathEnum.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
 process.env.FIREBLOCKS_API_KEY = "my-api-key";
 process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
 
 const fireblocks = new Fireblocks();
 
-let body: FireblocksPublicOpenapiOtherApiPauseJobRequest = {
+let body: JobManagementApiPauseJobRequest = {
   // string | The requested job id
   jobId: jobId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.fireblocksPublicOpenapiOther.pauseJob(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.pauseJob(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

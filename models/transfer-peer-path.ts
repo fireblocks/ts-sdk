@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TransferPeerPathType } from './transfer-peer-path-type';
 
 /**
  * 
@@ -22,10 +25,10 @@
 export interface TransferPeerPath {
     /**
      * 
-     * @type {string}
+     * @type {TransferPeerPathType}
      * @memberof TransferPeerPath
      */
-    'type': TransferPeerPathTypeEnum;
+    'type': TransferPeerPathType;
     /**
      * 
      * @type {string}
@@ -52,22 +55,6 @@ export interface TransferPeerPath {
     'walletId'?: string;
 }
 
-export const TransferPeerPathTypeEnum = {
-    VaultAccount: 'VAULT_ACCOUNT',
-    ExchangeAccount: 'EXCHANGE_ACCOUNT',
-    InternalWallet: 'INTERNAL_WALLET',
-    ExternalWallet: 'EXTERNAL_WALLET',
-    Contract: 'CONTRACT',
-    NetworkConnection: 'NETWORK_CONNECTION',
-    FiatAccount: 'FIAT_ACCOUNT',
-    Compound: 'COMPOUND',
-    GasStation: 'GAS_STATION',
-    OneTimeAddress: 'ONE_TIME_ADDRESS',
-    Unknown: 'UNKNOWN',
-    EndUserWallet: 'END_USER_WALLET'
-} as const;
-
-export type TransferPeerPathTypeEnum = typeof TransferPeerPathTypeEnum[keyof typeof TransferPeerPathTypeEnum];
 export const TransferPeerPathSubTypeEnum = {
     Binance: 'BINANCE',
     Binanceus: 'BINANCEUS',

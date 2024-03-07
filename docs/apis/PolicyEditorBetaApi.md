@@ -54,7 +54,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -108,7 +108,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -171,7 +171,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -183,7 +183,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **publishPolicyRules**
-> PublishResult publishPolicyRules(publishPolicyRulesRequest)
+> PublishResult publishPolicyRules(policyRules)
 
 Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
@@ -203,8 +203,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: PolicyEditorBetaApiPublishPolicyRulesRequest = {
-  // PublishPolicyRulesRequest
-  publishPolicyRulesRequest: param_value,
+  // PolicyRules
+  policyRules: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -219,7 +219,7 @@ fireblocks.policyEditorBeta.publishPolicyRules(body).then((res: FireblocksRespon
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **publishPolicyRulesRequest** | **[PublishPolicyRulesRequest](../models/PublishPolicyRulesRequest.md)**|  |
+ **policyRules** | **[PolicyRules](../models/PolicyRules.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -234,7 +234,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -246,7 +246,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateDraft**
-> DraftReviewAndValidationResponse updateDraft(updateDraftRequest)
+> DraftReviewAndValidationResponse updateDraft(policyRules)
 
 Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
@@ -266,8 +266,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: PolicyEditorBetaApiUpdateDraftRequest = {
-  // UpdateDraftRequest
-  updateDraftRequest: param_value,
+  // PolicyRules
+  policyRules: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -282,7 +282,7 @@ fireblocks.policyEditorBeta.updateDraft(body).then((res: FireblocksResponse<Draf
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **updateDraftRequest** | **[UpdateDraftRequest](../models/UpdateDraftRequest.md)**|  |
+ **policyRules** | **[PolicyRules](../models/PolicyRules.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -297,7 +297,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

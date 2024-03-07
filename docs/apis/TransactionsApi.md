@@ -74,7 +74,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -140,7 +140,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -209,13 +209,13 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Created successfully |  * X-Request-ID -  <br>  |
+**200** | Operation completed successfully |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -269,7 +269,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -332,7 +332,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -398,7 +398,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -457,7 +457,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -518,7 +518,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -617,7 +617,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -683,7 +683,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -749,7 +749,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -815,7 +815,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -877,7 +877,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details

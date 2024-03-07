@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**depositFundsFromLinkedDDA**](#depositFundsFromLinkedDDA) | **POST** /fiat_accounts/{accountId}/deposit_from_linked_dda | Deposit funds from DDA
 [**getFiatAccount**](#getFiatAccount) | **GET** /fiat_accounts/{accountId} | Find a specific fiat account
 [**getFiatAccounts**](#getFiatAccounts) | **GET** /fiat_accounts | List fiat accounts
-[**redeemFundsToLinkedDda**](#redeemFundsToLinkedDda) | **POST** /fiat_accounts/{accountId}/redeem_to_linked_dda | Redeem funds to DDA
+[**redeemFundsToLinkedDDA**](#redeemFundsToLinkedDDA) | **POST** /fiat_accounts/{accountId}/redeem_to_linked_dda | Redeem funds to DDA
 
 
 # **depositFundsFromLinkedDDA**
@@ -33,8 +33,8 @@ const fireblocks = new Fireblocks();
 let body: FiatAccountsApiDepositFundsFromLinkedDDARequest = {
   // string | The ID of the fiat account to use
   accountId: accountId_example,
-  // RedeemFundsToLinkedDdaRequest (optional)
-  redeemFundsToLinkedDdaRequest: param_value,
+  // Funds (optional)
+  funds: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -49,7 +49,7 @@ fireblocks.fiatAccounts.depositFundsFromLinkedDDA(body).then((res: FireblocksRes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **redeemFundsToLinkedDdaRequest** | **[RedeemFundsToLinkedDdaRequest](../models/RedeemFundsToLinkedDdaRequest.md)**|  |
+ **funds** | **[Funds](../models/Funds.md)**|  |
  **accountId** | [**string**] | The ID of the fiat account to use | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
@@ -125,7 +125,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -179,7 +179,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: */*, application/json
+ - **Accept**: application/json
 
 
 ### HTTP response details
@@ -190,8 +190,8 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **redeemFundsToLinkedDda**
-> redeemFundsToLinkedDda()
+# **redeemFundsToLinkedDDA**
+> redeemFundsToLinkedDDA()
 
 Redeems funds to the linked DDA.
 
@@ -201,7 +201,7 @@ Redeems funds to the linked DDA.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, FiatAccountsApiRedeemFundsToLinkedDdaRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, FiatAccountsApiRedeemFundsToLinkedDDARequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -210,16 +210,16 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: FiatAccountsApiRedeemFundsToLinkedDdaRequest = {
+let body: FiatAccountsApiRedeemFundsToLinkedDDARequest = {
   // string | The ID of the fiat account to use
   accountId: accountId_example,
-  // RedeemFundsToLinkedDdaRequest (optional)
-  redeemFundsToLinkedDdaRequest: param_value,
+  // Funds (optional)
+  funds: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.fiatAccounts.redeemFundsToLinkedDda(body).then((res: FireblocksResponse<any>) => {
+fireblocks.fiatAccounts.redeemFundsToLinkedDDA(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -229,7 +229,7 @@ fireblocks.fiatAccounts.redeemFundsToLinkedDda(body).then((res: FireblocksRespon
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **redeemFundsToLinkedDdaRequest** | **[RedeemFundsToLinkedDdaRequest](../models/RedeemFundsToLinkedDdaRequest.md)**|  |
+ **funds** | **[Funds](../models/Funds.md)**|  |
  **accountId** | [**string**] | The ID of the fiat account to use | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 

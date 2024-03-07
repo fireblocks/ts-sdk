@@ -32,10 +32,10 @@ import { Job } from '../models';
 // @ts-ignore
 import { Task } from '../models';
 /**
- * DefaultApi - axios parameter creator
+ * JobManagementApi - axios parameter creator
  * @export
  */
-export const DefaultApiAxiosParamCreator = function (configuration?: Configuration) {
+export const JobManagementApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
@@ -66,7 +66,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -105,7 +105,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -139,7 +139,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarQueryParameter = {} as any;
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -173,7 +173,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             const localVarQueryParameter = {} as any;
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -213,7 +213,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -252,7 +252,7 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
             }
 
 
-    
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
@@ -266,11 +266,11 @@ export const DefaultApiAxiosParamCreator = function (configuration?: Configurati
 };
 
 /**
- * DefaultApi - functional programming interface
+ * JobManagementApi - functional programming interface
  * @export
  */
-export const DefaultApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = DefaultApiAxiosParamCreator(configuration)
+export const JobManagementApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = JobManagementApiAxiosParamCreator(configuration)
     return {
         /**
          * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
@@ -283,7 +283,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async cancelJob(jobId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.cancelJob(jobId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.cancelJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['JobManagementApi.cancelJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -297,7 +297,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async continueJob(jobId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.continueJob(jobId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.continueJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['JobManagementApi.continueJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -310,7 +310,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getJob(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Job>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJob(jobId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.getJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['JobManagementApi.getJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -323,7 +323,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getJobTasks(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobTasks(jobId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.getJobTasks']?.[index]?.url;
+            const operationBasePath = operationServerMap['JobManagementApi.getJobTasks']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -337,7 +337,7 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async getJobs(fromTime?: number, toTime?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Job>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobs(fromTime, toTime, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.getJobs']?.[index]?.url;
+            const operationBasePath = operationServerMap['JobManagementApi.getJobs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -351,271 +351,271 @@ export const DefaultApiFp = function(configuration?: Configuration) {
         async pauseJob(jobId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.pauseJob(jobId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['DefaultApi.pauseJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['JobManagementApi.pauseJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * DefaultApi - factory interface
+ * JobManagementApi - factory interface
  * @export
  */
-export const DefaultApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = DefaultApiFp(configuration)
+export const JobManagementApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = JobManagementApiFp(configuration)
     return {
         /**
          * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
          * @summary Cancel a running job
-         * @param {DefaultApiCancelJobRequest} requestParameters Request parameters.
+         * @param {JobManagementApiCancelJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelJob(requestParameters: DefaultApiCancelJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        cancelJob(requestParameters: JobManagementApiCancelJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.cancelJob(requestParameters.jobId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Continue the given paused job.
          * @summary Continue a paused job
-         * @param {DefaultApiContinueJobRequest} requestParameters Request parameters.
+         * @param {JobManagementApiContinueJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        continueJob(requestParameters: DefaultApiContinueJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        continueJob(requestParameters: JobManagementApiContinueJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.continueJob(requestParameters.jobId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get an object describing the given job
          * @summary Get job details
-         * @param {DefaultApiGetJobRequest} requestParameters Request parameters.
+         * @param {JobManagementApiGetJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJob(requestParameters: DefaultApiGetJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<Job> {
+        getJob(requestParameters: JobManagementApiGetJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<Job> {
             return localVarFp.getJob(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Return a list of tasks for given job
          * @summary Return a list of tasks for given job
-         * @param {DefaultApiGetJobTasksRequest} requestParameters Request parameters.
+         * @param {JobManagementApiGetJobTasksRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobTasks(requestParameters: DefaultApiGetJobTasksRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<Task>> {
+        getJobTasks(requestParameters: JobManagementApiGetJobTasksRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<Task>> {
             return localVarFp.getJobTasks(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
          * @summary Return a list of jobs belonging to tenant
-         * @param {DefaultApiGetJobsRequest} requestParameters Request parameters.
+         * @param {JobManagementApiGetJobsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobs(requestParameters: DefaultApiGetJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<Job>> {
+        getJobs(requestParameters: JobManagementApiGetJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<Job>> {
             return localVarFp.getJobs(requestParameters.fromTime, requestParameters.toTime, options).then((request) => request(axios, basePath));
         },
         /**
          * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
          * @summary Pause a job
-         * @param {DefaultApiPauseJobRequest} requestParameters Request parameters.
+         * @param {JobManagementApiPauseJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pauseJob(requestParameters: DefaultApiPauseJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        pauseJob(requestParameters: JobManagementApiPauseJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.pauseJob(requestParameters.jobId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for cancelJob operation in DefaultApi.
+ * Request parameters for cancelJob operation in JobManagementApi.
  * @export
- * @interface DefaultApiCancelJobRequest
+ * @interface JobManagementApiCancelJobRequest
  */
-export interface DefaultApiCancelJobRequest {
+export interface JobManagementApiCancelJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof DefaultApiCancelJob
+     * @memberof JobManagementApiCancelJob
      */
     readonly jobId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof DefaultApiCancelJob
+     * @memberof JobManagementApiCancelJob
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for continueJob operation in DefaultApi.
+ * Request parameters for continueJob operation in JobManagementApi.
  * @export
- * @interface DefaultApiContinueJobRequest
+ * @interface JobManagementApiContinueJobRequest
  */
-export interface DefaultApiContinueJobRequest {
+export interface JobManagementApiContinueJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof DefaultApiContinueJob
+     * @memberof JobManagementApiContinueJob
      */
     readonly jobId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof DefaultApiContinueJob
+     * @memberof JobManagementApiContinueJob
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for getJob operation in DefaultApi.
+ * Request parameters for getJob operation in JobManagementApi.
  * @export
- * @interface DefaultApiGetJobRequest
+ * @interface JobManagementApiGetJobRequest
  */
-export interface DefaultApiGetJobRequest {
+export interface JobManagementApiGetJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof DefaultApiGetJob
+     * @memberof JobManagementApiGetJob
      */
     readonly jobId: string
 }
 
 /**
- * Request parameters for getJobTasks operation in DefaultApi.
+ * Request parameters for getJobTasks operation in JobManagementApi.
  * @export
- * @interface DefaultApiGetJobTasksRequest
+ * @interface JobManagementApiGetJobTasksRequest
  */
-export interface DefaultApiGetJobTasksRequest {
+export interface JobManagementApiGetJobTasksRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof DefaultApiGetJobTasks
+     * @memberof JobManagementApiGetJobTasks
      */
     readonly jobId: string
 }
 
 /**
- * Request parameters for getJobs operation in DefaultApi.
+ * Request parameters for getJobs operation in JobManagementApi.
  * @export
- * @interface DefaultApiGetJobsRequest
+ * @interface JobManagementApiGetJobsRequest
  */
-export interface DefaultApiGetJobsRequest {
+export interface JobManagementApiGetJobsRequest {
     /**
      * Start of time range in ms since 1970
      * @type {number}
-     * @memberof DefaultApiGetJobs
+     * @memberof JobManagementApiGetJobs
      */
     readonly fromTime?: number
 
     /**
      * End of time range in ms since 1970
      * @type {number}
-     * @memberof DefaultApiGetJobs
+     * @memberof JobManagementApiGetJobs
      */
     readonly toTime?: number
 }
 
 /**
- * Request parameters for pauseJob operation in DefaultApi.
+ * Request parameters for pauseJob operation in JobManagementApi.
  * @export
- * @interface DefaultApiPauseJobRequest
+ * @interface JobManagementApiPauseJobRequest
  */
-export interface DefaultApiPauseJobRequest {
+export interface JobManagementApiPauseJobRequest {
     /**
      * The requested job id
      * @type {string}
-     * @memberof DefaultApiPauseJob
+     * @memberof JobManagementApiPauseJob
      */
     readonly jobId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof DefaultApiPauseJob
+     * @memberof JobManagementApiPauseJob
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * DefaultApi - object-oriented interface
+ * JobManagementApi - object-oriented interface
  * @export
- * @class DefaultApi
+ * @class JobManagementApi
  * @extends {BaseAPI}
  */
-export class DefaultApi extends BaseAPI {
+export class JobManagementApi extends BaseAPI {
     /**
      * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
      * @summary Cancel a running job
-     * @param {DefaultApiCancelJobRequest} requestParameters Request parameters.
+     * @param {JobManagementApiCancelJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof JobManagementApi
      */
-    public cancelJob(requestParameters: DefaultApiCancelJobRequest) {
-        return DefaultApiFp(this.configuration).cancelJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public cancelJob(requestParameters: JobManagementApiCancelJobRequest) {
+        return JobManagementApiFp(this.configuration).cancelJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Continue the given paused job.
      * @summary Continue a paused job
-     * @param {DefaultApiContinueJobRequest} requestParameters Request parameters.
+     * @param {JobManagementApiContinueJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof JobManagementApi
      */
-    public continueJob(requestParameters: DefaultApiContinueJobRequest) {
-        return DefaultApiFp(this.configuration).continueJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public continueJob(requestParameters: JobManagementApiContinueJobRequest) {
+        return JobManagementApiFp(this.configuration).continueJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Get an object describing the given job
      * @summary Get job details
-     * @param {DefaultApiGetJobRequest} requestParameters Request parameters.
+     * @param {JobManagementApiGetJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof JobManagementApi
      */
-    public getJob(requestParameters: DefaultApiGetJobRequest) {
-        return DefaultApiFp(this.configuration).getJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getJob(requestParameters: JobManagementApiGetJobRequest) {
+        return JobManagementApiFp(this.configuration).getJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Return a list of tasks for given job
      * @summary Return a list of tasks for given job
-     * @param {DefaultApiGetJobTasksRequest} requestParameters Request parameters.
+     * @param {JobManagementApiGetJobTasksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof JobManagementApi
      */
-    public getJobTasks(requestParameters: DefaultApiGetJobTasksRequest) {
-        return DefaultApiFp(this.configuration).getJobTasks(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getJobTasks(requestParameters: JobManagementApiGetJobTasksRequest) {
+        return JobManagementApiFp(this.configuration).getJobTasks(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
      * @summary Return a list of jobs belonging to tenant
-     * @param {DefaultApiGetJobsRequest} requestParameters Request parameters.
+     * @param {JobManagementApiGetJobsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof JobManagementApi
      */
-    public getJobs(requestParameters: DefaultApiGetJobsRequest = {}) {
-        return DefaultApiFp(this.configuration).getJobs(requestParameters.fromTime, requestParameters.toTime).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getJobs(requestParameters: JobManagementApiGetJobsRequest = {}) {
+        return JobManagementApiFp(this.configuration).getJobs(requestParameters.fromTime, requestParameters.toTime).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
      * @summary Pause a job
-     * @param {DefaultApiPauseJobRequest} requestParameters Request parameters.
+     * @param {JobManagementApiPauseJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof DefaultApi
+     * @memberof JobManagementApi
      */
-    public pauseJob(requestParameters: DefaultApiPauseJobRequest) {
-        return DefaultApiFp(this.configuration).pauseJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public pauseJob(requestParameters: JobManagementApiPauseJobRequest) {
+        return JobManagementApiFp(this.configuration).pauseJob(requestParameters.jobId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

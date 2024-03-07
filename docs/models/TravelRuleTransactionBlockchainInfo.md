@@ -4,9 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**txHash** | **string** |  | [default to undefined]|
-|**origin** | **string** |  | [default to undefined]|
-|**destination** | **string** |  | [default to undefined]|
+|**txHash** | **string** |  | [optional] [default to undefined]|
+|**origin** | **string** |  | [optional] [default to undefined]|
+|**destination** | **string** |  | [optional] [default to undefined]|
 
 
 

@@ -35,8 +35,9 @@
 |**exchangeTxId** | **string** | If the transaction originated from an exchange, this is the ID of this transaction at the exchange. | [optional] [default to undefined]|
 |**customerRefId** | **string** | The ID for AML providers to associate the owner of funds with transactions. | [optional] [default to undefined]|
 |**amlScreeningResult** | [**AmlScreeningResult**](AmlScreeningResult.md) |  | [optional] [default to undefined]|
+|**complianceResult** | [**ComplianceResult**](ComplianceResult.md) |  | [optional] [default to undefined]|
 |**extraParameters** | **object** | Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key &#x60;inputsSelection&#x60; with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For &#x60;RAW&#x60; operations, add the key &#x60;rawMessageData&#x60; with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For &#x60;CONTRACT_CALL&#x60; operations, add the key &#x60;contractCallData&#x60; with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions.  | [optional] [default to undefined]|
-|**signedMessages** | [**SignedMessage**](SignedMessage.md) |  | [optional] [default to undefined]|
+|**signedMessages** | [**Array&lt;SignedMessage&gt;**](SignedMessage.md) |  | [optional] [default to undefined]|
 |**numOfConfirmations** | **number** | The number of confirmations of the transaction. The number will increase until the transaction will be considered completed according to the confirmation policy. | [optional] [default to undefined]|
 |**blockInfo** | [**BlockInfo**](BlockInfo.md) |  | [optional] [default to undefined]|
 |**index** | **number** | For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value. | [optional] [default to undefined]|
@@ -54,6 +55,8 @@
 
 ## Enum: TransactionResponseAddressTypeEnum
 
+
+* `Empty` (value: `''`)
 
 * `Whitelisted` (value: `'WHITELISTED'`)
 

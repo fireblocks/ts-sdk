@@ -28,11 +28,11 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { CreateInternalWalletAssetRequest } from '../models';
 // @ts-ignore
-import { CreateInternalWalletRequest } from '../models';
+import { CreateWalletRequest } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
-import { SetCustomerRefIdForVaultAccountRequest } from '../models';
+import { SetCustomerRefIdRequest } from '../models';
 // @ts-ignore
 import { UnmanagedWallet } from '../models';
 // @ts-ignore
@@ -46,12 +46,12 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Creates a new internal wallet with the requested name.
          * @summary Create an internal wallet
-         * @param {CreateInternalWalletRequest} [createInternalWalletRequest] 
+         * @param {CreateWalletRequest} [createWalletRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createInternalWallet: async (createInternalWalletRequest?: CreateInternalWalletRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createInternalWallet: async (createWalletRequest?: CreateWalletRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/internal_wallets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -75,7 +75,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createInternalWalletRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createWalletRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -306,15 +306,15 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Sets an AML/KYT customer reference ID for the specific internal wallet.
          * @summary Set an AML/KYT customer reference ID for an internal wallet
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} walletId The wallet ID
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForInternalWallet: async (setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdForVaultAccountRequest' is not null or undefined
-            assertParamExists('setCustomerRefIdForInternalWallet', 'setCustomerRefIdForVaultAccountRequest', setCustomerRefIdForVaultAccountRequest)
+        setCustomerRefIdForInternalWallet: async (setCustomerRefIdRequest: SetCustomerRefIdRequest, walletId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'setCustomerRefIdRequest' is not null or undefined
+            assertParamExists('setCustomerRefIdForInternalWallet', 'setCustomerRefIdRequest', setCustomerRefIdRequest)
             // verify required parameter 'walletId' is not null or undefined
             assertParamExists('setCustomerRefIdForInternalWallet', 'walletId', walletId)
             const localVarPath = `/internal_wallets/{walletId}/set_customer_ref_id`
@@ -341,7 +341,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdForVaultAccountRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(setCustomerRefIdRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -361,13 +361,13 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
         /**
          * Creates a new internal wallet with the requested name.
          * @summary Create an internal wallet
-         * @param {CreateInternalWalletRequest} [createInternalWalletRequest] 
+         * @param {CreateWalletRequest} [createWalletRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createInternalWallet(createInternalWalletRequest?: CreateInternalWalletRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createInternalWallet(createInternalWalletRequest, idempotencyKey, options);
+        async createInternalWallet(createWalletRequest?: CreateWalletRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UnmanagedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createInternalWallet(createWalletRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['InternalWalletsApi.createInternalWallet']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -457,14 +457,14 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
         /**
          * Sets an AML/KYT customer reference ID for the specific internal wallet.
          * @summary Set an AML/KYT customer reference ID for an internal wallet
-         * @param {SetCustomerRefIdForVaultAccountRequest} setCustomerRefIdForVaultAccountRequest 
+         * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} walletId The wallet ID
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForInternalWallet(setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest, walletId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForInternalWallet(setCustomerRefIdForVaultAccountRequest, walletId, idempotencyKey, options);
+        async setCustomerRefIdForInternalWallet(setCustomerRefIdRequest: SetCustomerRefIdRequest, walletId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForInternalWallet(setCustomerRefIdRequest, walletId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['InternalWalletsApi.setCustomerRefIdForInternalWallet']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -487,7 +487,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         createInternalWallet(requestParameters: InternalWalletsApiCreateInternalWalletRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<UnmanagedWallet> {
-            return localVarFp.createInternalWallet(requestParameters.createInternalWalletRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.createInternalWallet(requestParameters.createWalletRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Adds an asset to an existing internal wallet.
@@ -556,7 +556,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         setCustomerRefIdForInternalWallet(requestParameters: InternalWalletsApiSetCustomerRefIdForInternalWalletRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.setCustomerRefIdForInternalWallet(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.walletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.setCustomerRefIdForInternalWallet(requestParameters.setCustomerRefIdRequest, requestParameters.walletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -569,10 +569,10 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
 export interface InternalWalletsApiCreateInternalWalletRequest {
     /**
      * 
-     * @type {CreateInternalWalletRequest}
+     * @type {CreateWalletRequest}
      * @memberof InternalWalletsApiCreateInternalWallet
      */
-    readonly createInternalWalletRequest?: CreateInternalWalletRequest
+    readonly createWalletRequest?: CreateWalletRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -695,10 +695,10 @@ export interface InternalWalletsApiGetInternalWalletAssetRequest {
 export interface InternalWalletsApiSetCustomerRefIdForInternalWalletRequest {
     /**
      * 
-     * @type {SetCustomerRefIdForVaultAccountRequest}
+     * @type {SetCustomerRefIdRequest}
      * @memberof InternalWalletsApiSetCustomerRefIdForInternalWallet
      */
-    readonly setCustomerRefIdForVaultAccountRequest: SetCustomerRefIdForVaultAccountRequest
+    readonly setCustomerRefIdRequest: SetCustomerRefIdRequest
 
     /**
      * The wallet ID
@@ -731,7 +731,7 @@ export class InternalWalletsApi extends BaseAPI {
      * @memberof InternalWalletsApi
      */
     public createInternalWallet(requestParameters: InternalWalletsApiCreateInternalWalletRequest = {}) {
-        return InternalWalletsApiFp(this.configuration).createInternalWallet(requestParameters.createInternalWalletRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return InternalWalletsApiFp(this.configuration).createInternalWallet(requestParameters.createWalletRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -814,7 +814,7 @@ export class InternalWalletsApi extends BaseAPI {
      * @memberof InternalWalletsApi
      */
     public setCustomerRefIdForInternalWallet(requestParameters: InternalWalletsApiSetCustomerRefIdForInternalWalletRequest) {
-        return InternalWalletsApiFp(this.configuration).setCustomerRefIdForInternalWallet(requestParameters.setCustomerRefIdForVaultAccountRequest, requestParameters.walletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return InternalWalletsApiFp(this.configuration).setCustomerRefIdForInternalWallet(requestParameters.setCustomerRefIdRequest, requestParameters.walletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

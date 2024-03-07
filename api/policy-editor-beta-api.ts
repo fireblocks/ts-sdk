@@ -32,13 +32,11 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { PolicyAndValidationResponse } from '../models';
 // @ts-ignore
+import { PolicyRules } from '../models';
+// @ts-ignore
 import { PublishDraftRequest } from '../models';
 // @ts-ignore
-import { PublishPolicyRulesRequest } from '../models';
-// @ts-ignore
 import { PublishResult } from '../models';
-// @ts-ignore
-import { UpdateDraftRequest } from '../models';
 /**
  * PolicyEditorBetaApi - axios parameter creator
  * @export
@@ -149,14 +147,14 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a set of policy rules
-         * @param {PublishPolicyRulesRequest} publishPolicyRulesRequest 
+         * @param {PolicyRules} policyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPolicyRules: async (publishPolicyRulesRequest: PublishPolicyRulesRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'publishPolicyRulesRequest' is not null or undefined
-            assertParamExists('publishPolicyRules', 'publishPolicyRulesRequest', publishPolicyRulesRequest)
+        publishPolicyRules: async (policyRules: PolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'policyRules' is not null or undefined
+            assertParamExists('publishPolicyRules', 'policyRules', policyRules)
             const localVarPath = `/tap/publish`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -180,7 +178,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(publishPolicyRulesRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(policyRules, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -190,14 +188,14 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
         /**
          * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
-         * @param {UpdateDraftRequest} updateDraftRequest 
+         * @param {PolicyRules} policyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDraft: async (updateDraftRequest: UpdateDraftRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'updateDraftRequest' is not null or undefined
-            assertParamExists('updateDraft', 'updateDraftRequest', updateDraftRequest)
+        updateDraft: async (policyRules: PolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'policyRules' is not null or undefined
+            assertParamExists('updateDraft', 'policyRules', policyRules)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -221,7 +219,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateDraftRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(policyRules, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -279,13 +277,13 @@ export const PolicyEditorBetaApiFp = function(configuration?: Configuration) {
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a set of policy rules
-         * @param {PublishPolicyRulesRequest} publishPolicyRulesRequest 
+         * @param {PolicyRules} policyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishPolicyRules(publishPolicyRulesRequest: PublishPolicyRulesRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(publishPolicyRulesRequest, idempotencyKey, options);
+        async publishPolicyRules(policyRules: PolicyRules, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(policyRules, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['PolicyEditorBetaApi.publishPolicyRules']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -293,13 +291,13 @@ export const PolicyEditorBetaApiFp = function(configuration?: Configuration) {
         /**
          * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
-         * @param {UpdateDraftRequest} updateDraftRequest 
+         * @param {PolicyRules} policyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateDraft(updateDraftRequest: UpdateDraftRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(updateDraftRequest, idempotencyKey, options);
+        async updateDraft(policyRules: PolicyRules, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(policyRules, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['PolicyEditorBetaApi.updateDraft']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -350,7 +348,7 @@ export const PolicyEditorBetaApiFactory = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublishResult> {
-            return localVarFp.publishPolicyRules(requestParameters.publishPolicyRulesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.publishPolicyRules(requestParameters.policyRules, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -360,7 +358,7 @@ export const PolicyEditorBetaApiFactory = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest, options?: RawAxiosRequestConfig): AxiosPromise<DraftReviewAndValidationResponse> {
-            return localVarFp.updateDraft(requestParameters.updateDraftRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateDraft(requestParameters.policyRules, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -394,10 +392,10 @@ export interface PolicyEditorBetaApiPublishDraftRequest {
 export interface PolicyEditorBetaApiPublishPolicyRulesRequest {
     /**
      * 
-     * @type {PublishPolicyRulesRequest}
+     * @type {PolicyRules}
      * @memberof PolicyEditorBetaApiPublishPolicyRules
      */
-    readonly publishPolicyRulesRequest: PublishPolicyRulesRequest
+    readonly policyRules: PolicyRules
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -415,10 +413,10 @@ export interface PolicyEditorBetaApiPublishPolicyRulesRequest {
 export interface PolicyEditorBetaApiUpdateDraftRequest {
     /**
      * 
-     * @type {UpdateDraftRequest}
+     * @type {PolicyRules}
      * @memberof PolicyEditorBetaApiUpdateDraft
      */
-    readonly updateDraftRequest: UpdateDraftRequest
+    readonly policyRules: PolicyRules
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -478,7 +476,7 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @memberof PolicyEditorBetaApi
      */
     public publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest) {
-        return PolicyEditorBetaApiFp(this.configuration).publishPolicyRules(requestParameters.publishPolicyRulesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return PolicyEditorBetaApiFp(this.configuration).publishPolicyRules(requestParameters.policyRules, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -490,7 +488,7 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @memberof PolicyEditorBetaApi
      */
     public updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest) {
-        return PolicyEditorBetaApiFp(this.configuration).updateDraft(requestParameters.updateDraftRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return PolicyEditorBetaApiFp(this.configuration).updateDraft(requestParameters.policyRules, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

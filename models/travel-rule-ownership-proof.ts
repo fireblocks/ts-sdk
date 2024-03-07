@@ -25,36 +25,12 @@ export interface TravelRuleOwnershipProof {
      * @type {string}
      * @memberof TravelRuleOwnershipProof
      */
-    'type': string;
+    'type'?: string;
     /**
      * Identification number
      * @type {string}
      * @memberof TravelRuleOwnershipProof
      */
-    'id': string;
-    /**
-     * Name of owner
-     * @type {string}
-     * @memberof TravelRuleOwnershipProof
-     */
-    'name': string;
-    /**
-     * Country of issuance
-     * @type {string}
-     * @memberof TravelRuleOwnershipProof
-     */
-    'country': string;
-    /**
-     * Date of issuance
-     * @type {string}
-     * @memberof TravelRuleOwnershipProof
-     */
-    'issueDate': string;
-    /**
-     * Name of issuing entity
-     * @type {string}
-     * @memberof TravelRuleOwnershipProof
-     */
-    'issuer': string;
+    'proof'?: string;
 }
 

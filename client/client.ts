@@ -17,15 +17,16 @@ import { AdminQuorumApi,
          AssetsApi, 
          AuditLogsApi, 
          BlockchainsAssetsApi, 
+         ComplianceApi, 
          ComplianceScreeningConfigurationApi, 
          ConsoleUserApi, 
          ContractsApi, 
-         DefaultApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
          GasStationsApi, 
          InternalWalletsApi, 
+         JobManagementApi, 
          NFTsApi, 
          NetworkConnectionsApi, 
          OTABetaApi, 
@@ -57,15 +58,16 @@ export class Fireblocks {
     private _assets?: AssetsApi;
     private _auditLogs?: AuditLogsApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
+    private _compliance?: ComplianceApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _consoleUser?: ConsoleUserApi;
     private _contracts?: ContractsApi;
-    private __default?: DefaultApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
     private _gasStations?: GasStationsApi;
     private _internalWallets?: InternalWalletsApi;
+    private _jobManagement?: JobManagementApi;
     private _nFTs?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
     private _oTABeta?: OTABetaApi;
@@ -121,6 +123,9 @@ export class Fireblocks {
     get blockchainsAssets(): BlockchainsAssetsApi {
         return this._blockchainsAssets ?? new BlockchainsAssetsApi(this.config, undefined, this.axiosManager.axios);
     }
+    get compliance(): ComplianceApi {
+        return this._compliance ?? new ComplianceApi(this.config, undefined, this.axiosManager.axios);
+    }
     get complianceScreeningConfiguration(): ComplianceScreeningConfigurationApi {
         return this._complianceScreeningConfiguration ?? new ComplianceScreeningConfigurationApi(this.config, undefined, this.axiosManager.axios);
     }
@@ -129,9 +134,6 @@ export class Fireblocks {
     }
     get contracts(): ContractsApi {
         return this._contracts ?? new ContractsApi(this.config, undefined, this.axiosManager.axios);
-    }
-    get _default(): DefaultApi {
-        return this.__default ?? new DefaultApi(this.config, undefined, this.axiosManager.axios);
     }
     get exchangeAccounts(): ExchangeAccountsApi {
         return this._exchangeAccounts ?? new ExchangeAccountsApi(this.config, undefined, this.axiosManager.axios);
@@ -147,6 +149,9 @@ export class Fireblocks {
     }
     get internalWallets(): InternalWalletsApi {
         return this._internalWallets ?? new InternalWalletsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get jobManagement(): JobManagementApi {
+        return this._jobManagement ?? new JobManagementApi(this.config, undefined, this.axiosManager.axios);
     }
     get nFTs(): NFTsApi {
         return this._nFTs ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);

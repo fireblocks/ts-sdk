@@ -23,7 +23,7 @@ Method | HTTP request | Description
 
 
 # **cancelTicket**
-> FindTicketById200Response cancelTicket()
+> SmartTransferTicketResponse cancelTicket()
 
 Cancel Smart Transfer ticket
 
@@ -33,7 +33,7 @@ Cancel Smart Transfer ticket
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiCancelTicketRequest, FindTicketById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiCancelTicketRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -49,7 +49,7 @@ let body: SmartTransferApiCancelTicketRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.cancelTicket(body).then((res: FireblocksResponse<FindTicketById200Response>) => {
+fireblocks.smartTransfer.cancelTicket(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -65,7 +65,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[FindTicketById200Response](../models/FindTicketById200Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -88,7 +88,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **createTicket**
-> CreateTicket201Response createTicket(smartTransferCreateTicketDto)
+> SmartTransferTicketResponse createTicket(smartTransferCreateTicket)
 
 Creates new Smart Transfer ticket
 
@@ -98,7 +98,7 @@ Creates new Smart Transfer ticket
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiCreateTicketRequest, CreateTicket201Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiCreateTicketRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -108,13 +108,13 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiCreateTicketRequest = {
-  // SmartTransferCreateTicketDto
-  smartTransferCreateTicketDto: param_value,
+  // SmartTransferCreateTicket
+  smartTransferCreateTicket: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.createTicket(body).then((res: FireblocksResponse<CreateTicket201Response>) => {
+fireblocks.smartTransfer.createTicket(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -124,13 +124,13 @@ fireblocks.smartTransfer.createTicket(body).then((res: FireblocksResponse<Create
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferCreateTicketDto** | **[SmartTransferCreateTicketDto](../models/SmartTransferCreateTicketDto.md)**|  |
+ **smartTransferCreateTicket** | **[SmartTransferCreateTicket](../models/SmartTransferCreateTicket.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[CreateTicket201Response](../models/CreateTicket201Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -152,7 +152,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **createTicketTerm**
-> CreateTicketTerm201Response createTicketTerm(smartTransferCreateTicketTermDto, )
+> SmartTransferTicketTermResponse createTicketTerm(smartTransferCreateTicketTerm, )
 
 Creates new smart transfer ticket term (when the ticket status is DRAFT)
 
@@ -162,7 +162,7 @@ Creates new smart transfer ticket term (when the ticket status is DRAFT)
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiCreateTicketTermRequest, CreateTicketTerm201Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiCreateTicketTermRequest, SmartTransferTicketTermResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -172,15 +172,15 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiCreateTicketTermRequest = {
-  // SmartTransferCreateTicketTermDto
-  smartTransferCreateTicketTermDto: param_value,
+  // SmartTransferCreateTicketTerm
+  smartTransferCreateTicketTerm: param_value,
   // string
   ticketId: ticketId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.createTicketTerm(body).then((res: FireblocksResponse<CreateTicketTerm201Response>) => {
+fireblocks.smartTransfer.createTicketTerm(body).then((res: FireblocksResponse<SmartTransferTicketTermResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -190,14 +190,14 @@ fireblocks.smartTransfer.createTicketTerm(body).then((res: FireblocksResponse<Cr
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferCreateTicketTermDto** | **[SmartTransferCreateTicketTermDto](../models/SmartTransferCreateTicketTermDto.md)**|  |
+ **smartTransferCreateTicketTerm** | **[SmartTransferCreateTicketTerm](../models/SmartTransferCreateTicketTerm.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[CreateTicketTerm201Response](../models/CreateTicketTerm201Response.md)**
+**[SmartTransferTicketTermResponse](../models/SmartTransferTicketTermResponse.md)**
 
 ### Authorization
 
@@ -219,7 +219,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **findTicketById**
-> FindTicketById200Response findTicketById()
+> SmartTransferTicketResponse findTicketById()
 
 Find Smart Transfer ticket by id
 
@@ -229,7 +229,7 @@ Find Smart Transfer ticket by id
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiFindTicketByIdRequest, FindTicketById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiFindTicketByIdRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -243,7 +243,7 @@ let body: SmartTransferApiFindTicketByIdRequest = {
   ticketId: ticketId_example,
 };
 
-fireblocks.smartTransfer.findTicketById(body).then((res: FireblocksResponse<FindTicketById200Response>) => {
+fireblocks.smartTransfer.findTicketById(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[FindTicketById200Response](../models/FindTicketById200Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -280,7 +280,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **findTicketTermById**
-> FindTicketTermById200Response findTicketTermById()
+> SmartTransferTicketTermResponse findTicketTermById()
 
 Find Smart Transfer ticket term by id
 
@@ -290,7 +290,7 @@ Find Smart Transfer ticket term by id
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiFindTicketTermByIdRequest, FindTicketTermById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiFindTicketTermByIdRequest, SmartTransferTicketTermResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -306,7 +306,7 @@ let body: SmartTransferApiFindTicketTermByIdRequest = {
   termId: termId_example,
 };
 
-fireblocks.smartTransfer.findTicketTermById(body).then((res: FireblocksResponse<FindTicketTermById200Response>) => {
+fireblocks.smartTransfer.findTicketTermById(body).then((res: FireblocksResponse<SmartTransferTicketTermResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -322,7 +322,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[FindTicketTermById200Response](../models/FindTicketTermById200Response.md)**
+**[SmartTransferTicketTermResponse](../models/SmartTransferTicketTermResponse.md)**
 
 ### Authorization
 
@@ -344,7 +344,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **fulfillTicket**
-> FindTicketById200Response fulfillTicket()
+> SmartTransferTicketResponse fulfillTicket()
 
 Manually fulfill ticket, in case when all terms (legs) are funded manually
 
@@ -354,7 +354,7 @@ Manually fulfill ticket, in case when all terms (legs) are funded manually
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiFulfillTicketRequest, FindTicketById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiFulfillTicketRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -370,7 +370,7 @@ let body: SmartTransferApiFulfillTicketRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.fulfillTicket(body).then((res: FireblocksResponse<FindTicketById200Response>) => {
+fireblocks.smartTransfer.fulfillTicket(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -386,7 +386,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[FindTicketById200Response](../models/FindTicketById200Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -409,7 +409,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **fundTicketTerm**
-> fundTicketTerm(smartTransferFundTermDto, )
+> SmartTransferTicketTermResponse fundTicketTerm(smartTransferFundTerm, )
 
 Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately)
 
@@ -419,7 +419,7 @@ Set funding source for ticket term (in case of ASYNC tickets, this will execute 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiFundTicketTermRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiFundTicketTermRequest, SmartTransferTicketTermResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -429,8 +429,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiFundTicketTermRequest = {
-  // SmartTransferFundTermDto
-  smartTransferFundTermDto: param_value,
+  // SmartTransferFundTerm
+  smartTransferFundTerm: param_value,
   // string
   ticketId: ticketId_example,
   // string
@@ -439,7 +439,7 @@ let body: SmartTransferApiFundTicketTermRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.fundTicketTerm(body).then((res: FireblocksResponse<any>) => {
+fireblocks.smartTransfer.fundTicketTerm(body).then((res: FireblocksResponse<SmartTransferTicketTermResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -449,7 +449,7 @@ fireblocks.smartTransfer.fundTicketTerm(body).then((res: FireblocksResponse<any>
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferFundTermDto** | **[SmartTransferFundTermDto](../models/SmartTransferFundTermDto.md)**|  |
+ **smartTransferFundTerm** | **[SmartTransferFundTerm](../models/SmartTransferFundTerm.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **termId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -457,7 +457,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[SmartTransferTicketTermResponse](../models/SmartTransferTicketTermResponse.md)**
 
 ### Authorization
 
@@ -472,7 +472,6 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
 **201** | Funding source for ticket term successfully done |  -  |
 **403** | Unauthorized |  -  |
 **404** | Not found |  -  |
@@ -481,7 +480,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSmartTransferUserGroups**
-> GetSmartTransferUserGroups200Response getSmartTransferUserGroups()
+> SmartTransferUserGroupsResponse getSmartTransferUserGroups()
 
 Get Smart Transfer user groups
 
@@ -491,7 +490,7 @@ Get Smart Transfer user groups
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, GetSmartTransferUserGroups200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferUserGroupsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -502,7 +501,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.smartTransfer.getSmartTransferUserGroups(body).then((res: FireblocksResponse<GetSmartTransferUserGroups200Response>) => {
+fireblocks.smartTransfer.getSmartTransferUserGroups(body).then((res: FireblocksResponse<SmartTransferUserGroupsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -514,7 +513,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**[GetSmartTransferUserGroups200Response](../models/GetSmartTransferUserGroups200Response.md)**
+**[SmartTransferUserGroupsResponse](../models/SmartTransferUserGroupsResponse.md)**
 
 ### Authorization
 
@@ -536,7 +535,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **manuallyFundTicketTerm**
-> manuallyFundTicketTerm(smartTransferManuallyFundTermDto, )
+> SmartTransferTicketTermResponse manuallyFundTicketTerm(smartTransferManuallyFundTerm, )
 
 Manually set ticket term transaction
 
@@ -546,7 +545,7 @@ Manually set ticket term transaction
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiManuallyFundTicketTermRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiManuallyFundTicketTermRequest, SmartTransferTicketTermResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -556,8 +555,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiManuallyFundTicketTermRequest = {
-  // SmartTransferManuallyFundTermDto
-  smartTransferManuallyFundTermDto: param_value,
+  // SmartTransferManuallyFundTerm
+  smartTransferManuallyFundTerm: param_value,
   // string
   ticketId: ticketId_example,
   // string
@@ -566,7 +565,7 @@ let body: SmartTransferApiManuallyFundTicketTermRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.manuallyFundTicketTerm(body).then((res: FireblocksResponse<any>) => {
+fireblocks.smartTransfer.manuallyFundTicketTerm(body).then((res: FireblocksResponse<SmartTransferTicketTermResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -576,7 +575,7 @@ fireblocks.smartTransfer.manuallyFundTicketTerm(body).then((res: FireblocksRespo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferManuallyFundTermDto** | **[SmartTransferManuallyFundTermDto](../models/SmartTransferManuallyFundTermDto.md)**|  |
+ **smartTransferManuallyFundTerm** | **[SmartTransferManuallyFundTerm](../models/SmartTransferManuallyFundTerm.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **termId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -584,7 +583,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[SmartTransferTicketTermResponse](../models/SmartTransferTicketTermResponse.md)**
 
 ### Authorization
 
@@ -599,7 +598,6 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** |  |  -  |
 **201** | Successfully manually set ticket term transaction |  -  |
 **403** | Unauthorized |  -  |
 **404** | Not found |  -  |
@@ -672,7 +670,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **searchTickets**
-> SearchTickets200Response searchTickets()
+> SmartTransferTicketFilteredResponse searchTickets()
 
 Finds Smart Transfer tickets that match the submitted criteria
 
@@ -682,7 +680,7 @@ Finds Smart Transfer tickets that match the submitted criteria
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiSearchTicketsRequest, SearchTickets200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiSearchTicketsRequest, SmartTransferTicketFilteredResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -714,7 +712,7 @@ let body: SmartTransferApiSearchTicketsRequest = {
   limit: 8.14,
 };
 
-fireblocks.smartTransfer.searchTickets(body).then((res: FireblocksResponse<SearchTickets200Response>) => {
+fireblocks.smartTransfer.searchTickets(body).then((res: FireblocksResponse<SmartTransferTicketFilteredResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -738,7 +736,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[SearchTickets200Response](../models/SearchTickets200Response.md)**
+**[SmartTransferTicketFilteredResponse](../models/SmartTransferTicketFilteredResponse.md)**
 
 ### Authorization
 
@@ -759,7 +757,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setExternalRefId**
-> FindTicketById200Response setExternalRefId(smartTransferSetTicketExternalIdDto, )
+> SmartTransferTicketResponse setExternalRefId(smartTransferSetTicketExternalId, )
 
 Set external id Smart Transfer ticket
 
@@ -769,7 +767,7 @@ Set external id Smart Transfer ticket
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiSetExternalRefIdRequest, FindTicketById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiSetExternalRefIdRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -779,15 +777,15 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiSetExternalRefIdRequest = {
-  // SmartTransferSetTicketExternalIdDto
-  smartTransferSetTicketExternalIdDto: param_value,
+  // SmartTransferSetTicketExternalId
+  smartTransferSetTicketExternalId: param_value,
   // string
   ticketId: ticketId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.setExternalRefId(body).then((res: FireblocksResponse<FindTicketById200Response>) => {
+fireblocks.smartTransfer.setExternalRefId(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -797,14 +795,14 @@ fireblocks.smartTransfer.setExternalRefId(body).then((res: FireblocksResponse<Fi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferSetTicketExternalIdDto** | **[SmartTransferSetTicketExternalIdDto](../models/SmartTransferSetTicketExternalIdDto.md)**|  |
+ **smartTransferSetTicketExternalId** | **[SmartTransferSetTicketExternalId](../models/SmartTransferSetTicketExternalId.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[FindTicketById200Response](../models/FindTicketById200Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -827,7 +825,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setTicketExpiration**
-> FindTicketById200Response setTicketExpiration(smartTransferSetTicketExpirationDto, )
+> SmartTransferTicketResponse setTicketExpiration(smartTransferSetTicketExpiration, )
 
 Set expiration date on Smart Transfer ticket
 
@@ -837,7 +835,7 @@ Set expiration date on Smart Transfer ticket
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiSetTicketExpirationRequest, FindTicketById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiSetTicketExpirationRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -847,15 +845,15 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiSetTicketExpirationRequest = {
-  // SmartTransferSetTicketExpirationDto
-  smartTransferSetTicketExpirationDto: param_value,
+  // SmartTransferSetTicketExpiration
+  smartTransferSetTicketExpiration: param_value,
   // string
   ticketId: ticketId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.setTicketExpiration(body).then((res: FireblocksResponse<FindTicketById200Response>) => {
+fireblocks.smartTransfer.setTicketExpiration(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -865,14 +863,14 @@ fireblocks.smartTransfer.setTicketExpiration(body).then((res: FireblocksResponse
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferSetTicketExpirationDto** | **[SmartTransferSetTicketExpirationDto](../models/SmartTransferSetTicketExpirationDto.md)**|  |
+ **smartTransferSetTicketExpiration** | **[SmartTransferSetTicketExpiration](../models/SmartTransferSetTicketExpiration.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[FindTicketById200Response](../models/FindTicketById200Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -895,7 +893,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setUserGroups**
-> SetUserGroups201Response setUserGroups(smartTransferSetUserGroupsDto)
+> SmartTransferUserGroupsResponse setUserGroups(smartTransferSetUserGroups)
 
 Set Smart Transfer user group
 
@@ -905,7 +903,7 @@ Set Smart Transfer user group
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiSetUserGroupsRequest, SetUserGroups201Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiSetUserGroupsRequest, SmartTransferUserGroupsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -915,13 +913,13 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiSetUserGroupsRequest = {
-  // SmartTransferSetUserGroupsDto
-  smartTransferSetUserGroupsDto: param_value,
+  // SmartTransferSetUserGroups
+  smartTransferSetUserGroups: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.setUserGroups(body).then((res: FireblocksResponse<SetUserGroups201Response>) => {
+fireblocks.smartTransfer.setUserGroups(body).then((res: FireblocksResponse<SmartTransferUserGroupsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -931,13 +929,13 @@ fireblocks.smartTransfer.setUserGroups(body).then((res: FireblocksResponse<SetUs
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferSetUserGroupsDto** | **[SmartTransferSetUserGroupsDto](../models/SmartTransferSetUserGroupsDto.md)**|  |
+ **smartTransferSetUserGroups** | **[SmartTransferSetUserGroups](../models/SmartTransferSetUserGroups.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[SetUserGroups201Response](../models/SetUserGroups201Response.md)**
+**[SmartTransferUserGroupsResponse](../models/SmartTransferUserGroupsResponse.md)**
 
 ### Authorization
 
@@ -959,7 +957,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **submitTicket**
-> FindTicketById200Response submitTicket(smartTransferSubmitTicketDto, )
+> SmartTransferTicketResponse submitTicket(smartTransferSubmitTicket, )
 
 Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on
 
@@ -969,7 +967,7 @@ Submit Smart Transfer ticket - change status into ready for approval if auto app
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiSubmitTicketRequest, FindTicketById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiSubmitTicketRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -979,15 +977,15 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiSubmitTicketRequest = {
-  // SmartTransferSubmitTicketDto
-  smartTransferSubmitTicketDto: param_value,
+  // SmartTransferSubmitTicket
+  smartTransferSubmitTicket: param_value,
   // string
   ticketId: ticketId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.submitTicket(body).then((res: FireblocksResponse<FindTicketById200Response>) => {
+fireblocks.smartTransfer.submitTicket(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -997,14 +995,14 @@ fireblocks.smartTransfer.submitTicket(body).then((res: FireblocksResponse<FindTi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferSubmitTicketDto** | **[SmartTransferSubmitTicketDto](../models/SmartTransferSubmitTicketDto.md)**|  |
+ **smartTransferSubmitTicket** | **[SmartTransferSubmitTicket](../models/SmartTransferSubmitTicket.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[FindTicketById200Response](../models/FindTicketById200Response.md)**
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
 
 ### Authorization
 
@@ -1027,7 +1025,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateTicketTerm**
-> FindTicketTermById200Response updateTicketTerm(smartTransferUpdateTicketTermDto, )
+> SmartTransferTicketTermResponse updateTicketTerm(smartTransferUpdateTicketTerm, )
 
 Update ticket term (when ticket status is DRAFT)
 
@@ -1037,7 +1035,7 @@ Update ticket term (when ticket status is DRAFT)
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, SmartTransferApiUpdateTicketTermRequest, FindTicketTermById200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiUpdateTicketTermRequest, SmartTransferTicketTermResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1047,8 +1045,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiUpdateTicketTermRequest = {
-  // SmartTransferUpdateTicketTermDto
-  smartTransferUpdateTicketTermDto: param_value,
+  // SmartTransferUpdateTicketTerm
+  smartTransferUpdateTicketTerm: param_value,
   // string
   ticketId: ticketId_example,
   // string
@@ -1057,7 +1055,7 @@ let body: SmartTransferApiUpdateTicketTermRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.smartTransfer.updateTicketTerm(body).then((res: FireblocksResponse<FindTicketTermById200Response>) => {
+fireblocks.smartTransfer.updateTicketTerm(body).then((res: FireblocksResponse<SmartTransferTicketTermResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1067,7 +1065,7 @@ fireblocks.smartTransfer.updateTicketTerm(body).then((res: FireblocksResponse<Fi
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **smartTransferUpdateTicketTermDto** | **[SmartTransferUpdateTicketTermDto](../models/SmartTransferUpdateTicketTermDto.md)**|  |
+ **smartTransferUpdateTicketTerm** | **[SmartTransferUpdateTicketTerm](../models/SmartTransferUpdateTicketTerm.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **termId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -1075,7 +1073,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[FindTicketTermById200Response](../models/FindTicketTermById200Response.md)**
+**[SmartTransferTicketTermResponse](../models/SmartTransferTicketTermResponse.md)**
 
 ### Authorization
 

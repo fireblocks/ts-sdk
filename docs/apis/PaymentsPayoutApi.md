@@ -31,7 +31,7 @@ const fireblocks = new Fireblocks();
 
 let body: PaymentsPayoutApiCreatePayoutRequest = {
   // CreatePayoutRequest (optional)
-  createPayoutRequest: {"paymentAccount":{"id":"EX_SUB3","type":"EXCHANGE_ACCOUNT"},"instructionSet":[{"payeeAccount":{"id":"bef85a1c-b605-4b2e-bdb5-2d400f4d0bf3","type":"EXTERNAL_WALLET"},"amount":{"amount":"43","assetId":"USDC"}},{"payeeAccount":{"id":"3adc1f92-e791-44a8-9aee-7f31c2108b78","type":"NETWORK_CONNECTION"},"amount":{"amount":"4423","assetId":"USDC"}}]},
+  createPayoutRequest: {"paymentAccount":{"id":"EX_SUB1","type":"EXCHANGE_ACCOUNT"},"instructionSet":[{"payeeAccount":{"id":"bef85a1c-b605-4b2e-bdb5-2d400f4d0bf3","type":"EXTERNAL_WALLET"},"amount":{"amount":"43","assetId":"USDC"}},{"payeeAccount":{"id":"3adc1f92-e791-44a8-9aee-7f31c2108b78","type":"NETWORK_CONNECTION"},"amount":{"amount":"4423","assetId":"USDC"}}]},
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };

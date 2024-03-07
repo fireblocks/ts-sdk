@@ -26,43 +26,37 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { CreateTicket201Response } from '../models';
-// @ts-ignore
-import { CreateTicketTerm201Response } from '../models';
-// @ts-ignore
-import { FindTicketById200Response } from '../models';
-// @ts-ignore
-import { FindTicketTermById200Response } from '../models';
-// @ts-ignore
-import { GetSmartTransferUserGroups200Response } from '../models';
-// @ts-ignore
-import { SearchTickets200Response } from '../models';
-// @ts-ignore
-import { SetUserGroups201Response } from '../models';
-// @ts-ignore
 import { SmartTransferBadRequestResponse } from '../models';
 // @ts-ignore
-import { SmartTransferCreateTicketDto } from '../models';
+import { SmartTransferCreateTicket } from '../models';
 // @ts-ignore
-import { SmartTransferCreateTicketTermDto } from '../models';
+import { SmartTransferCreateTicketTerm } from '../models';
 // @ts-ignore
 import { SmartTransferForbiddenResponse } from '../models';
 // @ts-ignore
-import { SmartTransferFundTermDto } from '../models';
+import { SmartTransferFundTerm } from '../models';
 // @ts-ignore
-import { SmartTransferManuallyFundTermDto } from '../models';
+import { SmartTransferManuallyFundTerm } from '../models';
 // @ts-ignore
 import { SmartTransferNotFoundResponse } from '../models';
 // @ts-ignore
-import { SmartTransferSetTicketExpirationDto } from '../models';
+import { SmartTransferSetTicketExpiration } from '../models';
 // @ts-ignore
-import { SmartTransferSetTicketExternalIdDto } from '../models';
+import { SmartTransferSetTicketExternalId } from '../models';
 // @ts-ignore
-import { SmartTransferSetUserGroupsDto } from '../models';
+import { SmartTransferSetUserGroups } from '../models';
 // @ts-ignore
-import { SmartTransferSubmitTicketDto } from '../models';
+import { SmartTransferSubmitTicket } from '../models';
 // @ts-ignore
-import { SmartTransferUpdateTicketTermDto } from '../models';
+import { SmartTransferTicketFilteredResponse } from '../models';
+// @ts-ignore
+import { SmartTransferTicketResponse } from '../models';
+// @ts-ignore
+import { SmartTransferTicketTermResponse } from '../models';
+// @ts-ignore
+import { SmartTransferUpdateTicketTerm } from '../models';
+// @ts-ignore
+import { SmartTransferUserGroupsResponse } from '../models';
 /**
  * SmartTransferApi - axios parameter creator
  * @export
@@ -111,14 +105,14 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Creates new Smart Transfer ticket
          * @summary Create Ticket
-         * @param {SmartTransferCreateTicketDto} smartTransferCreateTicketDto 
+         * @param {SmartTransferCreateTicket} smartTransferCreateTicket 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createTicket: async (smartTransferCreateTicketDto: SmartTransferCreateTicketDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferCreateTicketDto' is not null or undefined
-            assertParamExists('createTicket', 'smartTransferCreateTicketDto', smartTransferCreateTicketDto)
+        createTicket: async (smartTransferCreateTicket: SmartTransferCreateTicket, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferCreateTicket' is not null or undefined
+            assertParamExists('createTicket', 'smartTransferCreateTicket', smartTransferCreateTicket)
             const localVarPath = `/smart-transfers`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -142,7 +136,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferCreateTicketDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferCreateTicket, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -152,15 +146,15 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Creates new smart transfer ticket term (when the ticket status is DRAFT)
          * @summary Create leg (term)
-         * @param {SmartTransferCreateTicketTermDto} smartTransferCreateTicketTermDto 
+         * @param {SmartTransferCreateTicketTerm} smartTransferCreateTicketTerm 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createTicketTerm: async (smartTransferCreateTicketTermDto: SmartTransferCreateTicketTermDto, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferCreateTicketTermDto' is not null or undefined
-            assertParamExists('createTicketTerm', 'smartTransferCreateTicketTermDto', smartTransferCreateTicketTermDto)
+        createTicketTerm: async (smartTransferCreateTicketTerm: SmartTransferCreateTicketTerm, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferCreateTicketTerm' is not null or undefined
+            assertParamExists('createTicketTerm', 'smartTransferCreateTicketTerm', smartTransferCreateTicketTerm)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('createTicketTerm', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/terms`
@@ -187,7 +181,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferCreateTicketTermDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferCreateTicketTerm, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -308,16 +302,16 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately)
          * @summary Define funding source
-         * @param {SmartTransferFundTermDto} smartTransferFundTermDto 
+         * @param {SmartTransferFundTerm} smartTransferFundTerm 
          * @param {string} ticketId 
          * @param {string} termId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fundTicketTerm: async (smartTransferFundTermDto: SmartTransferFundTermDto, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferFundTermDto' is not null or undefined
-            assertParamExists('fundTicketTerm', 'smartTransferFundTermDto', smartTransferFundTermDto)
+        fundTicketTerm: async (smartTransferFundTerm: SmartTransferFundTerm, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferFundTerm' is not null or undefined
+            assertParamExists('fundTicketTerm', 'smartTransferFundTerm', smartTransferFundTerm)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('fundTicketTerm', 'ticketId', ticketId)
             // verify required parameter 'termId' is not null or undefined
@@ -347,7 +341,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferFundTermDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferFundTerm, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -387,16 +381,16 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Manually set ticket term transaction
          * @summary Manually add term transaction
-         * @param {SmartTransferManuallyFundTermDto} smartTransferManuallyFundTermDto 
+         * @param {SmartTransferManuallyFundTerm} smartTransferManuallyFundTerm 
          * @param {string} ticketId 
          * @param {string} termId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        manuallyFundTicketTerm: async (smartTransferManuallyFundTermDto: SmartTransferManuallyFundTermDto, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferManuallyFundTermDto' is not null or undefined
-            assertParamExists('manuallyFundTicketTerm', 'smartTransferManuallyFundTermDto', smartTransferManuallyFundTermDto)
+        manuallyFundTicketTerm: async (smartTransferManuallyFundTerm: SmartTransferManuallyFundTerm, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferManuallyFundTerm' is not null or undefined
+            assertParamExists('manuallyFundTicketTerm', 'smartTransferManuallyFundTerm', smartTransferManuallyFundTerm)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('manuallyFundTicketTerm', 'ticketId', ticketId)
             // verify required parameter 'termId' is not null or undefined
@@ -426,7 +420,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferManuallyFundTermDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferManuallyFundTerm, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -558,15 +552,15 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Set external id Smart Transfer ticket
          * @summary Add external ref. ID
-         * @param {SmartTransferSetTicketExternalIdDto} smartTransferSetTicketExternalIdDto 
+         * @param {SmartTransferSetTicketExternalId} smartTransferSetTicketExternalId 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setExternalRefId: async (smartTransferSetTicketExternalIdDto: SmartTransferSetTicketExternalIdDto, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSetTicketExternalIdDto' is not null or undefined
-            assertParamExists('setExternalRefId', 'smartTransferSetTicketExternalIdDto', smartTransferSetTicketExternalIdDto)
+        setExternalRefId: async (smartTransferSetTicketExternalId: SmartTransferSetTicketExternalId, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferSetTicketExternalId' is not null or undefined
+            assertParamExists('setExternalRefId', 'smartTransferSetTicketExternalId', smartTransferSetTicketExternalId)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('setExternalRefId', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/external-id`
@@ -593,7 +587,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSetTicketExternalIdDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSetTicketExternalId, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -603,15 +597,15 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Set expiration date on Smart Transfer ticket
          * @summary Set expiration
-         * @param {SmartTransferSetTicketExpirationDto} smartTransferSetTicketExpirationDto 
+         * @param {SmartTransferSetTicketExpiration} smartTransferSetTicketExpiration 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setTicketExpiration: async (smartTransferSetTicketExpirationDto: SmartTransferSetTicketExpirationDto, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSetTicketExpirationDto' is not null or undefined
-            assertParamExists('setTicketExpiration', 'smartTransferSetTicketExpirationDto', smartTransferSetTicketExpirationDto)
+        setTicketExpiration: async (smartTransferSetTicketExpiration: SmartTransferSetTicketExpiration, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferSetTicketExpiration' is not null or undefined
+            assertParamExists('setTicketExpiration', 'smartTransferSetTicketExpiration', smartTransferSetTicketExpiration)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('setTicketExpiration', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/expires-in`
@@ -638,7 +632,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSetTicketExpirationDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSetTicketExpiration, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -648,14 +642,14 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Set Smart Transfer user group
          * @summary Set user group
-         * @param {SmartTransferSetUserGroupsDto} smartTransferSetUserGroupsDto 
+         * @param {SmartTransferSetUserGroups} smartTransferSetUserGroups 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setUserGroups: async (smartTransferSetUserGroupsDto: SmartTransferSetUserGroupsDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSetUserGroupsDto' is not null or undefined
-            assertParamExists('setUserGroups', 'smartTransferSetUserGroupsDto', smartTransferSetUserGroupsDto)
+        setUserGroups: async (smartTransferSetUserGroups: SmartTransferSetUserGroups, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferSetUserGroups' is not null or undefined
+            assertParamExists('setUserGroups', 'smartTransferSetUserGroups', smartTransferSetUserGroups)
             const localVarPath = `/smart-transfers/settings/user-groups`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -679,7 +673,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSetUserGroupsDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSetUserGroups, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -689,15 +683,15 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on
          * @summary Submit ticket
-         * @param {SmartTransferSubmitTicketDto} smartTransferSubmitTicketDto 
+         * @param {SmartTransferSubmitTicket} smartTransferSubmitTicket 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitTicket: async (smartTransferSubmitTicketDto: SmartTransferSubmitTicketDto, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSubmitTicketDto' is not null or undefined
-            assertParamExists('submitTicket', 'smartTransferSubmitTicketDto', smartTransferSubmitTicketDto)
+        submitTicket: async (smartTransferSubmitTicket: SmartTransferSubmitTicket, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferSubmitTicket' is not null or undefined
+            assertParamExists('submitTicket', 'smartTransferSubmitTicket', smartTransferSubmitTicket)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('submitTicket', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/submit`
@@ -724,7 +718,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSubmitTicketDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferSubmitTicket, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -734,16 +728,16 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Update ticket term (when ticket status is DRAFT)
          * @summary Update ticket leg (term)
-         * @param {SmartTransferUpdateTicketTermDto} smartTransferUpdateTicketTermDto 
+         * @param {SmartTransferUpdateTicketTerm} smartTransferUpdateTicketTerm 
          * @param {string} ticketId 
          * @param {string} termId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTicketTerm: async (smartTransferUpdateTicketTermDto: SmartTransferUpdateTicketTermDto, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferUpdateTicketTermDto' is not null or undefined
-            assertParamExists('updateTicketTerm', 'smartTransferUpdateTicketTermDto', smartTransferUpdateTicketTermDto)
+        updateTicketTerm: async (smartTransferUpdateTicketTerm: SmartTransferUpdateTicketTerm, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'smartTransferUpdateTicketTerm' is not null or undefined
+            assertParamExists('updateTicketTerm', 'smartTransferUpdateTicketTerm', smartTransferUpdateTicketTerm)
             // verify required parameter 'ticketId' is not null or undefined
             assertParamExists('updateTicketTerm', 'ticketId', ticketId)
             // verify required parameter 'termId' is not null or undefined
@@ -773,7 +767,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferUpdateTicketTermDto, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferUpdateTicketTerm, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -798,7 +792,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async cancelTicket(ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketById200Response>> {
+        async cancelTicket(ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.cancelTicket(ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.cancelTicket']?.[index]?.url;
@@ -807,13 +801,13 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Creates new Smart Transfer ticket
          * @summary Create Ticket
-         * @param {SmartTransferCreateTicketDto} smartTransferCreateTicketDto 
+         * @param {SmartTransferCreateTicket} smartTransferCreateTicket 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createTicket(smartTransferCreateTicketDto: SmartTransferCreateTicketDto, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTicket201Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createTicket(smartTransferCreateTicketDto, idempotencyKey, options);
+        async createTicket(smartTransferCreateTicket: SmartTransferCreateTicket, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTicket(smartTransferCreateTicket, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.createTicket']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -821,14 +815,14 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Creates new smart transfer ticket term (when the ticket status is DRAFT)
          * @summary Create leg (term)
-         * @param {SmartTransferCreateTicketTermDto} smartTransferCreateTicketTermDto 
+         * @param {SmartTransferCreateTicketTerm} smartTransferCreateTicketTerm 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createTicketTerm(smartTransferCreateTicketTermDto: SmartTransferCreateTicketTermDto, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTicketTerm201Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createTicketTerm(smartTransferCreateTicketTermDto, ticketId, idempotencyKey, options);
+        async createTicketTerm(smartTransferCreateTicketTerm: SmartTransferCreateTicketTerm, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketTermResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTicketTerm(smartTransferCreateTicketTerm, ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.createTicketTerm']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -840,7 +834,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findTicketById(ticketId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketById200Response>> {
+        async findTicketById(ticketId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findTicketById(ticketId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.findTicketById']?.[index]?.url;
@@ -854,7 +848,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async findTicketTermById(ticketId: string, termId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketTermById200Response>> {
+        async findTicketTermById(ticketId: string, termId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketTermResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.findTicketTermById(ticketId, termId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.findTicketTermById']?.[index]?.url;
@@ -868,7 +862,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fulfillTicket(ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketById200Response>> {
+        async fulfillTicket(ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.fulfillTicket(ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.fulfillTicket']?.[index]?.url;
@@ -877,15 +871,15 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately)
          * @summary Define funding source
-         * @param {SmartTransferFundTermDto} smartTransferFundTermDto 
+         * @param {SmartTransferFundTerm} smartTransferFundTerm 
          * @param {string} ticketId 
          * @param {string} termId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fundTicketTerm(smartTransferFundTermDto: SmartTransferFundTermDto, ticketId: string, termId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fundTicketTerm(smartTransferFundTermDto, ticketId, termId, idempotencyKey, options);
+        async fundTicketTerm(smartTransferFundTerm: SmartTransferFundTerm, ticketId: string, termId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketTermResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fundTicketTerm(smartTransferFundTerm, ticketId, termId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.fundTicketTerm']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -896,7 +890,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSmartTransferUserGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSmartTransferUserGroups200Response>> {
+        async getSmartTransferUserGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferUserGroupsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSmartTransferUserGroups(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.getSmartTransferUserGroups']?.[index]?.url;
@@ -905,15 +899,15 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Manually set ticket term transaction
          * @summary Manually add term transaction
-         * @param {SmartTransferManuallyFundTermDto} smartTransferManuallyFundTermDto 
+         * @param {SmartTransferManuallyFundTerm} smartTransferManuallyFundTerm 
          * @param {string} ticketId 
          * @param {string} termId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async manuallyFundTicketTerm(smartTransferManuallyFundTermDto: SmartTransferManuallyFundTermDto, ticketId: string, termId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.manuallyFundTicketTerm(smartTransferManuallyFundTermDto, ticketId, termId, idempotencyKey, options);
+        async manuallyFundTicketTerm(smartTransferManuallyFundTerm: SmartTransferManuallyFundTerm, ticketId: string, termId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketTermResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.manuallyFundTicketTerm(smartTransferManuallyFundTerm, ticketId, termId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.manuallyFundTicketTerm']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -948,7 +942,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchTickets(q?: string, statuses?: Array<SearchTicketsStatusesEnum>, networkId?: string, createdByMe?: boolean, expiresAfter?: string, expiresBefore?: string, type?: SearchTicketsTypeEnum, externalRefId?: string, after?: string, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchTickets200Response>> {
+        async searchTickets(q?: string, statuses?: Array<SearchTicketsStatusesEnum>, networkId?: string, createdByMe?: boolean, expiresAfter?: string, expiresBefore?: string, type?: SearchTicketsTypeEnum, externalRefId?: string, after?: string, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketFilteredResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.searchTickets']?.[index]?.url;
@@ -957,14 +951,14 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Set external id Smart Transfer ticket
          * @summary Add external ref. ID
-         * @param {SmartTransferSetTicketExternalIdDto} smartTransferSetTicketExternalIdDto 
+         * @param {SmartTransferSetTicketExternalId} smartTransferSetTicketExternalId 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setExternalRefId(smartTransferSetTicketExternalIdDto: SmartTransferSetTicketExternalIdDto, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketById200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setExternalRefId(smartTransferSetTicketExternalIdDto, ticketId, idempotencyKey, options);
+        async setExternalRefId(smartTransferSetTicketExternalId: SmartTransferSetTicketExternalId, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setExternalRefId(smartTransferSetTicketExternalId, ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.setExternalRefId']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -972,14 +966,14 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Set expiration date on Smart Transfer ticket
          * @summary Set expiration
-         * @param {SmartTransferSetTicketExpirationDto} smartTransferSetTicketExpirationDto 
+         * @param {SmartTransferSetTicketExpiration} smartTransferSetTicketExpiration 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setTicketExpiration(smartTransferSetTicketExpirationDto: SmartTransferSetTicketExpirationDto, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketById200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setTicketExpiration(smartTransferSetTicketExpirationDto, ticketId, idempotencyKey, options);
+        async setTicketExpiration(smartTransferSetTicketExpiration: SmartTransferSetTicketExpiration, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setTicketExpiration(smartTransferSetTicketExpiration, ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.setTicketExpiration']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -987,13 +981,13 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Set Smart Transfer user group
          * @summary Set user group
-         * @param {SmartTransferSetUserGroupsDto} smartTransferSetUserGroupsDto 
+         * @param {SmartTransferSetUserGroups} smartTransferSetUserGroups 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setUserGroups(smartTransferSetUserGroupsDto: SmartTransferSetUserGroupsDto, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetUserGroups201Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setUserGroups(smartTransferSetUserGroupsDto, idempotencyKey, options);
+        async setUserGroups(smartTransferSetUserGroups: SmartTransferSetUserGroups, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferUserGroupsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setUserGroups(smartTransferSetUserGroups, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.setUserGroups']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1001,14 +995,14 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on
          * @summary Submit ticket
-         * @param {SmartTransferSubmitTicketDto} smartTransferSubmitTicketDto 
+         * @param {SmartTransferSubmitTicket} smartTransferSubmitTicket 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submitTicket(smartTransferSubmitTicketDto: SmartTransferSubmitTicketDto, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketById200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.submitTicket(smartTransferSubmitTicketDto, ticketId, idempotencyKey, options);
+        async submitTicket(smartTransferSubmitTicket: SmartTransferSubmitTicket, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.submitTicket(smartTransferSubmitTicket, ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.submitTicket']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1016,15 +1010,15 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Update ticket term (when ticket status is DRAFT)
          * @summary Update ticket leg (term)
-         * @param {SmartTransferUpdateTicketTermDto} smartTransferUpdateTicketTermDto 
+         * @param {SmartTransferUpdateTicketTerm} smartTransferUpdateTicketTerm 
          * @param {string} ticketId 
          * @param {string} termId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTicketTerm(smartTransferUpdateTicketTermDto: SmartTransferUpdateTicketTermDto, ticketId: string, termId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FindTicketTermById200Response>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTicketTerm(smartTransferUpdateTicketTermDto, ticketId, termId, idempotencyKey, options);
+        async updateTicketTerm(smartTransferUpdateTicketTerm: SmartTransferUpdateTicketTerm, ticketId: string, termId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketTermResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTicketTerm(smartTransferUpdateTicketTerm, ticketId, termId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.updateTicketTerm']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1046,7 +1040,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        cancelTicket(requestParameters: SmartTransferApiCancelTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketById200Response> {
+        cancelTicket(requestParameters: SmartTransferApiCancelTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
             return localVarFp.cancelTicket(requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1056,8 +1050,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createTicket(requestParameters: SmartTransferApiCreateTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateTicket201Response> {
-            return localVarFp.createTicket(requestParameters.smartTransferCreateTicketDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        createTicket(requestParameters: SmartTransferApiCreateTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
+            return localVarFp.createTicket(requestParameters.smartTransferCreateTicket, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates new smart transfer ticket term (when the ticket status is DRAFT)
@@ -1066,8 +1060,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createTicketTerm(requestParameters: SmartTransferApiCreateTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateTicketTerm201Response> {
-            return localVarFp.createTicketTerm(requestParameters.smartTransferCreateTicketTermDto, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        createTicketTerm(requestParameters: SmartTransferApiCreateTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketTermResponse> {
+            return localVarFp.createTicketTerm(requestParameters.smartTransferCreateTicketTerm, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Find Smart Transfer ticket by id
@@ -1076,7 +1070,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findTicketById(requestParameters: SmartTransferApiFindTicketByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketById200Response> {
+        findTicketById(requestParameters: SmartTransferApiFindTicketByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
             return localVarFp.findTicketById(requestParameters.ticketId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1086,7 +1080,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        findTicketTermById(requestParameters: SmartTransferApiFindTicketTermByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketTermById200Response> {
+        findTicketTermById(requestParameters: SmartTransferApiFindTicketTermByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketTermResponse> {
             return localVarFp.findTicketTermById(requestParameters.ticketId, requestParameters.termId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1096,7 +1090,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fulfillTicket(requestParameters: SmartTransferApiFulfillTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketById200Response> {
+        fulfillTicket(requestParameters: SmartTransferApiFulfillTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
             return localVarFp.fulfillTicket(requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1106,8 +1100,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fundTicketTerm(requestParameters: SmartTransferApiFundTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.fundTicketTerm(requestParameters.smartTransferFundTermDto, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        fundTicketTerm(requestParameters: SmartTransferApiFundTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketTermResponse> {
+            return localVarFp.fundTicketTerm(requestParameters.smartTransferFundTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get Smart Transfer user groups
@@ -1115,7 +1109,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSmartTransferUserGroups(options?: RawAxiosRequestConfig): AxiosPromise<GetSmartTransferUserGroups200Response> {
+        getSmartTransferUserGroups(options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferUserGroupsResponse> {
             return localVarFp.getSmartTransferUserGroups(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1125,8 +1119,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        manuallyFundTicketTerm(requestParameters: SmartTransferApiManuallyFundTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.manuallyFundTicketTerm(requestParameters.smartTransferManuallyFundTermDto, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        manuallyFundTicketTerm(requestParameters: SmartTransferApiManuallyFundTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketTermResponse> {
+            return localVarFp.manuallyFundTicketTerm(requestParameters.smartTransferManuallyFundTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Delete ticket term when ticket is in DRAFT status
@@ -1145,7 +1139,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchTickets(requestParameters: SmartTransferApiSearchTicketsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<SearchTickets200Response> {
+        searchTickets(requestParameters: SmartTransferApiSearchTicketsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketFilteredResponse> {
             return localVarFp.searchTickets(requestParameters.q, requestParameters.statuses, requestParameters.networkId, requestParameters.createdByMe, requestParameters.expiresAfter, requestParameters.expiresBefore, requestParameters.type, requestParameters.externalRefId, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1155,8 +1149,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setExternalRefId(requestParameters: SmartTransferApiSetExternalRefIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketById200Response> {
-            return localVarFp.setExternalRefId(requestParameters.smartTransferSetTicketExternalIdDto, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        setExternalRefId(requestParameters: SmartTransferApiSetExternalRefIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
+            return localVarFp.setExternalRefId(requestParameters.smartTransferSetTicketExternalId, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Set expiration date on Smart Transfer ticket
@@ -1165,8 +1159,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setTicketExpiration(requestParameters: SmartTransferApiSetTicketExpirationRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketById200Response> {
-            return localVarFp.setTicketExpiration(requestParameters.smartTransferSetTicketExpirationDto, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        setTicketExpiration(requestParameters: SmartTransferApiSetTicketExpirationRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
+            return localVarFp.setTicketExpiration(requestParameters.smartTransferSetTicketExpiration, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Set Smart Transfer user group
@@ -1175,8 +1169,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setUserGroups(requestParameters: SmartTransferApiSetUserGroupsRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetUserGroups201Response> {
-            return localVarFp.setUserGroups(requestParameters.smartTransferSetUserGroupsDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        setUserGroups(requestParameters: SmartTransferApiSetUserGroupsRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferUserGroupsResponse> {
+            return localVarFp.setUserGroups(requestParameters.smartTransferSetUserGroups, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on
@@ -1185,8 +1179,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitTicket(requestParameters: SmartTransferApiSubmitTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketById200Response> {
-            return localVarFp.submitTicket(requestParameters.smartTransferSubmitTicketDto, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        submitTicket(requestParameters: SmartTransferApiSubmitTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
+            return localVarFp.submitTicket(requestParameters.smartTransferSubmitTicket, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Update ticket term (when ticket status is DRAFT)
@@ -1195,8 +1189,8 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTicketTerm(requestParameters: SmartTransferApiUpdateTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<FindTicketTermById200Response> {
-            return localVarFp.updateTicketTerm(requestParameters.smartTransferUpdateTicketTermDto, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        updateTicketTerm(requestParameters: SmartTransferApiUpdateTicketTermRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketTermResponse> {
+            return localVarFp.updateTicketTerm(requestParameters.smartTransferUpdateTicketTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1230,10 +1224,10 @@ export interface SmartTransferApiCancelTicketRequest {
 export interface SmartTransferApiCreateTicketRequest {
     /**
      * 
-     * @type {SmartTransferCreateTicketDto}
+     * @type {SmartTransferCreateTicket}
      * @memberof SmartTransferApiCreateTicket
      */
-    readonly smartTransferCreateTicketDto: SmartTransferCreateTicketDto
+    readonly smartTransferCreateTicket: SmartTransferCreateTicket
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1251,10 +1245,10 @@ export interface SmartTransferApiCreateTicketRequest {
 export interface SmartTransferApiCreateTicketTermRequest {
     /**
      * 
-     * @type {SmartTransferCreateTicketTermDto}
+     * @type {SmartTransferCreateTicketTerm}
      * @memberof SmartTransferApiCreateTicketTerm
      */
-    readonly smartTransferCreateTicketTermDto: SmartTransferCreateTicketTermDto
+    readonly smartTransferCreateTicketTerm: SmartTransferCreateTicketTerm
 
     /**
      * 
@@ -1335,10 +1329,10 @@ export interface SmartTransferApiFulfillTicketRequest {
 export interface SmartTransferApiFundTicketTermRequest {
     /**
      * 
-     * @type {SmartTransferFundTermDto}
+     * @type {SmartTransferFundTerm}
      * @memberof SmartTransferApiFundTicketTerm
      */
-    readonly smartTransferFundTermDto: SmartTransferFundTermDto
+    readonly smartTransferFundTerm: SmartTransferFundTerm
 
     /**
      * 
@@ -1370,10 +1364,10 @@ export interface SmartTransferApiFundTicketTermRequest {
 export interface SmartTransferApiManuallyFundTicketTermRequest {
     /**
      * 
-     * @type {SmartTransferManuallyFundTermDto}
+     * @type {SmartTransferManuallyFundTerm}
      * @memberof SmartTransferApiManuallyFundTicketTerm
      */
-    readonly smartTransferManuallyFundTermDto: SmartTransferManuallyFundTermDto
+    readonly smartTransferManuallyFundTerm: SmartTransferManuallyFundTerm
 
     /**
      * 
@@ -1503,10 +1497,10 @@ export interface SmartTransferApiSearchTicketsRequest {
 export interface SmartTransferApiSetExternalRefIdRequest {
     /**
      * 
-     * @type {SmartTransferSetTicketExternalIdDto}
+     * @type {SmartTransferSetTicketExternalId}
      * @memberof SmartTransferApiSetExternalRefId
      */
-    readonly smartTransferSetTicketExternalIdDto: SmartTransferSetTicketExternalIdDto
+    readonly smartTransferSetTicketExternalId: SmartTransferSetTicketExternalId
 
     /**
      * 
@@ -1531,10 +1525,10 @@ export interface SmartTransferApiSetExternalRefIdRequest {
 export interface SmartTransferApiSetTicketExpirationRequest {
     /**
      * 
-     * @type {SmartTransferSetTicketExpirationDto}
+     * @type {SmartTransferSetTicketExpiration}
      * @memberof SmartTransferApiSetTicketExpiration
      */
-    readonly smartTransferSetTicketExpirationDto: SmartTransferSetTicketExpirationDto
+    readonly smartTransferSetTicketExpiration: SmartTransferSetTicketExpiration
 
     /**
      * 
@@ -1559,10 +1553,10 @@ export interface SmartTransferApiSetTicketExpirationRequest {
 export interface SmartTransferApiSetUserGroupsRequest {
     /**
      * 
-     * @type {SmartTransferSetUserGroupsDto}
+     * @type {SmartTransferSetUserGroups}
      * @memberof SmartTransferApiSetUserGroups
      */
-    readonly smartTransferSetUserGroupsDto: SmartTransferSetUserGroupsDto
+    readonly smartTransferSetUserGroups: SmartTransferSetUserGroups
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1580,10 +1574,10 @@ export interface SmartTransferApiSetUserGroupsRequest {
 export interface SmartTransferApiSubmitTicketRequest {
     /**
      * 
-     * @type {SmartTransferSubmitTicketDto}
+     * @type {SmartTransferSubmitTicket}
      * @memberof SmartTransferApiSubmitTicket
      */
-    readonly smartTransferSubmitTicketDto: SmartTransferSubmitTicketDto
+    readonly smartTransferSubmitTicket: SmartTransferSubmitTicket
 
     /**
      * 
@@ -1608,10 +1602,10 @@ export interface SmartTransferApiSubmitTicketRequest {
 export interface SmartTransferApiUpdateTicketTermRequest {
     /**
      * 
-     * @type {SmartTransferUpdateTicketTermDto}
+     * @type {SmartTransferUpdateTicketTerm}
      * @memberof SmartTransferApiUpdateTicketTerm
      */
-    readonly smartTransferUpdateTicketTermDto: SmartTransferUpdateTicketTermDto
+    readonly smartTransferUpdateTicketTerm: SmartTransferUpdateTicketTerm
 
     /**
      * 
@@ -1663,7 +1657,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public createTicket(requestParameters: SmartTransferApiCreateTicketRequest) {
-        return SmartTransferApiFp(this.configuration).createTicket(requestParameters.smartTransferCreateTicketDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).createTicket(requestParameters.smartTransferCreateTicket, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1675,7 +1669,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public createTicketTerm(requestParameters: SmartTransferApiCreateTicketTermRequest) {
-        return SmartTransferApiFp(this.configuration).createTicketTerm(requestParameters.smartTransferCreateTicketTermDto, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).createTicketTerm(requestParameters.smartTransferCreateTicketTerm, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1723,7 +1717,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public fundTicketTerm(requestParameters: SmartTransferApiFundTicketTermRequest) {
-        return SmartTransferApiFp(this.configuration).fundTicketTerm(requestParameters.smartTransferFundTermDto, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).fundTicketTerm(requestParameters.smartTransferFundTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1746,7 +1740,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public manuallyFundTicketTerm(requestParameters: SmartTransferApiManuallyFundTicketTermRequest) {
-        return SmartTransferApiFp(this.configuration).manuallyFundTicketTerm(requestParameters.smartTransferManuallyFundTermDto, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).manuallyFundTicketTerm(requestParameters.smartTransferManuallyFundTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1782,7 +1776,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public setExternalRefId(requestParameters: SmartTransferApiSetExternalRefIdRequest) {
-        return SmartTransferApiFp(this.configuration).setExternalRefId(requestParameters.smartTransferSetTicketExternalIdDto, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).setExternalRefId(requestParameters.smartTransferSetTicketExternalId, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1794,7 +1788,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public setTicketExpiration(requestParameters: SmartTransferApiSetTicketExpirationRequest) {
-        return SmartTransferApiFp(this.configuration).setTicketExpiration(requestParameters.smartTransferSetTicketExpirationDto, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).setTicketExpiration(requestParameters.smartTransferSetTicketExpiration, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1806,7 +1800,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public setUserGroups(requestParameters: SmartTransferApiSetUserGroupsRequest) {
-        return SmartTransferApiFp(this.configuration).setUserGroups(requestParameters.smartTransferSetUserGroupsDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).setUserGroups(requestParameters.smartTransferSetUserGroups, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1818,7 +1812,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public submitTicket(requestParameters: SmartTransferApiSubmitTicketRequest) {
-        return SmartTransferApiFp(this.configuration).submitTicket(requestParameters.smartTransferSubmitTicketDto, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).submitTicket(requestParameters.smartTransferSubmitTicket, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1830,7 +1824,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public updateTicketTerm(requestParameters: SmartTransferApiUpdateTicketTermRequest) {
-        return SmartTransferApiFp(this.configuration).updateTicketTerm(requestParameters.smartTransferUpdateTicketTermDto, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).updateTicketTerm(requestParameters.smartTransferUpdateTicketTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
