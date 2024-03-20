@@ -36,7 +36,7 @@ import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
 require('dotenv').config();
 
 // Set the environment variables
-const FIREBLOCKS_API_KEY = process.env.FIREBLOCKS_API_KEY2;
+const FIREBLOCKS_API_KEY = process.env.FIREBLOCKS_API_KEY;
 const FIREBLOCKS_SECRET_KEY_PATH = process.env.FIREBLOCKS_SECRET_KEY_PATH;
 const FIREBLOCKS_SECRET_KEY = readFileSync(FIREBLOCKS_SECRET_KEY_PATH, "utf-8")
 
