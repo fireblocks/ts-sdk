@@ -30,16 +30,23 @@ You can initialize the SDK using environment variables from your .env file or by
 
 
 ```typescript
-import { readFileSync } from 'fs';
+import { readFileSync, PathOrFileDescriptor } from 'fs';
 import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
 
+require('dotenv').config();
+
 // Set the environment variables
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+const FIREBLOCKS_API_KEY = process.env.FIREBLOCKS_API_KEY2;
+const FIREBLOCKS_SECRET_KEY_PATH = process.env.FIREBLOCKS_SECRET_KEY_PATH;
+const FIREBLOCKS_SECRET_KEY = readFileSync(FIREBLOCKS_SECRET_KEY_PATH as PathOrFileDescriptor, "utf-8")
 
 // Create a Fireblocks API instance
-const fireblocks = new Fireblocks();
+const fireblocks = new Fireblocks({
+  apiKey: FIREBLOCKS_API_KEY,
+  secretKey: FIREBLOCKS_SECRET_KEY,
+  basePath: BasePath.US
+  }
+)
 
 ```
 <p><strong>Providing Local Variables</strong><br>
