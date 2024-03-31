@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
 
+#### [v3.0.6-beta](https://github.com/fireblocks/ts-sdk/compare/v3.0.5-beta...v3.0.6-beta)
+
+> 31 March 2024
+
+- version_3_0_6_beta [`#29`](https://github.com/fireblocks/ts-sdk/pull/29)
+
 #### [v3.0.5-beta](https://github.com/fireblocks/ts-sdk/compare/v3.0.4-beta...v3.0.5-beta)
 
 > 7 March 2024
