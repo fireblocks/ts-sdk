@@ -37,7 +37,7 @@ export interface AssetTypeResponse {
      * @type {string}
      * @memberof AssetTypeResponse
      */
-    'type': AssetTypeResponseTypeEnum;
+    'type': string;
     /**
      * 
      * @type {string}
@@ -57,20 +57,4 @@ export interface AssetTypeResponse {
      */
     'decimals'?: number;
 }
-
-export const AssetTypeResponseTypeEnum = {
-    AlgoAsset: 'ALGO_ASSET',
-    BaseAsset: 'BASE_ASSET',
-    Bep20: 'BEP20',
-    Compound: 'COMPOUND',
-    Erc20: 'ERC20',
-    Fiat: 'FIAT',
-    SolAsset: 'SOL_ASSET',
-    TronTrc20: 'TRON_TRC20',
-    XlmAsset: 'XLM_ASSET',
-    XdbAsset: 'XDB_ASSET'
-} as const;
-
-export type AssetTypeResponseTypeEnum = typeof AssetTypeResponseTypeEnum[keyof typeof AssetTypeResponseTypeEnum];
-
 

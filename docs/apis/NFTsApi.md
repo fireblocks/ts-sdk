@@ -41,7 +41,7 @@ let body: NFTsApiGetNFTRequest = {
   id: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd,
 };
 
-fireblocks.nFTs.getNFT(body).then((res: FireblocksResponse<TokenResponse>) => {
+fireblocks.nfts.getNFT(body).then((res: FireblocksResponse<TokenResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -108,7 +108,7 @@ let body: NFTsApiGetNFTsRequest = {
   order: order_example,
 };
 
-fireblocks.nFTs.getNFTs(body).then((res: FireblocksResponse<ListOwnedTokens200Response>) => {
+fireblocks.nfts.getNFTs(body).then((res: FireblocksResponse<ListOwnedTokens200Response>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -197,7 +197,7 @@ let body: NFTsApiGetOwnershipTokensRequest = {
   spam: spam_example,
 };
 
-fireblocks.nFTs.getOwnershipTokens(body).then((res: FireblocksResponse<GetOwnershipTokens200Response>) => {
+fireblocks.nfts.getOwnershipTokens(body).then((res: FireblocksResponse<GetOwnershipTokens200Response>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -283,7 +283,7 @@ let body: NFTsApiListOwnedCollectionsRequest = {
   status: status_example,
 };
 
-fireblocks.nFTs.listOwnedCollections(body).then((res: FireblocksResponse<ListOwnedCollections200Response>) => {
+fireblocks.nfts.listOwnedCollections(body).then((res: FireblocksResponse<ListOwnedCollections200Response>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -365,7 +365,7 @@ let body: NFTsApiListOwnedTokensRequest = {
   spam: spam_example,
 };
 
-fireblocks.nFTs.listOwnedTokens(body).then((res: FireblocksResponse<ListOwnedTokens200Response>) => {
+fireblocks.nfts.listOwnedTokens(body).then((res: FireblocksResponse<ListOwnedTokens200Response>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -434,7 +434,7 @@ let body: NFTsApiRefreshNFTMetadataRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.nFTs.refreshNFTMetadata(body).then((res: FireblocksResponse<any>) => {
+fireblocks.nfts.refreshNFTMetadata(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -498,7 +498,7 @@ let body: NFTsApiUpdateOwnershipTokensRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.nFTs.updateOwnershipTokens(body).then((res: FireblocksResponse<any>) => {
+fireblocks.nfts.updateOwnershipTokens(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -563,7 +563,7 @@ let body: NFTsApiUpdateTokenOwnershipStatusRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.nFTs.updateTokenOwnershipStatus(body).then((res: FireblocksResponse<any>) => {
+fireblocks.nfts.updateTokenOwnershipStatus(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -626,7 +626,7 @@ let body: NFTsApiUpdateTokensOwnershipSpamRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.nFTs.updateTokensOwnershipSpam(body).then((res: FireblocksResponse<any>) => {
+fireblocks.nfts.updateTokensOwnershipSpam(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -690,7 +690,7 @@ let body: NFTsApiUpdateTokensOwnershipStatusRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.nFTs.updateTokensOwnershipStatus(body).then((res: FireblocksResponse<any>) => {
+fireblocks.nfts.updateTokensOwnershipStatus(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

@@ -30,13 +30,13 @@ import { TravelRuleTransactionBlockchainInfo } from './travel-rule-transaction-b
  */
 export interface TravelRuleCreateTransactionRequest {
     /**
-     * 
+     * Information about the originator of the transaction
      * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleCreateTransactionRequest
      */
     'originator': TravelRulePiiIVMS;
     /**
-     * 
+     * Information about the beneficiary of the transaction
      * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleCreateTransactionRequest
      */
@@ -60,7 +60,7 @@ export interface TravelRuleCreateTransactionRequest {
      */
     'beneficiaryVASPname'?: string;
     /**
-     * 
+     * Information about the blockchain transaction
      * @type {TravelRuleTransactionBlockchainInfo}
      * @memberof TravelRuleCreateTransactionRequest
      */
@@ -90,19 +90,19 @@ export interface TravelRuleCreateTransactionRequest {
      */
     'travelRuleBehavior'?: boolean;
     /**
-     * 
+     * Ownership proof related to the originator of the transaction
      * @type {TravelRuleOwnershipProof}
      * @memberof TravelRuleCreateTransactionRequest
      */
     'originatorProof'?: TravelRuleOwnershipProof;
     /**
-     * 
+     * Ownership proof related to the beneficiary of the transaction
      * @type {TravelRuleOwnershipProof}
      * @memberof TravelRuleCreateTransactionRequest
      */
     'beneficiaryProof'?: TravelRuleOwnershipProof;
     /**
-     * 
+     * Personal identifiable information related to the transaction
      * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleCreateTransactionRequest
      */

@@ -125,21 +125,21 @@ export interface PolicyRule {
      */
     'designatedSigners'?: PolicyRuleDesignatedSigners;
     /**
-     * 
+     * (deprecated - replaced by "src") source account type
      * @type {PolicySrcOrDestType}
      * @memberof PolicyRule
      * @deprecated
      */
     'srcType'?: PolicySrcOrDestType;
     /**
-     * 
+     * (deprecated - replaced by "src") source sub account type
      * @type {PolicySrcOrDestSubType}
      * @memberof PolicyRule
      * @deprecated
      */
     'srcSubType'?: PolicySrcOrDestSubType;
     /**
-     * Defines the account id, options are * \"*\" - All accounts * Specific account id 
+     * (deprecated - replaced by "src") source account id
      * @type {string}
      * @memberof PolicyRule
      * @deprecated
@@ -152,21 +152,21 @@ export interface PolicyRule {
      */
     'src'?: PolicyRuleSrc;
     /**
-     * 
+     * (deprecated - replaced by "dst") destination account type
      * @type {PolicySrcOrDestType}
      * @memberof PolicyRule
      * @deprecated
      */
     'dstType'?: PolicySrcOrDestType;
     /**
-     * 
+     * (deprecated - replaced by "dst") destination sub account type
      * @type {PolicySrcOrDestSubType}
      * @memberof PolicyRule
      * @deprecated
      */
     'dstSubType'?: PolicySrcOrDestSubType;
     /**
-     * Defines the account id, options are * \"*\" - All accounts * Specific account id 
+     * (deprecated - replaced by "dst") destination account id
      * @type {string}
      * @memberof PolicyRule
      * @deprecated

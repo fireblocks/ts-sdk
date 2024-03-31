@@ -72,13 +72,13 @@ export interface TokenResponse {
      */
     'media'?: Array<MediaEntityResponse>;
     /**
-     * 
+     * Token spam status
      * @type {SpamTokenResponse}
      * @memberof TokenResponse
      */
     'spam'?: SpamTokenResponse;
     /**
-     * 
+     * Parent collection information
      * @type {TokenCollectionResponse}
      * @memberof TokenResponse
      */

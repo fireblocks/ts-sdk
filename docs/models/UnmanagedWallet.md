@@ -6,8 +6,8 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** |  | [default to undefined]|
 |**name** | **string** |  | [default to undefined]|
+|**assets** | [**Array&lt;WalletAsset&gt;**](WalletAsset.md) |  | [default to undefined]|
 |**customerRefId** | **string** |  | [optional] [default to undefined]|
-|**assets** | [**Array&lt;WalletAsset&gt;**](WalletAsset.md) |  | [optional] [default to undefined]|
 
 
 

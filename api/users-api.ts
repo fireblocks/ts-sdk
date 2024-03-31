@@ -28,7 +28,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
-import { GetUsersResponse } from '../models';
+import { UserResponse } from '../models';
 /**
  * UsersApi - axios parameter creator
  * @export
@@ -81,7 +81,7 @@ export const UsersApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUsersResponse>> {
+        async getUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUsers(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['UsersApi.getUsers']?.[index]?.url;
@@ -103,7 +103,7 @@ export const UsersApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUsers(options?: RawAxiosRequestConfig): AxiosPromise<GetUsersResponse> {
+        getUsers(options?: RawAxiosRequestConfig): AxiosPromise<Array<UserResponse>> {
             return localVarFp.getUsers(options).then((request) => request(axios, basePath));
         },
     };

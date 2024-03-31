@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ConfigChangeRequestStatus } from './config-change-request-status';
-// May contain unused imports in some cases
-// @ts-ignore
 import { NetworkChannel } from './network-channel';
 // May contain unused imports in some cases
 // @ts-ignore
 import { NetworkConnectionRoutingPolicy } from './network-connection-routing-policy';
+// May contain unused imports in some cases
+// @ts-ignore
+import { NetworkConnectionStatus } from './network-connection-status';
 // May contain unused imports in some cases
 // @ts-ignore
 import { NetworkId } from './network-id';
@@ -40,10 +40,10 @@ export interface NetworkConnectionResponse {
     'id': string;
     /**
      * 
-     * @type {ConfigChangeRequestStatus}
+     * @type {NetworkConnectionStatus}
      * @memberof NetworkConnectionResponse
      */
-    'status': ConfigChangeRequestStatus;
+    'status': NetworkConnectionStatus;
     /**
      * 
      * @type {NetworkId}
@@ -63,14 +63,14 @@ export interface NetworkConnectionResponse {
      */
     'routingPolicy': NetworkConnectionRoutingPolicy;
     /**
-     * 
+     * Deprecated - Replaced by `localNetworkId`
      * @type {NetworkChannel}
      * @memberof NetworkConnectionResponse
      * @deprecated
      */
     'localChannel'?: NetworkChannel;
     /**
-     * 
+     * Deprecated - Replaced by `remoteNetworkId`
      * @type {NetworkChannel}
      * @memberof NetworkConnectionResponse
      * @deprecated

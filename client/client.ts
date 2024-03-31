@@ -68,9 +68,9 @@ export class Fireblocks {
     private _gasStations?: GasStationsApi;
     private _internalWallets?: InternalWalletsApi;
     private _jobManagement?: JobManagementApi;
-    private _nFTs?: NFTsApi;
+    private _nfts?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
-    private _oTABeta?: OTABetaApi;
+    private _otaBeta?: OTABetaApi;
     private _offExchanges?: OffExchangesApi;
     private _paymentsPayout?: PaymentsPayoutApi;
     private _policyEditorBeta?: PolicyEditorBetaApi;
@@ -153,14 +153,14 @@ export class Fireblocks {
     get jobManagement(): JobManagementApi {
         return this._jobManagement ?? new JobManagementApi(this.config, undefined, this.axiosManager.axios);
     }
-    get nFTs(): NFTsApi {
-        return this._nFTs ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);
+    get nfts(): NFTsApi {
+        return this._nfts ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);
     }
     get networkConnections(): NetworkConnectionsApi {
         return this._networkConnections ?? new NetworkConnectionsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get oTABeta(): OTABetaApi {
-        return this._oTABeta ?? new OTABetaApi(this.config, undefined, this.axiosManager.axios);
+    get otaBeta(): OTABetaApi {
+        return this._otaBeta ?? new OTABetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get offExchanges(): OffExchangesApi {
         return this._offExchanges ?? new OffExchangesApi(this.config, undefined, this.axiosManager.axios);

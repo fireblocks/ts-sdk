@@ -1,11 +1,10 @@
-# CreateTicket201Response
+# VaultActionStatus
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**message** | **string** | Success message | [default to undefined]|
-|**data** | [**SmartTransferTicketDto**](SmartTransferTicketDto.md) |  | [optional] [default to undefined]|
+|**success** | **boolean** |  | [optional] [default to undefined]|
 
 
 

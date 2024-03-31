@@ -18,15 +18,54 @@
 import { OneTimeAddress } from './one-time-address';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TransferPeerPath } from './transfer-peer-path';
+import { TransferPeerPathSubType } from './transfer-peer-path-sub-type';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransferPeerPathType } from './transfer-peer-path-type';
 
 /**
- * @type DestinationTransferPeerPath
+ * The destination of the transaction.
  * @export
+ * @interface DestinationTransferPeerPath
  */
-export type DestinationTransferPeerPath = TransferPeerPath;
+export interface DestinationTransferPeerPath {
+    /**
+     * 
+     * @type {TransferPeerPathType}
+     * @memberof DestinationTransferPeerPath
+     */
+    'type': TransferPeerPathType;
+    /**
+     * 
+     * @type {TransferPeerPathSubType}
+     * @memberof DestinationTransferPeerPath
+     */
+    'subType'?: TransferPeerPathSubType;
+    /**
+     * 
+     * @type {string}
+     * @memberof DestinationTransferPeerPath
+     */
+    'id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DestinationTransferPeerPath
+     */
+    'name'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DestinationTransferPeerPath
+     */
+    'walletId'?: string;
+    /**
+     * 
+     * @type {OneTimeAddress}
+     * @memberof DestinationTransferPeerPath
+     */
+    'oneTimeAddress'?: OneTimeAddress;
+}
+
 
 

@@ -1,9 +1,13 @@
-# Ncw
+# SourceTransferPeerPath
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
+|**type** | [**TransferPeerPathType**](TransferPeerPathType.md) |  | [default to undefined]|
+|**subType** | [**TransferPeerPathSubType**](TransferPeerPathSubType.md) |  | [optional] [default to undefined]|
+|**id** | **string** |  | [optional] [default to undefined]|
+|**name** | **string** |  | [optional] [default to undefined]|
 |**walletId** | **string** |  | [optional] [default to undefined]|
 
 

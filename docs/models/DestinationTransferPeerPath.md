@@ -5,80 +5,11 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | [**TransferPeerPathType**](TransferPeerPathType.md) |  | [default to undefined]|
-|**subType** | **string** |  | [optional] [default to undefined]|
+|**subType** | [**TransferPeerPathSubType**](TransferPeerPathSubType.md) |  | [optional] [default to undefined]|
 |**id** | **string** |  | [optional] [default to undefined]|
 |**name** | **string** |  | [optional] [default to undefined]|
 |**walletId** | **string** |  | [optional] [default to undefined]|
 |**oneTimeAddress** | [**OneTimeAddress**](OneTimeAddress.md) |  | [optional] [default to undefined]|
-
-
-## Enum: DestinationTransferPeerPathSubTypeEnum
-
-
-* `Binance` (value: `'BINANCE'`)
-
-* `Binanceus` (value: `'BINANCEUS'`)
-
-* `Bitfinex` (value: `'BITFINEX'`)
-
-* `Bithumb` (value: `'BITHUMB'`)
-
-* `Bitmex` (value: `'BITMEX'`)
-
-* `Bitso` (value: `'BITSO'`)
-
-* `Bitstamp` (value: `'BITSTAMP'`)
-
-* `Bittrex` (value: `'BITTREX'`)
-
-* `Blinc` (value: `'BLINC'`)
-
-* `Bybit` (value: `'BYBIT'`)
-
-* `Circle` (value: `'CIRCLE'`)
-
-* `Coinbaseexchange` (value: `'COINBASEEXCHANGE'`)
-
-* `Coinbasepro` (value: `'COINBASEPRO'`)
-
-* `Coinmetro` (value: `'COINMETRO'`)
-
-* `Coinspro` (value: `'COINSPRO'`)
-
-* `Cryptocom` (value: `'CRYPTOCOM'`)
-
-* `Deribit` (value: `'DERIBIT'`)
-
-* `Gemini` (value: `'GEMINI'`)
-
-* `Hitbtc` (value: `'HITBTC'`)
-
-* `Huobi` (value: `'HUOBI'`)
-
-* `Independentreserve` (value: `'INDEPENDENTRESERVE'`)
-
-* `Korbit` (value: `'KORBIT'`)
-
-* `Kraken` (value: `'KRAKEN'`)
-
-* `Krakenintl` (value: `'KRAKENINTL'`)
-
-* `Kucoin` (value: `'KUCOIN'`)
-
-* `Liquid` (value: `'LIQUID'`)
-
-* `Okcoin` (value: `'OKCOIN'`)
-
-* `Okex` (value: `'OKEX'`)
-
-* `Paxos` (value: `'PAXOS'`)
-
-* `Poloniex` (value: `'POLONIEX'`)
-
-* `External` (value: `'External'`)
-
-* `Internal` (value: `'Internal'`)
-
 
 
 

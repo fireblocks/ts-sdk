@@ -30,7 +30,7 @@ export interface CreateConnectionResponse {
      */
     'id': string;
     /**
-     * 
+     * Metadata of the Web3 connection (provided by the DApp).
      * @type {SessionMetadata}
      * @memberof CreateConnectionResponse
      */

@@ -15,47 +15,47 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { FiatAccountType } from './fiat-account-type';
+import { TransferPeerPathSubType } from './transfer-peer-path-sub-type';
 // May contain unused imports in some cases
 // @ts-ignore
-import { FiatAsset } from './fiat-asset';
+import { TransferPeerPathType } from './transfer-peer-path-type';
 
 /**
- * 
+ * The source of the transaction.
  * @export
- * @interface FiatAccount
+ * @interface SourceTransferPeerPath
  */
-export interface FiatAccount {
+export interface SourceTransferPeerPath {
+    /**
+     * 
+     * @type {TransferPeerPathType}
+     * @memberof SourceTransferPeerPath
+     */
+    'type': TransferPeerPathType;
+    /**
+     * 
+     * @type {TransferPeerPathSubType}
+     * @memberof SourceTransferPeerPath
+     */
+    'subType'?: TransferPeerPathSubType;
     /**
      * 
      * @type {string}
-     * @memberof FiatAccount
+     * @memberof SourceTransferPeerPath
      */
     'id'?: string;
     /**
      * 
-     * @type {FiatAccountType}
-     * @memberof FiatAccount
-     */
-    'type'?: FiatAccountType;
-    /**
-     * Display name of the fiat account
      * @type {string}
-     * @memberof FiatAccount
+     * @memberof SourceTransferPeerPath
      */
     'name'?: string;
     /**
      * 
      * @type {string}
-     * @memberof FiatAccount
+     * @memberof SourceTransferPeerPath
      */
-    'address'?: string | null;
-    /**
-     * 
-     * @type {Array<FiatAsset>}
-     * @memberof FiatAccount
-     */
-    'assets'?: Array<FiatAsset>;
+    'walletId'?: string;
 }
 
 

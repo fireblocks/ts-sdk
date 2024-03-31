@@ -48,7 +48,7 @@ export interface ChainInfoResponseDto {
      */
     'epochDuration': number;
     /**
-     * 
+     * Additional information related to the blockchain. This may include extra details about the blockchain network.
      * @type {AdditionalInfoDto}
      * @memberof ChainInfoResponseDto
      */
