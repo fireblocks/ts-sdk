@@ -14,7 +14,7 @@
 |**beneficiaryVASPname** | **string** | Beneficiary VASP name | [optional] [default to undefined]|
 |**beneficiaryName** | **string** | Beneficiary  name | [optional] [default to undefined]|
 |**beneficiaryAccountNumber** | **string** | Beneficiary  name | [optional] [default to undefined]|
-|**beneficiaryAddress** | [**TravelRuleAddress**](TravelRuleAddress.md) |  | [optional] [default to undefined]|
+|**beneficiaryAddress** | [**TravelRuleAddress**](TravelRuleAddress.md) | Beneficiary  name | [optional] [default to undefined]|
 
 
 

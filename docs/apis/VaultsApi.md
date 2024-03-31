@@ -18,9 +18,7 @@ Method | HTTP request | Description
 [**getUnspentInputs**](#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information
 [**getVaultAccount**](#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Find a vault account by ID
 [**getVaultAccountAsset**](#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
-[**getVaultAccountAssetAddresses**](#getVaultAccountAssetAddresses) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Get asset addresses
 [**getVaultAccountAssetAddressesPaginated**](#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | List addresses (Paginated)
-[**getVaultAccounts**](#getVaultAccounts) | **GET** /vault/accounts | List vault accounts
 [**getVaultAssets**](#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
 [**getVaultBalanceByAsset**](#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset
 [**hideVaultAccount**](#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
@@ -976,69 +974,6 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getVaultAccountAssetAddresses**
-> Array<VaultWalletAddress> getVaultAccountAssetAddresses()
-
-Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiGetVaultAccountAssetAddressesRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: VaultsApiGetVaultAccountAssetAddressesRequest = {
-  // string | The ID of the vault account to return
-  vaultAccountId: vaultAccountId_example,
-  // string | The ID of the asset
-  assetId: assetId_example,
-};
-
-fireblocks.vaults.getVaultAccountAssetAddresses(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **vaultAccountId** | [**string**] | The ID of the vault account to return | defaults to undefined
- **assetId** | [**string**] | The ID of the asset | defaults to undefined
-
-
-### Return type
-
-**[Array<VaultWalletAddress>](../models/Array<VaultWalletAddress>.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A list of deposit addresses |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **getVaultAccountAssetAddressesPaginated**
 > PaginatedAddressResponse getVaultAccountAssetAddressesPaginated()
 
@@ -1107,75 +1042,6 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A paginated list of addresses, and pagination info. |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
-# **getVaultAccounts**
-> Array<VaultAccount> getVaultAccounts()
-
-Gets all vault accounts in your workspace.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiGetVaultAccountsRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: VaultsApiGetVaultAccountsRequest = {
-  // string (optional)
-  namePrefix: namePrefix_example,
-  // string (optional)
-  nameSuffix: nameSuffix_example,
-  // number (optional)
-  minAmountThreshold: 8.14,
-  // string (optional)
-  assetId: assetId_example,
-};
-
-fireblocks.vaults.getVaultAccounts(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **namePrefix** | [**string**] |  | (optional) defaults to undefined
- **nameSuffix** | [**string**] |  | (optional) defaults to undefined
- **minAmountThreshold** | [**number**] |  | (optional) defaults to undefined
- **assetId** | [**string**] |  | (optional) defaults to undefined
-
-
-### Return type
-
-**[Array<VaultAccount>](../models/Array<VaultAccount>.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A list of vault accounts |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1304,7 +1170,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **hideVaultAccount**
-> hideVaultAccount()
+> VaultActionStatus hideVaultAccount()
 
 Hides the requested vault account from the web console view.
 
@@ -1314,7 +1180,7 @@ Hides the requested vault account from the web console view.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiHideVaultAccountRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiHideVaultAccountRequest, VaultActionStatus } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1330,7 +1196,7 @@ let body: VaultsApiHideVaultAccountRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.hideVaultAccount(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.hideVaultAccount(body).then((res: FireblocksResponse<VaultActionStatus>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1346,7 +1212,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[VaultActionStatus](../models/VaultActionStatus.md)**
 
 ### Authorization
 
@@ -1367,7 +1233,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setCustomerRefIdForAddress**
-> setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, )
+> VaultActionStatus setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, )
 
 Sets an AML/KYT customer reference ID for a specific address.
 
@@ -1377,7 +1243,7 @@ Sets an AML/KYT customer reference ID for a specific address.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiSetCustomerRefIdForAddressRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiSetCustomerRefIdForAddressRequest, VaultActionStatus } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1399,7 +1265,7 @@ let body: VaultsApiSetCustomerRefIdForAddressRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.setCustomerRefIdForAddress(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.setCustomerRefIdForAddress(body).then((res: FireblocksResponse<VaultActionStatus>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1418,7 +1284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[VaultActionStatus](../models/VaultActionStatus.md)**
 
 ### Authorization
 
@@ -1439,7 +1305,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setVaultAccountAutoFuel**
-> setVaultAccountAutoFuel(setAutoFuelRequest, )
+> VaultActionStatus setVaultAccountAutoFuel(setAutoFuelRequest, )
 
 Sets the autofueling property of the vault account to enabled or disabled.
 
@@ -1449,7 +1315,7 @@ Sets the autofueling property of the vault account to enabled or disabled.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiSetVaultAccountAutoFuelRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiSetVaultAccountAutoFuelRequest, VaultActionStatus } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1467,7 +1333,7 @@ let body: VaultsApiSetVaultAccountAutoFuelRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.setVaultAccountAutoFuel(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.setVaultAccountAutoFuel(body).then((res: FireblocksResponse<VaultActionStatus>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1484,7 +1350,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[VaultActionStatus](../models/VaultActionStatus.md)**
 
 ### Authorization
 
@@ -1505,7 +1371,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **setVaultAccountCustomerRefId**
-> setVaultAccountCustomerRefId(setCustomerRefIdRequest, )
+> VaultActionStatus setVaultAccountCustomerRefId(setCustomerRefIdRequest, )
 
 Assigns an AML/KYT customer reference ID for the vault account.
 
@@ -1515,7 +1381,7 @@ Assigns an AML/KYT customer reference ID for the vault account.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiSetVaultAccountCustomerRefIdRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiSetVaultAccountCustomerRefIdRequest, VaultActionStatus } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1533,7 +1399,7 @@ let body: VaultsApiSetVaultAccountCustomerRefIdRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.setVaultAccountCustomerRefId(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.setVaultAccountCustomerRefId(body).then((res: FireblocksResponse<VaultActionStatus>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1550,7 +1416,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[VaultActionStatus](../models/VaultActionStatus.md)**
 
 ### Authorization
 
@@ -1571,7 +1437,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **unhideVaultAccount**
-> unhideVaultAccount()
+> VaultActionStatus unhideVaultAccount()
 
 Makes a hidden vault account visible in web console view.
 
@@ -1581,7 +1447,7 @@ Makes a hidden vault account visible in web console view.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiUnhideVaultAccountRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiUnhideVaultAccountRequest, VaultActionStatus } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1597,7 +1463,7 @@ let body: VaultsApiUnhideVaultAccountRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.unhideVaultAccount(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.unhideVaultAccount(body).then((res: FireblocksResponse<VaultActionStatus>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1613,7 +1479,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[VaultActionStatus](../models/VaultActionStatus.md)**
 
 ### Authorization
 
@@ -1700,7 +1566,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateVaultAccountAssetAddress**
-> updateVaultAccountAssetAddress()
+> VaultActionStatus updateVaultAccountAssetAddress()
 
 Updates the description of an existing address of an asset in a vault account.
 
@@ -1710,7 +1576,7 @@ Updates the description of an existing address of an asset in a vault account.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiUpdateVaultAccountAssetAddressRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiUpdateVaultAccountAssetAddressRequest, VaultActionStatus } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1732,7 +1598,7 @@ let body: VaultsApiUpdateVaultAccountAssetAddressRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.updateVaultAccountAssetAddress(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.updateVaultAccountAssetAddress(body).then((res: FireblocksResponse<VaultActionStatus>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1751,7 +1617,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[VaultActionStatus](../models/VaultActionStatus.md)**
 
 ### Authorization
 

@@ -64,9 +64,9 @@ import { VaultAccount } from '../models';
 // @ts-ignore
 import { VaultAccountsPagedResponse } from '../models';
 // @ts-ignore
-import { VaultAsset } from '../models';
+import { VaultActionStatus } from '../models';
 // @ts-ignore
-import { VaultWalletAddress } from '../models';
+import { VaultAsset } from '../models';
 /**
  * VaultsApi - axios parameter creator
  * @export
@@ -723,44 +723,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
-         * @summary Get asset addresses
-         * @param {string} vaultAccountId The ID of the vault account to return
-         * @param {string} assetId The ID of the asset
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAccountAssetAddresses: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountAssetAddresses', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAccountAssetAddresses', 'assetId', assetId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses`
-                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Returns a paginated response of the addresses for a given vault account and asset.
          * @summary List addresses (Paginated)
          * @param {string} vaultAccountId The ID of the vault account to return
@@ -800,56 +762,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (after !== undefined) {
                 localVarQueryParameter['after'] = after;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Gets all vault accounts in your workspace.
-         * @summary List vault accounts
-         * @param {string} [namePrefix] 
-         * @param {string} [nameSuffix] 
-         * @param {number} [minAmountThreshold] 
-         * @param {string} [assetId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/vault/accounts`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (namePrefix !== undefined) {
-                localVarQueryParameter['namePrefix'] = namePrefix;
-            }
-
-            if (nameSuffix !== undefined) {
-                localVarQueryParameter['nameSuffix'] = nameSuffix;
-            }
-
-            if (minAmountThreshold !== undefined) {
-                localVarQueryParameter['minAmountThreshold'] = minAmountThreshold;
-            }
-
-            if (assetId !== undefined) {
-                localVarQueryParameter['assetId'] = assetId;
             }
 
 
@@ -1525,20 +1437,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
-         * @summary Get asset addresses
-         * @param {string} vaultAccountId The ID of the vault account to return
-         * @param {string} assetId The ID of the asset
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultWalletAddress>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAssetAddresses']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Returns a paginated response of the addresses for a given vault account and asset.
          * @summary List addresses (Paginated)
          * @param {string} vaultAccountId The ID of the vault account to return
@@ -1553,22 +1451,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAssetAddressesPaginated']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Gets all vault accounts in your workspace.
-         * @summary List vault accounts
-         * @param {string} [namePrefix] 
-         * @param {string} [nameSuffix] 
-         * @param {number} [minAmountThreshold] 
-         * @param {string} [assetId] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.getVaultAccounts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1606,7 +1488,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async hideVaultAccount(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async hideVaultAccount(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultActionStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.hideVaultAccount']?.[index]?.url;
@@ -1623,7 +1505,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest: SetCustomerRefIdForAddressRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest: SetCustomerRefIdForAddressRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultActionStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, vaultAccountId, assetId, addressId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.setCustomerRefIdForAddress']?.[index]?.url;
@@ -1638,7 +1520,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setVaultAccountAutoFuel(setAutoFuelRequest: SetAutoFuelRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setVaultAccountAutoFuel(setAutoFuelRequest: SetAutoFuelRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultActionStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setVaultAccountAutoFuel(setAutoFuelRequest, vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.setVaultAccountAutoFuel']?.[index]?.url;
@@ -1653,7 +1535,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setVaultAccountCustomerRefId(setCustomerRefIdRequest: SetCustomerRefIdRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setVaultAccountCustomerRefId(setCustomerRefIdRequest: SetCustomerRefIdRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultActionStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setVaultAccountCustomerRefId(setCustomerRefIdRequest, vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.setVaultAccountCustomerRefId']?.[index]?.url;
@@ -1667,7 +1549,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unhideVaultAccount(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async unhideVaultAccount(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultActionStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.unhideVaultAccount']?.[index]?.url;
@@ -1699,7 +1581,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateVaultAccountAssetAddress(vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultActionStatus>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccountAssetAddress(vaultAccountId, assetId, addressId, updateVaultAccountAssetAddressRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.updateVaultAccountAssetAddress']?.[index]?.url;
@@ -1871,16 +1753,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
-         * @summary Get asset addresses
-         * @param {VaultsApiGetVaultAccountAssetAddressesRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<VaultWalletAddress>> {
-            return localVarFp.getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Returns a paginated response of the addresses for a given vault account and asset.
          * @summary List addresses (Paginated)
          * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
@@ -1889,16 +1761,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getVaultAccountAssetAddressesPaginated(requestParameters: VaultsApiGetVaultAccountAssetAddressesPaginatedRequest, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAddressResponse> {
             return localVarFp.getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Gets all vault accounts in your workspace.
-         * @summary List vault accounts
-         * @param {VaultsApiGetVaultAccountsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<VaultAccount>> {
-            return localVarFp.getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets the assets amount summary for all accounts or filtered accounts.
@@ -1927,7 +1789,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1937,7 +1799,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setCustomerRefIdForAddress(requestParameters: VaultsApiSetCustomerRefIdForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        setCustomerRefIdForAddress(requestParameters: VaultsApiSetCustomerRefIdForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForAddressRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1947,7 +1809,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setVaultAccountAutoFuel(requestParameters: VaultsApiSetVaultAccountAutoFuelRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        setVaultAccountAutoFuel(requestParameters: VaultsApiSetVaultAccountAutoFuelRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.setVaultAccountAutoFuel(requestParameters.setAutoFuelRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1957,7 +1819,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setVaultAccountCustomerRefId(requestParameters: VaultsApiSetVaultAccountCustomerRefIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        setVaultAccountCustomerRefId(requestParameters: VaultsApiSetVaultAccountCustomerRefIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.setVaultAccountCustomerRefId(requestParameters.setCustomerRefIdRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1967,7 +1829,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1987,7 +1849,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        updateVaultAccountAssetAddress(requestParameters: VaultsApiUpdateVaultAccountAssetAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2445,27 +2307,6 @@ export interface VaultsApiGetVaultAccountAssetRequest {
 }
 
 /**
- * Request parameters for getVaultAccountAssetAddresses operation in VaultsApi.
- * @export
- * @interface VaultsApiGetVaultAccountAssetAddressesRequest
- */
-export interface VaultsApiGetVaultAccountAssetAddressesRequest {
-    /**
-     * The ID of the vault account to return
-     * @type {string}
-     * @memberof VaultsApiGetVaultAccountAssetAddresses
-     */
-    readonly vaultAccountId: string
-
-    /**
-     * The ID of the asset
-     * @type {string}
-     * @memberof VaultsApiGetVaultAccountAssetAddresses
-     */
-    readonly assetId: string
-}
-
-/**
  * Request parameters for getVaultAccountAssetAddressesPaginated operation in VaultsApi.
  * @export
  * @interface VaultsApiGetVaultAccountAssetAddressesPaginatedRequest
@@ -2505,41 +2346,6 @@ export interface VaultsApiGetVaultAccountAssetAddressesPaginatedRequest {
      * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
      */
     readonly after?: string
-}
-
-/**
- * Request parameters for getVaultAccounts operation in VaultsApi.
- * @export
- * @interface VaultsApiGetVaultAccountsRequest
- */
-export interface VaultsApiGetVaultAccountsRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof VaultsApiGetVaultAccounts
-     */
-    readonly namePrefix?: string
-
-    /**
-     * 
-     * @type {string}
-     * @memberof VaultsApiGetVaultAccounts
-     */
-    readonly nameSuffix?: string
-
-    /**
-     * 
-     * @type {number}
-     * @memberof VaultsApiGetVaultAccounts
-     */
-    readonly minAmountThreshold?: number
-
-    /**
-     * 
-     * @type {string}
-     * @memberof VaultsApiGetVaultAccounts
-     */
-    readonly assetId?: string
 }
 
 /**
@@ -2991,18 +2797,6 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Lists all addresses for specific asset of vault account. - This endpoint will be deprecated on Mar 31,2024. - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list. - This API call is subject to rate limits.
-     * @summary Get asset addresses
-     * @param {VaultsApiGetVaultAccountAssetAddressesRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest) {
-        return VaultsApiFp(this.configuration).getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
      * Returns a paginated response of the addresses for a given vault account and asset.
      * @summary List addresses (Paginated)
      * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
@@ -3012,18 +2806,6 @@ export class VaultsApi extends BaseAPI {
      */
     public getVaultAccountAssetAddressesPaginated(requestParameters: VaultsApiGetVaultAccountAssetAddressesPaginatedRequest) {
         return VaultsApiFp(this.configuration).getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Gets all vault accounts in your workspace.
-     * @summary List vault accounts
-     * @param {VaultsApiGetVaultAccountsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}) {
-        return VaultsApiFp(this.configuration).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

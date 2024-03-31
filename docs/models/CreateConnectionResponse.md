@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** | The ID of the Web3 connection initiated. | [default to undefined]|
-|**sessionMetadata** | [**SessionMetadata**](SessionMetadata.md) |  | [default to undefined]|
+|**sessionMetadata** | [**SessionMetadata**](SessionMetadata.md) | Metadata of the Web3 connection (provided by the DApp). | [default to undefined]|
 
 
 

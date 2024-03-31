@@ -16,13 +16,13 @@
 |**transactionType** | **string** | Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.  | [optional] [default to undefined]|
 |**designatedSigner** | **string** | (deprecated - replaced by \&quot;designatedSigners\&quot;) Id representing the user who signs transactions that match a specific rule | [optional] [default to undefined]|
 |**designatedSigners** | [**PolicyRuleDesignatedSigners**](PolicyRuleDesignatedSigners.md) |  | [optional] [default to undefined]|
-|**srcType** | [**PolicySrcOrDestType**](PolicySrcOrDestType.md) |  | [optional] [default to undefined]|
-|**srcSubType** | [**PolicySrcOrDestSubType**](PolicySrcOrDestSubType.md) |  | [optional] [default to undefined]|
-|**srcId** | **string** | Defines the account id, options are * \&quot;*\&quot; - All accounts * Specific account id  | [optional] [default to undefined]|
+|**srcType** | [**PolicySrcOrDestType**](PolicySrcOrDestType.md) | (deprecated - replaced by &quot;src&quot;) source account type | [optional] [default to undefined]|
+|**srcSubType** | [**PolicySrcOrDestSubType**](PolicySrcOrDestSubType.md) | (deprecated - replaced by &quot;src&quot;) source sub account type | [optional] [default to undefined]|
+|**srcId** | **string** | (deprecated - replaced by &quot;src&quot;) source account id | [optional] [default to undefined]|
 |**src** | [**PolicyRuleSrc**](PolicyRuleSrc.md) |  | [optional] [default to undefined]|
-|**dstType** | [**PolicySrcOrDestType**](PolicySrcOrDestType.md) |  | [optional] [default to undefined]|
-|**dstSubType** | [**PolicySrcOrDestSubType**](PolicySrcOrDestSubType.md) |  | [optional] [default to undefined]|
-|**dstId** | **string** | Defines the account id, options are * \&quot;*\&quot; - All accounts * Specific account id  | [optional] [default to undefined]|
+|**dstType** | [**PolicySrcOrDestType**](PolicySrcOrDestType.md) | (deprecated - replaced by &quot;dst&quot;) destination account type | [optional] [default to undefined]|
+|**dstSubType** | [**PolicySrcOrDestSubType**](PolicySrcOrDestSubType.md) | (deprecated - replaced by &quot;dst&quot;) destination sub account type | [optional] [default to undefined]|
+|**dstId** | **string** | (deprecated - replaced by &quot;dst&quot;) destination account id | [optional] [default to undefined]|
 |**dst** | [**PolicyRuleDst**](PolicyRuleDst.md) |  | [optional] [default to undefined]|
 |**dstAddressType** | **string** | Defines whether the destination to which you are sending funds must be whitelisted, to allow one-time transfers to non-whitelisted external addresses, or both. By default, you can only transfer to an external address after it’s whitelisted.   * WHITELISTED - Can only be sent to whitelisted addresses.   * ONE_TIME - Can only be sent to non-whitelisted external addresses.   * \&quot;*\&quot; - can be sent to whitelisted addresses or non-whitelisted external  | [optional] [default to undefined]|
 |**authorizers** | **Array&lt;string&gt;** | (deprecated - replaced by \&quot;authorizationGroups\&quot;) Allowed entities which can approves a transaction | [optional] [default to undefined]|

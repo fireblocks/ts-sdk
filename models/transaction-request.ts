@@ -18,6 +18,9 @@
 import { DestinationTransferPeerPath } from './destination-transfer-peer-path';
 // May contain unused imports in some cases
 // @ts-ignore
+import { SourceTransferPeerPath } from './source-transfer-peer-path';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransactionOperation } from './transaction-operation';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -43,9 +46,6 @@ import { TransactionRequestNetworkStaking } from './transaction-request-network-
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransactionRequestPriorityFee } from './transaction-request-priority-fee';
-// May contain unused imports in some cases
-// @ts-ignore
-import { TransferPeerPath } from './transfer-peer-path';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TravelRuleCreateTransactionRequest } from './travel-rule-create-transaction-request';
@@ -82,10 +82,10 @@ export interface TransactionRequest {
     'assetId'?: string;
     /**
      * 
-     * @type {TransferPeerPath}
+     * @type {SourceTransferPeerPath}
      * @memberof TransactionRequest
      */
-    'source'?: TransferPeerPath;
+    'source'?: SourceTransferPeerPath;
     /**
      * 
      * @type {DestinationTransferPeerPath}

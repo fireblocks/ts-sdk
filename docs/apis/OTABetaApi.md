@@ -30,7 +30,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.oTABeta.getOtaStatus(body).then((res: FireblocksResponse<GetOtaStatus200Response>) => {
+fireblocks.otaBeta.getOtaStatus(body).then((res: FireblocksResponse<GetOtaStatus200Response>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -89,7 +89,7 @@ let body: OTABetaApiSetOtaStatusRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.oTABeta.setOtaStatus(body).then((res: FireblocksResponse<any>) => {
+fireblocks.otaBeta.setOtaStatus(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

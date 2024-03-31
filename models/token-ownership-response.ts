@@ -96,13 +96,13 @@ export interface TokenOwnershipResponse {
      */
     'media'?: Array<MediaEntityResponse>;
     /**
-     * 
+     * Owned Token's Spam status
      * @type {SpamOwnershipResponse}
      * @memberof TokenOwnershipResponse
      */
     'spam'?: SpamOwnershipResponse;
     /**
-     * 
+     * Parent collection information
      * @type {TokenCollectionResponse}
      * @memberof TokenOwnershipResponse
      */

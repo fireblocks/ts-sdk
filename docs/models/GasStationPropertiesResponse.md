@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**balance** | **object** |  | [optional] [default to undefined]|
-|**configuration** | [**GasStationConfiguration**](GasStationConfiguration.md) |  | [optional] [default to undefined]|
+|**configuration** | [**GasStationConfigurationResponse**](GasStationConfigurationResponse.md) |  | [optional] [default to undefined]|
 
 
 

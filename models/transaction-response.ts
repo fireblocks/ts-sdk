@@ -354,6 +354,12 @@ export interface TransactionResponse {
      * @deprecated
      */
     'networkFee'?: number;
+    /**
+     * The transaction\'s revert reason. This field will be returned when  `subStatus` =  \'SMART_CONTRACT_EXECUTION_FAILED\'.
+     * @type {string}
+     * @memberof TransactionResponse
+     */
+    'errorDescription'?: string;
 }
 
 export const TransactionResponseAddressTypeEnum = {

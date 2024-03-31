@@ -36,7 +36,7 @@ export interface SessionDTO {
      */
     'userId': string;
     /**
-     * 
+     * Metadata of the connection (provided by the dapp)
      * @type {SessionMetadata}
      * @memberof SessionDTO
      */

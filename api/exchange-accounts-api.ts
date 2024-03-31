@@ -159,37 +159,6 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Deprecated (use new \'paged\' endpoint) - Returns all exchange accounts.
-         * @summary List exchange accounts
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        getExchangeAccounts: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/exchange_accounts`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Returns a page include exchange accounts.
          * @summary Pagination list exchange accounts
          * @param {number} limit number of exchanges per page
@@ -332,19 +301,6 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deprecated (use new \'paged\' endpoint) - Returns all exchange accounts.
-         * @summary List exchange accounts
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        async getExchangeAccounts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExchangeAccount>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccounts(options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ExchangeAccountsApi.getExchangeAccounts']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Returns a page include exchange accounts.
          * @summary Pagination list exchange accounts
          * @param {number} limit number of exchanges per page
@@ -413,16 +369,6 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
          */
         getExchangeAccountAsset(requestParameters: ExchangeAccountsApiGetExchangeAccountAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<ExchangeAsset> {
             return localVarFp.getExchangeAccountAsset(requestParameters.exchangeAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Deprecated (use new \'paged\' endpoint) - Returns all exchange accounts.
-         * @summary List exchange accounts
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        getExchangeAccounts(options?: RawAxiosRequestConfig): AxiosPromise<Array<ExchangeAccount>> {
-            return localVarFp.getExchangeAccounts(options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a page include exchange accounts.
@@ -607,18 +553,6 @@ export class ExchangeAccountsApi extends BaseAPI {
      */
     public getExchangeAccountAsset(requestParameters: ExchangeAccountsApiGetExchangeAccountAssetRequest) {
         return ExchangeAccountsApiFp(this.configuration).getExchangeAccountAsset(requestParameters.exchangeAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Deprecated (use new \'paged\' endpoint) - Returns all exchange accounts.
-     * @summary List exchange accounts
-     * @param {*} [options] Override http request option.
-     * @deprecated
-     * @throws {RequiredError}
-     * @memberof ExchangeAccountsApi
-     */
-    public getExchangeAccounts() {
-        return ExchangeAccountsApiFp(this.configuration).getExchangeAccounts().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

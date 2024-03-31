@@ -1,17 +1,6 @@
-# TransferPeerPath
+# TransferPeerPathSubType
 
-## Properties
-
-|Name | Type | Description | Notes|
-|------------ | ------------- | ------------- | -------------|
-|**type** | [**TransferPeerPathType**](TransferPeerPathType.md) |  | [default to undefined]|
-|**subType** | **string** |  | [optional] [default to undefined]|
-|**id** | **string** |  | [optional] [default to undefined]|
-|**name** | **string** |  | [optional] [default to undefined]|
-|**walletId** | **string** |  | [optional] [default to undefined]|
-
-
-## Enum: TransferPeerPathSubTypeEnum
+## Enum
 
 
 * `Binance` (value: `'BINANCE'`)
@@ -77,8 +66,6 @@
 * `External` (value: `'External'`)
 
 * `Internal` (value: `'Internal'`)
-
-
 
 
 

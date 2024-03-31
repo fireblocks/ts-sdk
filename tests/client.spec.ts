@@ -11,39 +11,39 @@
  */
 
 import { Fireblocks  } from '../client/client';
-import { AdminQuorumApi,
-ApiUserApi,
-AssetsApi,
-AuditLogsApi,
-BlockchainsAssetsApi,
-ComplianceApi,
-ComplianceScreeningConfigurationApi,
-ConsoleUserApi,
-ContractsApi,
-ExchangeAccountsApi,
-ExternalWalletsApi,
-FiatAccountsApi,
-GasStationsApi,
-InternalWalletsApi,
-JobManagementApi,
-NFTsApi,
-NetworkConnectionsApi,
-OTABetaApi,
-OffExchangesApi,
-PaymentsPayoutApi,
-PolicyEditorBetaApi,
-ResetDeviceApi,
-SmartTransferApi,
-StakingBetaApi,
-TransactionsApi,
-TravelRuleBetaApi,
-UserGroupsBetaApi,
-UsersApi,
-VaultsApi,
-Web3ConnectionsApi,
-WebhooksApi,
-WhitelistIpAddressesApi,
-WorkspaceApi,
+import { AdminQuorumApi, 
+ApiUserApi, 
+AssetsApi, 
+AuditLogsApi, 
+BlockchainsAssetsApi, 
+ComplianceApi, 
+ComplianceScreeningConfigurationApi, 
+ConsoleUserApi, 
+ContractsApi, 
+ExchangeAccountsApi, 
+ExternalWalletsApi, 
+FiatAccountsApi, 
+GasStationsApi, 
+InternalWalletsApi, 
+JobManagementApi, 
+NFTsApi, 
+NetworkConnectionsApi, 
+OTABetaApi, 
+OffExchangesApi, 
+PaymentsPayoutApi, 
+PolicyEditorBetaApi, 
+ResetDeviceApi, 
+SmartTransferApi, 
+StakingBetaApi, 
+TransactionsApi, 
+TravelRuleBetaApi, 
+UserGroupsBetaApi, 
+UsersApi, 
+VaultsApi, 
+Web3ConnectionsApi, 
+WebhooksApi, 
+WhitelistIpAddressesApi, 
+WorkspaceApi, 
 WorkspaceStatusBetaApi
 } from '../api';
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -264,7 +264,7 @@ describe("Fireblocks Client Tests", () => {
             expect(mockJobManagementApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return NFTsApi', async () => {
-            expect(fireblocks.nFTs).toBeInstanceOf(NFTsApi);
+            expect(fireblocks.nfts).toBeInstanceOf(NFTsApi);
             expect(mockNFTsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return NetworkConnectionsApi', async () => {
@@ -272,7 +272,7 @@ describe("Fireblocks Client Tests", () => {
             expect(mockNetworkConnectionsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return OTABetaApi', async () => {
-            expect(fireblocks.oTABeta).toBeInstanceOf(OTABetaApi);
+            expect(fireblocks.otaBeta).toBeInstanceOf(OTABetaApi);
             expect(mockOTABetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return OffExchangesApi', async () => {

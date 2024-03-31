@@ -51,6 +51,7 @@
 |**serviceFee** | **number** | The total fee deducted by the exchange from the actual requested amount (&#x60;serviceFee&#x60; &#x3D; &#x60;amount&#x60; - &#x60;netAmount&#x60;). Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. | [optional] [default to undefined]|
 |**fee** | **number** | Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. | [optional] [default to undefined]|
 |**networkFee** | **number** | The fee paid to the network. Deprecated - please use the &#x60;feeInfo&#x60; field for accuracy. | [optional] [default to undefined]|
+|**errorDescription** | **string** | The transaction\&#39;s revert reason. This field will be returned when  &#x60;subStatus&#x60; &#x3D;  \&#39;SMART_CONTRACT_EXECUTION_FAILED\&#39;. | [optional] [default to undefined]|
 
 
 ## Enum: TransactionResponseAddressTypeEnum

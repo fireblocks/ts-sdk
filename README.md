@@ -159,7 +159,6 @@ Class | Method | HTTP request | Description
 *ExchangeAccountsApi* | [**convertAssets**](docs/apis/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/apis/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/apis/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
-*ExchangeAccountsApi* | [**getExchangeAccounts**](docs/apis/ExchangeAccountsApi.md#getExchangeAccounts) | **GET** /exchange_accounts | List exchange accounts
 *ExchangeAccountsApi* | [**getPagedExchangeAccounts**](docs/apis/ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | Pagination list exchange accounts
 *ExchangeAccountsApi* | [**internalTransfer**](docs/apis/ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts
 *ExternalWalletsApi* | [**addAssetToExternalWallet**](docs/apis/ExternalWalletsApi.md#addAssetToExternalWallet) | **POST** /external_wallets/{walletId}/{assetId} | Add an asset to an external wallet.
@@ -294,9 +293,7 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getUnspentInputs**](docs/apis/VaultsApi.md#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information
 *VaultsApi* | [**getVaultAccount**](docs/apis/VaultsApi.md#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Find a vault account by ID
 *VaultsApi* | [**getVaultAccountAsset**](docs/apis/VaultsApi.md#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
-*VaultsApi* | [**getVaultAccountAssetAddresses**](docs/apis/VaultsApi.md#getVaultAccountAssetAddresses) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Get asset addresses
 *VaultsApi* | [**getVaultAccountAssetAddressesPaginated**](docs/apis/VaultsApi.md#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | List addresses (Paginated)
-*VaultsApi* | [**getVaultAccounts**](docs/apis/VaultsApi.md#getVaultAccounts) | **GET** /vault/accounts | List vault accounts
 *VaultsApi* | [**getVaultAssets**](docs/apis/VaultsApi.md#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
 *VaultsApi* | [**getVaultBalanceByAsset**](docs/apis/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset
 *VaultsApi* | [**hideVaultAccount**](docs/apis/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
@@ -402,6 +399,7 @@ Class | Method | HTTP request | Description
  - [FreezeTransactionResponse](docs/models/FreezeTransactionResponse.md)
  - [Funds](docs/models/Funds.md)
  - [GasStationConfiguration](docs/models/GasStationConfiguration.md)
+ - [GasStationConfigurationResponse](docs/models/GasStationConfigurationResponse.md)
  - [GasStationPropertiesResponse](docs/models/GasStationPropertiesResponse.md)
  - [GetAuditLogsResponseDTO](docs/models/GetAuditLogsResponseDTO.md)
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
@@ -409,7 +407,6 @@ Class | Method | HTTP request | Description
  - [GetOtaStatus200Response](docs/models/GetOtaStatus200Response.md)
  - [GetOwnershipTokens200Response](docs/models/GetOwnershipTokens200Response.md)
  - [GetTransactionOperation](docs/models/GetTransactionOperation.md)
- - [GetUsersResponse](docs/models/GetUsersResponse.md)
  - [GetWorkspaceStatus200Response](docs/models/GetWorkspaceStatus200Response.md)
  - [InstructionAmount](docs/models/InstructionAmount.md)
  - [Job](docs/models/Job.md)
@@ -426,6 +423,7 @@ Class | Method | HTTP request | Description
  - [NetworkConnectionRoutingPolicySenTest](docs/models/NetworkConnectionRoutingPolicySenTest.md)
  - [NetworkConnectionRoutingPolicySignet](docs/models/NetworkConnectionRoutingPolicySignet.md)
  - [NetworkConnectionRoutingPolicySignetTest](docs/models/NetworkConnectionRoutingPolicySignetTest.md)
+ - [NetworkConnectionStatus](docs/models/NetworkConnectionStatus.md)
  - [NetworkFee](docs/models/NetworkFee.md)
  - [NetworkId](docs/models/NetworkId.md)
  - [NetworkIdResponse](docs/models/NetworkIdResponse.md)
@@ -530,6 +528,7 @@ Class | Method | HTTP request | Description
  - [SmartTransferUserGroups](docs/models/SmartTransferUserGroups.md)
  - [SmartTransferUserGroupsResponse](docs/models/SmartTransferUserGroupsResponse.md)
  - [SolanaBlockchainDataDto](docs/models/SolanaBlockchainDataDto.md)
+ - [SourceTransferPeerPath](docs/models/SourceTransferPeerPath.md)
  - [SourceTransferPeerPathResponse](docs/models/SourceTransferPeerPathResponse.md)
  - [SpamOwnershipResponse](docs/models/SpamOwnershipResponse.md)
  - [SpamTokenResponse](docs/models/SpamTokenResponse.md)
@@ -562,7 +561,7 @@ Class | Method | HTTP request | Description
  - [TransactionResponse](docs/models/TransactionResponse.md)
  - [TransactionResponseContractCallDecodedData](docs/models/TransactionResponseContractCallDecodedData.md)
  - [TransactionResponseDestination](docs/models/TransactionResponseDestination.md)
- - [TransferPeerPath](docs/models/TransferPeerPath.md)
+ - [TransferPeerPathSubType](docs/models/TransferPeerPathSubType.md)
  - [TransferPeerPathType](docs/models/TransferPeerPathType.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)
@@ -596,6 +595,7 @@ Class | Method | HTTP request | Description
  - [VaultAccount](docs/models/VaultAccount.md)
  - [VaultAccountsPagedResponse](docs/models/VaultAccountsPagedResponse.md)
  - [VaultAccountsPagedResponsePaging](docs/models/VaultAccountsPagedResponsePaging.md)
+ - [VaultActionStatus](docs/models/VaultActionStatus.md)
  - [VaultAsset](docs/models/VaultAsset.md)
  - [VaultWalletAddress](docs/models/VaultWalletAddress.md)
  - [WalletAsset](docs/models/WalletAsset.md)

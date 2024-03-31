@@ -37,15 +37,15 @@ export interface UnmanagedWallet {
     'name': string;
     /**
      * 
+     * @type {Array<WalletAsset>}
+     * @memberof UnmanagedWallet
+     */
+    'assets': Array<WalletAsset>;
+    /**
+     * 
      * @type {string}
      * @memberof UnmanagedWallet
      */
     'customerRefId'?: string;
-    /**
-     * 
-     * @type {Array<WalletAsset>}
-     * @memberof UnmanagedWallet
-     */
-    'assets'?: Array<WalletAsset>;
 }
 

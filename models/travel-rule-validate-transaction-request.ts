@@ -84,7 +84,7 @@ export interface TravelRuleValidateTransactionRequest {
      */
     'beneficiaryAccountNumber'?: string;
     /**
-     * 
+     * Beneficiary  name
      * @type {TravelRuleAddress}
      * @memberof TravelRuleValidateTransactionRequest
      */

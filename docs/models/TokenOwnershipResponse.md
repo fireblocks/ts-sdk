@@ -15,8 +15,8 @@
 |**metadataURI** | **string** | URL of the original token JSON metadata | [optional] [default to undefined]|
 |**cachedMetadataURI** | **string** | URL of the cached token JSON metadata | [optional] [default to undefined]|
 |**media** | [**Array&lt;MediaEntityResponse&gt;**](MediaEntityResponse.md) | Media items extracted from metadata JSON | [optional] [default to undefined]|
-|**spam** | [**SpamOwnershipResponse**](SpamOwnershipResponse.md) |  | [optional] [default to undefined]|
-|**collection** | [**TokenCollectionResponse**](TokenCollectionResponse.md) |  | [optional] [default to undefined]|
+|**spam** | [**SpamOwnershipResponse**](SpamOwnershipResponse.md) | Owned Token&#39;s Spam status | [optional] [default to undefined]|
+|**collection** | [**TokenCollectionResponse**](TokenCollectionResponse.md) | Parent collection information | [optional] [default to undefined]|
 |**vaultAccountId** | **string** |  | [optional] [default to undefined]|
 |**description** | **string** |  | [optional] [default to undefined]|
 |**name** | **string** |  | [optional] [default to undefined]|

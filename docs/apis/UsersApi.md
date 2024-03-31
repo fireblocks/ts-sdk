@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **getUsers**
-> GetUsersResponse getUsers()
+> Array<UserResponse> getUsers()
 
 List all users for the workspace.  Please note that this endpoint is available only for API keys with Admin permissions. 
 
@@ -18,7 +18,7 @@ List all users for the workspace.  Please note that this endpoint is available o
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, GetUsersResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -29,7 +29,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.users.getUsers(body).then((res: FireblocksResponse<GetUsersResponse>) => {
+fireblocks.users.getUsers(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -41,7 +41,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**[GetUsersResponse](../models/GetUsersResponse.md)**
+**[Array<UserResponse>](../models/Array<UserResponse>.md)**
 
 ### Authorization
 

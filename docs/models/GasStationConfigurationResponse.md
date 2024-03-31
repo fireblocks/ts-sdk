@@ -1,10 +1,12 @@
-# PublishPolicyRulesRequest
+# GasStationConfigurationResponse
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**rules** | [**Array&lt;PolicyRule&gt;**](PolicyRule.md) | Policy rules to publish | [optional] [default to undefined]|
+|**gasThreshold** | **string** |  | [optional] [default to undefined]|
+|**gasCap** | **string** |  | [optional] [default to undefined]|
+|**maxGasPrice** | **string** |  | [optional] [default to undefined]|
 
 
 

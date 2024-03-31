@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { GasStationConfiguration } from './gas-station-configuration';
+import { GasStationConfigurationResponse } from './gas-station-configuration-response';
 
 /**
  * 
@@ -31,9 +31,9 @@ export interface GasStationPropertiesResponse {
     'balance'?: object;
     /**
      * 
-     * @type {GasStationConfiguration}
+     * @type {GasStationConfigurationResponse}
      * @memberof GasStationPropertiesResponse
      */
-    'configuration'?: GasStationConfiguration;
+    'configuration'?: GasStationConfigurationResponse;
 }
 

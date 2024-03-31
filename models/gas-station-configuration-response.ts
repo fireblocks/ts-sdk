@@ -17,14 +17,26 @@
 /**
  * 
  * @export
- * @interface SmartTransferManuallyFundTermDto
+ * @interface GasStationConfigurationResponse
  */
-export interface SmartTransferManuallyFundTermDto {
+export interface GasStationConfigurationResponse {
     /**
      * 
      * @type {string}
-     * @memberof SmartTransferManuallyFundTermDto
+     * @memberof GasStationConfigurationResponse
      */
-    'txHash': string;
+    'gasThreshold'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GasStationConfigurationResponse
+     */
+    'gasCap'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof GasStationConfigurationResponse
+     */
+    'maxGasPrice'?: string | null;
 }
 
