@@ -65,7 +65,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | User sent for creation |  * X-Request-ID -  <br>  |
+**200** | User sent for creation |  * X-Request-ID -  <br>  |
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
 **5XX** | Internal error. |  * X-Request-ID -  <br>  |

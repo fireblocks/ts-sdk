@@ -505,7 +505,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getMaxSpendableAmount**
-> getMaxSpendableAmount()
+> GetMaxSpendableAmountResponse getMaxSpendableAmount()
 
 Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
 
@@ -515,7 +515,7 @@ Get the maximum amount of a particular asset that can be spent in a single trans
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiGetMaxSpendableAmountRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetMaxSpendableAmountRequest, GetMaxSpendableAmountResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -533,7 +533,7 @@ let body: VaultsApiGetMaxSpendableAmountRequest = {
   manualSignging: true,
 };
 
-fireblocks.vaults.getMaxSpendableAmount(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.getMaxSpendableAmount(body).then((res: FireblocksResponse<GetMaxSpendableAmountResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -550,7 +550,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[GetMaxSpendableAmountResponse](../models/GetMaxSpendableAmountResponse.md)**
 
 ### Authorization
 
@@ -1500,7 +1500,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateVaultAccount**
-> updateVaultAccount(updateVaultAccountRequest, )
+> RenameVaultAccountResponse updateVaultAccount(updateVaultAccountRequest, )
 
 Renames the requested vault account.
 
@@ -1510,7 +1510,7 @@ Renames the requested vault account.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiUpdateVaultAccountRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiUpdateVaultAccountRequest, RenameVaultAccountResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1528,7 +1528,7 @@ let body: VaultsApiUpdateVaultAccountRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.vaults.updateVaultAccount(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.updateVaultAccount(body).then((res: FireblocksResponse<RenameVaultAccountResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1545,7 +1545,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[RenameVaultAccountResponse](../models/RenameVaultAccountResponse.md)**
 
 ### Authorization
 

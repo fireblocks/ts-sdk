@@ -40,6 +40,8 @@ import { CreateVaultAssetResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { GetMaxSpendableAmountResponse } from '../models';
+// @ts-ignore
 import { JobCreated } from '../models';
 // @ts-ignore
 import { PaginatedAddressResponse } from '../models';
@@ -47,6 +49,8 @@ import { PaginatedAddressResponse } from '../models';
 import { PaginatedAssetWalletResponse } from '../models';
 // @ts-ignore
 import { PublicKeyInformation } from '../models';
+// @ts-ignore
+import { RenameVaultAccountResponse } from '../models';
 // @ts-ignore
 import { SetAutoFuelRequest } from '../models';
 // @ts-ignore
@@ -1337,7 +1341,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMaxSpendableAmountResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getMaxSpendableAmount']?.[index]?.url;
@@ -1564,7 +1568,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateVaultAccount(updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RenameVaultAccountResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateVaultAccount(updateVaultAccountRequest, vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.updateVaultAccount']?.[index]?.url;
@@ -1689,7 +1693,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMaxSpendableAmountResponse> {
             return localVarFp.getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1839,7 +1843,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        updateVaultAccount(requestParameters: VaultsApiUpdateVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<RenameVaultAccountResponse> {
             return localVarFp.updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**

@@ -26,6 +26,8 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { EditGasStationConfigurationResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GasStationConfiguration } from '../models';
@@ -230,7 +232,7 @@ export const GasStationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateGasStationConfiguration(gasStationConfiguration: GasStationConfiguration, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateGasStationConfiguration(gasStationConfiguration: GasStationConfiguration, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EditGasStationConfigurationResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfiguration(gasStationConfiguration, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['GasStationsApi.updateGasStationConfiguration']?.[index]?.url;
@@ -245,7 +247,7 @@ export const GasStationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateGasStationConfigurationByAssetId(gasStationConfiguration: GasStationConfiguration, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async updateGasStationConfigurationByAssetId(gasStationConfiguration: GasStationConfiguration, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EditGasStationConfigurationResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateGasStationConfigurationByAssetId(gasStationConfiguration, assetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['GasStationsApi.updateGasStationConfigurationByAssetId']?.[index]?.url;
@@ -287,7 +289,7 @@ export const GasStationsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateGasStationConfiguration(requestParameters: GasStationsApiUpdateGasStationConfigurationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        updateGasStationConfiguration(requestParameters: GasStationsApiUpdateGasStationConfigurationRequest, options?: RawAxiosRequestConfig): AxiosPromise<EditGasStationConfigurationResponse> {
             return localVarFp.updateGasStationConfiguration(requestParameters.gasStationConfiguration, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -297,7 +299,7 @@ export const GasStationsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateGasStationConfigurationByAssetId(requestParameters: GasStationsApiUpdateGasStationConfigurationByAssetIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        updateGasStationConfigurationByAssetId(requestParameters: GasStationsApiUpdateGasStationConfigurationByAssetIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<EditGasStationConfigurationResponse> {
             return localVarFp.updateGasStationConfigurationByAssetId(requestParameters.gasStationConfiguration, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };

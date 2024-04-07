@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **convertAssets**
-> convertAssets()
+> ConvertAssetsResponse convertAssets()
 
 Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
 
@@ -22,7 +22,7 @@ Convert exchange account funds from the source asset to the destination asset. C
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ExchangeAccountsApiConvertAssetsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ExchangeAccountsApiConvertAssetsRequest, ConvertAssetsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -40,7 +40,7 @@ let body: ExchangeAccountsApiConvertAssetsRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.exchangeAccounts.convertAssets(body).then((res: FireblocksResponse<any>) => {
+fireblocks.exchangeAccounts.convertAssets(body).then((res: FireblocksResponse<ConvertAssetsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -57,7 +57,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[ConvertAssetsResponse](../models/ConvertAssetsResponse.md)**
 
 ### Authorization
 
@@ -267,7 +267,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **internalTransfer**
-> internalTransfer()
+> InternalTransferResponse internalTransfer()
 
 Transfers funds between trading accounts under the same exchange account.
 
@@ -277,7 +277,7 @@ Transfers funds between trading accounts under the same exchange account.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ExchangeAccountsApiInternalTransferRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ExchangeAccountsApiInternalTransferRequest, InternalTransferResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -295,7 +295,7 @@ let body: ExchangeAccountsApiInternalTransferRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.exchangeAccounts.internalTransfer(body).then((res: FireblocksResponse<any>) => {
+fireblocks.exchangeAccounts.internalTransfer(body).then((res: FireblocksResponse<InternalTransferResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[InternalTransferResponse](../models/InternalTransferResponse.md)**
 
 ### Authorization
 

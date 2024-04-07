@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**routingPolicy** | [**NetworkIdRoutingPolicy**](NetworkIdRoutingPolicy.md) |  | [default to undefined]|
+|**routingPolicy** | [**{ [key: string]: NetworkIdRoutingPolicyValue; }**](NetworkIdRoutingPolicyValue.md) |  | [default to undefined]|
 
 
 

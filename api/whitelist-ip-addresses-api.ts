@@ -29,6 +29,8 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 import { ErrorResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetWhitelistIpAddressesResponse } from '../models';
 /**
  * WhitelistIpAddressesApi - axios parameter creator
  * @export
@@ -86,7 +88,7 @@ export const WhitelistIpAddressesApiFp = function(configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getWhitelistIpAddresses(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getWhitelistIpAddresses(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetWhitelistIpAddressesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getWhitelistIpAddresses(userId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WhitelistIpAddressesApi.getWhitelistIpAddresses']?.[index]?.url;
@@ -109,7 +111,7 @@ export const WhitelistIpAddressesApiFactory = function (configuration?: Configur
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWhitelistIpAddresses(requestParameters: WhitelistIpAddressesApiGetWhitelistIpAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getWhitelistIpAddresses(requestParameters: WhitelistIpAddressesApiGetWhitelistIpAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetWhitelistIpAddressesResponse> {
             return localVarFp.getWhitelistIpAddresses(requestParameters.userId, options).then((request) => request(axios, basePath));
         },
     };

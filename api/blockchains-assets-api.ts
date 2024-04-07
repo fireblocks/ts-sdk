@@ -26,9 +26,21 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AssetBadRequestErrorResponse } from '../models';
+// @ts-ignore
+import { AssetConflictErrorResponse } from '../models';
+// @ts-ignore
+import { AssetInternalServerErrorResponse } from '../models';
+// @ts-ignore
+import { AssetNotFoundErrorResponse } from '../models';
+// @ts-ignore
+import { AssetResponse } from '../models';
+// @ts-ignore
 import { AssetTypeResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { RegisterNewAssetRequest } from '../models';
 /**
  * BlockchainsAssetsApi - axios parameter creator
  * @export
@@ -65,6 +77,45 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported for EVM based chains only.
+         * @summary Register an asset
+         * @param {RegisterNewAssetRequest} [registerNewAssetRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerNewAsset: async (registerNewAssetRequest?: RegisterNewAssetRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/assets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(registerNewAssetRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -87,6 +138,20 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.getSupportedAssets']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported for EVM based chains only.
+         * @summary Register an asset
+         * @param {RegisterNewAssetRequest} [registerNewAssetRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async registerNewAsset(registerNewAssetRequest?: RegisterNewAssetRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.registerNewAsset(registerNewAssetRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['BlockchainsAssetsApi.registerNewAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -106,8 +171,39 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
         getSupportedAssets(options?: RawAxiosRequestConfig): AxiosPromise<Array<AssetTypeResponse>> {
             return localVarFp.getSupportedAssets(options).then((request) => request(axios, basePath));
         },
+        /**
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported for EVM based chains only.
+         * @summary Register an asset
+         * @param {BlockchainsAssetsApiRegisterNewAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerNewAsset(requestParameters: BlockchainsAssetsApiRegisterNewAssetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<AssetResponse> {
+            return localVarFp.registerNewAsset(requestParameters.registerNewAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for registerNewAsset operation in BlockchainsAssetsApi.
+ * @export
+ * @interface BlockchainsAssetsApiRegisterNewAssetRequest
+ */
+export interface BlockchainsAssetsApiRegisterNewAssetRequest {
+    /**
+     * 
+     * @type {RegisterNewAssetRequest}
+     * @memberof BlockchainsAssetsApiRegisterNewAsset
+     */
+    readonly registerNewAssetRequest?: RegisterNewAssetRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof BlockchainsAssetsApiRegisterNewAsset
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * BlockchainsAssetsApi - object-oriented interface
@@ -125,6 +221,18 @@ export class BlockchainsAssetsApi extends BaseAPI {
      */
     public getSupportedAssets() {
         return BlockchainsAssetsApiFp(this.configuration).getSupportedAssets().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported for EVM based chains only.
+     * @summary Register an asset
+     * @param {BlockchainsAssetsApiRegisterNewAssetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BlockchainsAssetsApi
+     */
+    public registerNewAsset(requestParameters: BlockchainsAssetsApiRegisterNewAssetRequest = {}) {
+        return BlockchainsAssetsApiFp(this.configuration).registerNewAsset(requestParameters.registerNewAssetRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

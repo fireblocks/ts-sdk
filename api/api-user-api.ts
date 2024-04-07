@@ -31,6 +31,8 @@ import { CreateAPIUser } from '../models';
 import { ErrorResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetAPIUsersResponse } from '../models';
 /**
  * ApiUserApi - axios parameter creator
  * @export
@@ -136,7 +138,7 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getApiUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getApiUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAPIUsersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getApiUsers(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ApiUserApi.getApiUsers']?.[index]?.url;
@@ -168,7 +170,7 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getApiUsers(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getApiUsers(options?: RawAxiosRequestConfig): AxiosPromise<GetAPIUsersResponse> {
             return localVarFp.getApiUsers(options).then((request) => request(axios, basePath));
         },
     };

@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **getWhitelistIpAddresses**
-> getWhitelistIpAddresses()
+> GetWhitelistIpAddressesResponse getWhitelistIpAddresses()
 
 gets ip addresses
 
@@ -18,7 +18,7 @@ gets ip addresses
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, WhitelistIpAddressesApiGetWhitelistIpAddressesRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WhitelistIpAddressesApiGetWhitelistIpAddressesRequest, GetWhitelistIpAddressesResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -32,7 +32,7 @@ let body: WhitelistIpAddressesApiGetWhitelistIpAddressesRequest = {
   userId: userId_example,
 };
 
-fireblocks.whitelistIpAddresses.getWhitelistIpAddresses(body).then((res: FireblocksResponse<any>) => {
+fireblocks.whitelistIpAddresses.getWhitelistIpAddresses(body).then((res: FireblocksResponse<GetWhitelistIpAddressesResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -47,7 +47,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[GetWhitelistIpAddressesResponse](../models/GetWhitelistIpAddressesResponse.md)**
 
 ### Authorization
 

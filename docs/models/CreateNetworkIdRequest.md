@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**name** | **string** |  | [default to undefined]|
-|**routingPolicy** | [**NetworkIdRoutingPolicy**](NetworkIdRoutingPolicy.md) |  | [optional] [default to undefined]|
+|**routingPolicy** | [**{ [key: string]: NetworkIdRoutingPolicyValue; }**](NetworkIdRoutingPolicyValue.md) |  | [optional] [default to undefined]|
 
 
 

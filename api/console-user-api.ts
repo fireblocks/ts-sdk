@@ -31,6 +31,8 @@ import { CreateConsoleUser } from '../models';
 import { ErrorResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetConsoleUsersResponse } from '../models';
 /**
  * ConsoleUserApi - axios parameter creator
  * @export
@@ -136,7 +138,7 @@ export const ConsoleUserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConsoleUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getConsoleUsers(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConsoleUsersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConsoleUsers(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ConsoleUserApi.getConsoleUsers']?.[index]?.url;
@@ -168,7 +170,7 @@ export const ConsoleUserApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConsoleUsers(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getConsoleUsers(options?: RawAxiosRequestConfig): AxiosPromise<GetConsoleUsersResponse> {
             return localVarFp.getConsoleUsers(options).then((request) => request(axios, basePath));
         },
     };

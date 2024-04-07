@@ -59,11 +59,11 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
          * @summary Retrieve third-party network routing validation by asset type.
          * @param {string} connectionId The ID of the network connection
-         * @param {CheckThirdPartyRoutingAssetTypeEnum} assetType The destination asset type
+         * @param {string} assetType The destination asset type
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        checkThirdPartyRouting: async (connectionId: string, assetType: CheckThirdPartyRoutingAssetTypeEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        checkThirdPartyRouting: async (connectionId: string, assetType: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'connectionId' is not null or undefined
             assertParamExists('checkThirdPartyRouting', 'connectionId', connectionId)
             // verify required parameter 'assetType' is not null or undefined
@@ -537,11 +537,11 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
          * The Fireblocks Network allows for flexibility around incoming deposits. A receiver can receive network deposits to locations other than Fireblocks. This endpoint validates whether future transactions are routed to the displayed recipient or to a 3rd party.
          * @summary Retrieve third-party network routing validation by asset type.
          * @param {string} connectionId The ID of the network connection
-         * @param {CheckThirdPartyRoutingAssetTypeEnum} assetType The destination asset type
+         * @param {string} assetType The destination asset type
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async checkThirdPartyRouting(connectionId: string, assetType: CheckThirdPartyRoutingAssetTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ThirdPartyRouting>> {
+        async checkThirdPartyRouting(connectionId: string, assetType: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ThirdPartyRouting>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.checkThirdPartyRouting(connectionId, assetType, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NetworkConnectionsApi.checkThirdPartyRouting']?.[index]?.url;
@@ -863,10 +863,10 @@ export interface NetworkConnectionsApiCheckThirdPartyRoutingRequest {
 
     /**
      * The destination asset type
-     * @type {'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST'}
+     * @type {string}
      * @memberof NetworkConnectionsApiCheckThirdPartyRouting
      */
-    readonly assetType: CheckThirdPartyRoutingAssetTypeEnum
+    readonly assetType: string
 }
 
 /**
@@ -1213,14 +1213,3 @@ export class NetworkConnectionsApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const CheckThirdPartyRoutingAssetTypeEnum = {
-    Crypto: 'CRYPTO',
-    Signet: 'SIGNET',
-    Sen: 'SEN',
-    SignetTest: 'SIGNET_TEST',
-    SenTest: 'SEN_TEST'
-} as const;
-export type CheckThirdPartyRoutingAssetTypeEnum = typeof CheckThirdPartyRoutingAssetTypeEnum[keyof typeof CheckThirdPartyRoutingAssetTypeEnum];
