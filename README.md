@@ -1,11 +1,5 @@
-# Fireblocks Typescript SDK (Beta)
+# Fireblocks Typescript SDK
 [![npm version](https://badge.fury.io/js/@fireblocks%2Fts-sdk.svg)](https://badge.fury.io/js/@fireblocks%2Fts-sdk)
-
-> **Warning**
-> This package is currently in a beta stage and should be used at your own risk.
-> The provided interfaces might go through backwards-incompatibale changes.
-> For a more stable SDK, please use the [Fireblocks Javascript/Typescript SDK](https://github.com/fireblocks/fireblocks-sdk-js)
-
 
 The Fireblocks SDK allows developers to seamlessly integrate with the Fireblocks platform and perform a variety of operations, including managing vault accounts and executing transactions securely.
 
