@@ -142,11 +142,17 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - update package name [`#11`](https://github.com/fireblocks/ts-sdk/pull/11)
 
-#### [v1.0.1-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.0-beta...v1.0.1-beta)
+#### [v1.0.1-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.0...v1.0.1-beta)
 
 > 30 July 2023
 
 - update package json and publish npm action [`#10`](https://github.com/fireblocks/ts-sdk/pull/10)
+
+### [v1.0.0](https://github.com/fireblocks/ts-sdk/compare/v1.0.0-beta...v1.0.0)
+
+> 7 April 2024
+
+- Generated SDK for version v1.0.0 GA [`#31`](https://github.com/fireblocks/ts-sdk/pull/31)
 
 #### [v1.0.0-beta](https://github.com/fireblocks/ts-sdk/compare/0.0.4-alpha...v1.0.0-beta)
 
