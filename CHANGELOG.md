@@ -136,11 +136,18 @@ All notable changes to this project will be documented in this file. Dates are d
 
 - update readme install package name [`#12`](https://github.com/fireblocks/ts-sdk/pull/12)
 
-#### [v1.0.2-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.1-beta...v1.0.2-beta)
+#### [v1.0.2-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.1...v1.0.2-beta)
 
 > 30 July 2023
 
 - update package name [`#11`](https://github.com/fireblocks/ts-sdk/pull/11)
+- update package json and publish npm action [`#10`](https://github.com/fireblocks/ts-sdk/pull/10)
+
+#### [v1.0.1](https://github.com/fireblocks/ts-sdk/compare/v1.0.1-beta...v1.0.1)
+
+> 7 April 2024
+
+- Generated SDK for version v1.0.1 [`#32`](https://github.com/fireblocks/ts-sdk/pull/32)
 
 #### [v1.0.1-beta](https://github.com/fireblocks/ts-sdk/compare/v1.0.0...v1.0.1-beta)
 
@@ -153,6 +160,17 @@ All notable changes to this project will be documented in this file. Dates are d
 > 7 April 2024
 
 - Generated SDK for version v1.0.0 GA [`#31`](https://github.com/fireblocks/ts-sdk/pull/31)
+- add_license [`#30`](https://github.com/fireblocks/ts-sdk/pull/30)
+- version_3_0_6_beta [`#29`](https://github.com/fireblocks/ts-sdk/pull/29)
+- version_3_0_5_beta [`#27`](https://github.com/fireblocks/ts-sdk/pull/27)
+- Version 3.0.4-beta [`#26`](https://github.com/fireblocks/ts-sdk/pull/26)
+- Fireblocks api spec/generated/9818 [`#25`](https://github.com/fireblocks/ts-sdk/pull/25)
+- Generated SDK for version 9817 [`#24`](https://github.com/fireblocks/ts-sdk/pull/24)
+- Generated SDK for version master [`#23`](https://github.com/fireblocks/ts-sdk/pull/23)
+- Added Idempotency & NCW headers support [`#22`](https://github.com/fireblocks/ts-sdk/pull/22)
+- API SDK Improvments [`#21`](https://github.com/fireblocks/ts-sdk/pull/21)
+- Update README.md [`#18`](https://github.com/fireblocks/ts-sdk/pull/18)
+- Update README.md [`#17`](https://github.com/fireblocks/ts-sdk/pull/17)
 
 #### [v1.0.0-beta](https://github.com/fireblocks/ts-sdk/compare/0.0.4-alpha...v1.0.0-beta)
 
