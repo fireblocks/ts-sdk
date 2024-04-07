@@ -14,7 +14,6 @@
 
 
 
-export * from './api/admin-quorum-api';
 export * from './api/api-user-api';
 export * from './api/assets-api';
 export * from './api/audit-logs-api';
@@ -46,6 +45,5 @@ export * from './api/vaults-api';
 export * from './api/web3-connections-api';
 export * from './api/webhooks-api';
 export * from './api/whitelist-ip-addresses-api';
-export * from './api/workspace-api';
 export * from './api/workspace-status-beta-api';
 

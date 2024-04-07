@@ -26,11 +26,15 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { DepositFundsFromLinkedDDAResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { FiatAccount } from '../models';
 // @ts-ignore
 import { Funds } from '../models';
+// @ts-ignore
+import { RedeemFundsToLinkedDDAResponse } from '../models';
 /**
  * FiatAccountsApi - axios parameter creator
  * @export
@@ -206,7 +210,7 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async depositFundsFromLinkedDDA(accountId: string, funds?: Funds, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async depositFundsFromLinkedDDA(accountId: string, funds?: Funds, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DepositFundsFromLinkedDDAResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.depositFundsFromLinkedDDA(accountId, funds, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['FiatAccountsApi.depositFundsFromLinkedDDA']?.[index]?.url;
@@ -246,7 +250,7 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async redeemFundsToLinkedDDA(accountId: string, funds?: Funds, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async redeemFundsToLinkedDDA(accountId: string, funds?: Funds, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RedeemFundsToLinkedDDAResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.redeemFundsToLinkedDDA(accountId, funds, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['FiatAccountsApi.redeemFundsToLinkedDDA']?.[index]?.url;
@@ -269,7 +273,7 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        depositFundsFromLinkedDDA(requestParameters: FiatAccountsApiDepositFundsFromLinkedDDARequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        depositFundsFromLinkedDDA(requestParameters: FiatAccountsApiDepositFundsFromLinkedDDARequest, options?: RawAxiosRequestConfig): AxiosPromise<DepositFundsFromLinkedDDAResponse> {
             return localVarFp.depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -298,7 +302,7 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        redeemFundsToLinkedDDA(requestParameters: FiatAccountsApiRedeemFundsToLinkedDDARequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        redeemFundsToLinkedDDA(requestParameters: FiatAccountsApiRedeemFundsToLinkedDDARequest, options?: RawAxiosRequestConfig): AxiosPromise<RedeemFundsToLinkedDDAResponse> {
             return localVarFp.redeemFundsToLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };

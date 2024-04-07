@@ -28,6 +28,8 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { GetAuditLogsResponse } from '../models';
+// @ts-ignore
 import { GetAuditLogsResponseDTO } from '../models';
 /**
  * AuditLogsApi - axios parameter creator
@@ -128,7 +130,7 @@ export const AuditLogsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAuditLogs(timePeriod?: GetAuditLogsTimePeriodEnum, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async getAuditLogs(timePeriod?: GetAuditLogsTimePeriodEnum, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAuditLogsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAuditLogs(timePeriod, cursor, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['AuditLogsApi.getAuditLogs']?.[index]?.url;
@@ -164,7 +166,7 @@ export const AuditLogsApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetAuditLogsResponse> {
             return localVarFp.getAuditLogs(requestParameters.timePeriod, requestParameters.cursor, options).then((request) => request(axios, basePath));
         },
         /**

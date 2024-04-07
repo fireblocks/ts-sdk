@@ -12,8 +12,7 @@
 
 import type { ConfigurationOptions  } from './clientConfiguration';
 import { Configuration } from '../configuration';
-import { AdminQuorumApi, 
-         ApiUserApi, 
+import { ApiUserApi, 
          AssetsApi, 
          AuditLogsApi, 
          BlockchainsAssetsApi, 
@@ -44,7 +43,6 @@ import { AdminQuorumApi,
          Web3ConnectionsApi, 
          WebhooksApi, 
          WhitelistIpAddressesApi, 
-         WorkspaceApi, 
          WorkspaceStatusBetaApi
          } from '../api';
 import { AxiosManager } from "../network/axiosManager";
@@ -53,7 +51,6 @@ import { AxiosManager } from "../network/axiosManager";
 export class Fireblocks {
     private readonly config: Configuration;
     private readonly axiosManager: AxiosManager
-    private _adminQuorum?: AdminQuorumApi;
     private _apiUser?: ApiUserApi;
     private _assets?: AssetsApi;
     private _auditLogs?: AuditLogsApi;
@@ -85,7 +82,6 @@ export class Fireblocks {
     private _web3Connections?: Web3ConnectionsApi;
     private _webhooks?: WebhooksApi;
     private _whitelistIpAddresses?: WhitelistIpAddressesApi;
-    private _workspace?: WorkspaceApi;
     private _workspaceStatusBeta?: WorkspaceStatusBetaApi;
 
 
@@ -108,9 +104,6 @@ export class Fireblocks {
         this.axiosManager = new AxiosManager(apiKey, secretKey, conf?.additionalOptions);
     }
 
-    get adminQuorum(): AdminQuorumApi {
-        return this._adminQuorum ?? new AdminQuorumApi(this.config, undefined, this.axiosManager.axios);
-    }
     get apiUser(): ApiUserApi {
         return this._apiUser ?? new ApiUserApi(this.config, undefined, this.axiosManager.axios);
     }
@@ -203,9 +196,6 @@ export class Fireblocks {
     }
     get whitelistIpAddresses(): WhitelistIpAddressesApi {
         return this._whitelistIpAddresses ?? new WhitelistIpAddressesApi(this.config, undefined, this.axiosManager.axios);
-    }
-    get workspace(): WorkspaceApi {
-        return this._workspace ?? new WorkspaceApi(this.config, undefined, this.axiosManager.axios);
     }
     get workspaceStatusBeta(): WorkspaceStatusBetaApi {
         return this._workspaceStatusBeta ?? new WorkspaceStatusBetaApi(this.config, undefined, this.axiosManager.axios);

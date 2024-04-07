@@ -42,7 +42,7 @@ const fireblocks = new Fireblocks();
 let body: NetworkConnectionsApiCheckThirdPartyRoutingRequest = {
   // string | The ID of the network connection
   connectionId: connectionId_example,
-  // 'CRYPTO' | 'SIGNET' | 'SEN' | 'SIGNET_TEST' | 'SEN_TEST' | The destination asset type
+  // string | The destination asset type
   assetType: assetType_example,
 };
 
@@ -57,7 +57,7 @@ fireblocks.networkConnections.checkThirdPartyRouting(body).then((res: Fireblocks
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **connectionId** | [**string**] | The ID of the network connection | defaults to undefined
- **assetType** | [**&#39;CRYPTO&#39; | &#39;SIGNET&#39; | &#39;SEN&#39; | &#39;SIGNET_TEST&#39; | &#39;SEN_TEST&#39;**]**Array<&#39;CRYPTO&#39; &#124; &#39;SIGNET&#39; &#124; &#39;SEN&#39; &#124; &#39;SIGNET_TEST&#39; &#124; &#39;SEN_TEST&#39;>** | The destination asset type | defaults to undefined
+ **assetType** | [**string**] | The destination asset type | defaults to undefined
 
 
 ### Return type

@@ -30,6 +30,8 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ResendTransactionWebhooksRequest } from '../models';
 // @ts-ignore
+import { ResendWebhooksByTransactionIdResponse } from '../models';
+// @ts-ignore
 import { ResendWebhooksResponse } from '../models';
 /**
  * WebhooksApi - axios parameter creator
@@ -136,7 +138,7 @@ export const WebhooksApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async resendTransactionWebhooks(resendTransactionWebhooksRequest: ResendTransactionWebhooksRequest, txId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async resendTransactionWebhooks(resendTransactionWebhooksRequest: ResendTransactionWebhooksRequest, txId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendWebhooksByTransactionIdResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendTransactionWebhooks(resendTransactionWebhooksRequest, txId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksApi.resendTransactionWebhooks']?.[index]?.url;
@@ -172,7 +174,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendTransactionWebhooks(requestParameters: WebhooksApiResendTransactionWebhooksRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        resendTransactionWebhooks(requestParameters: WebhooksApiResendTransactionWebhooksRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResendWebhooksByTransactionIdResponse> {
             return localVarFp.resendTransactionWebhooks(requestParameters.resendTransactionWebhooksRequest, requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**

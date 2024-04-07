@@ -125,7 +125,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateGasStationConfiguration**
-> updateGasStationConfiguration(gasStationConfiguration)
+> EditGasStationConfigurationResponse updateGasStationConfiguration(gasStationConfiguration)
 
 Configures gas station settings for ETH.
 
@@ -135,7 +135,7 @@ Configures gas station settings for ETH.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, GasStationsApiUpdateGasStationConfigurationRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, GasStationsApiUpdateGasStationConfigurationRequest, EditGasStationConfigurationResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -151,7 +151,7 @@ let body: GasStationsApiUpdateGasStationConfigurationRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.gasStations.updateGasStationConfiguration(body).then((res: FireblocksResponse<any>) => {
+fireblocks.gasStations.updateGasStationConfiguration(body).then((res: FireblocksResponse<EditGasStationConfigurationResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[EditGasStationConfigurationResponse](../models/EditGasStationConfigurationResponse.md)**
 
 ### Authorization
 
@@ -188,7 +188,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateGasStationConfigurationByAssetId**
-> updateGasStationConfigurationByAssetId(gasStationConfiguration, )
+> EditGasStationConfigurationResponse updateGasStationConfigurationByAssetId(gasStationConfiguration, )
 
 Configures gas station settings for a requested asset.
 
@@ -198,7 +198,7 @@ Configures gas station settings for a requested asset.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, GasStationsApiUpdateGasStationConfigurationByAssetIdRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, GasStationsApiUpdateGasStationConfigurationByAssetIdRequest, EditGasStationConfigurationResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -216,7 +216,7 @@ let body: GasStationsApiUpdateGasStationConfigurationByAssetIdRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.gasStations.updateGasStationConfigurationByAssetId(body).then((res: FireblocksResponse<any>) => {
+fireblocks.gasStations.updateGasStationConfigurationByAssetId(body).then((res: FireblocksResponse<EditGasStationConfigurationResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[EditGasStationConfigurationResponse](../models/EditGasStationConfigurationResponse.md)**
 
 ### Authorization
 

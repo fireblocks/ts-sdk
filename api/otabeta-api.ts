@@ -29,6 +29,8 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 import { GetOtaStatus200Response } from '../models';
 // @ts-ignore
 import { SetOtaStatusRequest } from '../models';
+// @ts-ignore
+import { SetOtaStatusResponse } from '../models';
 /**
  * OTABetaApi - axios parameter creator
  * @export
@@ -136,7 +138,7 @@ export const OTABetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async setOtaStatus(setOtaStatusRequest: SetOtaStatusRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetOtaStatusResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setOtaStatus(setOtaStatusRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OTABetaApi.setOtaStatus']?.[index]?.url;
@@ -168,7 +170,7 @@ export const OTABetaApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        setOtaStatus(requestParameters: OTABetaApiSetOtaStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetOtaStatusResponse> {
             return localVarFp.setOtaStatus(requestParameters.setOtaStatusRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };

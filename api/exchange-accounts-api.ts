@@ -28,6 +28,8 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { ConvertAssetsRequest } from '../models';
 // @ts-ignore
+import { ConvertAssetsResponse } from '../models';
+// @ts-ignore
 import { CreateInternalTransferRequest } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
@@ -37,6 +39,8 @@ import { ExchangeAccount } from '../models';
 import { ExchangeAccountsPaged } from '../models';
 // @ts-ignore
 import { ExchangeAsset } from '../models';
+// @ts-ignore
+import { InternalTransferResponse } from '../models';
 /**
  * ExchangeAccountsApi - axios parameter creator
  * @export
@@ -267,7 +271,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async convertAssets(exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConvertAssetsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.convertAssets(exchangeAccountId, convertAssetsRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ExchangeAccountsApi.convertAssets']?.[index]?.url;
@@ -324,7 +328,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async internalTransfer(exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async internalTransfer(exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<InternalTransferResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.internalTransfer(exchangeAccountId, createInternalTransferRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ExchangeAccountsApi.internalTransfer']?.[index]?.url;
@@ -347,7 +351,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        convertAssets(requestParameters: ExchangeAccountsApiConvertAssetsRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        convertAssets(requestParameters: ExchangeAccountsApiConvertAssetsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConvertAssetsResponse> {
             return localVarFp.convertAssets(requestParameters.exchangeAccountId, requestParameters.convertAssetsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -387,7 +391,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        internalTransfer(requestParameters: ExchangeAccountsApiInternalTransferRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        internalTransfer(requestParameters: ExchangeAccountsApiInternalTransferRequest, options?: RawAxiosRequestConfig): AxiosPromise<InternalTransferResponse> {
             return localVarFp.internalTransfer(requestParameters.exchangeAccountId, requestParameters.createInternalTransferRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };

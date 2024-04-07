@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**localNetworkId** | **string** | The network ID of the profile trying to create the connection. | [default to undefined]|
 |**remoteNetworkId** | **string** | The network ID the profile is attempting to connect to. | [default to undefined]|
-|**routingPolicy** | [**NetworkConnectionRoutingPolicy**](NetworkConnectionRoutingPolicy.md) |  | [optional] [default to undefined]|
+|**routingPolicy** | [**{ [key: string]: NetworkConnectionRoutingPolicyValue; }**](NetworkConnectionRoutingPolicyValue.md) |  | [optional] [default to undefined]|
 
 
 

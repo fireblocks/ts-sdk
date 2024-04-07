@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **getAuditLogs**
-> getAuditLogs()
+> GetAuditLogsResponse getAuditLogs()
 
 Get all audits
 
@@ -19,7 +19,7 @@ Get all audits
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, AuditLogsApiGetAuditLogsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, AuditLogsApiGetAuditLogsRequest, GetAuditLogsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -35,7 +35,7 @@ let body: AuditLogsApiGetAuditLogsRequest = {
   cursor: cursor_example,
 };
 
-fireblocks.auditLogs.getAuditLogs(body).then((res: FireblocksResponse<any>) => {
+fireblocks.auditLogs.getAuditLogs(body).then((res: FireblocksResponse<GetAuditLogsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -51,7 +51,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+**[GetAuditLogsResponse](../models/GetAuditLogsResponse.md)**
 
 ### Authorization
 

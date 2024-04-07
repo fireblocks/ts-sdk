@@ -28,20 +28,22 @@ You can initialize the Fireblocks SDK in two ways, either by setting environment
 <p><strong>Using Environment Variables</strong><br>
 You can initialize the SDK using environment variables from your .env file or by setting them programmatically:</p>
 
+use bash commands to set environment variables:
+```bash
+export FIREBLOCKS_BASE_PATH="https://sandbox-api.fireblocks.io/v1"
+export FIREBLOCKS_API_KEY="my-api-key"
+export FIREBLOCKS_SECRET_KEY="my-secret-key"
+```
 
+execute the following code to initialize the Fireblocks SDK:
 ```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from "@fireblocks/ts-sdk";
-
-// Set the environment variables
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox // or assign directly to "https://sandbox-api.fireblocks.io/v1";
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+import { Fireblocks } from "@fireblocks/ts-sdk";
 
 // Create a Fireblocks API instance
 const fireblocks = new Fireblocks();
 
 ```
+
 <p><strong>Providing Local Variables</strong><br>
 Alternatively, you can directly pass the required parameters when initializing the Fireblocks API instance:</p>
 
@@ -131,13 +133,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*AdminQuorumApi* | [**setAdminQuorumThreshold**](docs/apis/AdminQuorumApi.md#setAdminQuorumThreshold) | **PUT** /admin_quorum | Update admin quorum threshold
 *ApiUserApi* | [**createApiUser**](docs/apis/ApiUserApi.md#createApiUser) | **POST** /management/api_users | create api user
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | get api users
 *AssetsApi* | [**createAssetsBulk**](docs/apis/AssetsApi.md#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
 *AuditLogsApi* | [**getAudits**](docs/apis/AuditLogsApi.md#getAudits) | **GET** /audits | Get audit logs
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/apis/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
+*BlockchainsAssetsApi* | [**registerNewAsset**](docs/apis/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
@@ -311,12 +313,14 @@ Class | Method | HTTP request | Description
 *WebhooksApi* | [**resendTransactionWebhooks**](docs/apis/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend failed webhooks for a transaction by ID
 *WebhooksApi* | [**resendWebhooks**](docs/apis/WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/apis/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | gets ip addresses
-*WorkspaceApi* | [**freezeWorkspace**](docs/apis/WorkspaceApi.md#freezeWorkspace) | **POST** /workspace/freeze | Freeze Workspace
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/apis/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
 
 
 ## Documentation for Models
 
+ - [APIUser](docs/models/APIUser.md)
+ - [Account](docs/models/Account.md)
+ - [AccountType](docs/models/AccountType.md)
  - [AddAssetToExternalWalletRequest](docs/models/AddAssetToExternalWalletRequest.md)
  - [AddAssetToExternalWalletRequestOneOf](docs/models/AddAssetToExternalWalletRequestOneOf.md)
  - [AddAssetToExternalWalletRequestOneOf1](docs/models/AddAssetToExternalWalletRequestOneOf1.md)
@@ -332,8 +336,17 @@ Class | Method | HTTP request | Description
  - [AmountAggregationTimePeriodMethod](docs/models/AmountAggregationTimePeriodMethod.md)
  - [AmountAndChainDescriptor](docs/models/AmountAndChainDescriptor.md)
  - [AmountInfo](docs/models/AmountInfo.md)
+ - [AssetAmount](docs/models/AssetAmount.md)
+ - [AssetBadRequestErrorResponse](docs/models/AssetBadRequestErrorResponse.md)
+ - [AssetConflictErrorResponse](docs/models/AssetConflictErrorResponse.md)
+ - [AssetInternalServerErrorResponse](docs/models/AssetInternalServerErrorResponse.md)
+ - [AssetNotFoundErrorResponse](docs/models/AssetNotFoundErrorResponse.md)
+ - [AssetResponse](docs/models/AssetResponse.md)
+ - [AssetResponseMetadata](docs/models/AssetResponseMetadata.md)
+ - [AssetResponseOnchain](docs/models/AssetResponseOnchain.md)
  - [AssetTypeResponse](docs/models/AssetTypeResponse.md)
  - [AssetWallet](docs/models/AssetWallet.md)
+ - [AuditLogData](docs/models/AuditLogData.md)
  - [AuthorizationGroups](docs/models/AuthorizationGroups.md)
  - [AuthorizationInfo](docs/models/AuthorizationInfo.md)
  - [BlockInfo](docs/models/BlockInfo.md)
@@ -343,16 +356,38 @@ Class | Method | HTTP request | Description
  - [ComplianceResult](docs/models/ComplianceResult.md)
  - [ComplianceScreeningResult](docs/models/ComplianceScreeningResult.md)
  - [ConfigChangeRequestStatus](docs/models/ConfigChangeRequestStatus.md)
+ - [ConfigConversionOperationSnapshot](docs/models/ConfigConversionOperationSnapshot.md)
+ - [ConfigDisbursementOperationSnapshot](docs/models/ConfigDisbursementOperationSnapshot.md)
+ - [ConfigOperation](docs/models/ConfigOperation.md)
+ - [ConfigOperationSnapshot](docs/models/ConfigOperationSnapshot.md)
+ - [ConfigOperationStatus](docs/models/ConfigOperationStatus.md)
+ - [ConfigTransferOperationSnapshot](docs/models/ConfigTransferOperationSnapshot.md)
+ - [ConsoleUser](docs/models/ConsoleUser.md)
+ - [ConversionConfigOperation](docs/models/ConversionConfigOperation.md)
+ - [ConversionOperationConfigParams](docs/models/ConversionOperationConfigParams.md)
+ - [ConversionOperationExecution](docs/models/ConversionOperationExecution.md)
+ - [ConversionOperationExecutionOutput](docs/models/ConversionOperationExecutionOutput.md)
+ - [ConversionOperationExecutionParams](docs/models/ConversionOperationExecutionParams.md)
+ - [ConversionOperationExecutionParamsExecutionParams](docs/models/ConversionOperationExecutionParamsExecutionParams.md)
+ - [ConversionOperationFailure](docs/models/ConversionOperationFailure.md)
+ - [ConversionOperationPreview](docs/models/ConversionOperationPreview.md)
+ - [ConversionOperationPreviewOutput](docs/models/ConversionOperationPreviewOutput.md)
+ - [ConversionOperationType](docs/models/ConversionOperationType.md)
+ - [ConversionValidationFailure](docs/models/ConversionValidationFailure.md)
  - [ConvertAssetsRequest](docs/models/ConvertAssetsRequest.md)
+ - [ConvertAssetsResponse](docs/models/ConvertAssetsResponse.md)
  - [CreateAPIUser](docs/models/CreateAPIUser.md)
  - [CreateAddressRequest](docs/models/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/models/CreateAddressResponse.md)
  - [CreateAssetsBulkRequest](docs/models/CreateAssetsBulkRequest.md)
  - [CreateAssetsRequest](docs/models/CreateAssetsRequest.md)
+ - [CreateConfigOperationRequest](docs/models/CreateConfigOperationRequest.md)
  - [CreateConnectionRequest](docs/models/CreateConnectionRequest.md)
  - [CreateConnectionResponse](docs/models/CreateConnectionResponse.md)
  - [CreateConsoleUser](docs/models/CreateConsoleUser.md)
  - [CreateContractRequest](docs/models/CreateContractRequest.md)
+ - [CreateConversionConfigOperationRequest](docs/models/CreateConversionConfigOperationRequest.md)
+ - [CreateDisbursementConfigOperationRequest](docs/models/CreateDisbursementConfigOperationRequest.md)
  - [CreateInternalTransferRequest](docs/models/CreateInternalTransferRequest.md)
  - [CreateInternalWalletAssetRequest](docs/models/CreateInternalWalletAssetRequest.md)
  - [CreateMultipleAccountsRequest](docs/models/CreateMultipleAccountsRequest.md)
@@ -361,22 +396,42 @@ Class | Method | HTTP request | Description
  - [CreatePayoutRequest](docs/models/CreatePayoutRequest.md)
  - [CreateRequest](docs/models/CreateRequest.md)
  - [CreateTransactionResponse](docs/models/CreateTransactionResponse.md)
+ - [CreateTransferConfigOperationRequest](docs/models/CreateTransferConfigOperationRequest.md)
  - [CreateUserGroupResponse](docs/models/CreateUserGroupResponse.md)
  - [CreateVaultAccountRequest](docs/models/CreateVaultAccountRequest.md)
  - [CreateVaultAssetResponse](docs/models/CreateVaultAssetResponse.md)
  - [CreateWalletRequest](docs/models/CreateWalletRequest.md)
- - [CustomCryptoRoutingDest](docs/models/CustomCryptoRoutingDest.md)
- - [CustomFiatRoutingDest](docs/models/CustomFiatRoutingDest.md)
+ - [CreateWorkflowExecutionRequestParamsInner](docs/models/CreateWorkflowExecutionRequestParamsInner.md)
+ - [CustomRoutingDest](docs/models/CustomRoutingDest.md)
  - [DefaultNetworkRoutingDest](docs/models/DefaultNetworkRoutingDest.md)
  - [DelegationDto](docs/models/DelegationDto.md)
  - [DelegationSummaryDto](docs/models/DelegationSummaryDto.md)
+ - [DepositFundsFromLinkedDDAResponse](docs/models/DepositFundsFromLinkedDDAResponse.md)
+ - [Destination](docs/models/Destination.md)
  - [DestinationTransferPeerPath](docs/models/DestinationTransferPeerPath.md)
  - [DestinationTransferPeerPathResponse](docs/models/DestinationTransferPeerPathResponse.md)
+ - [DisbursementAmountInstruction](docs/models/DisbursementAmountInstruction.md)
+ - [DisbursementConfigOperation](docs/models/DisbursementConfigOperation.md)
+ - [DisbursementInstruction](docs/models/DisbursementInstruction.md)
+ - [DisbursementInstructionOutput](docs/models/DisbursementInstructionOutput.md)
+ - [DisbursementOperationConfigParams](docs/models/DisbursementOperationConfigParams.md)
+ - [DisbursementOperationExecution](docs/models/DisbursementOperationExecution.md)
+ - [DisbursementOperationExecutionOutput](docs/models/DisbursementOperationExecutionOutput.md)
+ - [DisbursementOperationExecutionParams](docs/models/DisbursementOperationExecutionParams.md)
+ - [DisbursementOperationExecutionParamsExecutionParams](docs/models/DisbursementOperationExecutionParamsExecutionParams.md)
+ - [DisbursementOperationInput](docs/models/DisbursementOperationInput.md)
+ - [DisbursementOperationPreview](docs/models/DisbursementOperationPreview.md)
+ - [DisbursementOperationPreviewOutput](docs/models/DisbursementOperationPreviewOutput.md)
+ - [DisbursementOperationPreviewOutputInstructionSetInner](docs/models/DisbursementOperationPreviewOutputInstructionSetInner.md)
+ - [DisbursementOperationType](docs/models/DisbursementOperationType.md)
+ - [DisbursementPercentageInstruction](docs/models/DisbursementPercentageInstruction.md)
+ - [DisbursementValidationFailure](docs/models/DisbursementValidationFailure.md)
  - [DispatchPayoutResponse](docs/models/DispatchPayoutResponse.md)
  - [DraftResponse](docs/models/DraftResponse.md)
  - [DraftReviewAndValidationResponse](docs/models/DraftReviewAndValidationResponse.md)
  - [DropTransactionRequest](docs/models/DropTransactionRequest.md)
  - [DropTransactionResponse](docs/models/DropTransactionResponse.md)
+ - [EditGasStationConfigurationResponse](docs/models/EditGasStationConfigurationResponse.md)
  - [ErrorResponse](docs/models/ErrorResponse.md)
  - [ErrorResponseError](docs/models/ErrorResponseError.md)
  - [ErrorSchema](docs/models/ErrorSchema.md)
@@ -391,6 +446,11 @@ Class | Method | HTTP request | Description
  - [ExchangeType](docs/models/ExchangeType.md)
  - [ExecuteActionRequest](docs/models/ExecuteActionRequest.md)
  - [ExecuteActionResponse](docs/models/ExecuteActionResponse.md)
+ - [ExecutionConversionOperation](docs/models/ExecutionConversionOperation.md)
+ - [ExecutionDisbursementOperation](docs/models/ExecutionDisbursementOperation.md)
+ - [ExecutionOperationStatus](docs/models/ExecutionOperationStatus.md)
+ - [ExecutionScreeningOperation](docs/models/ExecutionScreeningOperation.md)
+ - [ExecutionTransferOperation](docs/models/ExecutionTransferOperation.md)
  - [ExternalWalletAsset](docs/models/ExternalWalletAsset.md)
  - [FeeInfo](docs/models/FeeInfo.md)
  - [FiatAccount](docs/models/FiatAccount.md)
@@ -401,14 +461,20 @@ Class | Method | HTTP request | Description
  - [GasStationConfiguration](docs/models/GasStationConfiguration.md)
  - [GasStationConfigurationResponse](docs/models/GasStationConfigurationResponse.md)
  - [GasStationPropertiesResponse](docs/models/GasStationPropertiesResponse.md)
+ - [GetAPIUsersResponse](docs/models/GetAPIUsersResponse.md)
+ - [GetAuditLogsResponse](docs/models/GetAuditLogsResponse.md)
  - [GetAuditLogsResponseDTO](docs/models/GetAuditLogsResponseDTO.md)
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
+ - [GetConsoleUsersResponse](docs/models/GetConsoleUsersResponse.md)
  - [GetFilterParameter](docs/models/GetFilterParameter.md)
+ - [GetMaxSpendableAmountResponse](docs/models/GetMaxSpendableAmountResponse.md)
  - [GetOtaStatus200Response](docs/models/GetOtaStatus200Response.md)
  - [GetOwnershipTokens200Response](docs/models/GetOwnershipTokens200Response.md)
  - [GetTransactionOperation](docs/models/GetTransactionOperation.md)
+ - [GetWhitelistIpAddressesResponse](docs/models/GetWhitelistIpAddressesResponse.md)
  - [GetWorkspaceStatus200Response](docs/models/GetWorkspaceStatus200Response.md)
  - [InstructionAmount](docs/models/InstructionAmount.md)
+ - [InternalTransferResponse](docs/models/InternalTransferResponse.md)
  - [Job](docs/models/Job.md)
  - [JobCreated](docs/models/JobCreated.md)
  - [ListOwnedCollections200Response](docs/models/ListOwnedCollections200Response.md)
@@ -417,23 +483,17 @@ Class | Method | HTTP request | Description
  - [NetworkChannel](docs/models/NetworkChannel.md)
  - [NetworkConnection](docs/models/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/models/NetworkConnectionResponse.md)
- - [NetworkConnectionRoutingPolicy](docs/models/NetworkConnectionRoutingPolicy.md)
- - [NetworkConnectionRoutingPolicyCrypto](docs/models/NetworkConnectionRoutingPolicyCrypto.md)
- - [NetworkConnectionRoutingPolicySen](docs/models/NetworkConnectionRoutingPolicySen.md)
- - [NetworkConnectionRoutingPolicySenTest](docs/models/NetworkConnectionRoutingPolicySenTest.md)
- - [NetworkConnectionRoutingPolicySignet](docs/models/NetworkConnectionRoutingPolicySignet.md)
- - [NetworkConnectionRoutingPolicySignetTest](docs/models/NetworkConnectionRoutingPolicySignetTest.md)
+ - [NetworkConnectionRoutingPolicyValue](docs/models/NetworkConnectionRoutingPolicyValue.md)
  - [NetworkConnectionStatus](docs/models/NetworkConnectionStatus.md)
  - [NetworkFee](docs/models/NetworkFee.md)
  - [NetworkId](docs/models/NetworkId.md)
  - [NetworkIdResponse](docs/models/NetworkIdResponse.md)
- - [NetworkIdRoutingPolicy](docs/models/NetworkIdRoutingPolicy.md)
- - [NetworkIdRoutingPolicyCrypto](docs/models/NetworkIdRoutingPolicyCrypto.md)
- - [NetworkIdRoutingPolicySen](docs/models/NetworkIdRoutingPolicySen.md)
- - [NetworkIdRoutingPolicySenTest](docs/models/NetworkIdRoutingPolicySenTest.md)
+ - [NetworkIdRoutingPolicyValue](docs/models/NetworkIdRoutingPolicyValue.md)
  - [NetworkRecord](docs/models/NetworkRecord.md)
  - [NoneNetworkRoutingDest](docs/models/NoneNetworkRoutingDest.md)
  - [OneTimeAddress](docs/models/OneTimeAddress.md)
+ - [OneTimeAddressAccount](docs/models/OneTimeAddressAccount.md)
+ - [OperationExecutionFailure](docs/models/OperationExecutionFailure.md)
  - [PaginatedAddressResponse](docs/models/PaginatedAddressResponse.md)
  - [PaginatedAddressResponsePaging](docs/models/PaginatedAddressResponsePaging.md)
  - [PaginatedAssetWalletResponse](docs/models/PaginatedAssetWalletResponse.md)
@@ -474,24 +534,37 @@ Class | Method | HTTP request | Description
  - [PolicySrcOrDestType](docs/models/PolicySrcOrDestType.md)
  - [PolicyStatus](docs/models/PolicyStatus.md)
  - [PolicyValidation](docs/models/PolicyValidation.md)
+ - [PreScreening](docs/models/PreScreening.md)
  - [ProviderDto](docs/models/ProviderDto.md)
  - [PublicKeyInformation](docs/models/PublicKeyInformation.md)
  - [PublishDraftRequest](docs/models/PublishDraftRequest.md)
  - [PublishResult](docs/models/PublishResult.md)
+ - [RedeemFundsToLinkedDDAResponse](docs/models/RedeemFundsToLinkedDDAResponse.md)
+ - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
  - [RelatedTransactionDto](docs/models/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
+ - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
  - [ResendTransactionWebhooksRequest](docs/models/ResendTransactionWebhooksRequest.md)
+ - [ResendWebhooksByTransactionIdResponse](docs/models/ResendWebhooksByTransactionIdResponse.md)
  - [ResendWebhooksResponse](docs/models/ResendWebhooksResponse.md)
  - [RespondToConnectionRequest](docs/models/RespondToConnectionRequest.md)
  - [RewardInfo](docs/models/RewardInfo.md)
  - [RewardsInfo](docs/models/RewardsInfo.md)
  - [ScreeningConfigurationsRequest](docs/models/ScreeningConfigurationsRequest.md)
+ - [ScreeningOperationExecution](docs/models/ScreeningOperationExecution.md)
+ - [ScreeningOperationExecutionOutput](docs/models/ScreeningOperationExecutionOutput.md)
+ - [ScreeningOperationFailure](docs/models/ScreeningOperationFailure.md)
+ - [ScreeningOperationType](docs/models/ScreeningOperationType.md)
  - [ScreeningPolicyResponse](docs/models/ScreeningPolicyResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/models/ScreeningProviderRulesConfigurationResponse.md)
  - [ScreeningUpdateConfigurationsRequest](docs/models/ScreeningUpdateConfigurationsRequest.md)
+ - [ScreeningValidationFailure](docs/models/ScreeningValidationFailure.md)
+ - [ScreeningVerdict](docs/models/ScreeningVerdict.md)
+ - [ScreeningVerdictMatchedRule](docs/models/ScreeningVerdictMatchedRule.md)
  - [SessionDTO](docs/models/SessionDTO.md)
  - [SessionMetadata](docs/models/SessionMetadata.md)
  - [SetAdminQuorumThresholdRequest](docs/models/SetAdminQuorumThresholdRequest.md)
+ - [SetAdminQuorumThresholdResponse](docs/models/SetAdminQuorumThresholdResponse.md)
  - [SetAutoFuelRequest](docs/models/SetAutoFuelRequest.md)
  - [SetConfirmationsThresholdRequest](docs/models/SetConfirmationsThresholdRequest.md)
  - [SetConfirmationsThresholdResponse](docs/models/SetConfirmationsThresholdResponse.md)
@@ -502,6 +575,8 @@ Class | Method | HTTP request | Description
  - [SetNetworkIdResponse](docs/models/SetNetworkIdResponse.md)
  - [SetNetworkIdRoutingPolicyRequest](docs/models/SetNetworkIdRoutingPolicyRequest.md)
  - [SetOtaStatusRequest](docs/models/SetOtaStatusRequest.md)
+ - [SetOtaStatusResponse](docs/models/SetOtaStatusResponse.md)
+ - [SetOtaStatusResponseOneOf](docs/models/SetOtaStatusResponseOneOf.md)
  - [SetRoutingPolicy200Response](docs/models/SetRoutingPolicy200Response.md)
  - [SetRoutingPolicyRequest](docs/models/SetRoutingPolicyRequest.md)
  - [SettlementRequestBody](docs/models/SettlementRequestBody.md)
@@ -561,8 +636,20 @@ Class | Method | HTTP request | Description
  - [TransactionResponse](docs/models/TransactionResponse.md)
  - [TransactionResponseContractCallDecodedData](docs/models/TransactionResponseContractCallDecodedData.md)
  - [TransactionResponseDestination](docs/models/TransactionResponseDestination.md)
+ - [TransferConfigOperation](docs/models/TransferConfigOperation.md)
+ - [TransferOperationConfigParams](docs/models/TransferOperationConfigParams.md)
+ - [TransferOperationExecution](docs/models/TransferOperationExecution.md)
+ - [TransferOperationExecutionOutput](docs/models/TransferOperationExecutionOutput.md)
+ - [TransferOperationExecutionParams](docs/models/TransferOperationExecutionParams.md)
+ - [TransferOperationExecutionParamsExecutionParams](docs/models/TransferOperationExecutionParamsExecutionParams.md)
+ - [TransferOperationFailure](docs/models/TransferOperationFailure.md)
+ - [TransferOperationFailureData](docs/models/TransferOperationFailureData.md)
+ - [TransferOperationPreview](docs/models/TransferOperationPreview.md)
+ - [TransferOperationPreviewOutput](docs/models/TransferOperationPreviewOutput.md)
+ - [TransferOperationType](docs/models/TransferOperationType.md)
  - [TransferPeerPathSubType](docs/models/TransferPeerPathSubType.md)
  - [TransferPeerPathType](docs/models/TransferPeerPathType.md)
+ - [TransferValidationFailure](docs/models/TransferValidationFailure.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)
  - [TravelRuleGetAllVASPsResponse](docs/models/TravelRuleGetAllVASPsResponse.md)
@@ -590,6 +677,9 @@ Class | Method | HTTP request | Description
  - [UserGroupResponse](docs/models/UserGroupResponse.md)
  - [UserGroupUpdateRequest](docs/models/UserGroupUpdateRequest.md)
  - [UserResponse](docs/models/UserResponse.md)
+ - [UserRole](docs/models/UserRole.md)
+ - [UserStatus](docs/models/UserStatus.md)
+ - [UserType](docs/models/UserType.md)
  - [ValidateAddressResponse](docs/models/ValidateAddressResponse.md)
  - [ValidatorDto](docs/models/ValidatorDto.md)
  - [VaultAccount](docs/models/VaultAccount.md)
@@ -601,6 +691,9 @@ Class | Method | HTTP request | Description
  - [WalletAsset](docs/models/WalletAsset.md)
  - [WalletAssetAdditionalInfo](docs/models/WalletAssetAdditionalInfo.md)
  - [WithdrawRequestDto](docs/models/WithdrawRequestDto.md)
+ - [WorkflowConfigStatus](docs/models/WorkflowConfigStatus.md)
+ - [WorkflowConfigurationId](docs/models/WorkflowConfigurationId.md)
+ - [WorkflowExecutionOperation](docs/models/WorkflowExecutionOperation.md)
 
 
 

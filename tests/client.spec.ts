@@ -11,8 +11,7 @@
  */
 
 import { Fireblocks  } from '../client/client';
-import { AdminQuorumApi, 
-ApiUserApi, 
+import { ApiUserApi, 
 AssetsApi, 
 AuditLogsApi, 
 BlockchainsAssetsApi, 
@@ -43,14 +42,12 @@ VaultsApi,
 Web3ConnectionsApi, 
 WebhooksApi, 
 WhitelistIpAddressesApi, 
-WorkspaceApi, 
 WorkspaceStatusBetaApi
 } from '../api';
 import { AxiosRequestConfig, AxiosResponse } from "axios";
 import { convertToFireblocksResponse } from "../response/fireblocksResponse";
 import { Configuration } from "../configuration";
 
-let mockAdminQuorumApi: jest.Mock;
 let mockApiUserApi: jest.Mock;
 let mockAssetsApi: jest.Mock;
 let mockAuditLogsApi: jest.Mock;
@@ -82,11 +79,9 @@ let mockVaultsApi: jest.Mock;
 let mockWeb3ConnectionsApi: jest.Mock;
 let mockWebhooksApi: jest.Mock;
 let mockWhitelistIpAddressesApi: jest.Mock;
-let mockWorkspaceApi: jest.Mock;
 let mockWorkspaceStatusBetaApi: jest.Mock;
 
 jest.mock('../api', () => {
-    mockAdminQuorumApi = jest.fn();
     mockApiUserApi = jest.fn();
     mockAssetsApi = jest.fn();
     mockAuditLogsApi = jest.fn();
@@ -118,12 +113,10 @@ jest.mock('../api', () => {
     mockWeb3ConnectionsApi = jest.fn();
     mockWebhooksApi = jest.fn();
     mockWhitelistIpAddressesApi = jest.fn();
-    mockWorkspaceApi = jest.fn();
     mockWorkspaceStatusBetaApi = jest.fn();
     const actual = jest.requireActual('../api');
     return {
         ...actual,
-        AdminQuorumApi: mockAdminQuorumApi,
         ApiUserApi: mockApiUserApi,
         AssetsApi: mockAssetsApi,
         AuditLogsApi: mockAuditLogsApi,
@@ -155,7 +148,6 @@ jest.mock('../api', () => {
         Web3ConnectionsApi: mockWeb3ConnectionsApi,
         WebhooksApi: mockWebhooksApi,
         WhitelistIpAddressesApi: mockWhitelistIpAddressesApi,
-        WorkspaceApi: mockWorkspaceApi,
         WorkspaceStatusBetaApi: mockWorkspaceStatusBetaApi,
     };
 });
@@ -203,10 +195,6 @@ describe("Fireblocks Client Tests", () => {
     describe('Api getters tests', () => {
         const expectedConfig = new Configuration({ basePath: "http://mock-server" });
 
-        it('Should return AdminQuorumApi', async () => {
-            expect(fireblocks.adminQuorum).toBeInstanceOf(AdminQuorumApi);
-            expect(mockAdminQuorumApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
-        });
         it('Should return ApiUserApi', async () => {
             expect(fireblocks.apiUser).toBeInstanceOf(ApiUserApi);
             expect(mockApiUserApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
@@ -330,10 +318,6 @@ describe("Fireblocks Client Tests", () => {
         it('Should return WhitelistIpAddressesApi', async () => {
             expect(fireblocks.whitelistIpAddresses).toBeInstanceOf(WhitelistIpAddressesApi);
             expect(mockWhitelistIpAddressesApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
-        });
-        it('Should return WorkspaceApi', async () => {
-            expect(fireblocks.workspace).toBeInstanceOf(WorkspaceApi);
-            expect(mockWorkspaceApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return WorkspaceStatusBetaApi', async () => {
             expect(fireblocks.workspaceStatusBeta).toBeInstanceOf(WorkspaceStatusBetaApi);
