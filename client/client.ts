@@ -93,7 +93,7 @@ export class Fireblocks {
 
         let secretKey = conf.secretKey || process.env.FIREBLOCKS_SECRET_KEY;
         if (!secretKey ) {
-            throw new Error("apiKey is required either in the configuration or as environment variable FIREBLOCKS_API_KEY");
+            throw new Error("secretKey is required either in the configuration or as environment variable FIREBLOCKS_SECRET_KEY");
         }
 
         let basePath = conf.basePath || process.env.FIREBLOCKS_BASE_PATH;

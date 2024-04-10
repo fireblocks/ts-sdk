@@ -1,4 +1,4 @@
-# Fireblocks Typescript SDK
+# Official Fireblocks TypeScript SDK
 [![npm version](https://badge.fury.io/js/@fireblocks%2Fts-sdk.svg)](https://badge.fury.io/js/@fireblocks%2Fts-sdk)
 
 The Fireblocks SDK allows developers to seamlessly integrate with the Fireblocks platform and perform a variety of operations, including managing vault accounts and executing transactions securely.
@@ -98,19 +98,18 @@ async function getVaultPagedAccounts(limit) {
 To make a transaction between vault accounts, you can use the following function:</p>
 
 ```typescript
-import { Fireblocks, TransferPeerPathTypeEnum } from "@fireblocks/ts-sdk";
+import { TransferPeerPathType } from "@fireblocks/ts-sdk";
 
 async function createTransaction(assetId, amount, srcId, destId) {
-    const fireblocks = new Fireblocks();
     let payload = {
         assetId,
         amount,
         source: {
-            type: TransferPeerPathTypeEnum.VaultAccount,
+            type: TransferPeerPathType.VaultAccount,
             id: String(srcId)
         },
         destination: {
-            type: TransferPeerPathTypeEnum.VaultAccount,
+            type: TransferPeerPathType.VaultAccount,
             id: String(destId)
         },
         note: "Your first transaction!"

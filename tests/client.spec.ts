@@ -192,6 +192,39 @@ describe("Fireblocks Client Tests", () => {
         jest.clearAllMocks();
     });
 
+    describe('Fireblocks client construction tests', () => {
+        it('Should construct Fireblocks client', () => {
+            expect(fireblocks).toBeInstanceOf(Fireblocks);
+        });
+
+        it('Should throw an error when apiKey is not provided', () => {
+            expect(() => {
+                new Fireblocks({
+                    basePath: "http://mock-server",
+                    secretKey: "secretKey"
+                });
+            }).toThrowError("apiKey is required either in the configuration or as environment variable FIREBLOCKS_API_KEY");
+        });
+
+        it('Should throw an error when secretKey is not provided', () => {
+            expect(() => {
+                new Fireblocks({
+                    apiKey: "my-api-key",
+                    basePath: "http://mock-server"
+                });
+            }).toThrowError("secretKey is required either in the configuration or as environment variable FIREBLOCKS_SECRET_KEY");
+        });
+
+        it('Should throw an error when basePath is not provided', () => {
+            expect(() => {
+                new Fireblocks({
+                    apiKey: "my-api-key",
+                    secretKey: "secretKey"
+                });
+            }).toThrowError("basePath is required either in the configuration or as environment variable FIREBLOCKS_BASE_PATH");
+        });
+    });
+
     describe('Api getters tests', () => {
         const expectedConfig = new Configuration({ basePath: "http://mock-server" });
 
