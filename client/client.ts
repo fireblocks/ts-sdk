@@ -20,6 +20,7 @@ import { ApiUserApi,
          ComplianceScreeningConfigurationApi, 
          ConsoleUserApi, 
          ContractsApi, 
+         CosignersBetaApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
@@ -59,6 +60,7 @@ export class Fireblocks {
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _consoleUser?: ConsoleUserApi;
     private _contracts?: ContractsApi;
+    private _cosignersBeta?: CosignersBetaApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
@@ -127,6 +129,9 @@ export class Fireblocks {
     }
     get contracts(): ContractsApi {
         return this._contracts ?? new ContractsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get cosignersBeta(): CosignersBetaApi {
+        return this._cosignersBeta ?? new CosignersBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get exchangeAccounts(): ExchangeAccountsApi {
         return this._exchangeAccounts ?? new ExchangeAccountsApi(this.config, undefined, this.axiosManager.axios);

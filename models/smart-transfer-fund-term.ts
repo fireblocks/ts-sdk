@@ -62,5 +62,11 @@ export interface SmartTransferFundTerm {
      * @memberof SmartTransferFundTerm
      */
     'feeLevel'?: string;
+    /**
+     * Transaction note
+     * @type {string}
+     * @memberof SmartTransferFundTerm
+     */
+    'note'?: string;
 }
 

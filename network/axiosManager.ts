@@ -91,7 +91,7 @@ export class AxiosManager {
     }
 
     private getUserAgent(): string {
-        let userAgent = `@fireblocks/ts-sdk/${version}`;
+        let userAgent = `fireblocks/sdk/typescript/${version}`;
         if (!this.additionalOptions?.isAnonymousPlatform) {
             userAgent += ` (${os.type()} ${os.release()}; ${platform.name} ${platform.version}; ${os.arch()})`;
         }
