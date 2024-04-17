@@ -79,7 +79,7 @@ describe('AxiosManager Tests', () => {
                 expect(headers).toEqual(expect.objectContaining({
                     'X-API-Key': 'apiKey',
                     'Authorization': 'Bearer mocked token',
-                    'User-Agent': expect.stringContaining('@fireblocks/ts-sdk/'),
+                    'User-Agent': expect.stringContaining('fireblocks/sdk/typescript'),
                     'Content-Type': 'application/json'
                 }));
             });
@@ -90,7 +90,7 @@ describe('AxiosManager Tests', () => {
             it('Should return user-agent header starting with package name when default configuration is used', () => {
                 const config = { method: 'GET', url: 'http://example.com', data: {} };
                 const headers = axiosManager.getHeaders(config as any);
-                const isStartingWithPackageName = headers['User-Agent'].startsWith(`@fireblocks/ts-sdk/${version}`);
+                const isStartingWithPackageName = headers['User-Agent'].startsWith(`fireblocks/sdk/typescript/${version}`);
                 expect(isStartingWithPackageName).toEqual(true);
             });
 
@@ -106,7 +106,7 @@ describe('AxiosManager Tests', () => {
                 axiosManager = new AxiosManager('apiKey', 'secretKey', { isAnonymousPlatform: true });
                 const config = { method: 'GET', url: 'http://example.com', data: {} };
                 const headers = axiosManager.getHeaders(config as any);
-                expect(headers['User-Agent']).toEqual(`@fireblocks/ts-sdk/${version}`);
+                expect(headers['User-Agent']).toEqual(`fireblocks/sdk/typescript/${version}`);
             });
         });
 

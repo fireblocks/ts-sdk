@@ -22,6 +22,7 @@ export * from './api/compliance-api';
 export * from './api/compliance-screening-configuration-api';
 export * from './api/console-user-api';
 export * from './api/contracts-api';
+export * from './api/cosigners-beta-api';
 export * from './api/exchange-accounts-api';
 export * from './api/external-wallets-api';
 export * from './api/fiat-accounts-api';

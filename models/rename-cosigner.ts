@@ -17,14 +17,14 @@
 /**
  * 
  * @export
- * @interface SmartTransferSubmitTicket
+ * @interface RenameCosigner
  */
-export interface SmartTransferSubmitTicket {
+export interface RenameCosigner {
     /**
-     * Sets the ticket expiration time (in hours) after the ticket is submitted. If no funding source is set for any term, the ticket will automatically expire after given time. If expiresIn is not sent ticket will not expire.
-     * @type {number}
-     * @memberof SmartTransferSubmitTicket
+     * The new name of the cosigner
+     * @type {string}
+     * @memberof RenameCosigner
      */
-    'expiresIn'?: number;
+    'name'?: string | null;
 }
 

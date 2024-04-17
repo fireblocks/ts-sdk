@@ -151,6 +151,11 @@ Class | Method | HTTP request | Description
 *ContractsApi* | [**getContract**](docs/apis/ContractsApi.md#getContract) | **GET** /contracts/{contractId} | Find a specific contract
 *ContractsApi* | [**getContractAsset**](docs/apis/ContractsApi.md#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset
 *ContractsApi* | [**getContracts**](docs/apis/ContractsApi.md#getContracts) | **GET** /contracts | List contracts
+*CosignersBetaApi* | [**getApiKey**](docs/apis/CosignersBetaApi.md#getApiKey) | **GET** /cosigners/{cosignerId}/api_keys/{apiKeyId} | Get API key
+*CosignersBetaApi* | [**getApiKeys**](docs/apis/CosignersBetaApi.md#getApiKeys) | **GET** /cosigners/{cosignerId}/api_keys | Get all API keys
+*CosignersBetaApi* | [**getCosigner**](docs/apis/CosignersBetaApi.md#getCosigner) | **GET** /cosigners/{cosignerId} | Get cosigner
+*CosignersBetaApi* | [**getCosigners**](docs/apis/CosignersBetaApi.md#getCosigners) | **GET** /cosigners | Get all cosigners
+*CosignersBetaApi* | [**renameCosigner**](docs/apis/CosignersBetaApi.md#renameCosigner) | **PATCH** /cosigners/{cosignerId} | Rename cosigner
 *ExchangeAccountsApi* | [**convertAssets**](docs/apis/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/apis/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/apis/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
@@ -329,6 +334,8 @@ Class | Method | HTTP request | Description
  - [AmountAggregationTimePeriodMethod](docs/models/AmountAggregationTimePeriodMethod.md)
  - [AmountAndChainDescriptor](docs/models/AmountAndChainDescriptor.md)
  - [AmountInfo](docs/models/AmountInfo.md)
+ - [ApiKey](docs/models/ApiKey.md)
+ - [ApiKeysPaginatedResponse](docs/models/ApiKeysPaginatedResponse.md)
  - [AssetAmount](docs/models/AssetAmount.md)
  - [AssetBadRequestErrorResponse](docs/models/AssetBadRequestErrorResponse.md)
  - [AssetConflictErrorResponse](docs/models/AssetConflictErrorResponse.md)
@@ -369,6 +376,8 @@ Class | Method | HTTP request | Description
  - [ConversionValidationFailure](docs/models/ConversionValidationFailure.md)
  - [ConvertAssetsRequest](docs/models/ConvertAssetsRequest.md)
  - [ConvertAssetsResponse](docs/models/ConvertAssetsResponse.md)
+ - [Cosigner](docs/models/Cosigner.md)
+ - [CosignersPaginatedResponse](docs/models/CosignersPaginatedResponse.md)
  - [CreateAPIUser](docs/models/CreateAPIUser.md)
  - [CreateAddressRequest](docs/models/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/models/CreateAddressResponse.md)
@@ -536,6 +545,7 @@ Class | Method | HTTP request | Description
  - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
  - [RelatedTransactionDto](docs/models/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
+ - [RenameCosigner](docs/models/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
  - [ResendTransactionWebhooksRequest](docs/models/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksByTransactionIdResponse](docs/models/ResendWebhooksByTransactionIdResponse.md)

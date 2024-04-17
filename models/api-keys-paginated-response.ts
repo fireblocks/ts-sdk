@@ -13,18 +13,27 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ApiKey } from './api-key';
 
 /**
  * 
  * @export
- * @interface SmartTransferSubmitTicket
+ * @interface ApiKeysPaginatedResponse
  */
-export interface SmartTransferSubmitTicket {
+export interface ApiKeysPaginatedResponse {
     /**
-     * Sets the ticket expiration time (in hours) after the ticket is submitted. If no funding source is set for any term, the ticket will automatically expire after given time. If expiresIn is not sent ticket will not expire.
-     * @type {number}
-     * @memberof SmartTransferSubmitTicket
+     * The data of the current page
+     * @type {Array<ApiKey>}
+     * @memberof ApiKeysPaginatedResponse
      */
-    'expiresIn'?: number;
+    'data': Array<ApiKey>;
+    /**
+     * The ID of the next page
+     * @type {string}
+     * @memberof ApiKeysPaginatedResponse
+     */
+    'next'?: string | null;
 }
 

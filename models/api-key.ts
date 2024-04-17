@@ -17,14 +17,20 @@
 /**
  * 
  * @export
- * @interface SmartTransferSubmitTicket
+ * @interface ApiKey
  */
-export interface SmartTransferSubmitTicket {
+export interface ApiKey {
     /**
-     * Sets the ticket expiration time (in hours) after the ticket is submitted. If no funding source is set for any term, the ticket will automatically expire after given time. If expiresIn is not sent ticket will not expire.
-     * @type {number}
-     * @memberof SmartTransferSubmitTicket
+     * The unique identifier of the API key
+     * @type {string}
+     * @memberof ApiKey
      */
-    'expiresIn'?: number;
+    'id': string;
+    /**
+     * The date the API key was last seen
+     * @type {string}
+     * @memberof ApiKey
+     */
+    'lastSeen': string;
 }
 
