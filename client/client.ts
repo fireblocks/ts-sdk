@@ -19,8 +19,11 @@ import { ApiUserApi,
          ComplianceApi, 
          ComplianceScreeningConfigurationApi, 
          ConsoleUserApi, 
+         ContractInteractionsApi, 
+         ContractTemplatesApi, 
          ContractsApi, 
          CosignersBetaApi, 
+         DeployedContractsApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
@@ -36,6 +39,7 @@ import { ApiUserApi,
          ResetDeviceApi, 
          SmartTransferApi, 
          StakingBetaApi, 
+         TokenizationApi, 
          TransactionsApi, 
          TravelRuleBetaApi, 
          UserGroupsBetaApi, 
@@ -59,8 +63,11 @@ export class Fireblocks {
     private _compliance?: ComplianceApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _consoleUser?: ConsoleUserApi;
+    private _contractInteractions?: ContractInteractionsApi;
+    private _contractTemplates?: ContractTemplatesApi;
     private _contracts?: ContractsApi;
     private _cosignersBeta?: CosignersBetaApi;
+    private _deployedContracts?: DeployedContractsApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
@@ -76,6 +83,7 @@ export class Fireblocks {
     private _resetDevice?: ResetDeviceApi;
     private _smartTransfer?: SmartTransferApi;
     private _stakingBeta?: StakingBetaApi;
+    private _tokenization?: TokenizationApi;
     private _transactions?: TransactionsApi;
     private _travelRuleBeta?: TravelRuleBetaApi;
     private _userGroupsBeta?: UserGroupsBetaApi;
@@ -127,11 +135,20 @@ export class Fireblocks {
     get consoleUser(): ConsoleUserApi {
         return this._consoleUser ?? new ConsoleUserApi(this.config, undefined, this.axiosManager.axios);
     }
+    get contractInteractions(): ContractInteractionsApi {
+        return this._contractInteractions ?? new ContractInteractionsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get contractTemplates(): ContractTemplatesApi {
+        return this._contractTemplates ?? new ContractTemplatesApi(this.config, undefined, this.axiosManager.axios);
+    }
     get contracts(): ContractsApi {
         return this._contracts ?? new ContractsApi(this.config, undefined, this.axiosManager.axios);
     }
     get cosignersBeta(): CosignersBetaApi {
         return this._cosignersBeta ?? new CosignersBetaApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get deployedContracts(): DeployedContractsApi {
+        return this._deployedContracts ?? new DeployedContractsApi(this.config, undefined, this.axiosManager.axios);
     }
     get exchangeAccounts(): ExchangeAccountsApi {
         return this._exchangeAccounts ?? new ExchangeAccountsApi(this.config, undefined, this.axiosManager.axios);
@@ -177,6 +194,9 @@ export class Fireblocks {
     }
     get stakingBeta(): StakingBetaApi {
         return this._stakingBeta ?? new StakingBetaApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get tokenization(): TokenizationApi {
+        return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);
     }
     get transactions(): TransactionsApi {
         return this._transactions ?? new TransactionsApi(this.config, undefined, this.axiosManager.axios);

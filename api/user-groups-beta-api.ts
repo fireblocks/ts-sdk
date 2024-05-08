@@ -37,6 +37,8 @@ import { UserGroupCreateResponse } from '../models';
 import { UserGroupResponse } from '../models';
 // @ts-ignore
 import { UserGroupUpdateRequest } from '../models';
+// @ts-ignore
+import { UserGroupsResponse } from '../models';
 /**
  * UserGroupsBetaApi - axios parameter creator
  * @export
@@ -283,7 +285,7 @@ export const UserGroupsBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserGroupResponse>>> {
+        async getUserGroups(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserGroupsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUserGroups(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['UserGroupsBetaApi.getUserGroups']?.[index]?.url;
@@ -350,7 +352,7 @@ export const UserGroupsBetaApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserGroups(options?: RawAxiosRequestConfig): AxiosPromise<Array<UserGroupResponse>> {
+        getUserGroups(options?: RawAxiosRequestConfig): AxiosPromise<UserGroupsResponse> {
             return localVarFp.getUserGroups(options).then((request) => request(axios, basePath));
         },
         /**

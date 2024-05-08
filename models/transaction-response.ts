@@ -45,7 +45,7 @@ import { NetworkRecord } from './network-record';
 import { RewardInfo } from './reward-info';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SignedMessage } from './signed-message';
+import { SignedMessages } from './signed-messages';
 // May contain unused imports in some cases
 // @ts-ignore
 import { SourceTransferPeerPathResponse } from './source-transfer-peer-path-response';
@@ -265,10 +265,10 @@ export interface TransactionResponse {
     'extraParameters'?: object;
     /**
      * 
-     * @type {Array<SignedMessage>}
+     * @type {SignedMessages}
      * @memberof TransactionResponse
      */
-    'signedMessages'?: Array<SignedMessage>;
+    'signedMessages'?: SignedMessages;
     /**
      * The number of confirmations of the transaction. The number will increase until the transaction will be considered completed according to the confirmation policy.
      * @type {number}

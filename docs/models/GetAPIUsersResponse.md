@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**users** | [**Array&lt;APIUser&gt;**](APIUser.md) |  | [default to undefined]|
+|**users** | [**APIUsers**](APIUsers.md) |  | [default to undefined]|
 
 
 

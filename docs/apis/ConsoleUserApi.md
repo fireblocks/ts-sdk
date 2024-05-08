@@ -4,14 +4,14 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createConsoleUser**](#createConsoleUser) | **POST** /management/users | create console user
-[**getConsoleUsers**](#getConsoleUsers) | **GET** /management/users | get console users
+[**createConsoleUser**](#createConsoleUser) | **POST** /management/users | Create console user
+[**getConsoleUsers**](#getConsoleUsers) | **GET** /management/users | Get console users
 
 
 # **createConsoleUser**
 > createConsoleUser()
 
-creates fireblocks console user
+Creates console user in your tenant
 
 ### Example
 
@@ -66,7 +66,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Users sent for creation |  * X-Request-ID -  <br>  |
+**200** | User creation approval request has been sent |  * X-Request-ID -  <br>  |
 **400** | bad request |  * X-Request-ID -  <br>  |
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
@@ -78,7 +78,7 @@ No authorization required
 # **getConsoleUsers**
 > GetConsoleUsersResponse getConsoleUsers()
 
-get console users from the current tenant
+Get console users for your tenant
 
 ### Example
 

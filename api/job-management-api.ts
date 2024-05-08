@@ -30,7 +30,9 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { Job } from '../models';
 // @ts-ignore
-import { Task } from '../models';
+import { Jobs } from '../models';
+// @ts-ignore
+import { Tasks } from '../models';
 /**
  * JobManagementApi - axios parameter creator
  * @export
@@ -320,7 +322,7 @@ export const JobManagementApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJobTasks(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Task>>> {
+        async getJobTasks(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Tasks>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobTasks(jobId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['JobManagementApi.getJobTasks']?.[index]?.url;
@@ -334,7 +336,7 @@ export const JobManagementApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getJobs(fromTime?: number, toTime?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<Job>>> {
+        async getJobs(fromTime?: number, toTime?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Jobs>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getJobs(fromTime, toTime, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['JobManagementApi.getJobs']?.[index]?.url;
@@ -401,7 +403,7 @@ export const JobManagementApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobTasks(requestParameters: JobManagementApiGetJobTasksRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<Task>> {
+        getJobTasks(requestParameters: JobManagementApiGetJobTasksRequest, options?: RawAxiosRequestConfig): AxiosPromise<Tasks> {
             return localVarFp.getJobTasks(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -411,7 +413,7 @@ export const JobManagementApiFactory = function (configuration?: Configuration, 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getJobs(requestParameters: JobManagementApiGetJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<Job>> {
+        getJobs(requestParameters: JobManagementApiGetJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Jobs> {
             return localVarFp.getJobs(requestParameters.fromTime, requestParameters.toTime, options).then((request) => request(axios, basePath));
         },
         /**

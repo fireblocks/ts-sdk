@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { NetworkConnectionRoutingPolicyValue } from './network-connection-routing-policy-value';
+import { NetworkConnectionRoutingPolicy } from './network-connection-routing-policy';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { NetworkConnectionRoutingPolicyValue } from './network-connection-routin
 export interface SetRoutingPolicyRequest {
     /**
      * 
-     * @type {{ [key: string]: NetworkConnectionRoutingPolicyValue; }}
+     * @type {NetworkConnectionRoutingPolicy}
      * @memberof SetRoutingPolicyRequest
      */
-    'routingPolicy': { [key: string]: NetworkConnectionRoutingPolicyValue; };
+    'routingPolicy': NetworkConnectionRoutingPolicy;
 }
 

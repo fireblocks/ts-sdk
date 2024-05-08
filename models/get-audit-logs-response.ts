@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AuditLogData } from './audit-log-data';
+import { AuditLogsData } from './audit-logs-data';
 
 /**
  * 
@@ -25,10 +25,10 @@ import { AuditLogData } from './audit-log-data';
 export interface GetAuditLogsResponse {
     /**
      * 
-     * @type {Array<AuditLogData>}
+     * @type {AuditLogsData}
      * @memberof GetAuditLogsResponse
      */
-    'data'?: Array<AuditLogData>;
+    'data'?: AuditLogsData;
     /**
      * The next id to start fetch audit logs from
      * @type {string}

@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**users** | [**Array&lt;ConsoleUser&gt;**](ConsoleUser.md) |  | [default to undefined]|
+|**users** | [**ConsoleUsers**](ConsoleUsers.md) |  | [default to undefined]|
 
 
 

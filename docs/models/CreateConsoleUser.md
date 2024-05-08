@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**firstName** | **string** |  | [default to undefined]|
-|**lastName** | **string** |  | [default to undefined]|
-|**role** | **string** |  | [default to undefined]|
-|**email** | **string** |  | [default to undefined]|
+|**firstName** | **string** | users firstName | [default to undefined]|
+|**lastName** | **string** | users lastName | [default to undefined]|
+|**role** | **string** | users role | [default to undefined]|
+|**email** | **string** | valid email address | [default to undefined]|
 
 
 

@@ -201,7 +201,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getPagedExchangeAccounts**
-> Array<ExchangeAccountsPaged> getPagedExchangeAccounts()
+> GetPagedExchangeAccountsResponse getPagedExchangeAccounts()
 
 Returns a page include exchange accounts.
 
@@ -211,7 +211,7 @@ Returns a page include exchange accounts.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ExchangeAccountsApiGetPagedExchangeAccountsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ExchangeAccountsApiGetPagedExchangeAccountsRequest, GetPagedExchangeAccountsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -229,7 +229,7 @@ let body: ExchangeAccountsApiGetPagedExchangeAccountsRequest = {
   after: after_example,
 };
 
-fireblocks.exchangeAccounts.getPagedExchangeAccounts(body).then((res: FireblocksResponse<any>) => {
+fireblocks.exchangeAccounts.getPagedExchangeAccounts(body).then((res: FireblocksResponse<GetPagedExchangeAccountsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -246,7 +246,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Array<ExchangeAccountsPaged>](../models/Array<ExchangeAccountsPaged>.md)**
+**[GetPagedExchangeAccountsResponse](../models/GetPagedExchangeAccountsResponse.md)**
 
 ### Authorization
 

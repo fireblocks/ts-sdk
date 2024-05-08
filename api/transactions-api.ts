@@ -42,6 +42,8 @@ import { EstimatedTransactionFeeResponse } from '../models';
 // @ts-ignore
 import { FreezeTransactionResponse } from '../models';
 // @ts-ignore
+import { GetTransactionsResponse } from '../models';
+// @ts-ignore
 import { SetConfirmationsThresholdRequest } from '../models';
 // @ts-ignore
 import { SetConfirmationsThresholdResponse } from '../models';
@@ -795,7 +797,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactions(before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<TransactionResponse>>> {
+        async getTransactions(before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTransactionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TransactionsApi.getTransactions']?.[index]?.url;
@@ -957,7 +959,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<TransactionResponse>> {
+        getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetTransactionsResponse> {
             return localVarFp.getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, options).then((request) => request(axios, basePath));
         },
         /**

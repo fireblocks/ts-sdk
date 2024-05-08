@@ -56,5 +56,17 @@ export interface TransactionFee {
      * @memberof TransactionFee
      */
     'priorityFee'?: number;
+    /**
+     * Max Fee Per Gas Delta added only for EIP-1559 (ETH assets)
+     * @type {string}
+     * @memberof TransactionFee
+     */
+    'maxFeePerGasDelta'?: string;
+    /**
+     * Layer 1 fee for Layer 2 chains
+     * @type {string}
+     * @memberof TransactionFee
+     */
+    'l1Fee'?: string;
 }
 

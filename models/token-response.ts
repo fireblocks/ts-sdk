@@ -101,8 +101,10 @@ export const TokenResponseBlockchainDescriptorEnum = {
     Eth: 'ETH',
     EthTest3: 'ETH_TEST3',
     EthTest5: 'ETH_TEST5',
+    EthTest6: 'ETH_TEST6',
     Polygon: 'POLYGON',
     PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     Xtz: 'XTZ',
     XtzTest: 'XTZ_TEST',
     BasechainEth: 'BASECHAIN_ETH'

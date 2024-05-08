@@ -22,15 +22,21 @@
 export interface DropTransactionResponse {
     /**
      * 
-     * @type {boolean}
+     * @type {string}
      * @memberof DropTransactionResponse
      */
-    'success'?: boolean;
+    'txStatus'?: string;
     /**
      * 
-     * @type {Array<string>}
+     * @type {string}
      * @memberof DropTransactionResponse
      */
-    'transactions'?: Array<string>;
+    'txId'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof DropTransactionResponse
+     */
+    'replacedTxHash'?: string;
 }
 

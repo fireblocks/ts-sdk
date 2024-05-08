@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { NetworkIdRoutingPolicyValue } from './network-id-routing-policy-value';
+import { NetworkIdRoutingPolicy } from './network-id-routing-policy';
 
 /**
  * 
@@ -31,9 +31,9 @@ export interface CreateNetworkIdRequest {
     'name': string;
     /**
      * 
-     * @type {{ [key: string]: NetworkIdRoutingPolicyValue; }}
+     * @type {NetworkIdRoutingPolicy}
      * @memberof CreateNetworkIdRequest
      */
-    'routingPolicy'?: { [key: string]: NetworkIdRoutingPolicyValue; };
+    'routingPolicy'?: NetworkIdRoutingPolicy;
 }
 

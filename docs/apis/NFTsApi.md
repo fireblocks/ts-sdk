@@ -76,7 +76,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getNFTs**
-> ListOwnedTokens200Response getNFTs()
+> GetNFTsResponse getNFTs()
 
 Returns the requested tokens data. 
 
@@ -86,7 +86,7 @@ Returns the requested tokens data.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NFTsApiGetNFTsRequest, ListOwnedTokens200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NFTsApiGetNFTsRequest, GetNFTsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -108,7 +108,7 @@ let body: NFTsApiGetNFTsRequest = {
   order: order_example,
 };
 
-fireblocks.nfts.getNFTs(body).then((res: FireblocksResponse<ListOwnedTokens200Response>) => {
+fireblocks.nfts.getNFTs(body).then((res: FireblocksResponse<GetNFTsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -127,7 +127,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[ListOwnedTokens200Response](../models/ListOwnedTokens200Response.md)**
+**[GetNFTsResponse](../models/GetNFTsResponse.md)**
 
 ### Authorization
 
@@ -147,7 +147,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOwnershipTokens**
-> GetOwnershipTokens200Response getOwnershipTokens()
+> GetOwnershipTokensResponse getOwnershipTokens()
 
 Returns all tokens and their data in your workspace. 
 
@@ -157,7 +157,7 @@ Returns all tokens and their data in your workspace.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NFTsApiGetOwnershipTokensRequest, GetOwnershipTokens200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NFTsApiGetOwnershipTokensRequest, GetOwnershipTokensResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -167,7 +167,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: NFTsApiGetOwnershipTokensRequest = {
-  // 'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | Blockchain descriptor filter (optional)
+  // 'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | Blockchain descriptor filter (optional)
   blockchainDescriptor: blockchainDescriptor_example,
   // string | A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType=END_USER_WALLET or ncwId is provided. (optional)
   vaultAccountIds: vaultAccountIds_example,
@@ -197,7 +197,7 @@ let body: NFTsApiGetOwnershipTokensRequest = {
   spam: spam_example,
 };
 
-fireblocks.nfts.getOwnershipTokens(body).then((res: FireblocksResponse<GetOwnershipTokens200Response>) => {
+fireblocks.nfts.getOwnershipTokens(body).then((res: FireblocksResponse<GetOwnershipTokensResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -207,7 +207,7 @@ fireblocks.nfts.getOwnershipTokens(body).then((res: FireblocksResponse<GetOwners
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST3&#39; | &#39;ETH_TEST5&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;XTZ&#39; | &#39;XTZ_TEST&#39; | &#39;BASECHAIN_ETH&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST3&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;XTZ&#39; &#124; &#39;XTZ_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39;>** | Blockchain descriptor filter | (optional) defaults to undefined
+ **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST3&#39; | &#39;ETH_TEST5&#39; | &#39;ETH_TEST6&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;AMOY_POLYGON_TEST&#39; | &#39;XTZ&#39; | &#39;XTZ_TEST&#39; | &#39;BASECHAIN_ETH&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST3&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;AMOY_POLYGON_TEST&#39; &#124; &#39;XTZ&#39; &#124; &#39;XTZ_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39;>** | Blockchain descriptor filter | (optional) defaults to undefined
  **vaultAccountIds** | [**string**] | A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. | (optional) defaults to undefined
  **ncwId** | [**string**] | Tenant\&#39;s Non-Custodial Wallet ID | (optional) defaults to undefined
  **ncwAccountIds** | [**string**] | A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. | (optional) defaults to undefined
@@ -225,7 +225,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[GetOwnershipTokens200Response](../models/GetOwnershipTokens200Response.md)**
+**[GetOwnershipTokensResponse](../models/GetOwnershipTokensResponse.md)**
 
 ### Authorization
 
@@ -245,7 +245,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **listOwnedCollections**
-> ListOwnedCollections200Response listOwnedCollections()
+> ListOwnedCollectionsResponse listOwnedCollections()
 
 Returns all collections in your workspace 
 
@@ -255,7 +255,7 @@ Returns all collections in your workspace
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NFTsApiListOwnedCollectionsRequest, ListOwnedCollections200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NFTsApiListOwnedCollectionsRequest, ListOwnedCollectionsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -283,7 +283,7 @@ let body: NFTsApiListOwnedCollectionsRequest = {
   status: status_example,
 };
 
-fireblocks.nfts.listOwnedCollections(body).then((res: FireblocksResponse<ListOwnedCollections200Response>) => {
+fireblocks.nfts.listOwnedCollections(body).then((res: FireblocksResponse<ListOwnedCollectionsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -305,7 +305,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[ListOwnedCollections200Response](../models/ListOwnedCollections200Response.md)**
+**[ListOwnedCollectionsResponse](../models/ListOwnedCollectionsResponse.md)**
 
 ### Authorization
 
@@ -325,7 +325,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **listOwnedTokens**
-> ListOwnedTokens200Response listOwnedTokens()
+> ListOwnedTokensResponse listOwnedTokens()
 
 Returns all owned distinct tokens (for your tenant) and their data in your workspace. 
 
@@ -335,7 +335,7 @@ Returns all owned distinct tokens (for your tenant) and their data in your works
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, NFTsApiListOwnedTokensRequest, ListOwnedTokens200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, NFTsApiListOwnedTokensRequest, ListOwnedTokensResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -365,7 +365,7 @@ let body: NFTsApiListOwnedTokensRequest = {
   spam: spam_example,
 };
 
-fireblocks.nfts.listOwnedTokens(body).then((res: FireblocksResponse<ListOwnedTokens200Response>) => {
+fireblocks.nfts.listOwnedTokens(body).then((res: FireblocksResponse<ListOwnedTokensResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -388,7 +388,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[ListOwnedTokens200Response](../models/ListOwnedTokens200Response.md)**
+**[ListOwnedTokensResponse](../models/ListOwnedTokensResponse.md)**
 
 ### Authorization
 
@@ -490,7 +490,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: NFTsApiUpdateOwnershipTokensRequest = {
-  // 'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'BASECHAIN_ETH' | Blockchain descriptor filter
+  // 'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | Blockchain descriptor filter
   blockchainDescriptor: blockchainDescriptor_example,
   // string | Vault account filter
   vaultAccountId: vaultAccountId_example,
@@ -508,7 +508,7 @@ fireblocks.nfts.updateOwnershipTokens(body).then((res: FireblocksResponse<any>) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST3&#39; | &#39;ETH_TEST5&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;BASECHAIN_ETH&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST3&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;BASECHAIN_ETH&#39;>** | Blockchain descriptor filter | defaults to undefined
+ **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST3&#39; | &#39;ETH_TEST5&#39; | &#39;ETH_TEST6&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;AMOY_POLYGON_TEST&#39; | &#39;BASECHAIN_ETH&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST3&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;AMOY_POLYGON_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39;>** | Blockchain descriptor filter | defaults to undefined
  **vaultAccountId** | [**string**] | Vault account filter | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
@@ -600,7 +600,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateTokensOwnershipSpam**
-> updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload)
+> updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest)
 
 Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
 
@@ -620,8 +620,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: NFTsApiUpdateTokensOwnershipSpamRequest = {
-  // Array<TokenOwnershipSpamUpdatePayload>
-  tokenOwnershipSpamUpdatePayload: param_value,
+  // UpdateTokensOwnershipSpamRequest
+  updateTokensOwnershipSpamRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -636,7 +636,7 @@ fireblocks.nfts.updateTokensOwnershipSpam(body).then((res: FireblocksResponse<an
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tokenOwnershipSpamUpdatePayload** | **[Array<TokenOwnershipSpamUpdatePayload>](../models/Array<TokenOwnershipSpamUpdatePayload>.md)**|  |
+ **updateTokensOwnershipSpamRequest** | **[UpdateTokensOwnershipSpamRequest](../models/UpdateTokensOwnershipSpamRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -664,7 +664,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateTokensOwnershipStatus**
-> updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload)
+> updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest)
 
 Updates tokens status for a tenant, in all tenant vaults.
 
@@ -684,8 +684,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: NFTsApiUpdateTokensOwnershipStatusRequest = {
-  // Array<TokenOwnershipStatusUpdatePayload>
-  tokenOwnershipStatusUpdatePayload: param_value,
+  // UpdateTokensOwnershipStatusRequest
+  updateTokensOwnershipStatusRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -700,7 +700,7 @@ fireblocks.nfts.updateTokensOwnershipStatus(body).then((res: FireblocksResponse<
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **tokenOwnershipStatusUpdatePayload** | **[Array<TokenOwnershipStatusUpdatePayload>](../models/Array<TokenOwnershipStatusUpdatePayload>.md)**|  |
+ **updateTokensOwnershipStatusRequest** | **[UpdateTokensOwnershipStatusRequest](../models/UpdateTokensOwnershipStatusRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 

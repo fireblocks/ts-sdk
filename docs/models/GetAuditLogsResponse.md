@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**Array&lt;AuditLogData&gt;**](AuditLogData.md) |  | [optional] [default to undefined]|
+|**data** | [**AuditLogsData**](AuditLogsData.md) |  | [optional] [default to undefined]|
 |**cursor** | **string** | The next id to start fetch audit logs from | [optional] [default to undefined]|
 |**total** | **number** | The total number of audit logs | [optional] [default to undefined]|
 

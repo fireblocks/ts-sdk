@@ -146,7 +146,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAllDelegations**
-> Array<DelegationDto> getAllDelegations()
+> StakingGetAllDelegationsResponse getAllDelegations()
 
 Return detailed information on all staking positions, including the staked amount, rewards, status and more.
 
@@ -156,7 +156,7 @@ Return detailed information on all staking positions, including the staked amoun
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, StakingBetaApiGetAllDelegationsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingBetaApiGetAllDelegationsRequest, StakingGetAllDelegationsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -170,7 +170,7 @@ let body: StakingBetaApiGetAllDelegationsRequest = {
   chainDescriptor: chainDescriptor_example,
 };
 
-fireblocks.stakingBeta.getAllDelegations(body).then((res: FireblocksResponse<any>) => {
+fireblocks.stakingBeta.getAllDelegations(body).then((res: FireblocksResponse<StakingGetAllDelegationsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -185,7 +185,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Array<DelegationDto>](../models/Array<DelegationDto>.md)**
+**[StakingGetAllDelegationsResponse](../models/StakingGetAllDelegationsResponse.md)**
 
 ### Authorization
 
@@ -264,7 +264,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getChains**
-> Array<string> getChains()
+> StakingGetChainsResponse getChains()
 
 Return an alphabetical list of supported chains.
 
@@ -274,7 +274,7 @@ Return an alphabetical list of supported chains.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingGetChainsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -285,7 +285,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.stakingBeta.getChains(body).then((res: FireblocksResponse<any>) => {
+fireblocks.stakingBeta.getChains(body).then((res: FireblocksResponse<StakingGetChainsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -297,7 +297,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**Array<string>**
+**[StakingGetChainsResponse](../models/StakingGetChainsResponse.md)**
 
 ### Authorization
 
@@ -376,7 +376,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getProviders**
-> Array<ProviderDto> getProviders()
+> StakingGetProvidersResponse getProviders()
 
 Return information on all the available staking providers.
 
@@ -386,7 +386,7 @@ Return information on all the available staking providers.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingGetProvidersResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -397,7 +397,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.stakingBeta.getProviders(body).then((res: FireblocksResponse<any>) => {
+fireblocks.stakingBeta.getProviders(body).then((res: FireblocksResponse<StakingGetProvidersResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -409,7 +409,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**[Array<ProviderDto>](../models/Array<ProviderDto>.md)**
+**[StakingGetProvidersResponse](../models/StakingGetProvidersResponse.md)**
 
 ### Authorization
 
@@ -482,7 +482,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getSummaryByVault**
-> { [key: string]: DelegationSummaryDto; } getSummaryByVault()
+> StakingGetSummaryByVaultResponse getSummaryByVault()
 
 Return a summary for each vault, categorized by their status (active, inactive), the total amounts staked and total rewards per-chain.
 
@@ -492,7 +492,7 @@ Return a summary for each vault, categorized by their status (active, inactive),
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, { [key: string]: DelegationSummaryDto; } } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingGetSummaryByVaultResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -503,7 +503,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.stakingBeta.getSummaryByVault(body).then((res: FireblocksResponse<{ [key: string]: DelegationSummaryDto; }>) => {
+fireblocks.stakingBeta.getSummaryByVault(body).then((res: FireblocksResponse<StakingGetSummaryByVaultResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -515,7 +515,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**[{ [key: string]: DelegationSummaryDto; }](../models/{ [key: string]: DelegationSummaryDto; }.md)**
+**[StakingGetSummaryByVaultResponse](../models/StakingGetSummaryByVaultResponse.md)**
 
 ### Authorization
 

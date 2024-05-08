@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**ids** | **Array&lt;Array&lt;SrcOrDestAttributesInner&gt;&gt;** | A set of ids in a tuple format | [optional] [default to undefined]|
+|**ids** | [**Array&lt;SrcOrDestAttributes&gt;**](SrcOrDestAttributes.md) | A set of ids in a tuple format | [optional] [default to undefined]|
 
 
 

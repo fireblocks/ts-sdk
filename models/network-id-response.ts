@@ -18,7 +18,7 @@
 import { NetworkId } from './network-id';
 // May contain unused imports in some cases
 // @ts-ignore
-import { NetworkIdRoutingPolicyValue } from './network-id-routing-policy-value';
+import { NetworkIdRoutingPolicy } from './network-id-routing-policy';
 
 /**
  * @type NetworkIdResponse

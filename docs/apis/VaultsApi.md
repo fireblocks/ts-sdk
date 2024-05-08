@@ -789,7 +789,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getUnspentInputs**
-> Array<UnspentInputsResponse> getUnspentInputs()
+> GetUnspentInputsResponse getUnspentInputs()
 
 Returns unspent inputs information of an asset in a vault account.
 
@@ -799,7 +799,7 @@ Returns unspent inputs information of an asset in a vault account.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiGetUnspentInputsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetUnspentInputsRequest, GetUnspentInputsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -815,7 +815,7 @@ let body: VaultsApiGetUnspentInputsRequest = {
   assetId: assetId_example,
 };
 
-fireblocks.vaults.getUnspentInputs(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.getUnspentInputs(body).then((res: FireblocksResponse<GetUnspentInputsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -831,7 +831,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Array<UnspentInputsResponse>](../models/Array<UnspentInputsResponse>.md)**
+**[GetUnspentInputsResponse](../models/GetUnspentInputsResponse.md)**
 
 ### Authorization
 
@@ -1047,7 +1047,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getVaultAssets**
-> Array<VaultAsset> getVaultAssets()
+> GetVaultAssetsResponse getVaultAssets()
 
 Gets the assets amount summary for all accounts or filtered accounts.
 
@@ -1057,7 +1057,7 @@ Gets the assets amount summary for all accounts or filtered accounts.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiGetVaultAssetsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetVaultAssetsRequest, GetVaultAssetsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -1073,7 +1073,7 @@ let body: VaultsApiGetVaultAssetsRequest = {
   accountNameSuffix: accountNameSuffix_example,
 };
 
-fireblocks.vaults.getVaultAssets(body).then((res: FireblocksResponse<any>) => {
+fireblocks.vaults.getVaultAssets(body).then((res: FireblocksResponse<GetVaultAssetsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -1089,7 +1089,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Array<VaultAsset>](../models/Array<VaultAsset>.md)**
+**[GetVaultAssetsResponse](../models/GetVaultAssetsResponse.md)**
 
 ### Authorization
 

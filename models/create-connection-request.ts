@@ -13,44 +13,17 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { CreateNcwConnectionRequest } from './create-ncw-connection-request';
+// May contain unused imports in some cases
+// @ts-ignore
+import { CreateVaultAccountConnectionRequest } from './create-vault-account-connection-request';
 
 /**
- * 
+ * @type CreateConnectionRequest
  * @export
- * @interface CreateConnectionRequest
  */
-export interface CreateConnectionRequest {
-    /**
-     * The ID of the vault to connect to the dApp.
-     * @type {number}
-     * @memberof CreateConnectionRequest
-     */
-    'vaultAccountId': number;
-    /**
-     * The default fee level. Valid values are `MEDIUM` and `HIGH`.
-     * @type {string}
-     * @memberof CreateConnectionRequest
-     */
-    'feeLevel': CreateConnectionRequestFeeLevelEnum;
-    /**
-     * The WalletConnect uri provided by the dapp.
-     * @type {string}
-     * @memberof CreateConnectionRequest
-     */
-    'uri': string;
-    /**
-     * The IDs of the blockchain networks used in the Web3 connection (Currently required in V1 connections only).
-     * @type {Array<string>}
-     * @memberof CreateConnectionRequest
-     */
-    'chainIds'?: Array<string>;
-}
-
-export const CreateConnectionRequestFeeLevelEnum = {
-    Medium: 'MEDIUM',
-    High: 'HIGH'
-} as const;
-
-export type CreateConnectionRequestFeeLevelEnum = typeof CreateConnectionRequestFeeLevelEnum[keyof typeof CreateConnectionRequestFeeLevelEnum];
+export type CreateConnectionRequest = CreateNcwConnectionRequest | CreateVaultAccountConnectionRequest;
 
 

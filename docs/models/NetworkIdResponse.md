@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** |  | [default to undefined]|
 |**name** | **string** |  | [default to undefined]|
-|**routingPolicy** | [**{ [key: string]: NetworkIdRoutingPolicyValue; }**](NetworkIdRoutingPolicyValue.md) |  | [optional] [default to undefined]|
+|**routingPolicy** | [**NetworkIdRoutingPolicy**](NetworkIdRoutingPolicy.md) |  | [optional] [default to undefined]|
 |**isDiscoverable** | **boolean** | The specific network is discoverable. | [optional] [default to undefined]|
 
 

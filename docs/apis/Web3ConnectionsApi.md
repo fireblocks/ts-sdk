@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create**
-> CreateConnectionResponse create(createRequest)
+> CreateConnectionResponse create(createConnectionRequest)
 
 Initiate a new Web3 connection.  * Note: After this succeeds, make a request to `PUT /v1/connections/wc/{id}` (below) to approve or reject the new Web3 connection.
 
@@ -31,8 +31,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: Web3ConnectionsApiCreateRequest = {
-  // CreateRequest
-  createRequest: param_value,
+  // CreateConnectionRequest
+  createConnectionRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -47,7 +47,7 @@ fireblocks.web3Connections.create(body).then((res: FireblocksResponse<CreateConn
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createRequest** | **[CreateRequest](../models/CreateRequest.md)**|  |
+ **createConnectionRequest** | **[CreateConnectionRequest](../models/CreateConnectionRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 

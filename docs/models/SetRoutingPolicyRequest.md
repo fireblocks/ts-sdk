@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**routingPolicy** | [**{ [key: string]: NetworkConnectionRoutingPolicyValue; }**](NetworkConnectionRoutingPolicyValue.md) |  | [default to undefined]|
+|**routingPolicy** | [**NetworkConnectionRoutingPolicy**](NetworkConnectionRoutingPolicy.md) |  | [default to undefined]|
 
 
 

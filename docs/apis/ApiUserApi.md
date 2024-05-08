@@ -4,14 +4,14 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createApiUser**](#createApiUser) | **POST** /management/api_users | create api user
-[**getApiUsers**](#getApiUsers) | **GET** /management/api_users | get api users
+[**createApiUser**](#createApiUser) | **POST** /management/api_users | Create Api user
+[**getApiUsers**](#getApiUsers) | **GET** /management/api_users | Get Api users
 
 
 # **createApiUser**
 > createApiUser()
 
-creates api user
+Creates Api user in your tenant
 
 ### Example
 
@@ -66,7 +66,8 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | User sent for creation |  * X-Request-ID -  <br>  |
+**200** | User creation approval request has been sent |  * X-Request-ID -  <br>  |
+**400** | bad request |  * X-Request-ID -  <br>  |
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
 **5XX** | Internal error. |  * X-Request-ID -  <br>  |
@@ -77,7 +78,7 @@ No authorization required
 # **getApiUsers**
 > GetAPIUsersResponse getApiUsers()
 
-get api users from the current tenant
+Get Api users of your tenant
 
 ### Example
 

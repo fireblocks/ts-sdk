@@ -40,8 +40,8 @@ import { GetConsoleUsersResponse } from '../models';
 export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * creates fireblocks console user
-         * @summary create console user
+         * Creates console user in your tenant
+         * @summary Create console user
          * @param {CreateConsoleUser} [createConsoleUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -79,8 +79,8 @@ export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * get console users from the current tenant
-         * @summary get console users
+         * Get console users for your tenant
+         * @summary Get console users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -119,8 +119,8 @@ export const ConsoleUserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ConsoleUserApiAxiosParamCreator(configuration)
     return {
         /**
-         * creates fireblocks console user
-         * @summary create console user
+         * Creates console user in your tenant
+         * @summary Create console user
          * @param {CreateConsoleUser} [createConsoleUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -133,8 +133,8 @@ export const ConsoleUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * get console users from the current tenant
-         * @summary get console users
+         * Get console users for your tenant
+         * @summary Get console users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -155,8 +155,8 @@ export const ConsoleUserApiFactory = function (configuration?: Configuration, ba
     const localVarFp = ConsoleUserApiFp(configuration)
     return {
         /**
-         * creates fireblocks console user
-         * @summary create console user
+         * Creates console user in your tenant
+         * @summary Create console user
          * @param {ConsoleUserApiCreateConsoleUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -165,8 +165,8 @@ export const ConsoleUserApiFactory = function (configuration?: Configuration, ba
             return localVarFp.createConsoleUser(requestParameters.createConsoleUser, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * get console users from the current tenant
-         * @summary get console users
+         * Get console users for your tenant
+         * @summary Get console users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -205,8 +205,8 @@ export interface ConsoleUserApiCreateConsoleUserRequest {
  */
 export class ConsoleUserApi extends BaseAPI {
     /**
-     * creates fireblocks console user
-     * @summary create console user
+     * Creates console user in your tenant
+     * @summary Create console user
      * @param {ConsoleUserApiCreateConsoleUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -217,8 +217,8 @@ export class ConsoleUserApi extends BaseAPI {
     }
 
     /**
-     * get console users from the current tenant
-     * @summary get console users
+     * Get console users for your tenant
+     * @summary Get console users
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ConsoleUserApi

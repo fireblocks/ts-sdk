@@ -4,13 +4,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getWhitelistIpAddresses**](#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | gets ip addresses
+[**getWhitelistIpAddresses**](#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
 
 
 # **getWhitelistIpAddresses**
 > GetWhitelistIpAddressesResponse getWhitelistIpAddresses()
 
-gets ip addresses
+Gets whitelisted ip addresses for given Api user.
 
 ### Example
 
@@ -28,7 +28,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: WhitelistIpAddressesApiGetWhitelistIpAddressesRequest = {
-  // string | The ID of the user
+  // string | The ID of the api user
   userId: userId_example,
 };
 
@@ -42,7 +42,7 @@ fireblocks.whitelistIpAddresses.getWhitelistIpAddresses(body).then((res: Fireblo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | [**string**] | The ID of the user | defaults to undefined
+ **userId** | [**string**] | The ID of the api user | defaults to undefined
 
 
 ### Return type
@@ -62,7 +62,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | successfully whitelisted |  * X-Request-ID -  <br>  |
+**200** | successfully got whitelisted ip addresses |  * X-Request-ID -  <br>  |
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
 **5XX** | Internal error. |  * X-Request-ID -  <br>  |

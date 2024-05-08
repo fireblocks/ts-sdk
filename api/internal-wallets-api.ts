@@ -32,6 +32,8 @@ import { CreateWalletRequest } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { GetInternalWalletsResponse } from '../models';
+// @ts-ignore
 import { SetCustomerRefIdRequest } from '../models';
 // @ts-ignore
 import { UnmanagedWallet } from '../models';
@@ -448,7 +450,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getInternalWallets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
+        async getInternalWallets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetInternalWalletsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getInternalWallets(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['InternalWalletsApi.getInternalWallets']?.[index]?.url;
@@ -545,7 +547,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getInternalWallets(options?: RawAxiosRequestConfig): AxiosPromise<Array<UnmanagedWallet>> {
+        getInternalWallets(options?: RawAxiosRequestConfig): AxiosPromise<GetInternalWalletsResponse> {
             return localVarFp.getInternalWallets(options).then((request) => request(axios, basePath));
         },
         /**

@@ -26,9 +26,9 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { CreateConnectionResponse } from '../models';
+import { CreateConnectionRequest } from '../models';
 // @ts-ignore
-import { CreateRequest } from '../models';
+import { CreateConnectionResponse } from '../models';
 // @ts-ignore
 import { GetConnectionsResponse } from '../models';
 // @ts-ignore
@@ -44,14 +44,14 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Initiate a new Web3 connection.  * Note: After this succeeds, make a request to `PUT /v1/connections/wc/{id}` (below) to approve or reject the new Web3 connection.
          * @summary Create a new Web3 connection.
-         * @param {CreateRequest} createRequest 
+         * @param {CreateConnectionRequest} createConnectionRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create: async (createRequest: CreateRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createRequest' is not null or undefined
-            assertParamExists('create', 'createRequest', createRequest)
+        create: async (createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createConnectionRequest' is not null or undefined
+            assertParamExists('create', 'createConnectionRequest', createConnectionRequest)
             const localVarPath = `/connections/wc`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -75,7 +75,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(createConnectionRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -231,13 +231,13 @@ export const Web3ConnectionsApiFp = function(configuration?: Configuration) {
         /**
          * Initiate a new Web3 connection.  * Note: After this succeeds, make a request to `PUT /v1/connections/wc/{id}` (below) to approve or reject the new Web3 connection.
          * @summary Create a new Web3 connection.
-         * @param {CreateRequest} createRequest 
+         * @param {CreateConnectionRequest} createConnectionRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async create(createRequest: CreateRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createRequest, idempotencyKey, options);
+        async create(createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['Web3ConnectionsApi.create']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -305,7 +305,7 @@ export const Web3ConnectionsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         create(requestParameters: Web3ConnectionsApiCreateRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateConnectionResponse> {
-            return localVarFp.create(requestParameters.createRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.create(requestParameters.createConnectionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get open Web3 connections.
@@ -348,10 +348,10 @@ export const Web3ConnectionsApiFactory = function (configuration?: Configuration
 export interface Web3ConnectionsApiCreateRequest {
     /**
      * 
-     * @type {CreateRequest}
+     * @type {CreateConnectionRequest}
      * @memberof Web3ConnectionsApiCreate
      */
-    readonly createRequest: CreateRequest
+    readonly createConnectionRequest: CreateConnectionRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -461,7 +461,7 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @memberof Web3ConnectionsApi
      */
     public create(requestParameters: Web3ConnectionsApiCreateRequest) {
-        return Web3ConnectionsApiFp(this.configuration).create(requestParameters.createRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return Web3ConnectionsApiFp(this.configuration).create(requestParameters.createConnectionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

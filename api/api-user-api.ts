@@ -40,8 +40,8 @@ import { GetAPIUsersResponse } from '../models';
 export const ApiUserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * creates api user
-         * @summary create api user
+         * Creates Api user in your tenant
+         * @summary Create Api user
          * @param {CreateAPIUser} [createAPIUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -79,8 +79,8 @@ export const ApiUserApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * get api users from the current tenant
-         * @summary get api users
+         * Get Api users of your tenant
+         * @summary Get Api users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -119,8 +119,8 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ApiUserApiAxiosParamCreator(configuration)
     return {
         /**
-         * creates api user
-         * @summary create api user
+         * Creates Api user in your tenant
+         * @summary Create Api user
          * @param {CreateAPIUser} [createAPIUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -133,8 +133,8 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * get api users from the current tenant
-         * @summary get api users
+         * Get Api users of your tenant
+         * @summary Get Api users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -155,8 +155,8 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = ApiUserApiFp(configuration)
     return {
         /**
-         * creates api user
-         * @summary create api user
+         * Creates Api user in your tenant
+         * @summary Create Api user
          * @param {ApiUserApiCreateApiUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -165,8 +165,8 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.createApiUser(requestParameters.createAPIUser, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * get api users from the current tenant
-         * @summary get api users
+         * Get Api users of your tenant
+         * @summary Get Api users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -205,8 +205,8 @@ export interface ApiUserApiCreateApiUserRequest {
  */
 export class ApiUserApi extends BaseAPI {
     /**
-     * creates api user
-     * @summary create api user
+     * Creates Api user in your tenant
+     * @summary Create Api user
      * @param {ApiUserApiCreateApiUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -217,8 +217,8 @@ export class ApiUserApi extends BaseAPI {
     }
 
     /**
-     * get api users from the current tenant
-     * @summary get api users
+     * Get Api users of your tenant
+     * @summary Get Api users
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ApiUserApi

@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { APIUser } from './apiuser';
+import { APIUsers } from './apiusers';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { APIUser } from './apiuser';
 export interface GetAPIUsersResponse {
     /**
      * 
-     * @type {Array<APIUser>}
+     * @type {APIUsers}
      * @memberof GetAPIUsersResponse
      */
-    'users': Array<APIUser>;
+    'users': APIUsers;
 }
 
