@@ -26,19 +26,21 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { GetOwnershipTokens200Response } from '../models';
+import { GetNFTsResponse } from '../models';
 // @ts-ignore
-import { ListOwnedCollections200Response } from '../models';
+import { GetOwnershipTokensResponse } from '../models';
 // @ts-ignore
-import { ListOwnedTokens200Response } from '../models';
+import { ListOwnedCollectionsResponse } from '../models';
 // @ts-ignore
-import { TokenOwnershipSpamUpdatePayload } from '../models';
-// @ts-ignore
-import { TokenOwnershipStatusUpdatePayload } from '../models';
+import { ListOwnedTokensResponse } from '../models';
 // @ts-ignore
 import { TokenResponse } from '../models';
 // @ts-ignore
 import { UpdateTokenOwnershipStatusDto } from '../models';
+// @ts-ignore
+import { UpdateTokensOwnershipSpamRequest } from '../models';
+// @ts-ignore
+import { UpdateTokensOwnershipStatusRequest } from '../models';
 /**
  * NFTsApi - axios parameter creator
  * @export
@@ -517,14 +519,14 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
          * @summary Update tokens ownership spam property
-         * @param {Array<TokenOwnershipSpamUpdatePayload>} tokenOwnershipSpamUpdatePayload 
+         * @param {UpdateTokensOwnershipSpamRequest} updateTokensOwnershipSpamRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokensOwnershipSpam: async (tokenOwnershipSpamUpdatePayload: Array<TokenOwnershipSpamUpdatePayload>, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenOwnershipSpamUpdatePayload' is not null or undefined
-            assertParamExists('updateTokensOwnershipSpam', 'tokenOwnershipSpamUpdatePayload', tokenOwnershipSpamUpdatePayload)
+        updateTokensOwnershipSpam: async (updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateTokensOwnershipSpamRequest' is not null or undefined
+            assertParamExists('updateTokensOwnershipSpam', 'updateTokensOwnershipSpamRequest', updateTokensOwnershipSpamRequest)
             const localVarPath = `/nfts/ownership/tokens/spam`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -548,7 +550,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tokenOwnershipSpamUpdatePayload, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateTokensOwnershipSpamRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -558,14 +560,14 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
         /**
          * Updates tokens status for a tenant, in all tenant vaults.
          * @summary Update tokens ownership status
-         * @param {Array<TokenOwnershipStatusUpdatePayload>} tokenOwnershipStatusUpdatePayload 
+         * @param {UpdateTokensOwnershipStatusRequest} updateTokensOwnershipStatusRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokensOwnershipStatus: async (tokenOwnershipStatusUpdatePayload: Array<TokenOwnershipStatusUpdatePayload>, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenOwnershipStatusUpdatePayload' is not null or undefined
-            assertParamExists('updateTokensOwnershipStatus', 'tokenOwnershipStatusUpdatePayload', tokenOwnershipStatusUpdatePayload)
+        updateTokensOwnershipStatus: async (updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateTokensOwnershipStatusRequest' is not null or undefined
+            assertParamExists('updateTokensOwnershipStatus', 'updateTokensOwnershipStatusRequest', updateTokensOwnershipStatusRequest)
             const localVarPath = `/nfts/ownership/tokens/status`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -589,7 +591,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(tokenOwnershipStatusUpdatePayload, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateTokensOwnershipStatusRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -630,7 +632,7 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<GetNFTsSortEnum>, order?: GetNFTsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedTokens200Response>> {
+        async getNFTs(ids: string, pageCursor?: string, pageSize?: number, sort?: Array<GetNFTsSortEnum>, order?: GetNFTsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetNFTsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNFTs(ids, pageCursor, pageSize, sort, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.getNFTs']?.[index]?.url;
@@ -656,7 +658,7 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOwnershipTokens(blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum, vaultAccountIds?: string, ncwId?: string, ncwAccountIds?: string, walletType?: GetOwnershipTokensWalletTypeEnum, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<GetOwnershipTokensSortEnum>, order?: GetOwnershipTokensOrderEnum, status?: GetOwnershipTokensStatusEnum, search?: string, spam?: GetOwnershipTokensSpamEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOwnershipTokens200Response>> {
+        async getOwnershipTokens(blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum, vaultAccountIds?: string, ncwId?: string, ncwAccountIds?: string, walletType?: GetOwnershipTokensWalletTypeEnum, ids?: string, collectionIds?: string, pageCursor?: string, pageSize?: number, sort?: Array<GetOwnershipTokensSortEnum>, order?: GetOwnershipTokensOrderEnum, status?: GetOwnershipTokensStatusEnum, search?: string, spam?: GetOwnershipTokensSpamEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOwnershipTokensResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOwnershipTokens(blockchainDescriptor, vaultAccountIds, ncwId, ncwAccountIds, walletType, ids, collectionIds, pageCursor, pageSize, sort, order, status, search, spam, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.getOwnershipTokens']?.[index]?.url;
@@ -676,7 +678,7 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOwnedCollections(ncwId?: string, walletType?: ListOwnedCollectionsWalletTypeEnum, search?: string, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedCollectionsSortEnum>, order?: ListOwnedCollectionsOrderEnum, status?: ListOwnedCollectionsStatusEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedCollections200Response>> {
+        async listOwnedCollections(ncwId?: string, walletType?: ListOwnedCollectionsWalletTypeEnum, search?: string, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedCollectionsSortEnum>, order?: ListOwnedCollectionsOrderEnum, status?: ListOwnedCollectionsStatusEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedCollectionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedCollections(ncwId, walletType, search, pageCursor, pageSize, sort, order, status, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.listOwnedCollections']?.[index]?.url;
@@ -697,7 +699,7 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listOwnedTokens(ncwId?: string, walletType?: ListOwnedTokensWalletTypeEnum, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedTokensSortEnum>, order?: ListOwnedTokensOrderEnum, status?: ListOwnedTokensStatusEnum, search?: string, spam?: ListOwnedTokensSpamEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedTokens200Response>> {
+        async listOwnedTokens(ncwId?: string, walletType?: ListOwnedTokensWalletTypeEnum, pageCursor?: string, pageSize?: number, sort?: Array<ListOwnedTokensSortEnum>, order?: ListOwnedTokensOrderEnum, status?: ListOwnedTokensStatusEnum, search?: string, spam?: ListOwnedTokensSpamEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOwnedTokensResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listOwnedTokens(ncwId, walletType, pageCursor, pageSize, sort, order, status, search, spam, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.listOwnedTokens']?.[index]?.url;
@@ -750,13 +752,13 @@ export const NFTsApiFp = function(configuration?: Configuration) {
         /**
          * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
          * @summary Update tokens ownership spam property
-         * @param {Array<TokenOwnershipSpamUpdatePayload>} tokenOwnershipSpamUpdatePayload 
+         * @param {UpdateTokensOwnershipSpamRequest} updateTokensOwnershipSpamRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload: Array<TokenOwnershipSpamUpdatePayload>, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipSpam(tokenOwnershipSpamUpdatePayload, idempotencyKey, options);
+        async updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.updateTokensOwnershipSpam']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -764,13 +766,13 @@ export const NFTsApiFp = function(configuration?: Configuration) {
         /**
          * Updates tokens status for a tenant, in all tenant vaults.
          * @summary Update tokens ownership status
-         * @param {Array<TokenOwnershipStatusUpdatePayload>} tokenOwnershipStatusUpdatePayload 
+         * @param {UpdateTokensOwnershipStatusRequest} updateTokensOwnershipStatusRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload: Array<TokenOwnershipStatusUpdatePayload>, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipStatus(tokenOwnershipStatusUpdatePayload, idempotencyKey, options);
+        async updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.updateTokensOwnershipStatus']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -802,7 +804,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNFTs(requestParameters: NFTsApiGetNFTsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedTokens200Response> {
+        getNFTs(requestParameters: NFTsApiGetNFTsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetNFTsResponse> {
             return localVarFp.getNFTs(requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -812,7 +814,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetOwnershipTokens200Response> {
+        getOwnershipTokens(requestParameters: NFTsApiGetOwnershipTokensRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetOwnershipTokensResponse> {
             return localVarFp.getOwnershipTokens(requestParameters.blockchainDescriptor, requestParameters.vaultAccountIds, requestParameters.ncwId, requestParameters.ncwAccountIds, requestParameters.walletType, requestParameters.ids, requestParameters.collectionIds, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestParameters.spam, options).then((request) => request(axios, basePath));
         },
         /**
@@ -822,7 +824,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedCollections200Response> {
+        listOwnedCollections(requestParameters: NFTsApiListOwnedCollectionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedCollectionsResponse> {
             return localVarFp.listOwnedCollections(requestParameters.ncwId, requestParameters.walletType, requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, options).then((request) => request(axios, basePath));
         },
         /**
@@ -832,7 +834,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listOwnedTokens(requestParameters: NFTsApiListOwnedTokensRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedTokens200Response> {
+        listOwnedTokens(requestParameters: NFTsApiListOwnedTokensRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListOwnedTokensResponse> {
             return localVarFp.listOwnedTokens(requestParameters.ncwId, requestParameters.walletType, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.status, requestParameters.search, requestParameters.spam, options).then((request) => request(axios, basePath));
         },
         /**
@@ -873,7 +875,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         updateTokensOwnershipSpam(requestParameters: NFTsApiUpdateTokensOwnershipSpamRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updateTokensOwnershipSpam(requestParameters.tokenOwnershipSpamUpdatePayload, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateTokensOwnershipSpam(requestParameters.updateTokensOwnershipSpamRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates tokens status for a tenant, in all tenant vaults.
@@ -883,7 +885,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         updateTokensOwnershipStatus(requestParameters: NFTsApiUpdateTokensOwnershipStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updateTokensOwnershipStatus(requestParameters.tokenOwnershipStatusUpdatePayload, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateTokensOwnershipStatus(requestParameters.updateTokensOwnershipStatusRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -952,7 +954,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1211,7 +1213,7 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'BASECHAIN_ETH'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
@@ -1267,10 +1269,10 @@ export interface NFTsApiUpdateTokenOwnershipStatusRequest {
 export interface NFTsApiUpdateTokensOwnershipSpamRequest {
     /**
      * 
-     * @type {Array<TokenOwnershipSpamUpdatePayload>}
+     * @type {UpdateTokensOwnershipSpamRequest}
      * @memberof NFTsApiUpdateTokensOwnershipSpam
      */
-    readonly tokenOwnershipSpamUpdatePayload: Array<TokenOwnershipSpamUpdatePayload>
+    readonly updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1288,10 +1290,10 @@ export interface NFTsApiUpdateTokensOwnershipSpamRequest {
 export interface NFTsApiUpdateTokensOwnershipStatusRequest {
     /**
      * 
-     * @type {Array<TokenOwnershipStatusUpdatePayload>}
+     * @type {UpdateTokensOwnershipStatusRequest}
      * @memberof NFTsApiUpdateTokensOwnershipStatus
      */
-    readonly tokenOwnershipStatusUpdatePayload: Array<TokenOwnershipStatusUpdatePayload>
+    readonly updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1413,7 +1415,7 @@ export class NFTsApi extends BaseAPI {
      * @memberof NFTsApi
      */
     public updateTokensOwnershipSpam(requestParameters: NFTsApiUpdateTokensOwnershipSpamRequest) {
-        return NFTsApiFp(this.configuration).updateTokensOwnershipSpam(requestParameters.tokenOwnershipSpamUpdatePayload, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NFTsApiFp(this.configuration).updateTokensOwnershipSpam(requestParameters.updateTokensOwnershipSpamRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1425,7 +1427,7 @@ export class NFTsApi extends BaseAPI {
      * @memberof NFTsApi
      */
     public updateTokensOwnershipStatus(requestParameters: NFTsApiUpdateTokensOwnershipStatusRequest) {
-        return NFTsApiFp(this.configuration).updateTokensOwnershipStatus(requestParameters.tokenOwnershipStatusUpdatePayload, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NFTsApiFp(this.configuration).updateTokensOwnershipStatus(requestParameters.updateTokensOwnershipStatusRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
@@ -1453,8 +1455,10 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     Eth: 'ETH',
     EthTest3: 'ETH_TEST3',
     EthTest5: 'ETH_TEST5',
+    EthTest6: 'ETH_TEST6',
     Polygon: 'POLYGON',
     PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     Xtz: 'XTZ',
     XtzTest: 'XTZ_TEST',
     BasechainEth: 'BASECHAIN_ETH'
@@ -1581,8 +1585,10 @@ export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
     Eth: 'ETH',
     EthTest3: 'ETH_TEST3',
     EthTest5: 'ETH_TEST5',
+    EthTest6: 'ETH_TEST6',
     Polygon: 'POLYGON',
     PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
+    AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     BasechainEth: 'BASECHAIN_ETH'
 } as const;
 export type UpdateOwnershipTokensBlockchainDescriptorEnum = typeof UpdateOwnershipTokensBlockchainDescriptorEnum[keyof typeof UpdateOwnershipTokensBlockchainDescriptorEnum];

@@ -34,6 +34,8 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ExternalWalletAsset } from '../models';
 // @ts-ignore
+import { GetExternalWalletsResponse } from '../models';
+// @ts-ignore
 import { SetCustomerRefIdRequest } from '../models';
 // @ts-ignore
 import { UnmanagedWallet } from '../models';
@@ -434,7 +436,7 @@ export const ExternalWalletsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getExternalWallets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
+        async getExternalWallets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetExternalWalletsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getExternalWallets(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ExternalWalletsApi.getExternalWallets']?.[index]?.url;
@@ -535,7 +537,7 @@ export const ExternalWalletsApiFactory = function (configuration?: Configuration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getExternalWallets(options?: RawAxiosRequestConfig): AxiosPromise<Array<UnmanagedWallet>> {
+        getExternalWallets(options?: RawAxiosRequestConfig): AxiosPromise<GetExternalWalletsResponse> {
             return localVarFp.getExternalWallets(options).then((request) => request(axios, basePath));
         },
         /**

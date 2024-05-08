@@ -36,7 +36,13 @@ import { ExecuteActionRequest } from '../models';
 // @ts-ignore
 import { ExecuteActionResponse } from '../models';
 // @ts-ignore
-import { ProviderDto } from '../models';
+import { StakingGetAllDelegationsResponse } from '../models';
+// @ts-ignore
+import { StakingGetChainsResponse } from '../models';
+// @ts-ignore
+import { StakingGetProvidersResponse } from '../models';
+// @ts-ignore
+import { StakingGetSummaryByVaultResponse } from '../models';
 /**
  * StakingBetaApi - axios parameter creator
  * @export
@@ -401,7 +407,7 @@ export const StakingBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllDelegations(chainDescriptor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DelegationDto>>> {
+        async getAllDelegations(chainDescriptor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingGetAllDelegationsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAllDelegations(chainDescriptor, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingBetaApi.getAllDelegations']?.[index]?.url;
@@ -426,7 +432,7 @@ export const StakingBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getChains(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+        async getChains(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingGetChainsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getChains(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingBetaApi.getChains']?.[index]?.url;
@@ -451,7 +457,7 @@ export const StakingBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProviders(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ProviderDto>>> {
+        async getProviders(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingGetProvidersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getProviders(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingBetaApi.getProviders']?.[index]?.url;
@@ -475,7 +481,7 @@ export const StakingBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSummaryByVault(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: DelegationSummaryDto; }>> {
+        async getSummaryByVault(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingGetSummaryByVaultResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSummaryByVault(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingBetaApi.getSummaryByVault']?.[index]?.url;
@@ -518,7 +524,7 @@ export const StakingBetaApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllDelegations(requestParameters: StakingBetaApiGetAllDelegationsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<DelegationDto>> {
+        getAllDelegations(requestParameters: StakingBetaApiGetAllDelegationsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<StakingGetAllDelegationsResponse> {
             return localVarFp.getAllDelegations(requestParameters.chainDescriptor, options).then((request) => request(axios, basePath));
         },
         /**
@@ -537,7 +543,7 @@ export const StakingBetaApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getChains(options?: RawAxiosRequestConfig): AxiosPromise<Array<string>> {
+        getChains(options?: RawAxiosRequestConfig): AxiosPromise<StakingGetChainsResponse> {
             return localVarFp.getChains(options).then((request) => request(axios, basePath));
         },
         /**
@@ -556,7 +562,7 @@ export const StakingBetaApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProviders(options?: RawAxiosRequestConfig): AxiosPromise<Array<ProviderDto>> {
+        getProviders(options?: RawAxiosRequestConfig): AxiosPromise<StakingGetProvidersResponse> {
             return localVarFp.getProviders(options).then((request) => request(axios, basePath));
         },
         /**
@@ -574,7 +580,7 @@ export const StakingBetaApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSummaryByVault(options?: RawAxiosRequestConfig): AxiosPromise<{ [key: string]: DelegationSummaryDto; }> {
+        getSummaryByVault(options?: RawAxiosRequestConfig): AxiosPromise<StakingGetSummaryByVaultResponse> {
             return localVarFp.getSummaryByVault(options).then((request) => request(axios, basePath));
         },
     };

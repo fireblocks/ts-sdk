@@ -21,25 +21,25 @@
  */
 export interface CreateConsoleUser {
     /**
-     * 
+     * users firstName
      * @type {string}
      * @memberof CreateConsoleUser
      */
     'firstName': string;
     /**
-     * 
+     * users lastName
      * @type {string}
      * @memberof CreateConsoleUser
      */
     'lastName': string;
     /**
-     * 
+     * users role
      * @type {string}
      * @memberof CreateConsoleUser
      */
     'role': string;
     /**
-     * 
+     * valid email address
      * @type {string}
      * @memberof CreateConsoleUser
      */

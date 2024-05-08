@@ -30,15 +30,17 @@ import { AssetBadRequestErrorResponse } from '../models';
 // @ts-ignore
 import { AssetConflictErrorResponse } from '../models';
 // @ts-ignore
+import { AssetForbiddenErrorResponse } from '../models';
+// @ts-ignore
 import { AssetInternalServerErrorResponse } from '../models';
 // @ts-ignore
 import { AssetNotFoundErrorResponse } from '../models';
 // @ts-ignore
 import { AssetResponse } from '../models';
 // @ts-ignore
-import { AssetTypeResponse } from '../models';
-// @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetSupportedAssetsResponse } from '../models';
 // @ts-ignore
 import { RegisterNewAssetRequest } from '../models';
 /**
@@ -132,7 +134,7 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSupportedAssets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<AssetTypeResponse>>> {
+        async getSupportedAssets(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSupportedAssetsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSupportedAssets(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.getSupportedAssets']?.[index]?.url;
@@ -168,7 +170,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSupportedAssets(options?: RawAxiosRequestConfig): AxiosPromise<Array<AssetTypeResponse>> {
+        getSupportedAssets(options?: RawAxiosRequestConfig): AxiosPromise<GetSupportedAssetsResponse> {
             return localVarFp.getSupportedAssets(options).then((request) => request(axios, basePath));
         },
         /**

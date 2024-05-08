@@ -36,9 +36,9 @@ import { ErrorSchema } from '../models';
 export const ResetDeviceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * resets device
-         * @summary resets device
-         * @param {string} id The ID of the user
+         * Resets mobile device for given console user, that user will need to do mobile onboarding again.
+         * @summary Resets device
+         * @param {string} id The ID of the console user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -85,9 +85,9 @@ export const ResetDeviceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ResetDeviceApiAxiosParamCreator(configuration)
     return {
         /**
-         * resets device
-         * @summary resets device
-         * @param {string} id The ID of the user
+         * Resets mobile device for given console user, that user will need to do mobile onboarding again.
+         * @summary Resets device
+         * @param {string} id The ID of the console user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -109,8 +109,8 @@ export const ResetDeviceApiFactory = function (configuration?: Configuration, ba
     const localVarFp = ResetDeviceApiFp(configuration)
     return {
         /**
-         * resets device
-         * @summary resets device
+         * Resets mobile device for given console user, that user will need to do mobile onboarding again.
+         * @summary Resets device
          * @param {ResetDeviceApiResetDeviceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -128,7 +128,7 @@ export const ResetDeviceApiFactory = function (configuration?: Configuration, ba
  */
 export interface ResetDeviceApiResetDeviceRequest {
     /**
-     * The ID of the user
+     * The ID of the console user
      * @type {string}
      * @memberof ResetDeviceApiResetDevice
      */
@@ -150,8 +150,8 @@ export interface ResetDeviceApiResetDeviceRequest {
  */
 export class ResetDeviceApi extends BaseAPI {
     /**
-     * resets device
-     * @summary resets device
+     * Resets mobile device for given console user, that user will need to do mobile onboarding again.
+     * @summary Resets device
      * @param {ResetDeviceApiResetDeviceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

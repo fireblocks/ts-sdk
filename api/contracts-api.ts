@@ -34,6 +34,8 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ExternalWalletAsset } from '../models';
 // @ts-ignore
+import { GetContractsResponse } from '../models';
+// @ts-ignore
 import { UnmanagedWallet } from '../models';
 /**
  * ContractsApi - axios parameter creator
@@ -401,7 +403,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getContracts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnmanagedWallet>>> {
+        async getContracts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetContractsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getContracts(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ContractsApi.getContracts']?.[index]?.url;
@@ -483,7 +485,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getContracts(options?: RawAxiosRequestConfig): AxiosPromise<Array<UnmanagedWallet>> {
+        getContracts(options?: RawAxiosRequestConfig): AxiosPromise<GetContractsResponse> {
             return localVarFp.getContracts(options).then((request) => request(axios, basePath));
         },
     };

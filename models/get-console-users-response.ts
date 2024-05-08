@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ConsoleUser } from './console-user';
+import { ConsoleUsers } from './console-users';
 
 /**
  * 
@@ -25,9 +25,9 @@ import { ConsoleUser } from './console-user';
 export interface GetConsoleUsersResponse {
     /**
      * 
-     * @type {Array<ConsoleUser>}
+     * @type {ConsoleUsers}
      * @memberof GetConsoleUsersResponse
      */
-    'users': Array<ConsoleUser>;
+    'users': ConsoleUsers;
 }
 

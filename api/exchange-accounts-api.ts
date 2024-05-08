@@ -36,9 +36,9 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ExchangeAccount } from '../models';
 // @ts-ignore
-import { ExchangeAccountsPaged } from '../models';
-// @ts-ignore
 import { ExchangeAsset } from '../models';
+// @ts-ignore
+import { GetPagedExchangeAccountsResponse } from '../models';
 // @ts-ignore
 import { InternalTransferResponse } from '../models';
 /**
@@ -313,7 +313,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPagedExchangeAccounts(limit: number, before?: string, after?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<ExchangeAccountsPaged>>> {
+        async getPagedExchangeAccounts(limit: number, before?: string, after?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPagedExchangeAccountsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedExchangeAccounts(limit, before, after, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ExchangeAccountsApi.getPagedExchangeAccounts']?.[index]?.url;
@@ -381,7 +381,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPagedExchangeAccounts(requestParameters: ExchangeAccountsApiGetPagedExchangeAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<ExchangeAccountsPaged>> {
+        getPagedExchangeAccounts(requestParameters: ExchangeAccountsApiGetPagedExchangeAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetPagedExchangeAccountsResponse> {
             return localVarFp.getPagedExchangeAccounts(requestParameters.limit, requestParameters.before, requestParameters.after, options).then((request) => request(axios, basePath));
         },
         /**

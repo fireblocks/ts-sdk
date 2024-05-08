@@ -21,31 +21,31 @@
  */
 export interface CreateAPIUser {
     /**
-     * User role
+     * Users role
      * @type {string}
      * @memberof CreateAPIUser
      */
     'role': string;
     /**
-     * users name
+     * Users name
      * @type {string}
      * @memberof CreateAPIUser
      */
     'name': string;
     /**
-     * only for user with signing capabilities
+     * CSR file that is used to verify API requests. read more https://developers.fireblocks.com/docs/quickstart
      * @type {string}
      * @memberof CreateAPIUser
      */
-    'csrPem'?: string;
+    'csrPem': string;
     /**
-     * cosigner setup type
+     * Different environments allow for different setup options, field is required for management/signer role
      * @type {string}
      * @memberof CreateAPIUser
      */
     'coSignerSetupType'?: string;
     /**
-     * is first?
+     * pass as true if this is the first user on the coSigner machine
      * @type {boolean}
      * @memberof CreateAPIUser
      */

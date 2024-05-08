@@ -42,6 +42,10 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetMaxSpendableAmountResponse } from '../models';
 // @ts-ignore
+import { GetUnspentInputsResponse } from '../models';
+// @ts-ignore
+import { GetVaultAssetsResponse } from '../models';
+// @ts-ignore
 import { JobCreated } from '../models';
 // @ts-ignore
 import { PaginatedAddressResponse } from '../models';
@@ -57,8 +61,6 @@ import { SetAutoFuelRequest } from '../models';
 import { SetCustomerRefIdForAddressRequest } from '../models';
 // @ts-ignore
 import { SetCustomerRefIdRequest } from '../models';
-// @ts-ignore
-import { UnspentInputsResponse } from '../models';
 // @ts-ignore
 import { UpdateVaultAccountAssetAddressRequest } from '../models';
 // @ts-ignore
@@ -1407,7 +1409,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUnspentInputs(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UnspentInputsResponse>>> {
+        async getUnspentInputs(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetUnspentInputsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnspentInputs(vaultAccountId, assetId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getUnspentInputs']?.[index]?.url;
@@ -1465,7 +1467,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<VaultAsset>>> {
+        async getVaultAssets(accountNamePrefix?: string, accountNameSuffix?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetVaultAssetsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssets(accountNamePrefix, accountNameSuffix, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getVaultAssets']?.[index]?.url;
@@ -1733,7 +1735,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUnspentInputs(requestParameters: VaultsApiGetUnspentInputsRequest, options?: RawAxiosRequestConfig): AxiosPromise<Array<UnspentInputsResponse>> {
+        getUnspentInputs(requestParameters: VaultsApiGetUnspentInputsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetUnspentInputsResponse> {
             return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1773,7 +1775,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<Array<VaultAsset>> {
+        getVaultAssets(requestParameters: VaultsApiGetVaultAssetsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetVaultAssetsResponse> {
             return localVarFp.getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix, options).then((request) => request(axios, basePath));
         },
         /**

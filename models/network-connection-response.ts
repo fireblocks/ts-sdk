@@ -18,7 +18,7 @@
 import { NetworkChannel } from './network-channel';
 // May contain unused imports in some cases
 // @ts-ignore
-import { NetworkConnectionRoutingPolicyValue } from './network-connection-routing-policy-value';
+import { NetworkConnectionRoutingPolicy } from './network-connection-routing-policy';
 // May contain unused imports in some cases
 // @ts-ignore
 import { NetworkConnectionStatus } from './network-connection-status';
@@ -58,10 +58,10 @@ export interface NetworkConnectionResponse {
     'remoteNetworkId': NetworkId;
     /**
      * 
-     * @type {{ [key: string]: NetworkConnectionRoutingPolicyValue; }}
+     * @type {NetworkConnectionRoutingPolicy}
      * @memberof NetworkConnectionResponse
      */
-    'routingPolicy': { [key: string]: NetworkConnectionRoutingPolicyValue; };
+    'routingPolicy': NetworkConnectionRoutingPolicy;
     /**
      * Deprecated - Replaced by `localNetworkId`
      * @type {NetworkChannel}

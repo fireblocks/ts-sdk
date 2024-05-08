@@ -393,7 +393,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getInternalWallets**
-> Array<UnmanagedWallet> getInternalWallets()
+> GetInternalWalletsResponse getInternalWallets()
 
 Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
 
@@ -403,7 +403,7 @@ Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitel
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, GetInternalWalletsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -414,7 +414,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.internalWallets.getInternalWallets(body).then((res: FireblocksResponse<any>) => {
+fireblocks.internalWallets.getInternalWallets(body).then((res: FireblocksResponse<GetInternalWalletsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -426,7 +426,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**[Array<UnmanagedWallet>](../models/Array<UnmanagedWallet>.md)**
+**[GetInternalWalletsResponse](../models/GetInternalWalletsResponse.md)**
 
 ### Authorization
 

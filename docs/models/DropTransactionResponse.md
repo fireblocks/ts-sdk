@@ -4,8 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**success** | **boolean** |  | [optional] [default to undefined]|
-|**transactions** | **Array&lt;string&gt;** |  | [optional] [default to undefined]|
+|**txStatus** | **string** |  | [optional] [default to undefined]|
+|**txId** | **string** |  | [optional] [default to undefined]|
+|**replacedTxHash** | **string** |  | [optional] [default to undefined]|
 
 
 

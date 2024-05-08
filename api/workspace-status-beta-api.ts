@@ -26,7 +26,7 @@ import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObj
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { GetWorkspaceStatus200Response } from '../models';
+import { GetWorkspaceStatusResponse } from '../models';
 /**
  * WorkspaceStatusBetaApi - axios parameter creator
  * @export
@@ -79,7 +79,7 @@ export const WorkspaceStatusBetaApiFp = function(configuration?: Configuration) 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getWorkspaceStatus(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetWorkspaceStatus200Response>> {
+        async getWorkspaceStatus(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetWorkspaceStatusResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getWorkspaceStatus(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WorkspaceStatusBetaApi.getWorkspaceStatus']?.[index]?.url;
@@ -101,7 +101,7 @@ export const WorkspaceStatusBetaApiFactory = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWorkspaceStatus(options?: RawAxiosRequestConfig): AxiosPromise<GetWorkspaceStatus200Response> {
+        getWorkspaceStatus(options?: RawAxiosRequestConfig): AxiosPromise<GetWorkspaceStatusResponse> {
             return localVarFp.getWorkspaceStatus(options).then((request) => request(axios, basePath));
         },
     };

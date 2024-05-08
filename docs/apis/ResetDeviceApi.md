@@ -4,13 +4,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**resetDevice**](#resetDevice) | **POST** /management/users/{id}/reset_device | resets device
+[**resetDevice**](#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
 
 
 # **resetDevice**
 > resetDevice()
 
-resets device
+Resets mobile device for given console user, that user will need to do mobile onboarding again.
 
 ### Example
 
@@ -28,7 +28,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: ResetDeviceApiResetDeviceRequest = {
-  // string | The ID of the user
+  // string | The ID of the console user
   id: id_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
@@ -44,7 +44,7 @@ fireblocks.resetDevice.resetDevice(body).then((res: FireblocksResponse<any>) => 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**string**] | The ID of the user | defaults to undefined
+ **id** | [**string**] | The ID of the console user | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -65,7 +65,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | User sent for creation |  * X-Request-ID -  <br>  |
+**200** | Reset device approval request has been sent |  * X-Request-ID -  <br>  |
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Lacking permissions. |  * X-Request-ID -  <br>  |
 **5XX** | Internal error. |  * X-Request-ID -  <br>  |

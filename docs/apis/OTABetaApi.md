@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **getOtaStatus**
-> GetOtaStatus200Response getOtaStatus()
+> GetOtaStatusResponse getOtaStatus()
 
 Returns current OTA status
 
@@ -19,7 +19,7 @@ Returns current OTA status
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, GetOtaStatus200Response } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, GetOtaStatusResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -30,7 +30,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.otaBeta.getOtaStatus(body).then((res: FireblocksResponse<GetOtaStatus200Response>) => {
+fireblocks.otaBeta.getOtaStatus(body).then((res: FireblocksResponse<GetOtaStatusResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -42,7 +42,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**[GetOtaStatus200Response](../models/GetOtaStatus200Response.md)**
+**[GetOtaStatusResponse](../models/GetOtaStatusResponse.md)**
 
 ### Authorization
 

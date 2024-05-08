@@ -38,9 +38,9 @@ import { GetWhitelistIpAddressesResponse } from '../models';
 export const WhitelistIpAddressesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * gets ip addresses
-         * @summary gets ip addresses
-         * @param {string} userId The ID of the user
+         * Gets whitelisted ip addresses for given Api user.
+         * @summary Gets whitelisted ip addresses
+         * @param {string} userId The ID of the api user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -82,9 +82,9 @@ export const WhitelistIpAddressesApiFp = function(configuration?: Configuration)
     const localVarAxiosParamCreator = WhitelistIpAddressesApiAxiosParamCreator(configuration)
     return {
         /**
-         * gets ip addresses
-         * @summary gets ip addresses
-         * @param {string} userId The ID of the user
+         * Gets whitelisted ip addresses for given Api user.
+         * @summary Gets whitelisted ip addresses
+         * @param {string} userId The ID of the api user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -105,8 +105,8 @@ export const WhitelistIpAddressesApiFactory = function (configuration?: Configur
     const localVarFp = WhitelistIpAddressesApiFp(configuration)
     return {
         /**
-         * gets ip addresses
-         * @summary gets ip addresses
+         * Gets whitelisted ip addresses for given Api user.
+         * @summary Gets whitelisted ip addresses
          * @param {WhitelistIpAddressesApiGetWhitelistIpAddressesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -124,7 +124,7 @@ export const WhitelistIpAddressesApiFactory = function (configuration?: Configur
  */
 export interface WhitelistIpAddressesApiGetWhitelistIpAddressesRequest {
     /**
-     * The ID of the user
+     * The ID of the api user
      * @type {string}
      * @memberof WhitelistIpAddressesApiGetWhitelistIpAddresses
      */
@@ -139,8 +139,8 @@ export interface WhitelistIpAddressesApiGetWhitelistIpAddressesRequest {
  */
 export class WhitelistIpAddressesApi extends BaseAPI {
     /**
-     * gets ip addresses
-     * @summary gets ip addresses
+     * Gets whitelisted ip addresses for given Api user.
+     * @summary Gets whitelisted ip addresses
      * @param {WhitelistIpAddressesApiGetWhitelistIpAddressesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -34,6 +34,8 @@ import { FiatAccount } from '../models';
 // @ts-ignore
 import { Funds } from '../models';
 // @ts-ignore
+import { GetFiatAccountsResponse } from '../models';
+// @ts-ignore
 import { RedeemFundsToLinkedDDAResponse } from '../models';
 /**
  * FiatAccountsApi - axios parameter creator
@@ -235,7 +237,7 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFiatAccounts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<FiatAccount>>> {
+        async getFiatAccounts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetFiatAccountsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getFiatAccounts(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['FiatAccountsApi.getFiatAccounts']?.[index]?.url;
@@ -292,7 +294,7 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFiatAccounts(options?: RawAxiosRequestConfig): AxiosPromise<Array<FiatAccount>> {
+        getFiatAccounts(options?: RawAxiosRequestConfig): AxiosPromise<GetFiatAccountsResponse> {
             return localVarFp.getFiatAccounts(options).then((request) => request(axios, basePath));
         },
         /**

@@ -199,7 +199,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getJobTasks**
-> Array<Task> getJobTasks()
+> Tasks getJobTasks()
 
 Return a list of tasks for given job
 
@@ -209,7 +209,7 @@ Return a list of tasks for given job
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, JobManagementApiGetJobTasksRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiGetJobTasksRequest, Tasks } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -223,7 +223,7 @@ let body: JobManagementApiGetJobTasksRequest = {
   jobId: jobId_example,
 };
 
-fireblocks.jobManagement.getJobTasks(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.getJobTasks(body).then((res: FireblocksResponse<Tasks>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -238,7 +238,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Array<Task>](../models/Array<Task>.md)**
+**[Tasks](../models/Tasks.md)**
 
 ### Authorization
 
@@ -259,7 +259,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getJobs**
-> Array<Job> getJobs()
+> Jobs getJobs()
 
 Get an array of objects including all active, paused, canceled, and complete jobs in a workspace.
 
@@ -269,7 +269,7 @@ Get an array of objects including all active, paused, canceled, and complete job
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, JobManagementApiGetJobsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, JobManagementApiGetJobsRequest, Jobs } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -285,7 +285,7 @@ let body: JobManagementApiGetJobsRequest = {
   toTime: 56,
 };
 
-fireblocks.jobManagement.getJobs(body).then((res: FireblocksResponse<any>) => {
+fireblocks.jobManagement.getJobs(body).then((res: FireblocksResponse<Jobs>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[Array<Job>](../models/Array<Job>.md)**
+**[Jobs](../models/Jobs.md)**
 
 ### Authorization
 

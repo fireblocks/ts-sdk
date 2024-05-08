@@ -21,9 +21,13 @@
 
 * `EthTest5` (value: `'ETH_TEST5'`)
 
+* `EthTest6` (value: `'ETH_TEST6'`)
+
 * `Polygon` (value: `'POLYGON'`)
 
 * `PolygonTestMumbai` (value: `'POLYGON_TEST_MUMBAI'`)
+
+* `AmoyPolygonTest` (value: `'AMOY_POLYGON_TEST'`)
 
 * `Xtz` (value: `'XTZ'`)
 
