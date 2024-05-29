@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**asset** | **string** | Asset name | [default to undefined]|
-|**amount** | **number** | Amount | [default to undefined]|
+|**amount** | **string** | Amount | [default to undefined]|
 |**fromNetworkId** | **string** | Identifier of the origination Network Profile | [default to undefined]|
 |**toNetworkId** | **string** | Identifier of the destination Network Profile | [default to undefined]|
 

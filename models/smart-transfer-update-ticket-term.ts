@@ -28,10 +28,10 @@ export interface SmartTransferUpdateTicketTerm {
     'asset': string;
     /**
      * Amount
-     * @type {number}
+     * @type {string}
      * @memberof SmartTransferUpdateTicketTerm
      */
-    'amount': number;
+    'amount': string;
     /**
      * Identifier of the origination Network Profile
      * @type {string}

@@ -21,19 +21,19 @@
  */
 export interface RegisterNewAssetRequest {
     /**
-     * Native asset of blockchain
+     * Native asset ID of the blockchain
      * @type {string}
      * @memberof RegisterNewAssetRequest
      */
     'blockchainId': string;
     /**
-     * Asset address
+     * Asset address.  - For EVM based chains this should be the token contract address. - For Stellar (XLM) this should be the issuer address. - For Algorand (ALGO) this should be the asset ID. - For TRON (TRX) this should be the token contract address. - For NEAR this will be the token address. 
      * @type {string}
      * @memberof RegisterNewAssetRequest
      */
     'address': string;
     /**
-     * Asset symbol
+     * Required for Stellar only, asset code is expected.
      * @type {string}
      * @memberof RegisterNewAssetRequest
      */
