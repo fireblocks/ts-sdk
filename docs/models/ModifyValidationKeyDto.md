@@ -1,11 +1,10 @@
-# PolicyCheckResult
+# ModifyValidationKeyDto
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**errors** | **number** | Number of errors | [default to undefined]|
-|**results** | [**Array&lt;PolicyRuleCheckResult&gt;**](PolicyRuleCheckResult.md) | A set of validation results | [default to undefined]|
+|**enabled** | **boolean** | Disable validation key | [default to undefined]|
 
 
 

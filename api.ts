@@ -32,6 +32,7 @@ export * from './api/fiat-accounts-api';
 export * from './api/gas-stations-api';
 export * from './api/internal-wallets-api';
 export * from './api/job-management-api';
+export * from './api/key-link-beta-api';
 export * from './api/nfts-api';
 export * from './api/network-connections-api';
 export * from './api/otabeta-api';

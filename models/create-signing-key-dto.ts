@@ -17,32 +17,26 @@
 /**
  * 
  * @export
- * @interface SmartTransferUpdateTicketTerm
+ * @interface CreateSigningKeyDto
  */
-export interface SmartTransferUpdateTicketTerm {
+export interface CreateSigningKeyDto {
     /**
-     * Asset name
+     * The ID, name or label of the key specified on the customer\'s signing device.
      * @type {string}
-     * @memberof SmartTransferUpdateTicketTerm
+     * @memberof CreateSigningKeyDto
      */
-    'asset': string;
+    'signingDeviceKeyId': string;
     /**
-     * Amount
+     * The signed certificate that includes the public key PEM of the signing key, signed by a validation key.
      * @type {string}
-     * @memberof SmartTransferUpdateTicketTerm
+     * @memberof CreateSigningKeyDto
      */
-    'amount': string;
+    'signedCertPem': string;
     /**
-     * Identifier of the origination Network Profile
+     * Id of user to which this key belongs
      * @type {string}
-     * @memberof SmartTransferUpdateTicketTerm
+     * @memberof CreateSigningKeyDto
      */
-    'fromNetworkId': string;
-    /**
-     * Identifier of the destination Network Profile
-     * @type {string}
-     * @memberof SmartTransferUpdateTicketTerm
-     */
-    'toNetworkId': string;
+    'agentUserId': string;
 }
 

@@ -13,27 +13,18 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { PolicyRuleCheckResult } from './policy-rule-check-result';
 
 /**
- * Policy rules validation result
+ * 
  * @export
- * @interface PolicyCheckResult
+ * @interface ModifySigningKeyDto
  */
-export interface PolicyCheckResult {
+export interface ModifySigningKeyDto {
     /**
-     * Number of errors
+     * 
      * @type {number}
-     * @memberof PolicyCheckResult
+     * @memberof ModifySigningKeyDto
      */
-    'errors': number;
-    /**
-     * A set of validation results
-     * @type {Array<PolicyRuleCheckResult>}
-     * @memberof PolicyCheckResult
-     */
-    'results': Array<PolicyRuleCheckResult>;
+    'vaultAccountId': number;
 }
 

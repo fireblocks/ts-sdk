@@ -29,6 +29,7 @@ FiatAccountsApi,
 GasStationsApi, 
 InternalWalletsApi, 
 JobManagementApi, 
+KeyLinkBetaApi, 
 NFTsApi, 
 NetworkConnectionsApi, 
 OTABetaApi, 
@@ -71,6 +72,7 @@ let mockFiatAccountsApi: jest.Mock;
 let mockGasStationsApi: jest.Mock;
 let mockInternalWalletsApi: jest.Mock;
 let mockJobManagementApi: jest.Mock;
+let mockKeyLinkBetaApi: jest.Mock;
 let mockNFTsApi: jest.Mock;
 let mockNetworkConnectionsApi: jest.Mock;
 let mockOTABetaApi: jest.Mock;
@@ -110,6 +112,7 @@ jest.mock('../api', () => {
     mockGasStationsApi = jest.fn();
     mockInternalWalletsApi = jest.fn();
     mockJobManagementApi = jest.fn();
+    mockKeyLinkBetaApi = jest.fn();
     mockNFTsApi = jest.fn();
     mockNetworkConnectionsApi = jest.fn();
     mockOTABetaApi = jest.fn();
@@ -150,6 +153,7 @@ jest.mock('../api', () => {
         GasStationsApi: mockGasStationsApi,
         InternalWalletsApi: mockInternalWalletsApi,
         JobManagementApi: mockJobManagementApi,
+        KeyLinkBetaApi: mockKeyLinkBetaApi,
         NFTsApi: mockNFTsApi,
         NetworkConnectionsApi: mockNetworkConnectionsApi,
         OTABetaApi: mockOTABetaApi,
@@ -319,6 +323,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return JobManagementApi', async () => {
             expect(fireblocks.jobManagement).toBeInstanceOf(JobManagementApi);
             expect(mockJobManagementApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return KeyLinkBetaApi', async () => {
+            expect(fireblocks.keyLinkBeta).toBeInstanceOf(KeyLinkBetaApi);
+            expect(mockKeyLinkBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return NFTsApi', async () => {
             expect(fireblocks.nfts).toBeInstanceOf(NFTsApi);
