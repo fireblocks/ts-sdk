@@ -30,6 +30,7 @@ import { ApiUserApi,
          GasStationsApi, 
          InternalWalletsApi, 
          JobManagementApi, 
+         KeyLinkBetaApi, 
          NFTsApi, 
          NetworkConnectionsApi, 
          OTABetaApi, 
@@ -74,6 +75,7 @@ export class Fireblocks {
     private _gasStations?: GasStationsApi;
     private _internalWallets?: InternalWalletsApi;
     private _jobManagement?: JobManagementApi;
+    private _keyLinkBeta?: KeyLinkBetaApi;
     private _nfts?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
     private _otaBeta?: OTABetaApi;
@@ -167,6 +169,9 @@ export class Fireblocks {
     }
     get jobManagement(): JobManagementApi {
         return this._jobManagement ?? new JobManagementApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get keyLinkBeta(): KeyLinkBetaApi {
+        return this._keyLinkBeta ?? new KeyLinkBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get nfts(): NFTsApi {
         return this._nfts ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);

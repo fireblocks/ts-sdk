@@ -204,6 +204,15 @@ Class | Method | HTTP request | Description
 *JobManagementApi* | [**getJobTasks**](docs/apis/JobManagementApi.md#getJobTasks) | **GET** /batch/{jobId}/tasks | Return a list of tasks for given job
 *JobManagementApi* | [**getJobs**](docs/apis/JobManagementApi.md#getJobs) | **GET** /batch/jobs | Return a list of jobs belonging to tenant
 *JobManagementApi* | [**pauseJob**](docs/apis/JobManagementApi.md#pauseJob) | **POST** /batch/{jobId}/pause | Pause a job
+*KeyLinkBetaApi* | [**createSigningKey**](docs/apis/KeyLinkBetaApi.md#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key
+*KeyLinkBetaApi* | [**createValidationKey**](docs/apis/KeyLinkBetaApi.md#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key
+*KeyLinkBetaApi* | [**disableValidationKey**](docs/apis/KeyLinkBetaApi.md#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key
+*KeyLinkBetaApi* | [**getSigningKey**](docs/apis/KeyLinkBetaApi.md#getSigningKey) | **GET** /key_link/signing_keys/{keyId} | Get a signing key by &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**getSigningKeysList**](docs/apis/KeyLinkBetaApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys
+*KeyLinkBetaApi* | [**getValidationKey**](docs/apis/KeyLinkBetaApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**getValidationKeysList**](docs/apis/KeyLinkBetaApi.md#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys
+*KeyLinkBetaApi* | [**setAgentId**](docs/apis/KeyLinkBetaApi.md#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id that can sign with the signing key identified by the Fireblocks provided &#x60;keyId&#x60;
+*KeyLinkBetaApi* | [**updateSigningKey**](docs/apis/KeyLinkBetaApi.md#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing by Fireblocks provided &#x60;keyId&#x60;
 *NFTsApi* | [**getNFT**](docs/apis/NFTsApi.md#getNFT) | **GET** /nfts/tokens/{id} | List token data by ID
 *NFTsApi* | [**getNFTs**](docs/apis/NFTsApi.md#getNFTs) | **GET** /nfts/tokens | List tokens by IDs
 *NFTsApi* | [**getOwnershipTokens**](docs/apis/NFTsApi.md#getOwnershipTokens) | **GET** /nfts/ownership/tokens | List all owned tokens (paginated)
@@ -433,11 +442,14 @@ Class | Method | HTTP request | Description
  - [CreateNcwConnectionRequest](docs/models/CreateNcwConnectionRequest.md)
  - [CreateNetworkIdRequest](docs/models/CreateNetworkIdRequest.md)
  - [CreatePayoutRequest](docs/models/CreatePayoutRequest.md)
+ - [CreateSigningKeyDto](docs/models/CreateSigningKeyDto.md)
  - [CreateTokenRequestDto](docs/models/CreateTokenRequestDto.md)
  - [CreateTokenRequestDtoCreateParams](docs/models/CreateTokenRequestDtoCreateParams.md)
  - [CreateTransactionResponse](docs/models/CreateTransactionResponse.md)
  - [CreateTransferConfigOperationRequest](docs/models/CreateTransferConfigOperationRequest.md)
  - [CreateUserGroupResponse](docs/models/CreateUserGroupResponse.md)
+ - [CreateValidationKeyDto](docs/models/CreateValidationKeyDto.md)
+ - [CreateValidationKeyResponseDto](docs/models/CreateValidationKeyResponseDto.md)
  - [CreateVaultAccountConnectionRequest](docs/models/CreateVaultAccountConnectionRequest.md)
  - [CreateVaultAccountRequest](docs/models/CreateVaultAccountRequest.md)
  - [CreateVaultAssetResponse](docs/models/CreateVaultAssetResponse.md)
@@ -527,11 +539,13 @@ Class | Method | HTTP request | Description
  - [GetOwnershipTokensResponse](docs/models/GetOwnershipTokensResponse.md)
  - [GetPagedExchangeAccountsResponse](docs/models/GetPagedExchangeAccountsResponse.md)
  - [GetRoutingPolicyAssetGroupsResponse](docs/models/GetRoutingPolicyAssetGroupsResponse.md)
+ - [GetSigningKeyResponseDto](docs/models/GetSigningKeyResponseDto.md)
  - [GetSupportedAssetsResponse](docs/models/GetSupportedAssetsResponse.md)
  - [GetTransactionOperation](docs/models/GetTransactionOperation.md)
  - [GetTransactionsResponse](docs/models/GetTransactionsResponse.md)
  - [GetUnspentInputsResponse](docs/models/GetUnspentInputsResponse.md)
  - [GetUsersResponse](docs/models/GetUsersResponse.md)
+ - [GetValidationKeyResponseDto](docs/models/GetValidationKeyResponseDto.md)
  - [GetVaultAccountAssetAddressesResponse](docs/models/GetVaultAccountAssetAddressesResponse.md)
  - [GetVaultAccountsResponse](docs/models/GetVaultAccountsResponse.md)
  - [GetVaultAssetsResponse](docs/models/GetVaultAssetsResponse.md)
@@ -549,6 +563,9 @@ Class | Method | HTTP request | Description
  - [ListOwnedCollectionsResponse](docs/models/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/models/ListOwnedTokensResponse.md)
  - [MediaEntityResponse](docs/models/MediaEntityResponse.md)
+ - [ModifySigningKeyAgentIdDto](docs/models/ModifySigningKeyAgentIdDto.md)
+ - [ModifySigningKeyDto](docs/models/ModifySigningKeyDto.md)
+ - [ModifyValidationKeyDto](docs/models/ModifyValidationKeyDto.md)
  - [NetworkChannel](docs/models/NetworkChannel.md)
  - [NetworkConnection](docs/models/NetworkConnection.md)
  - [NetworkConnectionResponse](docs/models/NetworkConnectionResponse.md)
@@ -662,6 +679,7 @@ Class | Method | HTTP request | Description
  - [SignedMessage](docs/models/SignedMessage.md)
  - [SignedMessageSignature](docs/models/SignedMessageSignature.md)
  - [SignedMessages](docs/models/SignedMessages.md)
+ - [SigningKeyDto](docs/models/SigningKeyDto.md)
  - [SmartTransferBadRequestResponse](docs/models/SmartTransferBadRequestResponse.md)
  - [SmartTransferCreateTicket](docs/models/SmartTransferCreateTicket.md)
  - [SmartTransferCreateTicketTerm](docs/models/SmartTransferCreateTicketTerm.md)
@@ -776,6 +794,7 @@ Class | Method | HTTP request | Description
  - [UserStatus](docs/models/UserStatus.md)
  - [UserType](docs/models/UserType.md)
  - [ValidateAddressResponse](docs/models/ValidateAddressResponse.md)
+ - [ValidationKeyDto](docs/models/ValidationKeyDto.md)
  - [ValidatorDto](docs/models/ValidatorDto.md)
  - [VaultAccount](docs/models/VaultAccount.md)
  - [VaultAccountsPagedResponse](docs/models/VaultAccountsPagedResponse.md)

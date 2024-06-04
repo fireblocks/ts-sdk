@@ -1,11 +1,11 @@
-# PolicyCheckResult
+# CreateValidationKeyDto
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**errors** | **number** | Number of errors | [default to undefined]|
-|**results** | [**Array&lt;PolicyRuleCheckResult&gt;**](PolicyRuleCheckResult.md) | A set of validation results | [default to undefined]|
+|**publicKeyPem** | **string** | The PEM encoded public key of the validation key being added | [default to undefined]|
+|**daysTillExpired** | **number** | The number of days from the date the validation key was added until it expires | [default to undefined]|
 
 
 

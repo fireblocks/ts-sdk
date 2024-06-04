@@ -15,25 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { PolicyRuleCheckResult } from './policy-rule-check-result';
+import { SigningKeyDto } from './signing-key-dto';
 
 /**
- * Policy rules validation result
+ * 
  * @export
- * @interface PolicyCheckResult
+ * @interface GetSigningKeyResponseDto
  */
-export interface PolicyCheckResult {
+export interface GetSigningKeyResponseDto {
     /**
-     * Number of errors
-     * @type {number}
-     * @memberof PolicyCheckResult
+     * Response object for getting external signing keys.
+     * @type {Array<SigningKeyDto>}
+     * @memberof GetSigningKeyResponseDto
      */
-    'errors': number;
+    'data': Array<SigningKeyDto>;
     /**
-     * A set of validation results
-     * @type {Array<PolicyRuleCheckResult>}
-     * @memberof PolicyCheckResult
+     * The ID of the next page
+     * @type {string}
+     * @memberof GetSigningKeyResponseDto
      */
-    'results': Array<PolicyRuleCheckResult>;
+    'next'?: string;
 }
 

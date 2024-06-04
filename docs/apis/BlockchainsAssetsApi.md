@@ -65,7 +65,7 @@ No authorization required
 # **registerNewAsset**
 > AssetResponse registerNewAsset()
 
-Register a new asset to a workspace and return the newly created asset\'s details. Currently supported for EVM based chains only.
+Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
 
 ### Example
 

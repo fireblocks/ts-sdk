@@ -15,25 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { PolicyRuleCheckResult } from './policy-rule-check-result';
+import { ValidationKeyDto } from './validation-key-dto';
 
 /**
- * Policy rules validation result
+ * 
  * @export
- * @interface PolicyCheckResult
+ * @interface GetValidationKeyResponseDto
  */
-export interface PolicyCheckResult {
+export interface GetValidationKeyResponseDto {
     /**
-     * Number of errors
-     * @type {number}
-     * @memberof PolicyCheckResult
+     * Response object for getting external validation keys.
+     * @type {Array<ValidationKeyDto>}
+     * @memberof GetValidationKeyResponseDto
      */
-    'errors': number;
+    'data': Array<ValidationKeyDto>;
     /**
-     * A set of validation results
-     * @type {Array<PolicyRuleCheckResult>}
-     * @memberof PolicyCheckResult
+     * The ID of the next page
+     * @type {string}
+     * @memberof GetValidationKeyResponseDto
      */
-    'results': Array<PolicyRuleCheckResult>;
+    'next'?: string;
 }
 
