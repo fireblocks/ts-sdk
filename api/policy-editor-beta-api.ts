@@ -44,7 +44,7 @@ import { PublishResult } from '../models';
 export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Returns the active policy and its validation </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active policy and its validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -237,7 +237,7 @@ export const PolicyEditorBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = PolicyEditorBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Returns the active policy and its validation </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active policy and its validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -313,7 +313,7 @@ export const PolicyEditorBetaApiFactory = function (configuration?: Configuratio
     const localVarFp = PolicyEditorBetaApiFp(configuration)
     return {
         /**
-         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Returns the active policy and its validation </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active policy and its validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -434,7 +434,7 @@ export interface PolicyEditorBetaApiUpdateDraftRequest {
  */
 export class PolicyEditorBetaApi extends BaseAPI {
     /**
-     * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+     * Returns the active policy and its validation </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      * @summary Get the active policy and its validation
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
