@@ -16,6 +16,8 @@
 
 * `Failure` (value: `'failure'`)
 
+* `Test` (value: `'test'`)
+
 
 
 
