@@ -80,7 +80,7 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana 
          * @summary Register an asset
          * @param {RegisterNewAssetRequest} [registerNewAssetRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -141,7 +141,7 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana 
          * @summary Register an asset
          * @param {RegisterNewAssetRequest} [registerNewAssetRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -174,7 +174,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
             return localVarFp.getSupportedAssets(options).then((request) => request(axios, basePath));
         },
         /**
-         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana 
          * @summary Register an asset
          * @param {BlockchainsAssetsApiRegisterNewAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -226,7 +226,7 @@ export class BlockchainsAssetsApi extends BaseAPI {
     }
 
     /**
-     * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
+     * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana 
      * @summary Register an asset
      * @param {BlockchainsAssetsApiRegisterNewAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
