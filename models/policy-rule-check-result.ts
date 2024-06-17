@@ -45,7 +45,8 @@ export interface PolicyRuleCheckResult {
 
 export const PolicyRuleCheckResultStatusEnum = {
     Ok: 'ok',
-    Failure: 'failure'
+    Failure: 'failure',
+    Test: 'test'
 } as const;
 
 export type PolicyRuleCheckResultStatusEnum = typeof PolicyRuleCheckResultStatusEnum[keyof typeof PolicyRuleCheckResultStatusEnum];
