@@ -1,9 +1,10 @@
-name: Publish to NPM
+name: Create Pull Request
+
 on:
-  release:
-    types: [published]
-env:
-  GIT_TERMINAL_PROMPT: 1
+  push:
+    branches:
+      - 'fireblocks-api-spec/generated/*'
+
 jobs:
   bump-version:
     runs-on: ubuntu-latest
@@ -14,19 +15,17 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: |
           npm install
           npm i -g auto-changelog
       - name: Bump version and add changelog
         run: |
-          initialTag=${{ github.event.release.tag_name }}
+          initialTag=v1.1.1
           tag="${initialTag//[v]/}"
           echo $tag
           git remote update
           git fetch
-          git checkout --track origin/master
           git config --global user.email "github-actions@github.com"
           git config --global user.name "Github Actions"
           npm --no-git-tag-version --allow-same-version version $tag
@@ -34,31 +33,21 @@ jobs:
           git add .
           git commit -m "release $tag"
           git push
-      - name: Move tag
-        run: |
-          TAG_NAME=${{ github.event.release.tag_name }}
-          echo $tag
-          git tag -d $TAG_NAME
-          git push origin :refs/tags/$TAG_NAME
-          git tag $TAG_NAME
-          git push origin $TAG_NAME
-
-  publish:
+  create-pull-request:
     needs: bump-version
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out repository code
-        uses: actions/checkout@v3
-        with:
-          token: ${{ secrets.RELEASE_TOKEN }}
-      - name: Set up Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-      - name: Install dependencies
-        run: npm install
-      - name: Publish package
-        run: npm publish
+        uses: actions/checkout@v4
+
+      - name: Create pull request
+        run: |
+          gh pr create \
+            --title "${{ github.event.commits[0].message }}" \
+            --body "This PR was automatically generated." \
+            --base master \
+            --head ${{ github.ref }} \
+            --reviewer asafs932,zoharsf,YoavBZ
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
