@@ -3,20 +3,25 @@ on:
   release:
     types: [published]
 env:
-  GIT_TERMINAL_PROMPT: 1    
+  GIT_TERMINAL_PROMPT: 1
 jobs:
-  publish:
+  bump-version:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Check out repository code
+        uses: actions/checkout@v4
         with:
           token: ${{ secrets.RELEASE_TOKEN }}
-      - uses: actions/setup-node@v2
+      - name: Set up Node
+        uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          registry-url: 'https://registry.npmjs.org'
-      - run: npm install
-      - run: |
+      - name: Install dependencies
+        run: |
+          npm install
+          npm i -g auto-changelog
+      - name: Bump version and add changelog
+        run: |
           initialTag=${{ github.event.release.tag_name }}
           tag="${initialTag//[v]/}"
           echo $tag
@@ -26,11 +31,34 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "Github Actions"
           npm --no-git-tag-version --allow-same-version version $tag
-          npm i -g auto-changelog
           auto-changelog --hide-credit -l 0 -b 3
           git add .
           git commit -m "release $tag"
           git push
-      - run: npm publish
+      - name: Move tag
+        run: |
+          TAG_NAME=${{ github.event.release.tag_name }}
+          echo $tag
+          git tag --force $TAG_NAME
+          git push --force origin $TAG_NAME
+
+  publish:
+    needs: bump-version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+        with:
+          ref: master
+          fetch-depth: 0
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: npm install
+      - name: Publish package
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
