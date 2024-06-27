@@ -76,6 +76,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies
+        run: npm install
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
           registry-url: 'https://gitlab.com/api/v4/projects/20565764/packages/npm/'
       - name: Publish package
         run: npm publish --tag beta
