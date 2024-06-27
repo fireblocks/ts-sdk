@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -49,10 +50,8 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         resendTransactionWebhooks: async (resendTransactionWebhooksRequest: ResendTransactionWebhooksRequest, txId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'resendTransactionWebhooksRequest' is not null or undefined
             assertParamExists('resendTransactionWebhooks', 'resendTransactionWebhooksRequest', resendTransactionWebhooksRequest)
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('resendTransactionWebhooks', 'txId', txId)
+            assertParamExistsAndNotEmpty('resendTransactionWebhooks', 'txId', txId)
             const localVarPath = `/webhooks/resend/{txId}`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

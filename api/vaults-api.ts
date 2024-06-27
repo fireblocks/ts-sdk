@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -89,10 +90,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('activateAssetForVaultAccount', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('activateAssetForVaultAccount', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('activateAssetForVaultAccount', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('activateAssetForVaultAccount', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/activate`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -133,12 +132,9 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         createLegacyAddress: async (vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('createLegacyAddress', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('createLegacyAddress', 'assetId', assetId)
-            // verify required parameter 'addressId' is not null or undefined
-            assertParamExists('createLegacyAddress', 'addressId', addressId)
+            assertParamExistsAndNotEmpty('createLegacyAddress', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('createLegacyAddress', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('createLegacyAddress', 'addressId', addressId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
@@ -178,7 +174,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         createMultipleAccounts: async (createMultipleAccountsRequest: CreateMultipleAccountsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createMultipleAccountsRequest' is not null or undefined
             assertParamExists('createMultipleAccounts', 'createMultipleAccountsRequest', createMultipleAccountsRequest)
             const localVarPath = `/vault/accounts/bulk`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -219,7 +214,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         createVaultAccount: async (createVaultAccountRequest: CreateVaultAccountRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createVaultAccountRequest' is not null or undefined
             assertParamExists('createVaultAccount', 'createVaultAccountRequest', createVaultAccountRequest)
             const localVarPath = `/vault/accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -262,10 +256,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('createVaultAccountAsset', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('createVaultAccountAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('createVaultAccountAsset', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('createVaultAccountAsset', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -309,10 +301,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         createVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, createAddressRequest?: CreateAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('createVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('createVaultAccountAssetAddress', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('createVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('createVaultAccountAssetAddress', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -415,10 +405,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getMaxSpendableAmount', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getMaxSpendableAmount', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getMaxSpendableAmount', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getMaxSpendableAmount', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -528,10 +516,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getPublicKeyInfo: async (derivationPath: string, algorithm: string, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'derivationPath' is not null or undefined
-            assertParamExists('getPublicKeyInfo', 'derivationPath', derivationPath)
-            // verify required parameter 'algorithm' is not null or undefined
-            assertParamExists('getPublicKeyInfo', 'algorithm', algorithm)
+            assertParamExistsAndNotEmpty('getPublicKeyInfo', 'derivationPath', derivationPath)
+            assertParamExistsAndNotEmpty('getPublicKeyInfo', 'algorithm', algorithm)
             const localVarPath = `/vault/public_key_info`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -579,13 +565,9 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getPublicKeyInfoForAddress: async (vaultAccountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getPublicKeyInfoForAddress', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getPublicKeyInfoForAddress', 'assetId', assetId)
-            // verify required parameter 'change' is not null or undefined
+            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddress', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddress', 'assetId', assetId)
             assertParamExists('getPublicKeyInfoForAddress', 'change', change)
-            // verify required parameter 'addressIndex' is not null or undefined
             assertParamExists('getPublicKeyInfoForAddress', 'addressIndex', addressIndex)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
@@ -627,10 +609,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getUnspentInputs: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getUnspentInputs', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getUnspentInputs', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getUnspentInputs', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getUnspentInputs', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -664,8 +644,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getVaultAccount: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccount', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -699,10 +678,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getVaultAccountAsset: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountAsset', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAccountAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getVaultAccountAsset', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getVaultAccountAsset', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -740,10 +717,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getVaultAccountAssetAddressesPaginated: async (vaultAccountId: string, assetId: string, limit?: number, before?: string, after?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('getVaultAccountAssetAddressesPaginated', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultAccountAssetAddressesPaginated', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getVaultAccountAssetAddressesPaginated', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getVaultAccountAssetAddressesPaginated', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -829,8 +804,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         getVaultBalanceByAsset: async (assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getVaultBalanceByAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getVaultBalanceByAsset', 'assetId', assetId)
             const localVarPath = `/vault/assets/{assetId}`
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -864,8 +838,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         hideVaultAccount: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('hideVaultAccount', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('hideVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/hide`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -906,14 +879,10 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         setCustomerRefIdForAddress: async (setCustomerRefIdForAddressRequest: SetCustomerRefIdForAddressRequest, vaultAccountId: string, assetId: string, addressId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdForAddressRequest' is not null or undefined
             assertParamExists('setCustomerRefIdForAddress', 'setCustomerRefIdForAddressRequest', setCustomerRefIdForAddressRequest)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setCustomerRefIdForAddress', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('setCustomerRefIdForAddress', 'assetId', assetId)
-            // verify required parameter 'addressId' is not null or undefined
-            assertParamExists('setCustomerRefIdForAddress', 'addressId', addressId)
+            assertParamExistsAndNotEmpty('setCustomerRefIdForAddress', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('setCustomerRefIdForAddress', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('setCustomerRefIdForAddress', 'addressId', addressId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
@@ -957,10 +926,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         setVaultAccountAutoFuel: async (setAutoFuelRequest: SetAutoFuelRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setAutoFuelRequest' is not null or undefined
             assertParamExists('setVaultAccountAutoFuel', 'setAutoFuelRequest', setAutoFuelRequest)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setVaultAccountAutoFuel', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('setVaultAccountAutoFuel', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/set_auto_fuel`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1002,10 +969,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         setVaultAccountCustomerRefId: async (setCustomerRefIdRequest: SetCustomerRefIdRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdRequest' is not null or undefined
             assertParamExists('setVaultAccountCustomerRefId', 'setCustomerRefIdRequest', setCustomerRefIdRequest)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('setVaultAccountCustomerRefId', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('setVaultAccountCustomerRefId', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/set_customer_ref_id`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1046,8 +1011,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         unhideVaultAccount: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('unhideVaultAccount', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('unhideVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/unhide`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1086,10 +1050,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         updateVaultAccount: async (updateVaultAccountRequest: UpdateVaultAccountRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'updateVaultAccountRequest' is not null or undefined
             assertParamExists('updateVaultAccount', 'updateVaultAccountRequest', updateVaultAccountRequest)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('updateVaultAccount', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('updateVaultAccount', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/vault/accounts/{vaultAccountId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -1133,12 +1095,9 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         updateVaultAccountAssetAddress: async (vaultAccountId: string, assetId: string, addressId: string, updateVaultAccountAssetAddressRequest?: UpdateVaultAccountAssetAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('updateVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('updateVaultAccountAssetAddress', 'assetId', assetId)
-            // verify required parameter 'addressId' is not null or undefined
-            assertParamExists('updateVaultAccountAssetAddress', 'addressId', addressId)
+            assertParamExistsAndNotEmpty('updateVaultAccountAssetAddress', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('updateVaultAccountAssetAddress', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('updateVaultAccountAssetAddress', 'addressId', addressId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
@@ -1182,10 +1141,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @throws {RequiredError}
          */
         updateVaultAccountAssetBalance: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('updateVaultAccountAssetBalance', 'vaultAccountId', vaultAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('updateVaultAccountAssetBalance', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('updateVaultAccountAssetBalance', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('updateVaultAccountAssetBalance', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/balance`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));

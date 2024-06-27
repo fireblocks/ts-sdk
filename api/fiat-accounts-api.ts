@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -53,8 +54,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         depositFundsFromLinkedDDA: async (accountId: string, funds?: Funds, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('depositFundsFromLinkedDDA', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('depositFundsFromLinkedDDA', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}/deposit_from_linked_dda`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -94,8 +94,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         getFiatAccount: async (accountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('getFiatAccount', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getFiatAccount', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -160,8 +159,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         redeemFundsToLinkedDDA: async (accountId: string, funds?: Funds, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accountId' is not null or undefined
-            assertParamExists('redeemFundsToLinkedDDA', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('redeemFundsToLinkedDDA', 'accountId', accountId)
             const localVarPath = `/fiat_accounts/{accountId}/redeem_to_linked_dda`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

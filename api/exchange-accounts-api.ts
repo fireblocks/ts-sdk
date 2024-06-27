@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -57,8 +58,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         convertAssets: async (exchangeAccountId: string, convertAssetsRequest?: ConvertAssetsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'exchangeAccountId' is not null or undefined
-            assertParamExists('convertAssets', 'exchangeAccountId', exchangeAccountId)
+            assertParamExistsAndNotEmpty('convertAssets', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/convert`
                 .replace(`{${"exchangeAccountId"}}`, encodeURIComponent(String(exchangeAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -98,8 +98,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         getExchangeAccount: async (exchangeAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'exchangeAccountId' is not null or undefined
-            assertParamExists('getExchangeAccount', 'exchangeAccountId', exchangeAccountId)
+            assertParamExistsAndNotEmpty('getExchangeAccount', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}`
                 .replace(`{${"exchangeAccountId"}}`, encodeURIComponent(String(exchangeAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -133,10 +132,8 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         getExchangeAccountAsset: async (exchangeAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'exchangeAccountId' is not null or undefined
-            assertParamExists('getExchangeAccountAsset', 'exchangeAccountId', exchangeAccountId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getExchangeAccountAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getExchangeAccountAsset', 'exchangeAccountId', exchangeAccountId)
+            assertParamExistsAndNotEmpty('getExchangeAccountAsset', 'assetId', assetId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/{assetId}`
                 .replace(`{${"exchangeAccountId"}}`, encodeURIComponent(String(exchangeAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -172,7 +169,6 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         getPagedExchangeAccounts: async (limit: number, before?: string, after?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'limit' is not null or undefined
             assertParamExists('getPagedExchangeAccounts', 'limit', limit)
             const localVarPath = `/exchange_accounts/paged`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -219,8 +215,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         internalTransfer: async (exchangeAccountId: string, createInternalTransferRequest?: CreateInternalTransferRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'exchangeAccountId' is not null or undefined
-            assertParamExists('internalTransfer', 'exchangeAccountId', exchangeAccountId)
+            assertParamExistsAndNotEmpty('internalTransfer', 'exchangeAccountId', exchangeAccountId)
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/internal_transfer`
                 .replace(`{${"exchangeAccountId"}}`, encodeURIComponent(String(exchangeAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -112,7 +113,6 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         publishDraft: async (publishDraftRequest: PublishDraftRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'publishDraftRequest' is not null or undefined
             assertParamExists('publishDraft', 'publishDraftRequest', publishDraftRequest)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -153,7 +153,6 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         publishPolicyRules: async (policyRules: PolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'policyRules' is not null or undefined
             assertParamExists('publishPolicyRules', 'policyRules', policyRules)
             const localVarPath = `/tap/publish`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -194,7 +193,6 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
          * @throws {RequiredError}
          */
         updateDraft: async (policyRules: PolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'policyRules' is not null or undefined
             assertParamExists('updateDraft', 'policyRules', policyRules)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

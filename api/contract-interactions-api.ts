@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -53,10 +54,8 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
          * @throws {RequiredError}
          */
         getDeployedContractAbi: async (contractAddress: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractAddress' is not null or undefined
-            assertParamExists('getDeployedContractAbi', 'contractAddress', contractAddress)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getDeployedContractAbi', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getDeployedContractAbi', 'contractAddress', contractAddress)
+            assertParamExistsAndNotEmpty('getDeployedContractAbi', 'assetId', assetId)
             const localVarPath = `/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -97,12 +96,9 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
          * @throws {RequiredError}
          */
         readCallFunction: async (readCallFunctionDto: ReadCallFunctionDto, contractAddress: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'readCallFunctionDto' is not null or undefined
             assertParamExists('readCallFunction', 'readCallFunctionDto', readCallFunctionDto)
-            // verify required parameter 'contractAddress' is not null or undefined
-            assertParamExists('readCallFunction', 'contractAddress', contractAddress)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('readCallFunction', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('readCallFunction', 'contractAddress', contractAddress)
+            assertParamExistsAndNotEmpty('readCallFunction', 'assetId', assetId)
             const localVarPath = `/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -146,12 +142,9 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
          * @throws {RequiredError}
          */
         writeCallFunction: async (writeCallFunctionDto: WriteCallFunctionDto, contractAddress: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'writeCallFunctionDto' is not null or undefined
             assertParamExists('writeCallFunction', 'writeCallFunctionDto', writeCallFunctionDto)
-            // verify required parameter 'contractAddress' is not null or undefined
-            assertParamExists('writeCallFunction', 'contractAddress', contractAddress)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('writeCallFunction', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('writeCallFunction', 'contractAddress', contractAddress)
+            assertParamExistsAndNotEmpty('writeCallFunction', 'assetId', assetId)
             const localVarPath = `/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));

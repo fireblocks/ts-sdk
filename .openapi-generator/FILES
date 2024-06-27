@@ -1035,4 +1035,6 @@ tests/bearerTokenProvider.spec.ts
 tests/client.spec.ts
 tests/fireblocksError.spec.ts
 tests/fireblocksResponse.spec.ts
+tests/validation_utils.spec.ts
 tsconfig.json
+utils/validation_utils.ts

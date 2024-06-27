@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -56,10 +57,8 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         addAssetToExternalWallet: async (walletId: string, assetId: string, addAssetToExternalWalletRequest?: AddAssetToExternalWalletRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('addAssetToExternalWallet', 'walletId', walletId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('addAssetToExternalWallet', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('addAssetToExternalWallet', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('addAssetToExternalWallet', 'assetId', assetId)
             const localVarPath = `/external_wallets/{walletId}/{assetId}`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -139,8 +138,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         deleteExternalWallet: async (walletId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('deleteExternalWallet', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('deleteExternalWallet', 'walletId', walletId)
             const localVarPath = `/external_wallets/{walletId}`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -173,8 +171,7 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         getExternalWallet: async (walletId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('getExternalWallet', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getExternalWallet', 'walletId', walletId)
             const localVarPath = `/external_wallets/{walletId}`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -208,10 +205,8 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         getExternalWalletAsset: async (walletId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('getExternalWalletAsset', 'walletId', walletId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getExternalWalletAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getExternalWalletAsset', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getExternalWalletAsset', 'assetId', assetId)
             const localVarPath = `/external_wallets/{walletId}/{assetId}`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -276,10 +271,8 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         removeAssetFromExternalWallet: async (walletId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('removeAssetFromExternalWallet', 'walletId', walletId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('removeAssetFromExternalWallet', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('removeAssetFromExternalWallet', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('removeAssetFromExternalWallet', 'assetId', assetId)
             const localVarPath = `/external_wallets/{walletId}/{assetId}`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -315,10 +308,8 @@ export const ExternalWalletsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         setExternalWalletCustomerRefId: async (setCustomerRefIdRequest: SetCustomerRefIdRequest, walletId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setCustomerRefIdRequest' is not null or undefined
             assertParamExists('setExternalWalletCustomerRefId', 'setCustomerRefIdRequest', setCustomerRefIdRequest)
-            // verify required parameter 'walletId' is not null or undefined
-            assertParamExists('setExternalWalletCustomerRefId', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('setExternalWalletCustomerRefId', 'walletId', walletId)
             const localVarPath = `/external_wallets/{walletId}/set_customer_ref_id`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

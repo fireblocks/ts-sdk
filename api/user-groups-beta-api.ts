@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -54,7 +55,6 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         createUserGroup: async (userGroupCreateRequest: UserGroupCreateRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userGroupCreateRequest' is not null or undefined
             assertParamExists('createUserGroup', 'userGroupCreateRequest', userGroupCreateRequest)
             const localVarPath = `/management/user_groups`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -94,8 +94,7 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         deleteUserGroup: async (groupId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'groupId' is not null or undefined
-            assertParamExists('deleteUserGroup', 'groupId', groupId)
+            assertParamExistsAndNotEmpty('deleteUserGroup', 'groupId', groupId)
             const localVarPath = `/management/user_groups/{groupId}`
                 .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -128,8 +127,7 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         getUserGroup: async (groupId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'groupId' is not null or undefined
-            assertParamExists('getUserGroup', 'groupId', groupId)
+            assertParamExistsAndNotEmpty('getUserGroup', 'groupId', groupId)
             const localVarPath = `/management/user_groups/{groupId}`
                 .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -194,10 +192,8 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         updateUserGroup: async (userGroupUpdateRequest: UserGroupUpdateRequest, groupId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userGroupUpdateRequest' is not null or undefined
             assertParamExists('updateUserGroup', 'userGroupUpdateRequest', userGroupUpdateRequest)
-            // verify required parameter 'groupId' is not null or undefined
-            assertParamExists('updateUserGroup', 'groupId', groupId)
+            assertParamExistsAndNotEmpty('updateUserGroup', 'groupId', groupId)
             const localVarPath = `/management/user_groups/{groupId}`
                 .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

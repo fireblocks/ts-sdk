@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -72,8 +73,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         cancelTicket: async (ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('cancelTicket', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('cancelTicket', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/cancel`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -111,7 +111,6 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         createTicket: async (smartTransferCreateTicket: SmartTransferCreateTicket, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferCreateTicket' is not null or undefined
             assertParamExists('createTicket', 'smartTransferCreateTicket', smartTransferCreateTicket)
             const localVarPath = `/smart-transfers`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -153,10 +152,8 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         createTicketTerm: async (smartTransferCreateTicketTerm: SmartTransferCreateTicketTerm, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferCreateTicketTerm' is not null or undefined
             assertParamExists('createTicketTerm', 'smartTransferCreateTicketTerm', smartTransferCreateTicketTerm)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('createTicketTerm', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('createTicketTerm', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/terms`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -196,8 +193,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         findTicketById: async (ticketId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('findTicketById', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('findTicketById', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -231,10 +227,8 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         findTicketTermById: async (ticketId: string, termId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('findTicketTermById', 'ticketId', ticketId)
-            // verify required parameter 'termId' is not null or undefined
-            assertParamExists('findTicketTermById', 'termId', termId)
+            assertParamExistsAndNotEmpty('findTicketTermById', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('findTicketTermById', 'termId', termId)
             const localVarPath = `/smart-transfers/{ticketId}/terms/{termId}`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)))
                 .replace(`{${"termId"}}`, encodeURIComponent(String(termId)));
@@ -269,8 +263,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         fulfillTicket: async (ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('fulfillTicket', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('fulfillTicket', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/fulfill`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -310,12 +303,9 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         fundTicketTerm: async (smartTransferFundTerm: SmartTransferFundTerm, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferFundTerm' is not null or undefined
             assertParamExists('fundTicketTerm', 'smartTransferFundTerm', smartTransferFundTerm)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('fundTicketTerm', 'ticketId', ticketId)
-            // verify required parameter 'termId' is not null or undefined
-            assertParamExists('fundTicketTerm', 'termId', termId)
+            assertParamExistsAndNotEmpty('fundTicketTerm', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('fundTicketTerm', 'termId', termId)
             const localVarPath = `/smart-transfers/{ticketId}/terms/{termId}/fund`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)))
                 .replace(`{${"termId"}}`, encodeURIComponent(String(termId)));
@@ -389,12 +379,9 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         manuallyFundTicketTerm: async (smartTransferManuallyFundTerm: SmartTransferManuallyFundTerm, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferManuallyFundTerm' is not null or undefined
             assertParamExists('manuallyFundTicketTerm', 'smartTransferManuallyFundTerm', smartTransferManuallyFundTerm)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('manuallyFundTicketTerm', 'ticketId', ticketId)
-            // verify required parameter 'termId' is not null or undefined
-            assertParamExists('manuallyFundTicketTerm', 'termId', termId)
+            assertParamExistsAndNotEmpty('manuallyFundTicketTerm', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('manuallyFundTicketTerm', 'termId', termId)
             const localVarPath = `/smart-transfers/{ticketId}/terms/{termId}/manually-fund`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)))
                 .replace(`{${"termId"}}`, encodeURIComponent(String(termId)));
@@ -436,10 +423,8 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         removeTicketTerm: async (ticketId: string, termId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('removeTicketTerm', 'ticketId', ticketId)
-            // verify required parameter 'termId' is not null or undefined
-            assertParamExists('removeTicketTerm', 'termId', termId)
+            assertParamExistsAndNotEmpty('removeTicketTerm', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('removeTicketTerm', 'termId', termId)
             const localVarPath = `/smart-transfers/{ticketId}/terms/{termId}`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)))
                 .replace(`{${"termId"}}`, encodeURIComponent(String(termId)));
@@ -559,10 +544,8 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         setExternalRefId: async (smartTransferSetTicketExternalId: SmartTransferSetTicketExternalId, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSetTicketExternalId' is not null or undefined
             assertParamExists('setExternalRefId', 'smartTransferSetTicketExternalId', smartTransferSetTicketExternalId)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('setExternalRefId', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('setExternalRefId', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/external-id`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -604,10 +587,8 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         setTicketExpiration: async (smartTransferSetTicketExpiration: SmartTransferSetTicketExpiration, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSetTicketExpiration' is not null or undefined
             assertParamExists('setTicketExpiration', 'smartTransferSetTicketExpiration', smartTransferSetTicketExpiration)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('setTicketExpiration', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('setTicketExpiration', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/expires-in`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -648,7 +629,6 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         setUserGroups: async (smartTransferSetUserGroups: SmartTransferSetUserGroups, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSetUserGroups' is not null or undefined
             assertParamExists('setUserGroups', 'smartTransferSetUserGroups', smartTransferSetUserGroups)
             const localVarPath = `/smart-transfers/settings/user-groups`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -690,10 +670,8 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         submitTicket: async (smartTransferSubmitTicket: SmartTransferSubmitTicket, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferSubmitTicket' is not null or undefined
             assertParamExists('submitTicket', 'smartTransferSubmitTicket', smartTransferSubmitTicket)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('submitTicket', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('submitTicket', 'ticketId', ticketId)
             const localVarPath = `/smart-transfers/{ticketId}/submit`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -736,12 +714,9 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         updateTicketTerm: async (smartTransferUpdateTicketTerm: SmartTransferUpdateTicketTerm, ticketId: string, termId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'smartTransferUpdateTicketTerm' is not null or undefined
             assertParamExists('updateTicketTerm', 'smartTransferUpdateTicketTerm', smartTransferUpdateTicketTerm)
-            // verify required parameter 'ticketId' is not null or undefined
-            assertParamExists('updateTicketTerm', 'ticketId', ticketId)
-            // verify required parameter 'termId' is not null or undefined
-            assertParamExists('updateTicketTerm', 'termId', termId)
+            assertParamExistsAndNotEmpty('updateTicketTerm', 'ticketId', ticketId)
+            assertParamExistsAndNotEmpty('updateTicketTerm', 'termId', termId)
             const localVarPath = `/smart-transfers/{ticketId}/terms/{termId}`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)))
                 .replace(`{${"termId"}}`, encodeURIComponent(String(termId)));

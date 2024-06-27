@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -87,8 +88,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         executePayoutAction: async (payoutId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'payoutId' is not null or undefined
-            assertParamExists('executePayoutAction', 'payoutId', payoutId)
+            assertParamExistsAndNotEmpty('executePayoutAction', 'payoutId', payoutId)
             const localVarPath = `/payments/payout/{payoutId}/actions/execute`
                 .replace(`{${"payoutId"}}`, encodeURIComponent(String(payoutId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -125,8 +125,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         getPayout: async (payoutId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'payoutId' is not null or undefined
-            assertParamExists('getPayout', 'payoutId', payoutId)
+            assertParamExistsAndNotEmpty('getPayout', 'payoutId', payoutId)
             const localVarPath = `/payments/payout/{payoutId}`
                 .replace(`{${"payoutId"}}`, encodeURIComponent(String(payoutId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

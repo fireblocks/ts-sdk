@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -48,8 +49,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         cancelJob: async (jobId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'jobId' is not null or undefined
-            assertParamExists('cancelJob', 'jobId', jobId)
+            assertParamExistsAndNotEmpty('cancelJob', 'jobId', jobId)
             const localVarPath = `/batch/{jobId}/cancel`
                 .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -87,8 +87,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         continueJob: async (jobId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'jobId' is not null or undefined
-            assertParamExists('continueJob', 'jobId', jobId)
+            assertParamExistsAndNotEmpty('continueJob', 'jobId', jobId)
             const localVarPath = `/batch/{jobId}/continue`
                 .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -125,8 +124,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         getJob: async (jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'jobId' is not null or undefined
-            assertParamExists('getJob', 'jobId', jobId)
+            assertParamExistsAndNotEmpty('getJob', 'jobId', jobId)
             const localVarPath = `/batch/{jobId}`
                 .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -159,8 +157,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         getJobTasks: async (jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'jobId' is not null or undefined
-            assertParamExists('getJobTasks', 'jobId', jobId)
+            assertParamExistsAndNotEmpty('getJobTasks', 'jobId', jobId)
             const localVarPath = `/batch/{jobId}/tasks`
                 .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -234,8 +231,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         pauseJob: async (jobId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'jobId' is not null or undefined
-            assertParamExists('pauseJob', 'jobId', jobId)
+            assertParamExistsAndNotEmpty('pauseJob', 'jobId', jobId)
             const localVarPath = `/batch/{jobId}/pause`
                 .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
