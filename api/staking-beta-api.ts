@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -58,8 +59,7 @@ export const StakingBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         approveTermsOfServiceByProviderId: async (providerId: ApproveTermsOfServiceByProviderIdProviderIdEnum, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'providerId' is not null or undefined
-            assertParamExists('approveTermsOfServiceByProviderId', 'providerId', providerId)
+            assertParamExistsAndNotEmpty('approveTermsOfServiceByProviderId', 'providerId', providerId)
             const localVarPath = `/staking/providers/{providerId}/approveTermsOfService`
                 .replace(`{${"providerId"}}`, encodeURIComponent(String(providerId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -99,12 +99,9 @@ export const StakingBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         executeAction: async (executeActionRequest: ExecuteActionRequest, chainDescriptor: ExecuteActionChainDescriptorEnum, actionId: ExecuteActionActionIdEnum, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'executeActionRequest' is not null or undefined
             assertParamExists('executeAction', 'executeActionRequest', executeActionRequest)
-            // verify required parameter 'chainDescriptor' is not null or undefined
-            assertParamExists('executeAction', 'chainDescriptor', chainDescriptor)
-            // verify required parameter 'actionId' is not null or undefined
-            assertParamExists('executeAction', 'actionId', actionId)
+            assertParamExistsAndNotEmpty('executeAction', 'chainDescriptor', chainDescriptor)
+            assertParamExistsAndNotEmpty('executeAction', 'actionId', actionId)
             const localVarPath = `/staking/chains/{chainDescriptor}/{actionId}`
                 .replace(`{${"chainDescriptor"}}`, encodeURIComponent(String(chainDescriptor)))
                 .replace(`{${"actionId"}}`, encodeURIComponent(String(actionId)));
@@ -180,8 +177,7 @@ export const StakingBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         getChainInfo: async (chainDescriptor: GetChainInfoChainDescriptorEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'chainDescriptor' is not null or undefined
-            assertParamExists('getChainInfo', 'chainDescriptor', chainDescriptor)
+            assertParamExistsAndNotEmpty('getChainInfo', 'chainDescriptor', chainDescriptor)
             const localVarPath = `/staking/chains/{chainDescriptor}/chainInfo`
                 .replace(`{${"chainDescriptor"}}`, encodeURIComponent(String(chainDescriptor)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -244,8 +240,7 @@ export const StakingBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         getDelegationById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('getDelegationById', 'id', id)
+            assertParamExistsAndNotEmpty('getDelegationById', 'id', id)
             const localVarPath = `/staking/positions/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

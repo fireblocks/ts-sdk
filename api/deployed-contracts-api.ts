@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -46,10 +47,8 @@ export const DeployedContractsApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         getDeployedContractByAddress: async (contractAddress: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractAddress' is not null or undefined
-            assertParamExists('getDeployedContractByAddress', 'contractAddress', contractAddress)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getDeployedContractByAddress', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getDeployedContractByAddress', 'contractAddress', contractAddress)
+            assertParamExistsAndNotEmpty('getDeployedContractByAddress', 'assetId', assetId)
             const localVarPath = `/tokenization/contracts/{assetId}/{contractAddress}`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -83,8 +82,7 @@ export const DeployedContractsApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         getDeployedContractById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('getDeployedContractById', 'id', id)
+            assertParamExistsAndNotEmpty('getDeployedContractById', 'id', id)
             const localVarPath = `/tokenization/contracts/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -71,8 +72,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         cancelTransaction: async (txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('cancelTransaction', 'txId', txId)
+            assertParamExistsAndNotEmpty('cancelTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/cancel`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -160,8 +160,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         dropTransaction: async (txId: string, dropTransactionRequest?: DropTransactionRequest, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('dropTransaction', 'txId', txId)
+            assertParamExistsAndNotEmpty('dropTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/drop`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -205,8 +204,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         estimateNetworkFee: async (assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('estimateNetworkFee', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('estimateNetworkFee', 'assetId', assetId)
             const localVarPath = `/estimate_network_fee`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -283,8 +281,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         freezeTransaction: async (txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('freezeTransaction', 'txId', txId)
+            assertParamExistsAndNotEmpty('freezeTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/freeze`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -325,8 +322,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         getTransaction: async (txId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('getTransaction', 'txId', txId)
+            assertParamExistsAndNotEmpty('getTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -359,8 +355,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         getTransactionByExternalId: async (externalTxId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'externalTxId' is not null or undefined
-            assertParamExists('getTransactionByExternalId', 'externalTxId', externalTxId)
+            assertParamExistsAndNotEmpty('getTransactionByExternalId', 'externalTxId', externalTxId)
             const localVarPath = `/transactions/external_tx_id/{externalTxId}`
                 .replace(`{${"externalTxId"}}`, encodeURIComponent(String(externalTxId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -495,8 +490,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         setConfirmationThresholdByTransactionHash: async (txHash: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txHash' is not null or undefined
-            assertParamExists('setConfirmationThresholdByTransactionHash', 'txHash', txHash)
+            assertParamExistsAndNotEmpty('setConfirmationThresholdByTransactionHash', 'txHash', txHash)
             const localVarPath = `/txHash/{txHash}/set_confirmation_threshold`
                 .replace(`{${"txHash"}}`, encodeURIComponent(String(txHash)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -538,8 +532,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         setTransactionConfirmationThreshold: async (txId: string, setConfirmationsThresholdRequest?: SetConfirmationsThresholdRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('setTransactionConfirmationThreshold', 'txId', txId)
+            assertParamExistsAndNotEmpty('setTransactionConfirmationThreshold', 'txId', txId)
             const localVarPath = `/transactions/{txId}/set_confirmation_threshold`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -581,8 +574,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         unfreezeTransaction: async (txId: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'txId' is not null or undefined
-            assertParamExists('unfreezeTransaction', 'txId', txId)
+            assertParamExistsAndNotEmpty('unfreezeTransaction', 'txId', txId)
             const localVarPath = `/transactions/{txId}/unfreeze`
                 .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -624,10 +616,8 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         validateAddress: async (assetId: string, address: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('validateAddress', 'assetId', assetId)
-            // verify required parameter 'address' is not null or undefined
-            assertParamExists('validateAddress', 'address', address)
+            assertParamExistsAndNotEmpty('validateAddress', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('validateAddress', 'address', address)
             const localVarPath = `/transactions/validate_address/{assetId}/{address}`
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
                 .replace(`{${"address"}}`, encodeURIComponent(String(address)));

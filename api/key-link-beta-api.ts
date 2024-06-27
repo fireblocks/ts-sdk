@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -62,7 +63,6 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         createSigningKey: async (createSigningKeyDto: CreateSigningKeyDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createSigningKeyDto' is not null or undefined
             assertParamExists('createSigningKey', 'createSigningKeyDto', createSigningKeyDto)
             const localVarPath = `/key_link/signing_keys`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -103,7 +103,6 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         createValidationKey: async (createValidationKeyDto: CreateValidationKeyDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createValidationKeyDto' is not null or undefined
             assertParamExists('createValidationKey', 'createValidationKeyDto', createValidationKeyDto)
             const localVarPath = `/key_link/validation_keys`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -144,10 +143,8 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         disableValidationKey: async (modifyValidationKeyDto: ModifyValidationKeyDto, keyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'modifyValidationKeyDto' is not null or undefined
             assertParamExists('disableValidationKey', 'modifyValidationKeyDto', modifyValidationKeyDto)
-            // verify required parameter 'keyId' is not null or undefined
-            assertParamExists('disableValidationKey', 'keyId', keyId)
+            assertParamExistsAndNotEmpty('disableValidationKey', 'keyId', keyId)
             const localVarPath = `/key_link/validation_keys/{keyId}`
                 .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -183,8 +180,7 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         getSigningKey: async (keyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'keyId' is not null or undefined
-            assertParamExists('getSigningKey', 'keyId', keyId)
+            assertParamExistsAndNotEmpty('getSigningKey', 'keyId', keyId)
             const localVarPath = `/key_link/signing_keys/{keyId}`
                 .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -267,8 +263,7 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         getValidationKey: async (keyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'keyId' is not null or undefined
-            assertParamExists('getValidationKey', 'keyId', keyId)
+            assertParamExistsAndNotEmpty('getValidationKey', 'keyId', keyId)
             const localVarPath = `/key_link/validation_keys/{keyId}`
                 .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -352,10 +347,8 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         setAgentId: async (modifySigningKeyAgentIdDto: ModifySigningKeyAgentIdDto, keyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'modifySigningKeyAgentIdDto' is not null or undefined
             assertParamExists('setAgentId', 'modifySigningKeyAgentIdDto', modifySigningKeyAgentIdDto)
-            // verify required parameter 'keyId' is not null or undefined
-            assertParamExists('setAgentId', 'keyId', keyId)
+            assertParamExistsAndNotEmpty('setAgentId', 'keyId', keyId)
             const localVarPath = `/key_link/signing_keys/{keyId}/agent_user_id`
                 .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -392,10 +385,8 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @throws {RequiredError}
          */
         updateSigningKey: async (modifySigningKeyDto: ModifySigningKeyDto, keyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'modifySigningKeyDto' is not null or undefined
             assertParamExists('updateSigningKey', 'modifySigningKeyDto', modifySigningKeyDto)
-            // verify required parameter 'keyId' is not null or undefined
-            assertParamExists('updateSigningKey', 'keyId', keyId)
+            assertParamExistsAndNotEmpty('updateSigningKey', 'keyId', keyId)
             const localVarPath = `/key_link/signing_keys/{keyId}`
                 .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -52,10 +53,8 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         getApiKey: async (cosignerId: string, apiKeyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cosignerId' is not null or undefined
-            assertParamExists('getApiKey', 'cosignerId', cosignerId)
-            // verify required parameter 'apiKeyId' is not null or undefined
-            assertParamExists('getApiKey', 'apiKeyId', apiKeyId)
+            assertParamExistsAndNotEmpty('getApiKey', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('getApiKey', 'apiKeyId', apiKeyId)
             const localVarPath = `/cosigners/{cosignerId}/api_keys/{apiKeyId}`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
                 .replace(`{${"apiKeyId"}}`, encodeURIComponent(String(apiKeyId)));
@@ -92,8 +91,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         getApiKeys: async (cosignerId: string, order?: GetApiKeysOrderEnum, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cosignerId' is not null or undefined
-            assertParamExists('getApiKeys', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('getApiKeys', 'cosignerId', cosignerId)
             const localVarPath = `/cosigners/{cosignerId}/api_keys`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -138,8 +136,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         getCosigner: async (cosignerId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cosignerId' is not null or undefined
-            assertParamExists('getCosigner', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('getCosigner', 'cosignerId', cosignerId)
             const localVarPath = `/cosigners/{cosignerId}`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -218,10 +215,8 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
          * @throws {RequiredError}
          */
         renameCosigner: async (renameCosigner: RenameCosigner, cosignerId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'renameCosigner' is not null or undefined
             assertParamExists('renameCosigner', 'renameCosigner', renameCosigner)
-            // verify required parameter 'cosignerId' is not null or undefined
-            assertParamExists('renameCosigner', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('renameCosigner', 'cosignerId', cosignerId)
             const localVarPath = `/cosigners/{cosignerId}`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

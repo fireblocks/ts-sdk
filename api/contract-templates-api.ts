@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -55,8 +56,7 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         deleteContractTemplateById: async (contractTemplateId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractTemplateId' is not null or undefined
-            assertParamExists('deleteContractTemplateById', 'contractTemplateId', contractTemplateId)
+            assertParamExistsAndNotEmpty('deleteContractTemplateById', 'contractTemplateId', contractTemplateId)
             const localVarPath = `/tokenization/templates/{contractTemplateId}`
                 .replace(`{${"contractTemplateId"}}`, encodeURIComponent(String(contractTemplateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -91,10 +91,8 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         deployContract: async (contractDeployRequest: ContractDeployRequest, contractTemplateId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractDeployRequest' is not null or undefined
             assertParamExists('deployContract', 'contractDeployRequest', contractDeployRequest)
-            // verify required parameter 'contractTemplateId' is not null or undefined
-            assertParamExists('deployContract', 'contractTemplateId', contractTemplateId)
+            assertParamExistsAndNotEmpty('deployContract', 'contractTemplateId', contractTemplateId)
             const localVarPath = `/tokenization/templates/{contractTemplateId}/deploy`
                 .replace(`{${"contractTemplateId"}}`, encodeURIComponent(String(contractTemplateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -135,8 +133,7 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         getConstructorByContractTemplateId: async (contractTemplateId: string, withDocs?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractTemplateId' is not null or undefined
-            assertParamExists('getConstructorByContractTemplateId', 'contractTemplateId', contractTemplateId)
+            assertParamExistsAndNotEmpty('getConstructorByContractTemplateId', 'contractTemplateId', contractTemplateId)
             const localVarPath = `/tokenization/templates/{contractTemplateId}/constructor`
                 .replace(`{${"contractTemplateId"}}`, encodeURIComponent(String(contractTemplateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -173,8 +170,7 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         getContractTemplateById: async (contractTemplateId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractTemplateId' is not null or undefined
-            assertParamExists('getContractTemplateById', 'contractTemplateId', contractTemplateId)
+            assertParamExistsAndNotEmpty('getContractTemplateById', 'contractTemplateId', contractTemplateId)
             const localVarPath = `/tokenization/templates/{contractTemplateId}`
                 .replace(`{${"contractTemplateId"}}`, encodeURIComponent(String(contractTemplateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -268,10 +264,8 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         getFunctionAbiByContractTemplateId: async (contractTemplateId: string, functionSignature: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractTemplateId' is not null or undefined
-            assertParamExists('getFunctionAbiByContractTemplateId', 'contractTemplateId', contractTemplateId)
-            // verify required parameter 'functionSignature' is not null or undefined
-            assertParamExists('getFunctionAbiByContractTemplateId', 'functionSignature', functionSignature)
+            assertParamExistsAndNotEmpty('getFunctionAbiByContractTemplateId', 'contractTemplateId', contractTemplateId)
+            assertParamExistsAndNotEmpty('getFunctionAbiByContractTemplateId', 'functionSignature', functionSignature)
             const localVarPath = `/tokenization/templates/{contractTemplateId}/function`
                 .replace(`{${"contractTemplateId"}}`, encodeURIComponent(String(contractTemplateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -309,7 +303,6 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
          * @throws {RequiredError}
          */
         uploadContractTemplate: async (contractUploadRequest: ContractUploadRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractUploadRequest' is not null or undefined
             assertParamExists('uploadContractTemplate', 'contractUploadRequest', contractUploadRequest)
             const localVarPath = `/tokenization/templates`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

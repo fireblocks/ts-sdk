@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -50,7 +51,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         create: async (createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createConnectionRequest' is not null or undefined
             assertParamExists('create', 'createConnectionRequest', createConnectionRequest)
             const localVarPath = `/connections/wc`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -147,8 +147,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         remove: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('remove', 'id', id)
+            assertParamExistsAndNotEmpty('remove', 'id', id)
             const localVarPath = `/connections/wc/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -183,10 +182,8 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @throws {RequiredError}
          */
         submit: async (respondToConnectionRequest: RespondToConnectionRequest, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'respondToConnectionRequest' is not null or undefined
             assertParamExists('submit', 'respondToConnectionRequest', respondToConnectionRequest)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('submit', 'id', id)
+            assertParamExistsAndNotEmpty('submit', 'id', id)
             const localVarPath = `/connections/wc/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

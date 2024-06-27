@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -54,10 +55,8 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @throws {RequiredError}
          */
         addContractAsset: async (contractId: string, assetId: string, addContractAssetRequest?: AddContractAssetRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('addContractAsset', 'contractId', contractId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('addContractAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('addContractAsset', 'contractId', contractId)
+            assertParamExistsAndNotEmpty('addContractAsset', 'assetId', assetId)
             const localVarPath = `/contracts/{contractId}/{assetId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -137,8 +136,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @throws {RequiredError}
          */
         deleteContract: async (contractId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('deleteContract', 'contractId', contractId)
+            assertParamExistsAndNotEmpty('deleteContract', 'contractId', contractId)
             const localVarPath = `/contracts/{contractId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -172,10 +170,8 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @throws {RequiredError}
          */
         deleteContractAsset: async (contractId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('deleteContractAsset', 'contractId', contractId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('deleteContractAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('deleteContractAsset', 'contractId', contractId)
+            assertParamExistsAndNotEmpty('deleteContractAsset', 'assetId', assetId)
             const localVarPath = `/contracts/{contractId}/{assetId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
@@ -209,8 +205,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @throws {RequiredError}
          */
         getContract: async (contractId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('getContract', 'contractId', contractId)
+            assertParamExistsAndNotEmpty('getContract', 'contractId', contractId)
             const localVarPath = `/contracts/{contractId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -244,10 +239,8 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
          * @throws {RequiredError}
          */
         getContractAsset: async (contractId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'contractId' is not null or undefined
-            assertParamExists('getContractAsset', 'contractId', contractId)
-            // verify required parameter 'assetId' is not null or undefined
-            assertParamExists('getContractAsset', 'assetId', assetId)
+            assertParamExistsAndNotEmpty('getContractAsset', 'contractId', contractId)
+            assertParamExistsAndNotEmpty('getContractAsset', 'assetId', assetId)
             const localVarPath = `/contracts/{contractId}/{assetId}`
                 .replace(`{${"contractId"}}`, encodeURIComponent(String(contractId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));

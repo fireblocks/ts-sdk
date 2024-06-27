@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -52,8 +53,7 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         getVASPByDID: async (did: string, fields?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'did' is not null or undefined
-            assertParamExists('getVASPByDID', 'did', did)
+            assertParamExistsAndNotEmpty('getVASPByDID', 'did', did)
             const localVarPath = `/screening/travel_rule/vasp/{did}`
                 .replace(`{${"did"}}`, encodeURIComponent(String(did)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -141,7 +141,6 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         updateVasp: async (travelRuleUpdateVASPDetails: TravelRuleUpdateVASPDetails, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'travelRuleUpdateVASPDetails' is not null or undefined
             assertParamExists('updateVasp', 'travelRuleUpdateVASPDetails', travelRuleUpdateVASPDetails)
             const localVarPath = `/screening/travel_rule/vasp/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -182,7 +181,6 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         validateFullTravelRuleTransaction: async (travelRuleValidateFullTransactionRequest: TravelRuleValidateFullTransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'travelRuleValidateFullTransactionRequest' is not null or undefined
             assertParamExists('validateFullTravelRuleTransaction', 'travelRuleValidateFullTransactionRequest', travelRuleValidateFullTransactionRequest)
             const localVarPath = `/screening/travel_rule/transaction/validate/full`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -223,7 +221,6 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
          * @throws {RequiredError}
          */
         validateTravelRuleTransaction: async (travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'travelRuleValidateTransactionRequest' is not null or undefined
             assertParamExists('validateTravelRuleTransaction', 'travelRuleValidateTransactionRequest', travelRuleValidateTransactionRequest)
             const localVarPath = `/screening/travel_rule/transaction/validate`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

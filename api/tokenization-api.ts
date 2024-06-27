@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -57,8 +58,7 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         getLinkedToken: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('getLinkedToken', 'id', id)
+            assertParamExistsAndNotEmpty('getLinkedToken', 'id', id)
             const localVarPath = `/tokenization/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -139,7 +139,6 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         issueNewToken: async (createTokenRequestDto: CreateTokenRequestDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'createTokenRequestDto' is not null or undefined
             assertParamExists('issueNewToken', 'createTokenRequestDto', createTokenRequestDto)
             const localVarPath = `/tokenization/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -180,7 +179,6 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         link: async (tokenLinkRequestDto: TokenLinkRequestDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'tokenLinkRequestDto' is not null or undefined
             assertParamExists('link', 'tokenLinkRequestDto', tokenLinkRequestDto)
             const localVarPath = `/tokenization/tokens/link`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -220,8 +218,7 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
          * @throws {RequiredError}
          */
         unlink: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('unlink', 'id', id)
+            assertParamExistsAndNotEmpty('unlink', 'id', id)
             const localVarPath = `/tokenization/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

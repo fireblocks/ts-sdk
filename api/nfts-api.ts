@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -55,8 +56,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         getNFT: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('getNFT', 'id', id)
+            assertParamExistsAndNotEmpty('getNFT', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -93,8 +93,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         getNFTs: async (ids: string, pageCursor?: string, pageSize?: number, sort?: Array<GetNFTsSortEnum>, order?: GetNFTsOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ids' is not null or undefined
-            assertParamExists('getNFTs', 'ids', ids)
+            assertParamExistsAndNotEmpty('getNFTs', 'ids', ids)
             const localVarPath = `/nfts/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -392,8 +391,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         refreshNFTMetadata: async (id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('refreshNFTMetadata', 'id', id)
+            assertParamExistsAndNotEmpty('refreshNFTMetadata', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -432,10 +430,8 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         updateOwnershipTokens: async (blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'blockchainDescriptor' is not null or undefined
-            assertParamExists('updateOwnershipTokens', 'blockchainDescriptor', blockchainDescriptor)
-            // verify required parameter 'vaultAccountId' is not null or undefined
-            assertParamExists('updateOwnershipTokens', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('updateOwnershipTokens', 'blockchainDescriptor', blockchainDescriptor)
+            assertParamExistsAndNotEmpty('updateOwnershipTokens', 'vaultAccountId', vaultAccountId)
             const localVarPath = `/nfts/ownership/tokens`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -481,10 +477,8 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'updateTokenOwnershipStatusDto' is not null or undefined
             assertParamExists('updateTokenOwnershipStatus', 'updateTokenOwnershipStatusDto', updateTokenOwnershipStatusDto)
-            // verify required parameter 'id' is not null or undefined
-            assertParamExists('updateTokenOwnershipStatus', 'id', id)
+            assertParamExistsAndNotEmpty('updateTokenOwnershipStatus', 'id', id)
             const localVarPath = `/nfts/ownership/tokens/{id}/status`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -525,7 +519,6 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         updateTokensOwnershipSpam: async (updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'updateTokensOwnershipSpamRequest' is not null or undefined
             assertParamExists('updateTokensOwnershipSpam', 'updateTokensOwnershipSpamRequest', updateTokensOwnershipSpamRequest)
             const localVarPath = `/nfts/ownership/tokens/spam`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -566,7 +559,6 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         updateTokensOwnershipStatus: async (updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'updateTokensOwnershipStatusRequest' is not null or undefined
             assertParamExists('updateTokensOwnershipStatus', 'updateTokensOwnershipStatusRequest', updateTokensOwnershipStatusRequest)
             const localVarPath = `/nfts/ownership/tokens/status`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.

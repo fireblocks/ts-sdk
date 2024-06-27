@@ -23,6 +23,7 @@ import { URL, URLSearchParams } from 'url';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from '../common';
+import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
@@ -74,10 +75,8 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         checkThirdPartyRouting: async (connectionId: string, assetType: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('checkThirdPartyRouting', 'connectionId', connectionId)
-            // verify required parameter 'assetType' is not null or undefined
-            assertParamExists('checkThirdPartyRouting', 'assetType', assetType)
+            assertParamExistsAndNotEmpty('checkThirdPartyRouting', 'connectionId', connectionId)
+            assertParamExistsAndNotEmpty('checkThirdPartyRouting', 'assetType', assetType)
             const localVarPath = `/network_connections/{connectionId}/is_third_party_routing/{assetType}`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)))
                 .replace(`{${"assetType"}}`, encodeURIComponent(String(assetType)));
@@ -189,8 +188,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         deleteNetworkConnection: async (connectionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('deleteNetworkConnection', 'connectionId', connectionId)
+            assertParamExistsAndNotEmpty('deleteNetworkConnection', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -223,8 +221,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         deleteNetworkId: async (networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'networkId' is not null or undefined
-            assertParamExists('deleteNetworkId', 'networkId', networkId)
+            assertParamExistsAndNotEmpty('deleteNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -257,8 +254,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         getNetwork: async (connectionId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('getNetwork', 'connectionId', connectionId)
+            assertParamExistsAndNotEmpty('getNetwork', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -321,8 +317,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         getNetworkId: async (networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'networkId' is not null or undefined
-            assertParamExists('getNetworkId', 'networkId', networkId)
+            assertParamExistsAndNotEmpty('getNetworkId', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -416,10 +411,8 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         setNetworkIdDiscoverability: async (setNetworkIdDiscoverabilityRequest: SetNetworkIdDiscoverabilityRequest, networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setNetworkIdDiscoverabilityRequest' is not null or undefined
             assertParamExists('setNetworkIdDiscoverability', 'setNetworkIdDiscoverabilityRequest', setNetworkIdDiscoverabilityRequest)
-            // verify required parameter 'networkId' is not null or undefined
-            assertParamExists('setNetworkIdDiscoverability', 'networkId', networkId)
+            assertParamExistsAndNotEmpty('setNetworkIdDiscoverability', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}/set_discoverability`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -456,10 +449,8 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         setNetworkIdName: async (setNetworkIdNameRequest: SetNetworkIdNameRequest, networkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'setNetworkIdNameRequest' is not null or undefined
             assertParamExists('setNetworkIdName', 'setNetworkIdNameRequest', setNetworkIdNameRequest)
-            // verify required parameter 'networkId' is not null or undefined
-            assertParamExists('setNetworkIdName', 'networkId', networkId)
+            assertParamExistsAndNotEmpty('setNetworkIdName', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}/set_name`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -496,8 +487,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         setNetworkIdRoutingPolicy: async (networkId: string, setNetworkIdRoutingPolicyRequest?: SetNetworkIdRoutingPolicyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'networkId' is not null or undefined
-            assertParamExists('setNetworkIdRoutingPolicy', 'networkId', networkId)
+            assertParamExistsAndNotEmpty('setNetworkIdRoutingPolicy', 'networkId', networkId)
             const localVarPath = `/network_ids/{networkId}/set_routing_policy`
                 .replace(`{${"networkId"}}`, encodeURIComponent(String(networkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -534,8 +524,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @throws {RequiredError}
          */
         setRoutingPolicy: async (connectionId: string, setRoutingPolicyRequest?: SetRoutingPolicyRequest, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'connectionId' is not null or undefined
-            assertParamExists('setRoutingPolicy', 'connectionId', connectionId)
+            assertParamExistsAndNotEmpty('setRoutingPolicy', 'connectionId', connectionId)
             const localVarPath = `/network_connections/{connectionId}/set_routing_policy`
                 .replace(`{${"connectionId"}}`, encodeURIComponent(String(connectionId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
