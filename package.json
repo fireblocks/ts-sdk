@@ -21,7 +21,7 @@
     "build": "tsc && npm run copy:package",
     "copy:package": "cp package.json dist/",
     "prepare": "npm run build",
-    "postversion": "git push && git push --tags",
+    "postversion": "if [ \"$SKIP_POSTVERSION\" != \"true\" ]; then git push && git push --tags; fi",
     "test": "jest --coverage --passWithNoTests --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
