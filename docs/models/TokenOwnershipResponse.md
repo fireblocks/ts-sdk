@@ -47,6 +47,8 @@
 
 * `BasechainEth` (value: `'BASECHAIN_ETH'`)
 
+* `BasechainEthTest3` (value: `'BASECHAIN_ETH_TEST3'`)
+
 
 
 ## Enum: TokenOwnershipResponseStatusEnum
