@@ -946,7 +946,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1205,7 +1205,7 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH'}
+     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
@@ -1453,7 +1453,8 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     Xtz: 'XTZ',
     XtzTest: 'XTZ_TEST',
-    BasechainEth: 'BASECHAIN_ETH'
+    BasechainEth: 'BASECHAIN_ETH',
+    BasechainEthTest3: 'BASECHAIN_ETH_TEST3'
 } as const;
 export type GetOwnershipTokensBlockchainDescriptorEnum = typeof GetOwnershipTokensBlockchainDescriptorEnum[keyof typeof GetOwnershipTokensBlockchainDescriptorEnum];
 /**
@@ -1575,7 +1576,6 @@ export type ListOwnedTokensSpamEnum = typeof ListOwnedTokensSpamEnum[keyof typeo
  */
 export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
     Eth: 'ETH',
-    EthTest3: 'ETH_TEST3',
     EthTest5: 'ETH_TEST5',
     EthTest6: 'ETH_TEST6',
     Polygon: 'POLYGON',

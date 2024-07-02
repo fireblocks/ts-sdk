@@ -39,16 +39,16 @@ export interface AssetResponseOnchain {
      */
     'decimals': number;
     /**
-     * The asset standard
-     * @type {string}
-     * @memberof AssetResponseOnchain
-     */
-    'standard': string;
-    /**
      * The asset address
      * @type {string}
      * @memberof AssetResponseOnchain
      */
     'address'?: string;
+    /**
+     * The asset standard
+     * @type {string}
+     * @memberof AssetResponseOnchain
+     */
+    'standard'?: string;
 }
 
