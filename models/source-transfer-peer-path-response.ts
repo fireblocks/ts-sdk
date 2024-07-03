@@ -53,6 +53,12 @@ export interface SourceTransferPeerPathResponse {
      * @memberof SourceTransferPeerPathResponse
      */
     'walletId'?: string;
+    /**
+     * If this transaction is an exchange internal transfer, this field will be populated with the type of that trading account.
+     * @type {string}
+     * @memberof SourceTransferPeerPathResponse
+     */
+    'tradingAccount'?: string | null;
 }
 
 
