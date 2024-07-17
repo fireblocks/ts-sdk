@@ -17,20 +17,14 @@
 /**
  * 
  * @export
- * @interface InternalTransferResponse
+ * @interface GetExchangeAccountsCredentialsPublicKeyResponse
  */
-export interface InternalTransferResponse {
+export interface GetExchangeAccountsCredentialsPublicKeyResponse {
     /**
-     * Indicates whether the transfer was successful
-     * @type {boolean}
-     * @memberof InternalTransferResponse
-     */
-    'success': boolean;
-    /**
-     * The transaction ID of the internal transfer
+     * Public key string
      * @type {string}
-     * @memberof InternalTransferResponse
+     * @memberof GetExchangeAccountsCredentialsPublicKeyResponse
      */
-    'id'?: string | null;
+    'publicKey': string;
 }
 
