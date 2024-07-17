@@ -28,25 +28,25 @@ export interface CreateInternalTransferRequest {
      * @type {string}
      * @memberof CreateInternalTransferRequest
      */
-    'asset'?: string;
+    'asset': string;
     /**
      * 
      * @type {string}
      * @memberof CreateInternalTransferRequest
      */
-    'amount'?: string;
+    'amount': string;
     /**
      * 
      * @type {TradingAccountType}
      * @memberof CreateInternalTransferRequest
      */
-    'sourceType'?: TradingAccountType;
+    'sourceType': TradingAccountType;
     /**
      * 
      * @type {TradingAccountType}
      * @memberof CreateInternalTransferRequest
      */
-    'destType'?: TradingAccountType;
+    'destType': TradingAccountType;
 }
 
 

@@ -180,6 +180,7 @@ export * from './get-audit-logs-response-dto';
 export * from './get-connections-response';
 export * from './get-console-users-response';
 export * from './get-contracts-response';
+export * from './get-exchange-accounts-credentials-public-key-response';
 export * from './get-exchange-accounts-response';
 export * from './get-external-wallets-response';
 export * from './get-fiat-accounts-response';

@@ -526,6 +526,7 @@ Class | Method | HTTP request | Description
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/models/GetConsoleUsersResponse.md)
  - [GetContractsResponse](docs/models/GetContractsResponse.md)
+ - [GetExchangeAccountsCredentialsPublicKeyResponse](docs/models/GetExchangeAccountsCredentialsPublicKeyResponse.md)
  - [GetExchangeAccountsResponse](docs/models/GetExchangeAccountsResponse.md)
  - [GetExternalWalletsResponse](docs/models/GetExternalWalletsResponse.md)
  - [GetFiatAccountsResponse](docs/models/GetFiatAccountsResponse.md)

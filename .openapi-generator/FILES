@@ -199,6 +199,7 @@ GetAuditLogsResponseDTO.md
 GetConnectionsResponse.md
 GetConsoleUsersResponse.md
 GetContractsResponse.md
+GetExchangeAccountsCredentialsPublicKeyResponse.md
 GetExchangeAccountsResponse.md
 GetExternalWalletsResponse.md
 GetFiatAccountsResponse.md
@@ -738,6 +739,7 @@ models/get-audit-logs-response.ts
 models/get-connections-response.ts
 models/get-console-users-response.ts
 models/get-contracts-response.ts
+models/get-exchange-accounts-credentials-public-key-response.ts
 models/get-exchange-accounts-response.ts
 models/get-external-wallets-response.ts
 models/get-fiat-accounts-response.ts

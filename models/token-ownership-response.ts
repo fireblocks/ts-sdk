@@ -149,7 +149,8 @@ export const TokenOwnershipResponseBlockchainDescriptorEnum = {
     AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     Xtz: 'XTZ',
     XtzTest: 'XTZ_TEST',
-    BasechainEth: 'BASECHAIN_ETH'
+    BasechainEth: 'BASECHAIN_ETH',
+    BasechainEthTest3: 'BASECHAIN_ETH_TEST3'
 } as const;
 
 export type TokenOwnershipResponseBlockchainDescriptorEnum = typeof TokenOwnershipResponseBlockchainDescriptorEnum[keyof typeof TokenOwnershipResponseBlockchainDescriptorEnum];
