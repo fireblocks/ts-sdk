@@ -10,8 +10,26 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
+      - name: Choose random reply message
+        id: choose_message
+        run: |
+          reply_messages=(
+            "Thank you for raising this issue! We will look into it shortly."
+            "We appreciate your feedback. Our team will investigate this issue."
+            "Your issue has been noted. We'll get back to you soon."
+            "Thanks for reporting this. We'll work on resolving it as soon as possible."
+            "Thanks for reporting this. Stay tuned for updates!"
+            "Acknowledged. We'll review the issue and respond soon."
+            "Thanks for bringing this to our attention. We will investigate your issue soon!"
+            "We will investigate your issue soon. Thanks for your patience."
+            "Noted. Expect updates on your issue shortly."
+            "Your issue is important to us. We will look into it shortly."
+          )
+          random_index=$((RANDOM % ${#reply_messages[@]}))
+          echo "::set-output name=message::${reply_messages[$random_index]}"
+          
       - name: Reply to issue using GitHub CLI
         run: |
-          gh issue comment ${{ github.event.issue.number }} --body "Thank you for raising this issue! We will look into it shortly."
+          gh issue comment ${{ github.event.issue.number }} --body "${{ steps.choose_message.outputs.message }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
