@@ -1,0 +1,17 @@
+name: Auto Reply on New Issues
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  auto-reply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Reply to issue using GitHub CLI
+        run: |
+          gh issue comment ${{ github.event.number }} --body "Thank you for raising this issue! We will look into it shortly."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
