@@ -7,9 +7,6 @@ jobs:
   auto-reply:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
       - name: Choose random reply message
         id: choose_message
         run: |
