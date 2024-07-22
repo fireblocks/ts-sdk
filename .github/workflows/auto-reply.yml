@@ -12,6 +12,6 @@ jobs:
 
       - name: Reply to issue using GitHub CLI
         run: |
-          gh issue comment ${{ github.event.number }} --body "Thank you for raising this issue! We will look into it shortly."
+          gh issue comment ${{ github.event.issue.number }} --body "Thank you for raising this issue! We will look into it shortly."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
