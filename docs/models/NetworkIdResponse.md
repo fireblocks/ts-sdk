@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**id** | **string** |  | [default to undefined]|
-|**name** | **string** |  | [default to undefined]|
 |**routingPolicy** | [**NetworkIdRoutingPolicy**](NetworkIdRoutingPolicy.md) |  | [optional] [default to undefined]|
 |**isDiscoverable** | **boolean** | The specific network is discoverable. | [optional] [default to undefined]|
+|**id** | **string** | The specific network id | [optional] [default to undefined]|
+|**name** | **string** | The specific network name | [optional] [default to undefined]|
 
 
 

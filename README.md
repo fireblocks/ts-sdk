@@ -133,6 +133,7 @@ Class | Method | HTTP request | Description
 *AuditLogsApi* | [**getAudits**](docs/apis/AuditLogsApi.md#getAudits) | **GET** /audits | Get audit logs
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/apis/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/apis/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
+*BlockchainsAssetsApi* | [**setAssetPrice**](docs/apis/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
@@ -375,6 +376,9 @@ Class | Method | HTTP request | Description
  - [AssetInternalServerErrorResponse](docs/models/AssetInternalServerErrorResponse.md)
  - [AssetMetadataDto](docs/models/AssetMetadataDto.md)
  - [AssetNotFoundErrorResponse](docs/models/AssetNotFoundErrorResponse.md)
+ - [AssetPriceForbiddenErrorResponse](docs/models/AssetPriceForbiddenErrorResponse.md)
+ - [AssetPriceNotFoundErrorResponse](docs/models/AssetPriceNotFoundErrorResponse.md)
+ - [AssetPriceResponse](docs/models/AssetPriceResponse.md)
  - [AssetResponse](docs/models/AssetResponse.md)
  - [AssetResponseMetadata](docs/models/AssetResponseMetadata.md)
  - [AssetResponseOnchain](docs/models/AssetResponseOnchain.md)
@@ -661,6 +665,7 @@ Class | Method | HTTP request | Description
  - [SessionMetadata](docs/models/SessionMetadata.md)
  - [SetAdminQuorumThresholdRequest](docs/models/SetAdminQuorumThresholdRequest.md)
  - [SetAdminQuorumThresholdResponse](docs/models/SetAdminQuorumThresholdResponse.md)
+ - [SetAssetPriceRequest](docs/models/SetAssetPriceRequest.md)
  - [SetAutoFuelRequest](docs/models/SetAutoFuelRequest.md)
  - [SetConfirmationsThresholdRequest](docs/models/SetConfirmationsThresholdRequest.md)
  - [SetConfirmationsThresholdResponse](docs/models/SetConfirmationsThresholdResponse.md)
