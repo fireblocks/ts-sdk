@@ -1,4 +1,4 @@
-name: Auto Reply on New Issues
+name: Auto Reply On New Pull Requests
 on:
   pull_request:
     types: [opened]
@@ -15,12 +15,12 @@ jobs:
         run: |
           reply_messages=(
             "Thank you for raising this! We will review it shortly."
-            "We appreciate your contribution. Our team will investigate this shortly."
+            "We appreciate your contribution. Our team will investigate this request shortly."
             "Your request has been noted. We'll get back to you soon."
-            "Thanks for submitting this. We'll review it and provide updates soon."
-            "Thank you for letting us know about this. We'll investigate and get back to you soon."
+            "Thanks for submitting this request. We'll review it and provide updates soon."
+            "Thank you for letting us know about this request. We'll investigate and get back to you soon."
             "Acknowledged. We'll review and respond soon."
-            "Thanks for bringing this to our attention. We'll review and provide updates soon."
+            "Thanks for bringing this request to our attention. We'll review and provide updates soon."
             "We've received your request. Thanks for your patience."
             "Noted. Expect updates shortly."
             "Your request is important to us. We will look into it shortly."
@@ -28,8 +28,8 @@ jobs:
           random_index=$((RANDOM % ${#reply_messages[@]}))
           echo "::set-output name=message::${reply_messages[$random_index]}"
 
-      - name: Reply to issue using GitHub CLI
-        if: (!contains(fromJSON('["YoavBZ", "asafs932"]'), github.event.pull_request.user.login))
+      - name: Reply to pull request
+        if: (!contains(fromJSON('["YoavBZ", "asafs932", "github-actions"]'), github.event.pull_request.user.login))
         run: |
           gh pr comment ${{ github.event.number }} --body "${{ steps.choose_message.outputs.message }}"
         env:
