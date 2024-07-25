@@ -33,6 +33,9 @@ AssetForbiddenErrorResponse.md
 AssetInternalServerErrorResponse.md
 AssetMetadataDto.md
 AssetNotFoundErrorResponse.md
+AssetPriceForbiddenErrorResponse.md
+AssetPriceNotFoundErrorResponse.md
+AssetPriceResponse.md
 AssetResponse.md
 AssetResponseMetadata.md
 AssetResponseOnchain.md
@@ -346,6 +349,7 @@ SessionDTO.md
 SessionMetadata.md
 SetAdminQuorumThresholdRequest.md
 SetAdminQuorumThresholdResponse.md
+SetAssetPriceRequest.md
 SetAutoFuelRequest.md
 SetConfirmationsThresholdRequest.md
 SetConfirmationsThresholdResponse.md
@@ -588,6 +592,9 @@ models/asset-forbidden-error-response.ts
 models/asset-internal-server-error-response.ts
 models/asset-metadata-dto.ts
 models/asset-not-found-error-response.ts
+models/asset-price-forbidden-error-response.ts
+models/asset-price-not-found-error-response.ts
+models/asset-price-response.ts
 models/asset-response-metadata.ts
 models/asset-response-onchain.ts
 models/asset-response.ts
@@ -875,6 +882,7 @@ models/session-dto.ts
 models/session-metadata.ts
 models/set-admin-quorum-threshold-request.ts
 models/set-admin-quorum-threshold-response.ts
+models/set-asset-price-request.ts
 models/set-auto-fuel-request.ts
 models/set-confirmations-threshold-request.ts
 models/set-confirmations-threshold-response.ts

@@ -13,21 +13,24 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { ReadAbiFunction } from './read-abi-function';
 
 /**
  * 
  * @export
- * @interface ReadCallFunctionDto
+ * @interface AssetPriceForbiddenErrorResponse
  */
-export interface ReadCallFunctionDto {
+export interface AssetPriceForbiddenErrorResponse {
     /**
-     * 
-     * @type {ReadAbiFunction}
-     * @memberof ReadCallFunctionDto
+     * Forbidden error message
+     * @type {string}
+     * @memberof AssetPriceForbiddenErrorResponse
      */
-    'abiFunction': ReadAbiFunction;
+    'message': string;
+    /**
+     * Error code
+     * @type {string}
+     * @memberof AssetPriceForbiddenErrorResponse
+     */
+    'code': string;
 }
 

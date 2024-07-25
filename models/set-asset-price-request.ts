@@ -13,21 +13,24 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { ReadAbiFunction } from './read-abi-function';
 
 /**
  * 
  * @export
- * @interface ReadCallFunctionDto
+ * @interface SetAssetPriceRequest
  */
-export interface ReadCallFunctionDto {
+export interface SetAssetPriceRequest {
     /**
-     * 
-     * @type {ReadAbiFunction}
-     * @memberof ReadCallFunctionDto
+     * Currency (according to ISO 4217 currency codes)
+     * @type {string}
+     * @memberof SetAssetPriceRequest
      */
-    'abiFunction': ReadAbiFunction;
+    'currency': string;
+    /**
+     * Price in currency
+     * @type {number}
+     * @memberof SetAssetPriceRequest
+     */
+    'price': number;
 }
 
