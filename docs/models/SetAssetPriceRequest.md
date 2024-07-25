@@ -1,10 +1,11 @@
-# ReadCallFunctionDto
+# SetAssetPriceRequest
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**abiFunction** | [**ReadAbiFunction**](ReadAbiFunction.md) |  | [default to undefined]|
+|**currency** | **string** | Currency (according to ISO 4217 currency codes) | [default to undefined]|
+|**price** | **number** | Price in currency | [default to undefined]|
 
 
 

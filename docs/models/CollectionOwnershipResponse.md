@@ -37,6 +37,10 @@
 
 * `BasechainEthTest3` (value: `'BASECHAIN_ETH_TEST3'`)
 
+* `Etherlink` (value: `'ETHERLINK'`)
+
+* `EtherlinkTest` (value: `'ETHERLINK_TEST'`)
+
 
 
 

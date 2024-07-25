@@ -37,6 +37,12 @@ import { AssetInternalServerErrorResponse } from '../models';
 // @ts-ignore
 import { AssetNotFoundErrorResponse } from '../models';
 // @ts-ignore
+import { AssetPriceForbiddenErrorResponse } from '../models';
+// @ts-ignore
+import { AssetPriceNotFoundErrorResponse } from '../models';
+// @ts-ignore
+import { AssetPriceResponse } from '../models';
+// @ts-ignore
 import { AssetResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
@@ -44,6 +50,8 @@ import { ErrorSchema } from '../models';
 import { GetSupportedAssetsResponse } from '../models';
 // @ts-ignore
 import { RegisterNewAssetRequest } from '../models';
+// @ts-ignore
+import { SetAssetPriceRequest } from '../models';
 /**
  * BlockchainsAssetsApi - axios parameter creator
  * @export
@@ -119,6 +127,48 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Set asset price for the given asset id. Returns the asset price response. 
+         * @summary Set asset price
+         * @param {string} id The ID of the asset
+         * @param {SetAssetPriceRequest} [setAssetPriceRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setAssetPrice: async (id: string, setAssetPriceRequest?: SetAssetPriceRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('setAssetPrice', 'id', id)
+            const localVarPath = `/assets/prices/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setAssetPriceRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -155,6 +205,21 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.registerNewAsset']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Set asset price for the given asset id. Returns the asset price response. 
+         * @summary Set asset price
+         * @param {string} id The ID of the asset
+         * @param {SetAssetPriceRequest} [setAssetPriceRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setAssetPrice(id: string, setAssetPriceRequest?: SetAssetPriceRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AssetPriceResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setAssetPrice(id, setAssetPriceRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['BlockchainsAssetsApi.setAssetPrice']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -184,6 +249,16 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
         registerNewAsset(requestParameters: BlockchainsAssetsApiRegisterNewAssetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<AssetResponse> {
             return localVarFp.registerNewAsset(requestParameters.registerNewAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Set asset price for the given asset id. Returns the asset price response. 
+         * @summary Set asset price
+         * @param {BlockchainsAssetsApiSetAssetPriceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setAssetPrice(requestParameters: BlockchainsAssetsApiSetAssetPriceRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssetPriceResponse> {
+            return localVarFp.setAssetPrice(requestParameters.id, requestParameters.setAssetPriceRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -204,6 +279,34 @@ export interface BlockchainsAssetsApiRegisterNewAssetRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof BlockchainsAssetsApiRegisterNewAsset
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setAssetPrice operation in BlockchainsAssetsApi.
+ * @export
+ * @interface BlockchainsAssetsApiSetAssetPriceRequest
+ */
+export interface BlockchainsAssetsApiSetAssetPriceRequest {
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof BlockchainsAssetsApiSetAssetPrice
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {SetAssetPriceRequest}
+     * @memberof BlockchainsAssetsApiSetAssetPrice
+     */
+    readonly setAssetPriceRequest?: SetAssetPriceRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof BlockchainsAssetsApiSetAssetPrice
      */
     readonly idempotencyKey?: string
 }
@@ -236,6 +339,18 @@ export class BlockchainsAssetsApi extends BaseAPI {
      */
     public registerNewAsset(requestParameters: BlockchainsAssetsApiRegisterNewAssetRequest = {}) {
         return BlockchainsAssetsApiFp(this.configuration).registerNewAsset(requestParameters.registerNewAssetRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Set asset price for the given asset id. Returns the asset price response. 
+     * @summary Set asset price
+     * @param {BlockchainsAssetsApiSetAssetPriceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BlockchainsAssetsApi
+     */
+    public setAssetPrice(requestParameters: BlockchainsAssetsApiSetAssetPriceRequest) {
+        return BlockchainsAssetsApiFp(this.configuration).setAssetPrice(requestParameters.id, requestParameters.setAssetPriceRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

@@ -24,7 +24,7 @@ import { Parameter } from './parameter';
  */
 export interface AbiFunction {
     /**
-     * The type if the function
+     * The type of the function
      * @type {string}
      * @memberof AbiFunction
      */
@@ -62,8 +62,12 @@ export interface AbiFunction {
 }
 
 export const AbiFunctionTypeEnum = {
+    Constructor: 'constructor',
     Function: 'function',
-    Constructor: 'constructor'
+    Error: 'error',
+    Event: 'event',
+    Receive: 'receive',
+    Fallback: 'fallback'
 } as const;
 
 export type AbiFunctionTypeEnum = typeof AbiFunctionTypeEnum[keyof typeof AbiFunctionTypeEnum];

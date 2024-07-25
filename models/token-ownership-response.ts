@@ -150,7 +150,9 @@ export const TokenOwnershipResponseBlockchainDescriptorEnum = {
     Xtz: 'XTZ',
     XtzTest: 'XTZ_TEST',
     BasechainEth: 'BASECHAIN_ETH',
-    BasechainEthTest3: 'BASECHAIN_ETH_TEST3'
+    BasechainEthTest3: 'BASECHAIN_ETH_TEST3',
+    Etherlink: 'ETHERLINK',
+    EtherlinkTest: 'ETHERLINK_TEST'
 } as const;
 
 export type TokenOwnershipResponseBlockchainDescriptorEnum = typeof TokenOwnershipResponseBlockchainDescriptorEnum[keyof typeof TokenOwnershipResponseBlockchainDescriptorEnum];

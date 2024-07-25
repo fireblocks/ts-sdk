@@ -1,10 +1,11 @@
-# ReadCallFunctionDto
+# AssetPriceNotFoundErrorResponse
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**abiFunction** | [**ReadAbiFunction**](ReadAbiFunction.md) |  | [default to undefined]|
+|**message** | **string** | Not found error message | [default to undefined]|
+|**code** | **string** | Error code | [default to undefined]|
 
 
 

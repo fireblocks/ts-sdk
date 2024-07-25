@@ -30,11 +30,11 @@ export interface WriteCallFunctionDto {
      */
     'vaultAccountId': string;
     /**
-     * The abi of the read function you wish to call
-     * @type {Array<WriteAbiFunction>}
+     * 
+     * @type {WriteAbiFunction}
      * @memberof WriteCallFunctionDto
      */
-    'abiFunction': Array<WriteAbiFunction>;
+    'abiFunction': WriteAbiFunction;
     /**
      * Amount in base asset. Being used in payable functions
      * @type {string}
