@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { CreateSigningKeyDtoProofOfOwnership } from './create-signing-key-dto-proof-of-ownership';
 
 /**
  * 
@@ -38,5 +41,11 @@ export interface CreateSigningKeyDto {
      * @memberof CreateSigningKeyDto
      */
     'agentUserId': string;
+    /**
+     * 
+     * @type {CreateSigningKeyDtoProofOfOwnership}
+     * @memberof CreateSigningKeyDto
+     */
+    'proofOfOwnership'?: CreateSigningKeyDtoProofOfOwnership;
 }
 

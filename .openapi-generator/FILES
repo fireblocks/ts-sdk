@@ -6,6 +6,7 @@ APIUsers.md
 AbiFunction.md
 Account.md
 AccountType.md
+AddAbiRequestDto.md
 AddAssetToExternalWalletRequest.md
 AddAssetToExternalWalletRequestOneOf.md
 AddAssetToExternalWalletRequestOneOf1.md
@@ -28,7 +29,6 @@ AssetAlreadyExistHttpError.md
 AssetAmount.md
 AssetBadRequestErrorResponse.md
 AssetConflictErrorResponse.md
-AssetDoesNotExistHttpError.md
 AssetForbiddenErrorResponse.md
 AssetInternalServerErrorResponse.md
 AssetMetadataDto.md
@@ -52,8 +52,17 @@ BlockInfo.md
 BlockchainsAssetsApi.md
 CancelTransactionResponse.md
 ChainInfoResponseDto.md
+CollectionBurnRequestDto.md
+CollectionBurnResponseDto.md
+CollectionDeployRequestDto.md
+CollectionLinkDto.md
 CollectionMetadataDto.md
+CollectionMintRequestDto.md
+CollectionMintResponseDto.md
 CollectionOwnershipResponse.md
+CollectionTokenMetadataAttributeDto.md
+CollectionTokenMetadataDto.md
+CollectionType.md
 ComplianceApi.md
 ComplianceResult.md
 ComplianceScreeningConfigurationApi.md
@@ -78,6 +87,7 @@ ContractMetadataDto.md
 ContractTemplateDto.md
 ContractTemplatesApi.md
 ContractUploadRequest.md
+ContractWithAbiDto.md
 ContractsApi.md
 ConversionConfigOperation.md
 ConversionOperationConfigParams.md
@@ -114,6 +124,7 @@ CreateNcwConnectionRequest.md
 CreateNetworkIdRequest.md
 CreatePayoutRequest.md
 CreateSigningKeyDto.md
+CreateSigningKeyDtoProofOfOwnership.md
 CreateTokenRequestDto.md
 CreateTokenRequestDtoCreateParams.md
 CreateTransactionResponse.md
@@ -185,6 +196,7 @@ ExecutionTransferOperation.md
 ExternalWalletAsset.md
 ExternalWalletsApi.md
 FeeInfo.md
+FetchAbiRequestDto.md
 FiatAccount.md
 FiatAccountType.md
 FiatAccountsApi.md
@@ -198,7 +210,6 @@ GasStationPropertiesResponse.md
 GasStationsApi.md
 GetAPIUsersResponse.md
 GetAuditLogsResponse.md
-GetAuditLogsResponseDTO.md
 GetConnectionsResponse.md
 GetConsoleUsersResponse.md
 GetContractsResponse.md
@@ -208,6 +219,7 @@ GetExternalWalletsResponse.md
 GetFiatAccountsResponse.md
 GetFilterParameter.md
 GetInternalWalletsResponse.md
+GetLinkedCollectionsPaginatedResponse.md
 GetMaxSpendableAmountResponse.md
 GetNFTsResponse.md
 GetNetworkConnectionsResponse.md
@@ -327,6 +339,8 @@ RelatedTransactionDto.md
 RemoveCollateralRequestBody.md
 RenameCosigner.md
 RenameVaultAccountResponse.md
+RescanTransaction.md
+RescanTransactionRequest.md
 ResendTransactionWebhooksRequest.md
 ResendWebhooksByTransactionIdResponse.md
 ResendWebhooksResponse.md
@@ -491,6 +505,8 @@ UserStatus.md
 UserType.md
 UsersApi.md
 ValidateAddressResponse.md
+ValidatedTransactionsForRescan.md
+ValidatedTransactionsForRescanResponse.md
 ValidationKeyDto.md
 ValidatorDto.md
 VaultAccount.md
@@ -564,6 +580,7 @@ index.ts
 models/abi-function.ts
 models/account-type.ts
 models/account.ts
+models/add-abi-request-dto.ts
 models/add-asset-to-external-wallet-request-one-of.ts
 models/add-asset-to-external-wallet-request-one-of1-additional-info-one-of.ts
 models/add-asset-to-external-wallet-request-one-of1-additional-info-one-of1.ts
@@ -587,7 +604,6 @@ models/asset-already-exist-http-error.ts
 models/asset-amount.ts
 models/asset-bad-request-error-response.ts
 models/asset-conflict-error-response.ts
-models/asset-does-not-exist-http-error.ts
 models/asset-forbidden-error-response.ts
 models/asset-internal-server-error-response.ts
 models/asset-metadata-dto.ts
@@ -608,8 +624,17 @@ models/authorization-info.ts
 models/block-info.ts
 models/cancel-transaction-response.ts
 models/chain-info-response-dto.ts
+models/collection-burn-request-dto.ts
+models/collection-burn-response-dto.ts
+models/collection-deploy-request-dto.ts
+models/collection-link-dto.ts
 models/collection-metadata-dto.ts
+models/collection-mint-request-dto.ts
+models/collection-mint-response-dto.ts
 models/collection-ownership-response.ts
+models/collection-token-metadata-attribute-dto.ts
+models/collection-token-metadata-dto.ts
+models/collection-type.ts
 models/compliance-result.ts
 models/compliance-screening-result.ts
 models/config-change-request-status.ts
@@ -629,6 +654,7 @@ models/contract-doc.ts
 models/contract-metadata-dto.ts
 models/contract-template-dto.ts
 models/contract-upload-request.ts
+models/contract-with-abi-dto.ts
 models/conversion-config-operation.ts
 models/conversion-operation-config-params.ts
 models/conversion-operation-execution-output.ts
@@ -662,6 +688,7 @@ models/create-multiple-accounts-request.ts
 models/create-ncw-connection-request.ts
 models/create-network-id-request.ts
 models/create-payout-request.ts
+models/create-signing-key-dto-proof-of-ownership.ts
 models/create-signing-key-dto.ts
 models/create-token-request-dto-create-params.ts
 models/create-token-request-dto.ts
@@ -731,6 +758,7 @@ models/execution-screening-operation.ts
 models/execution-transfer-operation.ts
 models/external-wallet-asset.ts
 models/fee-info.ts
+models/fetch-abi-request-dto.ts
 models/fiat-account-type.ts
 models/fiat-account.ts
 models/fiat-asset.ts
@@ -741,7 +769,6 @@ models/gas-station-configuration-response.ts
 models/gas-station-configuration.ts
 models/gas-station-properties-response.ts
 models/get-apiusers-response.ts
-models/get-audit-logs-response-dto.ts
 models/get-audit-logs-response.ts
 models/get-connections-response.ts
 models/get-console-users-response.ts
@@ -752,6 +779,7 @@ models/get-external-wallets-response.ts
 models/get-fiat-accounts-response.ts
 models/get-filter-parameter.ts
 models/get-internal-wallets-response.ts
+models/get-linked-collections-paginated-response.ts
 models/get-max-spendable-amount-response.ts
 models/get-network-connections-response.ts
 models/get-network-ids-response.ts
@@ -861,6 +889,8 @@ models/related-transaction-dto.ts
 models/remove-collateral-request-body.ts
 models/rename-cosigner.ts
 models/rename-vault-account-response.ts
+models/rescan-transaction-request.ts
+models/rescan-transaction.ts
 models/resend-transaction-webhooks-request.ts
 models/resend-webhooks-by-transaction-id-response.ts
 models/resend-webhooks-response.ts
@@ -1017,6 +1047,8 @@ models/user-role.ts
 models/user-status.ts
 models/user-type.ts
 models/validate-address-response.ts
+models/validated-transactions-for-rescan-response.ts
+models/validated-transactions-for-rescan.ts
 models/validation-key-dto.ts
 models/validator-dto.ts
 models/vault-account.ts

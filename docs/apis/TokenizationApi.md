@@ -4,12 +4,337 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**burnCollectionToken**](#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
+[**createNewCollection**](#createNewCollection) | **POST** /tokenization/collections | Create a new collection
+[**fetchCollectionTokenDetails**](#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
+[**getCollectionById**](#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id
+[**getLinkedCollections**](#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 [**getLinkedToken**](#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 [**getLinkedTokens**](#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 [**issueNewToken**](#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
-[**link**](#link) | **POST** /tokenization/tokens/link | Link a token
+[**link**](#link) | **POST** /tokenization/tokens/link | Link a contract
+[**mintCollectionToken**](#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
 [**unlink**](#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
+[**unlinkCollection**](#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 
+
+# **burnCollectionToken**
+> CollectionBurnResponseDto burnCollectionToken(collectionBurnRequestDto, )
+
+Burn tokens in a collection
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiBurnCollectionTokenRequest, CollectionBurnResponseDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiBurnCollectionTokenRequest = {
+  // CollectionBurnRequestDto
+  collectionBurnRequestDto: param_value,
+  // string | The collection link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.burnCollectionToken(body).then((res: FireblocksResponse<CollectionBurnResponseDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **collectionBurnRequestDto** | **[CollectionBurnRequestDto](../models/CollectionBurnRequestDto.md)**|  |
+ **id** | [**string**] | The collection link id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CollectionBurnResponseDto](../models/CollectionBurnResponseDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Tokens burned successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createNewCollection**
+> CollectionLinkDto createNewCollection(collectionDeployRequestDto)
+
+Create a new collection and link it as a token
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiCreateNewCollectionRequest, CollectionLinkDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiCreateNewCollectionRequest = {
+  // CollectionDeployRequestDto
+  collectionDeployRequestDto: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.createNewCollection(body).then((res: FireblocksResponse<CollectionLinkDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **collectionDeployRequestDto** | **[CollectionDeployRequestDto](../models/CollectionDeployRequestDto.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CollectionLinkDto](../models/CollectionLinkDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Collection was created successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **fetchCollectionTokenDetails**
+> CollectionLinkDto fetchCollectionTokenDetails()
+
+Get collection token details by id
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiFetchCollectionTokenDetailsRequest, CollectionLinkDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiFetchCollectionTokenDetailsRequest = {
+  // string | The collection link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | The tokenId as it appears on the blockchain
+  tokenId: 1,
+};
+
+fireblocks.tokenization.fetchCollectionTokenDetails(body).then((res: FireblocksResponse<CollectionLinkDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The collection link id | defaults to undefined
+ **tokenId** | [**string**] | The tokenId as it appears on the blockchain | defaults to undefined
+
+
+### Return type
+
+**[CollectionLinkDto](../models/CollectionLinkDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Collection token details were fetched successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getCollectionById**
+> CollectionLinkDto getCollectionById()
+
+Get a collection by id
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetCollectionByIdRequest, CollectionLinkDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetCollectionByIdRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+};
+
+fireblocks.tokenization.getCollectionById(body).then((res: FireblocksResponse<CollectionLinkDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+
+
+### Return type
+
+**[CollectionLinkDto](../models/CollectionLinkDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Collection fetched successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getLinkedCollections**
+> GetLinkedCollectionsPaginatedResponse getLinkedCollections()
+
+Get collections (paginated)
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetLinkedCollectionsRequest, GetLinkedCollectionsPaginatedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetLinkedCollectionsRequest = {
+  // string | Page cursor to get the next page, for example - \"MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==\" (optional)
+  pageCursor: pageCursor_example,
+  // number | Number of items per page (max 100), requesting more then 100 will return 100 items (optional)
+  pageSize: 10,
+  // any | A comma separated list of statuses to filter. Default is \"COMPLETED\" (optional)
+  status: COMPLETED,
+};
+
+fireblocks.tokenization.getLinkedCollections(body).then((res: FireblocksResponse<GetLinkedCollectionsPaginatedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageCursor** | [**string**] | Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot; | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more then 100 will return 100 items | (optional) defaults to 100
+ **status** | **any** | A comma separated list of statuses to filter. Default is \&quot;COMPLETED\&quot; | (optional) defaults to undefined
+
+
+### Return type
+
+**[GetLinkedCollectionsPaginatedResponse](../models/GetLinkedCollectionsPaginatedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Collection fetched successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getLinkedToken**
 > TokenLinkDto getLinkedToken()
@@ -203,7 +528,7 @@ No authorization required
 # **link**
 > TokenLinkDto link(tokenLinkRequestDto)
 
-Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
+Link an a contract
 
 ### Example
 
@@ -260,8 +585,74 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | Token linked successfully |  -  |
 **201** |  |  -  |
-**404** | Could not find the underlying token identifier (refId) to link the token to |  -  |
+**404** | Could not find the underlying contract to link to |  -  |
 **409** | Token link for {refId} already exists |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **mintCollectionToken**
+> CollectionMintResponseDto mintCollectionToken(collectionMintRequestDto, )
+
+Mint tokens and upload metadata
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiMintCollectionTokenRequest, CollectionMintResponseDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiMintCollectionTokenRequest = {
+  // CollectionMintRequestDto
+  collectionMintRequestDto: param_value,
+  // string | The collection link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.mintCollectionToken(body).then((res: FireblocksResponse<CollectionMintResponseDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **collectionMintRequestDto** | **[CollectionMintRequestDto](../models/CollectionMintRequestDto.md)**|  |
+ **id** | [**string**] | The collection link id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CollectionMintResponseDto](../models/CollectionMintResponseDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Tokens minted successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -324,6 +715,67 @@ No authorization required
 **200** | Token unlinked successfully |  -  |
 **204** |  |  -  |
 **404** | Link did not exist |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **unlinkCollection**
+> unlinkCollection()
+
+Delete a collection link
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiUnlinkCollectionRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiUnlinkCollectionRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+};
+
+fireblocks.tokenization.unlinkCollection(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Collection unlinked successfully |  -  |
+**404** | Link for collection does not exist |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

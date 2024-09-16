@@ -46,6 +46,12 @@
 
 * `EtherlinkTest` (value: `'ETHERLINK_TEST'`)
 
+* `Mantle` (value: `'MANTLE'`)
+
+* `MantleTest` (value: `'MANTLE_TEST'`)
+
+* `GunGunzillaTest` (value: `'GUN_GUNZILLA_TEST'`)
+
 
 
 
