@@ -147,6 +147,12 @@ export interface TransactionRequest {
      */
     'maxFee'?: string;
     /**
+     * For BTC-based blockchains only. The maximum fee (in the units of the fee-paying asset) that should be paid for the transaction.
+     * @type {string}
+     * @memberof TransactionRequest
+     */
+    'maxTotalFee'?: string;
+    /**
      * 
      * @type {TransactionRequestGasLimit}
      * @memberof TransactionRequest
@@ -209,6 +215,12 @@ export interface TransactionRequest {
      * @deprecated
      */
     'cpuStaking'?: TransactionRequestNetworkStaking;
+    /**
+     * - Override the default gaslsess configuration by sending true\\false
+     * @type {boolean}
+     * @memberof TransactionRequest
+     */
+    'useGasless'?: boolean;
 }
 
 export const TransactionRequestFeeLevelEnum = {

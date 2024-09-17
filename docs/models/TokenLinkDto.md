@@ -7,8 +7,8 @@
 |**id** | **string** | The token link id | [default to undefined]|
 |**status** | **string** | The token status | [default to undefined]|
 |**type** | **string** | The type of token | [optional] [default to undefined]|
-|**refId** | **string** | The Fireblocks\&#39; reference id. Can be a Fireblocks\&#39; supported asset, collectionId or contractId | [optional] [default to undefined]|
-|**displayName** | **string** | The token display name. If was not provided, would be taken from the contract template name | [optional] [default to undefined]|
+|**refId** | **string** | The Fireblocks\&#39; reference id | [optional] [default to undefined]|
+|**displayName** | **string** | The token display name. If was not provided, would be taken from the contract template | [optional] [default to undefined]|
 |**tokenMetadata** | [**TokenLinkDtoTokenMetadata**](TokenLinkDtoTokenMetadata.md) |  | [optional] [default to undefined]|
 
 

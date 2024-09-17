@@ -29,11 +29,23 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { AssetAlreadyExistHttpError } from '../models';
 // @ts-ignore
-import { AssetDoesNotExistHttpError } from '../models';
+import { CollectionBurnRequestDto } from '../models';
+// @ts-ignore
+import { CollectionBurnResponseDto } from '../models';
+// @ts-ignore
+import { CollectionDeployRequestDto } from '../models';
+// @ts-ignore
+import { CollectionLinkDto } from '../models';
+// @ts-ignore
+import { CollectionMintRequestDto } from '../models';
+// @ts-ignore
+import { CollectionMintResponseDto } from '../models';
 // @ts-ignore
 import { CreateTokenRequestDto } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetLinkedCollectionsPaginatedResponse } from '../models';
 // @ts-ignore
 import { NotFoundException } from '../models';
 // @ts-ignore
@@ -50,6 +62,205 @@ import { TokensPaginatedResponse } from '../models';
  */
 export const TokenizationApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Burn tokens in a collection
+         * @summary Burn tokens
+         * @param {CollectionBurnRequestDto} collectionBurnRequestDto 
+         * @param {string} id The collection link id
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        burnCollectionToken: async (collectionBurnRequestDto: CollectionBurnRequestDto, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('burnCollectionToken', 'collectionBurnRequestDto', collectionBurnRequestDto)
+            assertParamExistsAndNotEmpty('burnCollectionToken', 'id', id)
+            const localVarPath = `/tokenization/collections/{id}/tokens/burn`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionBurnRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new collection and link it as a token
+         * @summary Create a new collection
+         * @param {CollectionDeployRequestDto} collectionDeployRequestDto 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createNewCollection: async (collectionDeployRequestDto: CollectionDeployRequestDto, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createNewCollection', 'collectionDeployRequestDto', collectionDeployRequestDto)
+            const localVarPath = `/tokenization/collections`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionDeployRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get collection token details by id
+         * @summary Get collection token details
+         * @param {string} id The collection link id
+         * @param {string} tokenId The tokenId as it appears on the blockchain
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fetchCollectionTokenDetails: async (id: string, tokenId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('fetchCollectionTokenDetails', 'id', id)
+            assertParamExistsAndNotEmpty('fetchCollectionTokenDetails', 'tokenId', tokenId)
+            const localVarPath = `/tokenization/collections/{id}/tokens/{tokenId}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"tokenId"}}`, encodeURIComponent(String(tokenId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a collection by id
+         * @summary Get a collection by id
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCollectionById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCollectionById', 'id', id)
+            const localVarPath = `/tokenization/collections/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get collections (paginated)
+         * @summary Get collections
+         * @param {string} [pageCursor] Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot;
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more then 100 will return 100 items
+         * @param {any} [status] A comma separated list of statuses to filter. Default is \&quot;COMPLETED\&quot;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLinkedCollections: async (pageCursor?: string, pageSize?: number, status?: any, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/tokenization/collections`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (status !== undefined) {
+                for (const [key, value] of Object.entries(status)) {
+                    localVarQueryParameter[key] = value;
+                }
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Return a linked token, with its status and metadata.
          * @summary Return a linked token
@@ -171,8 +382,8 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
-         * @summary Link a token
+         * Link an a contract
+         * @summary Link a contract
          * @param {TokenLinkRequestDto} tokenLinkRequestDto 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -204,6 +415,49 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(tokenLinkRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Mint tokens and upload metadata
+         * @summary Mint tokens
+         * @param {CollectionMintRequestDto} collectionMintRequestDto 
+         * @param {string} id The collection link id
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        mintCollectionToken: async (collectionMintRequestDto: CollectionMintRequestDto, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('mintCollectionToken', 'collectionMintRequestDto', collectionMintRequestDto)
+            assertParamExistsAndNotEmpty('mintCollectionToken', 'id', id)
+            const localVarPath = `/tokenization/collections/{id}/tokens/mint`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(collectionMintRequestDto, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -243,6 +497,39 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Delete a collection link
+         * @summary Delete a collection link
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unlinkCollection: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('unlinkCollection', 'id', id)
+            const localVarPath = `/tokenization/collections/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -253,6 +540,77 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
 export const TokenizationApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TokenizationApiAxiosParamCreator(configuration)
     return {
+        /**
+         * Burn tokens in a collection
+         * @summary Burn tokens
+         * @param {CollectionBurnRequestDto} collectionBurnRequestDto 
+         * @param {string} id The collection link id
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async burnCollectionToken(collectionBurnRequestDto: CollectionBurnRequestDto, id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionBurnResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.burnCollectionToken(collectionBurnRequestDto, id, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.burnCollectionToken']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Create a new collection and link it as a token
+         * @summary Create a new collection
+         * @param {CollectionDeployRequestDto} collectionDeployRequestDto 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createNewCollection(collectionDeployRequestDto: CollectionDeployRequestDto, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionLinkDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createNewCollection(collectionDeployRequestDto, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.createNewCollection']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get collection token details by id
+         * @summary Get collection token details
+         * @param {string} id The collection link id
+         * @param {string} tokenId The tokenId as it appears on the blockchain
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async fetchCollectionTokenDetails(id: string, tokenId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionLinkDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fetchCollectionTokenDetails(id, tokenId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.fetchCollectionTokenDetails']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get a collection by id
+         * @summary Get a collection by id
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCollectionById(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionLinkDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCollectionById(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getCollectionById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get collections (paginated)
+         * @summary Get collections
+         * @param {string} [pageCursor] Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot;
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more then 100 will return 100 items
+         * @param {any} [status] A comma separated list of statuses to filter. Default is \&quot;COMPLETED\&quot;
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLinkedCollections(pageCursor?: string, pageSize?: number, status?: any, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLinkedCollectionsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLinkedCollections(pageCursor, pageSize, status, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getLinkedCollections']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
         /**
          * Return a linked token, with its status and metadata.
          * @summary Return a linked token
@@ -296,8 +654,8 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
-         * @summary Link a token
+         * Link an a contract
+         * @summary Link a contract
          * @param {TokenLinkRequestDto} tokenLinkRequestDto 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -307,6 +665,21 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.link(tokenLinkRequestDto, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TokenizationApi.link']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Mint tokens and upload metadata
+         * @summary Mint tokens
+         * @param {CollectionMintRequestDto} collectionMintRequestDto 
+         * @param {string} id The collection link id
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async mintCollectionToken(collectionMintRequestDto: CollectionMintRequestDto, id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CollectionMintResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.mintCollectionToken(collectionMintRequestDto, id, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.mintCollectionToken']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -322,6 +695,19 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['TokenizationApi.unlink']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Delete a collection link
+         * @summary Delete a collection link
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async unlinkCollection(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unlinkCollection(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.unlinkCollection']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -332,6 +718,56 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
 export const TokenizationApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
     const localVarFp = TokenizationApiFp(configuration)
     return {
+        /**
+         * Burn tokens in a collection
+         * @summary Burn tokens
+         * @param {TokenizationApiBurnCollectionTokenRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        burnCollectionToken(requestParameters: TokenizationApiBurnCollectionTokenRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionBurnResponseDto> {
+            return localVarFp.burnCollectionToken(requestParameters.collectionBurnRequestDto, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new collection and link it as a token
+         * @summary Create a new collection
+         * @param {TokenizationApiCreateNewCollectionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createNewCollection(requestParameters: TokenizationApiCreateNewCollectionRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionLinkDto> {
+            return localVarFp.createNewCollection(requestParameters.collectionDeployRequestDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get collection token details by id
+         * @summary Get collection token details
+         * @param {TokenizationApiFetchCollectionTokenDetailsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        fetchCollectionTokenDetails(requestParameters: TokenizationApiFetchCollectionTokenDetailsRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionLinkDto> {
+            return localVarFp.fetchCollectionTokenDetails(requestParameters.id, requestParameters.tokenId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a collection by id
+         * @summary Get a collection by id
+         * @param {TokenizationApiGetCollectionByIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCollectionById(requestParameters: TokenizationApiGetCollectionByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionLinkDto> {
+            return localVarFp.getCollectionById(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get collections (paginated)
+         * @summary Get collections
+         * @param {TokenizationApiGetLinkedCollectionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLinkedCollections(requestParameters: TokenizationApiGetLinkedCollectionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetLinkedCollectionsPaginatedResponse> {
+            return localVarFp.getLinkedCollections(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.status, options).then((request) => request(axios, basePath));
+        },
         /**
          * Return a linked token, with its status and metadata.
          * @summary Return a linked token
@@ -363,14 +799,24 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.issueNewToken(requestParameters.createTokenRequestDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
-         * @summary Link a token
+         * Link an a contract
+         * @summary Link a contract
          * @param {TokenizationApiLinkRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         link(requestParameters: TokenizationApiLinkRequest, options?: RawAxiosRequestConfig): AxiosPromise<TokenLinkDto> {
             return localVarFp.link(requestParameters.tokenLinkRequestDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Mint tokens and upload metadata
+         * @summary Mint tokens
+         * @param {TokenizationApiMintCollectionTokenRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        mintCollectionToken(requestParameters: TokenizationApiMintCollectionTokenRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionMintResponseDto> {
+            return localVarFp.mintCollectionToken(requestParameters.collectionMintRequestDto, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
@@ -382,8 +828,130 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
         unlink(requestParameters: TokenizationApiUnlinkRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.unlink(requestParameters.id, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Delete a collection link
+         * @summary Delete a collection link
+         * @param {TokenizationApiUnlinkCollectionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        unlinkCollection(requestParameters: TokenizationApiUnlinkCollectionRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.unlinkCollection(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for burnCollectionToken operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiBurnCollectionTokenRequest
+ */
+export interface TokenizationApiBurnCollectionTokenRequest {
+    /**
+     * 
+     * @type {CollectionBurnRequestDto}
+     * @memberof TokenizationApiBurnCollectionToken
+     */
+    readonly collectionBurnRequestDto: CollectionBurnRequestDto
+
+    /**
+     * The collection link id
+     * @type {string}
+     * @memberof TokenizationApiBurnCollectionToken
+     */
+    readonly id: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiBurnCollectionToken
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createNewCollection operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiCreateNewCollectionRequest
+ */
+export interface TokenizationApiCreateNewCollectionRequest {
+    /**
+     * 
+     * @type {CollectionDeployRequestDto}
+     * @memberof TokenizationApiCreateNewCollection
+     */
+    readonly collectionDeployRequestDto: CollectionDeployRequestDto
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiCreateNewCollection
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for fetchCollectionTokenDetails operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiFetchCollectionTokenDetailsRequest
+ */
+export interface TokenizationApiFetchCollectionTokenDetailsRequest {
+    /**
+     * The collection link id
+     * @type {string}
+     * @memberof TokenizationApiFetchCollectionTokenDetails
+     */
+    readonly id: string
+
+    /**
+     * The tokenId as it appears on the blockchain
+     * @type {string}
+     * @memberof TokenizationApiFetchCollectionTokenDetails
+     */
+    readonly tokenId: string
+}
+
+/**
+ * Request parameters for getCollectionById operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetCollectionByIdRequest
+ */
+export interface TokenizationApiGetCollectionByIdRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetCollectionById
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getLinkedCollections operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetLinkedCollectionsRequest
+ */
+export interface TokenizationApiGetLinkedCollectionsRequest {
+    /**
+     * Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot;
+     * @type {string}
+     * @memberof TokenizationApiGetLinkedCollections
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more then 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetLinkedCollections
+     */
+    readonly pageSize?: number
+
+    /**
+     * A comma separated list of statuses to filter. Default is \&quot;COMPLETED\&quot;
+     * @type {any}
+     * @memberof TokenizationApiGetLinkedCollections
+     */
+    readonly status?: any
+}
 
 /**
  * Request parameters for getLinkedToken operation in TokenizationApi.
@@ -470,6 +1038,34 @@ export interface TokenizationApiLinkRequest {
 }
 
 /**
+ * Request parameters for mintCollectionToken operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiMintCollectionTokenRequest
+ */
+export interface TokenizationApiMintCollectionTokenRequest {
+    /**
+     * 
+     * @type {CollectionMintRequestDto}
+     * @memberof TokenizationApiMintCollectionToken
+     */
+    readonly collectionMintRequestDto: CollectionMintRequestDto
+
+    /**
+     * The collection link id
+     * @type {string}
+     * @memberof TokenizationApiMintCollectionToken
+     */
+    readonly id: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiMintCollectionToken
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for unlink operation in TokenizationApi.
  * @export
  * @interface TokenizationApiUnlinkRequest
@@ -484,12 +1080,86 @@ export interface TokenizationApiUnlinkRequest {
 }
 
 /**
+ * Request parameters for unlinkCollection operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiUnlinkCollectionRequest
+ */
+export interface TokenizationApiUnlinkCollectionRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiUnlinkCollection
+     */
+    readonly id: string
+}
+
+/**
  * TokenizationApi - object-oriented interface
  * @export
  * @class TokenizationApi
  * @extends {BaseAPI}
  */
 export class TokenizationApi extends BaseAPI {
+    /**
+     * Burn tokens in a collection
+     * @summary Burn tokens
+     * @param {TokenizationApiBurnCollectionTokenRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public burnCollectionToken(requestParameters: TokenizationApiBurnCollectionTokenRequest) {
+        return TokenizationApiFp(this.configuration).burnCollectionToken(requestParameters.collectionBurnRequestDto, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Create a new collection and link it as a token
+     * @summary Create a new collection
+     * @param {TokenizationApiCreateNewCollectionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public createNewCollection(requestParameters: TokenizationApiCreateNewCollectionRequest) {
+        return TokenizationApiFp(this.configuration).createNewCollection(requestParameters.collectionDeployRequestDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get collection token details by id
+     * @summary Get collection token details
+     * @param {TokenizationApiFetchCollectionTokenDetailsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public fetchCollectionTokenDetails(requestParameters: TokenizationApiFetchCollectionTokenDetailsRequest) {
+        return TokenizationApiFp(this.configuration).fetchCollectionTokenDetails(requestParameters.id, requestParameters.tokenId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get a collection by id
+     * @summary Get a collection by id
+     * @param {TokenizationApiGetCollectionByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getCollectionById(requestParameters: TokenizationApiGetCollectionByIdRequest) {
+        return TokenizationApiFp(this.configuration).getCollectionById(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get collections (paginated)
+     * @summary Get collections
+     * @param {TokenizationApiGetLinkedCollectionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getLinkedCollections(requestParameters: TokenizationApiGetLinkedCollectionsRequest = {}) {
+        return TokenizationApiFp(this.configuration).getLinkedCollections(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.status).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
     /**
      * Return a linked token, with its status and metadata.
      * @summary Return a linked token
@@ -527,8 +1197,8 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
-     * Link an already existing token (by assetId, collectionId or contractId as refId) to a workspace across EVM, Stellar, or Ripple platforms. The token will be linked to the workspace if it does not already exist.
-     * @summary Link a token
+     * Link an a contract
+     * @summary Link a contract
      * @param {TokenizationApiLinkRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -536,6 +1206,18 @@ export class TokenizationApi extends BaseAPI {
      */
     public link(requestParameters: TokenizationApiLinkRequest) {
         return TokenizationApiFp(this.configuration).link(requestParameters.tokenLinkRequestDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Mint tokens and upload metadata
+     * @summary Mint tokens
+     * @param {TokenizationApiMintCollectionTokenRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public mintCollectionToken(requestParameters: TokenizationApiMintCollectionTokenRequest) {
+        return TokenizationApiFp(this.configuration).mintCollectionToken(requestParameters.collectionMintRequestDto, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -548,6 +1230,18 @@ export class TokenizationApi extends BaseAPI {
      */
     public unlink(requestParameters: TokenizationApiUnlinkRequest) {
         return TokenizationApiFp(this.configuration).unlink(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Delete a collection link
+     * @summary Delete a collection link
+     * @param {TokenizationApiUnlinkCollectionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public unlinkCollection(requestParameters: TokenizationApiUnlinkCollectionRequest) {
+        return TokenizationApiFp(this.configuration).unlinkCollection(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

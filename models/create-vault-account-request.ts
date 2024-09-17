@@ -44,5 +44,25 @@ export interface CreateVaultAccountRequest {
      * @memberof CreateVaultAccountRequest
      */
     'autoFuel'?: boolean;
+    /**
+     * Type of vault account. The default type will be set to MPC.<br/>  If the workspace does not support the selected type, it will return an error.
+     * @type {string}
+     * @memberof CreateVaultAccountRequest
+     */
+    'vaultType'?: CreateVaultAccountRequestVaultTypeEnum;
+    /**
+     * Applicable only when the vault account type is KEY_LINK. For MPC, this parameter will be ignored.<br/> If set to true and there are available keys, random keys will be assigned to the newly created vault account.<br/> If set to true and there are no available keys to be assigned, it will return an error.<br/> If set to false, the vault account will be created without any keys.
+     * @type {boolean}
+     * @memberof CreateVaultAccountRequest
+     */
+    'autoAssign'?: boolean;
 }
+
+export const CreateVaultAccountRequestVaultTypeEnum = {
+    Mpc: 'MPC',
+    KeyLink: 'KEY_LINK'
+} as const;
+
+export type CreateVaultAccountRequestVaultTypeEnum = typeof CreateVaultAccountRequestVaultTypeEnum[keyof typeof CreateVaultAccountRequestVaultTypeEnum];
+
 

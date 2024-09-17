@@ -50,5 +50,11 @@ export interface ExchangeAsset {
      * @memberof ExchangeAsset
      */
     'available'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ExchangeAsset
+     */
+    'credit'?: string;
 }
 

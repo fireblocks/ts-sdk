@@ -42,13 +42,13 @@ export interface TokenLinkDto {
      */
     'type'?: TokenLinkDtoTypeEnum;
     /**
-     * The Fireblocks\' reference id. Can be a Fireblocks\' supported asset, collectionId or contractId
+     * The Fireblocks\' reference id
      * @type {string}
      * @memberof TokenLinkDto
      */
     'refId'?: string;
     /**
-     * The token display name. If was not provided, would be taken from the contract template name
+     * The token display name. If was not provided, would be taken from the contract template
      * @type {string}
      * @memberof TokenLinkDto
      */

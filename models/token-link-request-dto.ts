@@ -31,13 +31,25 @@ export interface TokenLinkRequestDto {
      * @type {string}
      * @memberof TokenLinkRequestDto
      */
-    'refId': string;
+    'refId'?: string;
     /**
      * The token display name
      * @type {string}
      * @memberof TokenLinkRequestDto
      */
     'displayName'?: string;
+    /**
+     * The blockchain base assetId
+     * @type {string}
+     * @memberof TokenLinkRequestDto
+     */
+    'baseAssetId'?: string;
+    /**
+     * The contract\'s onchain address
+     * @type {string}
+     * @memberof TokenLinkRequestDto
+     */
+    'contractAddress'?: string;
 }
 
 export const TokenLinkRequestDtoTypeEnum = {

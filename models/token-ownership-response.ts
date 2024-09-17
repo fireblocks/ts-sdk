@@ -152,7 +152,10 @@ export const TokenOwnershipResponseBlockchainDescriptorEnum = {
     BasechainEth: 'BASECHAIN_ETH',
     BasechainEthTest3: 'BASECHAIN_ETH_TEST3',
     Etherlink: 'ETHERLINK',
-    EtherlinkTest: 'ETHERLINK_TEST'
+    EtherlinkTest: 'ETHERLINK_TEST',
+    Mantle: 'MANTLE',
+    MantleTest: 'MANTLE_TEST',
+    GunGunzillaTest: 'GUN_GUNZILLA_TEST'
 } as const;
 
 export type TokenOwnershipResponseBlockchainDescriptorEnum = typeof TokenOwnershipResponseBlockchainDescriptorEnum[keyof typeof TokenOwnershipResponseBlockchainDescriptorEnum];

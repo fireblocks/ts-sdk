@@ -17,26 +17,20 @@
 /**
  * 
  * @export
- * @interface AssetDoesNotExistHttpError
+ * @interface FetchAbiRequestDto
  */
-export interface AssetDoesNotExistHttpError {
+export interface FetchAbiRequestDto {
     /**
-     * HTTP status code
-     * @type {number}
-     * @memberof AssetDoesNotExistHttpError
-     */
-    'statusCode'?: number;
-    /**
-     * Error message
+     * The blockchain base assetId
      * @type {string}
-     * @memberof AssetDoesNotExistHttpError
+     * @memberof FetchAbiRequestDto
      */
-    'message'?: string;
+    'baseAssetId': string;
     /**
-     * Short description of the HTTP error
+     * The contract\'s onchain address
      * @type {string}
-     * @memberof AssetDoesNotExistHttpError
+     * @memberof FetchAbiRequestDto
      */
-    'error'?: string;
+    'contractAddress': string;
 }
 

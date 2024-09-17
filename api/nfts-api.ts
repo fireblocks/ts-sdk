@@ -946,7 +946,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'ETHERLINK' | 'ETHERLINK_TEST'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1205,7 +1205,7 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'ETHERLINK' | 'ETHERLINK_TEST'}
+     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
@@ -1456,7 +1456,10 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     BasechainEth: 'BASECHAIN_ETH',
     BasechainEthTest3: 'BASECHAIN_ETH_TEST3',
     Etherlink: 'ETHERLINK',
-    EtherlinkTest: 'ETHERLINK_TEST'
+    EtherlinkTest: 'ETHERLINK_TEST',
+    Mantle: 'MANTLE',
+    MantleTest: 'MANTLE_TEST',
+    GunGunzillaTest: 'GUN_GUNZILLA_TEST'
 } as const;
 export type GetOwnershipTokensBlockchainDescriptorEnum = typeof GetOwnershipTokensBlockchainDescriptorEnum[keyof typeof GetOwnershipTokensBlockchainDescriptorEnum];
 /**
@@ -1585,6 +1588,9 @@ export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
     AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     BasechainEth: 'BASECHAIN_ETH',
     Etherlink: 'ETHERLINK',
-    EtherlinkTest: 'ETHERLINK_TEST'
+    EtherlinkTest: 'ETHERLINK_TEST',
+    Mantle: 'MANTLE',
+    MantleTest: 'MANTLE_TEST',
+    GunGunzillaTest: 'GUN_GUNZILLA_TEST'
 } as const;
 export type UpdateOwnershipTokensBlockchainDescriptorEnum = typeof UpdateOwnershipTokensBlockchainDescriptorEnum[keyof typeof UpdateOwnershipTokensBlockchainDescriptorEnum];
