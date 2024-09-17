@@ -17,26 +17,26 @@
 /**
  * 
  * @export
- * @interface GetAuditLogsResponseDTO
+ * @interface CollectionTokenMetadataAttributeDto
  */
-export interface GetAuditLogsResponseDTO {
+export interface CollectionTokenMetadataAttributeDto {
     /**
-     * 
-     * @type {Array<object>}
-     * @memberof GetAuditLogsResponseDTO
-     */
-    'data'?: Array<object>;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetAuditLogsResponseDTO
-     */
-    'total'?: number;
-    /**
-     * 
+     * Name of the trait
      * @type {string}
-     * @memberof GetAuditLogsResponseDTO
+     * @memberof CollectionTokenMetadataAttributeDto
      */
-    'cursor'?: string | null;
+    'trait_type': string;
+    /**
+     * Value of the trait
+     * @type {string}
+     * @memberof CollectionTokenMetadataAttributeDto
+     */
+    'value': string;
+    /**
+     * A field indicating how you would like trait to be displayed
+     * @type {string}
+     * @memberof CollectionTokenMetadataAttributeDto
+     */
+    'display_type'?: string;
 }
 

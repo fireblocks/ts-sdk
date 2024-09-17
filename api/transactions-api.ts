@@ -45,6 +45,8 @@ import { FreezeTransactionResponse } from '../models';
 // @ts-ignore
 import { GetTransactionsResponse } from '../models';
 // @ts-ignore
+import { RescanTransactionRequest } from '../models';
+// @ts-ignore
 import { SetConfirmationsThresholdRequest } from '../models';
 // @ts-ignore
 import { SetConfirmationsThresholdResponse } from '../models';
@@ -56,6 +58,8 @@ import { TransactionResponse } from '../models';
 import { UnfreezeTransactionResponse } from '../models';
 // @ts-ignore
 import { ValidateAddressResponse } from '../models';
+// @ts-ignore
+import { ValidatedTransactionsForRescanResponse } from '../models';
 /**
  * TransactionsApi - axios parameter creator
  * @export
@@ -481,6 +485,46 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * rescan transaction by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
+         * @summary rescan array of transactions
+         * @param {RescanTransactionRequest} rescanTransactionRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rescanTransactionsBeta: async (rescanTransactionRequest: RescanTransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('rescanTransactionsBeta', 'rescanTransactionRequest', rescanTransactionRequest)
+            const localVarPath = `/transactions/rescan`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(rescanTransactionRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Overrides the required number of confirmations for transaction completion by transaction hash.
          * @summary Set confirmation threshold by transaction hash
          * @param {string} txHash The TxHash
@@ -794,6 +838,20 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * rescan transaction by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
+         * @summary rescan array of transactions
+         * @param {RescanTransactionRequest} rescanTransactionRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rescanTransactionsBeta(rescanTransactionRequest: RescanTransactionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidatedTransactionsForRescanResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rescanTransactionsBeta(rescanTransactionRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TransactionsApi.rescanTransactionsBeta']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Overrides the required number of confirmations for transaction completion by transaction hash.
          * @summary Set confirmation threshold by transaction hash
          * @param {string} txHash The TxHash
@@ -951,6 +1009,16 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          */
         getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetTransactionsResponse> {
             return localVarFp.getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * rescan transaction by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
+         * @summary rescan array of transactions
+         * @param {TransactionsApiRescanTransactionsBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rescanTransactionsBeta(requestParameters: TransactionsApiRescanTransactionsBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidatedTransactionsForRescanResponse> {
+            return localVarFp.rescanTransactionsBeta(requestParameters.rescanTransactionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Overrides the required number of confirmations for transaction completion by transaction hash.
@@ -1283,6 +1351,27 @@ export interface TransactionsApiGetTransactionsRequest {
 }
 
 /**
+ * Request parameters for rescanTransactionsBeta operation in TransactionsApi.
+ * @export
+ * @interface TransactionsApiRescanTransactionsBetaRequest
+ */
+export interface TransactionsApiRescanTransactionsBetaRequest {
+    /**
+     * 
+     * @type {RescanTransactionRequest}
+     * @memberof TransactionsApiRescanTransactionsBeta
+     */
+    readonly rescanTransactionRequest: RescanTransactionRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TransactionsApiRescanTransactionsBeta
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for setConfirmationThresholdByTransactionHash operation in TransactionsApi.
  * @export
  * @interface TransactionsApiSetConfirmationThresholdByTransactionHashRequest
@@ -1500,6 +1589,18 @@ export class TransactionsApi extends BaseAPI {
      */
     public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}) {
         return TransactionsApiFp(this.configuration).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * rescan transaction by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
+     * @summary rescan array of transactions
+     * @param {TransactionsApiRescanTransactionsBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionsApi
+     */
+    public rescanTransactionsBeta(requestParameters: TransactionsApiRescanTransactionsBetaRequest) {
+        return TransactionsApiFp(this.configuration).rescanTransactionsBeta(requestParameters.rescanTransactionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

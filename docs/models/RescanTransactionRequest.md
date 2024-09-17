@@ -1,12 +1,9 @@
-# AssetDoesNotExistHttpError
+# RescanTransactionRequest
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**statusCode** | **number** | HTTP status code | [optional] [default to undefined]|
-|**message** | **string** | Error message | [optional] [default to undefined]|
-|**error** | **string** | Short description of the HTTP error | [optional] [default to undefined]|
 
 
 

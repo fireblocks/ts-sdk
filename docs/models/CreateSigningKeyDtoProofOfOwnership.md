@@ -1,12 +1,11 @@
-# GetAuditLogsResponseDTO
+# CreateSigningKeyDtoProofOfOwnership
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**data** | **Array&lt;object&gt;** |  | [optional] [default to undefined]|
-|**total** | **number** |  | [optional] [default to undefined]|
-|**cursor** | **string** |  | [optional] [default to undefined]|
+|**message** | **string** | The message to be signed by the key as proof of ownership. 64 to 1024 bytes in hexadecimal format. | [default to undefined]|
+|**signature** | **string** | The signature of the message. 64 bytes in hexadecimal format. | [default to undefined]|
 
 
 
