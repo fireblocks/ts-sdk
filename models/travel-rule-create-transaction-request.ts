@@ -54,6 +54,12 @@ export interface TravelRuleCreateTransactionRequest {
      */
     'beneficiaryVASPdid'?: string;
     /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'originatorVASPname'?: string;
+    /**
      * The name of the VASP acting as the beneficiary
      * @type {string}
      * @memberof TravelRuleCreateTransactionRequest
@@ -90,6 +96,24 @@ export interface TravelRuleCreateTransactionRequest {
      */
     'travelRuleBehavior'?: boolean;
     /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'originatorRef'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'beneficiaryRef'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'travelRuleBehaviorRef'?: string;
+    /**
      * Ownership proof related to the originator of the transaction
      * @type {TravelRuleOwnershipProof}
      * @memberof TravelRuleCreateTransactionRequest
@@ -102,10 +126,22 @@ export interface TravelRuleCreateTransactionRequest {
      */
     'beneficiaryProof'?: TravelRuleOwnershipProof;
     /**
-     * Personal identifiable information related to the transaction
-     * @type {TravelRulePiiIVMS}
+     * 
+     * @type {string}
      * @memberof TravelRuleCreateTransactionRequest
      */
-    'pii'?: TravelRulePiiIVMS;
+    'beneficiaryDid'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'originatorDid'?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'isNonCustodial'?: boolean;
 }
 

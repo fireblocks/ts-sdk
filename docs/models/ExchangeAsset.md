@@ -9,6 +9,7 @@
 |**lockedAmount** | **string** |  | [optional] [default to undefined]|
 |**total** | **string** |  | [optional] [default to undefined]|
 |**available** | **string** |  | [optional] [default to undefined]|
+|**credit** | **string** |  | [optional] [default to undefined]|
 
 
 

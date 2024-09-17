@@ -4,15 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**fullName** | **string** |  | [optional] [default to undefined]|
-|**dateOfBirth** | **string** |  | [optional] [default to undefined]|
-|**placeOfBirth** | **string** |  | [optional] [default to undefined]|
-|**address** | **string** |  | [optional] [default to undefined]|
-|**identificationNumber** | **string** |  | [optional] [default to undefined]|
-|**nationality** | **string** |  | [optional] [default to undefined]|
-|**countryOfResidence** | **string** |  | [optional] [default to undefined]|
-|**taxIdentificationNumber** | **string** |  | [optional] [default to undefined]|
-|**customerNumber** | **string** |  | [optional] [default to undefined]|
+|**originatorPersons** | [**Array&lt;TravelRulePersons&gt;**](TravelRulePersons.md) |  | [optional] [default to undefined]|
+|**beneficiaryPersons** | [**Array&lt;TravelRulePersons&gt;**](TravelRulePersons.md) |  | [optional] [default to undefined]|
+|**accountNumber** | **Array&lt;string&gt;** |  | [optional] [default to undefined]|
 
 
 

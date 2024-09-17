@@ -130,7 +130,6 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get Api users
 *AssetsApi* | [**createAssetsBulk**](docs/apis/AssetsApi.md#createAssetsBulk) | **POST** /vault/assets/bulk | Bulk creation of wallets
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
-*AuditLogsApi* | [**getAudits**](docs/apis/AuditLogsApi.md#getAudits) | **GET** /audits | Get audit logs
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/apis/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/apis/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *BlockchainsAssetsApi* | [**setAssetPrice**](docs/apis/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
@@ -167,6 +166,8 @@ Class | Method | HTTP request | Description
 *CosignersBetaApi* | [**getCosigner**](docs/apis/CosignersBetaApi.md#getCosigner) | **GET** /cosigners/{cosignerId} | Get cosigner
 *CosignersBetaApi* | [**getCosigners**](docs/apis/CosignersBetaApi.md#getCosigners) | **GET** /cosigners | Get all cosigners
 *CosignersBetaApi* | [**renameCosigner**](docs/apis/CosignersBetaApi.md#renameCosigner) | **PATCH** /cosigners/{cosignerId} | Rename cosigner
+*DeployedContractsApi* | [**addContractABI**](docs/apis/DeployedContractsApi.md#addContractABI) | **POST** /tokenization/contracts/abi | Save contract ABI
+*DeployedContractsApi* | [**fetchContractAbi**](docs/apis/DeployedContractsApi.md#fetchContractAbi) | **POST** /tokenization/contracts/fetch_abi | Fetch the contract ABI
 *DeployedContractsApi* | [**getDeployedContractByAddress**](docs/apis/DeployedContractsApi.md#getDeployedContractByAddress) | **GET** /tokenization/contracts/{assetId}/{contractAddress} | Return deployed contract data
 *DeployedContractsApi* | [**getDeployedContractById**](docs/apis/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/apis/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
@@ -279,11 +280,18 @@ Class | Method | HTTP request | Description
 *StakingBetaApi* | [**getProviders**](docs/apis/StakingBetaApi.md#getProviders) | **GET** /staking/providers | 
 *StakingBetaApi* | [**getSummary**](docs/apis/StakingBetaApi.md#getSummary) | **GET** /staking/positions/summary | 
 *StakingBetaApi* | [**getSummaryByVault**](docs/apis/StakingBetaApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | 
+*TokenizationApi* | [**burnCollectionToken**](docs/apis/TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
+*TokenizationApi* | [**createNewCollection**](docs/apis/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
+*TokenizationApi* | [**fetchCollectionTokenDetails**](docs/apis/TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
+*TokenizationApi* | [**getCollectionById**](docs/apis/TokenizationApi.md#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id
+*TokenizationApi* | [**getLinkedCollections**](docs/apis/TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 *TokenizationApi* | [**getLinkedToken**](docs/apis/TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 *TokenizationApi* | [**getLinkedTokens**](docs/apis/TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 *TokenizationApi* | [**issueNewToken**](docs/apis/TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
-*TokenizationApi* | [**link**](docs/apis/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a token
+*TokenizationApi* | [**link**](docs/apis/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract
+*TokenizationApi* | [**mintCollectionToken**](docs/apis/TokenizationApi.md#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
 *TokenizationApi* | [**unlink**](docs/apis/TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
+*TokenizationApi* | [**unlinkCollection**](docs/apis/TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 *TransactionsApi* | [**cancelTransaction**](docs/apis/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/apis/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
 *TransactionsApi* | [**dropTransaction**](docs/apis/TransactionsApi.md#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH transaction by ID
@@ -293,6 +301,7 @@ Class | Method | HTTP request | Description
 *TransactionsApi* | [**getTransaction**](docs/apis/TransactionsApi.md#getTransaction) | **GET** /transactions/{txId} | Find a specific transaction by Fireblocks transaction ID
 *TransactionsApi* | [**getTransactionByExternalId**](docs/apis/TransactionsApi.md#getTransactionByExternalId) | **GET** /transactions/external_tx_id/{externalTxId} | Find a specific transaction by external transaction ID
 *TransactionsApi* | [**getTransactions**](docs/apis/TransactionsApi.md#getTransactions) | **GET** /transactions | List transaction history
+*TransactionsApi* | [**rescanTransactionsBeta**](docs/apis/TransactionsApi.md#rescanTransactionsBeta) | **POST** /transactions/rescan | rescan array of transactions
 *TransactionsApi* | [**setConfirmationThresholdByTransactionHash**](docs/apis/TransactionsApi.md#setConfirmationThresholdByTransactionHash) | **POST** /txHash/{txHash}/set_confirmation_threshold | Set confirmation threshold by transaction hash
 *TransactionsApi* | [**setTransactionConfirmationThreshold**](docs/apis/TransactionsApi.md#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by transaction ID
 *TransactionsApi* | [**unfreezeTransaction**](docs/apis/TransactionsApi.md#unfreezeTransaction) | **POST** /transactions/{txId}/unfreeze | Unfreeze a transaction
@@ -350,6 +359,7 @@ Class | Method | HTTP request | Description
  - [AbiFunction](docs/models/AbiFunction.md)
  - [Account](docs/models/Account.md)
  - [AccountType](docs/models/AccountType.md)
+ - [AddAbiRequestDto](docs/models/AddAbiRequestDto.md)
  - [AddAssetToExternalWalletRequest](docs/models/AddAssetToExternalWalletRequest.md)
  - [AddAssetToExternalWalletRequestOneOf](docs/models/AddAssetToExternalWalletRequestOneOf.md)
  - [AddAssetToExternalWalletRequestOneOf1](docs/models/AddAssetToExternalWalletRequestOneOf1.md)
@@ -371,7 +381,6 @@ Class | Method | HTTP request | Description
  - [AssetAmount](docs/models/AssetAmount.md)
  - [AssetBadRequestErrorResponse](docs/models/AssetBadRequestErrorResponse.md)
  - [AssetConflictErrorResponse](docs/models/AssetConflictErrorResponse.md)
- - [AssetDoesNotExistHttpError](docs/models/AssetDoesNotExistHttpError.md)
  - [AssetForbiddenErrorResponse](docs/models/AssetForbiddenErrorResponse.md)
  - [AssetInternalServerErrorResponse](docs/models/AssetInternalServerErrorResponse.md)
  - [AssetMetadataDto](docs/models/AssetMetadataDto.md)
@@ -392,8 +401,17 @@ Class | Method | HTTP request | Description
  - [BlockInfo](docs/models/BlockInfo.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
  - [ChainInfoResponseDto](docs/models/ChainInfoResponseDto.md)
+ - [CollectionBurnRequestDto](docs/models/CollectionBurnRequestDto.md)
+ - [CollectionBurnResponseDto](docs/models/CollectionBurnResponseDto.md)
+ - [CollectionDeployRequestDto](docs/models/CollectionDeployRequestDto.md)
+ - [CollectionLinkDto](docs/models/CollectionLinkDto.md)
  - [CollectionMetadataDto](docs/models/CollectionMetadataDto.md)
+ - [CollectionMintRequestDto](docs/models/CollectionMintRequestDto.md)
+ - [CollectionMintResponseDto](docs/models/CollectionMintResponseDto.md)
  - [CollectionOwnershipResponse](docs/models/CollectionOwnershipResponse.md)
+ - [CollectionTokenMetadataAttributeDto](docs/models/CollectionTokenMetadataAttributeDto.md)
+ - [CollectionTokenMetadataDto](docs/models/CollectionTokenMetadataDto.md)
+ - [CollectionType](docs/models/CollectionType.md)
  - [ComplianceResult](docs/models/ComplianceResult.md)
  - [ComplianceScreeningResult](docs/models/ComplianceScreeningResult.md)
  - [ConfigChangeRequestStatus](docs/models/ConfigChangeRequestStatus.md)
@@ -413,6 +431,7 @@ Class | Method | HTTP request | Description
  - [ContractMetadataDto](docs/models/ContractMetadataDto.md)
  - [ContractTemplateDto](docs/models/ContractTemplateDto.md)
  - [ContractUploadRequest](docs/models/ContractUploadRequest.md)
+ - [ContractWithAbiDto](docs/models/ContractWithAbiDto.md)
  - [ConversionConfigOperation](docs/models/ConversionConfigOperation.md)
  - [ConversionOperationConfigParams](docs/models/ConversionOperationConfigParams.md)
  - [ConversionOperationExecution](docs/models/ConversionOperationExecution.md)
@@ -447,6 +466,7 @@ Class | Method | HTTP request | Description
  - [CreateNetworkIdRequest](docs/models/CreateNetworkIdRequest.md)
  - [CreatePayoutRequest](docs/models/CreatePayoutRequest.md)
  - [CreateSigningKeyDto](docs/models/CreateSigningKeyDto.md)
+ - [CreateSigningKeyDtoProofOfOwnership](docs/models/CreateSigningKeyDtoProofOfOwnership.md)
  - [CreateTokenRequestDto](docs/models/CreateTokenRequestDto.md)
  - [CreateTokenRequestDtoCreateParams](docs/models/CreateTokenRequestDtoCreateParams.md)
  - [CreateTransactionResponse](docs/models/CreateTransactionResponse.md)
@@ -515,6 +535,7 @@ Class | Method | HTTP request | Description
  - [ExecutionTransferOperation](docs/models/ExecutionTransferOperation.md)
  - [ExternalWalletAsset](docs/models/ExternalWalletAsset.md)
  - [FeeInfo](docs/models/FeeInfo.md)
+ - [FetchAbiRequestDto](docs/models/FetchAbiRequestDto.md)
  - [FiatAccount](docs/models/FiatAccount.md)
  - [FiatAccountType](docs/models/FiatAccountType.md)
  - [FiatAsset](docs/models/FiatAsset.md)
@@ -526,7 +547,6 @@ Class | Method | HTTP request | Description
  - [GasStationPropertiesResponse](docs/models/GasStationPropertiesResponse.md)
  - [GetAPIUsersResponse](docs/models/GetAPIUsersResponse.md)
  - [GetAuditLogsResponse](docs/models/GetAuditLogsResponse.md)
- - [GetAuditLogsResponseDTO](docs/models/GetAuditLogsResponseDTO.md)
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/models/GetConsoleUsersResponse.md)
  - [GetContractsResponse](docs/models/GetContractsResponse.md)
@@ -536,6 +556,7 @@ Class | Method | HTTP request | Description
  - [GetFiatAccountsResponse](docs/models/GetFiatAccountsResponse.md)
  - [GetFilterParameter](docs/models/GetFilterParameter.md)
  - [GetInternalWalletsResponse](docs/models/GetInternalWalletsResponse.md)
+ - [GetLinkedCollectionsPaginatedResponse](docs/models/GetLinkedCollectionsPaginatedResponse.md)
  - [GetMaxSpendableAmountResponse](docs/models/GetMaxSpendableAmountResponse.md)
  - [GetNFTsResponse](docs/models/GetNFTsResponse.md)
  - [GetNetworkConnectionsResponse](docs/models/GetNetworkConnectionsResponse.md)
@@ -644,6 +665,8 @@ Class | Method | HTTP request | Description
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
  - [RenameCosigner](docs/models/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
+ - [RescanTransaction](docs/models/RescanTransaction.md)
+ - [RescanTransactionRequest](docs/models/RescanTransactionRequest.md)
  - [ResendTransactionWebhooksRequest](docs/models/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksByTransactionIdResponse](docs/models/ResendWebhooksByTransactionIdResponse.md)
  - [ResendWebhooksResponse](docs/models/ResendWebhooksResponse.md)
@@ -768,10 +791,22 @@ Class | Method | HTTP request | Description
  - [TransferValidationFailure](docs/models/TransferValidationFailure.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)
+ - [TravelRuleDateAndPlaceOfBirth](docs/models/TravelRuleDateAndPlaceOfBirth.md)
+ - [TravelRuleGeographicAddress](docs/models/TravelRuleGeographicAddress.md)
  - [TravelRuleGetAllVASPsResponse](docs/models/TravelRuleGetAllVASPsResponse.md)
  - [TravelRuleIssuer](docs/models/TravelRuleIssuer.md)
  - [TravelRuleIssuers](docs/models/TravelRuleIssuers.md)
+ - [TravelRuleLegalNameIdentifiers](docs/models/TravelRuleLegalNameIdentifiers.md)
+ - [TravelRuleLegalPerson](docs/models/TravelRuleLegalPerson.md)
+ - [TravelRuleLegalPersonNameIdentifier](docs/models/TravelRuleLegalPersonNameIdentifier.md)
+ - [TravelRuleNationalIdentification](docs/models/TravelRuleNationalIdentification.md)
+ - [TravelRuleNaturalNameIdentifier](docs/models/TravelRuleNaturalNameIdentifier.md)
+ - [TravelRuleNaturalNameIdentifiers](docs/models/TravelRuleNaturalNameIdentifiers.md)
+ - [TravelRuleNaturalPerson](docs/models/TravelRuleNaturalPerson.md)
+ - [TravelRuleNaturalPersonNameIdentifier](docs/models/TravelRuleNaturalPersonNameIdentifier.md)
  - [TravelRuleOwnershipProof](docs/models/TravelRuleOwnershipProof.md)
+ - [TravelRulePerson](docs/models/TravelRulePerson.md)
+ - [TravelRulePersons](docs/models/TravelRulePersons.md)
  - [TravelRulePiiIVMS](docs/models/TravelRulePiiIVMS.md)
  - [TravelRulePolicyRuleResponse](docs/models/TravelRulePolicyRuleResponse.md)
  - [TravelRuleTransactionBlockchainInfo](docs/models/TravelRuleTransactionBlockchainInfo.md)
@@ -800,6 +835,8 @@ Class | Method | HTTP request | Description
  - [UserStatus](docs/models/UserStatus.md)
  - [UserType](docs/models/UserType.md)
  - [ValidateAddressResponse](docs/models/ValidateAddressResponse.md)
+ - [ValidatedTransactionsForRescan](docs/models/ValidatedTransactionsForRescan.md)
+ - [ValidatedTransactionsForRescanResponse](docs/models/ValidatedTransactionsForRescanResponse.md)
  - [ValidationKeyDto](docs/models/ValidationKeyDto.md)
  - [ValidatorDto](docs/models/ValidatorDto.md)
  - [VaultAccount](docs/models/VaultAccount.md)

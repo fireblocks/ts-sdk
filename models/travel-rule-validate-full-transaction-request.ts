@@ -131,11 +131,5 @@ export interface TravelRuleValidateFullTransactionRequest {
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'beneficiaryProof'?: TravelRuleOwnershipProof;
-    /**
-     * Personal identifiable information related to the transaction
-     * @type {TravelRulePiiIVMS}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'pii'?: TravelRulePiiIVMS;
 }
 

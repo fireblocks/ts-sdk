@@ -1,12 +1,9 @@
-# GetAuditLogsResponseDTO
+# RescanTransactionRequest
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**data** | **Array&lt;object&gt;** |  | [optional] [default to undefined]|
-|**total** | **number** |  | [optional] [default to undefined]|
-|**cursor** | **string** |  | [optional] [default to undefined]|
 
 
 

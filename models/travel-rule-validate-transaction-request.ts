@@ -30,12 +30,6 @@ export interface TravelRuleValidateTransactionRequest {
      */
     'transactionAsset': string;
     /**
-     * Transaction destination address
-     * @type {string}
-     * @memberof TravelRuleValidateTransactionRequest
-     */
-    'destination': string;
-    /**
      * Transaction amount in the transaction asset
      * @type {string}
      * @memberof TravelRuleValidateTransactionRequest
@@ -53,6 +47,12 @@ export interface TravelRuleValidateTransactionRequest {
      * @memberof TravelRuleValidateTransactionRequest
      */
     'originatorEqualsBeneficiary': boolean;
+    /**
+     * Transaction destination address
+     * @type {string}
+     * @memberof TravelRuleValidateTransactionRequest
+     */
+    'destination'?: string;
     /**
      * This will also check if the transaction is a TRAVEL_RULE in the beneficiary VASP\'s jurisdiction
      * @type {boolean}

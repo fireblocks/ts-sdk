@@ -17,26 +17,26 @@
 /**
  * 
  * @export
- * @interface AssetDoesNotExistHttpError
+ * @interface CollectionTokenMetadataAttributeDto
  */
-export interface AssetDoesNotExistHttpError {
+export interface CollectionTokenMetadataAttributeDto {
     /**
-     * HTTP status code
-     * @type {number}
-     * @memberof AssetDoesNotExistHttpError
-     */
-    'statusCode'?: number;
-    /**
-     * Error message
+     * Name of the trait
      * @type {string}
-     * @memberof AssetDoesNotExistHttpError
+     * @memberof CollectionTokenMetadataAttributeDto
      */
-    'message'?: string;
+    'trait_type': string;
     /**
-     * Short description of the HTTP error
+     * Value of the trait
      * @type {string}
-     * @memberof AssetDoesNotExistHttpError
+     * @memberof CollectionTokenMetadataAttributeDto
      */
-    'error'?: string;
+    'value': string;
+    /**
+     * A field indicating how you would like trait to be displayed
+     * @type {string}
+     * @memberof CollectionTokenMetadataAttributeDto
+     */
+    'display_type'?: string;
 }
 

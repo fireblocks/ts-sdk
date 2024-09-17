@@ -17,26 +17,26 @@
 /**
  * 
  * @export
- * @interface GetAuditLogsResponseDTO
+ * @interface TravelRuleNaturalNameIdentifiers
  */
-export interface GetAuditLogsResponseDTO {
-    /**
-     * 
-     * @type {Array<object>}
-     * @memberof GetAuditLogsResponseDTO
-     */
-    'data'?: Array<object>;
-    /**
-     * 
-     * @type {number}
-     * @memberof GetAuditLogsResponseDTO
-     */
-    'total'?: number;
+export interface TravelRuleNaturalNameIdentifiers {
     /**
      * 
      * @type {string}
-     * @memberof GetAuditLogsResponseDTO
+     * @memberof TravelRuleNaturalNameIdentifiers
      */
-    'cursor'?: string | null;
+    'primaryIdentifier'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleNaturalNameIdentifiers
+     */
+    'secondaryIdentifier'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleNaturalNameIdentifiers
+     */
+    'nameIdentifierType'?: string;
 }
 

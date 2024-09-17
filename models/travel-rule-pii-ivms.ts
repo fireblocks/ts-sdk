@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRulePersons } from './travel-rule-persons';
 
 /**
  * 
@@ -22,57 +25,21 @@
 export interface TravelRulePiiIVMS {
     /**
      * 
-     * @type {string}
+     * @type {Array<TravelRulePersons>}
      * @memberof TravelRulePiiIVMS
      */
-    'fullName'?: string;
+    'originatorPersons'?: Array<TravelRulePersons>;
     /**
      * 
-     * @type {string}
+     * @type {Array<TravelRulePersons>}
      * @memberof TravelRulePiiIVMS
      */
-    'dateOfBirth'?: string;
+    'beneficiaryPersons'?: Array<TravelRulePersons>;
     /**
      * 
-     * @type {string}
+     * @type {Array<string>}
      * @memberof TravelRulePiiIVMS
      */
-    'placeOfBirth'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TravelRulePiiIVMS
-     */
-    'address'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TravelRulePiiIVMS
-     */
-    'identificationNumber'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TravelRulePiiIVMS
-     */
-    'nationality'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TravelRulePiiIVMS
-     */
-    'countryOfResidence'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TravelRulePiiIVMS
-     */
-    'taxIdentificationNumber'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof TravelRulePiiIVMS
-     */
-    'customerNumber'?: string;
+    'accountNumber'?: Array<string>;
 }
 
