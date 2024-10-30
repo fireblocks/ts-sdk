@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** | Unique id of Smart Transfer ticket | [default to undefined]|
-|**type** | **string** | Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;ATOMIC&#x60; | [default to undefined]|
+|**type** | **string** | Kind of Smart Transfer. Can be either &#x60;ASYNC&#x60; or &#x60;DVP&#x60; | [default to undefined]|
 |**status** | **string** | Current status of Smart Transfer ticket | [default to undefined]|
 |**createdByNetworkId** | **string** | ID of network profile that created ticket | [default to undefined]|
 |**createdByNetworkIdName** | **string** | Name of network profile that created ticket | [default to undefined]|
@@ -30,6 +30,8 @@
 
 
 * `Async` (value: `'ASYNC'`)
+
+* `Dvp` (value: `'DVP'`)
 
 
 

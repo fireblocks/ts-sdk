@@ -30,7 +30,7 @@ export interface SmartTransferTicket {
      */
     'id': string;
     /**
-     * Kind of Smart Transfer. Can be either `ASYNC` or `ATOMIC`
+     * Kind of Smart Transfer. Can be either `ASYNC` or `DVP`
      * @type {string}
      * @memberof SmartTransferTicket
      */
@@ -146,7 +146,8 @@ export interface SmartTransferTicket {
 }
 
 export const SmartTransferTicketTypeEnum = {
-    Async: 'ASYNC'
+    Async: 'ASYNC',
+    Dvp: 'DVP'
 } as const;
 
 export type SmartTransferTicketTypeEnum = typeof SmartTransferTicketTypeEnum[keyof typeof SmartTransferTicketTypeEnum];

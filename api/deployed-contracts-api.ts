@@ -199,12 +199,12 @@ export const DeployedContractsApiAxiosParamCreator = function (configuration?: C
          * @param {string} [pageCursor] Page cursor to get the next page
          * @param {number} [pageSize] Number of items per page, requesting more then max will return max items
          * @param {string} [contractAddress] The contract\&#39;s onchain address
-         * @param {string} [assetId] 
+         * @param {string} [baseAssetId] 
          * @param {string} [templateId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDeployedContracts: async (pageCursor?: string, pageSize?: number, contractAddress?: string, assetId?: string, templateId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDeployedContracts: async (pageCursor?: string, pageSize?: number, contractAddress?: string, baseAssetId?: string, templateId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tokenization/contracts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -229,8 +229,8 @@ export const DeployedContractsApiAxiosParamCreator = function (configuration?: C
                 localVarQueryParameter['contractAddress'] = contractAddress;
             }
 
-            if (assetId !== undefined) {
-                localVarQueryParameter['assetId'] = assetId;
+            if (baseAssetId !== undefined) {
+                localVarQueryParameter['baseAssetId'] = baseAssetId;
             }
 
             if (templateId !== undefined) {
@@ -319,13 +319,13 @@ export const DeployedContractsApiFp = function(configuration?: Configuration) {
          * @param {string} [pageCursor] Page cursor to get the next page
          * @param {number} [pageSize] Number of items per page, requesting more then max will return max items
          * @param {string} [contractAddress] The contract\&#39;s onchain address
-         * @param {string} [assetId] 
+         * @param {string} [baseAssetId] 
          * @param {string} [templateId] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDeployedContracts(pageCursor?: string, pageSize?: number, contractAddress?: string, assetId?: string, templateId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployedContractsPaginatedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeployedContracts(pageCursor, pageSize, contractAddress, assetId, templateId, options);
+        async getDeployedContracts(pageCursor?: string, pageSize?: number, contractAddress?: string, baseAssetId?: string, templateId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployedContractsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeployedContracts(pageCursor, pageSize, contractAddress, baseAssetId, templateId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['DeployedContractsApi.getDeployedContracts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -388,7 +388,7 @@ export const DeployedContractsApiFactory = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         getDeployedContracts(requestParameters: DeployedContractsApiGetDeployedContractsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<DeployedContractsPaginatedResponse> {
-            return localVarFp.getDeployedContracts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.contractAddress, requestParameters.assetId, requestParameters.templateId, options).then((request) => request(axios, basePath));
+            return localVarFp.getDeployedContracts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.templateId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -502,7 +502,7 @@ export interface DeployedContractsApiGetDeployedContractsRequest {
      * @type {string}
      * @memberof DeployedContractsApiGetDeployedContracts
      */
-    readonly assetId?: string
+    readonly baseAssetId?: string
 
     /**
      * 
@@ -576,7 +576,7 @@ export class DeployedContractsApi extends BaseAPI {
      * @memberof DeployedContractsApi
      */
     public getDeployedContracts(requestParameters: DeployedContractsApiGetDeployedContractsRequest = {}) {
-        return DeployedContractsApiFp(this.configuration).getDeployedContracts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.contractAddress, requestParameters.assetId, requestParameters.templateId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return DeployedContractsApiFp(this.configuration).getDeployedContracts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.templateId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

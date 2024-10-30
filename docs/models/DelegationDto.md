@@ -19,7 +19,9 @@
 |**availableActions** | **Array&lt;string&gt;** | An array of available actions that can be performed. for example, actions like \&quot;unstake\&quot; or \&quot;withdraw\&quot;. | [default to undefined]|
 |**inProgress** | **boolean** | Indicates whether there is an ongoing action for this position (true if ongoing, false if not). | [default to undefined]|
 |**blockchainPositionInfo** | [**SolanaBlockchainDataDto**](SolanaBlockchainDataDto.md) | Additional fields per blockchain - can be empty or missing if not initialized or no additional info exists. The type depends on the chainDescriptor value. For Solana (SOL), stake account address. For Ethereum (ETH), an empty object is returned as no specific data is available. | [default to undefined]|
+|**dateUpdated** | **string** | When has the position last changed (ISO Date). | [optional] [default to undefined]|
 |**inProgressTxId** | **string** | The transaction ID of the ongoing request | [optional] [default to undefined]|
+|**relatedRequests** | [**Array&lt;RelatedRequestDto&gt;**](RelatedRequestDto.md) | An array of partial unstake requests for this position, relevant only for the Lido provider. Each object includes the status of the unstake request, a boolean indicating whether the action is in progress, the amount of tokens to unstake, and the transaction ID of the request. With Lido, a position may have multiple partial unstake requests in different states. This field is optional and not applicable for other providers. | [optional] [default to undefined]|
 
 
 

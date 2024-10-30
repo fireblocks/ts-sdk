@@ -4,9 +4,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getDeployedContractAbi**](#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions | Return deployed contract\&#39;s ABI
-[**readCallFunction**](#readCallFunction) | **POST** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
-[**writeCallFunction**](#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract
+[**getDeployedContractAbi**](#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract\&#39;s ABI
+[**readCallFunction**](#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
+[**writeCallFunction**](#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract
 
 
 # **getDeployedContractAbi**
@@ -33,7 +33,7 @@ let body: ContractInteractionsApiGetDeployedContractAbiRequest = {
   // string | The contract\'s onchain address
   contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66,
   // string
-  assetId: assetId_example,
+  baseAssetId: baseAssetId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -49,7 +49,7 @@ fireblocks.contractInteractions.getDeployedContractAbi(body).then((res: Firebloc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **contractAddress** | [**string**] | The contract\&#39;s onchain address | defaults to undefined
- **assetId** | [**string**] |  | defaults to undefined
+ **baseAssetId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -101,7 +101,7 @@ let body: ContractInteractionsApiReadCallFunctionRequest = {
   // string | The contract\'s onchain address
   contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66,
   // string
-  assetId: assetId_example,
+  baseAssetId: baseAssetId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **readCallFunctionDto** | **[ReadCallFunctionDto](../models/ReadCallFunctionDto.md)**|  |
  **contractAddress** | [**string**] | The contract\&#39;s onchain address | defaults to undefined
- **assetId** | [**string**] |  | defaults to undefined
+ **baseAssetId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -170,7 +170,7 @@ let body: ContractInteractionsApiWriteCallFunctionRequest = {
   // string | The contract\'s onchain address
   contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66,
   // string
-  assetId: assetId_example,
+  baseAssetId: baseAssetId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -187,7 +187,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **writeCallFunctionDto** | **[WriteCallFunctionDto](../models/WriteCallFunctionDto.md)**|  |
  **contractAddress** | [**string**] | The contract\&#39;s onchain address | defaults to undefined
- **assetId** | [**string**] |  | defaults to undefined
+ **baseAssetId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 

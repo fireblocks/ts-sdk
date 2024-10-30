@@ -335,6 +335,8 @@ ReadAbiFunction.md
 ReadCallFunctionDto.md
 RedeemFundsToLinkedDDAResponse.md
 RegisterNewAssetRequest.md
+RelatedRequestDto.md
+RelatedRequestStatusType.md
 RelatedTransactionDto.md
 RemoveCollateralRequestBody.md
 RenameCosigner.md
@@ -385,7 +387,9 @@ SignedMessageSignature.md
 SignedMessages.md
 SigningKeyDto.md
 SmartTransferApi.md
+SmartTransferApproveTerm.md
 SmartTransferBadRequestResponse.md
+SmartTransferCoinStatistic.md
 SmartTransferCreateTicket.md
 SmartTransferCreateTicketTerm.md
 SmartTransferForbiddenResponse.md
@@ -395,6 +399,9 @@ SmartTransferNotFoundResponse.md
 SmartTransferSetTicketExpiration.md
 SmartTransferSetTicketExternalId.md
 SmartTransferSetUserGroups.md
+SmartTransferStatistic.md
+SmartTransferStatisticInflow.md
+SmartTransferStatisticOutflow.md
 SmartTransferSubmitTicket.md
 SmartTransferTicket.md
 SmartTransferTicketFilteredResponse.md
@@ -483,6 +490,7 @@ TravelRuleVASP.md
 TravelRuleValidateFullTransactionRequest.md
 TravelRuleValidateTransactionRequest.md
 TravelRuleValidateTransactionResponse.md
+TravelRuleVaspForVault.md
 UnfreezeTransactionResponse.md
 UnmanagedWallet.md
 UnspentInput.md
@@ -885,6 +893,8 @@ models/read-abi-function.ts
 models/read-call-function-dto.ts
 models/redeem-funds-to-linked-ddaresponse.ts
 models/register-new-asset-request.ts
+models/related-request-dto.ts
+models/related-request-status-type.ts
 models/related-transaction-dto.ts
 models/remove-collateral-request-body.ts
 models/rename-cosigner.ts
@@ -933,7 +943,9 @@ models/signed-message-signature.ts
 models/signed-message.ts
 models/signed-messages.ts
 models/signing-key-dto.ts
+models/smart-transfer-approve-term.ts
 models/smart-transfer-bad-request-response.ts
+models/smart-transfer-coin-statistic.ts
 models/smart-transfer-create-ticket-term.ts
 models/smart-transfer-create-ticket.ts
 models/smart-transfer-forbidden-response.ts
@@ -943,6 +955,9 @@ models/smart-transfer-not-found-response.ts
 models/smart-transfer-set-ticket-expiration.ts
 models/smart-transfer-set-ticket-external-id.ts
 models/smart-transfer-set-user-groups.ts
+models/smart-transfer-statistic-inflow.ts
+models/smart-transfer-statistic-outflow.ts
+models/smart-transfer-statistic.ts
 models/smart-transfer-submit-ticket.ts
 models/smart-transfer-ticket-filtered-response.ts
 models/smart-transfer-ticket-response.ts
@@ -1026,6 +1041,7 @@ models/travel-rule-update-vaspdetails.ts
 models/travel-rule-validate-full-transaction-request.ts
 models/travel-rule-validate-transaction-request.ts
 models/travel-rule-validate-transaction-response.ts
+models/travel-rule-vasp-for-vault.ts
 models/travel-rule-vasp.ts
 models/unfreeze-transaction-response.ts
 models/unmanaged-wallet.ts

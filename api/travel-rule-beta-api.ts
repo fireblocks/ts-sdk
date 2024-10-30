@@ -27,6 +27,8 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { ErrorSchema } from '../models';
+// @ts-ignore
 import { TravelRuleGetAllVASPsResponse } from '../models';
 // @ts-ignore
 import { TravelRuleUpdateVASPDetails } from '../models';
@@ -38,6 +40,8 @@ import { TravelRuleValidateFullTransactionRequest } from '../models';
 import { TravelRuleValidateTransactionRequest } from '../models';
 // @ts-ignore
 import { TravelRuleValidateTransactionResponse } from '../models';
+// @ts-ignore
+import { TravelRuleVaspForVault } from '../models';
 /**
  * TravelRuleBetaApi - axios parameter creator
  * @export
@@ -126,6 +130,82 @@ export const TravelRuleBetaApiAxiosParamCreator = function (configuration?: Conf
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get assigned VASP Did for a specific vault. Returns empty string vaspDid value in response if none assigned.
+         * @summary Get assigned VASP to vault
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaspForVault: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getVaspForVault', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/screening/travel_rule/vault/{vaultAccountId}/vasp`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Sets the VASP Did for a specific vault. Pass empty string to remove existing one.
+         * @summary Assign VASP to vault
+         * @param {TravelRuleVaspForVault} travelRuleVaspForVault 
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setVaspForVault: async (travelRuleVaspForVault: TravelRuleVaspForVault, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setVaspForVault', 'travelRuleVaspForVault', travelRuleVaspForVault)
+            assertParamExistsAndNotEmpty('setVaspForVault', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/screening/travel_rule/vault/{vaultAccountId}/vasp`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(travelRuleVaspForVault, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -293,6 +373,34 @@ export const TravelRuleBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Get assigned VASP Did for a specific vault. Returns empty string vaspDid value in response if none assigned.
+         * @summary Get assigned VASP to vault
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getVaspForVault(vaultAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleVaspForVault>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaspForVault(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.getVaspForVault']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Sets the VASP Did for a specific vault. Pass empty string to remove existing one.
+         * @summary Assign VASP to vault
+         * @param {TravelRuleVaspForVault} travelRuleVaspForVault 
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setVaspForVault(travelRuleVaspForVault: TravelRuleVaspForVault, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleVaspForVault>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setVaspForVault(travelRuleVaspForVault, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleBetaApi.setVaspForVault']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Update VASP Details.  Updates a VASP with the provided parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
          * @summary Add jsonDidKey to VASP details
          * @param {TravelRuleUpdateVASPDetails} travelRuleUpdateVASPDetails 
@@ -363,6 +471,26 @@ export const TravelRuleBetaApiFactory = function (configuration?: Configuration,
          */
         getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleGetAllVASPsResponse> {
             return localVarFp.getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get assigned VASP Did for a specific vault. Returns empty string vaspDid value in response if none assigned.
+         * @summary Get assigned VASP to vault
+         * @param {TravelRuleBetaApiGetVaspForVaultRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getVaspForVault(requestParameters: TravelRuleBetaApiGetVaspForVaultRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleVaspForVault> {
+            return localVarFp.getVaspForVault(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Sets the VASP Did for a specific vault. Pass empty string to remove existing one.
+         * @summary Assign VASP to vault
+         * @param {TravelRuleBetaApiSetVaspForVaultRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setVaspForVault(requestParameters: TravelRuleBetaApiSetVaspForVaultRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleVaspForVault> {
+            return localVarFp.setVaspForVault(requestParameters.travelRuleVaspForVault, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Update VASP Details.  Updates a VASP with the provided parameters. Use this endpoint to add your public jsonDIDkey generated by Notabene.  **Note:** The reference content in this section documents the Travel Rule beta endpoint. The beta endpoint includes APIs that are currently in preview and aren\'t yet generally available.  To enroll in the beta and enable this endpoint, contact your Fireblocks Customer Success Manager or send an email to [CSM@fireblocks.com](mailto:CSM@fireblocks.com).
@@ -451,6 +579,48 @@ export interface TravelRuleBetaApiGetVASPsRequest {
      * @memberof TravelRuleBetaApiGetVASPs
      */
     readonly fields?: string
+}
+
+/**
+ * Request parameters for getVaspForVault operation in TravelRuleBetaApi.
+ * @export
+ * @interface TravelRuleBetaApiGetVaspForVaultRequest
+ */
+export interface TravelRuleBetaApiGetVaspForVaultRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof TravelRuleBetaApiGetVaspForVault
+     */
+    readonly vaultAccountId: string
+}
+
+/**
+ * Request parameters for setVaspForVault operation in TravelRuleBetaApi.
+ * @export
+ * @interface TravelRuleBetaApiSetVaspForVaultRequest
+ */
+export interface TravelRuleBetaApiSetVaspForVaultRequest {
+    /**
+     * 
+     * @type {TravelRuleVaspForVault}
+     * @memberof TravelRuleBetaApiSetVaspForVault
+     */
+    readonly travelRuleVaspForVault: TravelRuleVaspForVault
+
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof TravelRuleBetaApiSetVaspForVault
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TravelRuleBetaApiSetVaspForVault
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -545,6 +715,30 @@ export class TravelRuleBetaApi extends BaseAPI {
      */
     public getVASPs(requestParameters: TravelRuleBetaApiGetVASPsRequest = {}) {
         return TravelRuleBetaApiFp(this.configuration).getVASPs(requestParameters.order, requestParameters.perPage, requestParameters.page, requestParameters.fields).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get assigned VASP Did for a specific vault. Returns empty string vaspDid value in response if none assigned.
+     * @summary Get assigned VASP to vault
+     * @param {TravelRuleBetaApiGetVaspForVaultRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TravelRuleBetaApi
+     */
+    public getVaspForVault(requestParameters: TravelRuleBetaApiGetVaspForVaultRequest) {
+        return TravelRuleBetaApiFp(this.configuration).getVaspForVault(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Sets the VASP Did for a specific vault. Pass empty string to remove existing one.
+     * @summary Assign VASP to vault
+     * @param {TravelRuleBetaApiSetVaspForVaultRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TravelRuleBetaApi
+     */
+    public setVaspForVault(requestParameters: TravelRuleBetaApiSetVaspForVaultRequest) {
+        return TravelRuleBetaApiFp(this.configuration).setVaspForVault(requestParameters.travelRuleVaspForVault, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

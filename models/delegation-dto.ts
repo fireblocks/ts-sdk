@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { RelatedRequestDto } from './related-request-dto';
+// May contain unused imports in some cases
+// @ts-ignore
 import { RelatedTransactionDto } from './related-transaction-dto';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -117,10 +120,22 @@ export interface DelegationDto {
      */
     'blockchainPositionInfo': SolanaBlockchainDataDto;
     /**
+     * When has the position last changed (ISO Date).
+     * @type {string}
+     * @memberof DelegationDto
+     */
+    'dateUpdated'?: string;
+    /**
      * The transaction ID of the ongoing request
      * @type {string}
      * @memberof DelegationDto
      */
     'inProgressTxId'?: string;
+    /**
+     * An array of partial unstake requests for this position, relevant only for the Lido provider. Each object includes the status of the unstake request, a boolean indicating whether the action is in progress, the amount of tokens to unstake, and the transaction ID of the request. With Lido, a position may have multiple partial unstake requests in different states. This field is optional and not applicable for other providers.
+     * @type {Array<RelatedRequestDto>}
+     * @memberof DelegationDto
+     */
+    'relatedRequests'?: Array<RelatedRequestDto>;
 }
 
