@@ -30,7 +30,7 @@
 |**autoStaking** | **boolean** | This feature is no longer supported. | [optional] [default to undefined]|
 |**networkStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  | [optional] [default to undefined]|
 |**cpuStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  | [optional] [default to undefined]|
-|**useGasless** | **boolean** | - Override the default gaslsess configuration by sending true\\false | [optional] [default to undefined]|
+|**useGasless** | **boolean** | - Override the default gasless configuration by sending true\\false | [optional] [default to undefined]|
 
 
 ## Enum: TransactionRequestFeeLevelEnum

@@ -48,17 +48,17 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
          * Return deployed contract\'s ABI by blockchain native asset id and contract address
          * @summary Return deployed contract\'s ABI
          * @param {string} contractAddress The contract\&#39;s onchain address
-         * @param {string} assetId 
+         * @param {string} baseAssetId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDeployedContractAbi: async (contractAddress: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDeployedContractAbi: async (contractAddress: string, baseAssetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getDeployedContractAbi', 'contractAddress', contractAddress)
-            assertParamExistsAndNotEmpty('getDeployedContractAbi', 'assetId', assetId)
-            const localVarPath = `/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions`
+            assertParamExistsAndNotEmpty('getDeployedContractAbi', 'baseAssetId', baseAssetId)
+            const localVarPath = `/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+                .replace(`{${"baseAssetId"}}`, encodeURIComponent(String(baseAssetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -90,18 +90,18 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
          * @summary Call a read function on a deployed contract
          * @param {ReadCallFunctionDto} readCallFunctionDto 
          * @param {string} contractAddress The contract\&#39;s onchain address
-         * @param {string} assetId 
+         * @param {string} baseAssetId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        readCallFunction: async (readCallFunctionDto: ReadCallFunctionDto, contractAddress: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        readCallFunction: async (readCallFunctionDto: ReadCallFunctionDto, contractAddress: string, baseAssetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('readCallFunction', 'readCallFunctionDto', readCallFunctionDto)
             assertParamExistsAndNotEmpty('readCallFunction', 'contractAddress', contractAddress)
-            assertParamExistsAndNotEmpty('readCallFunction', 'assetId', assetId)
-            const localVarPath = `/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/read`
+            assertParamExistsAndNotEmpty('readCallFunction', 'baseAssetId', baseAssetId)
+            const localVarPath = `/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+                .replace(`{${"baseAssetId"}}`, encodeURIComponent(String(baseAssetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -136,18 +136,18 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
          * @summary Call a write function on a deployed contract
          * @param {WriteCallFunctionDto} writeCallFunctionDto 
          * @param {string} contractAddress The contract\&#39;s onchain address
-         * @param {string} assetId 
+         * @param {string} baseAssetId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        writeCallFunction: async (writeCallFunctionDto: WriteCallFunctionDto, contractAddress: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        writeCallFunction: async (writeCallFunctionDto: WriteCallFunctionDto, contractAddress: string, baseAssetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('writeCallFunction', 'writeCallFunctionDto', writeCallFunctionDto)
             assertParamExistsAndNotEmpty('writeCallFunction', 'contractAddress', contractAddress)
-            assertParamExistsAndNotEmpty('writeCallFunction', 'assetId', assetId)
-            const localVarPath = `/contract_interactions/base_asset_id/{assetId}/contract_address/{contractAddress}/functions/write`
+            assertParamExistsAndNotEmpty('writeCallFunction', 'baseAssetId', baseAssetId)
+            const localVarPath = `/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write`
                 .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
-                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+                .replace(`{${"baseAssetId"}}`, encodeURIComponent(String(baseAssetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -191,13 +191,13 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
          * Return deployed contract\'s ABI by blockchain native asset id and contract address
          * @summary Return deployed contract\'s ABI
          * @param {string} contractAddress The contract\&#39;s onchain address
-         * @param {string} assetId 
+         * @param {string} baseAssetId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDeployedContractAbi(contractAddress: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractAbiResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeployedContractAbi(contractAddress, assetId, idempotencyKey, options);
+        async getDeployedContractAbi(contractAddress: string, baseAssetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractAbiResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeployedContractAbi(contractAddress, baseAssetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ContractInteractionsApi.getDeployedContractAbi']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -207,13 +207,13 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
          * @summary Call a read function on a deployed contract
          * @param {ReadCallFunctionDto} readCallFunctionDto 
          * @param {string} contractAddress The contract\&#39;s onchain address
-         * @param {string} assetId 
+         * @param {string} baseAssetId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async readCallFunction(readCallFunctionDto: ReadCallFunctionDto, contractAddress: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ParameterWithValueList>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.readCallFunction(readCallFunctionDto, contractAddress, assetId, idempotencyKey, options);
+        async readCallFunction(readCallFunctionDto: ReadCallFunctionDto, contractAddress: string, baseAssetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ParameterWithValueList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.readCallFunction(readCallFunctionDto, contractAddress, baseAssetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ContractInteractionsApi.readCallFunction']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -223,13 +223,13 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
          * @summary Call a write function on a deployed contract
          * @param {WriteCallFunctionDto} writeCallFunctionDto 
          * @param {string} contractAddress The contract\&#39;s onchain address
-         * @param {string} assetId 
+         * @param {string} baseAssetId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async writeCallFunction(writeCallFunctionDto: WriteCallFunctionDto, contractAddress: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WriteCallFunctionResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.writeCallFunction(writeCallFunctionDto, contractAddress, assetId, idempotencyKey, options);
+        async writeCallFunction(writeCallFunctionDto: WriteCallFunctionDto, contractAddress: string, baseAssetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WriteCallFunctionResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.writeCallFunction(writeCallFunctionDto, contractAddress, baseAssetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ContractInteractionsApi.writeCallFunction']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -252,7 +252,7 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
          * @throws {RequiredError}
          */
         getDeployedContractAbi(requestParameters: ContractInteractionsApiGetDeployedContractAbiRequest, options?: RawAxiosRequestConfig): AxiosPromise<ContractAbiResponseDto> {
-            return localVarFp.getDeployedContractAbi(requestParameters.contractAddress, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.getDeployedContractAbi(requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Call a read function on a deployed contract by blockchain native asset id and contract address
@@ -262,7 +262,7 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
          * @throws {RequiredError}
          */
         readCallFunction(requestParameters: ContractInteractionsApiReadCallFunctionRequest, options?: RawAxiosRequestConfig): AxiosPromise<ParameterWithValueList> {
-            return localVarFp.readCallFunction(requestParameters.readCallFunctionDto, requestParameters.contractAddress, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.readCallFunction(requestParameters.readCallFunctionDto, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Call a write function on a deployed contract by blockchain native asset id and contract address. This creates an onchain transaction, thus it is an async operation. It returns a transaction id that can be polled for status check
@@ -272,7 +272,7 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
          * @throws {RequiredError}
          */
         writeCallFunction(requestParameters: ContractInteractionsApiWriteCallFunctionRequest, options?: RawAxiosRequestConfig): AxiosPromise<WriteCallFunctionResponseDto> {
-            return localVarFp.writeCallFunction(requestParameters.writeCallFunctionDto, requestParameters.contractAddress, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.writeCallFunction(requestParameters.writeCallFunctionDto, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -295,7 +295,7 @@ export interface ContractInteractionsApiGetDeployedContractAbiRequest {
      * @type {string}
      * @memberof ContractInteractionsApiGetDeployedContractAbi
      */
-    readonly assetId: string
+    readonly baseAssetId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -330,7 +330,7 @@ export interface ContractInteractionsApiReadCallFunctionRequest {
      * @type {string}
      * @memberof ContractInteractionsApiReadCallFunction
      */
-    readonly assetId: string
+    readonly baseAssetId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -365,7 +365,7 @@ export interface ContractInteractionsApiWriteCallFunctionRequest {
      * @type {string}
      * @memberof ContractInteractionsApiWriteCallFunction
      */
-    readonly assetId: string
+    readonly baseAssetId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -391,7 +391,7 @@ export class ContractInteractionsApi extends BaseAPI {
      * @memberof ContractInteractionsApi
      */
     public getDeployedContractAbi(requestParameters: ContractInteractionsApiGetDeployedContractAbiRequest) {
-        return ContractInteractionsApiFp(this.configuration).getDeployedContractAbi(requestParameters.contractAddress, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ContractInteractionsApiFp(this.configuration).getDeployedContractAbi(requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -403,7 +403,7 @@ export class ContractInteractionsApi extends BaseAPI {
      * @memberof ContractInteractionsApi
      */
     public readCallFunction(requestParameters: ContractInteractionsApiReadCallFunctionRequest) {
-        return ContractInteractionsApiFp(this.configuration).readCallFunction(requestParameters.readCallFunctionDto, requestParameters.contractAddress, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ContractInteractionsApiFp(this.configuration).readCallFunction(requestParameters.readCallFunctionDto, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -415,7 +415,7 @@ export class ContractInteractionsApi extends BaseAPI {
      * @memberof ContractInteractionsApi
      */
     public writeCallFunction(requestParameters: ContractInteractionsApiWriteCallFunctionRequest) {
-        return ContractInteractionsApiFp(this.configuration).writeCallFunction(requestParameters.writeCallFunctionDto, requestParameters.contractAddress, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ContractInteractionsApiFp(this.configuration).writeCallFunction(requestParameters.writeCallFunctionDto, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

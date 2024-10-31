@@ -68,7 +68,8 @@ export interface SmartTransferCreateTicket {
 }
 
 export const SmartTransferCreateTicketTypeEnum = {
-    Async: 'ASYNC'
+    Async: 'ASYNC',
+    Dvp: 'DVP'
 } as const;
 
 export type SmartTransferCreateTicketTypeEnum = typeof SmartTransferCreateTicketTypeEnum[keyof typeof SmartTransferCreateTicketTypeEnum];

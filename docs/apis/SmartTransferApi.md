@@ -4,13 +4,16 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**approveDvPTicketTerm**](#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Define funding source and give approve to contract to transfer asset
 [**cancelTicket**](#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 [**createTicket**](#createTicket) | **POST** /smart-transfers | Create Ticket
 [**createTicketTerm**](#createTicketTerm) | **POST** /smart-transfers/{ticketId}/terms | Create leg (term)
 [**findTicketById**](#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Tickets by ID
 [**findTicketTermById**](#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Search ticket by leg (term) ID
 [**fulfillTicket**](#fulfillTicket) | **PUT** /smart-transfers/{ticketId}/fulfill | Fund ticket manually
+[**fundDvpTicket**](#fundDvpTicket) | **PUT** /smart_transfers/{ticketId}/dvp/fund | Fund dvp ticket
 [**fundTicketTerm**](#fundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/fund | Define funding source
+[**getSmartTransferStatistic**](#getSmartTransferStatistic) | **GET** /smart_transfers/statistic | Get smart transfers statistic
 [**getSmartTransferUserGroups**](#getSmartTransferUserGroups) | **GET** /smart-transfers/settings/user-groups | Get user group
 [**manuallyFundTicketTerm**](#manuallyFundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/manually-fund | Manually add term transaction
 [**removeTicketTerm**](#removeTicketTerm) | **DELETE** /smart-transfers/{ticketId}/terms/{termId} | Delete ticket leg (term)
@@ -21,6 +24,77 @@ Method | HTTP request | Description
 [**submitTicket**](#submitTicket) | **PUT** /smart-transfers/{ticketId}/submit | Submit ticket
 [**updateTicketTerm**](#updateTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId} | Update ticket leg (term)
 
+
+# **approveDvPTicketTerm**
+> SmartTransferTicketTermResponse approveDvPTicketTerm(smartTransferApproveTerm, )
+
+Set funding source for ticket term and creating approving transaction for contract to transfer asset
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiApproveDvPTicketTermRequest, SmartTransferTicketTermResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: SmartTransferApiApproveDvPTicketTermRequest = {
+  // SmartTransferApproveTerm
+  smartTransferApproveTerm: param_value,
+  // string
+  ticketId: ticketId_example,
+  // string
+  termId: termId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.smartTransfer.approveDvPTicketTerm(body).then((res: FireblocksResponse<SmartTransferTicketTermResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **smartTransferApproveTerm** | **[SmartTransferApproveTerm](../models/SmartTransferApproveTerm.md)**|  |
+ **ticketId** | [**string**] |  | defaults to undefined
+ **termId** | [**string**] |  | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[SmartTransferTicketTermResponse](../models/SmartTransferTicketTermResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Creating approval transaction started |  -  |
+**403** | Unauthorized |  -  |
+**404** | Not found |  -  |
+**422** | Bad Request |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **cancelTicket**
 > SmartTransferTicketResponse cancelTicket()
@@ -408,6 +482,71 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **fundDvpTicket**
+> SmartTransferTicketResponse fundDvpTicket()
+
+Create or fulfill dvp ticket order
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferApiFundDvpTicketRequest, SmartTransferTicketResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: SmartTransferApiFundDvpTicketRequest = {
+  // string
+  ticketId: ticketId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.smartTransfer.fundDvpTicket(body).then((res: FireblocksResponse<SmartTransferTicketResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ticketId** | [**string**] |  | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[SmartTransferTicketResponse](../models/SmartTransferTicketResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully started creating or fulfilling order on dvp Smart Transfer ticket |  -  |
+**403** | Unauthorized |  -  |
+**404** | Not found |  -  |
+**422** | Bad Request |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **fundTicketTerm**
 > SmartTransferTicketTermResponse fundTicketTerm(smartTransferFundTerm, )
 
@@ -476,6 +615,61 @@ No authorization required
 **403** | Unauthorized |  -  |
 **404** | Not found |  -  |
 **422** | Bad Request |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getSmartTransferStatistic**
+> SmartTransferStatistic getSmartTransferStatistic()
+
+Get smart transfer statistic
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, SmartTransferStatistic } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.smartTransfer.getSmartTransferStatistic(body).then((res: FireblocksResponse<SmartTransferStatistic>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[SmartTransferStatistic](../models/SmartTransferStatistic.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Smart Transfer ticket statistic returned successfully |  -  |
+**403** | Unauthorized |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
@@ -702,7 +896,7 @@ let body: SmartTransferApiSearchTicketsRequest = {
   expiresAfter: 2013-10-20T19:20:30+01:00,
   // string | Upper bound of search range. Optional (optional)
   expiresBefore: 2013-10-20T19:20:30+01:00,
-  // 'ASYNC' | Type of transfer. ASYNC executes transfers as they are funded, ATOMIC executes all terms (legs) as one atomic transfer (optional)
+  // 'ASYNC' | 'DVP' | Type of transfer. ASYNC executes transfers as they are funded, DVP executes all terms (legs) as one dvp transfer (optional)
   type: type_example,
   // string | External ref. ID that workspace can use to identify ticket outside of Fireblocks system. (optional)
   externalRefId: externalRefId_example,
@@ -728,7 +922,7 @@ Name | Type | Description  | Notes
  **createdByMe** | [**boolean**] | Filter created tickets by created by self or by others. Optional | (optional) defaults to undefined
  **expiresAfter** | [**string**] | Lower bound of search range. Optional | (optional) defaults to undefined
  **expiresBefore** | [**string**] | Upper bound of search range. Optional | (optional) defaults to undefined
- **type** | [**&#39;ASYNC&#39;**]**Array<&#39;ASYNC&#39;>** | Type of transfer. ASYNC executes transfers as they are funded, ATOMIC executes all terms (legs) as one atomic transfer | (optional) defaults to undefined
+ **type** | [**&#39;ASYNC&#39; | &#39;DVP&#39;**]**Array<&#39;ASYNC&#39; &#124; &#39;DVP&#39;>** | Type of transfer. ASYNC executes transfers as they are funded, DVP executes all terms (legs) as one dvp transfer | (optional) defaults to undefined
  **externalRefId** | [**string**] | External ref. ID that workspace can use to identify ticket outside of Fireblocks system. | (optional) defaults to undefined
  **after** | [**string**] | ID of the record after which to fetch $limit records | (optional) defaults to undefined
  **limit** | [**number**] | Number of records to fetch. By default, it is 100 | (optional) defaults to undefined

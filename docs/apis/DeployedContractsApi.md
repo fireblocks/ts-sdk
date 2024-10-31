@@ -290,7 +290,7 @@ let body: DeployedContractsApiGetDeployedContractsRequest = {
   // string | The contract\'s onchain address (optional)
   contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66,
   // string (optional)
-  assetId: assetId_example,
+  baseAssetId: baseAssetId_example,
   // string (optional)
   templateId: templateId_example,
 };
@@ -308,7 +308,7 @@ Name | Type | Description  | Notes
  **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
  **pageSize** | [**number**] | Number of items per page, requesting more then max will return max items | (optional) defaults to undefined
  **contractAddress** | [**string**] | The contract\&#39;s onchain address | (optional) defaults to undefined
- **assetId** | [**string**] |  | (optional) defaults to undefined
+ **baseAssetId** | [**string**] |  | (optional) defaults to undefined
  **templateId** | [**string**] |  | (optional) defaults to undefined
 
 

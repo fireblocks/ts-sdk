@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**contractId** | **string** | The id of the contract template that will be used to create the token | [default to undefined]|
-|**constructorParams** | **Array&lt;Array&lt;ParameterWithValue&gt;&gt;** | The constructor parameters and values of the contract template | [optional] [default to undefined]|
+|**deployFunctionParams** | [**Array&lt;ParameterWithValue&gt;**](ParameterWithValue.md) | The deploy function parameters and values of the contract template | [optional] [default to undefined]|
 
 
 

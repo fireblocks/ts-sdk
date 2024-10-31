@@ -15,25 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ParameterWithValue } from './parameter-with-value';
+import { SmartTransferCoinStatistic } from './smart-transfer-coin-statistic';
 
 /**
- * 
+ * Inflow tickets data
  * @export
- * @interface EVMTokenCreateParamsDto
+ * @interface SmartTransferStatisticInflow
  */
-export interface EVMTokenCreateParamsDto {
+export interface SmartTransferStatisticInflow {
     /**
-     * The id of the contract template that will be used to create the token
-     * @type {string}
-     * @memberof EVMTokenCreateParamsDto
+     * 
+     * @type {Array<SmartTransferCoinStatistic>}
+     * @memberof SmartTransferStatisticInflow
      */
-    'contractId': string;
+    'coins'?: Array<SmartTransferCoinStatistic>;
     /**
-     * The deploy function parameters and values of the contract template
-     * @type {Array<ParameterWithValue>}
-     * @memberof EVMTokenCreateParamsDto
+     * 
+     * @type {number}
+     * @memberof SmartTransferStatisticInflow
      */
-    'deployFunctionParams'?: Array<ParameterWithValue>;
+    'ticketCount'?: number;
 }
 
