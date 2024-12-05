@@ -72,6 +72,18 @@ export interface SmartTransferTicket {
      */
     'direction'?: SmartTransferTicketDirectionEnum;
     /**
+     * Current status of DVP execution
+     * @type {string}
+     * @memberof SmartTransferTicket
+     */
+    'dvpExecutionStatus'?: SmartTransferTicketDvpExecutionStatusEnum;
+    /**
+     * ID of network profile that created order
+     * @type {string}
+     * @memberof SmartTransferTicket
+     */
+    'orderCreatedByNetworkId'?: string;
+    /**
      * Ticket terms (legs)
      * @type {Array<SmartTransferTicketTerm>}
      * @memberof SmartTransferTicket
@@ -170,5 +182,16 @@ export const SmartTransferTicketDirectionEnum = {
 } as const;
 
 export type SmartTransferTicketDirectionEnum = typeof SmartTransferTicketDirectionEnum[keyof typeof SmartTransferTicketDirectionEnum];
+export const SmartTransferTicketDvpExecutionStatusEnum = {
+    Started: 'STARTED',
+    CreatingOrder: 'CREATING_ORDER',
+    OrderCreated: 'ORDER_CREATED',
+    Fulfilling: 'FULFILLING',
+    FulfillingOrderFailed: 'FULFILLING_ORDER_FAILED',
+    CreatingOrderFailed: 'CREATING_ORDER_FAILED',
+    Fulfilled: 'FULFILLED'
+} as const;
+
+export type SmartTransferTicketDvpExecutionStatusEnum = typeof SmartTransferTicketDvpExecutionStatusEnum[keyof typeof SmartTransferTicketDvpExecutionStatusEnum];
 
 

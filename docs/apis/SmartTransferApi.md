@@ -483,7 +483,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **fundDvpTicket**
-> SmartTransferTicketResponse fundDvpTicket()
+> SmartTransferTicketResponse fundDvpTicket(smartTransferFundDvpTicket, )
 
 Create or fulfill dvp ticket order
 
@@ -503,6 +503,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: SmartTransferApiFundDvpTicketRequest = {
+  // SmartTransferFundDvpTicket
+  smartTransferFundDvpTicket: param_value,
   // string
   ticketId: ticketId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
@@ -519,6 +521,7 @@ fireblocks.smartTransfer.fundDvpTicket(body).then((res: FireblocksResponse<Smart
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **smartTransferFundDvpTicket** | **[SmartTransferFundDvpTicket](../models/SmartTransferFundDvpTicket.md)**|  |
  **ticketId** | [**string**] |  | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
@@ -533,7 +536,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 

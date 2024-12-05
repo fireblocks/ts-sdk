@@ -292,7 +292,7 @@ let body: DeployedContractsApiGetDeployedContractsRequest = {
   // string (optional)
   baseAssetId: baseAssetId_example,
   // string (optional)
-  templateId: templateId_example,
+  contractTemplateId: contractTemplateId_example,
 };
 
 fireblocks.deployedContracts.getDeployedContracts(body).then((res: FireblocksResponse<DeployedContractsPaginatedResponse>) => {
@@ -309,7 +309,7 @@ Name | Type | Description  | Notes
  **pageSize** | [**number**] | Number of items per page, requesting more then max will return max items | (optional) defaults to undefined
  **contractAddress** | [**string**] | The contract\&#39;s onchain address | (optional) defaults to undefined
  **baseAssetId** | [**string**] |  | (optional) defaults to undefined
- **templateId** | [**string**] |  | (optional) defaults to undefined
+ **contractTemplateId** | [**string**] |  | (optional) defaults to undefined
 
 
 ### Return type

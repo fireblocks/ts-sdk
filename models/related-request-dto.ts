@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { RelatedRequestStatusType } from './related-request-status-type';
 
 /**
  * 
@@ -24,11 +21,11 @@ import { RelatedRequestStatusType } from './related-request-status-type';
  */
 export interface RelatedRequestDto {
     /**
-     * 
-     * @type {RelatedRequestStatusType}
+     * The status of the request
+     * @type {string}
      * @memberof RelatedRequestDto
      */
-    'status': RelatedRequestStatusType;
+    'status': RelatedRequestDtoStatusEnum;
     /**
      * Indicates whether there is an ongoing action for this position related to this request
      * @type {boolean}
@@ -49,5 +46,10 @@ export interface RelatedRequestDto {
     'txId'?: string;
 }
 
+export const RelatedRequestDtoStatusEnum = {
+    Deactivating: 'deactivating'
+} as const;
+
+export type RelatedRequestDtoStatusEnum = typeof RelatedRequestDtoStatusEnum[keyof typeof RelatedRequestDtoStatusEnum];
 
 

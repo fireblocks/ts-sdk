@@ -1,4 +1,4 @@
-# ScreeningUpdateConfigurationsRequest
+# ScreeningUpdateConfigurations
 
 ## Properties
 

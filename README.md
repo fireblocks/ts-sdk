@@ -235,6 +235,7 @@ Class | Method | HTTP request | Description
 *NetworkConnectionsApi* | [**getNetworkId**](docs/apis/NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID.
 *NetworkConnectionsApi* | [**getNetworkIds**](docs/apis/NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Returns all network IDs, both local IDs and discoverable remote IDs
 *NetworkConnectionsApi* | [**getRoutingPolicyAssetGroups**](docs/apis/NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups
+*NetworkConnectionsApi* | [**searchNetworkIds**](docs/apis/NetworkConnectionsApi.md#searchNetworkIds) | **GET** /network_ids/search | Search network IDs, both local IDs and discoverable remote IDs
 *NetworkConnectionsApi* | [**setNetworkIdDiscoverability**](docs/apis/NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
 *NetworkConnectionsApi* | [**setNetworkIdName**](docs/apis/NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID\&#39;s name.
 *NetworkConnectionsApi* | [**setNetworkIdRoutingPolicy**](docs/apis/NetworkConnectionsApi.md#setNetworkIdRoutingPolicy) | **PATCH** /network_ids/{networkId}/set_routing_policy | Update network id routing policy.
@@ -667,7 +668,6 @@ Class | Method | HTTP request | Description
  - [RedeemFundsToLinkedDDAResponse](docs/models/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
  - [RelatedRequestDto](docs/models/RelatedRequestDto.md)
- - [RelatedRequestStatusType](docs/models/RelatedRequestStatusType.md)
  - [RelatedTransactionDto](docs/models/RelatedTransactionDto.md)
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
  - [RenameCosigner](docs/models/RenameCosigner.md)
@@ -687,10 +687,11 @@ Class | Method | HTTP request | Description
  - [ScreeningOperationType](docs/models/ScreeningOperationType.md)
  - [ScreeningPolicyResponse](docs/models/ScreeningPolicyResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/models/ScreeningProviderRulesConfigurationResponse.md)
- - [ScreeningUpdateConfigurationsRequest](docs/models/ScreeningUpdateConfigurationsRequest.md)
+ - [ScreeningUpdateConfigurations](docs/models/ScreeningUpdateConfigurations.md)
  - [ScreeningValidationFailure](docs/models/ScreeningValidationFailure.md)
  - [ScreeningVerdict](docs/models/ScreeningVerdict.md)
  - [ScreeningVerdictMatchedRule](docs/models/ScreeningVerdictMatchedRule.md)
+ - [SearchNetworkIdsResponse](docs/models/SearchNetworkIdsResponse.md)
  - [SessionDTO](docs/models/SessionDTO.md)
  - [SessionMetadata](docs/models/SessionMetadata.md)
  - [SetAdminQuorumThresholdRequest](docs/models/SetAdminQuorumThresholdRequest.md)
@@ -722,6 +723,7 @@ Class | Method | HTTP request | Description
  - [SmartTransferCreateTicket](docs/models/SmartTransferCreateTicket.md)
  - [SmartTransferCreateTicketTerm](docs/models/SmartTransferCreateTicketTerm.md)
  - [SmartTransferForbiddenResponse](docs/models/SmartTransferForbiddenResponse.md)
+ - [SmartTransferFundDvpTicket](docs/models/SmartTransferFundDvpTicket.md)
  - [SmartTransferFundTerm](docs/models/SmartTransferFundTerm.md)
  - [SmartTransferManuallyFundTerm](docs/models/SmartTransferManuallyFundTerm.md)
  - [SmartTransferNotFoundResponse](docs/models/SmartTransferNotFoundResponse.md)

@@ -41,5 +41,32 @@ export interface ContractDeployRequest {
      * @memberof ContractDeployRequest
      */
     'constructorParameters'?: Array<ParameterWithValue>;
+    /**
+     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771 standard. When set to true, the transaction will be relayed by a designated relayer. The workspace must be configured to use Fireblocks gasless relay.
+     * @type {boolean}
+     * @memberof ContractDeployRequest
+     */
+    'useGasless'?: boolean;
+    /**
+     * Max fee amount for the write function transaction. interchangeable with the \'feeLevel\' field
+     * @type {string}
+     * @memberof ContractDeployRequest
+     */
+    'fee'?: string;
+    /**
+     * Fee level for the write function transaction. interchangeable with the \'fee\' field
+     * @type {string}
+     * @memberof ContractDeployRequest
+     */
+    'feeLevel'?: ContractDeployRequestFeeLevelEnum;
 }
+
+export const ContractDeployRequestFeeLevelEnum = {
+    Low: 'LOW',
+    Medium: 'MEDIUM',
+    High: 'HIGH'
+} as const;
+
+export type ContractDeployRequestFeeLevelEnum = typeof ContractDeployRequestFeeLevelEnum[keyof typeof ContractDeployRequestFeeLevelEnum];
+
 

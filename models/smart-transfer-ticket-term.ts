@@ -105,6 +105,12 @@ export interface SmartTransferTicketTerm {
      */
     'updatedAt': string;
     /**
+     * Identifier of the source and destination vault for DVP execution
+     * @type {string}
+     * @memberof SmartTransferTicketTerm
+     */
+    'dvpSrcDstVaultId'?: string;
+    /**
      * Amount USD
      * @type {string}
      * @memberof SmartTransferTicketTerm

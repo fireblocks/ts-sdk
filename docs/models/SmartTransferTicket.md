@@ -12,6 +12,8 @@
 |**createdAt** | **string** | Date and time at which the ticket is created. | [default to undefined]|
 |**updatedAt** | **string** | Date and time of last ticket update. | [default to undefined]|
 |**direction** | **string** | Direction of Smart Transfer. | [optional] [default to undefined]|
+|**dvpExecutionStatus** | **string** | Current status of DVP execution | [optional] [default to undefined]|
+|**orderCreatedByNetworkId** | **string** | ID of network profile that created order | [optional] [default to undefined]|
 |**terms** | [**Array&lt;SmartTransferTicketTerm&gt;**](SmartTransferTicketTerm.md) | Ticket terms (legs) | [optional] [default to undefined]|
 |**expiresIn** | **number** | Number of hours for expiration.This data is valid only it ticket not in DRAFT state and it will be used to calculate expiresAt value | [optional] [default to undefined]|
 |**expiresAt** | **string** | Date and time at which the ticket will expire if no funding is performed. | [optional] [default to undefined]|
@@ -64,6 +66,25 @@
 * `Receive` (value: `'RECEIVE'`)
 
 * `Intermediate` (value: `'INTERMEDIATE'`)
+
+
+
+## Enum: SmartTransferTicketDvpExecutionStatusEnum
+
+
+* `Started` (value: `'STARTED'`)
+
+* `CreatingOrder` (value: `'CREATING_ORDER'`)
+
+* `OrderCreated` (value: `'ORDER_CREATED'`)
+
+* `Fulfilling` (value: `'FULFILLING'`)
+
+* `FulfillingOrderFailed` (value: `'FULFILLING_ORDER_FAILED'`)
+
+* `CreatingOrderFailed` (value: `'CREATING_ORDER_FAILED'`)
+
+* `Fulfilled` (value: `'FULFILLED'`)
 
 
 

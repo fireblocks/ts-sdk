@@ -336,7 +336,6 @@ ReadCallFunctionDto.md
 RedeemFundsToLinkedDDAResponse.md
 RegisterNewAssetRequest.md
 RelatedRequestDto.md
-RelatedRequestStatusType.md
 RelatedTransactionDto.md
 RemoveCollateralRequestBody.md
 RenameCosigner.md
@@ -357,10 +356,11 @@ ScreeningOperationFailure.md
 ScreeningOperationType.md
 ScreeningPolicyResponse.md
 ScreeningProviderRulesConfigurationResponse.md
-ScreeningUpdateConfigurationsRequest.md
+ScreeningUpdateConfigurations.md
 ScreeningValidationFailure.md
 ScreeningVerdict.md
 ScreeningVerdictMatchedRule.md
+SearchNetworkIdsResponse.md
 SessionDTO.md
 SessionMetadata.md
 SetAdminQuorumThresholdRequest.md
@@ -393,6 +393,7 @@ SmartTransferCoinStatistic.md
 SmartTransferCreateTicket.md
 SmartTransferCreateTicketTerm.md
 SmartTransferForbiddenResponse.md
+SmartTransferFundDvpTicket.md
 SmartTransferFundTerm.md
 SmartTransferManuallyFundTerm.md
 SmartTransferNotFoundResponse.md
@@ -894,7 +895,6 @@ models/read-call-function-dto.ts
 models/redeem-funds-to-linked-ddaresponse.ts
 models/register-new-asset-request.ts
 models/related-request-dto.ts
-models/related-request-status-type.ts
 models/related-transaction-dto.ts
 models/remove-collateral-request-body.ts
 models/rename-cosigner.ts
@@ -914,10 +914,11 @@ models/screening-operation-failure.ts
 models/screening-operation-type.ts
 models/screening-policy-response.ts
 models/screening-provider-rules-configuration-response.ts
-models/screening-update-configurations-request.ts
+models/screening-update-configurations.ts
 models/screening-validation-failure.ts
 models/screening-verdict-matched-rule.ts
 models/screening-verdict.ts
+models/search-network-ids-response.ts
 models/session-dto.ts
 models/session-metadata.ts
 models/set-admin-quorum-threshold-request.ts
@@ -949,6 +950,7 @@ models/smart-transfer-coin-statistic.ts
 models/smart-transfer-create-ticket-term.ts
 models/smart-transfer-create-ticket.ts
 models/smart-transfer-forbidden-response.ts
+models/smart-transfer-fund-dvp-ticket.ts
 models/smart-transfer-fund-term.ts
 models/smart-transfer-manually-fund-term.ts
 models/smart-transfer-not-found-response.ts
