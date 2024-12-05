@@ -39,6 +39,8 @@ import { SmartTransferCreateTicketTerm } from '../models';
 // @ts-ignore
 import { SmartTransferForbiddenResponse } from '../models';
 // @ts-ignore
+import { SmartTransferFundDvpTicket } from '../models';
+// @ts-ignore
 import { SmartTransferFundTerm } from '../models';
 // @ts-ignore
 import { SmartTransferManuallyFundTerm } from '../models';
@@ -347,12 +349,14 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
         /**
          * Create or fulfill dvp ticket order
          * @summary Fund dvp ticket
+         * @param {SmartTransferFundDvpTicket} smartTransferFundDvpTicket 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fundDvpTicket: async (ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        fundDvpTicket: async (smartTransferFundDvpTicket: SmartTransferFundDvpTicket, ticketId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('fundDvpTicket', 'smartTransferFundDvpTicket', smartTransferFundDvpTicket)
             assertParamExistsAndNotEmpty('fundDvpTicket', 'ticketId', ticketId)
             const localVarPath = `/smart_transfers/{ticketId}/dvp/fund`
                 .replace(`{${"ticketId"}}`, encodeURIComponent(String(ticketId)));
@@ -373,9 +377,12 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(smartTransferFundDvpTicket, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -982,13 +989,14 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
         /**
          * Create or fulfill dvp ticket order
          * @summary Fund dvp ticket
+         * @param {SmartTransferFundDvpTicket} smartTransferFundDvpTicket 
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async fundDvpTicket(ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.fundDvpTicket(ticketId, idempotencyKey, options);
+        async fundDvpTicket(smartTransferFundDvpTicket: SmartTransferFundDvpTicket, ticketId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.fundDvpTicket(smartTransferFundDvpTicket, ticketId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.fundDvpTicket']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1248,7 +1256,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @throws {RequiredError}
          */
         fundDvpTicket(requestParameters: SmartTransferApiFundDvpTicketRequest, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketResponse> {
-            return localVarFp.fundDvpTicket(requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.fundDvpTicket(requestParameters.smartTransferFundDvpTicket, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately)
@@ -1528,6 +1536,13 @@ export interface SmartTransferApiFulfillTicketRequest {
  * @interface SmartTransferApiFundDvpTicketRequest
  */
 export interface SmartTransferApiFundDvpTicketRequest {
+    /**
+     * 
+     * @type {SmartTransferFundDvpTicket}
+     * @memberof SmartTransferApiFundDvpTicket
+     */
+    readonly smartTransferFundDvpTicket: SmartTransferFundDvpTicket
+
     /**
      * 
      * @type {string}
@@ -1951,7 +1966,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public fundDvpTicket(requestParameters: SmartTransferApiFundDvpTicketRequest) {
-        return SmartTransferApiFp(this.configuration).fundDvpTicket(requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).fundDvpTicket(requestParameters.smartTransferFundDvpTicket, requestParameters.ticketId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

@@ -17,19 +17,19 @@
 /**
  * 
  * @export
- * @interface ScreeningUpdateConfigurationsRequest
+ * @interface ScreeningUpdateConfigurations
  */
-export interface ScreeningUpdateConfigurationsRequest {
+export interface ScreeningUpdateConfigurations {
     /**
      * Flag to enable or disable bypass screening on tenant configuration.
      * @type {boolean}
-     * @memberof ScreeningUpdateConfigurationsRequest
+     * @memberof ScreeningUpdateConfigurations
      */
     'disableBypass'?: boolean;
     /**
      * Flag to enable or disable unfreeze of transaction frozen by policy rule on tenant configuration.
      * @type {boolean}
-     * @memberof ScreeningUpdateConfigurationsRequest
+     * @memberof ScreeningUpdateConfigurations
      */
     'disableUnfreeze'?: boolean;
 }

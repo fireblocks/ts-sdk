@@ -33,7 +33,7 @@ import { ScreeningPolicyResponse } from '../models';
 // @ts-ignore
 import { ScreeningProviderRulesConfigurationResponse } from '../models';
 // @ts-ignore
-import { ScreeningUpdateConfigurationsRequest } from '../models';
+import { ScreeningUpdateConfigurations } from '../models';
 /**
  * ComplianceApi - axios parameter creator
  * @export
@@ -198,11 +198,13 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
         /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
+         * @param {ScreeningUpdateConfigurations} screeningUpdateConfigurations 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateScreeningConfiguration: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateScreeningConfiguration: async (screeningUpdateConfigurations: ScreeningUpdateConfigurations, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateScreeningConfiguration', 'screeningUpdateConfigurations', screeningUpdateConfigurations)
             const localVarPath = `/screening/configurations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -221,9 +223,12 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
 
 
     
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(screeningUpdateConfigurations, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -339,12 +344,13 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
         /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
+         * @param {ScreeningUpdateConfigurations} screeningUpdateConfigurations 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateScreeningConfiguration(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ScreeningUpdateConfigurationsRequest>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateScreeningConfiguration(idempotencyKey, options);
+        async updateScreeningConfiguration(screeningUpdateConfigurations: ScreeningUpdateConfigurations, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ScreeningUpdateConfigurations>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateScreeningConfiguration(screeningUpdateConfigurations, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.updateScreeningConfiguration']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -425,8 +431,8 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ScreeningUpdateConfigurationsRequest> {
-            return localVarFp.updateScreeningConfiguration(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest, options?: RawAxiosRequestConfig): AxiosPromise<ScreeningUpdateConfigurations> {
+            return localVarFp.updateScreeningConfiguration(requestParameters.screeningUpdateConfigurations, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
@@ -461,6 +467,13 @@ export interface ComplianceApiUpdateAmlScreeningConfigurationRequest {
  * @interface ComplianceApiUpdateScreeningConfigurationRequest
  */
 export interface ComplianceApiUpdateScreeningConfigurationRequest {
+    /**
+     * 
+     * @type {ScreeningUpdateConfigurations}
+     * @memberof ComplianceApiUpdateScreeningConfiguration
+     */
+    readonly screeningUpdateConfigurations: ScreeningUpdateConfigurations
+
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
@@ -554,8 +567,8 @@ export class ComplianceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ComplianceApi
      */
-    public updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest = {}) {
-        return ComplianceApiFp(this.configuration).updateScreeningConfiguration(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest) {
+        return ComplianceApiFp(this.configuration).updateScreeningConfiguration(requestParameters.screeningUpdateConfigurations, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

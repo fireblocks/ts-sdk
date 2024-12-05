@@ -48,11 +48,11 @@ export interface ContractUploadRequest {
      */
     'bytecode': string;
     /**
-     * 
-     * @type {Array<Array<AbiFunction>>}
+     * The abi of the contract template. Necessary for displaying and for after deployment encoding
+     * @type {Array<AbiFunction>}
      * @memberof ContractUploadRequest
      */
-    'abi': Array<Array<AbiFunction>>;
+    'abi': Array<AbiFunction>;
     /**
      * A full description of the contract template. May contain   to break the lines
      * @type {string}

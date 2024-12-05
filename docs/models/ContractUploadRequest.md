@@ -7,7 +7,7 @@
 |**name** | **string** | The name of the contract template | [default to undefined]|
 |**description** | **string** | A short description of the contract template | [default to undefined]|
 |**bytecode** | **string** | The compiled artifact of this smart contract. Used for deployment of this contract template | [default to undefined]|
-|**abi** | **Array&lt;Array&lt;AbiFunction&gt;&gt;** |  | [default to undefined]|
+|**abi** | [**Array&lt;AbiFunction&gt;**](AbiFunction.md) | The abi of the contract template. Necessary for displaying and for after deployment encoding | [default to undefined]|
 |**longDescription** | **string** | A full description of the contract template. May contain   to break the lines | [optional] [default to undefined]|
 |**sourcecode** | **string** | The source code of the contract. Optional. | [optional] [default to undefined]|
 |**type** | **string** | The type of the contract template | [optional] [default to undefined]|

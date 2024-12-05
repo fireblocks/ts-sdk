@@ -30,12 +30,6 @@ export interface AbiFunction {
      */
     'type': AbiFunctionTypeEnum;
     /**
-     * The parameters that this function/constructor posses
-     * @type {Array<Parameter>}
-     * @memberof AbiFunction
-     */
-    'inputs': Array<Parameter>;
-    /**
      * The name of the contract function as it appears in the ABI
      * @type {string}
      * @memberof AbiFunction
@@ -47,6 +41,12 @@ export interface AbiFunction {
      * @memberof AbiFunction
      */
     'stateMutability'?: AbiFunctionStateMutabilityEnum;
+    /**
+     * The parameters that this function/constructor posses
+     * @type {Array<Parameter>}
+     * @memberof AbiFunction
+     */
+    'inputs'?: Array<Parameter>;
     /**
      * The parameters that this \'read\' function returns
      * @type {Array<Parameter>}

@@ -44,5 +44,11 @@ export interface UnstakeRequestDto {
      * @memberof UnstakeRequestDto
      */
     'txNote'?: string;
+    /**
+     * The number of tokens to unstake.  This optional field is applicable only for liquid staking and allows for a partial unstake of the position.  If not provided, the entire position will be unstaked by default.
+     * @type {string}
+     * @memberof UnstakeRequestDto
+     */
+    'amount'?: string;
 }
 

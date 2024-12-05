@@ -285,7 +285,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateScreeningConfiguration**
-> ScreeningUpdateConfigurationsRequest updateScreeningConfiguration()
+> ScreeningUpdateConfigurations updateScreeningConfiguration(screeningUpdateConfigurations)
 
 Update tenant screening configuration.
 
@@ -295,7 +295,7 @@ Update tenant screening configuration.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ComplianceApiUpdateScreeningConfigurationRequest, ScreeningUpdateConfigurationsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiUpdateScreeningConfigurationRequest, ScreeningUpdateConfigurations } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -305,11 +305,13 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: ComplianceApiUpdateScreeningConfigurationRequest = {
+  // ScreeningUpdateConfigurations
+  screeningUpdateConfigurations: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.compliance.updateScreeningConfiguration(body).then((res: FireblocksResponse<ScreeningUpdateConfigurationsRequest>) => {
+fireblocks.compliance.updateScreeningConfiguration(body).then((res: FireblocksResponse<ScreeningUpdateConfigurations>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -319,12 +321,13 @@ fireblocks.compliance.updateScreeningConfiguration(body).then((res: FireblocksRe
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **screeningUpdateConfigurations** | **[ScreeningUpdateConfigurations](../models/ScreeningUpdateConfigurations.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[ScreeningUpdateConfigurationsRequest](../models/ScreeningUpdateConfigurationsRequest.md)**
+**[ScreeningUpdateConfigurations](../models/ScreeningUpdateConfigurations.md)**
 
 ### Authorization
 
@@ -332,7 +335,7 @@ No authorization required
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 
