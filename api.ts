@@ -26,6 +26,7 @@ export * from './api/contract-templates-api';
 export * from './api/contracts-api';
 export * from './api/cosigners-beta-api';
 export * from './api/deployed-contracts-api';
+export * from './api/embedded-wallets-api';
 export * from './api/exchange-accounts-api';
 export * from './api/external-wallets-api';
 export * from './api/fiat-accounts-api';

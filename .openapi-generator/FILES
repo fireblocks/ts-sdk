@@ -173,6 +173,7 @@ DropTransactionRequest.md
 DropTransactionResponse.md
 EVMTokenCreateParamsDto.md
 EditGasStationConfigurationResponse.md
+EmbeddedWalletsApi.md
 ErrorResponse.md
 ErrorResponseError.md
 ErrorSchema.md
@@ -552,6 +553,7 @@ api/contract-templates-api.ts
 api/contracts-api.ts
 api/cosigners-beta-api.ts
 api/deployed-contracts-api.ts
+api/embedded-wallets-api.ts
 api/exchange-accounts-api.ts
 api/external-wallets-api.ts
 api/fiat-accounts-api.ts

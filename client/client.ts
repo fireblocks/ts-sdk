@@ -24,6 +24,7 @@ import { ApiUserApi,
          ContractsApi, 
          CosignersBetaApi, 
          DeployedContractsApi, 
+         EmbeddedWalletsApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
@@ -69,6 +70,7 @@ export class Fireblocks {
     private _contracts?: ContractsApi;
     private _cosignersBeta?: CosignersBetaApi;
     private _deployedContracts?: DeployedContractsApi;
+    private _embeddedWallets?: EmbeddedWalletsApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
@@ -151,6 +153,9 @@ export class Fireblocks {
     }
     get deployedContracts(): DeployedContractsApi {
         return this._deployedContracts ?? new DeployedContractsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get embeddedWallets(): EmbeddedWalletsApi {
+        return this._embeddedWallets ?? new EmbeddedWalletsApi(this.config, undefined, this.axiosManager.axios);
     }
     get exchangeAccounts(): ExchangeAccountsApi {
         return this._exchangeAccounts ?? new ExchangeAccountsApi(this.config, undefined, this.axiosManager.axios);

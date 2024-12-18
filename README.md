@@ -171,6 +171,8 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContractByAddress**](docs/apis/DeployedContractsApi.md#getDeployedContractByAddress) | **GET** /tokenization/contracts/{assetId}/{contractAddress} | Return deployed contract data
 *DeployedContractsApi* | [**getDeployedContractById**](docs/apis/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/apis/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
+*EmbeddedWalletsApi* | [**getPublicKeyInfoForAddressNcw**](docs/apis/EmbeddedWalletsApi.md#getPublicKeyInfoForAddressNcw) | **GET** /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset
+*EmbeddedWalletsApi* | [**getPublicKeyInfoNcw**](docs/apis/EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/{walletId}/public_key_info | Get the public key for a derivation path
 *ExchangeAccountsApi* | [**convertAssets**](docs/apis/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/apis/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/apis/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
