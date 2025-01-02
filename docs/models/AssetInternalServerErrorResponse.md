@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**message** | **string** | Internal server error code | [default to undefined]|
-|**code** | **string** | Error code | [default to undefined]|
+|**code** | **number** | Error code | [default to undefined]|
 
 
 

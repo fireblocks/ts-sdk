@@ -35,8 +35,6 @@ import { AssetForbiddenErrorResponse } from '../models';
 // @ts-ignore
 import { AssetInternalServerErrorResponse } from '../models';
 // @ts-ignore
-import { AssetNotFoundErrorResponse } from '../models';
-// @ts-ignore
 import { AssetPriceForbiddenErrorResponse } from '../models';
 // @ts-ignore
 import { AssetPriceNotFoundErrorResponse } from '../models';
@@ -52,6 +50,8 @@ import { GetSupportedAssetsResponse } from '../models';
 import { RegisterNewAssetRequest } from '../models';
 // @ts-ignore
 import { SetAssetPriceRequest } from '../models';
+// @ts-ignore
+import { TokenInfoNotFoundErrorResponse } from '../models';
 /**
  * BlockchainsAssetsApi - axios parameter creator
  * @export
