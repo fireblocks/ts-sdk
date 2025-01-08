@@ -16,6 +16,7 @@ import { ApiUserApi,
          AssetsApi, 
          AuditLogsApi, 
          BlockchainsAssetsApi, 
+         BlockchainsAssetsBetaApi, 
          ComplianceApi, 
          ComplianceScreeningConfigurationApi, 
          ConsoleUserApi, 
@@ -24,6 +25,7 @@ import { ApiUserApi,
          ContractsApi, 
          CosignersBetaApi, 
          DeployedContractsApi, 
+         EmbeddedWalletsApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
          FiatAccountsApi, 
@@ -31,6 +33,7 @@ import { ApiUserApi,
          InternalWalletsApi, 
          JobManagementApi, 
          KeyLinkBetaApi, 
+         KeysBetaApi, 
          NFTsApi, 
          NetworkConnectionsApi, 
          OTABetaApi, 
@@ -39,7 +42,7 @@ import { ApiUserApi,
          PolicyEditorBetaApi, 
          ResetDeviceApi, 
          SmartTransferApi, 
-         StakingBetaApi, 
+         StakingApi, 
          TokenizationApi, 
          TransactionsApi, 
          TravelRuleBetaApi, 
@@ -48,6 +51,7 @@ import { ApiUserApi,
          VaultsApi, 
          Web3ConnectionsApi, 
          WebhooksApi, 
+         WebhooksV2BetaApi, 
          WhitelistIpAddressesApi, 
          WorkspaceStatusBetaApi
          } from '../api';
@@ -61,6 +65,7 @@ export class Fireblocks {
     private _assets?: AssetsApi;
     private _auditLogs?: AuditLogsApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
+    private _blockchainsAssetsBeta?: BlockchainsAssetsBetaApi;
     private _compliance?: ComplianceApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _consoleUser?: ConsoleUserApi;
@@ -69,6 +74,7 @@ export class Fireblocks {
     private _contracts?: ContractsApi;
     private _cosignersBeta?: CosignersBetaApi;
     private _deployedContracts?: DeployedContractsApi;
+    private _embeddedWallets?: EmbeddedWalletsApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
@@ -76,6 +82,7 @@ export class Fireblocks {
     private _internalWallets?: InternalWalletsApi;
     private _jobManagement?: JobManagementApi;
     private _keyLinkBeta?: KeyLinkBetaApi;
+    private _keysBeta?: KeysBetaApi;
     private _nfts?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
     private _otaBeta?: OTABetaApi;
@@ -84,7 +91,7 @@ export class Fireblocks {
     private _policyEditorBeta?: PolicyEditorBetaApi;
     private _resetDevice?: ResetDeviceApi;
     private _smartTransfer?: SmartTransferApi;
-    private _stakingBeta?: StakingBetaApi;
+    private _staking?: StakingApi;
     private _tokenization?: TokenizationApi;
     private _transactions?: TransactionsApi;
     private _travelRuleBeta?: TravelRuleBetaApi;
@@ -93,6 +100,7 @@ export class Fireblocks {
     private _vaults?: VaultsApi;
     private _web3Connections?: Web3ConnectionsApi;
     private _webhooks?: WebhooksApi;
+    private _webhooksV2Beta?: WebhooksV2BetaApi;
     private _whitelistIpAddresses?: WhitelistIpAddressesApi;
     private _workspaceStatusBeta?: WorkspaceStatusBetaApi;
 
@@ -128,6 +136,9 @@ export class Fireblocks {
     get blockchainsAssets(): BlockchainsAssetsApi {
         return this._blockchainsAssets ?? new BlockchainsAssetsApi(this.config, undefined, this.axiosManager.axios);
     }
+    get blockchainsAssetsBeta(): BlockchainsAssetsBetaApi {
+        return this._blockchainsAssetsBeta ?? new BlockchainsAssetsBetaApi(this.config, undefined, this.axiosManager.axios);
+    }
     get compliance(): ComplianceApi {
         return this._compliance ?? new ComplianceApi(this.config, undefined, this.axiosManager.axios);
     }
@@ -152,6 +163,9 @@ export class Fireblocks {
     get deployedContracts(): DeployedContractsApi {
         return this._deployedContracts ?? new DeployedContractsApi(this.config, undefined, this.axiosManager.axios);
     }
+    get embeddedWallets(): EmbeddedWalletsApi {
+        return this._embeddedWallets ?? new EmbeddedWalletsApi(this.config, undefined, this.axiosManager.axios);
+    }
     get exchangeAccounts(): ExchangeAccountsApi {
         return this._exchangeAccounts ?? new ExchangeAccountsApi(this.config, undefined, this.axiosManager.axios);
     }
@@ -172,6 +186,9 @@ export class Fireblocks {
     }
     get keyLinkBeta(): KeyLinkBetaApi {
         return this._keyLinkBeta ?? new KeyLinkBetaApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get keysBeta(): KeysBetaApi {
+        return this._keysBeta ?? new KeysBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get nfts(): NFTsApi {
         return this._nfts ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);
@@ -197,8 +214,8 @@ export class Fireblocks {
     get smartTransfer(): SmartTransferApi {
         return this._smartTransfer ?? new SmartTransferApi(this.config, undefined, this.axiosManager.axios);
     }
-    get stakingBeta(): StakingBetaApi {
-        return this._stakingBeta ?? new StakingBetaApi(this.config, undefined, this.axiosManager.axios);
+    get staking(): StakingApi {
+        return this._staking ?? new StakingApi(this.config, undefined, this.axiosManager.axios);
     }
     get tokenization(): TokenizationApi {
         return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);
@@ -223,6 +240,9 @@ export class Fireblocks {
     }
     get webhooks(): WebhooksApi {
         return this._webhooks ?? new WebhooksApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get webhooksV2Beta(): WebhooksV2BetaApi {
+        return this._webhooksV2Beta ?? new WebhooksV2BetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get whitelistIpAddresses(): WhitelistIpAddressesApi {
         return this._whitelistIpAddresses ?? new WhitelistIpAddressesApi(this.config, undefined, this.axiosManager.axios);

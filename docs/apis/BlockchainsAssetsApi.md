@@ -127,6 +127,7 @@ No authorization required
 **404** | - Invalid address, could not get asset information. Error code 1003  |  -  |
 **409** | - The asset is already supported globally. Error code: 1001  - The asset has already been added to this workspace. Error code: 1002  |  -  |
 **500** | Failed to create asset |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

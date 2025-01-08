@@ -25,6 +25,6 @@ export interface RenameCosigner {
      * @type {string}
      * @memberof RenameCosigner
      */
-    'name'?: string | null;
+    'name'?: string;
 }
 

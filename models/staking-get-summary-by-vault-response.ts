@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { DelegationSummaryDto } from './delegation-summary-dto';
+import { DelegationSummary } from './delegation-summary';
 
 /**
  * 
@@ -23,7 +23,7 @@ import { DelegationSummaryDto } from './delegation-summary-dto';
  * @interface StakingGetSummaryByVaultResponse
  */
 export interface StakingGetSummaryByVaultResponse {
-    [key: string]: DelegationSummaryDto;
+    [key: string]: DelegationSummary;
 
 }
 

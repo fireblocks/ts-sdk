@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ProviderDto } from './provider-dto';
+import { Provider } from './provider';
 
 /**
  * 
  * @export
  * @interface StakingGetProvidersResponse
  */
-export interface StakingGetProvidersResponse extends Array<ProviderDto> {
+export interface StakingGetProvidersResponse extends Array<Provider> {
 }
 

@@ -6,8 +6,8 @@
 |------------ | ------------- | ------------- | -------------|
 |**legacyId** | **string** |  | [default to undefined]|
 |**assetClass** | **string** |  | [default to undefined]|
-|**onchain** | [**AssetResponseOnchain**](AssetResponseOnchain.md) |  | [default to undefined]|
-|**metadata** | [**AssetResponseMetadata**](AssetResponseMetadata.md) |  | [default to undefined]|
+|**onchain** | [**AssetOnchain**](AssetOnchain.md) |  | [default to undefined]|
+|**metadata** | [**AssetMetadata**](AssetMetadata.md) |  | [default to undefined]|
 
 
 ## Enum: AssetResponseAssetClassEnum

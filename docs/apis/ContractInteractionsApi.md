@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getDeployedContractAbi**](#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract\&#39;s ABI
+[**getTransactionReceipt**](#getTransactionReceipt) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt | Get transaction receipt
 [**readCallFunction**](#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
 [**writeCallFunction**](#writeCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/write | Call a write function on a deployed contract
 
@@ -71,6 +72,69 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** |  |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTransactionReceipt**
+> TransactionReceiptResponse getTransactionReceipt()
+
+Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ContractInteractionsApiGetTransactionReceiptRequest, TransactionReceiptResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ContractInteractionsApiGetTransactionReceiptRequest = {
+  // string | The blockchain base assetId
+  baseAssetId: ETH_TEST6,
+  // string | The transaction hash
+  txHash: 0x3b015ca0518c55d7bff4e3f5aa5d0431705771553ba8a95cf20e34cb597f57f6,
+};
+
+fireblocks.contractInteractions.getTransactionReceipt(body).then((res: FireblocksResponse<TransactionReceiptResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **baseAssetId** | [**string**] | The blockchain base assetId | defaults to undefined
+ **txHash** | [**string**] | The transaction hash | defaults to undefined
+
+
+### Return type
+
+**[TransactionReceiptResponse](../models/TransactionReceiptResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Retrieved The Transaction Receipt Successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -35,6 +35,8 @@ import { ParameterWithValueList } from '../models';
 // @ts-ignore
 import { ReadCallFunctionDto } from '../models';
 // @ts-ignore
+import { TransactionReceiptResponse } from '../models';
+// @ts-ignore
 import { WriteCallFunctionDto } from '../models';
 // @ts-ignore
 import { WriteCallFunctionResponseDto } from '../models';
@@ -73,6 +75,42 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+         * @summary Get transaction receipt
+         * @param {string} baseAssetId The blockchain base assetId
+         * @param {string} txHash The transaction hash
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactionReceipt: async (baseAssetId: string, txHash: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTransactionReceipt', 'baseAssetId', baseAssetId)
+            assertParamExistsAndNotEmpty('getTransactionReceipt', 'txHash', txHash)
+            const localVarPath = `/contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt`
+                .replace(`{${"baseAssetId"}}`, encodeURIComponent(String(baseAssetId)))
+                .replace(`{${"txHash"}}`, encodeURIComponent(String(txHash)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -203,6 +241,20 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+         * @summary Get transaction receipt
+         * @param {string} baseAssetId The blockchain base assetId
+         * @param {string} txHash The transaction hash
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTransactionReceipt(baseAssetId: string, txHash: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TransactionReceiptResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactionReceipt(baseAssetId, txHash, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractInteractionsApi.getTransactionReceipt']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Call a read function on a deployed contract by blockchain native asset id and contract address
          * @summary Call a read function on a deployed contract
          * @param {ReadCallFunctionDto} readCallFunctionDto 
@@ -255,6 +307,16 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
             return localVarFp.getDeployedContractAbi(requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+         * @summary Get transaction receipt
+         * @param {ContractInteractionsApiGetTransactionReceiptRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTransactionReceipt(requestParameters: ContractInteractionsApiGetTransactionReceiptRequest, options?: RawAxiosRequestConfig): AxiosPromise<TransactionReceiptResponse> {
+            return localVarFp.getTransactionReceipt(requestParameters.baseAssetId, requestParameters.txHash, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Call a read function on a deployed contract by blockchain native asset id and contract address
          * @summary Call a read function on a deployed contract
          * @param {ContractInteractionsApiReadCallFunctionRequest} requestParameters Request parameters.
@@ -303,6 +365,27 @@ export interface ContractInteractionsApiGetDeployedContractAbiRequest {
      * @memberof ContractInteractionsApiGetDeployedContractAbi
      */
     readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for getTransactionReceipt operation in ContractInteractionsApi.
+ * @export
+ * @interface ContractInteractionsApiGetTransactionReceiptRequest
+ */
+export interface ContractInteractionsApiGetTransactionReceiptRequest {
+    /**
+     * The blockchain base assetId
+     * @type {string}
+     * @memberof ContractInteractionsApiGetTransactionReceipt
+     */
+    readonly baseAssetId: string
+
+    /**
+     * The transaction hash
+     * @type {string}
+     * @memberof ContractInteractionsApiGetTransactionReceipt
+     */
+    readonly txHash: string
 }
 
 /**
@@ -392,6 +475,18 @@ export class ContractInteractionsApi extends BaseAPI {
      */
     public getDeployedContractAbi(requestParameters: ContractInteractionsApiGetDeployedContractAbiRequest) {
         return ContractInteractionsApiFp(this.configuration).getDeployedContractAbi(requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+     * @summary Get transaction receipt
+     * @param {ContractInteractionsApiGetTransactionReceiptRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ContractInteractionsApi
+     */
+    public getTransactionReceipt(requestParameters: ContractInteractionsApiGetTransactionReceiptRequest) {
+        return ContractInteractionsApiFp(this.configuration).getTransactionReceipt(requestParameters.baseAssetId, requestParameters.txHash).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

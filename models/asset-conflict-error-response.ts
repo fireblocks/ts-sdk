@@ -28,9 +28,9 @@ export interface AssetConflictErrorResponse {
     'message': string;
     /**
      * Error code
-     * @type {string}
+     * @type {number}
      * @memberof AssetConflictErrorResponse
      */
-    'code': string;
+    'code': number;
 }
 
