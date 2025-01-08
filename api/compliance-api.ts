@@ -27,6 +27,10 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { CreateTransactionResponse } from '../models';
+// @ts-ignore
+import { ErrorSchema } from '../models';
+// @ts-ignore
 import { ScreeningConfigurationsRequest } from '../models';
 // @ts-ignore
 import { ScreeningPolicyResponse } from '../models';
@@ -148,6 +152,44 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+         * @param {string} txId The transaction id that was rejected by screening checks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retryRejectedTransactionBypassScreeningChecks: async (txId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('retryRejectedTransactionBypassScreeningChecks', 'txId', txId)
+            const localVarPath = `/screening/transaction/{txId}/bypass_screening_policy`
+                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
 
 
     
@@ -329,6 +371,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+         * @param {string} txId The transaction id that was rejected by screening checks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async retryRejectedTransactionBypassScreeningChecks(txId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.retryRejectedTransactionBypassScreeningChecks(txId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.retryRejectedTransactionBypassScreeningChecks']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
          * @summary Update AML Configuration
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -415,6 +471,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getScreeningPolicy(options).then((request) => request(axios, basePath));
         },
         /**
+         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+         * @param {ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        retryRejectedTransactionBypassScreeningChecks(requestParameters: ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateTransactionResponse> {
+            return localVarFp.retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
          * @summary Update AML Configuration
          * @param {ComplianceApiUpdateAmlScreeningConfigurationRequest} requestParameters Request parameters.
@@ -446,6 +512,27 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
         },
     };
 };
+
+/**
+ * Request parameters for retryRejectedTransactionBypassScreeningChecks operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest
+ */
+export interface ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest {
+    /**
+     * The transaction id that was rejected by screening checks
+     * @type {string}
+     * @memberof ComplianceApiRetryRejectedTransactionBypassScreeningChecks
+     */
+    readonly txId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiRetryRejectedTransactionBypassScreeningChecks
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * Request parameters for updateAmlScreeningConfiguration operation in ComplianceApi.
@@ -545,6 +632,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public getScreeningPolicy() {
         return ComplianceApiFp(this.configuration).getScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+     * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+     * @param {ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public retryRejectedTransactionBypassScreeningChecks(requestParameters: ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest) {
+        return ComplianceApiFp(this.configuration).retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

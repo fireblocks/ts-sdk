@@ -28,9 +28,9 @@ export interface AssetBadRequestErrorResponse {
     'message': string;
     /**
      * Error code
-     * @type {string}
+     * @type {number}
      * @memberof AssetBadRequestErrorResponse
      */
-    'code': string;
+    'code': number;
 }
 

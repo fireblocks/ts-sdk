@@ -5,8 +5,8 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** | The unique identifier of the audit log | [optional] [default to undefined]|
-|**timestamp** | **string** | The timestamp of the audit log | [optional] [default to undefined]|
-|**createdAt** | **string** | The timestamp of the audit log creation | [optional] [default to undefined]|
+|**timestamp** | **number** | The timestamp of the audit log | [optional] [default to undefined]|
+|**createdAt** | **number** | The timestamp of the audit log creation | [optional] [default to undefined]|
 |**user** | **string** | The user who performed the action | [optional] [default to undefined]|
 |**subject** | **string** | The subject of the action | [optional] [default to undefined]|
 |**event** | **string** | The event that was performed | [optional] [default to undefined]|

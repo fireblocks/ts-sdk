@@ -28,9 +28,9 @@ export interface AssetNotFoundErrorResponse {
     'message': string;
     /**
      * Error code
-     * @type {string}
+     * @type {number}
      * @memberof AssetNotFoundErrorResponse
      */
-    'code': string;
+    'code': number;
 }
 

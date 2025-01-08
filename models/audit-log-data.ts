@@ -28,16 +28,16 @@ export interface AuditLogData {
     'id'?: string;
     /**
      * The timestamp of the audit log
-     * @type {string}
+     * @type {number}
      * @memberof AuditLogData
      */
-    'timestamp'?: string;
+    'timestamp'?: number;
     /**
      * The timestamp of the audit log creation
-     * @type {string}
+     * @type {number}
      * @memberof AuditLogData
      */
-    'createdAt'?: string;
+    'createdAt'?: number;
     /**
      * The user who performed the action
      * @type {string}
