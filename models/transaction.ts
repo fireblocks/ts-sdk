@@ -60,6 +60,7 @@ export const TransactionStateEnum = {
     Completed: 'COMPLETED',
     PartiallyCompleted: 'PARTIALLY_COMPLETED',
     PendingAmlScreening: 'PENDING_AML_SCREENING',
+    PendingEnrichment: 'PENDING_ENRICHMENT',
     Cancelling: 'CANCELLING',
     Cancelled: 'CANCELLED',
     Rejected: 'REJECTED',
