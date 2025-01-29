@@ -39,6 +39,8 @@
 
 * `PendingAmlScreening` (value: `'PENDING_AML_SCREENING'`)
 
+* `PendingEnrichment` (value: `'PENDING_ENRICHMENT'`)
+
 * `Cancelling` (value: `'CANCELLING'`)
 
 * `Cancelled` (value: `'CANCELLED'`)
