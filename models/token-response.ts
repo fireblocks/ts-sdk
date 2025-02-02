@@ -109,11 +109,15 @@ export const TokenResponseBlockchainDescriptorEnum = {
     XtzTest: 'XTZ_TEST',
     BasechainEth: 'BASECHAIN_ETH',
     BasechainEthTest3: 'BASECHAIN_ETH_TEST3',
+    BasechainEthTest5: 'BASECHAIN_ETH_TEST5',
     Etherlink: 'ETHERLINK',
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
-    GunGunzillaTest: 'GUN_GUNZILLA_TEST'
+    GunGunzillaTest: 'GUN_GUNZILLA_TEST',
+    EthSoneium: 'ETH_SONEIUM',
+    SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
+    IotxIotex: 'IOTX_IOTEX'
 } as const;
 
 export type TokenResponseBlockchainDescriptorEnum = typeof TokenResponseBlockchainDescriptorEnum[keyof typeof TokenResponseBlockchainDescriptorEnum];

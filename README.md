@@ -140,6 +140,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
+*ComplianceApi* | [**getScreeningFullDetails**](docs/apis/ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
 *ComplianceApi* | [**getScreeningPolicy**](docs/apis/ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
 *ComplianceApi* | [**retryRejectedTransactionBypassScreeningChecks**](docs/apis/ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
 *ComplianceApi* | [**updateAmlScreeningConfiguration**](docs/apis/ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
@@ -184,9 +185,11 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContracts**](docs/apis/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
 *EmbeddedWalletsApi* | [**getPublicKeyInfoForAddressNcw**](docs/apis/EmbeddedWalletsApi.md#getPublicKeyInfoForAddressNcw) | **GET** /ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset
 *EmbeddedWalletsApi* | [**getPublicKeyInfoNcw**](docs/apis/EmbeddedWalletsApi.md#getPublicKeyInfoNcw) | **GET** /ncw/{walletId}/public_key_info | Get the public key for a derivation path
+*ExchangeAccountsApi* | [**addExchangeAccount**](docs/apis/ExchangeAccountsApi.md#addExchangeAccount) | **POST** /exchange_accounts | Add an exchange account
 *ExchangeAccountsApi* | [**convertAssets**](docs/apis/ExchangeAccountsApi.md#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
 *ExchangeAccountsApi* | [**getExchangeAccount**](docs/apis/ExchangeAccountsApi.md#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
 *ExchangeAccountsApi* | [**getExchangeAccountAsset**](docs/apis/ExchangeAccountsApi.md#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
+*ExchangeAccountsApi* | [**getExchangeAccountsCredentialsPublicKey**](docs/apis/ExchangeAccountsApi.md#getExchangeAccountsCredentialsPublicKey) | **GET** /exchange_accounts/credentials_public_key | Get public key to encrypt exchange credentials
 *ExchangeAccountsApi* | [**getPagedExchangeAccounts**](docs/apis/ExchangeAccountsApi.md#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | Pagination list exchange accounts
 *ExchangeAccountsApi* | [**internalTransfer**](docs/apis/ExchangeAccountsApi.md#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts
 *ExternalWalletsApi* | [**addAssetToExternalWallet**](docs/apis/ExternalWalletsApi.md#addAssetToExternalWallet) | **POST** /external_wallets/{walletId}/{assetId} | Add an asset to an external wallet.
@@ -403,8 +406,11 @@ Class | Method | HTTP request | Description
  - [AddContractAssetRequest](docs/models/AddContractAssetRequest.md)
  - [AddCosignerRequest](docs/models/AddCosignerRequest.md)
  - [AddCosignerResponse](docs/models/AddCosignerResponse.md)
+ - [AddExchangeAccountRequest](docs/models/AddExchangeAccountRequest.md)
+ - [AddExchangeAccountResponse](docs/models/AddExchangeAccountResponse.md)
  - [AdditionalInfo](docs/models/AdditionalInfo.md)
  - [AmlRegistrationResult](docs/models/AmlRegistrationResult.md)
+ - [AmlRegistrationResultFullPayload](docs/models/AmlRegistrationResultFullPayload.md)
  - [AmlScreeningResult](docs/models/AmlScreeningResult.md)
  - [AmountAggregationTimePeriodMethod](docs/models/AmountAggregationTimePeriodMethod.md)
  - [AmountAndChainDescriptor](docs/models/AmountAndChainDescriptor.md)
@@ -463,7 +469,9 @@ Class | Method | HTTP request | Description
  - [CollectionTokenMetadataDto](docs/models/CollectionTokenMetadataDto.md)
  - [CollectionType](docs/models/CollectionType.md)
  - [ComplianceResult](docs/models/ComplianceResult.md)
+ - [ComplianceResultFullPayload](docs/models/ComplianceResultFullPayload.md)
  - [ComplianceScreeningResult](docs/models/ComplianceScreeningResult.md)
+ - [ComplianceScreeningResultFullPayload](docs/models/ComplianceScreeningResultFullPayload.md)
  - [ConfigChangeRequestStatus](docs/models/ConfigChangeRequestStatus.md)
  - [ConfigConversionOperationSnapshot](docs/models/ConfigConversionOperationSnapshot.md)
  - [ConfigDisbursementOperationSnapshot](docs/models/ConfigDisbursementOperationSnapshot.md)

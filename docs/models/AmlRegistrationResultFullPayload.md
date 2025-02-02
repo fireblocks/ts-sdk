@@ -1,11 +1,12 @@
-# GetExchangeAccountsCredentialsPublicKeyResponse
+# AmlRegistrationResultFullPayload
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**publicKey** | **string** | Public key string | [default to undefined]|
-|**tenantId** | **string** | Tenant identifier | [default to undefined]|
+|**provider** | **string** |  | [optional] [default to undefined]|
+|**success** | **boolean** |  | [optional] [default to undefined]|
+|**timestamp** | **number** |  | [optional] [default to undefined]|
 
 
 

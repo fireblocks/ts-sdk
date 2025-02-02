@@ -18,8 +18,11 @@ AddCollateralRequestBody.md
 AddContractAssetRequest.md
 AddCosignerRequest.md
 AddCosignerResponse.md
+AddExchangeAccountRequest.md
+AddExchangeAccountResponse.md
 AdditionalInfo.md
 AmlRegistrationResult.md
+AmlRegistrationResultFullPayload.md
 AmlScreeningResult.md
 AmountAggregationTimePeriodMethod.md
 AmountAndChainDescriptor.md
@@ -84,8 +87,10 @@ CollectionTokenMetadataDto.md
 CollectionType.md
 ComplianceApi.md
 ComplianceResult.md
+ComplianceResultFullPayload.md
 ComplianceScreeningConfigurationApi.md
 ComplianceScreeningResult.md
+ComplianceScreeningResultFullPayload.md
 ConfigChangeRequestStatus.md
 ConfigConversionOperationSnapshot.md
 ConfigDisbursementOperationSnapshot.md
@@ -652,7 +657,10 @@ models/add-collateral-request-body.ts
 models/add-contract-asset-request.ts
 models/add-cosigner-request.ts
 models/add-cosigner-response.ts
+models/add-exchange-account-request.ts
+models/add-exchange-account-response.ts
 models/additional-info.ts
+models/aml-registration-result-full-payload.ts
 models/aml-registration-result.ts
 models/aml-screening-result.ts
 models/amount-aggregation-time-period-method.ts
@@ -713,7 +721,9 @@ models/collection-ownership-response.ts
 models/collection-token-metadata-attribute-dto.ts
 models/collection-token-metadata-dto.ts
 models/collection-type.ts
+models/compliance-result-full-payload.ts
 models/compliance-result.ts
+models/compliance-screening-result-full-payload.ts
 models/compliance-screening-result.ts
 models/config-change-request-status.ts
 models/config-conversion-operation-snapshot.ts

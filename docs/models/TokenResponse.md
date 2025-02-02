@@ -42,6 +42,8 @@
 
 * `BasechainEthTest3` (value: `'BASECHAIN_ETH_TEST3'`)
 
+* `BasechainEthTest5` (value: `'BASECHAIN_ETH_TEST5'`)
+
 * `Etherlink` (value: `'ETHERLINK'`)
 
 * `EtherlinkTest` (value: `'ETHERLINK_TEST'`)
@@ -51,6 +53,12 @@
 * `MantleTest` (value: `'MANTLE_TEST'`)
 
 * `GunGunzillaTest` (value: `'GUN_GUNZILLA_TEST'`)
+
+* `EthSoneium` (value: `'ETH_SONEIUM'`)
+
+* `SoneiumMinatoTest` (value: `'SONEIUM_MINATO_TEST'`)
+
+* `IotxIotex` (value: `'IOTX_IOTEX'`)
 
 
 

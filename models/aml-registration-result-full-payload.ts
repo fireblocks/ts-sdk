@@ -17,20 +17,26 @@
 /**
  * 
  * @export
- * @interface GetExchangeAccountsCredentialsPublicKeyResponse
+ * @interface AmlRegistrationResultFullPayload
  */
-export interface GetExchangeAccountsCredentialsPublicKeyResponse {
+export interface AmlRegistrationResultFullPayload {
     /**
-     * Public key string
+     * 
      * @type {string}
-     * @memberof GetExchangeAccountsCredentialsPublicKeyResponse
+     * @memberof AmlRegistrationResultFullPayload
      */
-    'publicKey': string;
+    'provider'?: string;
     /**
-     * Tenant identifier
-     * @type {string}
-     * @memberof GetExchangeAccountsCredentialsPublicKeyResponse
+     * 
+     * @type {boolean}
+     * @memberof AmlRegistrationResultFullPayload
      */
-    'tenantId': string;
+    'success'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof AmlRegistrationResultFullPayload
+     */
+    'timestamp'?: number;
 }
 
