@@ -27,6 +27,10 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AddExchangeAccountRequest } from '../models';
+// @ts-ignore
+import { AddExchangeAccountResponse } from '../models';
+// @ts-ignore
 import { ConvertAssetsRequest } from '../models';
 // @ts-ignore
 import { ConvertAssetsResponse } from '../models';
@@ -39,6 +43,8 @@ import { ExchangeAccount } from '../models';
 // @ts-ignore
 import { ExchangeAsset } from '../models';
 // @ts-ignore
+import { GetExchangeAccountsCredentialsPublicKeyResponse } from '../models';
+// @ts-ignore
 import { GetPagedExchangeAccountsResponse } from '../models';
 // @ts-ignore
 import { InternalTransferResponse } from '../models';
@@ -48,6 +54,46 @@ import { InternalTransferResponse } from '../models';
  */
 export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Add an exchange account to exchanges.
+         * @summary Add an exchange account
+         * @param {AddExchangeAccountRequest} addExchangeAccountRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addExchangeAccount: async (addExchangeAccountRequest: AddExchangeAccountRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('addExchangeAccount', 'addExchangeAccountRequest', addExchangeAccountRequest)
+            const localVarPath = `/exchange_accounts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addExchangeAccountRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
          * @summary Convert exchange account funds from the source asset to the destination asset.
@@ -137,6 +183,36 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             const localVarPath = `/exchange_accounts/{exchangeAccountId}/{assetId}`
                 .replace(`{${"exchangeAccountId"}}`, encodeURIComponent(String(exchangeAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Return public key
+         * @summary Get public key to encrypt exchange credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExchangeAccountsCredentialsPublicKey: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/exchange_accounts/credentials_public_key`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -258,6 +334,20 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ExchangeAccountsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Add an exchange account to exchanges.
+         * @summary Add an exchange account
+         * @param {AddExchangeAccountRequest} addExchangeAccountRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addExchangeAccount(addExchangeAccountRequest: AddExchangeAccountRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddExchangeAccountResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addExchangeAccount(addExchangeAccountRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ExchangeAccountsApi.addExchangeAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
          * @summary Convert exchange account funds from the source asset to the destination asset.
          * @param {string} exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
@@ -297,6 +387,18 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountAsset(exchangeAccountId, assetId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ExchangeAccountsApi.getExchangeAccountAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Return public key
+         * @summary Get public key to encrypt exchange credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getExchangeAccountsCredentialsPublicKey(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetExchangeAccountsCredentialsPublicKeyResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getExchangeAccountsCredentialsPublicKey(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ExchangeAccountsApi.getExchangeAccountsCredentialsPublicKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -340,6 +442,16 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
     const localVarFp = ExchangeAccountsApiFp(configuration)
     return {
         /**
+         * Add an exchange account to exchanges.
+         * @summary Add an exchange account
+         * @param {ExchangeAccountsApiAddExchangeAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addExchangeAccount(requestParameters: ExchangeAccountsApiAddExchangeAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddExchangeAccountResponse> {
+            return localVarFp.addExchangeAccount(requestParameters.addExchangeAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
          * @summary Convert exchange account funds from the source asset to the destination asset.
          * @param {ExchangeAccountsApiConvertAssetsRequest} requestParameters Request parameters.
@@ -370,6 +482,15 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
             return localVarFp.getExchangeAccountAsset(requestParameters.exchangeAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Return public key
+         * @summary Get public key to encrypt exchange credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getExchangeAccountsCredentialsPublicKey(options?: RawAxiosRequestConfig): AxiosPromise<GetExchangeAccountsCredentialsPublicKeyResponse> {
+            return localVarFp.getExchangeAccountsCredentialsPublicKey(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns a page include exchange accounts.
          * @summary Pagination list exchange accounts
          * @param {ExchangeAccountsApiGetPagedExchangeAccountsRequest} requestParameters Request parameters.
@@ -391,6 +512,27 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
         },
     };
 };
+
+/**
+ * Request parameters for addExchangeAccount operation in ExchangeAccountsApi.
+ * @export
+ * @interface ExchangeAccountsApiAddExchangeAccountRequest
+ */
+export interface ExchangeAccountsApiAddExchangeAccountRequest {
+    /**
+     * 
+     * @type {AddExchangeAccountRequest}
+     * @memberof ExchangeAccountsApiAddExchangeAccount
+     */
+    readonly addExchangeAccountRequest: AddExchangeAccountRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ExchangeAccountsApiAddExchangeAccount
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * Request parameters for convertAssets operation in ExchangeAccountsApi.
@@ -519,6 +661,18 @@ export interface ExchangeAccountsApiInternalTransferRequest {
  */
 export class ExchangeAccountsApi extends BaseAPI {
     /**
+     * Add an exchange account to exchanges.
+     * @summary Add an exchange account
+     * @param {ExchangeAccountsApiAddExchangeAccountRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeAccountsApi
+     */
+    public addExchangeAccount(requestParameters: ExchangeAccountsApiAddExchangeAccountRequest) {
+        return ExchangeAccountsApiFp(this.configuration).addExchangeAccount(requestParameters.addExchangeAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
      * @summary Convert exchange account funds from the source asset to the destination asset.
      * @param {ExchangeAccountsApiConvertAssetsRequest} requestParameters Request parameters.
@@ -552,6 +706,17 @@ export class ExchangeAccountsApi extends BaseAPI {
      */
     public getExchangeAccountAsset(requestParameters: ExchangeAccountsApiGetExchangeAccountAssetRequest) {
         return ExchangeAccountsApiFp(this.configuration).getExchangeAccountAsset(requestParameters.exchangeAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Return public key
+     * @summary Get public key to encrypt exchange credentials
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ExchangeAccountsApi
+     */
+    public getExchangeAccountsCredentialsPublicKey() {
+        return ExchangeAccountsApiFp(this.configuration).getExchangeAccountsCredentialsPublicKey().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

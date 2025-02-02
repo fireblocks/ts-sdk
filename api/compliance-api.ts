@@ -27,6 +27,8 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { ComplianceResultFullPayload } from '../models';
+// @ts-ignore
 import { CreateTransactionResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
@@ -112,6 +114,39 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
          */
         getPostScreeningPolicy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/screening/travel_rule/post_screening_policy`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Provides all the compliance details for the given screened transaction.
+         * @summary Provides all the compliance details for the given screened transaction.
+         * @param {string} txId Fireblocks transaction ID of the screened transaction
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreeningFullDetails: async (txId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getScreeningFullDetails', 'txId', txId)
+            const localVarPath = `/screening/transaction/{txId}`
+                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -359,6 +394,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Provides all the compliance details for the given screened transaction.
+         * @summary Provides all the compliance details for the given screened transaction.
+         * @param {string} txId Fireblocks transaction ID of the screened transaction
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getScreeningFullDetails(txId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ComplianceResultFullPayload>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreeningFullDetails(txId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getScreeningFullDetails']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get the screening policy for Travel Rule.
          * @summary Travel Rule - View Screening Policy
          * @param {*} [options] Override http request option.
@@ -462,6 +510,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getPostScreeningPolicy(options).then((request) => request(axios, basePath));
         },
         /**
+         * Provides all the compliance details for the given screened transaction.
+         * @summary Provides all the compliance details for the given screened transaction.
+         * @param {ComplianceApiGetScreeningFullDetailsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getScreeningFullDetails(requestParameters: ComplianceApiGetScreeningFullDetailsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ComplianceResultFullPayload> {
+            return localVarFp.getScreeningFullDetails(requestParameters.txId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get the screening policy for Travel Rule.
          * @summary Travel Rule - View Screening Policy
          * @param {*} [options] Override http request option.
@@ -512,6 +570,20 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
         },
     };
 };
+
+/**
+ * Request parameters for getScreeningFullDetails operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetScreeningFullDetailsRequest
+ */
+export interface ComplianceApiGetScreeningFullDetailsRequest {
+    /**
+     * Fireblocks transaction ID of the screened transaction
+     * @type {string}
+     * @memberof ComplianceApiGetScreeningFullDetails
+     */
+    readonly txId: string
+}
 
 /**
  * Request parameters for retryRejectedTransactionBypassScreeningChecks operation in ComplianceApi.
@@ -621,6 +693,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public getPostScreeningPolicy() {
         return ComplianceApiFp(this.configuration).getPostScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Provides all the compliance details for the given screened transaction.
+     * @summary Provides all the compliance details for the given screened transaction.
+     * @param {ComplianceApiGetScreeningFullDetailsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getScreeningFullDetails(requestParameters: ComplianceApiGetScreeningFullDetailsRequest) {
+        return ComplianceApiFp(this.configuration).getScreeningFullDetails(requestParameters.txId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

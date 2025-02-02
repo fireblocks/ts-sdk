@@ -946,7 +946,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1205,7 +1205,7 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST'}
+     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
@@ -1455,11 +1455,15 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     XtzTest: 'XTZ_TEST',
     BasechainEth: 'BASECHAIN_ETH',
     BasechainEthTest3: 'BASECHAIN_ETH_TEST3',
+    BasechainEthTest5: 'BASECHAIN_ETH_TEST5',
     Etherlink: 'ETHERLINK',
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
-    GunGunzillaTest: 'GUN_GUNZILLA_TEST'
+    GunGunzillaTest: 'GUN_GUNZILLA_TEST',
+    EthSoneium: 'ETH_SONEIUM',
+    SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
+    IotxIotex: 'IOTX_IOTEX'
 } as const;
 export type GetOwnershipTokensBlockchainDescriptorEnum = typeof GetOwnershipTokensBlockchainDescriptorEnum[keyof typeof GetOwnershipTokensBlockchainDescriptorEnum];
 /**
@@ -1587,10 +1591,14 @@ export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
     PolygonTestMumbai: 'POLYGON_TEST_MUMBAI',
     AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     BasechainEth: 'BASECHAIN_ETH',
+    BasechainEthTest5: 'BASECHAIN_ETH_TEST5',
     Etherlink: 'ETHERLINK',
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
-    GunGunzillaTest: 'GUN_GUNZILLA_TEST'
+    GunGunzillaTest: 'GUN_GUNZILLA_TEST',
+    EthSoneium: 'ETH_SONEIUM',
+    SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
+    IotxIotex: 'IOTX_IOTEX'
 } as const;
 export type UpdateOwnershipTokensBlockchainDescriptorEnum = typeof UpdateOwnershipTokensBlockchainDescriptorEnum[keyof typeof UpdateOwnershipTokensBlockchainDescriptorEnum];

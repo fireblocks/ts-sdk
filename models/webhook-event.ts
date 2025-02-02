@@ -25,18 +25,23 @@ export const WebhookEvent = {
     TransactionStatusUpdated: 'transaction.status.updated',
     TransactionApprovalStatusUpdated: 'transaction.approval_status.updated',
     ExternalWalletAssetAdded: 'external_wallet.asset.added',
+    ExternalWalletAssetRemoved: 'external_wallet.asset.removed',
     InternalWalletAssetAdded: 'internal_wallet.asset.added',
     InternalWalletAssetRemoved: 'internal_wallet.asset.removed',
     ContractWalletAssetAdded: 'contract_wallet.asset.added',
     ContractWalletAssetRemoved: 'contract_wallet.asset.removed',
     VaultAccountCreated: 'vault_account.created',
-    VaultAccountAssetAdded: 'vault_account.asset.added',
+    VaultAccountAssetListed: 'vault_account.asset.listed',
     VaultAccountAssetBalanceUpdated: 'vault_account.asset.balance_updated',
     VaultAccountNftBalanceUpdated: 'vault_account.nft.balance_updated',
-    EmbeddedWalletAssetAdded: 'embedded_wallet.asset.added',
+    EmbeddedWalletCreated: 'embedded_wallet.created',
     EmbeddedWalletAssetBalanceUpdated: 'embedded_wallet.asset.balance_updated',
-    ExchangeAccountAdded: 'exchange_account.added',
-    FiatAccountAdded: 'fiat_account.added',
+    EmbeddedWalletAssetListed: 'embedded_wallet.asset.listed',
+    EmbeddedWalletAccountCreated: 'embedded_wallet.account.created',
+    EmbeddedWalletDeviceAdded: 'embedded_wallet.device.added',
+    EmbeddedWalletTransactionUpdated: 'embedded_wallet.transaction.updated',
+    ExchangeAccountConnected: 'exchange_account.connected',
+    FiatAccountConnected: 'fiat_account.connected',
     TicketCreated: 'ticket.created',
     TicketSubmitted: 'ticket.submitted',
     TicketExpired: 'ticket.expired',
@@ -55,7 +60,9 @@ export const WebhookEvent = {
     TicketTermFundingCanceled: 'ticket.term.funding_canceled',
     TicketTermFundingFailed: 'ticket.term.funding_failed',
     TicketTermFundingCompleted: 'ticket.term.funding_completed',
-    TicketTermTransactionStatusChanged: 'ticket.term.transaction_status_changed'
+    TicketTermTransactionStatusChanged: 'ticket.term.transaction_status_changed',
+    SettlementCreated: 'settlement.created',
+    CollateralStatusUpdated: 'collateral.status.updated'
 } as const;
 
 export type WebhookEvent = typeof WebhookEvent[keyof typeof WebhookEvent];
