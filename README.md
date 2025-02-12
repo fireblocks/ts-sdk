@@ -382,6 +382,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2BetaApi* | [**getNotifications**](docs/apis/WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
 *WebhooksV2BetaApi* | [**getWebhook**](docs/apis/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2BetaApi* | [**getWebhooks**](docs/apis/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
+*WebhooksV2BetaApi* | [**resendNotificationById**](docs/apis/WebhooksV2BetaApi.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 *WebhooksV2BetaApi* | [**updateWebhook**](docs/apis/WebhooksV2BetaApi.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/apis/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/apis/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
@@ -669,6 +670,7 @@ Class | Method | HTTP request | Description
  - [NoneNetworkRoutingDest](docs/models/NoneNetworkRoutingDest.md)
  - [NotFoundException](docs/models/NotFoundException.md)
  - [Notification](docs/models/Notification.md)
+ - [NotificationAttempt](docs/models/NotificationAttempt.md)
  - [NotificationPaginatedResponse](docs/models/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/models/NotificationStatus.md)
  - [NotificationWithData](docs/models/NotificationWithData.md)

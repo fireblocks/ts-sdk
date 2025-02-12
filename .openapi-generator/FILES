@@ -306,6 +306,7 @@ NetworkRecord.md
 NoneNetworkRoutingDest.md
 NotFoundException.md
 Notification.md
+NotificationAttempt.md
 NotificationPaginatedResponse.md
 NotificationStatus.md
 NotificationWithData.md
@@ -922,6 +923,7 @@ models/network-id.ts
 models/network-record.ts
 models/none-network-routing-dest.ts
 models/not-found-exception.ts
+models/notification-attempt.ts
 models/notification-paginated-response.ts
 models/notification-status.ts
 models/notification-with-data.ts
