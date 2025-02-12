@@ -637,6 +637,8 @@ let body: NetworkConnectionsApiSearchNetworkIdsRequest = {
   search: search_example,
   // boolean | Exclude your networkIds. Optional, default false (optional)
   excludeSelf: true,
+  // boolean | Include just your networkIds. Optional, default false (optional)
+  onlySelf: true,
   // boolean | Exclude connected networkIds. Optional, default false (optional)
   excludeConnected: true,
   // string | ID of the record after which to fetch $limit records (optional)
@@ -657,6 +659,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **search** | [**string**] | Search string - displayName networkId. Optional | (optional) defaults to undefined
  **excludeSelf** | [**boolean**] | Exclude your networkIds. Optional, default false | (optional) defaults to undefined
+ **onlySelf** | [**boolean**] | Include just your networkIds. Optional, default false | (optional) defaults to undefined
  **excludeConnected** | [**boolean**] | Exclude connected networkIds. Optional, default false | (optional) defaults to undefined
  **pageCursor** | [**string**] | ID of the record after which to fetch $limit records | (optional) defaults to undefined
  **pageSize** | [**number**] | Number of records to fetch. By default, it is 50 | (optional) defaults to 50
