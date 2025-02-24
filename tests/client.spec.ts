@@ -44,7 +44,7 @@ SmartTransferApi,
 StakingApi, 
 TokenizationApi, 
 TransactionsApi, 
-TravelRuleBetaApi, 
+TravelRuleApi, 
 UserGroupsBetaApi, 
 UsersApi, 
 VaultsApi, 
@@ -91,7 +91,7 @@ let mockSmartTransferApi: jest.Mock;
 let mockStakingApi: jest.Mock;
 let mockTokenizationApi: jest.Mock;
 let mockTransactionsApi: jest.Mock;
-let mockTravelRuleBetaApi: jest.Mock;
+let mockTravelRuleApi: jest.Mock;
 let mockUserGroupsBetaApi: jest.Mock;
 let mockUsersApi: jest.Mock;
 let mockVaultsApi: jest.Mock;
@@ -135,7 +135,7 @@ jest.mock('../api', () => {
     mockStakingApi = jest.fn();
     mockTokenizationApi = jest.fn();
     mockTransactionsApi = jest.fn();
-    mockTravelRuleBetaApi = jest.fn();
+    mockTravelRuleApi = jest.fn();
     mockUserGroupsBetaApi = jest.fn();
     mockUsersApi = jest.fn();
     mockVaultsApi = jest.fn();
@@ -180,7 +180,7 @@ jest.mock('../api', () => {
         StakingApi: mockStakingApi,
         TokenizationApi: mockTokenizationApi,
         TransactionsApi: mockTransactionsApi,
-        TravelRuleBetaApi: mockTravelRuleBetaApi,
+        TravelRuleApi: mockTravelRuleApi,
         UserGroupsBetaApi: mockUserGroupsBetaApi,
         UsersApi: mockUsersApi,
         VaultsApi: mockVaultsApi,
@@ -400,9 +400,9 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.transactions).toBeInstanceOf(TransactionsApi);
             expect(mockTransactionsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return TravelRuleBetaApi', async () => {
-            expect(fireblocks.travelRuleBeta).toBeInstanceOf(TravelRuleBetaApi);
-            expect(mockTravelRuleBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return TravelRuleApi', async () => {
+            expect(fireblocks.travelRule).toBeInstanceOf(TravelRuleApi);
+            expect(mockTravelRuleApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return UserGroupsBetaApi', async () => {
             expect(fireblocks.userGroupsBeta).toBeInstanceOf(UserGroupsBetaApi);

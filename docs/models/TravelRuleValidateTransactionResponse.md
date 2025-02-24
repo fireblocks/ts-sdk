@@ -13,6 +13,34 @@
 |**warnings** | **Array&lt;string&gt;** | \&quot;errors/warnings\&quot; will tell you what information about the beneficiary you need to collect from the sender. | [default to undefined]|
 
 
+## Enum: TravelRuleValidateTransactionResponseBeneficiaryAddressTypeEnum
+
+
+* `Unknown` (value: `'UNKNOWN'`)
+
+* `Hosted` (value: `'HOSTED'`)
+
+* `Unhosted` (value: `'UNHOSTED'`)
+
+
+
+## Enum: TravelRuleValidateTransactionResponseAddressSourceEnum
+
+
+* `Unknown` (value: `'UNKNOWN'`)
+
+* `AddressHash` (value: `'ADDRESS_HASH'`)
+
+* `AddressGraph` (value: `'ADDRESS_GRAPH'`)
+
+* `Chainalysis` (value: `'CHAINALYSIS'`)
+
+* `Elliptic` (value: `'ELLIPTIC'`)
+
+* `Crystal` (value: `'CRYSTAL'`)
+
+
+
 
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
