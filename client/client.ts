@@ -45,7 +45,7 @@ import { ApiUserApi,
          StakingApi, 
          TokenizationApi, 
          TransactionsApi, 
-         TravelRuleBetaApi, 
+         TravelRuleApi, 
          UserGroupsBetaApi, 
          UsersApi, 
          VaultsApi, 
@@ -94,7 +94,7 @@ export class Fireblocks {
     private _staking?: StakingApi;
     private _tokenization?: TokenizationApi;
     private _transactions?: TransactionsApi;
-    private _travelRuleBeta?: TravelRuleBetaApi;
+    private _travelRule?: TravelRuleApi;
     private _userGroupsBeta?: UserGroupsBetaApi;
     private _users?: UsersApi;
     private _vaults?: VaultsApi;
@@ -223,8 +223,8 @@ export class Fireblocks {
     get transactions(): TransactionsApi {
         return this._transactions ?? new TransactionsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get travelRuleBeta(): TravelRuleBetaApi {
-        return this._travelRuleBeta ?? new TravelRuleBetaApi(this.config, undefined, this.axiosManager.axios);
+    get travelRule(): TravelRuleApi {
+        return this._travelRule ?? new TravelRuleApi(this.config, undefined, this.axiosManager.axios);
     }
     get userGroupsBeta(): UserGroupsBetaApi {
         return this._userGroupsBeta ?? new UserGroupsBetaApi(this.config, undefined, this.axiosManager.axios);

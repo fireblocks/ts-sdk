@@ -332,13 +332,12 @@ Class | Method | HTTP request | Description
 *TransactionsApi* | [**setTransactionConfirmationThreshold**](docs/apis/TransactionsApi.md#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by transaction ID
 *TransactionsApi* | [**unfreezeTransaction**](docs/apis/TransactionsApi.md#unfreezeTransaction) | **POST** /transactions/{txId}/unfreeze | Unfreeze a transaction
 *TransactionsApi* | [**validateAddress**](docs/apis/TransactionsApi.md#validateAddress) | **GET** /transactions/validate_address/{assetId}/{address} | Validate destination address
-*TravelRuleBetaApi* | [**getVASPByDID**](docs/apis/TravelRuleBetaApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
-*TravelRuleBetaApi* | [**getVASPs**](docs/apis/TravelRuleBetaApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
-*TravelRuleBetaApi* | [**getVaspForVault**](docs/apis/TravelRuleBetaApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
-*TravelRuleBetaApi* | [**setVaspForVault**](docs/apis/TravelRuleBetaApi.md#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
-*TravelRuleBetaApi* | [**updateVasp**](docs/apis/TravelRuleBetaApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
-*TravelRuleBetaApi* | [**validateFullTravelRuleTransaction**](docs/apis/TravelRuleBetaApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
-*TravelRuleBetaApi* | [**validateTravelRuleTransaction**](docs/apis/TravelRuleBetaApi.md#validateTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate | Validate Travel Rule Transaction
+*TravelRuleApi* | [**getVASPByDID**](docs/apis/TravelRuleApi.md#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
+*TravelRuleApi* | [**getVASPs**](docs/apis/TravelRuleApi.md#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
+*TravelRuleApi* | [**getVaspForVault**](docs/apis/TravelRuleApi.md#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
+*TravelRuleApi* | [**setVaspForVault**](docs/apis/TravelRuleApi.md#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
+*TravelRuleApi* | [**updateVasp**](docs/apis/TravelRuleApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
+*TravelRuleApi* | [**validateFullTravelRuleTransaction**](docs/apis/TravelRuleApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
 *UserGroupsBetaApi* | [**createUserGroup**](docs/apis/UserGroupsBetaApi.md#createUserGroup) | **POST** /management/user_groups | Create user group
 *UserGroupsBetaApi* | [**deleteUserGroup**](docs/apis/UserGroupsBetaApi.md#deleteUserGroup) | **DELETE** /management/user_groups/{groupId} | Delete user group
 *UserGroupsBetaApi* | [**getUserGroup**](docs/apis/UserGroupsBetaApi.md#getUserGroup) | **GET** /management/user_groups/{groupId} | Get user group
@@ -876,16 +875,37 @@ Class | Method | HTTP request | Description
  - [TransferValidationFailure](docs/models/TransferValidationFailure.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)
+ - [TravelRuleDateAndPlaceOfBirth](docs/models/TravelRuleDateAndPlaceOfBirth.md)
+ - [TravelRuleFieldsEnum](docs/models/TravelRuleFieldsEnum.md)
+ - [TravelRuleGeographicAddress](docs/models/TravelRuleGeographicAddress.md)
  - [TravelRuleGetAllVASPsResponse](docs/models/TravelRuleGetAllVASPsResponse.md)
  - [TravelRuleIssuer](docs/models/TravelRuleIssuer.md)
  - [TravelRuleIssuers](docs/models/TravelRuleIssuers.md)
+ - [TravelRuleLegalPerson](docs/models/TravelRuleLegalPerson.md)
+ - [TravelRuleLegalPersonNameIdentifier](docs/models/TravelRuleLegalPersonNameIdentifier.md)
+ - [TravelRuleNationalIdentification](docs/models/TravelRuleNationalIdentification.md)
+ - [TravelRuleNaturalNameIdentifier](docs/models/TravelRuleNaturalNameIdentifier.md)
+ - [TravelRuleNaturalPerson](docs/models/TravelRuleNaturalPerson.md)
+ - [TravelRuleNaturalPersonNameIdentifier](docs/models/TravelRuleNaturalPersonNameIdentifier.md)
+ - [TravelRuleNotationEnum](docs/models/TravelRuleNotationEnum.md)
  - [TravelRuleOwnershipProof](docs/models/TravelRuleOwnershipProof.md)
+ - [TravelRulePerson](docs/models/TravelRulePerson.md)
  - [TravelRulePiiIVMS](docs/models/TravelRulePiiIVMS.md)
  - [TravelRulePolicyRuleResponse](docs/models/TravelRulePolicyRuleResponse.md)
  - [TravelRuleTransactionBlockchainInfo](docs/models/TravelRuleTransactionBlockchainInfo.md)
  - [TravelRuleUpdateVASPDetails](docs/models/TravelRuleUpdateVASPDetails.md)
  - [TravelRuleVASP](docs/models/TravelRuleVASP.md)
+ - [TravelRuleValidateDateAndPlaceOfBirth](docs/models/TravelRuleValidateDateAndPlaceOfBirth.md)
  - [TravelRuleValidateFullTransactionRequest](docs/models/TravelRuleValidateFullTransactionRequest.md)
+ - [TravelRuleValidateGeographicAddress](docs/models/TravelRuleValidateGeographicAddress.md)
+ - [TravelRuleValidateLegalPerson](docs/models/TravelRuleValidateLegalPerson.md)
+ - [TravelRuleValidateLegalPersonNameIdentifier](docs/models/TravelRuleValidateLegalPersonNameIdentifier.md)
+ - [TravelRuleValidateNationalIdentification](docs/models/TravelRuleValidateNationalIdentification.md)
+ - [TravelRuleValidateNaturalNameIdentifier](docs/models/TravelRuleValidateNaturalNameIdentifier.md)
+ - [TravelRuleValidateNaturalPerson](docs/models/TravelRuleValidateNaturalPerson.md)
+ - [TravelRuleValidateNaturalPersonNameIdentifier](docs/models/TravelRuleValidateNaturalPersonNameIdentifier.md)
+ - [TravelRuleValidatePerson](docs/models/TravelRuleValidatePerson.md)
+ - [TravelRuleValidatePiiIVMS](docs/models/TravelRuleValidatePiiIVMS.md)
  - [TravelRuleValidateTransactionRequest](docs/models/TravelRuleValidateTransactionRequest.md)
  - [TravelRuleValidateTransactionResponse](docs/models/TravelRuleValidateTransactionResponse.md)
  - [TravelRuleVaspForVault](docs/models/TravelRuleVaspForVault.md)
