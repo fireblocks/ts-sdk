@@ -15,9 +15,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { NotificationAttempt } from './notification-attempt';
-// May contain unused imports in some cases
-// @ts-ignore
 import { NotificationStatus } from './notification-status';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -36,17 +33,17 @@ export interface Notification {
      */
     'id': string;
     /**
-     * The creation date of the notification in milliseconds
-     * @type {number}
+     * The creation date of the notification
+     * @type {string}
      * @memberof Notification
      */
-    'createdAt': number;
+    'createdAt': string;
     /**
-     * The date when the notification was updated in milliseconds
-     * @type {number}
+     * The date when the notification was updated
+     * @type {string}
      * @memberof Notification
      */
-    'updatedAt': number;
+    'updatedAt': string;
     /**
      * 
      * @type {NotificationStatus}
@@ -60,17 +57,23 @@ export interface Notification {
      */
     'eventType': WebhookEvent;
     /**
-     * The attempts related to Notification
-     * @type {Array<NotificationAttempt>}
+     * The event version of the Notification
+     * @type {number}
      * @memberof Notification
      */
-    'attempts': Array<NotificationAttempt>;
+    'eventVersion': number;
     /**
      * The resource id of the event which the Notification is listen to
      * @type {string}
      * @memberof Notification
      */
     'resourceId'?: string | null;
+    /**
+     * The attempts related to Notification
+     * @type {Array<string>}
+     * @memberof Notification
+     */
+    'attempts'?: Array<string>;
 }
 
 

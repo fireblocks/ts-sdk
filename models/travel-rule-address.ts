@@ -25,24 +25,24 @@ export interface TravelRuleAddress {
      * @type {string}
      * @memberof TravelRuleAddress
      */
-    'street'?: string;
+    'street': string;
     /**
      * City
      * @type {string}
      * @memberof TravelRuleAddress
      */
-    'city'?: string;
+    'city': string;
     /**
      * State or province
      * @type {string}
      * @memberof TravelRuleAddress
      */
-    'state'?: string;
+    'state': string;
     /**
      * Postal or ZIP code
      * @type {string}
      * @memberof TravelRuleAddress
      */
-    'postalCode'?: string;
+    'postalCode': string;
 }
 

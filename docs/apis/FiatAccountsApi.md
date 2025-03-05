@@ -13,7 +13,7 @@ Method | HTTP request | Description
 # **depositFundsFromLinkedDDA**
 > DepositFundsFromLinkedDDAResponse depositFundsFromLinkedDDA()
 
-Deposits funds from the linked DDA.
+Deposits funds from the linked DDA. Learn more about Fireblocks FIAT Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -79,7 +79,7 @@ No authorization required
 # **getFiatAccount**
 > FiatAccount getFiatAccount()
 
-Returns a fiat account by ID.
+Returns a fiat account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -139,7 +139,7 @@ No authorization required
 # **getFiatAccounts**
 > GetFiatAccountsResponse getFiatAccounts()
 
-Returns all fiat accounts.
+Returns all fiat accounts. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -193,7 +193,7 @@ No authorization required
 # **redeemFundsToLinkedDDA**
 > RedeemFundsToLinkedDDAResponse redeemFundsToLinkedDDA()
 
-Redeems funds to the linked DDA.
+Redeems funds to the linked DDA. Learn more about Fireblocks FIAT Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

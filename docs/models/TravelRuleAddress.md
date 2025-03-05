@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**street** | **string** | Street address | [optional] [default to undefined]|
-|**city** | **string** | City | [optional] [default to undefined]|
-|**state** | **string** | State or province | [optional] [default to undefined]|
-|**postalCode** | **string** | Postal or ZIP code | [optional] [default to undefined]|
+|**street** | **string** | Street address | [default to undefined]|
+|**city** | **string** | City | [default to undefined]|
+|**state** | **string** | State or province | [default to undefined]|
+|**postalCode** | **string** | Postal or ZIP code | [default to undefined]|
 
 
 

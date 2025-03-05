@@ -47,7 +47,7 @@ export * from './api/smart-transfer-api';
 export * from './api/staking-api';
 export * from './api/tokenization-api';
 export * from './api/transactions-api';
-export * from './api/travel-rule-api';
+export * from './api/travel-rule-beta-api';
 export * from './api/user-groups-beta-api';
 export * from './api/users-api';
 export * from './api/vaults-api';

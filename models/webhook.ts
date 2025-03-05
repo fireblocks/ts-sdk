@@ -28,49 +28,48 @@ export interface Webhook {
      * @type {string}
      * @memberof Webhook
      */
-    'id': string;
+    'id'?: string;
     /**
      * The url of the webhook where notifications will be sent. Must be a valid URL and https.
      * @type {string}
      * @memberof Webhook
      */
-    'url': string;
-    /**
-     * The events that the webhook will be subscribed to
-     * @type {Array<WebhookEvent>}
-     * @memberof Webhook
-     */
-    'events': Array<WebhookEvent>;
-    /**
-     * The status of the webhook
-     * @type {string}
-     * @memberof Webhook
-     */
-    'status': WebhookStatusEnum;
-    /**
-     * The date and time the webhook was created in milliseconds
-     * @type {number}
-     * @memberof Webhook
-     */
-    'createdAt': number;
-    /**
-     * The date and time the webhook was last updated in milliseconds
-     * @type {number}
-     * @memberof Webhook
-     */
-    'updatedAt': number;
+    'url'?: string;
     /**
      * description of the webhook of what it is used for
      * @type {string}
      * @memberof Webhook
      */
     'description'?: string;
+    /**
+     * The events that the webhook will be subscribed to
+     * @type {Array<WebhookEvent>}
+     * @memberof Webhook
+     */
+    'events'?: Array<WebhookEvent>;
+    /**
+     * The status of the webhook
+     * @type {string}
+     * @memberof Webhook
+     */
+    'status'?: WebhookStatusEnum;
+    /**
+     * The date and time the webhook was created
+     * @type {string}
+     * @memberof Webhook
+     */
+    'createdAt'?: string;
+    /**
+     * The date and time the webhook was last updated
+     * @type {string}
+     * @memberof Webhook
+     */
+    'updatedAt'?: string;
 }
 
 export const WebhookStatusEnum = {
     Disabled: 'DISABLED',
-    Enabled: 'ENABLED',
-    Suspended: 'SUSPENDED'
+    Enabled: 'ENABLED'
 } as const;
 
 export type WebhookStatusEnum = typeof WebhookStatusEnum[keyof typeof WebhookStatusEnum];

@@ -15,25 +15,25 @@
 
 
 /**
- * Information about the blockchain transaction.
+ * 
  * @export
  * @interface TravelRuleTransactionBlockchainInfo
  */
 export interface TravelRuleTransactionBlockchainInfo {
     /**
-     * The hash of the transaction
+     * 
      * @type {string}
      * @memberof TravelRuleTransactionBlockchainInfo
      */
     'txHash'?: string;
     /**
-     * The origin address of the transaction
+     * 
      * @type {string}
      * @memberof TravelRuleTransactionBlockchainInfo
      */
     'origin'?: string;
     /**
-     * The destination address of the transaction
+     * 
      * @type {string}
      * @memberof TravelRuleTransactionBlockchainInfo
      */

@@ -410,14 +410,13 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
          * @summary Search network IDs, both local IDs and discoverable remote IDs
          * @param {string} [search] Search string - displayName networkId. Optional
          * @param {boolean} [excludeSelf] Exclude your networkIds. Optional, default false
-         * @param {boolean} [onlySelf] Include just your networkIds. Optional, default false
          * @param {boolean} [excludeConnected] Exclude connected networkIds. Optional, default false
          * @param {string} [pageCursor] ID of the record after which to fetch $limit records
          * @param {number} [pageSize] Number of records to fetch. By default, it is 50
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchNetworkIds: async (search?: string, excludeSelf?: boolean, onlySelf?: boolean, excludeConnected?: boolean, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        searchNetworkIds: async (search?: string, excludeSelf?: boolean, excludeConnected?: boolean, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/network_ids/search`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -436,10 +435,6 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
 
             if (excludeSelf !== undefined) {
                 localVarQueryParameter['excludeSelf'] = excludeSelf;
-            }
-
-            if (onlySelf !== undefined) {
-                localVarQueryParameter['onlySelf'] = onlySelf;
             }
 
             if (excludeConnected !== undefined) {
@@ -761,15 +756,14 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
          * @summary Search network IDs, both local IDs and discoverable remote IDs
          * @param {string} [search] Search string - displayName networkId. Optional
          * @param {boolean} [excludeSelf] Exclude your networkIds. Optional, default false
-         * @param {boolean} [onlySelf] Include just your networkIds. Optional, default false
          * @param {boolean} [excludeConnected] Exclude connected networkIds. Optional, default false
          * @param {string} [pageCursor] ID of the record after which to fetch $limit records
          * @param {number} [pageSize] Number of records to fetch. By default, it is 50
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchNetworkIds(search?: string, excludeSelf?: boolean, onlySelf?: boolean, excludeConnected?: boolean, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchNetworkIdsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.searchNetworkIds(search, excludeSelf, onlySelf, excludeConnected, pageCursor, pageSize, options);
+        async searchNetworkIds(search?: string, excludeSelf?: boolean, excludeConnected?: boolean, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SearchNetworkIdsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.searchNetworkIds(search, excludeSelf, excludeConnected, pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NetworkConnectionsApi.searchNetworkIds']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -946,7 +940,7 @@ export const NetworkConnectionsApiFactory = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         searchNetworkIds(requestParameters: NetworkConnectionsApiSearchNetworkIdsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<SearchNetworkIdsResponse> {
-            return localVarFp.searchNetworkIds(requestParameters.search, requestParameters.excludeSelf, requestParameters.onlySelf, requestParameters.excludeConnected, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+            return localVarFp.searchNetworkIds(requestParameters.search, requestParameters.excludeSelf, requestParameters.excludeConnected, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * Update whether or not the network ID is discoverable by others.  **Note:** This API call is subject to Flexible Routing Schemes.  Your routing policy defines how your transactions are routed. You can choose 1 of the 3 different schemes mentioned below for each asset type:   - **None**; Defines the profile routing to no destination for that asset type. Incoming transactions to asset types routed to `None` will fail.   - **Custom**; Route to an account that you choose. If you remove the account, incoming transactions will fail until you choose another one.   - **Default**; Use the routing specified by the network profile the connection is connected to. This scheme is also referred to as \"Profile Routing\"  Default Workspace Presets:   - Network Profile Crypto → **Custom**   - Network Profile FIAT → **None**   - Network Connection Crypto → **Default**   - Network Connection FIAT → **Default**      - **Note**: By default, Custom routing scheme uses (`dstId` = `0`, `dstType` = `VAULT`). 
@@ -1129,13 +1123,6 @@ export interface NetworkConnectionsApiSearchNetworkIdsRequest {
      * @memberof NetworkConnectionsApiSearchNetworkIds
      */
     readonly excludeSelf?: boolean
-
-    /**
-     * Include just your networkIds. Optional, default false
-     * @type {boolean}
-     * @memberof NetworkConnectionsApiSearchNetworkIds
-     */
-    readonly onlySelf?: boolean
 
     /**
      * Exclude connected networkIds. Optional, default false
@@ -1377,7 +1364,7 @@ export class NetworkConnectionsApi extends BaseAPI {
      * @memberof NetworkConnectionsApi
      */
     public searchNetworkIds(requestParameters: NetworkConnectionsApiSearchNetworkIdsRequest = {}) {
-        return NetworkConnectionsApiFp(this.configuration).searchNetworkIds(requestParameters.search, requestParameters.excludeSelf, requestParameters.onlySelf, requestParameters.excludeConnected, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NetworkConnectionsApiFp(this.configuration).searchNetworkIds(requestParameters.search, requestParameters.excludeSelf, requestParameters.excludeConnected, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

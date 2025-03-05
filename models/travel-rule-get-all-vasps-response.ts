@@ -24,22 +24,10 @@ import { TravelRuleVASP } from './travel-rule-vasp';
  */
 export interface TravelRuleGetAllVASPsResponse {
     /**
-     * An array of VASP objects, referencing the TravelRuleVASP schema.
+     * 
      * @type {Array<TravelRuleVASP>}
      * @memberof TravelRuleGetAllVASPsResponse
      */
-    'data': Array<TravelRuleVASP>;
-    /**
-     * The total number of VASPs.
-     * @type {number}
-     * @memberof TravelRuleGetAllVASPsResponse
-     */
-    'total'?: number;
-    /**
-     * The URL for the next page of results.
-     * @type {string}
-     * @memberof TravelRuleGetAllVASPsResponse
-     */
-    'next'?: string | null;
+    'vasps': Array<TravelRuleVASP>;
 }
 

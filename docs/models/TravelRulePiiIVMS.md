@@ -4,9 +4,15 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**originatorPersons** | [**Array&lt;TravelRulePerson&gt;**](TravelRulePerson.md) | Information about the originator of the transaction | [optional] [default to undefined]|
-|**beneficiaryPersons** | [**Array&lt;TravelRulePerson&gt;**](TravelRulePerson.md) | Information about the beneficiary of the transaction | [optional] [default to undefined]|
-|**accountNumber** | **Array&lt;string&gt;** | Beneficiary account number. The value must be encrypted. | [optional] [default to undefined]|
+|**fullName** | **string** |  | [optional] [default to undefined]|
+|**dateOfBirth** | **string** |  | [optional] [default to undefined]|
+|**placeOfBirth** | **string** |  | [optional] [default to undefined]|
+|**address** | **string** |  | [optional] [default to undefined]|
+|**identificationNumber** | **string** |  | [optional] [default to undefined]|
+|**nationality** | **string** |  | [optional] [default to undefined]|
+|**countryOfResidence** | **string** |  | [optional] [default to undefined]|
+|**taxIdentificationNumber** | **string** |  | [optional] [default to undefined]|
+|**customerNumber** | **string** |  | [optional] [default to undefined]|
 
 
 

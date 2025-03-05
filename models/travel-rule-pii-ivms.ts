@@ -13,33 +13,66 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { TravelRulePerson } from './travel-rule-person';
 
 /**
- * Personal identifiable information related to the transaction
+ * 
  * @export
  * @interface TravelRulePiiIVMS
  */
 export interface TravelRulePiiIVMS {
     /**
-     * Information about the originator of the transaction
-     * @type {Array<TravelRulePerson>}
+     * 
+     * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'originatorPersons'?: Array<TravelRulePerson>;
+    'fullName'?: string;
     /**
-     * Information about the beneficiary of the transaction
-     * @type {Array<TravelRulePerson>}
+     * 
+     * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'beneficiaryPersons'?: Array<TravelRulePerson>;
+    'dateOfBirth'?: string;
     /**
-     * Beneficiary account number. The value must be encrypted.
-     * @type {Array<string>}
+     * 
+     * @type {string}
      * @memberof TravelRulePiiIVMS
      */
-    'accountNumber'?: Array<string>;
+    'placeOfBirth'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRulePiiIVMS
+     */
+    'address'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRulePiiIVMS
+     */
+    'identificationNumber'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRulePiiIVMS
+     */
+    'nationality'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRulePiiIVMS
+     */
+    'countryOfResidence'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRulePiiIVMS
+     */
+    'taxIdentificationNumber'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRulePiiIVMS
+     */
+    'customerNumber'?: string;
 }
 

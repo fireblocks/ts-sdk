@@ -30,17 +30,17 @@ export interface CreateWebhookRequest {
      */
     'url': string;
     /**
+     * description of the webhook. should not contain special characters.
+     * @type {string}
+     * @memberof CreateWebhookRequest
+     */
+    'description': string;
+    /**
      * event types the webhook will subscribe to
      * @type {Array<WebhookEvent>}
      * @memberof CreateWebhookRequest
      */
     'events': Array<WebhookEvent>;
-    /**
-     * description of the webhook. should not contain special characters.
-     * @type {string}
-     * @memberof CreateWebhookRequest
-     */
-    'description'?: string;
     /**
      * The status of the webhook. If false, the webhook will not receive notifications.
      * @type {boolean}
