@@ -319,6 +319,7 @@ PaginatedAddressResponse.md
 PaginatedAddressResponsePaging.md
 PaginatedAssetWalletResponse.md
 PaginatedAssetWalletResponsePaging.md
+PaginatedAssetsResponse.md
 Paging.md
 PairApiKeyRequest.md
 PairApiKeyResponse.md
@@ -956,6 +957,7 @@ models/paginated-address-response-paging.ts
 models/paginated-address-response.ts
 models/paginated-asset-wallet-response-paging.ts
 models/paginated-asset-wallet-response.ts
+models/paginated-assets-response.ts
 models/paging.ts
 models/pair-api-key-request.ts
 models/pair-api-key-response.ts
