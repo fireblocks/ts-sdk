@@ -289,6 +289,7 @@ export * from './paginated-address-response';
 export * from './paginated-address-response-paging';
 export * from './paginated-asset-wallet-response';
 export * from './paginated-asset-wallet-response-paging';
+export * from './paginated-assets-response';
 export * from './paging';
 export * from './pair-api-key-request';
 export * from './pair-api-key-response';

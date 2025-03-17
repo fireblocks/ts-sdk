@@ -48,6 +48,12 @@ export interface ContractUploadRequest {
      */
     'bytecode': string;
     /**
+     * The type of the contract template
+     * @type {string}
+     * @memberof ContractUploadRequest
+     */
+    'type': ContractUploadRequestTypeEnum;
+    /**
      * The abi of the contract template. Necessary for displaying and for after deployment encoding
      * @type {Array<AbiFunction>}
      * @memberof ContractUploadRequest
@@ -65,12 +71,6 @@ export interface ContractUploadRequest {
      * @memberof ContractUploadRequest
      */
     'sourcecode'?: string;
-    /**
-     * The type of the contract template
-     * @type {string}
-     * @memberof ContractUploadRequest
-     */
-    'type'?: ContractUploadRequestTypeEnum;
     /**
      * A `natspec` compliant documentation json. Can be retrieved from the output json after compilation
      * @type {ContractDoc}
