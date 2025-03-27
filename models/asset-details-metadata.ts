@@ -16,56 +16,47 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { AssetMedia } from './asset-media';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AssetScope } from './asset-scope';
 
 /**
  * 
  * @export
- * @interface AssetMetadataBeta
+ * @interface AssetDetailsMetadata
  */
-export interface AssetMetadataBeta {
+export interface AssetDetailsMetadata {
     /**
-     * The scope of the asset
-     * @type {string}
-     * @memberof AssetMetadataBeta
+     * 
+     * @type {AssetScope}
+     * @memberof AssetDetailsMetadata
      */
-    'scope': AssetMetadataBetaScopeEnum;
+    'scope': AssetScope;
     /**
      * Is asset deprecated
      * @type {boolean}
-     * @memberof AssetMetadataBeta
+     * @memberof AssetDetailsMetadata
      */
     'deprecated': boolean;
     /**
-     * Is asset verified by Fireblocks
-     * @type {boolean}
-     * @memberof AssetMetadataBeta
-     */
-    'verified': boolean;
-    /**
      * New asset ID replacement
      * @type {string}
-     * @memberof AssetMetadataBeta
+     * @memberof AssetDetailsMetadata
      */
     'deprecationReferralId'?: string;
     /**
      * Vendor’s website
      * @type {string}
-     * @memberof AssetMetadataBeta
+     * @memberof AssetDetailsMetadata
      */
     'website'?: string;
     /**
      * Asset’s media
      * @type {Array<AssetMedia>}
-     * @memberof AssetMetadataBeta
+     * @memberof AssetDetailsMetadata
      */
     'media'?: Array<AssetMedia>;
 }
 
-export const AssetMetadataBetaScopeEnum = {
-    Global: 'Global',
-    Local: 'Local'
-} as const;
-
-export type AssetMetadataBetaScopeEnum = typeof AssetMetadataBetaScopeEnum[keyof typeof AssetMetadataBetaScopeEnum];
 
 

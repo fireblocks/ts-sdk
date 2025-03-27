@@ -15,20 +15,17 @@
 
 
 /**
- * 
+ * The scope of the asset
  * @export
  * @enum {string}
  */
 
-export const AssetClassBeta = {
-    Native: 'NATIVE',
-    Ft: 'FT',
-    Fiat: 'FIAT',
-    Nft: 'NFT',
-    Sft: 'SFT'
+export const AssetScope = {
+    Global: 'GLOBAL',
+    Local: 'LOCAL'
 } as const;
 
-export type AssetClassBeta = typeof AssetClassBeta[keyof typeof AssetClassBeta];
+export type AssetScope = typeof AssetScope[keyof typeof AssetScope];
 
 
 

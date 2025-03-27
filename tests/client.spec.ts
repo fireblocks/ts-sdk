@@ -15,7 +15,6 @@ import { ApiUserApi,
 AssetsApi, 
 AuditLogsApi, 
 BlockchainsAssetsApi, 
-BlockchainsAssetsBetaApi, 
 ComplianceApi, 
 ComplianceScreeningConfigurationApi, 
 ConsoleUserApi, 
@@ -62,7 +61,6 @@ let mockApiUserApi: jest.Mock;
 let mockAssetsApi: jest.Mock;
 let mockAuditLogsApi: jest.Mock;
 let mockBlockchainsAssetsApi: jest.Mock;
-let mockBlockchainsAssetsBetaApi: jest.Mock;
 let mockComplianceApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
 let mockConsoleUserApi: jest.Mock;
@@ -106,7 +104,6 @@ jest.mock('../api', () => {
     mockAssetsApi = jest.fn();
     mockAuditLogsApi = jest.fn();
     mockBlockchainsAssetsApi = jest.fn();
-    mockBlockchainsAssetsBetaApi = jest.fn();
     mockComplianceApi = jest.fn();
     mockComplianceScreeningConfigurationApi = jest.fn();
     mockConsoleUserApi = jest.fn();
@@ -151,7 +148,6 @@ jest.mock('../api', () => {
         AssetsApi: mockAssetsApi,
         AuditLogsApi: mockAuditLogsApi,
         BlockchainsAssetsApi: mockBlockchainsAssetsApi,
-        BlockchainsAssetsBetaApi: mockBlockchainsAssetsBetaApi,
         ComplianceApi: mockComplianceApi,
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
         ConsoleUserApi: mockConsoleUserApi,
@@ -283,10 +279,6 @@ describe("Fireblocks Client Tests", () => {
         it('Should return BlockchainsAssetsApi', async () => {
             expect(fireblocks.blockchainsAssets).toBeInstanceOf(BlockchainsAssetsApi);
             expect(mockBlockchainsAssetsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
-        });
-        it('Should return BlockchainsAssetsBetaApi', async () => {
-            expect(fireblocks.blockchainsAssetsBeta).toBeInstanceOf(BlockchainsAssetsBetaApi);
-            expect(mockBlockchainsAssetsBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ComplianceApi', async () => {
             expect(fireblocks.compliance).toBeInstanceOf(ComplianceApi);

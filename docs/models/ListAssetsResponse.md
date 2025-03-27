@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**data** | [**Array&lt;AssetResponseBeta&gt;**](AssetResponseBeta.md) | The data of the current page | [default to undefined]|
+|**data** | [**Array&lt;Asset&gt;**](Asset.md) | The data of the current page | [default to undefined]|
 |**next** | **string** | Cursor to the next page | [default to undefined]|
 
 

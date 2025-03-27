@@ -18,7 +18,6 @@ export * from './api/api-user-api';
 export * from './api/assets-api';
 export * from './api/audit-logs-api';
 export * from './api/blockchains-assets-api';
-export * from './api/blockchains-assets-beta-api';
 export * from './api/compliance-api';
 export * from './api/compliance-screening-configuration-api';
 export * from './api/console-user-api';

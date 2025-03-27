@@ -4,15 +4,146 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getSupportedAssets**](#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks
+[**getAsset**](#getAsset) | **GET** /assets/{id} | Get an asset
+[**getBlockchain**](#getBlockchain) | **GET** /blockchains/{id} | Get an blockchain
+[**getSupportedAssets**](#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks - legacy endpoint
+[**listAssets**](#listAssets) | **GET** /assets | List assets
+[**listBlockchains**](#listBlockchains) | **GET** /blockchains | List blockchains
 [**registerNewAsset**](#registerNewAsset) | **POST** /assets | Register an asset
 [**setAssetPrice**](#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 
 
+# **getAsset**
+> Asset getAsset()
+
+Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, BlockchainsAssetsApiGetAssetRequest, Asset } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: BlockchainsAssetsApiGetAssetRequest = {
+  // string | The ID or legacyId of the asset
+  id: ETH,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.blockchainsAssets.getAsset(body).then((res: FireblocksResponse<Asset>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The ID or legacyId of the asset | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[Asset](../models/Asset.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Asset with requested identification |  * X-Request-ID -  <br>  |
+**404** | - Asset with specified ID or legacy ID is not found. Error code 1504  |  -  |
+**500** | Error occurred while getting an asset |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getBlockchain**
+> BlockchainResponse getBlockchain()
+
+Returns an blockchain by ID or legacyID. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, BlockchainsAssetsApiGetBlockchainRequest, BlockchainResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: BlockchainsAssetsApiGetBlockchainRequest = {
+  // string | The ID or legacyId of the blockchain
+  id: ETH,
+};
+
+fireblocks.blockchainsAssets.getBlockchain(body).then((res: FireblocksResponse<BlockchainResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The ID or legacyId of the blockchain | defaults to undefined
+
+
+### Return type
+
+**[BlockchainResponse](../models/BlockchainResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Blockchain with requested identification |  * X-Request-ID -  <br>  |
+**404** | - Blockchain with specified ID or legacy ID is not found. Error code 1505  |  -  |
+**500** | Error occurred while getting an blockchain |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getSupportedAssets**
 > GetSupportedAssetsResponse getSupportedAssets()
 
-Returns all asset types supported by Fireblocks.
+Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br> **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.</br>   - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>   - We recommend transitioning to the `listAssets` endpoint for better results. 
 
 ### Example
 
@@ -59,6 +190,161 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A Transaction object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listAssets**
+> ListAssetsResponse listAssets()
+
+Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br> **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br> 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, BlockchainsAssetsApiListAssetsRequest, ListAssetsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: BlockchainsAssetsApiListAssetsRequest = {
+  // string | Blockchain id of the assets (optional)
+  blockchainId: 0f672204-a28b-464a-b318-a387abd3d3c7,
+  // AssetClass | Assets class (optional)
+  assetClass: param_value,
+  // string | Assets onchain symbol (optional)
+  symbol: ETH,
+  // AssetScope | Scope of the assets (optional)
+  scope: param_value,
+  // boolean | Are assets deprecated (optional)
+  deprecated: false,
+  // string | Next page cursor to fetch (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Items per page (optional)
+  pageSize: 500,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.blockchainsAssets.listAssets(body).then((res: FireblocksResponse<ListAssetsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **blockchainId** | [**string**] | Blockchain id of the assets | (optional) defaults to undefined
+ **assetClass** | **AssetClass** | Assets class | (optional) defaults to undefined
+ **symbol** | [**string**] | Assets onchain symbol | (optional) defaults to undefined
+ **scope** | **AssetScope** | Scope of the assets | (optional) defaults to undefined
+ **deprecated** | [**boolean**] | Are assets deprecated | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Next page cursor to fetch | (optional) defaults to undefined
+ **pageSize** | [**number**] | Items per page | (optional) defaults to 500
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ListAssetsResponse](../models/ListAssetsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of assets |  -  |
+**500** | Error occurred while listing assets |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **listBlockchains**
+> ListBlockchainsResponse listBlockchains()
+
+Returns all blockchains supported by Fireblocks. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, BlockchainsAssetsApiListBlockchainsRequest, ListBlockchainsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: BlockchainsAssetsApiListBlockchainsRequest = {
+  // string | Blockchain protocol (optional)
+  protocol: SOL,
+  // boolean | Is blockchain deprecated (optional)
+  deprecated: false,
+  // boolean | Is test blockchain (optional)
+  test: false,
+  // string | Page cursor to fetch (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Items per page (max 500) (optional)
+  pageSize: 500,
+};
+
+fireblocks.blockchainsAssets.listBlockchains(body).then((res: FireblocksResponse<ListBlockchainsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **protocol** | [**string**] | Blockchain protocol | (optional) defaults to undefined
+ **deprecated** | [**boolean**] | Is blockchain deprecated | (optional) defaults to undefined
+ **test** | [**boolean**] | Is test blockchain | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Page cursor to fetch | (optional) defaults to undefined
+ **pageSize** | [**number**] | Items per page (max 500) | (optional) defaults to 500
+
+
+### Return type
+
+**[ListBlockchainsResponse](../models/ListBlockchainsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | List of supported blockchains |  -  |
+**500** | Error occurred while listing blockchains |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
