@@ -17,37 +17,37 @@
 /**
  * 
  * @export
- * @interface AssetOnchainBeta
+ * @interface AssetDetailsOnchain
  */
-export interface AssetOnchainBeta {
+export interface AssetDetailsOnchain {
     /**
      * The asset symbol
      * @type {string}
-     * @memberof AssetOnchainBeta
+     * @memberof AssetDetailsOnchain
      */
     'symbol': string;
     /**
      * The asset name
      * @type {string}
-     * @memberof AssetOnchainBeta
+     * @memberof AssetDetailsOnchain
      */
     'name': string;
     /**
      * Number of decimals
      * @type {number}
-     * @memberof AssetOnchainBeta
+     * @memberof AssetDetailsOnchain
      */
     'decimals': number;
     /**
      * The asset address
      * @type {string}
-     * @memberof AssetOnchainBeta
+     * @memberof AssetDetailsOnchain
      */
     'address'?: string;
     /**
      * Supported standards
      * @type {Array<string>}
-     * @memberof AssetOnchainBeta
+     * @memberof AssetDetailsOnchain
      */
     'standards'?: Array<string>;
 }

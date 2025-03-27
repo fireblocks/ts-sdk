@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { AssetScope } from './asset-scope';
+// May contain unused imports in some cases
+// @ts-ignore
 import { BlockchainExplorer } from './blockchain-explorer';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -27,11 +30,11 @@ import { BlockchainMedia } from './blockchain-media';
  */
 export interface BlockchainMetadata {
     /**
-     * Is blockchain listed on all workspaces? Global or Local
-     * @type {string}
+     * 
+     * @type {AssetScope}
      * @memberof BlockchainMetadata
      */
-    'scope': BlockchainMetadataScopeEnum;
+    'scope': AssetScope;
     /**
      * Is blockchain deprecated
      * @type {boolean}
@@ -52,11 +55,5 @@ export interface BlockchainMetadata {
     'explorer'?: BlockchainExplorer;
 }
 
-export const BlockchainMetadataScopeEnum = {
-    Global: 'Global',
-    Local: 'Local'
-} as const;
-
-export type BlockchainMetadataScopeEnum = typeof BlockchainMetadataScopeEnum[keyof typeof BlockchainMetadataScopeEnum];
 
 

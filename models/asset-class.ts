@@ -13,27 +13,22 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { Asset } from './asset';
 
 /**
  * 
  * @export
- * @interface ListAssetsResponse
+ * @enum {string}
  */
-export interface ListAssetsResponse {
-    /**
-     * The data of the current page
-     * @type {Array<Asset>}
-     * @memberof ListAssetsResponse
-     */
-    'data': Array<Asset>;
-    /**
-     * Cursor to the next page
-     * @type {string}
-     * @memberof ListAssetsResponse
-     */
-    'next': string | null;
-}
+
+export const AssetClass = {
+    Native: 'NATIVE',
+    Ft: 'FT',
+    Fiat: 'FIAT',
+    Nft: 'NFT',
+    Sft: 'SFT'
+} as const;
+
+export type AssetClass = typeof AssetClass[keyof typeof AssetClass];
+
+
 
