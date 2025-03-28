@@ -311,12 +311,15 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**createNewCollection**](docs/apis/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**fetchCollectionTokenDetails**](docs/apis/TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
 *TokenizationApi* | [**getCollectionById**](docs/apis/TokenizationApi.md#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id
+*TokenizationApi* | [**getDeployableAddress**](docs/apis/TokenizationApi.md#getDeployableAddress) | **POST** /tokenization/multichain/deterministic_address | Get deterministic address for contract deployment
 *TokenizationApi* | [**getLinkedCollections**](docs/apis/TokenizationApi.md#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 *TokenizationApi* | [**getLinkedToken**](docs/apis/TokenizationApi.md#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 *TokenizationApi* | [**getLinkedTokens**](docs/apis/TokenizationApi.md#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 *TokenizationApi* | [**issueNewToken**](docs/apis/TokenizationApi.md#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
+*TokenizationApi* | [**issueTokenMultiChain**](docs/apis/TokenizationApi.md#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 *TokenizationApi* | [**link**](docs/apis/TokenizationApi.md#link) | **POST** /tokenization/tokens/link | Link a contract
 *TokenizationApi* | [**mintCollectionToken**](docs/apis/TokenizationApi.md#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
+*TokenizationApi* | [**reIssueTokenMultiChain**](docs/apis/TokenizationApi.md#reIssueTokenMultiChain) | **POST** /tokenization/multichain/token/{tokenLinkId} | Reissue a multichain token
 *TokenizationApi* | [**unlink**](docs/apis/TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 *TokenizationApi* | [**unlinkCollection**](docs/apis/TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 *TransactionsApi* | [**cancelTransaction**](docs/apis/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
@@ -410,6 +413,7 @@ Class | Method | HTTP request | Description
  - [AddExchangeAccountRequest](docs/models/AddExchangeAccountRequest.md)
  - [AddExchangeAccountResponse](docs/models/AddExchangeAccountResponse.md)
  - [AdditionalInfo](docs/models/AdditionalInfo.md)
+ - [AddressNotAvailableError](docs/models/AddressNotAvailableError.md)
  - [AmlRegistrationResult](docs/models/AmlRegistrationResult.md)
  - [AmlRegistrationResultFullPayload](docs/models/AmlRegistrationResultFullPayload.md)
  - [AmlScreeningResult](docs/models/AmlScreeningResult.md)
@@ -521,6 +525,8 @@ Class | Method | HTTP request | Description
  - [CreateDisbursementConfigOperationRequest](docs/models/CreateDisbursementConfigOperationRequest.md)
  - [CreateInternalTransferRequest](docs/models/CreateInternalTransferRequest.md)
  - [CreateInternalWalletAssetRequest](docs/models/CreateInternalWalletAssetRequest.md)
+ - [CreateMultichainTokenRequestDto](docs/models/CreateMultichainTokenRequestDto.md)
+ - [CreateMultichainTokenRequestDtoCreateParams](docs/models/CreateMultichainTokenRequestDtoCreateParams.md)
  - [CreateMultipleAccountsRequest](docs/models/CreateMultipleAccountsRequest.md)
  - [CreateNcwConnectionRequest](docs/models/CreateNcwConnectionRequest.md)
  - [CreateNetworkIdRequest](docs/models/CreateNetworkIdRequest.md)
@@ -546,6 +552,8 @@ Class | Method | HTTP request | Description
  - [DelegationSummary](docs/models/DelegationSummary.md)
  - [DeleteNetworkConnectionResponse](docs/models/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/models/DeleteNetworkIdResponse.md)
+ - [DeployableAddressResponseDto](docs/models/DeployableAddressResponseDto.md)
+ - [DeployedContractNotFoundError](docs/models/DeployedContractNotFoundError.md)
  - [DeployedContractResponseDto](docs/models/DeployedContractResponseDto.md)
  - [DeployedContractsPaginatedResponse](docs/models/DeployedContractsPaginatedResponse.md)
  - [DepositFundsFromLinkedDDAResponse](docs/models/DepositFundsFromLinkedDDAResponse.md)
@@ -610,6 +618,7 @@ Class | Method | HTTP request | Description
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/models/GetConsoleUsersResponse.md)
  - [GetContractsResponse](docs/models/GetContractsResponse.md)
+ - [GetDeployableAddressRequestDto](docs/models/GetDeployableAddressRequestDto.md)
  - [GetExchangeAccountsCredentialsPublicKeyResponse](docs/models/GetExchangeAccountsCredentialsPublicKeyResponse.md)
  - [GetExchangeAccountsResponse](docs/models/GetExchangeAccountsResponse.md)
  - [GetExternalWalletsResponse](docs/models/GetExternalWalletsResponse.md)
@@ -641,6 +650,8 @@ Class | Method | HTTP request | Description
  - [HttpContractDoesNotExistError](docs/models/HttpContractDoesNotExistError.md)
  - [InstructionAmount](docs/models/InstructionAmount.md)
  - [InternalTransferResponse](docs/models/InternalTransferResponse.md)
+ - [InvalidParamaterValueError](docs/models/InvalidParamaterValueError.md)
+ - [IssueTokenMultichainResponse](docs/models/IssueTokenMultichainResponse.md)
  - [Job](docs/models/Job.md)
  - [JobCreated](docs/models/JobCreated.md)
  - [Jobs](docs/models/Jobs.md)
@@ -734,6 +745,7 @@ Class | Method | HTTP request | Description
  - [ReadCallFunctionDto](docs/models/ReadCallFunctionDto.md)
  - [RedeemFundsToLinkedDDAResponse](docs/models/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
+ - [ReissueMultichainTokenRequestDto](docs/models/ReissueMultichainTokenRequestDto.md)
  - [RelatedRequest](docs/models/RelatedRequest.md)
  - [RelatedTransaction](docs/models/RelatedTransaction.md)
  - [RemoveCollateralRequestBody](docs/models/RemoveCollateralRequestBody.md)
@@ -839,6 +851,7 @@ Class | Method | HTTP request | Description
  - [TokenLinkDto](docs/models/TokenLinkDto.md)
  - [TokenLinkDtoTokenMetadata](docs/models/TokenLinkDtoTokenMetadata.md)
  - [TokenLinkExistsHttpError](docs/models/TokenLinkExistsHttpError.md)
+ - [TokenLinkNotMultichainCompatibleHttpError](docs/models/TokenLinkNotMultichainCompatibleHttpError.md)
  - [TokenLinkRequestDto](docs/models/TokenLinkRequestDto.md)
  - [TokenOwnershipResponse](docs/models/TokenOwnershipResponse.md)
  - [TokenOwnershipSpamUpdatePayload](docs/models/TokenOwnershipSpamUpdatePayload.md)
