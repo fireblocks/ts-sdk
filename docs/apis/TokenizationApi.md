@@ -8,12 +8,15 @@ Method | HTTP request | Description
 [**createNewCollection**](#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 [**fetchCollectionTokenDetails**](#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
 [**getCollectionById**](#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id
+[**getDeployableAddress**](#getDeployableAddress) | **POST** /tokenization/multichain/deterministic_address | Get deterministic address for contract deployment
 [**getLinkedCollections**](#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 [**getLinkedToken**](#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 [**getLinkedTokens**](#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 [**issueNewToken**](#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
+[**issueTokenMultiChain**](#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 [**link**](#link) | **POST** /tokenization/tokens/link | Link a contract
 [**mintCollectionToken**](#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
+[**reIssueTokenMultiChain**](#reIssueTokenMultiChain) | **POST** /tokenization/multichain/token/{tokenLinkId} | Reissue a multichain token
 [**unlink**](#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 [**unlinkCollection**](#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 
@@ -266,6 +269,71 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Collection fetched successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getDeployableAddress**
+> DeployableAddressResponseDto getDeployableAddress(getDeployableAddressRequestDto)
+
+Get a deterministic address for contract deployment. The address is derived from the contract\'s bytecode and  provided salt. This endpoint is used to get the address of a contract that will be deployed in the future.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetDeployableAddressRequest, DeployableAddressResponseDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetDeployableAddressRequest = {
+  // GetDeployableAddressRequestDto
+  getDeployableAddressRequestDto: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.getDeployableAddress(body).then((res: FireblocksResponse<DeployableAddressResponseDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **getDeployableAddressRequestDto** | **[GetDeployableAddressRequestDto](../models/GetDeployableAddressRequestDto.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[DeployableAddressResponseDto](../models/DeployableAddressResponseDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Deterministic address for contract deployment |  -  |
+**400** | Invalid parameters or template has no bytecode |  -  |
+**409** | Address is already taken |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -525,6 +593,70 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **issueTokenMultiChain**
+> IssueTokenMultichainResponse issueTokenMultiChain(createMultichainTokenRequestDto)
+
+Facilitates the creation of a new token on one or more blockchains.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiIssueTokenMultiChainRequest, IssueTokenMultichainResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiIssueTokenMultiChainRequest = {
+  // CreateMultichainTokenRequestDto
+  createMultichainTokenRequestDto: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.issueTokenMultiChain(body).then((res: FireblocksResponse<IssueTokenMultichainResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createMultichainTokenRequestDto** | **[CreateMultichainTokenRequestDto](../models/CreateMultichainTokenRequestDto.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[IssueTokenMultichainResponse](../models/IssueTokenMultichainResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Tokens were created successfully |  -  |
+**400** | Invalid input. |  -  |
+**409** | Address is already taken. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **link**
 > TokenLinkDto link(tokenLinkRequestDto)
 
@@ -653,6 +785,75 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Tokens minted successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **reIssueTokenMultiChain**
+> IssueTokenMultichainResponse reIssueTokenMultiChain(reissueMultichainTokenRequestDto, )
+
+Reissue a multichain token. This endpoint allows you to reissue a token on one or more blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiReIssueTokenMultiChainRequest, IssueTokenMultichainResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiReIssueTokenMultiChainRequest = {
+  // ReissueMultichainTokenRequestDto
+  reissueMultichainTokenRequestDto: param_value,
+  // string | The ID of the token link
+  tokenLinkId: tokenLinkId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.reIssueTokenMultiChain(body).then((res: FireblocksResponse<IssueTokenMultichainResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **reissueMultichainTokenRequestDto** | **[ReissueMultichainTokenRequestDto](../models/ReissueMultichainTokenRequestDto.md)**|  |
+ **tokenLinkId** | [**string**] | The ID of the token link | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[IssueTokenMultichainResponse](../models/IssueTokenMultichainResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Successfully reissued multichain token |  -  |
+**400** | Invalid input |  -  |
+**404** | Deployed contract not found |  -  |
+**409** | Address is already taken |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
