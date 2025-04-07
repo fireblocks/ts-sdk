@@ -13,7 +13,7 @@
 |**periodSec** | **number** | Time period in seconds applied by the amountScope field to accumulate transferred amounts in transactions that match the rule, until the total exceeds the value you specify under Minimum. When the specified amount is reached within that period, whether by one or many transactions, further transactions in that period either fail or require more approvals.  | [default to undefined]|
 |**operator** | **string** | (deprecated - replaced by \&quot;operators\&quot;)  | Defines users who can initiate the type of transaction to which the rule applies. options are * \&quot;*\&quot; - All users are allowed * Specific User id | [optional] [default to undefined]|
 |**operators** | [**PolicyRuleOperators**](PolicyRuleOperators.md) |  | [optional] [default to undefined]|
-|**transactionType** | **string** | Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.  | [optional] [default to undefined]|
+|**transactionType** | **string** | Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.   * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain.  | [optional] [default to undefined]|
 |**designatedSigner** | **string** | (deprecated - replaced by \&quot;designatedSigners\&quot;) Id representing the user who signs transactions that match a specific rule | [optional] [default to undefined]|
 |**designatedSigners** | [**PolicyRuleDesignatedSigners**](PolicyRuleDesignatedSigners.md) |  | [optional] [default to undefined]|
 |**srcType** | [**PolicySrcOrDestType**](PolicySrcOrDestType.md) | (deprecated - replaced by &quot;src&quot;) source account type | [optional] [default to undefined]|
@@ -95,6 +95,8 @@
 * `Raw` (value: `'RAW'`)
 
 * `TypedMessage` (value: `'TYPED_MESSAGE'`)
+
+* `ProgramCall` (value: `'PROGRAM_CALL'`)
 
 
 
