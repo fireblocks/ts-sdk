@@ -106,7 +106,7 @@ export interface PolicyRule {
      */
     'operators'?: PolicyRuleOperators;
     /**
-     * Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions. 
+     * Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions.   * PROGRAM_CALL - In Solana refers to invoking on-chain programs (smart contracts) to execute transactions and interact with the blockchain. 
      * @type {string}
      * @memberof PolicyRule
      */
@@ -271,7 +271,8 @@ export const PolicyRuleTransactionTypeEnum = {
     Redeem: 'REDEEM',
     Stake: 'STAKE',
     Raw: 'RAW',
-    TypedMessage: 'TYPED_MESSAGE'
+    TypedMessage: 'TYPED_MESSAGE',
+    ProgramCall: 'PROGRAM_CALL'
 } as const;
 
 export type PolicyRuleTransactionTypeEnum = typeof PolicyRuleTransactionTypeEnum[keyof typeof PolicyRuleTransactionTypeEnum];

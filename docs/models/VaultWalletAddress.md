@@ -24,6 +24,10 @@
 
 * `Legacy` (value: `'LEGACY'`)
 
+* `Base` (value: `'BASE'`)
+
+* `Payment` (value: `'PAYMENT'`)
+
 
 
 
