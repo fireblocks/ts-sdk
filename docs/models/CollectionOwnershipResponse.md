@@ -55,6 +55,14 @@
 
 * `IotxIotex` (value: `'IOTX_IOTEX'`)
 
+* `KlayKaia` (value: `'KLAY_KAIA'`)
+
+* `KlayKaiaTest` (value: `'KLAY_KAIA_TEST'`)
+
+* `Apechain` (value: `'APECHAIN'`)
+
+* `ApechainTest` (value: `'APECHAIN_TEST'`)
+
 
 
 

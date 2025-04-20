@@ -78,7 +78,11 @@ export const CollectionOwnershipResponseBlockchainDescriptorEnum = {
     GunGunzillaTest: 'GUN_GUNZILLA_TEST',
     EthSoneium: 'ETH_SONEIUM',
     SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
-    IotxIotex: 'IOTX_IOTEX'
+    IotxIotex: 'IOTX_IOTEX',
+    KlayKaia: 'KLAY_KAIA',
+    KlayKaiaTest: 'KLAY_KAIA_TEST',
+    Apechain: 'APECHAIN',
+    ApechainTest: 'APECHAIN_TEST'
 } as const;
 
 export type CollectionOwnershipResponseBlockchainDescriptorEnum = typeof CollectionOwnershipResponseBlockchainDescriptorEnum[keyof typeof CollectionOwnershipResponseBlockchainDescriptorEnum];
