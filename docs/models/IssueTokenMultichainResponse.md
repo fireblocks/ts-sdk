@@ -1,15 +1,10 @@
-# NotificationStatus
+# IssueTokenMultichainResponse
 
-## Enum
+## Properties
 
+|Name | Type | Description | Notes|
+|------------ | ------------- | ------------- | -------------|
 
-* `Completed` (value: `'COMPLETED'`)
-
-* `Failed` (value: `'FAILED'`)
-
-* `InProgress` (value: `'IN_PROGRESS'`)
-
-* `OnHold` (value: `'ON_HOLD'`)
 
 
 

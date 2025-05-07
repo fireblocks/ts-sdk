@@ -15,19 +15,16 @@
 
 
 /**
- * The status of the Notification
+ * Response DTO containing a deployable address
  * @export
- * @enum {string}
+ * @interface DeployableAddressResponse
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface DeployableAddressResponse {
+    /**
+     * The deployable address
+     * @type {string}
+     * @memberof DeployableAddressResponse
+     */
+    'address': string;
+}
 

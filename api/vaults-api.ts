@@ -35,6 +35,10 @@ import { CreateAssetsRequest } from '../models';
 // @ts-ignore
 import { CreateMultipleAccountsRequest } from '../models';
 // @ts-ignore
+import { CreateMultipleDepositAddressesJobStatus } from '../models';
+// @ts-ignore
+import { CreateMultipleDepositAddressesRequest } from '../models';
+// @ts-ignore
 import { CreateVaultAccountRequest } from '../models';
 // @ts-ignore
 import { CreateVaultAssetResponse } from '../models';
@@ -199,6 +203,46 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createMultipleAccountsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. 
+         * @summary Bulk creation of new deposit addresses
+         * @param {CreateMultipleDepositAddressesRequest} createMultipleDepositAddressesRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createMultipleDepositAddresses: async (createMultipleDepositAddressesRequest: CreateMultipleDepositAddressesRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createMultipleDepositAddresses', 'createMultipleDepositAddressesRequest', createMultipleDepositAddressesRequest)
+            const localVarPath = `/vault/accounts/addresses/bulk`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createMultipleDepositAddressesRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -383,6 +427,39 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the status of bulk creation of new deposit addresses job and the result or error
+         * @summary Get job status of bulk creation of new deposit addresses
+         * @param {string} jobId The ID of the job to create addresses
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCreateMultipleDepositAddressesJobStatus: async (jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCreateMultipleDepositAddressesJobStatus', 'jobId', jobId)
+            const localVarPath = `/vault/accounts/addresses/bulk/{jobId}`
+                .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -1228,6 +1305,20 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. 
+         * @summary Bulk creation of new deposit addresses
+         * @param {CreateMultipleDepositAddressesRequest} createMultipleDepositAddressesRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createMultipleDepositAddresses(createMultipleDepositAddressesRequest: CreateMultipleDepositAddressesRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobCreated>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createMultipleDepositAddresses(createMultipleDepositAddressesRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createMultipleDepositAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Creates a new vault account with the requested name.
          * @summary Create a new vault account
          * @param {CreateVaultAccountRequest} createVaultAccountRequest 
@@ -1289,6 +1380,19 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getAssetWallets']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the status of bulk creation of new deposit addresses job and the result or error
+         * @summary Get job status of bulk creation of new deposit addresses
+         * @param {string} jobId The ID of the job to create addresses
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCreateMultipleDepositAddressesJobStatus(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateMultipleDepositAddressesJobStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCreateMultipleDepositAddressesJobStatus(jobId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getCreateMultipleDepositAddressesJobStatus']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1606,6 +1710,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createMultipleAccounts(requestParameters.createMultipleAccountsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. 
+         * @summary Bulk creation of new deposit addresses
+         * @param {VaultsApiCreateMultipleDepositAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createMultipleDepositAddresses(requestParameters: VaultsApiCreateMultipleDepositAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
+            return localVarFp.createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Creates a new vault account with the requested name.
          * @summary Create a new vault account
          * @param {VaultsApiCreateVaultAccountRequest} requestParameters Request parameters.
@@ -1644,6 +1758,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAssetWalletResponse> {
             return localVarFp.getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the status of bulk creation of new deposit addresses job and the result or error
+         * @summary Get job status of bulk creation of new deposit addresses
+         * @param {VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCreateMultipleDepositAddressesJobStatus(requestParameters: VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateMultipleDepositAddressesJobStatus> {
+            return localVarFp.getCreateMultipleDepositAddressesJobStatus(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
@@ -1913,6 +2037,27 @@ export interface VaultsApiCreateMultipleAccountsRequest {
 }
 
 /**
+ * Request parameters for createMultipleDepositAddresses operation in VaultsApi.
+ * @export
+ * @interface VaultsApiCreateMultipleDepositAddressesRequest
+ */
+export interface VaultsApiCreateMultipleDepositAddressesRequest {
+    /**
+     * 
+     * @type {CreateMultipleDepositAddressesRequest}
+     * @memberof VaultsApiCreateMultipleDepositAddresses
+     */
+    readonly createMultipleDepositAddressesRequest: CreateMultipleDepositAddressesRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateMultipleDepositAddresses
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for createVaultAccount operation in VaultsApi.
  * @export
  * @interface VaultsApiCreateVaultAccountRequest
@@ -2050,6 +2195,20 @@ export interface VaultsApiGetAssetWalletsRequest {
      * @memberof VaultsApiGetAssetWallets
      */
     readonly limit?: number
+}
+
+/**
+ * Request parameters for getCreateMultipleDepositAddressesJobStatus operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest
+ */
+export interface VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest {
+    /**
+     * The ID of the job to create addresses
+     * @type {string}
+     * @memberof VaultsApiGetCreateMultipleDepositAddressesJobStatus
+     */
+    readonly jobId: string
 }
 
 /**
@@ -2628,6 +2787,18 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
+     * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. 
+     * @summary Bulk creation of new deposit addresses
+     * @param {VaultsApiCreateMultipleDepositAddressesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public createMultipleDepositAddresses(requestParameters: VaultsApiCreateMultipleDepositAddressesRequest) {
+        return VaultsApiFp(this.configuration).createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Creates a new vault account with the requested name.
      * @summary Create a new vault account
      * @param {VaultsApiCreateVaultAccountRequest} requestParameters Request parameters.
@@ -2673,6 +2844,18 @@ export class VaultsApi extends BaseAPI {
      */
     public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}) {
         return VaultsApiFp(this.configuration).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the status of bulk creation of new deposit addresses job and the result or error
+     * @summary Get job status of bulk creation of new deposit addresses
+     * @param {VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getCreateMultipleDepositAddressesJobStatus(requestParameters: VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest) {
+        return VaultsApiFp(this.configuration).getCreateMultipleDepositAddressesJobStatus(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

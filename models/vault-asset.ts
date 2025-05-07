@@ -74,10 +74,10 @@ export interface VaultAsset {
     'staked'?: string;
     /**
      * Deprecated
-     * @type {number}
+     * @type {string}
      * @memberof VaultAsset
      */
-    'totalStakedCPU'?: number;
+    'totalStakedCPU'?: string;
     /**
      * Deprecated
      * @type {string}

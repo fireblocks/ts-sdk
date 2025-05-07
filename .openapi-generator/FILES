@@ -21,6 +21,7 @@ AddCosignerResponse.md
 AddExchangeAccountRequest.md
 AddExchangeAccountResponse.md
 AdditionalInfo.md
+AddressNotAvailableError.md
 AmlRegistrationResult.md
 AmlRegistrationResultFullPayload.md
 AmlScreeningResult.md
@@ -143,7 +144,11 @@ CreateConversionConfigOperationRequest.md
 CreateDisbursementConfigOperationRequest.md
 CreateInternalTransferRequest.md
 CreateInternalWalletAssetRequest.md
+CreateMultichainTokenRequest.md
+CreateMultichainTokenRequestCreateParams.md
 CreateMultipleAccountsRequest.md
+CreateMultipleDepositAddressesJobStatus.md
+CreateMultipleDepositAddressesRequest.md
 CreateNcwConnectionRequest.md
 CreateNetworkIdRequest.md
 CreatePayoutRequest.md
@@ -168,6 +173,8 @@ Delegation.md
 DelegationSummary.md
 DeleteNetworkConnectionResponse.md
 DeleteNetworkIdResponse.md
+DeployableAddressResponse.md
+DeployedContractNotFoundError.md
 DeployedContractResponseDto.md
 DeployedContractsApi.md
 DeployedContractsPaginatedResponse.md
@@ -238,6 +245,7 @@ GetAuditLogsResponse.md
 GetConnectionsResponse.md
 GetConsoleUsersResponse.md
 GetContractsResponse.md
+GetDeployableAddressRequest.md
 GetExchangeAccountsCredentialsPublicKeyResponse.md
 GetExchangeAccountsResponse.md
 GetExternalWalletsResponse.md
@@ -270,6 +278,8 @@ HttpContractDoesNotExistError.md
 InstructionAmount.md
 InternalTransferResponse.md
 InternalWalletsApi.md
+InvalidParamaterValueError.md
+IssueTokenMultichainResponse.md
 Job.md
 JobCreated.md
 JobManagementApi.md
@@ -303,6 +313,7 @@ NetworkIdResponse.md
 NetworkIdRoutingPolicy.md
 NetworkIdRoutingPolicyValue.md
 NetworkRecord.md
+NewAddress.md
 NoneNetworkRoutingDest.md
 NotFoundException.md
 Notification.md
@@ -374,6 +385,7 @@ ReadAbiFunction.md
 ReadCallFunctionDto.md
 RedeemFundsToLinkedDDAResponse.md
 RegisterNewAssetRequest.md
+ReissueMultichainTokenRequest.md
 RelatedRequest.md
 RelatedTransaction.md
 RemoveCollateralRequestBody.md
@@ -381,6 +393,7 @@ RenameCosigner.md
 RenameVaultAccountResponse.md
 RescanTransaction.md
 RescanTransactionRequest.md
+ResendNotificationsByResourceIdRequest.md
 ResendTransactionWebhooksRequest.md
 ResendWebhooksByTransactionIdResponse.md
 ResendWebhooksResponse.md
@@ -482,6 +495,7 @@ TokenInfoNotFoundErrorResponse.md
 TokenLinkDto.md
 TokenLinkDtoTokenMetadata.md
 TokenLinkExistsHttpError.md
+TokenLinkNotMultichainCompatibleHttpError.md
 TokenLinkRequestDto.md
 TokenOwnershipResponse.md
 TokenOwnershipSpamUpdatePayload.md
@@ -682,6 +696,7 @@ models/add-cosigner-response.ts
 models/add-exchange-account-request.ts
 models/add-exchange-account-response.ts
 models/additional-info.ts
+models/address-not-available-error.ts
 models/aml-registration-result-full-payload.ts
 models/aml-registration-result.ts
 models/aml-screening-result.ts
@@ -795,7 +810,11 @@ models/create-conversion-config-operation-request.ts
 models/create-disbursement-config-operation-request.ts
 models/create-internal-transfer-request.ts
 models/create-internal-wallet-asset-request.ts
+models/create-multichain-token-request-create-params.ts
+models/create-multichain-token-request.ts
 models/create-multiple-accounts-request.ts
+models/create-multiple-deposit-addresses-job-status.ts
+models/create-multiple-deposit-addresses-request.ts
 models/create-ncw-connection-request.ts
 models/create-network-id-request.ts
 models/create-payout-request.ts
@@ -820,6 +839,8 @@ models/delegation-summary.ts
 models/delegation.ts
 models/delete-network-connection-response.ts
 models/delete-network-id-response.ts
+models/deployable-address-response.ts
+models/deployed-contract-not-found-error.ts
 models/deployed-contract-response-dto.ts
 models/deployed-contracts-paginated-response.ts
 models/deposit-funds-from-linked-ddaresponse.ts
@@ -884,6 +905,7 @@ models/get-audit-logs-response.ts
 models/get-connections-response.ts
 models/get-console-users-response.ts
 models/get-contracts-response.ts
+models/get-deployable-address-request.ts
 models/get-exchange-accounts-credentials-public-key-response.ts
 models/get-exchange-accounts-response.ts
 models/get-external-wallets-response.ts
@@ -916,6 +938,8 @@ models/http-contract-does-not-exist-error.ts
 models/index.ts
 models/instruction-amount.ts
 models/internal-transfer-response.ts
+models/invalid-paramater-value-error.ts
+models/issue-token-multichain-response.ts
 models/job-created.ts
 models/job.ts
 models/jobs.ts
@@ -943,6 +967,7 @@ models/network-id-routing-policy-value.ts
 models/network-id-routing-policy.ts
 models/network-id.ts
 models/network-record.ts
+models/new-address.ts
 models/none-network-routing-dest.ts
 models/not-found-exception.ts
 models/notification-attempt.ts
@@ -1009,6 +1034,7 @@ models/read-abi-function.ts
 models/read-call-function-dto.ts
 models/redeem-funds-to-linked-ddaresponse.ts
 models/register-new-asset-request.ts
+models/reissue-multichain-token-request.ts
 models/related-request.ts
 models/related-transaction.ts
 models/remove-collateral-request-body.ts
@@ -1016,6 +1042,7 @@ models/rename-cosigner.ts
 models/rename-vault-account-response.ts
 models/rescan-transaction-request.ts
 models/rescan-transaction.ts
+models/resend-notifications-by-resource-id-request.ts
 models/resend-transaction-webhooks-request.ts
 models/resend-webhooks-by-transaction-id-response.ts
 models/resend-webhooks-response.ts
@@ -1114,6 +1141,7 @@ models/token-info-not-found-error-response.ts
 models/token-link-dto-token-metadata.ts
 models/token-link-dto.ts
 models/token-link-exists-http-error.ts
+models/token-link-not-multichain-compatible-http-error.ts
 models/token-link-request-dto.ts
 models/token-ownership-response.ts
 models/token-ownership-spam-update-payload.ts

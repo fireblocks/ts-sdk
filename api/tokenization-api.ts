@@ -27,6 +27,8 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AddressNotAvailableError } from '../models';
+// @ts-ignore
 import { AssetAlreadyExistHttpError } from '../models';
 // @ts-ignore
 import { CollectionBurnRequestDto } from '../models';
@@ -41,17 +43,33 @@ import { CollectionMintRequestDto } from '../models';
 // @ts-ignore
 import { CollectionMintResponseDto } from '../models';
 // @ts-ignore
+import { CreateMultichainTokenRequest } from '../models';
+// @ts-ignore
 import { CreateTokenRequestDto } from '../models';
+// @ts-ignore
+import { DeployableAddressResponse } from '../models';
+// @ts-ignore
+import { DeployedContractNotFoundError } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { GetDeployableAddressRequest } from '../models';
+// @ts-ignore
 import { GetLinkedCollectionsPaginatedResponse } from '../models';
 // @ts-ignore
+import { InvalidParamaterValueError } from '../models';
+// @ts-ignore
+import { IssueTokenMultichainResponse } from '../models';
+// @ts-ignore
 import { NotFoundException } from '../models';
+// @ts-ignore
+import { ReissueMultichainTokenRequest } from '../models';
 // @ts-ignore
 import { TokenLinkDto } from '../models';
 // @ts-ignore
 import { TokenLinkExistsHttpError } from '../models';
+// @ts-ignore
+import { TokenLinkNotMultichainCompatibleHttpError } from '../models';
 // @ts-ignore
 import { TokenLinkRequestDto } from '../models';
 // @ts-ignore
@@ -208,6 +226,46 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a deterministic address for contract deployment. The address is derived from the contract\'s bytecode and  provided salt. This endpoint is used to get the address of a contract that will be deployed in the future.
+         * @summary Get deterministic address for contract deployment
+         * @param {GetDeployableAddressRequest} getDeployableAddressRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDeployableAddress: async (getDeployableAddressRequest: GetDeployableAddressRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('getDeployableAddress', 'getDeployableAddressRequest', getDeployableAddressRequest)
+            const localVarPath = `/tokenization/multichain/deterministic_address`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(getDeployableAddressRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -382,6 +440,46 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * Facilitates the creation of a new token on one or more blockchains.
+         * @summary Issue a token on one or more blockchains
+         * @param {CreateMultichainTokenRequest} createMultichainTokenRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        issueTokenMultiChain: async (createMultichainTokenRequest: CreateMultichainTokenRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('issueTokenMultiChain', 'createMultichainTokenRequest', createMultichainTokenRequest)
+            const localVarPath = `/tokenization/multichain/tokens`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createMultichainTokenRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Link an a contract
          * @summary Link a contract
          * @param {TokenLinkRequestDto} tokenLinkRequestDto 
@@ -458,6 +556,49 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(collectionMintRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Reissue a multichain token. This endpoint allows you to reissue a token on one or more blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+         * @summary Reissue a multichain token
+         * @param {ReissueMultichainTokenRequest} reissueMultichainTokenRequest 
+         * @param {string} tokenLinkId The ID of the token link
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reIssueTokenMultiChain: async (reissueMultichainTokenRequest: ReissueMultichainTokenRequest, tokenLinkId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('reIssueTokenMultiChain', 'reissueMultichainTokenRequest', reissueMultichainTokenRequest)
+            assertParamExistsAndNotEmpty('reIssueTokenMultiChain', 'tokenLinkId', tokenLinkId)
+            const localVarPath = `/tokenization/multichain/token/{tokenLinkId}`
+                .replace(`{${"tokenLinkId"}}`, encodeURIComponent(String(tokenLinkId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(reissueMultichainTokenRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -597,6 +738,20 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Get a deterministic address for contract deployment. The address is derived from the contract\'s bytecode and  provided salt. This endpoint is used to get the address of a contract that will be deployed in the future.
+         * @summary Get deterministic address for contract deployment
+         * @param {GetDeployableAddressRequest} getDeployableAddressRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDeployableAddress(getDeployableAddressRequest: GetDeployableAddressRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployableAddressResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDeployableAddress(getDeployableAddressRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getDeployableAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get collections (paginated)
          * @summary Get collections
          * @param {string} [pageCursor] Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot;
@@ -654,6 +809,20 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Facilitates the creation of a new token on one or more blockchains.
+         * @summary Issue a token on one or more blockchains
+         * @param {CreateMultichainTokenRequest} createMultichainTokenRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async issueTokenMultiChain(createMultichainTokenRequest: CreateMultichainTokenRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueTokenMultichainResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.issueTokenMultiChain(createMultichainTokenRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.issueTokenMultiChain']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Link an a contract
          * @summary Link a contract
          * @param {TokenLinkRequestDto} tokenLinkRequestDto 
@@ -680,6 +849,21 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.mintCollectionToken(collectionMintRequestDto, id, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TokenizationApi.mintCollectionToken']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Reissue a multichain token. This endpoint allows you to reissue a token on one or more blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+         * @summary Reissue a multichain token
+         * @param {ReissueMultichainTokenRequest} reissueMultichainTokenRequest 
+         * @param {string} tokenLinkId The ID of the token link
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async reIssueTokenMultiChain(reissueMultichainTokenRequest: ReissueMultichainTokenRequest, tokenLinkId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueTokenMultichainResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.reIssueTokenMultiChain(reissueMultichainTokenRequest, tokenLinkId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.reIssueTokenMultiChain']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -759,6 +943,16 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.getCollectionById(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
+         * Get a deterministic address for contract deployment. The address is derived from the contract\'s bytecode and  provided salt. This endpoint is used to get the address of a contract that will be deployed in the future.
+         * @summary Get deterministic address for contract deployment
+         * @param {TokenizationApiGetDeployableAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDeployableAddress(requestParameters: TokenizationApiGetDeployableAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeployableAddressResponse> {
+            return localVarFp.getDeployableAddress(requestParameters.getDeployableAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get collections (paginated)
          * @summary Get collections
          * @param {TokenizationApiGetLinkedCollectionsRequest} requestParameters Request parameters.
@@ -799,6 +993,16 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.issueNewToken(requestParameters.createTokenRequestDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Facilitates the creation of a new token on one or more blockchains.
+         * @summary Issue a token on one or more blockchains
+         * @param {TokenizationApiIssueTokenMultiChainRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        issueTokenMultiChain(requestParameters: TokenizationApiIssueTokenMultiChainRequest, options?: RawAxiosRequestConfig): AxiosPromise<IssueTokenMultichainResponse> {
+            return localVarFp.issueTokenMultiChain(requestParameters.createMultichainTokenRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Link an a contract
          * @summary Link a contract
          * @param {TokenizationApiLinkRequest} requestParameters Request parameters.
@@ -817,6 +1021,16 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
          */
         mintCollectionToken(requestParameters: TokenizationApiMintCollectionTokenRequest, options?: RawAxiosRequestConfig): AxiosPromise<CollectionMintResponseDto> {
             return localVarFp.mintCollectionToken(requestParameters.collectionMintRequestDto, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Reissue a multichain token. This endpoint allows you to reissue a token on one or more blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+         * @summary Reissue a multichain token
+         * @param {TokenizationApiReIssueTokenMultiChainRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        reIssueTokenMultiChain(requestParameters: TokenizationApiReIssueTokenMultiChainRequest, options?: RawAxiosRequestConfig): AxiosPromise<IssueTokenMultichainResponse> {
+            return localVarFp.reIssueTokenMultiChain(requestParameters.reissueMultichainTokenRequest, requestParameters.tokenLinkId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
@@ -926,6 +1140,27 @@ export interface TokenizationApiGetCollectionByIdRequest {
 }
 
 /**
+ * Request parameters for getDeployableAddress operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetDeployableAddressRequest
+ */
+export interface TokenizationApiGetDeployableAddressRequest {
+    /**
+     * 
+     * @type {GetDeployableAddressRequest}
+     * @memberof TokenizationApiGetDeployableAddress
+     */
+    readonly getDeployableAddressRequest: GetDeployableAddressRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiGetDeployableAddress
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for getLinkedCollections operation in TokenizationApi.
  * @export
  * @interface TokenizationApiGetLinkedCollectionsRequest
@@ -1017,6 +1252,27 @@ export interface TokenizationApiIssueNewTokenRequest {
 }
 
 /**
+ * Request parameters for issueTokenMultiChain operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiIssueTokenMultiChainRequest
+ */
+export interface TokenizationApiIssueTokenMultiChainRequest {
+    /**
+     * 
+     * @type {CreateMultichainTokenRequest}
+     * @memberof TokenizationApiIssueTokenMultiChain
+     */
+    readonly createMultichainTokenRequest: CreateMultichainTokenRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiIssueTokenMultiChain
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for link operation in TokenizationApi.
  * @export
  * @interface TokenizationApiLinkRequest
@@ -1061,6 +1317,34 @@ export interface TokenizationApiMintCollectionTokenRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof TokenizationApiMintCollectionToken
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for reIssueTokenMultiChain operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiReIssueTokenMultiChainRequest
+ */
+export interface TokenizationApiReIssueTokenMultiChainRequest {
+    /**
+     * 
+     * @type {ReissueMultichainTokenRequest}
+     * @memberof TokenizationApiReIssueTokenMultiChain
+     */
+    readonly reissueMultichainTokenRequest: ReissueMultichainTokenRequest
+
+    /**
+     * The ID of the token link
+     * @type {string}
+     * @memberof TokenizationApiReIssueTokenMultiChain
+     */
+    readonly tokenLinkId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiReIssueTokenMultiChain
      */
     readonly idempotencyKey?: string
 }
@@ -1149,6 +1433,18 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
+     * Get a deterministic address for contract deployment. The address is derived from the contract\'s bytecode and  provided salt. This endpoint is used to get the address of a contract that will be deployed in the future.
+     * @summary Get deterministic address for contract deployment
+     * @param {TokenizationApiGetDeployableAddressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getDeployableAddress(requestParameters: TokenizationApiGetDeployableAddressRequest) {
+        return TokenizationApiFp(this.configuration).getDeployableAddress(requestParameters.getDeployableAddressRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get collections (paginated)
      * @summary Get collections
      * @param {TokenizationApiGetLinkedCollectionsRequest} requestParameters Request parameters.
@@ -1197,6 +1493,18 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
+     * Facilitates the creation of a new token on one or more blockchains.
+     * @summary Issue a token on one or more blockchains
+     * @param {TokenizationApiIssueTokenMultiChainRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public issueTokenMultiChain(requestParameters: TokenizationApiIssueTokenMultiChainRequest) {
+        return TokenizationApiFp(this.configuration).issueTokenMultiChain(requestParameters.createMultichainTokenRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Link an a contract
      * @summary Link a contract
      * @param {TokenizationApiLinkRequest} requestParameters Request parameters.
@@ -1218,6 +1526,18 @@ export class TokenizationApi extends BaseAPI {
      */
     public mintCollectionToken(requestParameters: TokenizationApiMintCollectionTokenRequest) {
         return TokenizationApiFp(this.configuration).mintCollectionToken(requestParameters.collectionMintRequestDto, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Reissue a multichain token. This endpoint allows you to reissue a token on one or more blockchains. The token must be initially issued using the issueTokenMultiChain endpoint.
+     * @summary Reissue a multichain token
+     * @param {TokenizationApiReIssueTokenMultiChainRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public reIssueTokenMultiChain(requestParameters: TokenizationApiReIssueTokenMultiChainRequest) {
+        return TokenizationApiFp(this.configuration).reIssueTokenMultiChain(requestParameters.reissueMultichainTokenRequest, requestParameters.tokenLinkId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

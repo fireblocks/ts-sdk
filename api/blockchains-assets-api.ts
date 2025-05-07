@@ -183,13 +183,14 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
          * @param {string} [symbol] Assets onchain symbol
          * @param {AssetScope} [scope] Scope of the assets
          * @param {boolean} [deprecated] Are assets deprecated
+         * @param {Array<string>} [ids] A list of asset IDs (max 100)
          * @param {string} [pageCursor] Next page cursor to fetch
          * @param {number} [pageSize] Items per page
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listAssets: async (blockchainId?: string, assetClass?: AssetClass, symbol?: string, scope?: AssetScope, deprecated?: boolean, pageCursor?: string, pageSize?: number, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listAssets: async (blockchainId?: string, assetClass?: AssetClass, symbol?: string, scope?: AssetScope, deprecated?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/assets`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -222,6 +223,10 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
                 localVarQueryParameter['deprecated'] = deprecated;
             }
 
+            if (ids) {
+                localVarQueryParameter['ids'] = ids;
+            }
+
             if (pageCursor !== undefined) {
                 localVarQueryParameter['pageCursor'] = pageCursor;
             }
@@ -251,12 +256,13 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
          * @param {string} [protocol] Blockchain protocol
          * @param {boolean} [deprecated] Is blockchain deprecated
          * @param {boolean} [test] Is test blockchain
+         * @param {Array<string>} [ids] A list of blockchain IDs (max 100)
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 500)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listBlockchains: async (protocol?: string, deprecated?: boolean, test?: boolean, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listBlockchains: async (protocol?: string, deprecated?: boolean, test?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/blockchains`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -279,6 +285,10 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
 
             if (test !== undefined) {
                 localVarQueryParameter['test'] = test;
+            }
+
+            if (ids) {
+                localVarQueryParameter['ids'] = ids;
             }
 
             if (pageCursor !== undefined) {
@@ -438,14 +448,15 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
          * @param {string} [symbol] Assets onchain symbol
          * @param {AssetScope} [scope] Scope of the assets
          * @param {boolean} [deprecated] Are assets deprecated
+         * @param {Array<string>} [ids] A list of asset IDs (max 100)
          * @param {string} [pageCursor] Next page cursor to fetch
          * @param {number} [pageSize] Items per page
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listAssets(blockchainId?: string, assetClass?: AssetClass, symbol?: string, scope?: AssetScope, deprecated?: boolean, pageCursor?: string, pageSize?: number, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAssetsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAssets(blockchainId, assetClass, symbol, scope, deprecated, pageCursor, pageSize, idempotencyKey, options);
+        async listAssets(blockchainId?: string, assetClass?: AssetClass, symbol?: string, scope?: AssetScope, deprecated?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAssetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAssets(blockchainId, assetClass, symbol, scope, deprecated, ids, pageCursor, pageSize, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.listAssets']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -456,13 +467,14 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
          * @param {string} [protocol] Blockchain protocol
          * @param {boolean} [deprecated] Is blockchain deprecated
          * @param {boolean} [test] Is test blockchain
+         * @param {Array<string>} [ids] A list of blockchain IDs (max 100)
          * @param {string} [pageCursor] Page cursor to fetch
          * @param {number} [pageSize] Items per page (max 500)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listBlockchains(protocol?: string, deprecated?: boolean, test?: boolean, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListBlockchainsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listBlockchains(protocol, deprecated, test, pageCursor, pageSize, options);
+        async listBlockchains(protocol?: string, deprecated?: boolean, test?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListBlockchainsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listBlockchains(protocol, deprecated, test, ids, pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.listBlockchains']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -543,7 +555,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         listAssets(requestParameters: BlockchainsAssetsApiListAssetsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListAssetsResponse> {
-            return localVarFp.listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all blockchains supported by Fireblocks. 
@@ -553,7 +565,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
          * @throws {RequiredError}
          */
         listBlockchains(requestParameters: BlockchainsAssetsApiListBlockchainsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListBlockchainsResponse> {
-            return localVarFp.listBlockchains(requestParameters.protocol, requestParameters.deprecated, requestParameters.test, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+            return localVarFp.listBlockchains(requestParameters.protocol, requestParameters.deprecated, requestParameters.test, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana 
@@ -655,6 +667,13 @@ export interface BlockchainsAssetsApiListAssetsRequest {
     readonly deprecated?: boolean
 
     /**
+     * A list of asset IDs (max 100)
+     * @type {Array<string>}
+     * @memberof BlockchainsAssetsApiListAssets
+     */
+    readonly ids?: Array<string>
+
+    /**
      * Next page cursor to fetch
      * @type {string}
      * @memberof BlockchainsAssetsApiListAssets
@@ -702,6 +721,13 @@ export interface BlockchainsAssetsApiListBlockchainsRequest {
      * @memberof BlockchainsAssetsApiListBlockchains
      */
     readonly test?: boolean
+
+    /**
+     * A list of blockchain IDs (max 100)
+     * @type {Array<string>}
+     * @memberof BlockchainsAssetsApiListBlockchains
+     */
+    readonly ids?: Array<string>
 
     /**
      * Page cursor to fetch
@@ -818,7 +844,7 @@ export class BlockchainsAssetsApi extends BaseAPI {
      * @memberof BlockchainsAssetsApi
      */
     public listAssets(requestParameters: BlockchainsAssetsApiListAssetsRequest = {}) {
-        return BlockchainsAssetsApiFp(this.configuration).listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return BlockchainsAssetsApiFp(this.configuration).listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -830,7 +856,7 @@ export class BlockchainsAssetsApi extends BaseAPI {
      * @memberof BlockchainsAssetsApi
      */
     public listBlockchains(requestParameters: BlockchainsAssetsApiListBlockchainsRequest = {}) {
-        return BlockchainsAssetsApiFp(this.configuration).listBlockchains(requestParameters.protocol, requestParameters.deprecated, requestParameters.test, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return BlockchainsAssetsApiFp(this.configuration).listBlockchains(requestParameters.protocol, requestParameters.deprecated, requestParameters.test, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

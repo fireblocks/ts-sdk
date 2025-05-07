@@ -15,19 +15,22 @@
 
 
 /**
- * The status of the Notification
+ * 
  * @export
- * @enum {string}
+ * @interface InvalidParamaterValueError
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface InvalidParamaterValueError {
+    /**
+     * Bad request error message
+     * @type {string}
+     * @memberof InvalidParamaterValueError
+     */
+    'message': string;
+    /**
+     * Error code
+     * @type {number}
+     * @memberof InvalidParamaterValueError
+     */
+    'code': number;
+}
 

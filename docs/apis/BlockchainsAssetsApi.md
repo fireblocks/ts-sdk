@@ -225,6 +225,8 @@ let body: BlockchainsAssetsApiListAssetsRequest = {
   scope: param_value,
   // boolean | Are assets deprecated (optional)
   deprecated: false,
+  // Array<string> | A list of asset IDs (max 100) (optional)
+  ids: ["3ed32525-70df-45c8-bae3-e69ab56dc095","3a3b5f06-61e7-44f0-9962-4425b55795ff","SHANI5_B75VRLGX_MUPA"],
   // string | Next page cursor to fetch (optional)
   pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
   // number | Items per page (optional)
@@ -248,6 +250,7 @@ Name | Type | Description  | Notes
  **symbol** | [**string**] | Assets onchain symbol | (optional) defaults to undefined
  **scope** | **AssetScope** | Scope of the assets | (optional) defaults to undefined
  **deprecated** | [**boolean**] | Are assets deprecated | (optional) defaults to undefined
+ **ids** | **Array&lt;string&gt;** | A list of asset IDs (max 100) | (optional) defaults to undefined
  **pageCursor** | [**string**] | Next page cursor to fetch | (optional) defaults to undefined
  **pageSize** | [**number**] | Items per page | (optional) defaults to 500
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
@@ -303,6 +306,8 @@ let body: BlockchainsAssetsApiListBlockchainsRequest = {
   deprecated: false,
   // boolean | Is test blockchain (optional)
   test: false,
+  // Array<string> | A list of blockchain IDs (max 100) (optional)
+  ids: ["3ed32525-70df-45c8-bae3-e69ab56dc095","3a3b5f06-61e7-44f0-9962-4425b55795ff","MANTRA"],
   // string | Page cursor to fetch (optional)
   pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
   // number | Items per page (max 500) (optional)
@@ -322,6 +327,7 @@ Name | Type | Description  | Notes
  **protocol** | [**string**] | Blockchain protocol | (optional) defaults to undefined
  **deprecated** | [**boolean**] | Is blockchain deprecated | (optional) defaults to undefined
  **test** | [**boolean**] | Is test blockchain | (optional) defaults to undefined
+ **ids** | **Array&lt;string&gt;** | A list of blockchain IDs (max 100) | (optional) defaults to undefined
  **pageCursor** | [**string**] | Page cursor to fetch | (optional) defaults to undefined
  **pageSize** | [**number**] | Items per page (max 500) | (optional) defaults to 500
 

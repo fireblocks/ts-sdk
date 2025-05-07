@@ -37,6 +37,8 @@ import { NotificationStatus } from '../models';
 // @ts-ignore
 import { NotificationWithData } from '../models';
 // @ts-ignore
+import { ResendNotificationsByResourceIdRequest } from '../models';
+// @ts-ignore
 import { UpdateWebhookRequest } from '../models';
 // @ts-ignore
 import { Webhook } from '../models';
@@ -357,6 +359,49 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
+         * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * @summary Resend notifications by resource Id
+         * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendNotificationsByResourceId: async (resendNotificationsByResourceIdRequest: ResendNotificationsByResourceIdRequest, webhookId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('resendNotificationsByResourceId', 'resendNotificationsByResourceIdRequest', resendNotificationsByResourceIdRequest)
+            assertParamExistsAndNotEmpty('resendNotificationsByResourceId', 'webhookId', webhookId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/resend_by_resource`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resendNotificationsByResourceIdRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Update webhook
          * @param {UpdateWebhookRequest} updateWebhookRequest 
@@ -511,6 +556,21 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * @summary Resend notifications by resource Id
+         * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resendNotificationsByResourceId(resendNotificationsByResourceIdRequest: ResendNotificationsByResourceIdRequest, webhookId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendNotificationsByResourceId(resendNotificationsByResourceIdRequest, webhookId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2BetaApi.resendNotificationsByResourceId']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Update webhook
          * @param {UpdateWebhookRequest} updateWebhookRequest 
@@ -603,6 +663,16 @@ export const WebhooksV2BetaApiFactory = function (configuration?: Configuration,
          */
         resendNotificationById(requestParameters: WebhooksV2BetaApiResendNotificationByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * @summary Resend notifications by resource Id
+         * @param {WebhooksV2BetaApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendNotificationsByResourceId(requestParameters: WebhooksV2BetaApiResendNotificationsByResourceIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.resendNotificationsByResourceId(requestParameters.resendNotificationsByResourceIdRequest, requestParameters.webhookId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
@@ -821,6 +891,34 @@ export interface WebhooksV2BetaApiResendNotificationByIdRequest {
 }
 
 /**
+ * Request parameters for resendNotificationsByResourceId operation in WebhooksV2BetaApi.
+ * @export
+ * @interface WebhooksV2BetaApiResendNotificationsByResourceIdRequest
+ */
+export interface WebhooksV2BetaApiResendNotificationsByResourceIdRequest {
+    /**
+     * 
+     * @type {ResendNotificationsByResourceIdRequest}
+     * @memberof WebhooksV2BetaApiResendNotificationsByResourceId
+     */
+    readonly resendNotificationsByResourceIdRequest: ResendNotificationsByResourceIdRequest
+
+    /**
+     * The ID of the webhook
+     * @type {string}
+     * @memberof WebhooksV2BetaApiResendNotificationsByResourceId
+     */
+    readonly webhookId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2BetaApiResendNotificationsByResourceId
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for updateWebhook operation in WebhooksV2BetaApi.
  * @export
  * @interface WebhooksV2BetaApiUpdateWebhookRequest
@@ -930,6 +1028,18 @@ export class WebhooksV2BetaApi extends BaseAPI {
      */
     public resendNotificationById(requestParameters: WebhooksV2BetaApiResendNotificationByIdRequest) {
         return WebhooksV2BetaApiFp(this.configuration).resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * @summary Resend notifications by resource Id
+     * @param {WebhooksV2BetaApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2BetaApi
+     */
+    public resendNotificationsByResourceId(requestParameters: WebhooksV2BetaApiResendNotificationsByResourceIdRequest) {
+        return WebhooksV2BetaApiFp(this.configuration).resendNotificationsByResourceId(requestParameters.resendNotificationsByResourceIdRequest, requestParameters.webhookId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

@@ -9,6 +9,7 @@
 |**id** | **string** |  | [optional] [default to undefined]|
 |**name** | **string** |  | [optional] [default to undefined]|
 |**walletId** | **string** |  | [optional] [default to undefined]|
+|**isCollateral** | **boolean** | indicate if the source is collateral account | [optional] [default to undefined]|
 
 
 
