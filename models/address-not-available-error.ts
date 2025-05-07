@@ -15,19 +15,22 @@
 
 
 /**
- * The status of the Notification
+ * 
  * @export
- * @enum {string}
+ * @interface AddressNotAvailableError
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface AddressNotAvailableError {
+    /**
+     * Conflict error message
+     * @type {string}
+     * @memberof AddressNotAvailableError
+     */
+    'message': string;
+    /**
+     * Error code
+     * @type {number}
+     * @memberof AddressNotAvailableError
+     */
+    'code': number;
+}
 

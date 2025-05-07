@@ -15,19 +15,22 @@
 
 
 /**
- * The status of the Notification
+ * 
  * @export
- * @enum {string}
+ * @interface DeployedContractNotFoundError
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface DeployedContractNotFoundError {
+    /**
+     * Not Found error message
+     * @type {string}
+     * @memberof DeployedContractNotFoundError
+     */
+    'message': string;
+    /**
+     * Error code
+     * @type {number}
+     * @memberof DeployedContractNotFoundError
+     */
+    'code': number;
+}
 

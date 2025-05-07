@@ -15,19 +15,28 @@
 
 
 /**
- * The status of the Notification
+ * 
  * @export
- * @enum {string}
+ * @interface NewAddress
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface NewAddress {
+    /**
+     * The address string.
+     * @type {string}
+     * @memberof NewAddress
+     */
+    'address': string;
+    /**
+     * The index of the address in the list.
+     * @type {number}
+     * @memberof NewAddress
+     */
+    'index': number;
+    /**
+     * A description of the address.
+     * @type {string}
+     * @memberof NewAddress
+     */
+    'description': string;
+}
 

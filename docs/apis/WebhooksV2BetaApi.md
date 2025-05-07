@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**getWebhook**](#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 [**getWebhooks**](#getWebhooks) | **GET** /webhooks | Get all webhooks
 [**resendNotificationById**](#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
+[**resendNotificationsByResourceId**](#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 [**updateWebhook**](#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 
 
@@ -475,6 +476,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Resend notification request was accepted and is being processed |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **resendNotificationsByResourceId**
+> resendNotificationsByResourceId(resendNotificationsByResourceIdRequest, )
+
+Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2BetaApiResendNotificationsByResourceIdRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2BetaApiResendNotificationsByResourceIdRequest = {
+  // ResendNotificationsByResourceIdRequest
+  resendNotificationsByResourceIdRequest: param_value,
+  // string | The ID of the webhook
+  webhookId: webhookId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2Beta.resendNotificationsByResourceId(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **resendNotificationsByResourceIdRequest** | **[ResendNotificationsByResourceIdRequest](../models/ResendNotificationsByResourceIdRequest.md)**|  |
+ **webhookId** | [**string**] | The ID of the webhook | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Resend notifications by resource request was accepted and is being processed |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

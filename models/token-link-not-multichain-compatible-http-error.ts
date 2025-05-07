@@ -15,19 +15,22 @@
 
 
 /**
- * The status of the Notification
+ * 
  * @export
- * @enum {string}
+ * @interface TokenLinkNotMultichainCompatibleHttpError
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface TokenLinkNotMultichainCompatibleHttpError {
+    /**
+     * Bad request error message
+     * @type {string}
+     * @memberof TokenLinkNotMultichainCompatibleHttpError
+     */
+    'message': string;
+    /**
+     * Error code
+     * @type {number}
+     * @memberof TokenLinkNotMultichainCompatibleHttpError
+     */
+    'code': number;
+}
 

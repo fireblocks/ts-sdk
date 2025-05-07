@@ -13,21 +13,17 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { EVMTokenCreateParamsDto } from './evmtoken-create-params-dto';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParameterWithValue } from './parameter-with-value';
 
 /**
- * The status of the Notification
+ * @type CreateMultichainTokenRequestCreateParams
  * @export
- * @enum {string}
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
+export type CreateMultichainTokenRequestCreateParams = EVMTokenCreateParamsDto;
 
 

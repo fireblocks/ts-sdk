@@ -7,10 +7,12 @@ Method | HTTP request | Description
 [**activateAssetForVaultAccount**](#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
 [**createLegacyAddress**](#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 [**createMultipleAccounts**](#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
+[**createMultipleDepositAddresses**](#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 [**createVaultAccount**](#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 [**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
 [**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
+[**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
 [**getMaxSpendableAmount**](#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction.
 [**getPagedVaultAccounts**](#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated)
 [**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information
@@ -204,6 +206,69 @@ fireblocks.vaults.createMultipleAccounts(body).then((res: FireblocksResponse<Job
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createMultipleAccountsRequest** | **[CreateMultipleAccountsRequest](../models/CreateMultipleAccountsRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[JobCreated](../models/JobCreated.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A JobCreated object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createMultipleDepositAddresses**
+> JobCreated createMultipleDepositAddresses(createMultipleDepositAddressesRequest)
+
+Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiCreateMultipleDepositAddressesRequest, JobCreated } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiCreateMultipleDepositAddressesRequest = {
+  // CreateMultipleDepositAddressesRequest
+  createMultipleDepositAddressesRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.createMultipleDepositAddresses(body).then((res: FireblocksResponse<JobCreated>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createMultipleDepositAddressesRequest** | **[CreateMultipleDepositAddressesRequest](../models/CreateMultipleDepositAddressesRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -501,6 +566,66 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A PaginatedAssetWalletResponse object |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getCreateMultipleDepositAddressesJobStatus**
+> CreateMultipleDepositAddressesJobStatus getCreateMultipleDepositAddressesJobStatus()
+
+Returns the status of bulk creation of new deposit addresses job and the result or error
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest, CreateMultipleDepositAddressesJobStatus } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest = {
+  // string | The ID of the job to create addresses
+  jobId: 019681b4-107d-7243-942d-4c3c30e36fae,
+};
+
+fireblocks.vaults.getCreateMultipleDepositAddressesJobStatus(body).then((res: FireblocksResponse<CreateMultipleDepositAddressesJobStatus>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **jobId** | [**string**] | The ID of the job to create addresses | defaults to undefined
+
+
+### Return type
+
+**[CreateMultipleDepositAddressesJobStatus](../models/CreateMultipleDepositAddressesJobStatus.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A Job with status |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

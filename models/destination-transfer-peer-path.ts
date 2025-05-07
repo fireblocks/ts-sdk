@@ -65,6 +65,12 @@ export interface DestinationTransferPeerPath {
      * @memberof DestinationTransferPeerPath
      */
     'oneTimeAddress'?: OneTimeAddress;
+    /**
+     * indicate if the destination is collateral account
+     * @type {boolean}
+     * @memberof DestinationTransferPeerPath
+     */
+    'isCollateral'?: boolean;
 }
 
 

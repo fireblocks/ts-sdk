@@ -13,21 +13,15 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TokenLinkDto } from './token-link-dto';
 
 /**
- * The status of the Notification
+ * Response schema for issuing tokens across multiple chains
  * @export
- * @enum {string}
+ * @interface IssueTokenMultichainResponse
  */
-
-export const NotificationStatus = {
-    Completed: 'COMPLETED',
-    Failed: 'FAILED',
-    InProgress: 'IN_PROGRESS',
-    OnHold: 'ON_HOLD'
-} as const;
-
-export type NotificationStatus = typeof NotificationStatus[keyof typeof NotificationStatus];
-
-
+export interface IssueTokenMultichainResponse extends Array<TokenLinkDto> {
+}
 
