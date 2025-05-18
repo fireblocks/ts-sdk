@@ -1,10 +1,11 @@
-# ReadCallFunctionDto
+# GasslessStandardConfigurationsGaslessStandardConfigurationsValue
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**abiFunction** | [**ReadCallFunctionDtoAbiFunction**](ReadCallFunctionDtoAbiFunction.md) |  | [default to undefined]|
+|**lastOnChainCheck** | **string** |  | [optional] [default to undefined]|
+|**forwarderAddresses** | **Array&lt;string&gt;** |  | [optional] [default to undefined]|
 
 
 

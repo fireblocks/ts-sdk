@@ -217,10 +217,11 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @param {GetSigningKeysListAlgorithmEnum} [algorithm] Return only keys with a specific algorithm
          * @param {boolean} [enabled] Return keys that have been proof of ownership
          * @param {boolean} [available] Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
+         * @param {boolean | null} [isAssigned] Return keys that are assigned to a vault account
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSigningKeysList: async (pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSigningKeysList: async (pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, isAssigned?: boolean | null, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/key_link/signing_keys`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -267,6 +268,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
 
             if (available !== undefined) {
                 localVarQueryParameter['available'] = available;
+            }
+
+            if (isAssigned !== undefined) {
+                localVarQueryParameter['isAssigned'] = isAssigned;
             }
 
 
@@ -516,11 +521,12 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
          * @param {GetSigningKeysListAlgorithmEnum} [algorithm] Return only keys with a specific algorithm
          * @param {boolean} [enabled] Return keys that have been proof of ownership
          * @param {boolean} [available] Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
+         * @param {boolean | null} [isAssigned] Return keys that are assigned to a vault account
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSigningKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSigningKeyResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, options);
+        async getSigningKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, isAssigned?: boolean | null, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSigningKeyResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['KeyLinkBetaApi.getSigningKeysList']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -640,7 +646,7 @@ export const KeyLinkBetaApiFactory = function (configuration?: Configuration, ba
          * @throws {RequiredError}
          */
         getSigningKeysList(requestParameters: KeyLinkBetaApiGetSigningKeysListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetSigningKeyResponseDto> {
-            return localVarFp.getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, options).then((request) => request(axios, basePath));
+            return localVarFp.getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a validation key if it exists, identified by the specified `keyId`. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
@@ -830,6 +836,13 @@ export interface KeyLinkBetaApiGetSigningKeysListRequest {
      * @memberof KeyLinkBetaApiGetSigningKeysList
      */
     readonly available?: boolean
+
+    /**
+     * Return keys that are assigned to a vault account
+     * @type {boolean}
+     * @memberof KeyLinkBetaApiGetSigningKeysList
+     */
+    readonly isAssigned?: boolean | null
 }
 
 /**
@@ -987,7 +1000,7 @@ export class KeyLinkBetaApi extends BaseAPI {
      * @memberof KeyLinkBetaApi
      */
     public getSigningKeysList(requestParameters: KeyLinkBetaApiGetSigningKeysListRequest = {}) {
-        return KeyLinkBetaApiFp(this.configuration).getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return KeyLinkBetaApiFp(this.configuration).getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

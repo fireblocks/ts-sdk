@@ -303,6 +303,8 @@ let body: KeyLinkBetaApiGetSigningKeysListRequest = {
   enabled: true,
   // boolean | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set (optional)
   available: true,
+  // boolean | Return keys that are assigned to a vault account (optional)
+  isAssigned: true,
 };
 
 fireblocks.keyLinkBeta.getSigningKeysList(body).then((res: FireblocksResponse<GetSigningKeyResponseDto>) => {
@@ -324,6 +326,7 @@ Name | Type | Description  | Notes
  **algorithm** | [**&#39;ECDSA_SECP256K1&#39; | &#39;EDDSA_ED25519&#39;**]**Array<&#39;ECDSA_SECP256K1&#39; &#124; &#39;EDDSA_ED25519&#39;>** | Return only keys with a specific algorithm | (optional) defaults to undefined
  **enabled** | [**boolean**] | Return keys that have been proof of ownership | (optional) defaults to undefined
  **available** | [**boolean**] | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set | (optional) defaults to undefined
+ **isAssigned** | [**boolean**] | Return keys that are assigned to a vault account | (optional) defaults to undefined
 
 
 ### Return type

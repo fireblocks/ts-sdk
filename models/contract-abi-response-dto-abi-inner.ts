@@ -15,21 +15,24 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { EVMTokenCreateParamsDto } from './evmtoken-create-params-dto';
+import { AbiFunction } from './abi-function';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ParameterWithValue } from './parameter-with-value';
+import { Parameter } from './parameter';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SolanaSimpleCreateParams } from './solana-simple-create-params';
+import { SOLAccount } from './solaccount';
 // May contain unused imports in some cases
 // @ts-ignore
-import { StellarRippleCreateParamsDto } from './stellar-ripple-create-params-dto';
+import { SolParameter } from './sol-parameter';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SolanaInstruction } from './solana-instruction';
 
 /**
- * @type CreateTokenRequestDtoCreateParams
+ * @type ContractAbiResponseDtoAbiInner
  * @export
  */
-export type CreateTokenRequestDtoCreateParams = EVMTokenCreateParamsDto | SolanaSimpleCreateParams | StellarRippleCreateParamsDto;
+export type ContractAbiResponseDtoAbiInner = AbiFunction | SolanaInstruction;
 
 

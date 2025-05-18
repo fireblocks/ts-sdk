@@ -15,19 +15,27 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReadCallFunctionDtoAbiFunction } from './read-call-function-dto-abi-function';
+import { IdlType } from './idl-type';
 
 /**
- * 
+ * The arguments of the instruction
  * @export
- * @interface ReadCallFunctionDto
+ * @interface SolParameter
  */
-export interface ReadCallFunctionDto {
+export interface SolParameter {
+    /**
+     * The name of the parameter
+     * @type {string}
+     * @memberof SolParameter
+     */
+    'name': string;
     /**
      * 
-     * @type {ReadCallFunctionDtoAbiFunction}
-     * @memberof ReadCallFunctionDto
+     * @type {IdlType}
+     * @memberof SolParameter
      */
-    'abiFunction': ReadCallFunctionDtoAbiFunction;
+    'type': IdlType;
 }
+
+
 

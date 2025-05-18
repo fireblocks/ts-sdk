@@ -13,6 +13,7 @@
 |**sourcecode** | **string** | The source code of the contract. Optional. | [optional] [default to undefined]|
 |**docs** | [**ContractDoc**](ContractDoc.md) | A &#x60;natspec&#x60; compliant documentation json. Can be retrieved from the output json after compilation | [optional] [default to undefined]|
 |**attributes** | [**ContractAttributes**](ContractAttributes.md) | The attributes related to this contract template. It will be displayed in the tokenization page | [optional] [default to undefined]|
+|**protocol** | **string** | The protocol that the template will be used for | [optional] [default to undefined]|
 
 
 ## Enum: ContractUploadRequestTypeEnum
@@ -27,6 +28,15 @@
 * `TokenExtension` (value: `'TOKEN_EXTENSION'`)
 
 * `TokenUtility` (value: `'TOKEN_UTILITY'`)
+
+
+
+## Enum: ContractUploadRequestProtocolEnum
+
+
+* `Eth` (value: `'ETH'`)
+
+* `Sol` (value: `'SOL'`)
 
 
 
