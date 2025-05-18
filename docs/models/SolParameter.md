@@ -1,10 +1,11 @@
-# ReadCallFunctionDto
+# SolParameter
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**abiFunction** | [**ReadCallFunctionDtoAbiFunction**](ReadCallFunctionDtoAbiFunction.md) |  | [default to undefined]|
+|**name** | **string** | The name of the parameter | [default to undefined]|
+|**type** | [**IdlType**](IdlType.md) |  | [default to undefined]|
 
 
 
