@@ -103,6 +103,7 @@ ConsoleUser.md
 ConsoleUserApi.md
 ConsoleUsers.md
 ContractAbiResponseDto.md
+ContractAbiResponseDtoAbiInner.md
 ContractAttributes.md
 ContractDeployRequest.md
 ContractDeployResponse.md
@@ -240,6 +241,8 @@ GasStationConfiguration.md
 GasStationConfigurationResponse.md
 GasStationPropertiesResponse.md
 GasStationsApi.md
+GasslessStandardConfigurations.md
+GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
 GetAPIUsersResponse.md
 GetAuditLogsResponse.md
 GetConnectionsResponse.md
@@ -275,6 +278,7 @@ GetVaultAssetsResponse.md
 GetWhitelistIpAddressesResponse.md
 GetWorkspaceStatusResponse.md
 HttpContractDoesNotExistError.md
+IdlType.md
 InstructionAmount.md
 InternalTransferResponse.md
 InternalWalletsApi.md
@@ -299,6 +303,7 @@ ModifySigningKeyAgentIdDto.md
 ModifySigningKeyDto.md
 ModifyValidationKeyDto.md
 MpcKey.md
+MultichainDeploymentMetadata.md
 NFTsApi.md
 NetworkChannel.md
 NetworkConnection.md
@@ -383,6 +388,7 @@ PublishResult.md
 README.md
 ReadAbiFunction.md
 ReadCallFunctionDto.md
+ReadCallFunctionDtoAbiFunction.md
 RedeemFundsToLinkedDDAResponse.md
 RegisterNewAssetRequest.md
 ReissueMultichainTokenRequest.md
@@ -401,6 +407,8 @@ ResetDeviceApi.md
 RespondToConnectionRequest.md
 RewardInfo.md
 RewardsInfo.md
+SOLAccount.md
+SOLAccountWithValue.md
 ScreeningConfigurationsRequest.md
 ScreeningOperationExecution.md
 ScreeningOperationExecutionOutput.md
@@ -464,7 +472,13 @@ SmartTransferTicketTermResponse.md
 SmartTransferUpdateTicketTerm.md
 SmartTransferUserGroups.md
 SmartTransferUserGroupsResponse.md
+SolParameter.md
+SolParameterWithValue.md
 SolanaBlockchainData.md
+SolanaConfig.md
+SolanaInstruction.md
+SolanaInstructionWithValue.md
+SolanaSimpleCreateParams.md
 SourceTransferPeerPath.md
 SourceTransferPeerPathResponse.md
 SpamOwnershipResponse.md
@@ -627,6 +641,7 @@ WorkflowExecutionOperation.md
 WorkspaceStatusBetaApi.md
 WriteAbiFunction.md
 WriteCallFunctionDto.md
+WriteCallFunctionDtoAbiFunction.md
 WriteCallFunctionResponseDto.md
 api.ts
 api/api-user-api.ts
@@ -772,6 +787,7 @@ models/config-operation.ts
 models/config-transfer-operation-snapshot.ts
 models/console-user.ts
 models/console-users.ts
+models/contract-abi-response-dto-abi-inner.ts
 models/contract-abi-response-dto.ts
 models/contract-attributes.ts
 models/contract-deploy-request.ts
@@ -900,6 +916,8 @@ models/funds.ts
 models/gas-station-configuration-response.ts
 models/gas-station-configuration.ts
 models/gas-station-properties-response.ts
+models/gassless-standard-configurations-gasless-standard-configurations-value.ts
+models/gassless-standard-configurations.ts
 models/get-apiusers-response.ts
 models/get-audit-logs-response.ts
 models/get-connections-response.ts
@@ -935,6 +953,7 @@ models/get-vault-assets-response.ts
 models/get-whitelist-ip-addresses-response.ts
 models/get-workspace-status-response.ts
 models/http-contract-does-not-exist-error.ts
+models/idl-type.ts
 models/index.ts
 models/instruction-amount.ts
 models/internal-transfer-response.ts
@@ -955,6 +974,7 @@ models/modify-signing-key-agent-id-dto.ts
 models/modify-signing-key-dto.ts
 models/modify-validation-key-dto.ts
 models/mpc-key.ts
+models/multichain-deployment-metadata.ts
 models/network-channel.ts
 models/network-connection-response.ts
 models/network-connection-routing-policy-value.ts
@@ -1031,6 +1051,7 @@ models/public-key-information.ts
 models/publish-draft-request.ts
 models/publish-result.ts
 models/read-abi-function.ts
+models/read-call-function-dto-abi-function.ts
 models/read-call-function-dto.ts
 models/redeem-funds-to-linked-ddaresponse.ts
 models/register-new-asset-request.ts
@@ -1111,7 +1132,15 @@ models/smart-transfer-ticket.ts
 models/smart-transfer-update-ticket-term.ts
 models/smart-transfer-user-groups-response.ts
 models/smart-transfer-user-groups.ts
+models/sol-parameter-with-value.ts
+models/sol-parameter.ts
+models/solaccount-with-value.ts
+models/solaccount.ts
 models/solana-blockchain-data.ts
+models/solana-config.ts
+models/solana-instruction-with-value.ts
+models/solana-instruction.ts
+models/solana-simple-create-params.ts
 models/source-transfer-peer-path-response.ts
 models/source-transfer-peer-path.ts
 models/spam-ownership-response.ts
@@ -1261,6 +1290,7 @@ models/workflow-config-status.ts
 models/workflow-configuration-id.ts
 models/workflow-execution-operation.ts
 models/write-abi-function.ts
+models/write-call-function-dto-abi-function.ts
 models/write-call-function-dto.ts
 models/write-call-function-response-dto.ts
 network/axiosManager.ts

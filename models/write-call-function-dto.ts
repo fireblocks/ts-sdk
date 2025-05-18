@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WriteAbiFunction } from './write-abi-function';
+import { WriteCallFunctionDtoAbiFunction } from './write-call-function-dto-abi-function';
 
 /**
  * 
@@ -31,10 +31,10 @@ export interface WriteCallFunctionDto {
     'vaultAccountId': string;
     /**
      * 
-     * @type {WriteAbiFunction}
+     * @type {WriteCallFunctionDtoAbiFunction}
      * @memberof WriteCallFunctionDto
      */
-    'abiFunction': WriteAbiFunction;
+    'abiFunction': WriteCallFunctionDtoAbiFunction;
     /**
      * Amount in base asset. Being used in payable functions
      * @type {string}

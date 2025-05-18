@@ -83,6 +83,12 @@ export interface ContractUploadRequest {
      * @memberof ContractUploadRequest
      */
     'attributes'?: ContractAttributes;
+    /**
+     * The protocol that the template will be used for
+     * @type {string}
+     * @memberof ContractUploadRequest
+     */
+    'protocol'?: ContractUploadRequestProtocolEnum;
 }
 
 export const ContractUploadRequestTypeEnum = {
@@ -94,5 +100,11 @@ export const ContractUploadRequestTypeEnum = {
 } as const;
 
 export type ContractUploadRequestTypeEnum = typeof ContractUploadRequestTypeEnum[keyof typeof ContractUploadRequestTypeEnum];
+export const ContractUploadRequestProtocolEnum = {
+    Eth: 'ETH',
+    Sol: 'SOL'
+} as const;
+
+export type ContractUploadRequestProtocolEnum = typeof ContractUploadRequestProtocolEnum[keyof typeof ContractUploadRequestProtocolEnum];
 
 

@@ -13,21 +13,24 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { ReadCallFunctionDtoAbiFunction } from './read-call-function-dto-abi-function';
 
 /**
  * 
  * @export
- * @interface ReadCallFunctionDto
+ * @interface GasslessStandardConfigurationsGaslessStandardConfigurationsValue
  */
-export interface ReadCallFunctionDto {
+export interface GasslessStandardConfigurationsGaslessStandardConfigurationsValue {
     /**
      * 
-     * @type {ReadCallFunctionDtoAbiFunction}
-     * @memberof ReadCallFunctionDto
+     * @type {string}
+     * @memberof GasslessStandardConfigurationsGaslessStandardConfigurationsValue
      */
-    'abiFunction': ReadCallFunctionDtoAbiFunction;
+    'lastOnChainCheck'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof GasslessStandardConfigurationsGaslessStandardConfigurationsValue
+     */
+    'forwarderAddresses'?: Array<string>;
 }
 

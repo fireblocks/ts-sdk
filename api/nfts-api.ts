@@ -946,7 +946,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1205,7 +1205,7 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
+     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
@@ -1460,6 +1460,7 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
+    GunGunzilla: 'GUN_GUNZILLA',
     GunGunzillaTest: 'GUN_GUNZILLA_TEST',
     EthSoneium: 'ETH_SONEIUM',
     SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
@@ -1600,6 +1601,7 @@ export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
+    GunGunzilla: 'GUN_GUNZILLA',
     GunGunzillaTest: 'GUN_GUNZILLA_TEST',
     EthSoneium: 'ETH_SONEIUM',
     SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',

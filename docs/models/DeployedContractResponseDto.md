@@ -9,6 +9,10 @@
 |**contractTemplateId** | **string** | The contract template identifier | [default to undefined]|
 |**blockchainId** | **string** |  | [default to undefined]|
 |**vaultAccountId** | **string** | The vault account id this contract was deploy from | [optional] [default to undefined]|
+|**baseAssetId** | **string** | The blockchain base assetId | [optional] [default to undefined]|
+|**gaslessConfig** | [**GasslessStandardConfigurations**](GasslessStandardConfigurations.md) |  | [optional] [default to undefined]|
+|**multichainDeploymentMetadata** | [**MultichainDeploymentMetadata**](MultichainDeploymentMetadata.md) |  | [optional] [default to undefined]|
+|**solanaConfig** | [**SolanaConfig**](SolanaConfig.md) |  | [optional] [default to undefined]|
 
 
 

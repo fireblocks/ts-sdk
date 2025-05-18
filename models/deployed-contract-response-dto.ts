@@ -13,6 +13,15 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { GasslessStandardConfigurations } from './gassless-standard-configurations';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MultichainDeploymentMetadata } from './multichain-deployment-metadata';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SolanaConfig } from './solana-config';
 
 /**
  * 
@@ -50,5 +59,29 @@ export interface DeployedContractResponseDto {
      * @memberof DeployedContractResponseDto
      */
     'vaultAccountId'?: string;
+    /**
+     * The blockchain base assetId
+     * @type {string}
+     * @memberof DeployedContractResponseDto
+     */
+    'baseAssetId'?: string;
+    /**
+     * 
+     * @type {GasslessStandardConfigurations}
+     * @memberof DeployedContractResponseDto
+     */
+    'gaslessConfig'?: GasslessStandardConfigurations;
+    /**
+     * 
+     * @type {MultichainDeploymentMetadata}
+     * @memberof DeployedContractResponseDto
+     */
+    'multichainDeploymentMetadata'?: MultichainDeploymentMetadata;
+    /**
+     * 
+     * @type {SolanaConfig}
+     * @memberof DeployedContractResponseDto
+     */
+    'solanaConfig'?: SolanaConfig;
 }
 
