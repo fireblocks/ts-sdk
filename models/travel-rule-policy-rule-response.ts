@@ -93,7 +93,7 @@ export interface TravelRulePolicyRuleResponse {
      */
     'amountUSD'?: number;
     /**
-     * 
+     * The network protocol of the token
      * @type {string}
      * @memberof TravelRulePolicyRuleResponse
      */

@@ -18,6 +18,9 @@
 import { AmlRegistrationResultFullPayload } from './aml-registration-result-full-payload';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ComplianceResultStatusesEnum } from './compliance-result-statuses-enum';
+// May contain unused imports in some cases
+// @ts-ignore
 import { ComplianceScreeningResultFullPayload } from './compliance-screening-result-full-payload';
 
 /**
@@ -27,17 +30,17 @@ import { ComplianceScreeningResultFullPayload } from './compliance-screening-res
  */
 export interface ComplianceResultFullPayload {
     /**
-     * The end result of the AML screening.
-     * @type {Array<ComplianceScreeningResultFullPayload>}
+     * 
+     * @type {ComplianceScreeningResultFullPayload}
      * @memberof ComplianceResultFullPayload
      */
-    'aml'?: Array<ComplianceScreeningResultFullPayload>;
+    'aml'?: ComplianceScreeningResultFullPayload;
     /**
-     * The result of the Travel Rule screening.
-     * @type {Array<ComplianceScreeningResultFullPayload>}
+     * 
+     * @type {ComplianceScreeningResultFullPayload}
      * @memberof ComplianceResultFullPayload
      */
-    'tr'?: Array<ComplianceScreeningResultFullPayload>;
+    'tr'?: ComplianceScreeningResultFullPayload;
     /**
      * The list of all results of the AML screening.
      * @type {Array<ComplianceScreeningResultFullPayload>}
@@ -45,45 +48,18 @@ export interface ComplianceResultFullPayload {
      */
     'amlList'?: Array<ComplianceScreeningResultFullPayload>;
     /**
-     * Status of compliance result screening.
-     * @type {string}
+     * 
+     * @type {ComplianceResultStatusesEnum}
      * @memberof ComplianceResultFullPayload
      */
-    'status'?: ComplianceResultFullPayloadStatusEnum;
+    'status'?: ComplianceResultStatusesEnum;
     /**
-     * The results of the AML address registration.
-     * @type {Array<AmlRegistrationResultFullPayload>}
+     * 
+     * @type {AmlRegistrationResultFullPayload}
      * @memberof ComplianceResultFullPayload
      */
-    'amlRegistration'?: Array<AmlRegistrationResultFullPayload>;
+    'amlRegistration'?: AmlRegistrationResultFullPayload;
 }
 
-export const ComplianceResultFullPayloadStatusEnum = {
-    Started: 'Started',
-    NetworkConnectionAddressResolve: 'NetworkConnectionAddressResolve',
-    ScreeningPrepare: 'ScreeningPrepare',
-    AmlStarted: 'AMLStarted',
-    AmlCompleted: 'AMLCompleted',
-    AmlFailed: 'AMLFailed',
-    AmlinBackground: 'AMLInBackground',
-    TrPreconditionChecks: 'TRPreconditionChecks',
-    TrStarted: 'TRStarted',
-    TrCompleted: 'TRCompleted',
-    TrFailed: 'TRFailed',
-    Completed: 'Completed',
-    IncomingStarted: 'IncomingStarted',
-    IncomingScreeningPrepare: 'IncomingScreeningPrepare',
-    IncomingWaitForFirstConfirmation: 'IncomingWaitForFirstConfirmation',
-    AmlIncomingStarted: 'AMLIncomingStarted',
-    AmlIncomingCompleted: 'AMLIncomingCompleted',
-    AmlIncomingFailed: 'AMLIncomingFailed',
-    AmlIncomingInBackground: 'AMLIncomingInBackground',
-    TrIncomingStarted: 'TRIncomingStarted',
-    TrIncomingCompleted: 'TRIncomingCompleted',
-    TrIncomingFailed: 'TRIncomingFailed',
-    IncomingCompleted: 'IncomingCompleted'
-} as const;
-
-export type ComplianceResultFullPayloadStatusEnum = typeof ComplianceResultFullPayloadStatusEnum[keyof typeof ComplianceResultFullPayloadStatusEnum];
 
 
