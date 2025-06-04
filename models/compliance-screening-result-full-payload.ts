@@ -15,7 +15,7 @@
 
 
 /**
- * 
+ * The result of the Travel Rule screening.
  * @export
  * @interface ComplianceScreeningResultFullPayload
  */

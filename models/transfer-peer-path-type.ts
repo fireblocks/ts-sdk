@@ -33,7 +33,8 @@ export const TransferPeerPathType = {
     OneTimeAddress: 'ONE_TIME_ADDRESS',
     Unknown: 'UNKNOWN',
     EndUserWallet: 'END_USER_WALLET',
-    ProgramCall: 'PROGRAM_CALL'
+    ProgramCall: 'PROGRAM_CALL',
+    MultiDestination: 'MULTI_DESTINATION'
 } as const;
 
 export type TransferPeerPathType = typeof TransferPeerPathType[keyof typeof TransferPeerPathType];

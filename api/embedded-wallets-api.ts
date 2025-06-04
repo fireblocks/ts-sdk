@@ -27,6 +27,28 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { EmbeddedWallet } from '../models';
+// @ts-ignore
+import { EmbeddedWalletAccount } from '../models';
+// @ts-ignore
+import { EmbeddedWalletAddressDetails } from '../models';
+// @ts-ignore
+import { EmbeddedWalletAssetBalance } from '../models';
+// @ts-ignore
+import { EmbeddedWalletAssetResponse } from '../models';
+// @ts-ignore
+import { EmbeddedWalletDevice } from '../models';
+// @ts-ignore
+import { EmbeddedWalletDeviceKeySetupResponse } from '../models';
+// @ts-ignore
+import { EmbeddedWalletLatestBackupResponse } from '../models';
+// @ts-ignore
+import { EmbeddedWalletPaginatedAddressesResponse } from '../models';
+// @ts-ignore
+import { EmbeddedWalletPaginatedAssetsResponse } from '../models';
+// @ts-ignore
+import { EmbeddedWalletPaginatedWalletsResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { PublicKeyInformation } from '../models';
@@ -37,8 +59,442 @@ import { PublicKeyInformation } from '../models';
 export const EmbeddedWalletsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+         * @summary Add asset to account
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addEmbeddedWalletAsset: async (walletId: string, accountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('addEmbeddedWalletAsset', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('addEmbeddedWalletAsset', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('addEmbeddedWalletAsset', 'assetId', assetId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create new Non Custodial Wallet
+         * @summary Create a new wallet
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmbeddedWallet: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ncw/wallets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Create a new account under a specific Non Custodial Wallet
+         * @summary Create a new account
+         * @param {string} walletId Wallet Id
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmbeddedWalletAccount: async (walletId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('createEmbeddedWalletAccount', 'walletId', walletId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a wallet
+         * @summary Get a wallet
+         * @param {string} walletId Wallet Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWallet: async (walletId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWallet', 'walletId', walletId)
+            const localVarPath = `/ncw/wallets/{walletId}`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a specific account under a specific Non Custodial Wallet
+         * @summary Get a account
+         * @param {string} walletId WalletId
+         * @param {string} accountId The ID of the account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAccount: async (walletId: string, accountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAccount', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAccount', 'accountId', accountId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+         * @summary Retrieve asset addresses
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {string} [pageCursor] Cursor to the next page
+         * @param {number} [pageSize] Items per page
+         * @param {GetEmbeddedWalletAddressesSortEnum} [sort] Sort by address
+         * @param {GetEmbeddedWalletAddressesOrderEnum} [order] Is the order ascending or descending
+         * @param {boolean} [enabled] Enabled
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAddresses: async (walletId: string, accountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetEmbeddedWalletAddressesSortEnum, order?: GetEmbeddedWalletAddressesOrderEnum, enabled?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAddresses', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAddresses', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAddresses', 'assetId', assetId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (enabled !== undefined) {
+                localVarQueryParameter['enabled'] = enabled;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get asset under a specific account, under a specific Non Custodial Wallet
+         * @summary Retrieve asset
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAsset: async (walletId: string, accountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAsset', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAsset', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAsset', 'assetId', assetId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get balance for specific asset, under a specific account
+         * @summary Retrieve asset balance
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAssetBalance: async (walletId: string, accountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAssetBalance', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAssetBalance', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletAssetBalance', 'assetId', assetId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get specific device for a specific s Wallet
+         * @summary Get Embedded Wallet Device
+         * @param {string} walletId Wallet Id
+         * @param {string} deviceId Device Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletDevice: async (walletId: string, deviceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletDevice', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletDevice', 'deviceId', deviceId)
+            const localVarPath = `/ncw/wallets/{walletId}/devices/{deviceId}`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"deviceId"}}`, encodeURIComponent(String(deviceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get the state of the specific device setup key under a specific Non Custodial Wallet
+         * @summary Get device key setup state
+         * @param {string} walletId Wallet Id
+         * @param {string} deviceId Device Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletDeviceSetupState: async (walletId: string, deviceId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletDeviceSetupState', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletDeviceSetupState', 'deviceId', deviceId)
+            const localVarPath = `/ncw/wallets/{walletId}/devices/{deviceId}/setup_status`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"deviceId"}}`, encodeURIComponent(String(deviceId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get wallet Latest Backup details, including the deviceId, and backup time
+         * @summary Get wallet Latest Backup details
+         * @param {string} walletId Wallet Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletLatestBackup: async (walletId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletLatestBackup', 'walletId', walletId)
+            const localVarPath = `/ncw/wallets/{walletId}/backup/latest`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
          * @summary Get the public key of an asset
+         * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} walletId The ID of the Non-Custodial wallet
          * @param {string} accountId The ID of the account
          * @param {string} assetId The ID of the asset
@@ -48,13 +504,14 @@ export const EmbeddedWalletsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfoForAddressNcw: async (walletId: string, accountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'walletId', walletId)
-            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'accountId', accountId)
-            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'assetId', assetId)
-            assertParamExists('getPublicKeyInfoForAddressNcw', 'change', change)
-            assertParamExists('getPublicKeyInfoForAddressNcw', 'addressIndex', addressIndex)
-            const localVarPath = `/ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info`
+        getEmbeddedWalletPublicKeyInfoForAddress: async (xEndUserWalletId: string, walletId: string, accountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getEmbeddedWalletPublicKeyInfoForAddress', 'xEndUserWalletId', xEndUserWalletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletPublicKeyInfoForAddress', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletPublicKeyInfoForAddress', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getEmbeddedWalletPublicKeyInfoForAddress', 'assetId', assetId)
+            assertParamExists('getEmbeddedWalletPublicKeyInfoForAddress', 'change', change)
+            assertParamExists('getEmbeddedWalletPublicKeyInfoForAddress', 'addressIndex', addressIndex)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
@@ -75,6 +532,110 @@ export const EmbeddedWalletsApiAxiosParamCreator = function (configuration?: Con
                 localVarQueryParameter['compressed'] = compressed;
             }
 
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all the available supported assets for the Non-Custodial Wallet
+         * @summary Retrieve supported assets
+         * @param {string} [pageCursor] Next page cursor to fetch
+         * @param {number} [pageSize] Items per page
+         * @param {boolean} [onlyBaseAssets] Only base assets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletSupportedAssets: async (pageCursor?: string, pageSize?: number, onlyBaseAssets?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ncw/wallets/supported_assets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (onlyBaseAssets !== undefined) {
+                localVarQueryParameter['onlyBaseAssets'] = onlyBaseAssets;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all Non Custodial Wallets
+         * @summary List wallets
+         * @param {string} [pageCursor] Next page cursor to fetch
+         * @param {number} [pageSize] Items per page
+         * @param {GetEmbeddedWalletsSortEnum} [sort] Field(s) to use for sorting
+         * @param {GetEmbeddedWalletsOrderEnum} [order] Is the order ascending or descending
+         * @param {boolean} [enabled] Enabled Wallets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWallets: async (pageCursor?: string, pageSize?: number, sort?: GetEmbeddedWalletsSortEnum, order?: GetEmbeddedWalletsOrderEnum, enabled?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/ncw/wallets`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sort !== undefined) {
+                localVarQueryParameter['sort'] = sort;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (enabled !== undefined) {
+                localVarQueryParameter['enabled'] = enabled;
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -89,18 +650,20 @@ export const EmbeddedWalletsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Gets the public key information based on derivation path and signing algorithm within a Non-Custodial Wallet
          * @summary Get the public key for a derivation path
+         * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} walletId The ID of the Non-Custodial wallet
          * @param {string} derivationPath An array of integers (passed as JSON stringified array) representing the full BIP44 derivation path of the requested public key.  The first element must always be 44. 
          * @param {GetPublicKeyInfoNcwAlgorithmEnum} algorithm Elliptic Curve
-         * @param {boolean} [compressed] 
+         * @param {boolean} [compressed] Compressed/Uncompressed public key format
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfoNcw: async (walletId: string, derivationPath: string, algorithm: GetPublicKeyInfoNcwAlgorithmEnum, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getPublicKeyInfoNcw: async (xEndUserWalletId: string, walletId: string, derivationPath: string, algorithm: GetPublicKeyInfoNcwAlgorithmEnum, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getPublicKeyInfoNcw', 'xEndUserWalletId', xEndUserWalletId)
             assertParamExistsAndNotEmpty('getPublicKeyInfoNcw', 'walletId', walletId)
             assertParamExistsAndNotEmpty('getPublicKeyInfoNcw', 'derivationPath', derivationPath)
             assertParamExistsAndNotEmpty('getPublicKeyInfoNcw', 'algorithm', algorithm)
-            const localVarPath = `/ncw/{walletId}/public_key_info`
+            const localVarPath = `/ncw/wallets/{walletId}/public_key_info`
                 .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -125,6 +688,54 @@ export const EmbeddedWalletsApiAxiosParamCreator = function (configuration?: Con
                 localVarQueryParameter['compressed'] = compressed;
             }
 
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Refresh the balance of an asset in a specific account
+         * @summary Refresh asset balance
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        refreshEmbeddedWalletAssetBalance: async (walletId: string, accountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('refreshEmbeddedWalletAssetBalance', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('refreshEmbeddedWalletAssetBalance', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('refreshEmbeddedWalletAssetBalance', 'assetId', assetId)
+            const localVarPath = `/ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -147,8 +758,170 @@ export const EmbeddedWalletsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = EmbeddedWalletsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+         * @summary Add asset to account
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addEmbeddedWalletAsset(walletId: string, accountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletAddressDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addEmbeddedWalletAsset(walletId, accountId, assetId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.addEmbeddedWalletAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Create new Non Custodial Wallet
+         * @summary Create a new wallet
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createEmbeddedWallet(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmbeddedWallet(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.createEmbeddedWallet']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Create a new account under a specific Non Custodial Wallet
+         * @summary Create a new account
+         * @param {string} walletId Wallet Id
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createEmbeddedWalletAccount(walletId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmbeddedWalletAccount(walletId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.createEmbeddedWalletAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get a wallet
+         * @summary Get a wallet
+         * @param {string} walletId Wallet Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWallet(walletId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWallet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWallet(walletId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWallet']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get a specific account under a specific Non Custodial Wallet
+         * @summary Get a account
+         * @param {string} walletId WalletId
+         * @param {string} accountId The ID of the account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletAccount(walletId: string, accountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletAccount>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletAccount(walletId, accountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+         * @summary Retrieve asset addresses
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {string} [pageCursor] Cursor to the next page
+         * @param {number} [pageSize] Items per page
+         * @param {GetEmbeddedWalletAddressesSortEnum} [sort] Sort by address
+         * @param {GetEmbeddedWalletAddressesOrderEnum} [order] Is the order ascending or descending
+         * @param {boolean} [enabled] Enabled
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletAddresses(walletId: string, accountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetEmbeddedWalletAddressesSortEnum, order?: GetEmbeddedWalletAddressesOrderEnum, enabled?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletPaginatedAddressesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletAddresses(walletId, accountId, assetId, pageCursor, pageSize, sort, order, enabled, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get asset under a specific account, under a specific Non Custodial Wallet
+         * @summary Retrieve asset
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletAsset(walletId: string, accountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletAsset(walletId, accountId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get balance for specific asset, under a specific account
+         * @summary Retrieve asset balance
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletAssetBalance(walletId: string, accountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletAssetBalance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletAssetBalance(walletId, accountId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletAssetBalance']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get specific device for a specific s Wallet
+         * @summary Get Embedded Wallet Device
+         * @param {string} walletId Wallet Id
+         * @param {string} deviceId Device Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletDevice(walletId: string, deviceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletDevice>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletDevice(walletId, deviceId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletDevice']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get the state of the specific device setup key under a specific Non Custodial Wallet
+         * @summary Get device key setup state
+         * @param {string} walletId Wallet Id
+         * @param {string} deviceId Device Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletDeviceSetupState(walletId: string, deviceId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletDeviceKeySetupResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletDeviceSetupState(walletId, deviceId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletDeviceSetupState']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get wallet Latest Backup details, including the deviceId, and backup time
+         * @summary Get wallet Latest Backup details
+         * @param {string} walletId Wallet Id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletLatestBackup(walletId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletLatestBackupResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletLatestBackup(walletId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletLatestBackup']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
          * @summary Get the public key of an asset
+         * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} walletId The ID of the Non-Custodial wallet
          * @param {string} accountId The ID of the account
          * @param {string} assetId The ID of the asset
@@ -158,26 +931,75 @@ export const EmbeddedWalletsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfoForAddressNcw(walletId: string, accountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddressNcw(walletId, accountId, assetId, change, addressIndex, compressed, options);
+        async getEmbeddedWalletPublicKeyInfoForAddress(xEndUserWalletId: string, walletId: string, accountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletPublicKeyInfoForAddress(xEndUserWalletId, walletId, accountId, assetId, change, addressIndex, compressed, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getPublicKeyInfoForAddressNcw']?.[index]?.url;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletPublicKeyInfoForAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get all the available supported assets for the Non-Custodial Wallet
+         * @summary Retrieve supported assets
+         * @param {string} [pageCursor] Next page cursor to fetch
+         * @param {number} [pageSize] Items per page
+         * @param {boolean} [onlyBaseAssets] Only base assets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWalletSupportedAssets(pageCursor?: string, pageSize?: number, onlyBaseAssets?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletPaginatedAssetsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWalletSupportedAssets(pageCursor, pageSize, onlyBaseAssets, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWalletSupportedAssets']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get all Non Custodial Wallets
+         * @summary List wallets
+         * @param {string} [pageCursor] Next page cursor to fetch
+         * @param {number} [pageSize] Items per page
+         * @param {GetEmbeddedWalletsSortEnum} [sort] Field(s) to use for sorting
+         * @param {GetEmbeddedWalletsOrderEnum} [order] Is the order ascending or descending
+         * @param {boolean} [enabled] Enabled Wallets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmbeddedWallets(pageCursor?: string, pageSize?: number, sort?: GetEmbeddedWalletsSortEnum, order?: GetEmbeddedWalletsOrderEnum, enabled?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletPaginatedWalletsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmbeddedWallets(pageCursor, pageSize, sort, order, enabled, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getEmbeddedWallets']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Gets the public key information based on derivation path and signing algorithm within a Non-Custodial Wallet
          * @summary Get the public key for a derivation path
+         * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} walletId The ID of the Non-Custodial wallet
          * @param {string} derivationPath An array of integers (passed as JSON stringified array) representing the full BIP44 derivation path of the requested public key.  The first element must always be 44. 
          * @param {GetPublicKeyInfoNcwAlgorithmEnum} algorithm Elliptic Curve
-         * @param {boolean} [compressed] 
+         * @param {boolean} [compressed] Compressed/Uncompressed public key format
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPublicKeyInfoNcw(walletId: string, derivationPath: string, algorithm: GetPublicKeyInfoNcwAlgorithmEnum, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoNcw(walletId, derivationPath, algorithm, compressed, options);
+        async getPublicKeyInfoNcw(xEndUserWalletId: string, walletId: string, derivationPath: string, algorithm: GetPublicKeyInfoNcwAlgorithmEnum, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoNcw(xEndUserWalletId, walletId, derivationPath, algorithm, compressed, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['EmbeddedWalletsApi.getPublicKeyInfoNcw']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Refresh the balance of an asset in a specific account
+         * @summary Refresh asset balance
+         * @param {string} walletId Wallet Id
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async refreshEmbeddedWalletAssetBalance(walletId: string, accountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmbeddedWalletAssetBalance>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshEmbeddedWalletAssetBalance(walletId, accountId, assetId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.refreshEmbeddedWalletAssetBalance']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -191,14 +1013,144 @@ export const EmbeddedWalletsApiFactory = function (configuration?: Configuration
     const localVarFp = EmbeddedWalletsApiFp(configuration)
     return {
         /**
-         * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
-         * @summary Get the public key of an asset
-         * @param {EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest} requestParameters Request parameters.
+         * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+         * @summary Add asset to account
+         * @param {EmbeddedWalletsApiAddEmbeddedWalletAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPublicKeyInfoForAddressNcw(requestParameters: EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublicKeyInformation> {
-            return localVarFp.getPublicKeyInfoForAddressNcw(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, options).then((request) => request(axios, basePath));
+        addEmbeddedWalletAsset(requestParameters: EmbeddedWalletsApiAddEmbeddedWalletAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletAddressDetails> {
+            return localVarFp.addEmbeddedWalletAsset(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create new Non Custodial Wallet
+         * @summary Create a new wallet
+         * @param {EmbeddedWalletsApiCreateEmbeddedWalletRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmbeddedWallet(requestParameters: EmbeddedWalletsApiCreateEmbeddedWalletRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWallet> {
+            return localVarFp.createEmbeddedWallet(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Create a new account under a specific Non Custodial Wallet
+         * @summary Create a new account
+         * @param {EmbeddedWalletsApiCreateEmbeddedWalletAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmbeddedWalletAccount(requestParameters: EmbeddedWalletsApiCreateEmbeddedWalletAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletAccount> {
+            return localVarFp.createEmbeddedWalletAccount(requestParameters.walletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a wallet
+         * @summary Get a wallet
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWallet(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWallet> {
+            return localVarFp.getEmbeddedWallet(requestParameters.walletId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a specific account under a specific Non Custodial Wallet
+         * @summary Get a account
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAccount(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletAccount> {
+            return localVarFp.getEmbeddedWalletAccount(requestParameters.walletId, requestParameters.accountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+         * @summary Retrieve asset addresses
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAddresses(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletPaginatedAddressesResponse> {
+            return localVarFp.getEmbeddedWalletAddresses(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.enabled, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get asset under a specific account, under a specific Non Custodial Wallet
+         * @summary Retrieve asset
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAsset(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletAssetResponse> {
+            return localVarFp.getEmbeddedWalletAsset(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get balance for specific asset, under a specific account
+         * @summary Retrieve asset balance
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletAssetBalance(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletAssetBalance> {
+            return localVarFp.getEmbeddedWalletAssetBalance(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get specific device for a specific s Wallet
+         * @summary Get Embedded Wallet Device
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletDeviceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletDevice(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletDeviceRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletDevice> {
+            return localVarFp.getEmbeddedWalletDevice(requestParameters.walletId, requestParameters.deviceId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get the state of the specific device setup key under a specific Non Custodial Wallet
+         * @summary Get device key setup state
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletDeviceSetupState(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletDeviceKeySetupResponse> {
+            return localVarFp.getEmbeddedWalletDeviceSetupState(requestParameters.walletId, requestParameters.deviceId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get wallet Latest Backup details, including the deviceId, and backup time
+         * @summary Get wallet Latest Backup details
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletLatestBackupRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletLatestBackup(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletLatestBackupRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletLatestBackupResponse> {
+            return localVarFp.getEmbeddedWalletLatestBackup(requestParameters.walletId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+         * @summary Get the public key of an asset
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletPublicKeyInfoForAddress(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublicKeyInformation> {
+            return localVarFp.getEmbeddedWalletPublicKeyInfoForAddress(requestParameters.xEndUserWalletId, requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get all the available supported assets for the Non-Custodial Wallet
+         * @summary Retrieve supported assets
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWalletSupportedAssets(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletPaginatedAssetsResponse> {
+            return localVarFp.getEmbeddedWalletSupportedAssets(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.onlyBaseAssets, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get all Non Custodial Wallets
+         * @summary List wallets
+         * @param {EmbeddedWalletsApiGetEmbeddedWalletsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmbeddedWallets(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletPaginatedWalletsResponse> {
+            return localVarFp.getEmbeddedWallets(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.enabled, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets the public key information based on derivation path and signing algorithm within a Non-Custodial Wallet
@@ -208,58 +1160,425 @@ export const EmbeddedWalletsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         getPublicKeyInfoNcw(requestParameters: EmbeddedWalletsApiGetPublicKeyInfoNcwRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublicKeyInformation> {
-            return localVarFp.getPublicKeyInfoNcw(requestParameters.walletId, requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, options).then((request) => request(axios, basePath));
+            return localVarFp.getPublicKeyInfoNcw(requestParameters.xEndUserWalletId, requestParameters.walletId, requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Refresh the balance of an asset in a specific account
+         * @summary Refresh asset balance
+         * @param {EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        refreshEmbeddedWalletAssetBalance(requestParameters: EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletAssetBalance> {
+            return localVarFp.refreshEmbeddedWalletAssetBalance(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for getPublicKeyInfoForAddressNcw operation in EmbeddedWalletsApi.
+ * Request parameters for addEmbeddedWalletAsset operation in EmbeddedWalletsApi.
  * @export
- * @interface EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest
+ * @interface EmbeddedWalletsApiAddEmbeddedWalletAssetRequest
  */
-export interface EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest {
+export interface EmbeddedWalletsApiAddEmbeddedWalletAssetRequest {
     /**
-     * The ID of the Non-Custodial wallet
+     * Wallet Id
      * @type {string}
-     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     * @memberof EmbeddedWalletsApiAddEmbeddedWalletAsset
      */
     readonly walletId: string
 
     /**
      * The ID of the account
      * @type {string}
-     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     * @memberof EmbeddedWalletsApiAddEmbeddedWalletAsset
      */
     readonly accountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     * @memberof EmbeddedWalletsApiAddEmbeddedWalletAsset
+     */
+    readonly assetId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiAddEmbeddedWalletAsset
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createEmbeddedWallet operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiCreateEmbeddedWalletRequest
+ */
+export interface EmbeddedWalletsApiCreateEmbeddedWalletRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiCreateEmbeddedWallet
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createEmbeddedWalletAccount operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiCreateEmbeddedWalletAccountRequest
+ */
+export interface EmbeddedWalletsApiCreateEmbeddedWalletAccountRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiCreateEmbeddedWalletAccount
+     */
+    readonly walletId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiCreateEmbeddedWalletAccount
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for getEmbeddedWallet operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWallet
+     */
+    readonly walletId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletAccount operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletAccountRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletAccountRequest {
+    /**
+     * WalletId
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAccount
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAccount
+     */
+    readonly accountId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletAddresses operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletAddressesRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletAddressesRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly accountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly assetId: string
+
+    /**
+     * Cursor to the next page
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Items per page
+     * @type {number}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sort by address
+     * @type {'address' | 'createdAt'}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly sort?: GetEmbeddedWalletAddressesSortEnum
+
+    /**
+     * Is the order ascending or descending
+     * @type {'DESC' | 'ASC'}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly order?: GetEmbeddedWalletAddressesOrderEnum
+
+    /**
+     * Enabled
+     * @type {boolean}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAddresses
+     */
+    readonly enabled?: boolean
+}
+
+/**
+ * Request parameters for getEmbeddedWalletAsset operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletAssetRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletAssetRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAsset
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAsset
+     */
+    readonly accountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAsset
+     */
+    readonly assetId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletAssetBalance operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAssetBalance
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAssetBalance
+     */
+    readonly accountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletAssetBalance
+     */
+    readonly assetId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletDevice operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletDeviceRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletDeviceRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletDevice
+     */
+    readonly walletId: string
+
+    /**
+     * Device Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletDevice
+     */
+    readonly deviceId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletDeviceSetupState operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupState
+     */
+    readonly walletId: string
+
+    /**
+     * Device Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupState
+     */
+    readonly deviceId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletLatestBackup operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletLatestBackupRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletLatestBackupRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletLatestBackup
+     */
+    readonly walletId: string
+}
+
+/**
+ * Request parameters for getEmbeddedWalletPublicKeyInfoForAddress operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest {
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
+     */
+    readonly xEndUserWalletId: string
+
+    /**
+     * The ID of the Non-Custodial wallet
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
+     */
+    readonly accountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
      */
     readonly assetId: string
 
     /**
      * BIP44 derivation path - change value
      * @type {number}
-     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
      */
     readonly change: number
 
     /**
      * BIP44 derivation path - index value
      * @type {number}
-     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
      */
     readonly addressIndex: number
 
     /**
      * Compressed/Uncompressed public key format
      * @type {boolean}
-     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddress
      */
     readonly compressed?: boolean
+}
+
+/**
+ * Request parameters for getEmbeddedWalletSupportedAssets operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest {
+    /**
+     * Next page cursor to fetch
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletSupportedAssets
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Items per page
+     * @type {number}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletSupportedAssets
+     */
+    readonly pageSize?: number
+
+    /**
+     * Only base assets
+     * @type {boolean}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWalletSupportedAssets
+     */
+    readonly onlyBaseAssets?: boolean
+}
+
+/**
+ * Request parameters for getEmbeddedWallets operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetEmbeddedWalletsRequest
+ */
+export interface EmbeddedWalletsApiGetEmbeddedWalletsRequest {
+    /**
+     * Next page cursor to fetch
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWallets
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Items per page
+     * @type {number}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWallets
+     */
+    readonly pageSize?: number
+
+    /**
+     * Field(s) to use for sorting
+     * @type {'createdAt'}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWallets
+     */
+    readonly sort?: GetEmbeddedWalletsSortEnum
+
+    /**
+     * Is the order ascending or descending
+     * @type {'ASC' | 'DESC'}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWallets
+     */
+    readonly order?: GetEmbeddedWalletsOrderEnum
+
+    /**
+     * Enabled Wallets
+     * @type {boolean}
+     * @memberof EmbeddedWalletsApiGetEmbeddedWallets
+     */
+    readonly enabled?: boolean
 }
 
 /**
@@ -268,6 +1587,13 @@ export interface EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest {
  * @interface EmbeddedWalletsApiGetPublicKeyInfoNcwRequest
  */
 export interface EmbeddedWalletsApiGetPublicKeyInfoNcwRequest {
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoNcw
+     */
+    readonly xEndUserWalletId: string
+
     /**
      * The ID of the Non-Custodial wallet
      * @type {string}
@@ -290,11 +1616,46 @@ export interface EmbeddedWalletsApiGetPublicKeyInfoNcwRequest {
     readonly algorithm: GetPublicKeyInfoNcwAlgorithmEnum
 
     /**
-     * 
+     * Compressed/Uncompressed public key format
      * @type {boolean}
      * @memberof EmbeddedWalletsApiGetPublicKeyInfoNcw
      */
     readonly compressed?: boolean
+}
+
+/**
+ * Request parameters for refreshEmbeddedWalletAssetBalance operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest
+ */
+export interface EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest {
+    /**
+     * Wallet Id
+     * @type {string}
+     * @memberof EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalance
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalance
+     */
+    readonly accountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalance
+     */
+    readonly assetId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalance
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -305,15 +1666,171 @@ export interface EmbeddedWalletsApiGetPublicKeyInfoNcwRequest {
  */
 export class EmbeddedWalletsApi extends BaseAPI {
     /**
-     * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
-     * @summary Get the public key of an asset
-     * @param {EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest} requestParameters Request parameters.
+     * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+     * @summary Add asset to account
+     * @param {EmbeddedWalletsApiAddEmbeddedWalletAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EmbeddedWalletsApi
      */
-    public getPublicKeyInfoForAddressNcw(requestParameters: EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest) {
-        return EmbeddedWalletsApiFp(this.configuration).getPublicKeyInfoForAddressNcw(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public addEmbeddedWalletAsset(requestParameters: EmbeddedWalletsApiAddEmbeddedWalletAssetRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).addEmbeddedWalletAsset(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Create new Non Custodial Wallet
+     * @summary Create a new wallet
+     * @param {EmbeddedWalletsApiCreateEmbeddedWalletRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public createEmbeddedWallet(requestParameters: EmbeddedWalletsApiCreateEmbeddedWalletRequest = {}) {
+        return EmbeddedWalletsApiFp(this.configuration).createEmbeddedWallet(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Create a new account under a specific Non Custodial Wallet
+     * @summary Create a new account
+     * @param {EmbeddedWalletsApiCreateEmbeddedWalletAccountRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public createEmbeddedWalletAccount(requestParameters: EmbeddedWalletsApiCreateEmbeddedWalletAccountRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).createEmbeddedWalletAccount(requestParameters.walletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get a wallet
+     * @summary Get a wallet
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWallet(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWallet(requestParameters.walletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get a specific account under a specific Non Custodial Wallet
+     * @summary Get a account
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletAccountRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletAccount(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAccountRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletAccount(requestParameters.walletId, requestParameters.accountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get the addresses of a specific asset, under a specific account, under a specific Non Custodial Wallet
+     * @summary Retrieve asset addresses
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletAddressesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletAddresses(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAddressesRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletAddresses(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.enabled).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get asset under a specific account, under a specific Non Custodial Wallet
+     * @summary Retrieve asset
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletAssetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletAsset(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAssetRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletAsset(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get balance for specific asset, under a specific account
+     * @summary Retrieve asset balance
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletAssetBalance(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletAssetBalanceRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletAssetBalance(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get specific device for a specific s Wallet
+     * @summary Get Embedded Wallet Device
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletDeviceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletDevice(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletDeviceRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletDevice(requestParameters.walletId, requestParameters.deviceId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get the state of the specific device setup key under a specific Non Custodial Wallet
+     * @summary Get device key setup state
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletDeviceSetupState(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletDeviceSetupStateRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletDeviceSetupState(requestParameters.walletId, requestParameters.deviceId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get wallet Latest Backup details, including the deviceId, and backup time
+     * @summary Get wallet Latest Backup details
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletLatestBackupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletLatestBackup(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletLatestBackupRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletLatestBackup(requestParameters.walletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+     * @summary Get the public key of an asset
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletPublicKeyInfoForAddress(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletPublicKeyInfoForAddressRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletPublicKeyInfoForAddress(requestParameters.xEndUserWalletId, requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get all the available supported assets for the Non-Custodial Wallet
+     * @summary Retrieve supported assets
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWalletSupportedAssets(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletSupportedAssetsRequest = {}) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWalletSupportedAssets(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.onlyBaseAssets).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get all Non Custodial Wallets
+     * @summary List wallets
+     * @param {EmbeddedWalletsApiGetEmbeddedWalletsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getEmbeddedWallets(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletsRequest = {}) {
+        return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWallets(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.enabled).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -325,10 +1842,53 @@ export class EmbeddedWalletsApi extends BaseAPI {
      * @memberof EmbeddedWalletsApi
      */
     public getPublicKeyInfoNcw(requestParameters: EmbeddedWalletsApiGetPublicKeyInfoNcwRequest) {
-        return EmbeddedWalletsApiFp(this.configuration).getPublicKeyInfoNcw(requestParameters.walletId, requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return EmbeddedWalletsApiFp(this.configuration).getPublicKeyInfoNcw(requestParameters.xEndUserWalletId, requestParameters.walletId, requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Refresh the balance of an asset in a specific account
+     * @summary Refresh asset balance
+     * @param {EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public refreshEmbeddedWalletAssetBalance(requestParameters: EmbeddedWalletsApiRefreshEmbeddedWalletAssetBalanceRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).refreshEmbeddedWalletAssetBalance(requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
+/**
+ * @export
+ */
+export const GetEmbeddedWalletAddressesSortEnum = {
+    Address: 'address',
+    CreatedAt: 'createdAt'
+} as const;
+export type GetEmbeddedWalletAddressesSortEnum = typeof GetEmbeddedWalletAddressesSortEnum[keyof typeof GetEmbeddedWalletAddressesSortEnum];
+/**
+ * @export
+ */
+export const GetEmbeddedWalletAddressesOrderEnum = {
+    Desc: 'DESC',
+    Asc: 'ASC'
+} as const;
+export type GetEmbeddedWalletAddressesOrderEnum = typeof GetEmbeddedWalletAddressesOrderEnum[keyof typeof GetEmbeddedWalletAddressesOrderEnum];
+/**
+ * @export
+ */
+export const GetEmbeddedWalletsSortEnum = {
+    CreatedAt: 'createdAt'
+} as const;
+export type GetEmbeddedWalletsSortEnum = typeof GetEmbeddedWalletsSortEnum[keyof typeof GetEmbeddedWalletsSortEnum];
+/**
+ * @export
+ */
+export const GetEmbeddedWalletsOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetEmbeddedWalletsOrderEnum = typeof GetEmbeddedWalletsOrderEnum[keyof typeof GetEmbeddedWalletsOrderEnum];
 /**
  * @export
  */

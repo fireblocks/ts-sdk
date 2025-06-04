@@ -574,7 +574,7 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
         reIssueTokenMultiChain: async (reissueMultichainTokenRequest: ReissueMultichainTokenRequest, tokenLinkId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('reIssueTokenMultiChain', 'reissueMultichainTokenRequest', reissueMultichainTokenRequest)
             assertParamExistsAndNotEmpty('reIssueTokenMultiChain', 'tokenLinkId', tokenLinkId)
-            const localVarPath = `/tokenization/multichain/token/{tokenLinkId}`
+            const localVarPath = `/tokenization/multichain/reissue/token/{tokenLinkId}`
                 .replace(`{${"tokenLinkId"}}`, encodeURIComponent(String(tokenLinkId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);

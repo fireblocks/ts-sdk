@@ -23,7 +23,8 @@
 export const StakingProvider = {
     Kiln: 'kiln',
     Figment: 'figment',
-    Lido: 'lido'
+    Lido: 'lido',
+    P2p: 'p2p'
 } as const;
 
 export type StakingProvider = typeof StakingProvider[keyof typeof StakingProvider];
