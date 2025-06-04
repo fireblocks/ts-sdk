@@ -386,11 +386,12 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * Updates the latest token metadata. 
          * @summary Refresh token metadata
          * @param {string} id NFT ID
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        refreshNFTMetadata: async (id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        refreshNFTMetadata: async (id: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('refreshNFTMetadata', 'id', id)
             const localVarPath = `/nfts/tokens/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
@@ -404,6 +405,10 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -472,11 +477,12 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * @summary Update token ownership status
          * @param {UpdateTokenOwnershipStatusDto} updateTokenOwnershipStatusDto 
          * @param {string} id NFT ID
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateTokenOwnershipStatus: async (updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('updateTokenOwnershipStatus', 'updateTokenOwnershipStatusDto', updateTokenOwnershipStatusDto)
             assertParamExistsAndNotEmpty('updateTokenOwnershipStatus', 'id', id)
             const localVarPath = `/nfts/ownership/tokens/{id}/status`
@@ -491,6 +497,10 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -514,11 +524,12 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
          * @summary Update tokens ownership spam property
          * @param {UpdateTokensOwnershipSpamRequest} updateTokensOwnershipSpamRequest 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokensOwnershipSpam: async (updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateTokensOwnershipSpam: async (updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('updateTokensOwnershipSpam', 'updateTokensOwnershipSpamRequest', updateTokensOwnershipSpamRequest)
             const localVarPath = `/nfts/ownership/tokens/spam`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -531,6 +542,10 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -554,11 +569,12 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
          * Updates tokens status for a tenant, in all tenant vaults.
          * @summary Update tokens ownership status
          * @param {UpdateTokensOwnershipStatusRequest} updateTokensOwnershipStatusRequest 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateTokensOwnershipStatus: async (updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        updateTokensOwnershipStatus: async (updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, xEndUserWalletId?: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('updateTokensOwnershipStatus', 'updateTokensOwnershipStatusRequest', updateTokensOwnershipStatusRequest)
             const localVarPath = `/nfts/ownership/tokens/status`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -571,6 +587,10 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -701,12 +721,13 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * Updates the latest token metadata. 
          * @summary Refresh token metadata
          * @param {string} id NFT ID
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async refreshNFTMetadata(id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, idempotencyKey, options);
+        async refreshNFTMetadata(id: string, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.refreshNFTMetadata(id, xEndUserWalletId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.refreshNFTMetadata']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -731,12 +752,13 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * @summary Update token ownership status
          * @param {UpdateTokenOwnershipStatusDto} updateTokenOwnershipStatusDto 
          * @param {string} id NFT ID
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, idempotencyKey, options);
+        async updateTokenOwnershipStatus(updateTokenOwnershipStatusDto: UpdateTokenOwnershipStatusDto, id: string, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokenOwnershipStatus(updateTokenOwnershipStatusDto, id, xEndUserWalletId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.updateTokenOwnershipStatus']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -745,12 +767,13 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
          * @summary Update tokens ownership spam property
          * @param {UpdateTokensOwnershipSpamRequest} updateTokensOwnershipSpamRequest 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest, idempotencyKey, options);
+        async updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipSpam(updateTokensOwnershipSpamRequest, xEndUserWalletId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.updateTokensOwnershipSpam']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -759,12 +782,13 @@ export const NFTsApiFp = function(configuration?: Configuration) {
          * Updates tokens status for a tenant, in all tenant vaults.
          * @summary Update tokens ownership status
          * @param {UpdateTokensOwnershipStatusRequest} updateTokensOwnershipStatusRequest 
+         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest, idempotencyKey, options);
+        async updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest, xEndUserWalletId?: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateTokensOwnershipStatus(updateTokensOwnershipStatusRequest, xEndUserWalletId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['NFTsApi.updateTokensOwnershipStatus']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -837,7 +861,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.refreshNFTMetadata(requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.refreshNFTMetadata(requestParameters.id, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates all tokens and balances per blockchain and vault account. 
@@ -857,7 +881,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates tokens spam property for a tenant\'s token ownerships, in all tenant vaults.
@@ -867,7 +891,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         updateTokensOwnershipSpam(requestParameters: NFTsApiUpdateTokensOwnershipSpamRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updateTokensOwnershipSpam(requestParameters.updateTokensOwnershipSpamRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateTokensOwnershipSpam(requestParameters.updateTokensOwnershipSpamRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates tokens status for a tenant, in all tenant vaults.
@@ -877,7 +901,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         updateTokensOwnershipStatus(requestParameters: NFTsApiUpdateTokensOwnershipStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.updateTokensOwnershipStatus(requestParameters.updateTokensOwnershipStatusRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.updateTokensOwnershipStatus(requestParameters.updateTokensOwnershipStatusRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -946,7 +970,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1190,6 +1214,13 @@ export interface NFTsApiRefreshNFTMetadataRequest {
     readonly id: string
 
     /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof NFTsApiRefreshNFTMetadata
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof NFTsApiRefreshNFTMetadata
@@ -1205,7 +1236,7 @@ export interface NFTsApiRefreshNFTMetadataRequest {
 export interface NFTsApiUpdateOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
+     * @type {'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
      * @memberof NFTsApiUpdateOwnershipTokens
      */
     readonly blockchainDescriptor: UpdateOwnershipTokensBlockchainDescriptorEnum
@@ -1246,6 +1277,13 @@ export interface NFTsApiUpdateTokenOwnershipStatusRequest {
     readonly id: string
 
     /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof NFTsApiUpdateTokenOwnershipStatus
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof NFTsApiUpdateTokenOwnershipStatus
@@ -1267,6 +1305,13 @@ export interface NFTsApiUpdateTokensOwnershipSpamRequest {
     readonly updateTokensOwnershipSpamRequest: UpdateTokensOwnershipSpamRequest
 
     /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof NFTsApiUpdateTokensOwnershipSpam
+     */
+    readonly xEndUserWalletId?: string
+
+    /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof NFTsApiUpdateTokensOwnershipSpam
@@ -1286,6 +1331,13 @@ export interface NFTsApiUpdateTokensOwnershipStatusRequest {
      * @memberof NFTsApiUpdateTokensOwnershipStatus
      */
     readonly updateTokensOwnershipStatusRequest: UpdateTokensOwnershipStatusRequest
+
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof NFTsApiUpdateTokensOwnershipStatus
+     */
+    readonly xEndUserWalletId?: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1371,7 +1423,7 @@ export class NFTsApi extends BaseAPI {
      * @memberof NFTsApi
      */
     public refreshNFTMetadata(requestParameters: NFTsApiRefreshNFTMetadataRequest) {
-        return NFTsApiFp(this.configuration).refreshNFTMetadata(requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NFTsApiFp(this.configuration).refreshNFTMetadata(requestParameters.id, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1395,7 +1447,7 @@ export class NFTsApi extends BaseAPI {
      * @memberof NFTsApi
      */
     public updateTokenOwnershipStatus(requestParameters: NFTsApiUpdateTokenOwnershipStatusRequest) {
-        return NFTsApiFp(this.configuration).updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NFTsApiFp(this.configuration).updateTokenOwnershipStatus(requestParameters.updateTokenOwnershipStatusDto, requestParameters.id, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1407,7 +1459,7 @@ export class NFTsApi extends BaseAPI {
      * @memberof NFTsApi
      */
     public updateTokensOwnershipSpam(requestParameters: NFTsApiUpdateTokensOwnershipSpamRequest) {
-        return NFTsApiFp(this.configuration).updateTokensOwnershipSpam(requestParameters.updateTokensOwnershipSpamRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NFTsApiFp(this.configuration).updateTokensOwnershipSpam(requestParameters.updateTokensOwnershipSpamRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1419,7 +1471,7 @@ export class NFTsApi extends BaseAPI {
      * @memberof NFTsApi
      */
     public updateTokensOwnershipStatus(requestParameters: NFTsApiUpdateTokensOwnershipStatusRequest) {
-        return NFTsApiFp(this.configuration).updateTokensOwnershipStatus(requestParameters.updateTokensOwnershipStatusRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return NFTsApiFp(this.configuration).updateTokensOwnershipStatus(requestParameters.updateTokensOwnershipStatusRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
@@ -1460,6 +1512,7 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
+    GunGunzilla: 'GUN_GUNZILLA',
     GunGunzillaTest: 'GUN_GUNZILLA_TEST',
     EthSoneium: 'ETH_SONEIUM',
     SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
@@ -1600,6 +1653,7 @@ export const UpdateOwnershipTokensBlockchainDescriptorEnum = {
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
+    GunGunzilla: 'GUN_GUNZILLA',
     GunGunzillaTest: 'GUN_GUNZILLA_TEST',
     EthSoneium: 'ETH_SONEIUM',
     SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',

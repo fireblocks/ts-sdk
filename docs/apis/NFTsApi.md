@@ -167,7 +167,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: NFTsApiGetOwnershipTokensRequest = {
-  // 'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST' | Blockchain descriptor filter (optional)
+  // 'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST' | Blockchain descriptor filter (optional)
   blockchainDescriptor: blockchainDescriptor_example,
   // string | A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType=END_USER_WALLET or ncwId is provided. (optional)
   vaultAccountIds: vaultAccountIds_example,
@@ -207,7 +207,7 @@ fireblocks.nfts.getOwnershipTokens(body).then((res: FireblocksResponse<GetOwners
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST3&#39; | &#39;ETH_TEST5&#39; | &#39;ETH_TEST6&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;AMOY_POLYGON_TEST&#39; | &#39;XTZ&#39; | &#39;XTZ_TEST&#39; | &#39;BASECHAIN_ETH&#39; | &#39;BASECHAIN_ETH_TEST3&#39; | &#39;BASECHAIN_ETH_TEST5&#39; | &#39;ETHERLINK&#39; | &#39;ETHERLINK_TEST&#39; | &#39;MANTLE&#39; | &#39;MANTLE_TEST&#39; | &#39;GUN_GUNZILLA_TEST&#39; | &#39;ETH_SONEIUM&#39; | &#39;SONEIUM_MINATO_TEST&#39; | &#39;IOTX_IOTEX&#39; | &#39;KLAY_KAIA&#39; | &#39;KLAY_KAIA_TEST&#39; | &#39;APECHAIN&#39; | &#39;APECHAIN_TEST&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST3&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;AMOY_POLYGON_TEST&#39; &#124; &#39;XTZ&#39; &#124; &#39;XTZ_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39; &#124; &#39;BASECHAIN_ETH_TEST3&#39; &#124; &#39;BASECHAIN_ETH_TEST5&#39; &#124; &#39;ETHERLINK&#39; &#124; &#39;ETHERLINK_TEST&#39; &#124; &#39;MANTLE&#39; &#124; &#39;MANTLE_TEST&#39; &#124; &#39;GUN_GUNZILLA_TEST&#39; &#124; &#39;ETH_SONEIUM&#39; &#124; &#39;SONEIUM_MINATO_TEST&#39; &#124; &#39;IOTX_IOTEX&#39; &#124; &#39;KLAY_KAIA&#39; &#124; &#39;KLAY_KAIA_TEST&#39; &#124; &#39;APECHAIN&#39; &#124; &#39;APECHAIN_TEST&#39;>** | Blockchain descriptor filter | (optional) defaults to undefined
+ **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST3&#39; | &#39;ETH_TEST5&#39; | &#39;ETH_TEST6&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;AMOY_POLYGON_TEST&#39; | &#39;XTZ&#39; | &#39;XTZ_TEST&#39; | &#39;BASECHAIN_ETH&#39; | &#39;BASECHAIN_ETH_TEST3&#39; | &#39;BASECHAIN_ETH_TEST5&#39; | &#39;ETHERLINK&#39; | &#39;ETHERLINK_TEST&#39; | &#39;MANTLE&#39; | &#39;MANTLE_TEST&#39; | &#39;GUN_GUNZILLA&#39; | &#39;GUN_GUNZILLA_TEST&#39; | &#39;ETH_SONEIUM&#39; | &#39;SONEIUM_MINATO_TEST&#39; | &#39;IOTX_IOTEX&#39; | &#39;KLAY_KAIA&#39; | &#39;KLAY_KAIA_TEST&#39; | &#39;APECHAIN&#39; | &#39;APECHAIN_TEST&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST3&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;AMOY_POLYGON_TEST&#39; &#124; &#39;XTZ&#39; &#124; &#39;XTZ_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39; &#124; &#39;BASECHAIN_ETH_TEST3&#39; &#124; &#39;BASECHAIN_ETH_TEST5&#39; &#124; &#39;ETHERLINK&#39; &#124; &#39;ETHERLINK_TEST&#39; &#124; &#39;MANTLE&#39; &#124; &#39;MANTLE_TEST&#39; &#124; &#39;GUN_GUNZILLA&#39; &#124; &#39;GUN_GUNZILLA_TEST&#39; &#124; &#39;ETH_SONEIUM&#39; &#124; &#39;SONEIUM_MINATO_TEST&#39; &#124; &#39;IOTX_IOTEX&#39; &#124; &#39;KLAY_KAIA&#39; &#124; &#39;KLAY_KAIA_TEST&#39; &#124; &#39;APECHAIN&#39; &#124; &#39;APECHAIN_TEST&#39;>** | Blockchain descriptor filter | (optional) defaults to undefined
  **vaultAccountIds** | [**string**] | A comma separated list of Vault Account IDs. Up to 100 are allowed in a single request.  This field will be ignored when walletType&#x3D;END_USER_WALLET or ncwId is provided. | (optional) defaults to undefined
  **ncwId** | [**string**] | Tenant\&#39;s Non-Custodial Wallet ID | (optional) defaults to undefined
  **ncwAccountIds** | [**string**] | A comma separated list of Non-Custodial account IDs. Up to 100 are allowed in a single request. This field will be ignored when walletType&#x3D;VAULT_ACCOUNT or ncwId is not provided. | (optional) defaults to undefined
@@ -430,6 +430,8 @@ const fireblocks = new Fireblocks();
 let body: NFTsApiRefreshNFTMetadataRequest = {
   // string | NFT ID
   id: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd,
+  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
+  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -445,6 +447,7 @@ fireblocks.nfts.refreshNFTMetadata(body).then((res: FireblocksResponse<any>) => 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**string**] | NFT ID | defaults to undefined
+ **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -490,7 +493,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: NFTsApiUpdateOwnershipTokensRequest = {
-  // 'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST' | Blockchain descriptor filter
+  // 'ETH' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST' | Blockchain descriptor filter
   blockchainDescriptor: blockchainDescriptor_example,
   // string | Vault account filter
   vaultAccountId: vaultAccountId_example,
@@ -508,7 +511,7 @@ fireblocks.nfts.updateOwnershipTokens(body).then((res: FireblocksResponse<any>) 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST5&#39; | &#39;ETH_TEST6&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;AMOY_POLYGON_TEST&#39; | &#39;BASECHAIN_ETH&#39; | &#39;BASECHAIN_ETH_TEST5&#39; | &#39;ETHERLINK&#39; | &#39;ETHERLINK_TEST&#39; | &#39;MANTLE&#39; | &#39;MANTLE_TEST&#39; | &#39;GUN_GUNZILLA_TEST&#39; | &#39;ETH_SONEIUM&#39; | &#39;SONEIUM_MINATO_TEST&#39; | &#39;IOTX_IOTEX&#39; | &#39;KLAY_KAIA&#39; | &#39;KLAY_KAIA_TEST&#39; | &#39;APECHAIN&#39; | &#39;APECHAIN_TEST&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;AMOY_POLYGON_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39; &#124; &#39;BASECHAIN_ETH_TEST5&#39; &#124; &#39;ETHERLINK&#39; &#124; &#39;ETHERLINK_TEST&#39; &#124; &#39;MANTLE&#39; &#124; &#39;MANTLE_TEST&#39; &#124; &#39;GUN_GUNZILLA_TEST&#39; &#124; &#39;ETH_SONEIUM&#39; &#124; &#39;SONEIUM_MINATO_TEST&#39; &#124; &#39;IOTX_IOTEX&#39; &#124; &#39;KLAY_KAIA&#39; &#124; &#39;KLAY_KAIA_TEST&#39; &#124; &#39;APECHAIN&#39; &#124; &#39;APECHAIN_TEST&#39;>** | Blockchain descriptor filter | defaults to undefined
+ **blockchainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST5&#39; | &#39;ETH_TEST6&#39; | &#39;POLYGON&#39; | &#39;POLYGON_TEST_MUMBAI&#39; | &#39;AMOY_POLYGON_TEST&#39; | &#39;BASECHAIN_ETH&#39; | &#39;BASECHAIN_ETH_TEST5&#39; | &#39;ETHERLINK&#39; | &#39;ETHERLINK_TEST&#39; | &#39;MANTLE&#39; | &#39;MANTLE_TEST&#39; | &#39;GUN_GUNZILLA&#39; | &#39;GUN_GUNZILLA_TEST&#39; | &#39;ETH_SONEIUM&#39; | &#39;SONEIUM_MINATO_TEST&#39; | &#39;IOTX_IOTEX&#39; | &#39;KLAY_KAIA&#39; | &#39;KLAY_KAIA_TEST&#39; | &#39;APECHAIN&#39; | &#39;APECHAIN_TEST&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST5&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;POLYGON&#39; &#124; &#39;POLYGON_TEST_MUMBAI&#39; &#124; &#39;AMOY_POLYGON_TEST&#39; &#124; &#39;BASECHAIN_ETH&#39; &#124; &#39;BASECHAIN_ETH_TEST5&#39; &#124; &#39;ETHERLINK&#39; &#124; &#39;ETHERLINK_TEST&#39; &#124; &#39;MANTLE&#39; &#124; &#39;MANTLE_TEST&#39; &#124; &#39;GUN_GUNZILLA&#39; &#124; &#39;GUN_GUNZILLA_TEST&#39; &#124; &#39;ETH_SONEIUM&#39; &#124; &#39;SONEIUM_MINATO_TEST&#39; &#124; &#39;IOTX_IOTEX&#39; &#124; &#39;KLAY_KAIA&#39; &#124; &#39;KLAY_KAIA_TEST&#39; &#124; &#39;APECHAIN&#39; &#124; &#39;APECHAIN_TEST&#39;>** | Blockchain descriptor filter | defaults to undefined
  **vaultAccountId** | [**string**] | Vault account filter | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
@@ -559,6 +562,8 @@ let body: NFTsApiUpdateTokenOwnershipStatusRequest = {
   updateTokenOwnershipStatusDto: param_value,
   // string | NFT ID
   id: NFT-abcdefabcdefabcdefabcdefabcdefabcdefabcd,
+  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
+  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -575,6 +580,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **updateTokenOwnershipStatusDto** | **[UpdateTokenOwnershipStatusDto](../models/UpdateTokenOwnershipStatusDto.md)**|  |
  **id** | [**string**] | NFT ID | defaults to undefined
+ **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -622,6 +628,8 @@ const fireblocks = new Fireblocks();
 let body: NFTsApiUpdateTokensOwnershipSpamRequest = {
   // UpdateTokensOwnershipSpamRequest
   updateTokensOwnershipSpamRequest: param_value,
+  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
+  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -637,6 +645,7 @@ fireblocks.nfts.updateTokensOwnershipSpam(body).then((res: FireblocksResponse<an
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **updateTokensOwnershipSpamRequest** | **[UpdateTokensOwnershipSpamRequest](../models/UpdateTokensOwnershipSpamRequest.md)**|  |
+ **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -686,6 +695,8 @@ const fireblocks = new Fireblocks();
 let body: NFTsApiUpdateTokensOwnershipStatusRequest = {
   // UpdateTokensOwnershipStatusRequest
   updateTokensOwnershipStatusRequest: param_value,
+  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
+  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -701,6 +712,7 @@ fireblocks.nfts.updateTokensOwnershipStatus(body).then((res: FireblocksResponse<
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **updateTokensOwnershipStatusRequest** | **[UpdateTokensOwnershipStatusRequest](../models/UpdateTokensOwnershipStatusRequest.md)**|  |
+ **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 

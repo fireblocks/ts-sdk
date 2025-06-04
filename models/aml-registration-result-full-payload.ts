@@ -15,7 +15,7 @@
 
 
 /**
- * 
+ * The results of the AML address registration.
  * @export
  * @interface AmlRegistrationResultFullPayload
  */

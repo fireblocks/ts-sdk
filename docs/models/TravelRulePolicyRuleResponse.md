@@ -16,7 +16,7 @@
 |**baseAsset** | **string** |  | [optional] [default to undefined]|
 |**amount** | **number** |  | [optional] [default to undefined]|
 |**amountUSD** | **number** |  | [optional] [default to undefined]|
-|**networkProtocol** | **string** |  | [optional] [default to undefined]|
+|**networkProtocol** | **string** | The network protocol of the token | [optional] [default to undefined]|
 |**operation** | **string** |  | [optional] [default to undefined]|
 
 

@@ -75,6 +75,7 @@ export const CollectionOwnershipResponseBlockchainDescriptorEnum = {
     EtherlinkTest: 'ETHERLINK_TEST',
     Mantle: 'MANTLE',
     MantleTest: 'MANTLE_TEST',
+    GunGunzilla: 'GUN_GUNZILLA',
     GunGunzillaTest: 'GUN_GUNZILLA_TEST',
     EthSoneium: 'ETH_SONEIUM',
     SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',

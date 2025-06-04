@@ -52,6 +52,8 @@
 
 * `MantleTest` (value: `'MANTLE_TEST'`)
 
+* `GunGunzilla` (value: `'GUN_GUNZILLA'`)
+
 * `GunGunzillaTest` (value: `'GUN_GUNZILLA_TEST'`)
 
 * `EthSoneium` (value: `'ETH_SONEIUM'`)
