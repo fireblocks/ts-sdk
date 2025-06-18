@@ -317,6 +317,7 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getProviders**](docs/apis/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details
 *StakingApi* | [**getSummary**](docs/apis/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details
 *StakingApi* | [**getSummaryByVault**](docs/apis/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
+*StakingApi* | [**mergeStakeAccounts**](docs/apis/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts
 *StakingApi* | [**split**](docs/apis/StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
 *StakingApi* | [**stake**](docs/apis/StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
 *StakingApi* | [**unstake**](docs/apis/StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
@@ -491,9 +492,9 @@ Class | Method | HTTP request | Description
  - [CollectionTokenMetadataAttributeDto](docs/models/CollectionTokenMetadataAttributeDto.md)
  - [CollectionTokenMetadataDto](docs/models/CollectionTokenMetadataDto.md)
  - [CollectionType](docs/models/CollectionType.md)
- - [ComplianceResult](docs/models/ComplianceResult.md)
  - [ComplianceResultFullPayload](docs/models/ComplianceResultFullPayload.md)
  - [ComplianceResultStatusesEnum](docs/models/ComplianceResultStatusesEnum.md)
+ - [ComplianceResults](docs/models/ComplianceResults.md)
  - [ComplianceScreeningResult](docs/models/ComplianceScreeningResult.md)
  - [ComplianceScreeningResultFullPayload](docs/models/ComplianceScreeningResultFullPayload.md)
  - [ConfigChangeRequestStatus](docs/models/ConfigChangeRequestStatus.md)
@@ -703,6 +704,8 @@ Class | Method | HTTP request | Description
  - [ListOwnedCollectionsResponse](docs/models/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/models/ListOwnedTokensResponse.md)
  - [MediaEntityResponse](docs/models/MediaEntityResponse.md)
+ - [MergeStakeAccountsRequest](docs/models/MergeStakeAccountsRequest.md)
+ - [MergeStakeAccountsResponse](docs/models/MergeStakeAccountsResponse.md)
  - [ModifySigningKeyAgentIdDto](docs/models/ModifySigningKeyAgentIdDto.md)
  - [ModifySigningKeyDto](docs/models/ModifySigningKeyDto.md)
  - [ModifyValidationKeyDto](docs/models/ModifyValidationKeyDto.md)

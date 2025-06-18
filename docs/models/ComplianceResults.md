@@ -1,4 +1,4 @@
-# ComplianceResult
+# ComplianceResults
 
 ## Properties
 
@@ -11,7 +11,7 @@
 |**amlRegistration** | [**Array&lt;AmlRegistrationResult&gt;**](AmlRegistrationResult.md) | The results of the AML address registration. | [optional] [default to undefined]|
 
 
-## Enum: ComplianceResultStatusEnum
+## Enum: ComplianceResultsStatusEnum
 
 
 * `Started` (value: `'Started'`)

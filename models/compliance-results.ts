@@ -23,42 +23,42 @@ import { ComplianceScreeningResult } from './compliance-screening-result';
 /**
  * The result of the Compliance AML/Travel Rule screening.
  * @export
- * @interface ComplianceResult
+ * @interface ComplianceResults
  */
-export interface ComplianceResult {
+export interface ComplianceResults {
     /**
      * The end result of the AML screening.
      * @type {Array<ComplianceScreeningResult>}
-     * @memberof ComplianceResult
+     * @memberof ComplianceResults
      */
     'aml'?: Array<ComplianceScreeningResult>;
     /**
      * The result of the Travel Rule screening.
      * @type {Array<ComplianceScreeningResult>}
-     * @memberof ComplianceResult
+     * @memberof ComplianceResults
      */
     'tr'?: Array<ComplianceScreeningResult>;
     /**
      * The list of all results of the AML screening.
      * @type {Array<ComplianceScreeningResult>}
-     * @memberof ComplianceResult
+     * @memberof ComplianceResults
      */
     'amlList'?: Array<ComplianceScreeningResult>;
     /**
      * Status of compliance result screening.
      * @type {string}
-     * @memberof ComplianceResult
+     * @memberof ComplianceResults
      */
-    'status'?: ComplianceResultStatusEnum;
+    'status'?: ComplianceResultsStatusEnum;
     /**
      * The results of the AML address registration.
      * @type {Array<AmlRegistrationResult>}
-     * @memberof ComplianceResult
+     * @memberof ComplianceResults
      */
     'amlRegistration'?: Array<AmlRegistrationResult>;
 }
 
-export const ComplianceResultStatusEnum = {
+export const ComplianceResultsStatusEnum = {
     Started: 'Started',
     AmlStarted: 'AMLStarted',
     AmlCompleted: 'AMLCompleted',
@@ -85,6 +85,6 @@ export const ComplianceResultStatusEnum = {
     IncomingCompleted: 'IncomingCompleted'
 } as const;
 
-export type ComplianceResultStatusEnum = typeof ComplianceResultStatusEnum[keyof typeof ComplianceResultStatusEnum];
+export type ComplianceResultsStatusEnum = typeof ComplianceResultsStatusEnum[keyof typeof ComplianceResultsStatusEnum];
 
 

@@ -38,5 +38,37 @@ export interface FeeInfo {
      * @memberof FeeInfo
      */
     'gasPrice'?: string;
+    /**
+     * Wether the fee was paid by the relay or not
+     * @type {boolean}
+     * @memberof FeeInfo
+     */
+    'paidByRelay'?: boolean;
+    /**
+     * Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY)
+     * @type {string}
+     * @memberof FeeInfo
+     */
+    'relayType'?: FeeInfoRelayTypeEnum;
+    /**
+     * The vault account ID of the relay
+     * @type {string}
+     * @memberof FeeInfo
+     */
+    'relayId'?: string;
+    /**
+     * The name of the tenant, only for THIRD_PARTY relays
+     * @type {string}
+     * @memberof FeeInfo
+     */
+    'relayName'?: string;
 }
+
+export const FeeInfoRelayTypeEnum = {
+    Local: 'LOCAL',
+    ThirdParty: 'THIRD_PARTY'
+} as const;
+
+export type FeeInfoRelayTypeEnum = typeof FeeInfoRelayTypeEnum[keyof typeof FeeInfoRelayTypeEnum];
+
 

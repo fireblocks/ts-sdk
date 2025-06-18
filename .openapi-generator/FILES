@@ -87,9 +87,9 @@ CollectionTokenMetadataAttributeDto.md
 CollectionTokenMetadataDto.md
 CollectionType.md
 ComplianceApi.md
-ComplianceResult.md
 ComplianceResultFullPayload.md
 ComplianceResultStatusesEnum.md
+ComplianceResults.md
 ComplianceScreeningConfigurationApi.md
 ComplianceScreeningResult.md
 ComplianceScreeningResultFullPayload.md
@@ -316,6 +316,8 @@ ListBlockchainsResponse.md
 ListOwnedCollectionsResponse.md
 ListOwnedTokensResponse.md
 MediaEntityResponse.md
+MergeStakeAccountsRequest.md
+MergeStakeAccountsResponse.md
 ModifySigningKeyAgentIdDto.md
 ModifySigningKeyDto.md
 ModifyValidationKeyDto.md
@@ -793,7 +795,7 @@ models/collection-token-metadata-dto.ts
 models/collection-type.ts
 models/compliance-result-full-payload.ts
 models/compliance-result-statuses-enum.ts
-models/compliance-result.ts
+models/compliance-results.ts
 models/compliance-screening-result-full-payload.ts
 models/compliance-screening-result.ts
 models/config-change-request-status.ts
@@ -1004,6 +1006,8 @@ models/list-blockchains-response.ts
 models/list-owned-collections-response.ts
 models/list-owned-tokens-response.ts
 models/media-entity-response.ts
+models/merge-stake-accounts-request.ts
+models/merge-stake-accounts-response.ts
 models/modify-signing-key-agent-id-dto.ts
 models/modify-signing-key-dto.ts
 models/modify-validation-key-dto.ts
