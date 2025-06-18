@@ -13,6 +13,7 @@ Method | HTTP request | Description
 [**getProviders**](#getProviders) | **GET** /staking/providers | List staking providers details
 [**getSummary**](#getSummary) | **GET** /staking/positions/summary | Get staking summary details
 [**getSummaryByVault**](#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
+[**mergeStakeAccounts**](#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts
 [**split**](#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
 [**stake**](#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
 [**unstake**](#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
@@ -540,6 +541,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A summary for each vault were returned successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **mergeStakeAccounts**
+> MergeStakeAccountsResponse mergeStakeAccounts(mergeStakeAccountsRequest, )
+
+Perform a Solana Merge of two active stake accounts into one.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingApiMergeStakeAccountsRequest, MergeStakeAccountsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: StakingApiMergeStakeAccountsRequest = {
+  // MergeStakeAccountsRequest
+  mergeStakeAccountsRequest: param_value,
+  // 'SOL' | 'SOL_TEST' | The protocol identifier (e.g. \"SOL\"/\"SOL_TEST\") to use
+  chainDescriptor: SOL,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.staking.mergeStakeAccounts(body).then((res: FireblocksResponse<MergeStakeAccountsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mergeStakeAccountsRequest** | **[MergeStakeAccountsRequest](../models/MergeStakeAccountsRequest.md)**|  |
+ **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39;>** | The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[MergeStakeAccountsResponse](../models/MergeStakeAccountsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Merge action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -39,6 +39,10 @@ import { DelegationSummary } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { MergeStakeAccountsRequest } from '../models';
+// @ts-ignore
+import { MergeStakeAccountsResponse } from '../models';
+// @ts-ignore
 import { SplitRequest } from '../models';
 // @ts-ignore
 import { SplitResponse } from '../models';
@@ -369,6 +373,49 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Perform a Solana Merge of two active stake accounts into one.
+         * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+         * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
+         * @param {MergeStakeAccountsChainDescriptorEnum} chainDescriptor The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        mergeStakeAccounts: async (mergeStakeAccountsRequest: MergeStakeAccountsRequest, chainDescriptor: MergeStakeAccountsChainDescriptorEnum, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('mergeStakeAccounts', 'mergeStakeAccountsRequest', mergeStakeAccountsRequest)
+            assertParamExistsAndNotEmpty('mergeStakeAccounts', 'chainDescriptor', chainDescriptor)
+            const localVarPath = `/staking/chains/{chainDescriptor}/merge`
+                .replace(`{${"chainDescriptor"}}`, encodeURIComponent(String(chainDescriptor)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(mergeStakeAccountsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Perform a Solana Split stake account.
          * @summary Execute a Split operation on SOL/SOL_TEST stake account
          * @param {SplitRequest} splitRequest 
@@ -667,6 +714,21 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Perform a Solana Merge of two active stake accounts into one.
+         * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+         * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
+         * @param {MergeStakeAccountsChainDescriptorEnum} chainDescriptor The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async mergeStakeAccounts(mergeStakeAccountsRequest: MergeStakeAccountsRequest, chainDescriptor: MergeStakeAccountsChainDescriptorEnum, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MergeStakeAccountsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.mergeStakeAccounts(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['StakingApi.mergeStakeAccounts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Perform a Solana Split stake account.
          * @summary Execute a Split operation on SOL/SOL_TEST stake account
          * @param {SplitRequest} splitRequest 
@@ -823,6 +885,16 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getSummaryByVault(options).then((request) => request(axios, basePath));
         },
         /**
+         * Perform a Solana Merge of two active stake accounts into one.
+         * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+         * @param {StakingApiMergeStakeAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        mergeStakeAccounts(requestParameters: StakingApiMergeStakeAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<MergeStakeAccountsResponse> {
+            return localVarFp.mergeStakeAccounts(requestParameters.mergeStakeAccountsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Perform a Solana Split stake account.
          * @summary Execute a Split operation on SOL/SOL_TEST stake account
          * @param {StakingApiSplitRequest} requestParameters Request parameters.
@@ -954,6 +1026,34 @@ export interface StakingApiGetDelegationByIdRequest {
      * @memberof StakingApiGetDelegationById
      */
     readonly id: string
+}
+
+/**
+ * Request parameters for mergeStakeAccounts operation in StakingApi.
+ * @export
+ * @interface StakingApiMergeStakeAccountsRequest
+ */
+export interface StakingApiMergeStakeAccountsRequest {
+    /**
+     * 
+     * @type {MergeStakeAccountsRequest}
+     * @memberof StakingApiMergeStakeAccounts
+     */
+    readonly mergeStakeAccountsRequest: MergeStakeAccountsRequest
+
+    /**
+     * The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use
+     * @type {'SOL' | 'SOL_TEST'}
+     * @memberof StakingApiMergeStakeAccounts
+     */
+    readonly chainDescriptor: MergeStakeAccountsChainDescriptorEnum
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof StakingApiMergeStakeAccounts
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -1180,6 +1280,18 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
+     * Perform a Solana Merge of two active stake accounts into one.
+     * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+     * @param {StakingApiMergeStakeAccountsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StakingApi
+     */
+    public mergeStakeAccounts(requestParameters: StakingApiMergeStakeAccountsRequest) {
+        return StakingApiFp(this.configuration).mergeStakeAccounts(requestParameters.mergeStakeAccountsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Perform a Solana Split stake account.
      * @summary Execute a Split operation on SOL/SOL_TEST stake account
      * @param {StakingApiSplitRequest} requestParameters Request parameters.
@@ -1237,6 +1349,14 @@ export const ClaimRewardsChainDescriptorEnum = {
     SolTest: 'SOL_TEST'
 } as const;
 export type ClaimRewardsChainDescriptorEnum = typeof ClaimRewardsChainDescriptorEnum[keyof typeof ClaimRewardsChainDescriptorEnum];
+/**
+ * @export
+ */
+export const MergeStakeAccountsChainDescriptorEnum = {
+    Sol: 'SOL',
+    SolTest: 'SOL_TEST'
+} as const;
+export type MergeStakeAccountsChainDescriptorEnum = typeof MergeStakeAccountsChainDescriptorEnum[keyof typeof MergeStakeAccountsChainDescriptorEnum];
 /**
  * @export
  */

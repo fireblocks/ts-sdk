@@ -27,7 +27,7 @@ import { AuthorizationInfo } from './authorization-info';
 import { BlockInfo } from './block-info';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ComplianceResult } from './compliance-result';
+import { ComplianceResults } from './compliance-results';
 // May contain unused imports in some cases
 // @ts-ignore
 import { DestinationTransferPeerPathResponse } from './destination-transfer-peer-path-response';
@@ -253,10 +253,10 @@ export interface TransactionResponse {
     'amlScreeningResult'?: AmlScreeningResult;
     /**
      * 
-     * @type {ComplianceResult}
+     * @type {ComplianceResults}
      * @memberof TransactionResponse
      */
-    'complianceResult'?: ComplianceResult;
+    'complianceResults'?: ComplianceResults;
     /**
      * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. 
      * @type {object}
