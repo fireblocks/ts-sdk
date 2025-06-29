@@ -13,7 +13,7 @@ Method | HTTP request | Description
 [**getProviders**](#getProviders) | **GET** /staking/providers | List staking providers details
 [**getSummary**](#getSummary) | **GET** /staking/positions/summary | Get staking summary details
 [**getSummaryByVault**](#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
-[**mergeStakeAccounts**](#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts
+[**mergeStakeAccounts**](#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge Solana on stake accounts
 [**split**](#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
 [**stake**](#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
 [**unstake**](#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
@@ -548,7 +548,7 @@ No authorization required
 # **mergeStakeAccounts**
 > MergeStakeAccountsResponse mergeStakeAccounts(mergeStakeAccountsRequest, )
 
-Perform a Solana Merge of two active stake accounts into one.
+Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

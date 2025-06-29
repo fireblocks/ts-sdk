@@ -44,6 +44,7 @@ export * from './api/policy-editor-beta-api';
 export * from './api/reset-device-api';
 export * from './api/smart-transfer-api';
 export * from './api/staking-api';
+export * from './api/swap-beta-api';
 export * from './api/tokenization-api';
 export * from './api/transactions-api';
 export * from './api/travel-rule-api';
