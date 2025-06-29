@@ -373,8 +373,8 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Perform a Solana Merge of two active stake accounts into one.
-         * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+         * Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Merge Solana on stake accounts
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {MergeStakeAccountsChainDescriptorEnum} chainDescriptor The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -714,8 +714,8 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Perform a Solana Merge of two active stake accounts into one.
-         * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+         * Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Merge Solana on stake accounts
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {MergeStakeAccountsChainDescriptorEnum} chainDescriptor The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -885,8 +885,8 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getSummaryByVault(options).then((request) => request(axios, basePath));
         },
         /**
-         * Perform a Solana Merge of two active stake accounts into one.
-         * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+         * Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Merge Solana on stake accounts
          * @param {StakingApiMergeStakeAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1280,8 +1280,8 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Perform a Solana Merge of two active stake accounts into one.
-     * @summary Execute a Merge operation on SOL/SOL_TEST stake accounts
+     * Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Merge Solana on stake accounts
      * @param {StakingApiMergeStakeAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

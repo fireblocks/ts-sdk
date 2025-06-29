@@ -317,11 +317,17 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getProviders**](docs/apis/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers details
 *StakingApi* | [**getSummary**](docs/apis/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get staking summary details
 *StakingApi* | [**getSummaryByVault**](docs/apis/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
-*StakingApi* | [**mergeStakeAccounts**](docs/apis/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Execute a Merge operation on SOL/SOL_TEST stake accounts
+*StakingApi* | [**mergeStakeAccounts**](docs/apis/StakingApi.md#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge Solana on stake accounts
 *StakingApi* | [**split**](docs/apis/StakingApi.md#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
 *StakingApi* | [**stake**](docs/apis/StakingApi.md#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
 *StakingApi* | [**unstake**](docs/apis/StakingApi.md#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
 *StakingApi* | [**withdraw**](docs/apis/StakingApi.md#withdraw) | **POST** /staking/chains/{chainDescriptor}/withdraw | Execute a Withdraw operation
+*SwapBetaApi* | [**approveTermsOfService**](docs/apis/SwapBetaApi.md#approveTermsOfService) | **POST** /swap/providers/{providerId}/approve_terms | Approve terms of service
+*SwapBetaApi* | [**createQuote**](docs/apis/SwapBetaApi.md#createQuote) | **POST** /swap/providers/{providerId}/quote | Create a quote
+*SwapBetaApi* | [**createSwapOperation**](docs/apis/SwapBetaApi.md#createSwapOperation) | **POST** /swap/operations | Create swap operation
+*SwapBetaApi* | [**getSwapOperationById**](docs/apis/SwapBetaApi.md#getSwapOperationById) | **GET** /swap/operations/{operationId} | Get operation details
+*SwapBetaApi* | [**getSwapOperations**](docs/apis/SwapBetaApi.md#getSwapOperations) | **GET** /swap/operations | Get Operations list
+*SwapBetaApi* | [**getSwapProviders**](docs/apis/SwapBetaApi.md#getSwapProviders) | **GET** /swap/providers | Get Providers List
 *TokenizationApi* | [**burnCollectionToken**](docs/apis/TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
 *TokenizationApi* | [**createNewCollection**](docs/apis/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**fetchCollectionTokenDetails**](docs/apis/TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
@@ -724,6 +730,8 @@ Class | Method | HTTP request | Description
  - [NetworkIdRoutingPolicyValue](docs/models/NetworkIdRoutingPolicyValue.md)
  - [NetworkRecord](docs/models/NetworkRecord.md)
  - [NewAddress](docs/models/NewAddress.md)
+ - [NonWalletQuoteFee](docs/models/NonWalletQuoteFee.md)
+ - [NonWalletQuoteResponse](docs/models/NonWalletQuoteResponse.md)
  - [NoneNetworkRoutingDest](docs/models/NoneNetworkRoutingDest.md)
  - [NotFoundException](docs/models/NotFoundException.md)
  - [Notification](docs/models/Notification.md)
@@ -783,9 +791,14 @@ Class | Method | HTTP request | Description
  - [PolicyValidation](docs/models/PolicyValidation.md)
  - [PreScreening](docs/models/PreScreening.md)
  - [Provider](docs/models/Provider.md)
+ - [ProviderAdditionalData](docs/models/ProviderAdditionalData.md)
+ - [ProviderCategoryEnum](docs/models/ProviderCategoryEnum.md)
  - [PublicKeyInformation](docs/models/PublicKeyInformation.md)
  - [PublishDraftRequest](docs/models/PublishDraftRequest.md)
  - [PublishResult](docs/models/PublishResult.md)
+ - [QuoteFee](docs/models/QuoteFee.md)
+ - [QuoteRequest](docs/models/QuoteRequest.md)
+ - [QuoteResponse](docs/models/QuoteResponse.md)
  - [ReadAbiFunction](docs/models/ReadAbiFunction.md)
  - [ReadCallFunctionDto](docs/models/ReadCallFunctionDto.md)
  - [ReadCallFunctionDtoAbiFunction](docs/models/ReadCallFunctionDtoAbiFunction.md)
@@ -894,6 +907,15 @@ Class | Method | HTTP request | Description
  - [StakingProvider](docs/models/StakingProvider.md)
  - [Status](docs/models/Status.md)
  - [StellarRippleCreateParamsDto](docs/models/StellarRippleCreateParamsDto.md)
+ - [SwapFlowError](docs/models/SwapFlowError.md)
+ - [SwapOperation](docs/models/SwapOperation.md)
+ - [SwapOperationRequest](docs/models/SwapOperationRequest.md)
+ - [SwapOperationsPaginatedResponse](docs/models/SwapOperationsPaginatedResponse.md)
+ - [SwapProvider](docs/models/SwapProvider.md)
+ - [SwapProviderProtocolsEnum](docs/models/SwapProviderProtocolsEnum.md)
+ - [SwapProvidersPaginatedResponse](docs/models/SwapProvidersPaginatedResponse.md)
+ - [SwapRequiredAction](docs/models/SwapRequiredAction.md)
+ - [SwapRequiredActionsEnum](docs/models/SwapRequiredActionsEnum.md)
  - [SystemMessageInfo](docs/models/SystemMessageInfo.md)
  - [Task](docs/models/Task.md)
  - [Tasks](docs/models/Tasks.md)
@@ -1018,6 +1040,7 @@ Class | Method | HTTP request | Description
  - [Version](docs/models/Version.md)
  - [WalletAsset](docs/models/WalletAsset.md)
  - [WalletAssetAdditionalInfo](docs/models/WalletAssetAdditionalInfo.md)
+ - [WalletQuoteResponse](docs/models/WalletQuoteResponse.md)
  - [Webhook](docs/models/Webhook.md)
  - [WebhookEvent](docs/models/WebhookEvent.md)
  - [WebhookPaginatedResponse](docs/models/WebhookPaginatedResponse.md)

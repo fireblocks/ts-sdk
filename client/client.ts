@@ -42,6 +42,7 @@ import { ApiUserApi,
          ResetDeviceApi, 
          SmartTransferApi, 
          StakingApi, 
+         SwapBetaApi, 
          TokenizationApi, 
          TransactionsApi, 
          TravelRuleApi, 
@@ -90,6 +91,7 @@ export class Fireblocks {
     private _resetDevice?: ResetDeviceApi;
     private _smartTransfer?: SmartTransferApi;
     private _staking?: StakingApi;
+    private _swapBeta?: SwapBetaApi;
     private _tokenization?: TokenizationApi;
     private _transactions?: TransactionsApi;
     private _travelRule?: TravelRuleApi;
@@ -211,6 +213,9 @@ export class Fireblocks {
     }
     get staking(): StakingApi {
         return this._staking ?? new StakingApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get swapBeta(): SwapBetaApi {
+        return this._swapBeta ?? new SwapBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get tokenization(): TokenizationApi {
         return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);
