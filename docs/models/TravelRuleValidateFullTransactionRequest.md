@@ -39,6 +39,8 @@
 
 * `OpenVasp` (value: `'OpenVASP'`)
 
+* `Gtr` (value: `'GTR'`)
+
 
 
 

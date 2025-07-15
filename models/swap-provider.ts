@@ -27,7 +27,7 @@ import { SwapProviderProtocolsEnum } from './swap-provider-protocols-enum';
  */
 export interface SwapProvider {
     /**
-     * The ID of the provider
+     * The uuid that identifies the provider
      * @type {string}
      * @memberof SwapProvider
      */

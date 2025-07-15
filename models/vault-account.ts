@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { Tag } from './tag';
+// May contain unused imports in some cases
+// @ts-ignore
 import { VaultAsset } from './vault-asset';
 
 /**
@@ -59,5 +62,11 @@ export interface VaultAccount {
      * @memberof VaultAccount
      */
     'autoFuel'?: boolean;
+    /**
+     * List of tags attached to the vault account
+     * @type {Array<Tag>}
+     * @memberof VaultAccount
+     */
+    'tags'?: Array<Tag>;
 }
 

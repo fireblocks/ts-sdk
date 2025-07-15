@@ -9,6 +9,8 @@
 
 * `Matic` (value: `'MATIC'`)
 
+* `EthTestHoodi` (value: `'ETH_TEST_HOODI'`)
+
 * `EthTest6` (value: `'ETH_TEST6'`)
 
 * `SolTest` (value: `'SOL_TEST'`)

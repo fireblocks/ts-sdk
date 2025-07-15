@@ -29,6 +29,12 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { ContractAbiResponseDto } from '../models';
 // @ts-ignore
+import { ContractDataDecodeError } from '../models';
+// @ts-ignore
+import { ContractDataDecodeRequest } from '../models';
+// @ts-ignore
+import { ContractDataDecodedResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ParameterWithValueList } from '../models';
@@ -46,6 +52,52 @@ import { WriteCallFunctionResponseDto } from '../models';
  */
 export const ContractInteractionsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Decode a function call data, error, or event log from a deployed contract by blockchain native asset id and contract address.
+         * @summary Decode a function call data, error, or event log
+         * @param {ContractDataDecodeRequest} contractDataDecodeRequest 
+         * @param {string} contractAddress The contract\&#39;s onchain address
+         * @param {string} baseAssetId The blockchain native asset identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        decodeContractData: async (contractDataDecodeRequest: ContractDataDecodeRequest, contractAddress: string, baseAssetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('decodeContractData', 'contractDataDecodeRequest', contractDataDecodeRequest)
+            assertParamExistsAndNotEmpty('decodeContractData', 'contractAddress', contractAddress)
+            assertParamExistsAndNotEmpty('decodeContractData', 'baseAssetId', baseAssetId)
+            const localVarPath = `/contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode`
+                .replace(`{${"contractAddress"}}`, encodeURIComponent(String(contractAddress)))
+                .replace(`{${"baseAssetId"}}`, encodeURIComponent(String(baseAssetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(contractDataDecodeRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Return deployed contract\'s ABI by blockchain native asset id and contract address
          * @summary Return deployed contract\'s ABI
@@ -226,6 +278,22 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
     const localVarAxiosParamCreator = ContractInteractionsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Decode a function call data, error, or event log from a deployed contract by blockchain native asset id and contract address.
+         * @summary Decode a function call data, error, or event log
+         * @param {ContractDataDecodeRequest} contractDataDecodeRequest 
+         * @param {string} contractAddress The contract\&#39;s onchain address
+         * @param {string} baseAssetId The blockchain native asset identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async decodeContractData(contractDataDecodeRequest: ContractDataDecodeRequest, contractAddress: string, baseAssetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractDataDecodedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.decodeContractData(contractDataDecodeRequest, contractAddress, baseAssetId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ContractInteractionsApi.decodeContractData']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Return deployed contract\'s ABI by blockchain native asset id and contract address
          * @summary Return deployed contract\'s ABI
          * @param {string} contractAddress The contract\&#39;s onchain address
@@ -297,6 +365,16 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
     const localVarFp = ContractInteractionsApiFp(configuration)
     return {
         /**
+         * Decode a function call data, error, or event log from a deployed contract by blockchain native asset id and contract address.
+         * @summary Decode a function call data, error, or event log
+         * @param {ContractInteractionsApiDecodeContractDataRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        decodeContractData(requestParameters: ContractInteractionsApiDecodeContractDataRequest, options?: RawAxiosRequestConfig): AxiosPromise<ContractDataDecodedResponse> {
+            return localVarFp.decodeContractData(requestParameters.contractDataDecodeRequest, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Return deployed contract\'s ABI by blockchain native asset id and contract address
          * @summary Return deployed contract\'s ABI
          * @param {ContractInteractionsApiGetDeployedContractAbiRequest} requestParameters Request parameters.
@@ -338,6 +416,41 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
         },
     };
 };
+
+/**
+ * Request parameters for decodeContractData operation in ContractInteractionsApi.
+ * @export
+ * @interface ContractInteractionsApiDecodeContractDataRequest
+ */
+export interface ContractInteractionsApiDecodeContractDataRequest {
+    /**
+     * 
+     * @type {ContractDataDecodeRequest}
+     * @memberof ContractInteractionsApiDecodeContractData
+     */
+    readonly contractDataDecodeRequest: ContractDataDecodeRequest
+
+    /**
+     * The contract\&#39;s onchain address
+     * @type {string}
+     * @memberof ContractInteractionsApiDecodeContractData
+     */
+    readonly contractAddress: string
+
+    /**
+     * The blockchain native asset identifier
+     * @type {string}
+     * @memberof ContractInteractionsApiDecodeContractData
+     */
+    readonly baseAssetId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ContractInteractionsApiDecodeContractData
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * Request parameters for getDeployedContractAbi operation in ContractInteractionsApi.
@@ -465,6 +578,18 @@ export interface ContractInteractionsApiWriteCallFunctionRequest {
  * @extends {BaseAPI}
  */
 export class ContractInteractionsApi extends BaseAPI {
+    /**
+     * Decode a function call data, error, or event log from a deployed contract by blockchain native asset id and contract address.
+     * @summary Decode a function call data, error, or event log
+     * @param {ContractInteractionsApiDecodeContractDataRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ContractInteractionsApi
+     */
+    public decodeContractData(requestParameters: ContractInteractionsApiDecodeContractDataRequest) {
+        return ContractInteractionsApiFp(this.configuration).decodeContractData(requestParameters.contractDataDecodeRequest, requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
     /**
      * Return deployed contract\'s ABI by blockchain native asset id and contract address
      * @summary Return deployed contract\'s ABI

@@ -18,6 +18,9 @@
 import { AssetMedia } from './asset-media';
 // May contain unused imports in some cases
 // @ts-ignore
+import { AssetNote } from './asset-note';
+// May contain unused imports in some cases
+// @ts-ignore
 import { AssetScope } from './asset-scope';
 
 /**
@@ -32,6 +35,12 @@ export interface AssetDetailsMetadata {
      * @memberof AssetDetailsMetadata
      */
     'scope': AssetScope;
+    /**
+     * Is asset verified by Fireblocks
+     * @type {boolean}
+     * @memberof AssetDetailsMetadata
+     */
+    'verified': boolean;
     /**
      * Is asset deprecated
      * @type {boolean}
@@ -56,6 +65,12 @@ export interface AssetDetailsMetadata {
      * @memberof AssetDetailsMetadata
      */
     'media'?: Array<AssetMedia>;
+    /**
+     * 
+     * @type {AssetNote}
+     * @memberof AssetDetailsMetadata
+     */
+    'note'?: AssetNote;
 }
 
 

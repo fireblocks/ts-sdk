@@ -42,6 +42,7 @@ ResetDeviceApi,
 SmartTransferApi, 
 StakingApi, 
 SwapBetaApi, 
+TagsApi, 
 TokenizationApi, 
 TransactionsApi, 
 TravelRuleApi, 
@@ -89,6 +90,7 @@ let mockResetDeviceApi: jest.Mock;
 let mockSmartTransferApi: jest.Mock;
 let mockStakingApi: jest.Mock;
 let mockSwapBetaApi: jest.Mock;
+let mockTagsApi: jest.Mock;
 let mockTokenizationApi: jest.Mock;
 let mockTransactionsApi: jest.Mock;
 let mockTravelRuleApi: jest.Mock;
@@ -133,6 +135,7 @@ jest.mock('../api', () => {
     mockSmartTransferApi = jest.fn();
     mockStakingApi = jest.fn();
     mockSwapBetaApi = jest.fn();
+    mockTagsApi = jest.fn();
     mockTokenizationApi = jest.fn();
     mockTransactionsApi = jest.fn();
     mockTravelRuleApi = jest.fn();
@@ -178,6 +181,7 @@ jest.mock('../api', () => {
         SmartTransferApi: mockSmartTransferApi,
         StakingApi: mockStakingApi,
         SwapBetaApi: mockSwapBetaApi,
+        TagsApi: mockTagsApi,
         TokenizationApi: mockTokenizationApi,
         TransactionsApi: mockTransactionsApi,
         TravelRuleApi: mockTravelRuleApi,
@@ -391,6 +395,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return SwapBetaApi', async () => {
             expect(fireblocks.swapBeta).toBeInstanceOf(SwapBetaApi);
             expect(mockSwapBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return TagsApi', async () => {
+            expect(fireblocks.tags).toBeInstanceOf(TagsApi);
+            expect(mockTagsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return TokenizationApi', async () => {
             expect(fireblocks.tokenization).toBeInstanceOf(TokenizationApi);

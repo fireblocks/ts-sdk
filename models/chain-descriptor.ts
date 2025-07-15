@@ -24,6 +24,7 @@ export const ChainDescriptor = {
     Eth: 'ETH',
     Sol: 'SOL',
     Matic: 'MATIC',
+    EthTestHoodi: 'ETH_TEST_HOODI',
     EthTest6: 'ETH_TEST6',
     SolTest: 'SOL_TEST'
 } as const;

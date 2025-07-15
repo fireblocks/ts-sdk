@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**listBlockchains**](#listBlockchains) | **GET** /blockchains | List blockchains
 [**registerNewAsset**](#registerNewAsset) | **POST** /assets | Register an asset
 [**setAssetPrice**](#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
+[**updateAssetUserMetadata**](#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset
 
 
 # **getAsset**
@@ -487,6 +488,74 @@ No authorization required
 **200** | Asset price has been set successfully. |  -  |
 **403** | - Tenant is not allowed to set rate. Error code: 1002.  |  -  |
 **404** | - Currency not found. Error code 1001  |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateAssetUserMetadata**
+> Asset updateAssetUserMetadata()
+
+Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, BlockchainsAssetsApiUpdateAssetUserMetadataRequest, Asset } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: BlockchainsAssetsApiUpdateAssetUserMetadataRequest = {
+  // string | The ID or legacyId of the asset
+  id: ETH,
+  // UpdateAssetUserMetadataRequest (optional)
+  updateAssetUserMetadataRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.blockchainsAssets.updateAssetUserMetadata(body).then((res: FireblocksResponse<Asset>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateAssetUserMetadataRequest** | **[UpdateAssetUserMetadataRequest](../models/UpdateAssetUserMetadataRequest.md)**|  |
+ **id** | [**string**] | The ID or legacyId of the asset | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[Asset](../models/Asset.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Updated asset user metadata |  * X-Request-ID -  <br>  |
+**404** | - Asset with specified ID or legacy ID is not found. Error code 1504  |  -  |
+**500** | Error occurred while updating asset user metadata |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
