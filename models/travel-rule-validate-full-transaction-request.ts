@@ -181,7 +181,8 @@ export interface TravelRuleValidateFullTransactionRequest {
 export const TravelRuleValidateFullTransactionRequestProtocolEnum = {
     TrLight: 'TRLight',
     Trp: 'TRP',
-    OpenVasp: 'OpenVASP'
+    OpenVasp: 'OpenVASP',
+    Gtr: 'GTR'
 } as const;
 
 export type TravelRuleValidateFullTransactionRequestProtocolEnum = typeof TravelRuleValidateFullTransactionRequestProtocolEnum[keyof typeof TravelRuleValidateFullTransactionRequestProtocolEnum];

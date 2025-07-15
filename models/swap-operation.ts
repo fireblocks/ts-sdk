@@ -45,7 +45,7 @@ export interface SwapOperation {
      */
     'accountId': string;
     /**
-     * The ID of the provider
+     * The uuid that identifies the provider
      * @type {string}
      * @memberof SwapOperation
      */

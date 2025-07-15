@@ -137,6 +137,7 @@ Class | Method | HTTP request | Description
 *BlockchainsAssetsApi* | [**listBlockchains**](docs/apis/BlockchainsAssetsApi.md#listBlockchains) | **GET** /blockchains | List blockchains
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/apis/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *BlockchainsAssetsApi* | [**setAssetPrice**](docs/apis/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
+*BlockchainsAssetsApi* | [**updateAssetUserMetadata**](docs/apis/BlockchainsAssetsApi.md#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
@@ -150,6 +151,7 @@ Class | Method | HTTP request | Description
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
 *ConsoleUserApi* | [**createConsoleUser**](docs/apis/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/apis/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
+*ContractInteractionsApi* | [**decodeContractData**](docs/apis/ContractInteractionsApi.md#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log
 *ContractInteractionsApi* | [**getDeployedContractAbi**](docs/apis/ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract\&#39;s ABI
 *ContractInteractionsApi* | [**getTransactionReceipt**](docs/apis/ContractInteractionsApi.md#getTransactionReceipt) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt | Get transaction receipt
 *ContractInteractionsApi* | [**readCallFunction**](docs/apis/ContractInteractionsApi.md#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
@@ -328,6 +330,11 @@ Class | Method | HTTP request | Description
 *SwapBetaApi* | [**getSwapOperationById**](docs/apis/SwapBetaApi.md#getSwapOperationById) | **GET** /swap/operations/{operationId} | Get operation details
 *SwapBetaApi* | [**getSwapOperations**](docs/apis/SwapBetaApi.md#getSwapOperations) | **GET** /swap/operations | Get Operations list
 *SwapBetaApi* | [**getSwapProviders**](docs/apis/SwapBetaApi.md#getSwapProviders) | **GET** /swap/providers | Get Providers List
+*TagsApi* | [**createTag**](docs/apis/TagsApi.md#createTag) | **POST** /tags | Create a tag
+*TagsApi* | [**deleteTag**](docs/apis/TagsApi.md#deleteTag) | **DELETE** /tags/{tagId} | Delete a tag
+*TagsApi* | [**getTag**](docs/apis/TagsApi.md#getTag) | **GET** /tags/{tagId} | Get a tag
+*TagsApi* | [**getTags**](docs/apis/TagsApi.md#getTags) | **GET** /tags | Get list of tags
+*TagsApi* | [**updateTag**](docs/apis/TagsApi.md#updateTag) | **PATCH** /tags/{tagId} | Update a tag
 *TokenizationApi* | [**burnCollectionToken**](docs/apis/TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
 *TokenizationApi* | [**createNewCollection**](docs/apis/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**fetchCollectionTokenDetails**](docs/apis/TokenizationApi.md#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
@@ -370,14 +377,17 @@ Class | Method | HTTP request | Description
 *UserGroupsBetaApi* | [**updateUserGroup**](docs/apis/UserGroupsBetaApi.md#updateUserGroup) | **PUT** /management/user_groups/{groupId} | Update user group
 *UsersApi* | [**getUsers**](docs/apis/UsersApi.md#getUsers) | **GET** /users | List users
 *VaultsApi* | [**activateAssetForVaultAccount**](docs/apis/VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
+*VaultsApi* | [**attachTagsToVaultAccounts**](docs/apis/VaultsApi.md#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts
 *VaultsApi* | [**createLegacyAddress**](docs/apis/VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 *VaultsApi* | [**createMultipleAccounts**](docs/apis/VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
 *VaultsApi* | [**createMultipleDepositAddresses**](docs/apis/VaultsApi.md#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 *VaultsApi* | [**createVaultAccount**](docs/apis/VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 *VaultsApi* | [**createVaultAccountAsset**](docs/apis/VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
 *VaultsApi* | [**createVaultAccountAssetAddress**](docs/apis/VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
+*VaultsApi* | [**detachTagsFromVaultAccounts**](docs/apis/VaultsApi.md#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts
 *VaultsApi* | [**getAssetWallets**](docs/apis/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
 *VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/apis/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
+*VaultsApi* | [**getCreateMultipleVaultAccountsJobStatus**](docs/apis/VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
 *VaultsApi* | [**getMaxSpendableAmount**](docs/apis/VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction.
 *VaultsApi* | [**getPagedVaultAccounts**](docs/apis/VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated)
 *VaultsApi* | [**getPublicKeyInfo**](docs/apis/VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information
@@ -460,7 +470,10 @@ Class | Method | HTTP request | Description
  - [AssetMediaAttributes](docs/models/AssetMediaAttributes.md)
  - [AssetMetadata](docs/models/AssetMetadata.md)
  - [AssetMetadataDto](docs/models/AssetMetadataDto.md)
+ - [AssetMetadataRequest](docs/models/AssetMetadataRequest.md)
  - [AssetNotFoundErrorResponse](docs/models/AssetNotFoundErrorResponse.md)
+ - [AssetNote](docs/models/AssetNote.md)
+ - [AssetNoteRequest](docs/models/AssetNoteRequest.md)
  - [AssetOnchain](docs/models/AssetOnchain.md)
  - [AssetPriceForbiddenErrorResponse](docs/models/AssetPriceForbiddenErrorResponse.md)
  - [AssetPriceNotFoundErrorResponse](docs/models/AssetPriceNotFoundErrorResponse.md)
@@ -515,6 +528,13 @@ Class | Method | HTTP request | Description
  - [ContractAbiResponseDto](docs/models/ContractAbiResponseDto.md)
  - [ContractAbiResponseDtoAbiInner](docs/models/ContractAbiResponseDtoAbiInner.md)
  - [ContractAttributes](docs/models/ContractAttributes.md)
+ - [ContractDataDecodeDataType](docs/models/ContractDataDecodeDataType.md)
+ - [ContractDataDecodeError](docs/models/ContractDataDecodeError.md)
+ - [ContractDataDecodeRequest](docs/models/ContractDataDecodeRequest.md)
+ - [ContractDataDecodeRequestData](docs/models/ContractDataDecodeRequestData.md)
+ - [ContractDataDecodeResponseParams](docs/models/ContractDataDecodeResponseParams.md)
+ - [ContractDataDecodedResponse](docs/models/ContractDataDecodedResponse.md)
+ - [ContractDataLogDataParam](docs/models/ContractDataLogDataParam.md)
  - [ContractDeployRequest](docs/models/ContractDeployRequest.md)
  - [ContractDeployResponse](docs/models/ContractDeployResponse.md)
  - [ContractDoc](docs/models/ContractDoc.md)
@@ -556,11 +576,13 @@ Class | Method | HTTP request | Description
  - [CreateMultipleAccountsRequest](docs/models/CreateMultipleAccountsRequest.md)
  - [CreateMultipleDepositAddressesJobStatus](docs/models/CreateMultipleDepositAddressesJobStatus.md)
  - [CreateMultipleDepositAddressesRequest](docs/models/CreateMultipleDepositAddressesRequest.md)
+ - [CreateMultipleVaultAccountsJobStatus](docs/models/CreateMultipleVaultAccountsJobStatus.md)
  - [CreateNcwConnectionRequest](docs/models/CreateNcwConnectionRequest.md)
  - [CreateNetworkIdRequest](docs/models/CreateNetworkIdRequest.md)
  - [CreatePayoutRequest](docs/models/CreatePayoutRequest.md)
  - [CreateSigningKeyDto](docs/models/CreateSigningKeyDto.md)
  - [CreateSigningKeyDtoProofOfOwnership](docs/models/CreateSigningKeyDtoProofOfOwnership.md)
+ - [CreateTagRequest](docs/models/CreateTagRequest.md)
  - [CreateTokenRequestDto](docs/models/CreateTokenRequestDto.md)
  - [CreateTokenRequestDtoCreateParams](docs/models/CreateTokenRequestDtoCreateParams.md)
  - [CreateTransactionResponse](docs/models/CreateTransactionResponse.md)
@@ -917,6 +939,8 @@ Class | Method | HTTP request | Description
  - [SwapRequiredAction](docs/models/SwapRequiredAction.md)
  - [SwapRequiredActionsEnum](docs/models/SwapRequiredActionsEnum.md)
  - [SystemMessageInfo](docs/models/SystemMessageInfo.md)
+ - [Tag](docs/models/Tag.md)
+ - [TagsPagedResponse](docs/models/TagsPagedResponse.md)
  - [Task](docs/models/Task.md)
  - [Tasks](docs/models/Tasks.md)
  - [TemplatesPaginatedResponse](docs/models/TemplatesPaginatedResponse.md)
@@ -1008,8 +1032,10 @@ Class | Method | HTTP request | Description
  - [UnspentInput](docs/models/UnspentInput.md)
  - [UnspentInputsResponse](docs/models/UnspentInputsResponse.md)
  - [UnstakeRequest](docs/models/UnstakeRequest.md)
+ - [UpdateAssetUserMetadataRequest](docs/models/UpdateAssetUserMetadataRequest.md)
  - [UpdateCallbackHandlerRequest](docs/models/UpdateCallbackHandlerRequest.md)
  - [UpdateCallbackHandlerResponse](docs/models/UpdateCallbackHandlerResponse.md)
+ - [UpdateTagRequest](docs/models/UpdateTagRequest.md)
  - [UpdateTokenOwnershipStatusDto](docs/models/UpdateTokenOwnershipStatusDto.md)
  - [UpdateTokensOwnershipSpamRequest](docs/models/UpdateTokensOwnershipSpamRequest.md)
  - [UpdateTokensOwnershipStatusRequest](docs/models/UpdateTokensOwnershipStatusRequest.md)
@@ -1033,6 +1059,7 @@ Class | Method | HTTP request | Description
  - [VaultAccount](docs/models/VaultAccount.md)
  - [VaultAccountsPagedResponse](docs/models/VaultAccountsPagedResponse.md)
  - [VaultAccountsPagedResponsePaging](docs/models/VaultAccountsPagedResponsePaging.md)
+ - [VaultAccountsTagAttachmentsRequest](docs/models/VaultAccountsTagAttachmentsRequest.md)
  - [VaultActionStatus](docs/models/VaultActionStatus.md)
  - [VaultAsset](docs/models/VaultAsset.md)
  - [VaultWalletAddress](docs/models/VaultWalletAddress.md)

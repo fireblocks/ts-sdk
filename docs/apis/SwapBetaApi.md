@@ -34,7 +34,7 @@ const fireblocks = new Fireblocks();
 
 let body: SwapBetaApiApproveTermsOfServiceRequest = {
   // string
-  providerId: providerId_example,
+  providerId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -99,7 +99,7 @@ let body: SwapBetaApiCreateQuoteRequest = {
   // QuoteRequest
   quoteRequest: param_value,
   // string
-  providerId: providerId_example,
+  providerId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };

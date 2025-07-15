@@ -88,7 +88,13 @@ export interface TravelRuleCreateTransactionRequest {
      * @type {string}
      * @memberof TravelRuleCreateTransactionRequest
      */
-    'protocol'?: string;
+    'protocol'?: TravelRuleCreateTransactionRequestProtocolEnum;
+    /**
+     * The target protocol for GTR (Global Travel Rule) transfers.
+     * @type {string}
+     * @memberof TravelRuleCreateTransactionRequest
+     */
+    'targetProtocol'?: string;
     /**
      * Whether to skip validation of beneficiary data.
      * @type {boolean}
@@ -150,4 +156,15 @@ export interface TravelRuleCreateTransactionRequest {
      */
     'isNonCustodial'?: boolean;
 }
+
+export const TravelRuleCreateTransactionRequestProtocolEnum = {
+    Ivms101: 'IVMS101',
+    TrLight: 'TRLight',
+    Trp: 'TRP',
+    OpenVasp: 'OpenVASP',
+    Gtr: 'GTR'
+} as const;
+
+export type TravelRuleCreateTransactionRequestProtocolEnum = typeof TravelRuleCreateTransactionRequestProtocolEnum[keyof typeof TravelRuleCreateTransactionRequestProtocolEnum];
+
 

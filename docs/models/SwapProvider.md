@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**id** | **string** | The ID of the provider | [default to undefined]|
+|**id** | **string** | The uuid that identifies the provider | [default to undefined]|
 |**name** | **string** | Name of the provider | [default to undefined]|
 |**protocols** | [**Array&lt;SwapProviderProtocolsEnum&gt;**](SwapProviderProtocolsEnum.md) | List of supported protocols. Protocols are specific per provider | [default to undefined]|
 |**category** | [**ProviderCategoryEnum**](ProviderCategoryEnum.md) |  | [default to undefined]|

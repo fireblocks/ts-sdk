@@ -5,14 +5,17 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activateAssetForVaultAccount**](#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
+[**attachTagsToVaultAccounts**](#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts
 [**createLegacyAddress**](#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 [**createMultipleAccounts**](#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
 [**createMultipleDepositAddresses**](#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 [**createVaultAccount**](#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 [**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
+[**detachTagsFromVaultAccounts**](#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts
 [**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
 [**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
+[**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
 [**getMaxSpendableAmount**](#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction.
 [**getPagedVaultAccounts**](#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated)
 [**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information
@@ -99,6 +102,68 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **attachTagsToVaultAccounts**
+> attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest)
+
+Attach one or more tags to the requested vault accounts.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiAttachTagsToVaultAccountsRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiAttachTagsToVaultAccountsRequest = {
+  // VaultAccountsTagAttachmentsRequest
+  vaultAccountsTagAttachmentsRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.attachTagsToVaultAccounts(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountsTagAttachmentsRequest** | **[VaultAccountsTagAttachmentsRequest](../models/VaultAccountsTagAttachmentsRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Tags were attached successfully |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **createLegacyAddress**
 > CreateAddressResponse createLegacyAddress()
 
@@ -171,7 +236,7 @@ No authorization required
 # **createMultipleAccounts**
 > JobCreated createMultipleAccounts(createMultipleAccountsRequest)
 
-Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
+Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -234,7 +299,7 @@ No authorization required
 # **createMultipleDepositAddresses**
 > JobCreated createMultipleDepositAddresses(createMultipleDepositAddressesRequest)
 
-Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. 
+Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -495,6 +560,68 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **detachTagsFromVaultAccounts**
+> detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest)
+
+Detach one or more tags from the requested vault account.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiDetachTagsFromVaultAccountsRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiDetachTagsFromVaultAccountsRequest = {
+  // VaultAccountsTagAttachmentsRequest
+  vaultAccountsTagAttachmentsRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.detachTagsFromVaultAccounts(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountsTagAttachmentsRequest** | **[VaultAccountsTagAttachmentsRequest](../models/VaultAccountsTagAttachmentsRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Tags were detached successfully |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getAssetWallets**
 > PaginatedAssetWalletResponse getAssetWallets()
 
@@ -572,7 +699,7 @@ No authorization required
 # **getCreateMultipleDepositAddressesJobStatus**
 > CreateMultipleDepositAddressesJobStatus getCreateMultipleDepositAddressesJobStatus()
 
-Returns the status of bulk creation of new deposit addresses job and the result or error
+Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
 
 ### Example
 
@@ -610,6 +737,66 @@ Name | Type | Description  | Notes
 ### Return type
 
 **[CreateMultipleDepositAddressesJobStatus](../models/CreateMultipleDepositAddressesJobStatus.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A Job with status |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getCreateMultipleVaultAccountsJobStatus**
+> CreateMultipleVaultAccountsJobStatus getCreateMultipleVaultAccountsJobStatus()
+
+Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest, CreateMultipleVaultAccountsJobStatus } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest = {
+  // string | The ID of the job to create addresses
+  jobId: 019681b4-107d-7243-942d-4c3c30e36fae,
+};
+
+fireblocks.vaults.getCreateMultipleVaultAccountsJobStatus(body).then((res: FireblocksResponse<CreateMultipleVaultAccountsJobStatus>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **jobId** | [**string**] | The ID of the job to create addresses | defaults to undefined
+
+
+### Return type
+
+**[CreateMultipleVaultAccountsJobStatus](../models/CreateMultipleVaultAccountsJobStatus.md)**
 
 ### Authorization
 
@@ -732,6 +919,8 @@ let body: VaultsApiGetPagedVaultAccountsRequest = {
   after: after_example,
   // number (optional)
   limit: 8.14,
+  // Array<string> | List of tag IDs to filter vault accounts. (optional)
+  tagIds: param_value,
 };
 
 fireblocks.vaults.getPagedVaultAccounts(body).then((res: FireblocksResponse<VaultAccountsPagedResponse>) => {
@@ -752,6 +941,7 @@ Name | Type | Description  | Notes
  **before** | [**string**] |  | (optional) defaults to undefined
  **after** | [**string**] |  | (optional) defaults to undefined
  **limit** | [**number**] |  | (optional) defaults to 200
+ **tagIds** | **Array&lt;string&gt;** | List of tag IDs to filter vault accounts. | (optional) defaults to undefined
 
 
 ### Return type

@@ -18,6 +18,9 @@
 import { AmlRegistrationResult } from './aml-registration-result';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ComplianceResultStatusesEnum } from './compliance-result-statuses-enum';
+// May contain unused imports in some cases
+// @ts-ignore
 import { ComplianceScreeningResult } from './compliance-screening-result';
 
 /**
@@ -27,17 +30,17 @@ import { ComplianceScreeningResult } from './compliance-screening-result';
  */
 export interface ComplianceResults {
     /**
-     * The end result of the AML screening.
-     * @type {Array<ComplianceScreeningResult>}
+     * 
+     * @type {ComplianceScreeningResult}
      * @memberof ComplianceResults
      */
-    'aml'?: Array<ComplianceScreeningResult>;
+    'aml'?: ComplianceScreeningResult;
     /**
-     * The result of the Travel Rule screening.
-     * @type {Array<ComplianceScreeningResult>}
+     * 
+     * @type {ComplianceScreeningResult}
      * @memberof ComplianceResults
      */
-    'tr'?: Array<ComplianceScreeningResult>;
+    'tr'?: ComplianceScreeningResult;
     /**
      * The list of all results of the AML screening.
      * @type {Array<ComplianceScreeningResult>}
@@ -45,46 +48,18 @@ export interface ComplianceResults {
      */
     'amlList'?: Array<ComplianceScreeningResult>;
     /**
-     * Status of compliance result screening.
-     * @type {string}
+     * 
+     * @type {ComplianceResultStatusesEnum}
      * @memberof ComplianceResults
      */
-    'status'?: ComplianceResultsStatusEnum;
+    'status'?: ComplianceResultStatusesEnum;
     /**
-     * The results of the AML address registration.
-     * @type {Array<AmlRegistrationResult>}
+     * 
+     * @type {AmlRegistrationResult}
      * @memberof ComplianceResults
      */
-    'amlRegistration'?: Array<AmlRegistrationResult>;
+    'amlRegistration'?: AmlRegistrationResult;
 }
 
-export const ComplianceResultsStatusEnum = {
-    Started: 'Started',
-    AmlStarted: 'AMLStarted',
-    AmlCompleted: 'AMLCompleted',
-    AmlFailed: 'AMLFailed',
-    AmlinBackground: 'AMLInBackground',
-    TrStarted: 'TRStarted',
-    TrCompleted: 'TRCompleted',
-    TrFailed: 'TRFailed',
-    Completed: 'Completed',
-    RegistrationStarted: 'RegistrationStarted',
-    AmlRegistrationStarted: 'AMLRegistrationStarted',
-    AmlRegistrationCompleted: 'AMLRegistrationCompleted',
-    TrUpdateStarted: 'TRUpdateStarted',
-    TrUpdateCompleted: 'TRUpdateCompleted',
-    UpdateCompleted: 'UpdateCompleted',
-    IncomingStarted: 'IncomingStarted',
-    AmlIncomingStarted: 'AMLIncomingStarted',
-    AmlIncomingCompleted: 'AMLIncomingCompleted',
-    AmlIncomingFailed: 'AMLIncomingFailed',
-    AmlIncomingInBackground: 'AMLIncomingInBackground',
-    TrIncomingStarted: 'TRIncomingStarted',
-    TrIncomingCompleted: 'TRIncomingCompleted',
-    TrIncomingFailed: 'TRIncomingFailed',
-    IncomingCompleted: 'IncomingCompleted'
-} as const;
-
-export type ComplianceResultsStatusEnum = typeof ComplianceResultsStatusEnum[keyof typeof ComplianceResultsStatusEnum];
 
 

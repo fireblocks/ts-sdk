@@ -68,6 +68,8 @@ import { RegisterNewAssetRequest } from '../models';
 import { SetAssetPriceRequest } from '../models';
 // @ts-ignore
 import { TokenInfoNotFoundErrorResponse } from '../models';
+// @ts-ignore
+import { UpdateAssetUserMetadataRequest } from '../models';
 /**
  * BlockchainsAssetsApi - axios parameter creator
  * @export
@@ -391,6 +393,48 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+         * @summary Update the user’s metadata for an asset
+         * @param {string} id The ID or legacyId of the asset
+         * @param {UpdateAssetUserMetadataRequest} [updateAssetUserMetadataRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAssetUserMetadata: async (id: string, updateAssetUserMetadataRequest?: UpdateAssetUserMetadataRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('updateAssetUserMetadata', 'id', id)
+            const localVarPath = `/assets/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAssetUserMetadataRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -508,6 +552,21 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.setAssetPrice']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+         * @summary Update the user’s metadata for an asset
+         * @param {string} id The ID or legacyId of the asset
+         * @param {UpdateAssetUserMetadataRequest} [updateAssetUserMetadataRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateAssetUserMetadata(id: string, updateAssetUserMetadataRequest?: UpdateAssetUserMetadataRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Asset>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAssetUserMetadata(id, updateAssetUserMetadataRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['BlockchainsAssetsApi.updateAssetUserMetadata']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -586,6 +645,16 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
          */
         setAssetPrice(requestParameters: BlockchainsAssetsApiSetAssetPriceRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssetPriceResponse> {
             return localVarFp.setAssetPrice(requestParameters.id, requestParameters.setAssetPriceRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+         * @summary Update the user’s metadata for an asset
+         * @param {BlockchainsAssetsApiUpdateAssetUserMetadataRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateAssetUserMetadata(requestParameters: BlockchainsAssetsApiUpdateAssetUserMetadataRequest, options?: RawAxiosRequestConfig): AxiosPromise<Asset> {
+            return localVarFp.updateAssetUserMetadata(requestParameters.id, requestParameters.updateAssetUserMetadataRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -794,6 +863,34 @@ export interface BlockchainsAssetsApiSetAssetPriceRequest {
 }
 
 /**
+ * Request parameters for updateAssetUserMetadata operation in BlockchainsAssetsApi.
+ * @export
+ * @interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest
+ */
+export interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest {
+    /**
+     * The ID or legacyId of the asset
+     * @type {string}
+     * @memberof BlockchainsAssetsApiUpdateAssetUserMetadata
+     */
+    readonly id: string
+
+    /**
+     * 
+     * @type {UpdateAssetUserMetadataRequest}
+     * @memberof BlockchainsAssetsApiUpdateAssetUserMetadata
+     */
+    readonly updateAssetUserMetadataRequest?: UpdateAssetUserMetadataRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof BlockchainsAssetsApiUpdateAssetUserMetadata
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * BlockchainsAssetsApi - object-oriented interface
  * @export
  * @class BlockchainsAssetsApi
@@ -881,6 +978,18 @@ export class BlockchainsAssetsApi extends BaseAPI {
      */
     public setAssetPrice(requestParameters: BlockchainsAssetsApiSetAssetPriceRequest) {
         return BlockchainsAssetsApiFp(this.configuration).setAssetPrice(requestParameters.id, requestParameters.setAssetPriceRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
+     * @summary Update the user’s metadata for an asset
+     * @param {BlockchainsAssetsApiUpdateAssetUserMetadataRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BlockchainsAssetsApi
+     */
+    public updateAssetUserMetadata(requestParameters: BlockchainsAssetsApiUpdateAssetUserMetadataRequest) {
+        return BlockchainsAssetsApiFp(this.configuration).updateAssetUserMetadata(requestParameters.id, requestParameters.updateAssetUserMetadataRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
