@@ -329,6 +329,7 @@ export * from './none-network-routing-dest';
 export * from './not-found-exception';
 export * from './notification';
 export * from './notification-attempt';
+export * from './notification-attempts-paginated-response';
 export * from './notification-paginated-response';
 export * from './notification-status';
 export * from './notification-with-data';

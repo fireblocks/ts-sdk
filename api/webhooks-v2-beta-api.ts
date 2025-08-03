@@ -31,6 +31,8 @@ import { CreateWebhookRequest } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { NotificationAttemptsPaginatedResponse } from '../models';
+// @ts-ignore
 import { NotificationPaginatedResponse } from '../models';
 // @ts-ignore
 import { NotificationStatus } from '../models';
@@ -153,6 +155,52 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
 
             if (includeData !== undefined) {
                 localVarQueryParameter['includeData'] = includeData;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get notification attempts by notification id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * @summary Get notification attempts
+         * @param {string} webhookId The ID of the webhook to fetch
+         * @param {string} notificationId The ID of the notification to fetch
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotificationAttempts: async (webhookId: string, notificationId: string, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getNotificationAttempts', 'webhookId', webhookId)
+            assertParamExistsAndNotEmpty('getNotificationAttempts', 'notificationId', notificationId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/{notificationId}/attempts`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
+                .replace(`{${"notificationId"}}`, encodeURIComponent(String(notificationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
             }
 
 
@@ -492,6 +540,22 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Get notification attempts by notification id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * @summary Get notification attempts
+         * @param {string} webhookId The ID of the webhook to fetch
+         * @param {string} notificationId The ID of the notification to fetch
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getNotificationAttempts(webhookId: string, notificationId: string, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationAttemptsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotificationAttempts(webhookId, notificationId, pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2BetaApi.getNotificationAttempts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Get all notifications by webhook id
          * @param {string} webhookId 
@@ -625,6 +689,16 @@ export const WebhooksV2BetaApiFactory = function (configuration?: Configuration,
             return localVarFp.getNotification(requestParameters.webhookId, requestParameters.notificationId, requestParameters.includeData, options).then((request) => request(axios, basePath));
         },
         /**
+         * Get notification attempts by notification id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * @summary Get notification attempts
+         * @param {WebhooksV2BetaApiGetNotificationAttemptsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotificationAttempts(requestParameters: WebhooksV2BetaApiGetNotificationAttemptsRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationAttemptsPaginatedResponse> {
+            return localVarFp.getNotificationAttempts(requestParameters.webhookId, requestParameters.notificationId, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Get all notifications by webhook id
          * @param {WebhooksV2BetaApiGetNotificationsRequest} requestParameters Request parameters.
@@ -748,6 +822,41 @@ export interface WebhooksV2BetaApiGetNotificationRequest {
      * @memberof WebhooksV2BetaApiGetNotification
      */
     readonly includeData?: boolean
+}
+
+/**
+ * Request parameters for getNotificationAttempts operation in WebhooksV2BetaApi.
+ * @export
+ * @interface WebhooksV2BetaApiGetNotificationAttemptsRequest
+ */
+export interface WebhooksV2BetaApiGetNotificationAttemptsRequest {
+    /**
+     * The ID of the webhook to fetch
+     * @type {string}
+     * @memberof WebhooksV2BetaApiGetNotificationAttempts
+     */
+    readonly webhookId: string
+
+    /**
+     * The ID of the notification to fetch
+     * @type {string}
+     * @memberof WebhooksV2BetaApiGetNotificationAttempts
+     */
+    readonly notificationId: string
+
+    /**
+     * Cursor of the required page
+     * @type {string}
+     * @memberof WebhooksV2BetaApiGetNotificationAttempts
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Maximum number of items in the page
+     * @type {number}
+     * @memberof WebhooksV2BetaApiGetNotificationAttempts
+     */
+    readonly pageSize?: number
 }
 
 /**
@@ -980,6 +1089,18 @@ export class WebhooksV2BetaApi extends BaseAPI {
      */
     public getNotification(requestParameters: WebhooksV2BetaApiGetNotificationRequest) {
         return WebhooksV2BetaApiFp(this.configuration).getNotification(requestParameters.webhookId, requestParameters.notificationId, requestParameters.includeData).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get notification attempts by notification id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * @summary Get notification attempts
+     * @param {WebhooksV2BetaApiGetNotificationAttemptsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2BetaApi
+     */
+    public getNotificationAttempts(requestParameters: WebhooksV2BetaApiGetNotificationAttemptsRequest) {
+        return WebhooksV2BetaApiFp(this.configuration).getNotificationAttempts(requestParameters.webhookId, requestParameters.notificationId, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

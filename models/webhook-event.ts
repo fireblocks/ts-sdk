@@ -31,14 +31,19 @@ export const WebhookEvent = {
     ContractWalletAssetAdded: 'contract_wallet.asset.added',
     ContractWalletAssetRemoved: 'contract_wallet.asset.removed',
     VaultAccountCreated: 'vault_account.created',
-    VaultAccountAssetListed: 'vault_account.asset.listed',
+    VaultAccountAssetAdded: 'vault_account.asset.added',
     VaultAccountAssetBalanceUpdated: 'vault_account.asset.balance_updated',
     EmbeddedWalletStatusUpdated: 'embedded_wallet.status.updated',
     EmbeddedWalletCreated: 'embedded_wallet.created',
     EmbeddedWalletAssetBalanceUpdated: 'embedded_wallet.asset.balance_updated',
-    EmbeddedWalletAssetListed: 'embedded_wallet.asset.listed',
+    EmbeddedWalletAssetAdded: 'embedded_wallet.asset.added',
     EmbeddedWalletAccountCreated: 'embedded_wallet.account.created',
-    EmbeddedWalletDeviceAdded: 'embedded_wallet.device.added'
+    EmbeddedWalletDeviceAdded: 'embedded_wallet.device.added',
+    OnchainDataUpdated: 'onchain_data.updated',
+    ConnectionAdded: 'connection.added',
+    ConnectionRemoved: 'connection.removed',
+    ConnectionRequestWaitingPeerApproval: 'connection.request.waiting_peer_approval',
+    ConnectionRequestRejectedByPeer: 'connection.request.rejected_by_peer'
 } as const;
 
 export type WebhookEvent = typeof WebhookEvent[keyof typeof WebhookEvent];

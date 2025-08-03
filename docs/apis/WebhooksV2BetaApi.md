@@ -7,6 +7,7 @@ Method | HTTP request | Description
 [**createWebhook**](#createWebhook) | **POST** /webhooks | Create new webhook
 [**deleteWebhook**](#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 [**getNotification**](#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
+[**getNotificationAttempts**](#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 [**getNotifications**](#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
 [**getWebhook**](#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 [**getWebhooks**](#getWebhooks) | **GET** /webhooks | Get all webhooks
@@ -185,6 +186,75 @@ Name | Type | Description  | Notes
 ### Return type
 
 **[NotificationWithData](../models/NotificationWithData.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getNotificationAttempts**
+> NotificationAttemptsPaginatedResponse getNotificationAttempts()
+
+Get notification attempts by notification id **Note:** These endpoints are currently in beta and might be subject to changes. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2BetaApiGetNotificationAttemptsRequest, NotificationAttemptsPaginatedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2BetaApiGetNotificationAttemptsRequest = {
+  // string | The ID of the webhook to fetch
+  webhookId: webhookId_example,
+  // string | The ID of the notification to fetch
+  notificationId: notificationId_example,
+  // string | Cursor of the required page (optional)
+  pageCursor: pageCursor_example,
+  // number | Maximum number of items in the page (optional)
+  pageSize: 10,
+};
+
+fireblocks.webhooksV2Beta.getNotificationAttempts(body).then((res: FireblocksResponse<NotificationAttemptsPaginatedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookId** | [**string**] | The ID of the webhook to fetch | defaults to undefined
+ **notificationId** | [**string**] | The ID of the notification to fetch | defaults to undefined
+ **pageCursor** | [**string**] | Cursor of the required page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Maximum number of items in the page | (optional) defaults to 10
+
+
+### Return type
+
+**[NotificationAttemptsPaginatedResponse](../models/NotificationAttemptsPaginatedResponse.md)**
 
 ### Authorization
 

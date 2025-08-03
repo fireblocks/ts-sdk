@@ -415,6 +415,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2BetaApi* | [**createWebhook**](docs/apis/WebhooksV2BetaApi.md#createWebhook) | **POST** /webhooks | Create new webhook
 *WebhooksV2BetaApi* | [**deleteWebhook**](docs/apis/WebhooksV2BetaApi.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 *WebhooksV2BetaApi* | [**getNotification**](docs/apis/WebhooksV2BetaApi.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
+*WebhooksV2BetaApi* | [**getNotificationAttempts**](docs/apis/WebhooksV2BetaApi.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 *WebhooksV2BetaApi* | [**getNotifications**](docs/apis/WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
 *WebhooksV2BetaApi* | [**getWebhook**](docs/apis/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2BetaApi* | [**getWebhooks**](docs/apis/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
@@ -758,6 +759,7 @@ Class | Method | HTTP request | Description
  - [NotFoundException](docs/models/NotFoundException.md)
  - [Notification](docs/models/Notification.md)
  - [NotificationAttempt](docs/models/NotificationAttempt.md)
+ - [NotificationAttemptsPaginatedResponse](docs/models/NotificationAttemptsPaginatedResponse.md)
  - [NotificationPaginatedResponse](docs/models/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/models/NotificationStatus.md)
  - [NotificationWithData](docs/models/NotificationWithData.md)

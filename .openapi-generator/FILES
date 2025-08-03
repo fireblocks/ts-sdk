@@ -356,6 +356,7 @@ NoneNetworkRoutingDest.md
 NotFoundException.md
 Notification.md
 NotificationAttempt.md
+NotificationAttemptsPaginatedResponse.md
 NotificationPaginatedResponse.md
 NotificationStatus.md
 NotificationWithData.md
@@ -1081,6 +1082,7 @@ models/non-wallet-quote-response.ts
 models/none-network-routing-dest.ts
 models/not-found-exception.ts
 models/notification-attempt.ts
+models/notification-attempts-paginated-response.ts
 models/notification-paginated-response.ts
 models/notification-status.ts
 models/notification-with-data.ts
