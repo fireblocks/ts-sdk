@@ -31,11 +31,17 @@ import { CreateWebhookRequest } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { NotificationAttemptsPaginatedResponse } from '../models';
+// @ts-ignore
 import { NotificationPaginatedResponse } from '../models';
 // @ts-ignore
-import { NotificationStatus } from '../models';
-// @ts-ignore
 import { NotificationWithData } from '../models';
+// @ts-ignore
+import { ResendFailedNotificationsJobStatusResponse } from '../models';
+// @ts-ignore
+import { ResendFailedNotificationsRequest } from '../models';
+// @ts-ignore
+import { ResendFailedNotificationsResponse } from '../models';
 // @ts-ignore
 import { ResendNotificationsByResourceIdRequest } from '../models';
 // @ts-ignore
@@ -43,17 +49,15 @@ import { UpdateWebhookRequest } from '../models';
 // @ts-ignore
 import { Webhook } from '../models';
 // @ts-ignore
-import { WebhookEvent } from '../models';
-// @ts-ignore
 import { WebhookPaginatedResponse } from '../models';
 /**
- * WebhooksV2BetaApi - axios parameter creator
+ * WebhooksV2Api - axios parameter creator
  * @export
  */
-export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Creates a new webhook, which will be triggered on the specified events **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Creates a new webhook, which will be triggered on the specified events  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Create new webhook
          * @param {CreateWebhookRequest} createWebhookRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -93,7 +97,7 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Delete a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {string} webhookId The unique identifier of the webhook
          * @param {*} [options] Override http request option.
@@ -126,7 +130,7 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Get notification by id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get notification by id 
          * @summary Get notification by id
          * @param {string} webhookId The ID of the webhook to fetch
          * @param {string} notificationId The ID of the notification to fetch
@@ -167,21 +171,63 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
-         * @summary Get all notifications by webhook id
-         * @param {string} webhookId 
-         * @param {GetNotificationsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * Get notification attempts by notification id 
+         * @summary Get notification attempts
+         * @param {string} webhookId The ID of the webhook to fetch
+         * @param {string} notificationId The ID of the notification to fetch
          * @param {string} [pageCursor] Cursor of the required page
          * @param {number} [pageSize] Maximum number of items in the page
-         * @param {string} [createdStartDate] sort by start date
-         * @param {string} [createdEndDate] sort by end date
-         * @param {Array<NotificationStatus>} [statuses] Filter by Notification statues
-         * @param {Array<WebhookEvent>} [eventTypes] Filter by Notification eventTypes
-         * @param {string} [resourceId] Filter by resourceId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications: async (webhookId: string, order?: GetNotificationsOrderEnum, pageCursor?: string, pageSize?: number, createdStartDate?: string, createdEndDate?: string, statuses?: Array<NotificationStatus>, eventTypes?: Array<WebhookEvent>, resourceId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNotificationAttempts: async (webhookId: string, notificationId: string, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getNotificationAttempts', 'webhookId', webhookId)
+            assertParamExistsAndNotEmpty('getNotificationAttempts', 'notificationId', notificationId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/{notificationId}/attempts`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
+                .replace(`{${"notificationId"}}`, encodeURIComponent(String(notificationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all notifications by webhook id (paginated) 
+         * @summary Get all notifications by webhook id
+         * @param {string} webhookId 
+         * @param {GetNotificationsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {GetNotificationsSortByEnum} [sortBy] Sort by field
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getNotifications: async (webhookId: string, order?: GetNotificationsOrderEnum, sortBy?: GetNotificationsSortByEnum, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getNotifications', 'webhookId', webhookId)
             const localVarPath = `/webhooks/{webhookId}/notifications`
                 .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)));
@@ -200,32 +246,16 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
                 localVarQueryParameter['order'] = order;
             }
 
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
             if (pageCursor !== undefined) {
                 localVarQueryParameter['pageCursor'] = pageCursor;
             }
 
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (createdStartDate !== undefined) {
-                localVarQueryParameter['createdStartDate'] = createdStartDate;
-            }
-
-            if (createdEndDate !== undefined) {
-                localVarQueryParameter['createdEndDate'] = createdEndDate;
-            }
-
-            if (statuses) {
-                localVarQueryParameter['statuses'] = statuses;
-            }
-
-            if (eventTypes) {
-                localVarQueryParameter['eventTypes'] = eventTypes;
-            }
-
-            if (resourceId !== undefined) {
-                localVarQueryParameter['resourceId'] = resourceId;
             }
 
 
@@ -240,7 +270,43 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Retrieve a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get the status of a resend job 
+         * @summary Get resend job status
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} jobId The ID of the resend job
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResendJobStatus: async (webhookId: string, jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getResendJobStatus', 'webhookId', webhookId)
+            assertParamExistsAndNotEmpty('getResendJobStatus', 'jobId', jobId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId}`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
+                .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieve a webhook by its id 
          * @summary Get webhook by id
          * @param {string} webhookId The unique identifier of the webhook
          * @param {*} [options] Override http request option.
@@ -273,7 +339,7 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Get all webhooks (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get all webhooks (paginated) 
          * @summary Get all webhooks
          * @param {GetWebhooksOrderEnum} [order] ASC / DESC ordering (default DESC)
          * @param {string} [pageCursor] Cursor of the required page
@@ -318,7 +384,50 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Resend notification by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * @summary Resend failed notifications
+         * @param {ResendFailedNotificationsRequest} resendFailedNotificationsRequest 
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendFailedNotifications: async (resendFailedNotificationsRequest: ResendFailedNotificationsRequest, webhookId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('resendFailedNotifications', 'resendFailedNotificationsRequest', resendFailedNotificationsRequest)
+            assertParamExistsAndNotEmpty('resendFailedNotifications', 'webhookId', webhookId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/resend_failed`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resendFailedNotificationsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Resend notification by id
          * @param {string} webhookId The ID of the webhook
          * @param {string} notificationId The ID of the notification
@@ -359,7 +468,7 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Resend notifications by resource Id
          * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
          * @param {string} webhookId The ID of the webhook
@@ -402,7 +511,7 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Update webhook
          * @param {UpdateWebhookRequest} updateWebhookRequest 
          * @param {string} webhookId The unique identifier of the webhook
@@ -443,14 +552,14 @@ export const WebhooksV2BetaApiAxiosParamCreator = function (configuration?: Conf
 };
 
 /**
- * WebhooksV2BetaApi - functional programming interface
+ * WebhooksV2Api - functional programming interface
  * @export
  */
-export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = WebhooksV2BetaApiAxiosParamCreator(configuration)
+export const WebhooksV2ApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = WebhooksV2ApiAxiosParamCreator(configuration)
     return {
         /**
-         * Creates a new webhook, which will be triggered on the specified events **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Creates a new webhook, which will be triggered on the specified events  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Create new webhook
          * @param {CreateWebhookRequest} createWebhookRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -460,11 +569,11 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async createWebhook(createWebhookRequest: CreateWebhookRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhook(createWebhookRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.createWebhook']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.createWebhook']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Delete a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {string} webhookId The unique identifier of the webhook
          * @param {*} [options] Override http request option.
@@ -473,11 +582,11 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async deleteWebhook(webhookId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(webhookId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.deleteWebhook']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhook']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get notification by id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get notification by id 
          * @summary Get notification by id
          * @param {string} webhookId The ID of the webhook to fetch
          * @param {string} notificationId The ID of the notification to fetch
@@ -488,32 +597,58 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async getNotification(webhookId: string, notificationId: string, includeData?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationWithData>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getNotification(webhookId, notificationId, includeData, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.getNotification']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getNotification']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
-         * @summary Get all notifications by webhook id
-         * @param {string} webhookId 
-         * @param {GetNotificationsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * Get notification attempts by notification id 
+         * @summary Get notification attempts
+         * @param {string} webhookId The ID of the webhook to fetch
+         * @param {string} notificationId The ID of the notification to fetch
          * @param {string} [pageCursor] Cursor of the required page
          * @param {number} [pageSize] Maximum number of items in the page
-         * @param {string} [createdStartDate] sort by start date
-         * @param {string} [createdEndDate] sort by end date
-         * @param {Array<NotificationStatus>} [statuses] Filter by Notification statues
-         * @param {Array<WebhookEvent>} [eventTypes] Filter by Notification eventTypes
-         * @param {string} [resourceId] Filter by resourceId
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNotifications(webhookId: string, order?: GetNotificationsOrderEnum, pageCursor?: string, pageSize?: number, createdStartDate?: string, createdEndDate?: string, statuses?: Array<NotificationStatus>, eventTypes?: Array<WebhookEvent>, resourceId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationPaginatedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(webhookId, order, pageCursor, pageSize, createdStartDate, createdEndDate, statuses, eventTypes, resourceId, options);
+        async getNotificationAttempts(webhookId: string, notificationId: string, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationAttemptsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotificationAttempts(webhookId, notificationId, pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.getNotifications']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getNotificationAttempts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get all notifications by webhook id (paginated) 
+         * @summary Get all notifications by webhook id
+         * @param {string} webhookId 
+         * @param {GetNotificationsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {GetNotificationsSortByEnum} [sortBy] Sort by field
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getNotifications(webhookId: string, order?: GetNotificationsOrderEnum, sortBy?: GetNotificationsSortByEnum, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(webhookId, order, sortBy, pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getNotifications']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get the status of a resend job 
+         * @summary Get resend job status
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} jobId The ID of the resend job
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getResendJobStatus(webhookId: string, jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendFailedNotificationsJobStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResendJobStatus(webhookId, jobId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getResendJobStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Retrieve a webhook by its id 
          * @summary Get webhook by id
          * @param {string} webhookId The unique identifier of the webhook
          * @param {*} [options] Override http request option.
@@ -522,11 +657,11 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async getWebhook(webhookId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhook(webhookId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.getWebhook']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhook']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get all webhooks (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get all webhooks (paginated) 
          * @summary Get all webhooks
          * @param {GetWebhooksOrderEnum} [order] ASC / DESC ordering (default DESC)
          * @param {string} [pageCursor] Cursor of the required page
@@ -537,11 +672,26 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async getWebhooks(order?: GetWebhooksOrderEnum, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookPaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhooks(order, pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.getWebhooks']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhooks']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resend notification by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * @summary Resend failed notifications
+         * @param {ResendFailedNotificationsRequest} resendFailedNotificationsRequest 
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resendFailedNotifications(resendFailedNotificationsRequest: ResendFailedNotificationsRequest, webhookId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendFailedNotificationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendFailedNotifications(resendFailedNotificationsRequest, webhookId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.resendFailedNotifications']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Resend notification by id
          * @param {string} webhookId The ID of the webhook
          * @param {string} notificationId The ID of the notification
@@ -552,11 +702,11 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async resendNotificationById(webhookId: string, notificationId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendNotificationById(webhookId, notificationId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.resendNotificationById']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.resendNotificationById']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Resend notifications by resource Id
          * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
          * @param {string} webhookId The ID of the webhook
@@ -567,11 +717,11 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async resendNotificationsByResourceId(resendNotificationsByResourceIdRequest: ResendNotificationsByResourceIdRequest, webhookId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendNotificationsByResourceId(resendNotificationsByResourceIdRequest, webhookId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.resendNotificationsByResourceId']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.resendNotificationsByResourceId']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Update webhook
          * @param {UpdateWebhookRequest} updateWebhookRequest 
          * @param {string} webhookId The unique identifier of the webhook
@@ -581,477 +731,599 @@ export const WebhooksV2BetaApiFp = function(configuration?: Configuration) {
         async updateWebhook(updateWebhookRequest: UpdateWebhookRequest, webhookId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Webhook>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhook(updateWebhookRequest, webhookId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['WebhooksV2BetaApi.updateWebhook']?.[index]?.url;
+            const operationBasePath = operationServerMap['WebhooksV2Api.updateWebhook']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * WebhooksV2BetaApi - factory interface
+ * WebhooksV2Api - factory interface
  * @export
  */
-export const WebhooksV2BetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = WebhooksV2BetaApiFp(configuration)
+export const WebhooksV2ApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = WebhooksV2ApiFp(configuration)
     return {
         /**
-         * Creates a new webhook, which will be triggered on the specified events **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Creates a new webhook, which will be triggered on the specified events  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Create new webhook
-         * @param {WebhooksV2BetaApiCreateWebhookRequest} requestParameters Request parameters.
+         * @param {WebhooksV2ApiCreateWebhookRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createWebhook(requestParameters: WebhooksV2BetaApiCreateWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+        createWebhook(requestParameters: WebhooksV2ApiCreateWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
-         * @param {WebhooksV2BetaApiDeleteWebhookRequest} requestParameters Request parameters.
+         * @param {WebhooksV2ApiDeleteWebhookRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteWebhook(requestParameters: WebhooksV2BetaApiDeleteWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+        deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.deleteWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get notification by id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get notification by id 
          * @summary Get notification by id
-         * @param {WebhooksV2BetaApiGetNotificationRequest} requestParameters Request parameters.
+         * @param {WebhooksV2ApiGetNotificationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotification(requestParameters: WebhooksV2BetaApiGetNotificationRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationWithData> {
+        getNotification(requestParameters: WebhooksV2ApiGetNotificationRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationWithData> {
             return localVarFp.getNotification(requestParameters.webhookId, requestParameters.notificationId, requestParameters.includeData, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
-         * @summary Get all notifications by webhook id
-         * @param {WebhooksV2BetaApiGetNotificationsRequest} requestParameters Request parameters.
+         * Get notification attempts by notification id 
+         * @summary Get notification attempts
+         * @param {WebhooksV2ApiGetNotificationAttemptsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications(requestParameters: WebhooksV2BetaApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationPaginatedResponse> {
-            return localVarFp.getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.createdStartDate, requestParameters.createdEndDate, requestParameters.statuses, requestParameters.eventTypes, requestParameters.resourceId, options).then((request) => request(axios, basePath));
+        getNotificationAttempts(requestParameters: WebhooksV2ApiGetNotificationAttemptsRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationAttemptsPaginatedResponse> {
+            return localVarFp.getNotificationAttempts(requestParameters.webhookId, requestParameters.notificationId, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
-         * @summary Get webhook by id
-         * @param {WebhooksV2BetaApiGetWebhookRequest} requestParameters Request parameters.
+         * Get all notifications by webhook id (paginated) 
+         * @summary Get all notifications by webhook id
+         * @param {WebhooksV2ApiGetNotificationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWebhook(requestParameters: WebhooksV2BetaApiGetWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+        getNotifications(requestParameters: WebhooksV2ApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationPaginatedResponse> {
+            return localVarFp.getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get the status of a resend job 
+         * @summary Get resend job status
+         * @param {WebhooksV2ApiGetResendJobStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResendJobStatus(requestParameters: WebhooksV2ApiGetResendJobStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResendFailedNotificationsJobStatusResponse> {
+            return localVarFp.getResendJobStatus(requestParameters.webhookId, requestParameters.jobId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieve a webhook by its id 
+         * @summary Get webhook by id
+         * @param {WebhooksV2ApiGetWebhookRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhook(requestParameters: WebhooksV2ApiGetWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.getWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all webhooks (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Get all webhooks (paginated) 
          * @summary Get all webhooks
-         * @param {WebhooksV2BetaApiGetWebhooksRequest} requestParameters Request parameters.
+         * @param {WebhooksV2ApiGetWebhooksRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getWebhooks(requestParameters: WebhooksV2BetaApiGetWebhooksRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<WebhookPaginatedResponse> {
+        getWebhooks(requestParameters: WebhooksV2ApiGetWebhooksRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<WebhookPaginatedResponse> {
             return localVarFp.getWebhooks(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resend notification by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
-         * @summary Resend notification by id
-         * @param {WebhooksV2BetaApiResendNotificationByIdRequest} requestParameters Request parameters.
+         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * @summary Resend failed notifications
+         * @param {WebhooksV2ApiResendFailedNotificationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendNotificationById(requestParameters: WebhooksV2BetaApiResendNotificationByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        resendFailedNotifications(requestParameters: WebhooksV2ApiResendFailedNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResendFailedNotificationsResponse> {
+            return localVarFp.resendFailedNotifications(requestParameters.resendFailedNotificationsRequest, requestParameters.webhookId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * @summary Resend notification by id
+         * @param {WebhooksV2ApiResendNotificationByIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendNotificationById(requestParameters: WebhooksV2ApiResendNotificationByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Resend notifications by resource Id
-         * @param {WebhooksV2BetaApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
+         * @param {WebhooksV2ApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        resendNotificationsByResourceId(requestParameters: WebhooksV2BetaApiResendNotificationsByResourceIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        resendNotificationsByResourceId(requestParameters: WebhooksV2ApiResendNotificationsByResourceIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.resendNotificationsByResourceId(requestParameters.resendNotificationsByResourceIdRequest, requestParameters.webhookId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Update webhook
-         * @param {WebhooksV2BetaApiUpdateWebhookRequest} requestParameters Request parameters.
+         * @param {WebhooksV2ApiUpdateWebhookRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateWebhook(requestParameters: WebhooksV2BetaApiUpdateWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
+        updateWebhook(requestParameters: WebhooksV2ApiUpdateWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for createWebhook operation in WebhooksV2BetaApi.
+ * Request parameters for createWebhook operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiCreateWebhookRequest
+ * @interface WebhooksV2ApiCreateWebhookRequest
  */
-export interface WebhooksV2BetaApiCreateWebhookRequest {
+export interface WebhooksV2ApiCreateWebhookRequest {
     /**
      * 
      * @type {CreateWebhookRequest}
-     * @memberof WebhooksV2BetaApiCreateWebhook
+     * @memberof WebhooksV2ApiCreateWebhook
      */
     readonly createWebhookRequest: CreateWebhookRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof WebhooksV2BetaApiCreateWebhook
+     * @memberof WebhooksV2ApiCreateWebhook
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for deleteWebhook operation in WebhooksV2BetaApi.
+ * Request parameters for deleteWebhook operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiDeleteWebhookRequest
+ * @interface WebhooksV2ApiDeleteWebhookRequest
  */
-export interface WebhooksV2BetaApiDeleteWebhookRequest {
+export interface WebhooksV2ApiDeleteWebhookRequest {
     /**
      * The unique identifier of the webhook
      * @type {string}
-     * @memberof WebhooksV2BetaApiDeleteWebhook
+     * @memberof WebhooksV2ApiDeleteWebhook
      */
     readonly webhookId: string
 }
 
 /**
- * Request parameters for getNotification operation in WebhooksV2BetaApi.
+ * Request parameters for getNotification operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiGetNotificationRequest
+ * @interface WebhooksV2ApiGetNotificationRequest
  */
-export interface WebhooksV2BetaApiGetNotificationRequest {
+export interface WebhooksV2ApiGetNotificationRequest {
     /**
      * The ID of the webhook to fetch
      * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotification
+     * @memberof WebhooksV2ApiGetNotification
      */
     readonly webhookId: string
 
     /**
      * The ID of the notification to fetch
      * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotification
+     * @memberof WebhooksV2ApiGetNotification
      */
     readonly notificationId: string
 
     /**
      * Include the data of the notification
      * @type {boolean}
-     * @memberof WebhooksV2BetaApiGetNotification
+     * @memberof WebhooksV2ApiGetNotification
      */
     readonly includeData?: boolean
 }
 
 /**
- * Request parameters for getNotifications operation in WebhooksV2BetaApi.
+ * Request parameters for getNotificationAttempts operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiGetNotificationsRequest
+ * @interface WebhooksV2ApiGetNotificationAttemptsRequest
  */
-export interface WebhooksV2BetaApiGetNotificationsRequest {
+export interface WebhooksV2ApiGetNotificationAttemptsRequest {
     /**
-     * 
+     * The ID of the webhook to fetch
      * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotifications
+     * @memberof WebhooksV2ApiGetNotificationAttempts
      */
     readonly webhookId: string
 
     /**
-     * ASC / DESC ordering (default DESC)
-     * @type {'ASC' | 'DESC'}
-     * @memberof WebhooksV2BetaApiGetNotifications
+     * The ID of the notification to fetch
+     * @type {string}
+     * @memberof WebhooksV2ApiGetNotificationAttempts
      */
-    readonly order?: GetNotificationsOrderEnum
+    readonly notificationId: string
 
     /**
      * Cursor of the required page
      * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotifications
+     * @memberof WebhooksV2ApiGetNotificationAttempts
      */
     readonly pageCursor?: string
 
     /**
      * Maximum number of items in the page
      * @type {number}
-     * @memberof WebhooksV2BetaApiGetNotifications
+     * @memberof WebhooksV2ApiGetNotificationAttempts
      */
     readonly pageSize?: number
-
-    /**
-     * sort by start date
-     * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotifications
-     */
-    readonly createdStartDate?: string
-
-    /**
-     * sort by end date
-     * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotifications
-     */
-    readonly createdEndDate?: string
-
-    /**
-     * Filter by Notification statues
-     * @type {Array<NotificationStatus>}
-     * @memberof WebhooksV2BetaApiGetNotifications
-     */
-    readonly statuses?: Array<NotificationStatus>
-
-    /**
-     * Filter by Notification eventTypes
-     * @type {Array<WebhookEvent>}
-     * @memberof WebhooksV2BetaApiGetNotifications
-     */
-    readonly eventTypes?: Array<WebhookEvent>
-
-    /**
-     * Filter by resourceId
-     * @type {string}
-     * @memberof WebhooksV2BetaApiGetNotifications
-     */
-    readonly resourceId?: string
 }
 
 /**
- * Request parameters for getWebhook operation in WebhooksV2BetaApi.
+ * Request parameters for getNotifications operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiGetWebhookRequest
+ * @interface WebhooksV2ApiGetNotificationsRequest
  */
-export interface WebhooksV2BetaApiGetWebhookRequest {
+export interface WebhooksV2ApiGetNotificationsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly webhookId: string
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly order?: GetNotificationsOrderEnum
+
+    /**
+     * Sort by field
+     * @type {'id' | 'createdAt' | 'updatedAt' | 'status' | 'eventType' | 'resourceId'}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly sortBy?: GetNotificationsSortByEnum
+
+    /**
+     * Cursor of the required page
+     * @type {string}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Maximum number of items in the page
+     * @type {number}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly pageSize?: number
+}
+
+/**
+ * Request parameters for getResendJobStatus operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetResendJobStatusRequest
+ */
+export interface WebhooksV2ApiGetResendJobStatusRequest {
+    /**
+     * The ID of the webhook
+     * @type {string}
+     * @memberof WebhooksV2ApiGetResendJobStatus
+     */
+    readonly webhookId: string
+
+    /**
+     * The ID of the resend job
+     * @type {string}
+     * @memberof WebhooksV2ApiGetResendJobStatus
+     */
+    readonly jobId: string
+}
+
+/**
+ * Request parameters for getWebhook operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetWebhookRequest
+ */
+export interface WebhooksV2ApiGetWebhookRequest {
     /**
      * The unique identifier of the webhook
      * @type {string}
-     * @memberof WebhooksV2BetaApiGetWebhook
+     * @memberof WebhooksV2ApiGetWebhook
      */
     readonly webhookId: string
 }
 
 /**
- * Request parameters for getWebhooks operation in WebhooksV2BetaApi.
+ * Request parameters for getWebhooks operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiGetWebhooksRequest
+ * @interface WebhooksV2ApiGetWebhooksRequest
  */
-export interface WebhooksV2BetaApiGetWebhooksRequest {
+export interface WebhooksV2ApiGetWebhooksRequest {
     /**
      * ASC / DESC ordering (default DESC)
      * @type {'ASC' | 'DESC'}
-     * @memberof WebhooksV2BetaApiGetWebhooks
+     * @memberof WebhooksV2ApiGetWebhooks
      */
     readonly order?: GetWebhooksOrderEnum
 
     /**
      * Cursor of the required page
      * @type {string}
-     * @memberof WebhooksV2BetaApiGetWebhooks
+     * @memberof WebhooksV2ApiGetWebhooks
      */
     readonly pageCursor?: string
 
     /**
      * Maximum number of items in the page
      * @type {number}
-     * @memberof WebhooksV2BetaApiGetWebhooks
+     * @memberof WebhooksV2ApiGetWebhooks
      */
     readonly pageSize?: number
 }
 
 /**
- * Request parameters for resendNotificationById operation in WebhooksV2BetaApi.
+ * Request parameters for resendFailedNotifications operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiResendNotificationByIdRequest
+ * @interface WebhooksV2ApiResendFailedNotificationsRequest
  */
-export interface WebhooksV2BetaApiResendNotificationByIdRequest {
+export interface WebhooksV2ApiResendFailedNotificationsRequest {
+    /**
+     * 
+     * @type {ResendFailedNotificationsRequest}
+     * @memberof WebhooksV2ApiResendFailedNotifications
+     */
+    readonly resendFailedNotificationsRequest: ResendFailedNotificationsRequest
+
     /**
      * The ID of the webhook
      * @type {string}
-     * @memberof WebhooksV2BetaApiResendNotificationById
+     * @memberof WebhooksV2ApiResendFailedNotifications
+     */
+    readonly webhookId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiResendFailedNotifications
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for resendNotificationById operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiResendNotificationByIdRequest
+ */
+export interface WebhooksV2ApiResendNotificationByIdRequest {
+    /**
+     * The ID of the webhook
+     * @type {string}
+     * @memberof WebhooksV2ApiResendNotificationById
      */
     readonly webhookId: string
 
     /**
      * The ID of the notification
      * @type {string}
-     * @memberof WebhooksV2BetaApiResendNotificationById
+     * @memberof WebhooksV2ApiResendNotificationById
      */
     readonly notificationId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof WebhooksV2BetaApiResendNotificationById
+     * @memberof WebhooksV2ApiResendNotificationById
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for resendNotificationsByResourceId operation in WebhooksV2BetaApi.
+ * Request parameters for resendNotificationsByResourceId operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiResendNotificationsByResourceIdRequest
+ * @interface WebhooksV2ApiResendNotificationsByResourceIdRequest
  */
-export interface WebhooksV2BetaApiResendNotificationsByResourceIdRequest {
+export interface WebhooksV2ApiResendNotificationsByResourceIdRequest {
     /**
      * 
      * @type {ResendNotificationsByResourceIdRequest}
-     * @memberof WebhooksV2BetaApiResendNotificationsByResourceId
+     * @memberof WebhooksV2ApiResendNotificationsByResourceId
      */
     readonly resendNotificationsByResourceIdRequest: ResendNotificationsByResourceIdRequest
 
     /**
      * The ID of the webhook
      * @type {string}
-     * @memberof WebhooksV2BetaApiResendNotificationsByResourceId
+     * @memberof WebhooksV2ApiResendNotificationsByResourceId
      */
     readonly webhookId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof WebhooksV2BetaApiResendNotificationsByResourceId
+     * @memberof WebhooksV2ApiResendNotificationsByResourceId
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for updateWebhook operation in WebhooksV2BetaApi.
+ * Request parameters for updateWebhook operation in WebhooksV2Api.
  * @export
- * @interface WebhooksV2BetaApiUpdateWebhookRequest
+ * @interface WebhooksV2ApiUpdateWebhookRequest
  */
-export interface WebhooksV2BetaApiUpdateWebhookRequest {
+export interface WebhooksV2ApiUpdateWebhookRequest {
     /**
      * 
      * @type {UpdateWebhookRequest}
-     * @memberof WebhooksV2BetaApiUpdateWebhook
+     * @memberof WebhooksV2ApiUpdateWebhook
      */
     readonly updateWebhookRequest: UpdateWebhookRequest
 
     /**
      * The unique identifier of the webhook
      * @type {string}
-     * @memberof WebhooksV2BetaApiUpdateWebhook
+     * @memberof WebhooksV2ApiUpdateWebhook
      */
     readonly webhookId: string
 }
 
 /**
- * WebhooksV2BetaApi - object-oriented interface
+ * WebhooksV2Api - object-oriented interface
  * @export
- * @class WebhooksV2BetaApi
+ * @class WebhooksV2Api
  * @extends {BaseAPI}
  */
-export class WebhooksV2BetaApi extends BaseAPI {
+export class WebhooksV2Api extends BaseAPI {
     /**
-     * Creates a new webhook, which will be triggered on the specified events **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Creates a new webhook, which will be triggered on the specified events  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Create new webhook
-     * @param {WebhooksV2BetaApiCreateWebhookRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiCreateWebhookRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public createWebhook(requestParameters: WebhooksV2BetaApiCreateWebhookRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createWebhook(requestParameters: WebhooksV2ApiCreateWebhookRequest) {
+        return WebhooksV2ApiFp(this.configuration).createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Delete a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Delete webhook
-     * @param {WebhooksV2BetaApiDeleteWebhookRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiDeleteWebhookRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public deleteWebhook(requestParameters: WebhooksV2BetaApiDeleteWebhookRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).deleteWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest) {
+        return WebhooksV2ApiFp(this.configuration).deleteWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get notification by id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Get notification by id 
      * @summary Get notification by id
-     * @param {WebhooksV2BetaApiGetNotificationRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiGetNotificationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public getNotification(requestParameters: WebhooksV2BetaApiGetNotificationRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).getNotification(requestParameters.webhookId, requestParameters.notificationId, requestParameters.includeData).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getNotification(requestParameters: WebhooksV2ApiGetNotificationRequest) {
+        return WebhooksV2ApiFp(this.configuration).getNotification(requestParameters.webhookId, requestParameters.notificationId, requestParameters.includeData).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get all notifications by webhook id (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Get notification attempts by notification id 
+     * @summary Get notification attempts
+     * @param {WebhooksV2ApiGetNotificationAttemptsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getNotificationAttempts(requestParameters: WebhooksV2ApiGetNotificationAttemptsRequest) {
+        return WebhooksV2ApiFp(this.configuration).getNotificationAttempts(requestParameters.webhookId, requestParameters.notificationId, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get all notifications by webhook id (paginated) 
      * @summary Get all notifications by webhook id
-     * @param {WebhooksV2BetaApiGetNotificationsRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiGetNotificationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public getNotifications(requestParameters: WebhooksV2BetaApiGetNotificationsRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.createdStartDate, requestParameters.createdEndDate, requestParameters.statuses, requestParameters.eventTypes, requestParameters.resourceId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getNotifications(requestParameters: WebhooksV2ApiGetNotificationsRequest) {
+        return WebhooksV2ApiFp(this.configuration).getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Get the status of a resend job 
+     * @summary Get resend job status
+     * @param {WebhooksV2ApiGetResendJobStatusRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getResendJobStatus(requestParameters: WebhooksV2ApiGetResendJobStatusRequest) {
+        return WebhooksV2ApiFp(this.configuration).getResendJobStatus(requestParameters.webhookId, requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieve a webhook by its id 
      * @summary Get webhook by id
-     * @param {WebhooksV2BetaApiGetWebhookRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiGetWebhookRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public getWebhook(requestParameters: WebhooksV2BetaApiGetWebhookRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).getWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getWebhook(requestParameters: WebhooksV2ApiGetWebhookRequest) {
+        return WebhooksV2ApiFp(this.configuration).getWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get all webhooks (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Get all webhooks (paginated) 
      * @summary Get all webhooks
-     * @param {WebhooksV2BetaApiGetWebhooksRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiGetWebhooksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public getWebhooks(requestParameters: WebhooksV2BetaApiGetWebhooksRequest = {}) {
-        return WebhooksV2BetaApiFp(this.configuration).getWebhooks(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getWebhooks(requestParameters: WebhooksV2ApiGetWebhooksRequest = {}) {
+        return WebhooksV2ApiFp(this.configuration).getWebhooks(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Resend notification by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+     * @summary Resend failed notifications
+     * @param {WebhooksV2ApiResendFailedNotificationsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public resendFailedNotifications(requestParameters: WebhooksV2ApiResendFailedNotificationsRequest) {
+        return WebhooksV2ApiFp(this.configuration).resendFailedNotifications(requestParameters.resendFailedNotificationsRequest, requestParameters.webhookId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Resend notification by id
-     * @param {WebhooksV2BetaApiResendNotificationByIdRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiResendNotificationByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public resendNotificationById(requestParameters: WebhooksV2BetaApiResendNotificationByIdRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public resendNotificationById(requestParameters: WebhooksV2ApiResendNotificationByIdRequest) {
+        return WebhooksV2ApiFp(this.configuration).resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Resend notifications by resource Id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Resend notifications by resource Id
-     * @param {WebhooksV2BetaApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public resendNotificationsByResourceId(requestParameters: WebhooksV2BetaApiResendNotificationsByResourceIdRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).resendNotificationsByResourceId(requestParameters.resendNotificationsByResourceIdRequest, requestParameters.webhookId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public resendNotificationsByResourceId(requestParameters: WebhooksV2ApiResendNotificationsByResourceIdRequest) {
+        return WebhooksV2ApiFp(this.configuration).resendNotificationsByResourceId(requestParameters.resendNotificationsByResourceIdRequest, requestParameters.webhookId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Update a webhook by its id **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Update webhook
-     * @param {WebhooksV2BetaApiUpdateWebhookRequest} requestParameters Request parameters.
+     * @param {WebhooksV2ApiUpdateWebhookRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof WebhooksV2BetaApi
+     * @memberof WebhooksV2Api
      */
-    public updateWebhook(requestParameters: WebhooksV2BetaApiUpdateWebhookRequest) {
-        return WebhooksV2BetaApiFp(this.configuration).updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateWebhook(requestParameters: WebhooksV2ApiUpdateWebhookRequest) {
+        return WebhooksV2ApiFp(this.configuration).updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
@@ -1063,6 +1335,18 @@ export const GetNotificationsOrderEnum = {
     Desc: 'DESC'
 } as const;
 export type GetNotificationsOrderEnum = typeof GetNotificationsOrderEnum[keyof typeof GetNotificationsOrderEnum];
+/**
+ * @export
+ */
+export const GetNotificationsSortByEnum = {
+    Id: 'id',
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    Status: 'status',
+    EventType: 'eventType',
+    ResourceId: 'resourceId'
+} as const;
+export type GetNotificationsSortByEnum = typeof GetNotificationsSortByEnum[keyof typeof GetNotificationsSortByEnum];
 /**
  * @export
  */

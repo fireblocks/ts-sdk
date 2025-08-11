@@ -51,7 +51,7 @@ UsersApi,
 VaultsApi, 
 Web3ConnectionsApi, 
 WebhooksApi, 
-WebhooksV2BetaApi, 
+WebhooksV2Api, 
 WhitelistIpAddressesApi, 
 WorkspaceStatusBetaApi
 } from '../api';
@@ -99,7 +99,7 @@ let mockUsersApi: jest.Mock;
 let mockVaultsApi: jest.Mock;
 let mockWeb3ConnectionsApi: jest.Mock;
 let mockWebhooksApi: jest.Mock;
-let mockWebhooksV2BetaApi: jest.Mock;
+let mockWebhooksV2Api: jest.Mock;
 let mockWhitelistIpAddressesApi: jest.Mock;
 let mockWorkspaceStatusBetaApi: jest.Mock;
 
@@ -144,7 +144,7 @@ jest.mock('../api', () => {
     mockVaultsApi = jest.fn();
     mockWeb3ConnectionsApi = jest.fn();
     mockWebhooksApi = jest.fn();
-    mockWebhooksV2BetaApi = jest.fn();
+    mockWebhooksV2Api = jest.fn();
     mockWhitelistIpAddressesApi = jest.fn();
     mockWorkspaceStatusBetaApi = jest.fn();
     const actual = jest.requireActual('../api');
@@ -190,7 +190,7 @@ jest.mock('../api', () => {
         VaultsApi: mockVaultsApi,
         Web3ConnectionsApi: mockWeb3ConnectionsApi,
         WebhooksApi: mockWebhooksApi,
-        WebhooksV2BetaApi: mockWebhooksV2BetaApi,
+        WebhooksV2Api: mockWebhooksV2Api,
         WhitelistIpAddressesApi: mockWhitelistIpAddressesApi,
         WorkspaceStatusBetaApi: mockWorkspaceStatusBetaApi,
     };
@@ -432,9 +432,9 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.webhooks).toBeInstanceOf(WebhooksApi);
             expect(mockWebhooksApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return WebhooksV2BetaApi', async () => {
-            expect(fireblocks.webhooksV2Beta).toBeInstanceOf(WebhooksV2BetaApi);
-            expect(mockWebhooksV2BetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return WebhooksV2Api', async () => {
+            expect(fireblocks.webhooksV2).toBeInstanceOf(WebhooksV2Api);
+            expect(mockWebhooksV2Api).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return WhitelistIpAddressesApi', async () => {
             expect(fireblocks.whitelistIpAddresses).toBeInstanceOf(WhitelistIpAddressesApi);

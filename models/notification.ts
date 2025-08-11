@@ -15,9 +15,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { NotificationAttempt } from './notification-attempt';
-// May contain unused imports in some cases
-// @ts-ignore
 import { NotificationStatus } from './notification-status';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -59,12 +56,6 @@ export interface Notification {
      * @memberof Notification
      */
     'eventType': WebhookEvent;
-    /**
-     * The attempts related to Notification
-     * @type {Array<NotificationAttempt>}
-     * @memberof Notification
-     */
-    'attempts': Array<NotificationAttempt>;
     /**
      * The resource id of the event which the Notification is listen to
      * @type {string}

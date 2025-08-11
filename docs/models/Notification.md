@@ -9,7 +9,6 @@
 |**updatedAt** | **number** | The date when the notification was updated in milliseconds | [default to undefined]|
 |**status** | [**NotificationStatus**](NotificationStatus.md) |  | [default to undefined]|
 |**eventType** | [**WebhookEvent**](WebhookEvent.md) |  | [default to undefined]|
-|**attempts** | [**Array&lt;NotificationAttempt&gt;**](NotificationAttempt.md) | The attempts related to Notification | [default to undefined]|
 |**resourceId** | **string** | The resource id of the event which the Notification is listen to | [optional] [default to undefined]|
 
 

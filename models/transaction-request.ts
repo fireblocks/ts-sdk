@@ -195,6 +195,12 @@ export interface TransactionRequest {
      */
     'travelRuleMessage'?: TravelRuleCreateTransactionRequest;
     /**
+     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking functionality to associate transactions with existing travel rule messages.
+     * @type {string}
+     * @memberof TransactionRequest
+     */
+    'travelRuleMessageId'?: string;
+    /**
      * This feature is no longer supported.
      * @type {boolean}
      * @memberof TransactionRequest

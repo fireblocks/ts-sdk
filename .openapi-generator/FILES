@@ -239,6 +239,7 @@ EmbeddedWalletsApi.md
 ErrorResponse.md
 ErrorResponseError.md
 ErrorSchema.md
+EstimatedFeeDetails.md
 EstimatedNetworkFeeResponse.md
 EstimatedTransactionFeeResponse.md
 ExchangeAccount.md
@@ -256,6 +257,9 @@ ExecutionScreeningOperation.md
 ExecutionTransferOperation.md
 ExternalWalletAsset.md
 ExternalWalletsApi.md
+FeeBreakdown.md
+FeeBreakdownOneOf.md
+FeeBreakdownOneOf1.md
 FeeInfo.md
 FeeLevel.md
 FetchAbiRequestDto.md
@@ -356,6 +360,7 @@ NoneNetworkRoutingDest.md
 NotFoundException.md
 Notification.md
 NotificationAttempt.md
+NotificationAttemptsPaginatedResponse.md
 NotificationPaginatedResponse.md
 NotificationStatus.md
 NotificationWithData.md
@@ -437,6 +442,9 @@ RenameCosigner.md
 RenameVaultAccountResponse.md
 RescanTransaction.md
 RescanTransactionRequest.md
+ResendFailedNotificationsJobStatusResponse.md
+ResendFailedNotificationsRequest.md
+ResendFailedNotificationsResponse.md
 ResendNotificationsByResourceIdRequest.md
 ResendTransactionWebhooksRequest.md
 ResendWebhooksByTransactionIdResponse.md
@@ -687,7 +695,7 @@ Webhook.md
 WebhookEvent.md
 WebhookPaginatedResponse.md
 WebhooksApi.md
-WebhooksV2BetaApi.md
+WebhooksV2Api.md
 WhitelistIpAddressesApi.md
 WithdrawRequest.md
 WorkflowConfigStatus.md
@@ -739,7 +747,7 @@ api/users-api.ts
 api/vaults-api.ts
 api/web3-connections-api.ts
 api/webhooks-api.ts
-api/webhooks-v2-beta-api.ts
+api/webhooks-v2-api.ts
 api/whitelist-ip-addresses-api.ts
 api/workspace-status-beta-api.ts
 base.ts
@@ -974,6 +982,7 @@ models/embedded-wallet.ts
 models/error-response-error.ts
 models/error-response.ts
 models/error-schema.ts
+models/estimated-fee-details.ts
 models/estimated-network-fee-response.ts
 models/estimated-transaction-fee-response.ts
 models/evmtoken-create-params-dto.ts
@@ -990,6 +999,9 @@ models/execution-operation-status.ts
 models/execution-screening-operation.ts
 models/execution-transfer-operation.ts
 models/external-wallet-asset.ts
+models/fee-breakdown-one-of.ts
+models/fee-breakdown-one-of1.ts
+models/fee-breakdown.ts
 models/fee-info.ts
 models/fee-level.ts
 models/fetch-abi-request-dto.ts
@@ -1081,6 +1093,7 @@ models/non-wallet-quote-response.ts
 models/none-network-routing-dest.ts
 models/not-found-exception.ts
 models/notification-attempt.ts
+models/notification-attempts-paginated-response.ts
 models/notification-paginated-response.ts
 models/notification-status.ts
 models/notification-with-data.ts
@@ -1158,6 +1171,9 @@ models/rename-cosigner.ts
 models/rename-vault-account-response.ts
 models/rescan-transaction-request.ts
 models/rescan-transaction.ts
+models/resend-failed-notifications-job-status-response.ts
+models/resend-failed-notifications-request.ts
+models/resend-failed-notifications-response.ts
 models/resend-notifications-by-resource-id-request.ts
 models/resend-transaction-webhooks-request.ts
 models/resend-webhooks-by-transaction-id-response.ts

@@ -35,5 +35,17 @@ export interface TransactionRequestDestination {
      * @memberof TransactionRequestDestination
      */
     'destination'?: DestinationTransferPeerPath;
+    /**
+     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking functionality to associate transactions with existing travel rule messages.
+     * @type {string}
+     * @memberof TransactionRequestDestination
+     */
+    'travelRuleMessageId'?: string;
+    /**
+     * The ID for AML providers to associate the owner of funds with transactions.
+     * @type {string}
+     * @memberof TransactionRequestDestination
+     */
+    'customerRefId'?: string;
 }
 
