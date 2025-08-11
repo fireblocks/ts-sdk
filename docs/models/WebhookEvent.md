@@ -9,6 +9,8 @@
 
 * `TransactionApprovalStatusUpdated` (value: `'transaction.approval_status.updated'`)
 
+* `TransactionNetworkRecordsProcessingCompleted` (value: `'transaction.network_records.processing_completed'`)
+
 * `ExternalWalletAssetAdded` (value: `'external_wallet.asset.added'`)
 
 * `ExternalWalletAssetRemoved` (value: `'external_wallet.asset.removed'`)
@@ -23,7 +25,7 @@
 
 * `VaultAccountCreated` (value: `'vault_account.created'`)
 
-* `VaultAccountAssetListed` (value: `'vault_account.asset.listed'`)
+* `VaultAccountAssetAdded` (value: `'vault_account.asset.added'`)
 
 * `VaultAccountAssetBalanceUpdated` (value: `'vault_account.asset.balance_updated'`)
 
@@ -33,11 +35,21 @@
 
 * `EmbeddedWalletAssetBalanceUpdated` (value: `'embedded_wallet.asset.balance_updated'`)
 
-* `EmbeddedWalletAssetListed` (value: `'embedded_wallet.asset.listed'`)
+* `EmbeddedWalletAssetAdded` (value: `'embedded_wallet.asset.added'`)
 
 * `EmbeddedWalletAccountCreated` (value: `'embedded_wallet.account.created'`)
 
 * `EmbeddedWalletDeviceAdded` (value: `'embedded_wallet.device.added'`)
+
+* `OnchainDataUpdated` (value: `'onchain_data.updated'`)
+
+* `ConnectionAdded` (value: `'connection.added'`)
+
+* `ConnectionRemoved` (value: `'connection.removed'`)
+
+* `ConnectionRequestWaitingPeerApproval` (value: `'connection.request.waiting_peer_approval'`)
+
+* `ConnectionRequestRejectedByPeer` (value: `'connection.request.rejected_by_peer'`)
 
 
 

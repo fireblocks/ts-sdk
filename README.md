@@ -412,15 +412,18 @@ Class | Method | HTTP request | Description
 *Web3ConnectionsApi* | [**submit**](docs/apis/Web3ConnectionsApi.md#submit) | **PUT** /connections/wc/{id} | Respond to a pending Web3 connection request.
 *WebhooksApi* | [**resendTransactionWebhooks**](docs/apis/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend failed webhooks for a transaction by ID
 *WebhooksApi* | [**resendWebhooks**](docs/apis/WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks
-*WebhooksV2BetaApi* | [**createWebhook**](docs/apis/WebhooksV2BetaApi.md#createWebhook) | **POST** /webhooks | Create new webhook
-*WebhooksV2BetaApi* | [**deleteWebhook**](docs/apis/WebhooksV2BetaApi.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
-*WebhooksV2BetaApi* | [**getNotification**](docs/apis/WebhooksV2BetaApi.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
-*WebhooksV2BetaApi* | [**getNotifications**](docs/apis/WebhooksV2BetaApi.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
-*WebhooksV2BetaApi* | [**getWebhook**](docs/apis/WebhooksV2BetaApi.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
-*WebhooksV2BetaApi* | [**getWebhooks**](docs/apis/WebhooksV2BetaApi.md#getWebhooks) | **GET** /webhooks | Get all webhooks
-*WebhooksV2BetaApi* | [**resendNotificationById**](docs/apis/WebhooksV2BetaApi.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
-*WebhooksV2BetaApi* | [**resendNotificationsByResourceId**](docs/apis/WebhooksV2BetaApi.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
-*WebhooksV2BetaApi* | [**updateWebhook**](docs/apis/WebhooksV2BetaApi.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
+*WebhooksV2Api* | [**createWebhook**](docs/apis/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create new webhook
+*WebhooksV2Api* | [**deleteWebhook**](docs/apis/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
+*WebhooksV2Api* | [**getNotification**](docs/apis/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
+*WebhooksV2Api* | [**getNotificationAttempts**](docs/apis/WebhooksV2Api.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
+*WebhooksV2Api* | [**getNotifications**](docs/apis/WebhooksV2Api.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
+*WebhooksV2Api* | [**getResendJobStatus**](docs/apis/WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
+*WebhooksV2Api* | [**getWebhook**](docs/apis/WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
+*WebhooksV2Api* | [**getWebhooks**](docs/apis/WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks
+*WebhooksV2Api* | [**resendFailedNotifications**](docs/apis/WebhooksV2Api.md#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications
+*WebhooksV2Api* | [**resendNotificationById**](docs/apis/WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
+*WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/apis/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
+*WebhooksV2Api* | [**updateWebhook**](docs/apis/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/apis/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/apis/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
 
@@ -652,6 +655,7 @@ Class | Method | HTTP request | Description
  - [ErrorResponse](docs/models/ErrorResponse.md)
  - [ErrorResponseError](docs/models/ErrorResponseError.md)
  - [ErrorSchema](docs/models/ErrorSchema.md)
+ - [EstimatedFeeDetails](docs/models/EstimatedFeeDetails.md)
  - [EstimatedNetworkFeeResponse](docs/models/EstimatedNetworkFeeResponse.md)
  - [EstimatedTransactionFeeResponse](docs/models/EstimatedTransactionFeeResponse.md)
  - [ExchangeAccount](docs/models/ExchangeAccount.md)
@@ -667,6 +671,9 @@ Class | Method | HTTP request | Description
  - [ExecutionScreeningOperation](docs/models/ExecutionScreeningOperation.md)
  - [ExecutionTransferOperation](docs/models/ExecutionTransferOperation.md)
  - [ExternalWalletAsset](docs/models/ExternalWalletAsset.md)
+ - [FeeBreakdown](docs/models/FeeBreakdown.md)
+ - [FeeBreakdownOneOf](docs/models/FeeBreakdownOneOf.md)
+ - [FeeBreakdownOneOf1](docs/models/FeeBreakdownOneOf1.md)
  - [FeeInfo](docs/models/FeeInfo.md)
  - [FeeLevel](docs/models/FeeLevel.md)
  - [FetchAbiRequestDto](docs/models/FetchAbiRequestDto.md)
@@ -758,6 +765,7 @@ Class | Method | HTTP request | Description
  - [NotFoundException](docs/models/NotFoundException.md)
  - [Notification](docs/models/Notification.md)
  - [NotificationAttempt](docs/models/NotificationAttempt.md)
+ - [NotificationAttemptsPaginatedResponse](docs/models/NotificationAttemptsPaginatedResponse.md)
  - [NotificationPaginatedResponse](docs/models/NotificationPaginatedResponse.md)
  - [NotificationStatus](docs/models/NotificationStatus.md)
  - [NotificationWithData](docs/models/NotificationWithData.md)
@@ -834,6 +842,9 @@ Class | Method | HTTP request | Description
  - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
  - [RescanTransaction](docs/models/RescanTransaction.md)
  - [RescanTransactionRequest](docs/models/RescanTransactionRequest.md)
+ - [ResendFailedNotificationsJobStatusResponse](docs/models/ResendFailedNotificationsJobStatusResponse.md)
+ - [ResendFailedNotificationsRequest](docs/models/ResendFailedNotificationsRequest.md)
+ - [ResendFailedNotificationsResponse](docs/models/ResendFailedNotificationsResponse.md)
  - [ResendNotificationsByResourceIdRequest](docs/models/ResendNotificationsByResourceIdRequest.md)
  - [ResendTransactionWebhooksRequest](docs/models/ResendTransactionWebhooksRequest.md)
  - [ResendWebhooksByTransactionIdResponse](docs/models/ResendWebhooksByTransactionIdResponse.md)

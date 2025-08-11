@@ -52,7 +52,7 @@ import { ApiUserApi,
          VaultsApi, 
          Web3ConnectionsApi, 
          WebhooksApi, 
-         WebhooksV2BetaApi, 
+         WebhooksV2Api, 
          WhitelistIpAddressesApi, 
          WorkspaceStatusBetaApi
          } from '../api';
@@ -102,7 +102,7 @@ export class Fireblocks {
     private _vaults?: VaultsApi;
     private _web3Connections?: Web3ConnectionsApi;
     private _webhooks?: WebhooksApi;
-    private _webhooksV2Beta?: WebhooksV2BetaApi;
+    private _webhooksV2?: WebhooksV2Api;
     private _whitelistIpAddresses?: WhitelistIpAddressesApi;
     private _workspaceStatusBeta?: WorkspaceStatusBetaApi;
 
@@ -246,8 +246,8 @@ export class Fireblocks {
     get webhooks(): WebhooksApi {
         return this._webhooks ?? new WebhooksApi(this.config, undefined, this.axiosManager.axios);
     }
-    get webhooksV2Beta(): WebhooksV2BetaApi {
-        return this._webhooksV2Beta ?? new WebhooksV2BetaApi(this.config, undefined, this.axiosManager.axios);
+    get webhooksV2(): WebhooksV2Api {
+        return this._webhooksV2 ?? new WebhooksV2Api(this.config, undefined, this.axiosManager.axios);
     }
     get whitelistIpAddresses(): WhitelistIpAddressesApi {
         return this._whitelistIpAddresses ?? new WhitelistIpAddressesApi(this.config, undefined, this.axiosManager.axios);
