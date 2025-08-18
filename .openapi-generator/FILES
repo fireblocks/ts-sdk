@@ -6,6 +6,7 @@ APIUsers.md
 AbiFunction.md
 Account.md
 AccountType.md
+AdapterProcessingResult.md
 AddAbiRequestDto.md
 AddAssetToExternalWalletRequest.md
 AddAssetToExternalWalletRequestOneOf.md
@@ -77,6 +78,9 @@ CallbackHandlerRequest.md
 CancelTransactionResponse.md
 ChainDescriptor.md
 ChainInfoResponse.md
+ChannelDvnConfigWithConfirmations.md
+ChannelDvnConfigWithConfirmationsReceiveConfig.md
+ChannelDvnConfigWithConfirmationsSendConfig.md
 ClaimRewardsRequest.md
 CollectionBurnRequestDto.md
 CollectionBurnResponseDto.md
@@ -187,6 +191,8 @@ Delegation.md
 DelegationSummary.md
 DeleteNetworkConnectionResponse.md
 DeleteNetworkIdResponse.md
+DeployLayerZeroAdaptersRequest.md
+DeployLayerZeroAdaptersResponse.md
 DeployableAddressResponse.md
 DeployedContractNotFoundError.md
 DeployedContractResponseDto.md
@@ -217,6 +223,8 @@ DraftResponse.md
 DraftReviewAndValidationResponse.md
 DropTransactionRequest.md
 DropTransactionResponse.md
+DvnConfig.md
+DvnConfigWithConfirmations.md
 EVMTokenCreateParamsDto.md
 EditGasStationConfigurationResponse.md
 EmbeddedWallet.md
@@ -288,6 +296,8 @@ GetExternalWalletsResponse.md
 GetFiatAccountsResponse.md
 GetFilterParameter.md
 GetInternalWalletsResponse.md
+GetLayerZeroDvnConfigResponse.md
+GetLayerZeroPeersResponse.md
 GetLinkedCollectionsPaginatedResponse.md
 GetMaxSpendableAmountResponse.md
 GetMpcKeysResponse.md
@@ -324,6 +334,7 @@ Jobs.md
 KeyLinkBetaApi.md
 KeysBetaApi.md
 LICENSE
+LayerZeroAdapterCreateParams.md
 LeanAbiFunction.md
 LeanContractDto.md
 LeanDeployedContractResponseDto.md
@@ -394,6 +405,7 @@ PayoutInstructionState.md
 PayoutResponse.md
 PayoutState.md
 PayoutStatus.md
+PeerAdapterInfo.md
 Players.md
 PolicyAndValidationResponse.md
 PolicyCheckResult.md
@@ -438,6 +450,11 @@ ReissueMultichainTokenRequest.md
 RelatedRequest.md
 RelatedTransaction.md
 RemoveCollateralRequestBody.md
+RemoveLayerZeroAdapterFailedResult.md
+RemoveLayerZeroAdaptersRequest.md
+RemoveLayerZeroAdaptersResponse.md
+RemoveLayerZeroPeersRequest.md
+RemoveLayerZeroPeersResponse.md
 RenameCosigner.md
 RenameVaultAccountResponse.md
 RescanTransaction.md
@@ -477,6 +494,10 @@ SetConfirmationsThresholdRequest.md
 SetConfirmationsThresholdResponse.md
 SetCustomerRefIdForAddressRequest.md
 SetCustomerRefIdRequest.md
+SetLayerZeroDvnConfigRequest.md
+SetLayerZeroDvnConfigResponse.md
+SetLayerZeroPeersRequest.md
+SetLayerZeroPeersResponse.md
 SetNetworkIdDiscoverabilityRequest.md
 SetNetworkIdNameRequest.md
 SetNetworkIdResponse.md
@@ -673,6 +694,7 @@ UserStatus.md
 UserType.md
 UsersApi.md
 ValidateAddressResponse.md
+ValidateLayerZeroChannelResponse.md
 ValidatedTransactionsForRescan.md
 ValidatedTransactionsForRescanResponse.md
 ValidationKeyDto.md
@@ -761,6 +783,7 @@ index.ts
 models/abi-function.ts
 models/account-type.ts
 models/account.ts
+models/adapter-processing-result.ts
 models/add-abi-request-dto.ts
 models/add-asset-to-external-wallet-request-one-of.ts
 models/add-asset-to-external-wallet-request-one-of1-additional-info-one-of.ts
@@ -830,6 +853,9 @@ models/callback-handler.ts
 models/cancel-transaction-response.ts
 models/chain-descriptor.ts
 models/chain-info-response.ts
+models/channel-dvn-config-with-confirmations-receive-config.ts
+models/channel-dvn-config-with-confirmations-send-config.ts
+models/channel-dvn-config-with-confirmations.ts
 models/claim-rewards-request.ts
 models/collection-burn-request-dto.ts
 models/collection-burn-response-dto.ts
@@ -933,6 +959,8 @@ models/delegation-summary.ts
 models/delegation.ts
 models/delete-network-connection-response.ts
 models/delete-network-id-response.ts
+models/deploy-layer-zero-adapters-request.ts
+models/deploy-layer-zero-adapters-response.ts
 models/deployable-address-response.ts
 models/deployed-contract-not-found-error.ts
 models/deployed-contract-response-dto.ts
@@ -962,6 +990,8 @@ models/draft-response.ts
 models/draft-review-and-validation-response.ts
 models/drop-transaction-request.ts
 models/drop-transaction-response.ts
+models/dvn-config-with-confirmations.ts
+models/dvn-config.ts
 models/edit-gas-station-configuration-response.ts
 models/embedded-wallet-account.ts
 models/embedded-wallet-address-details.ts
@@ -1028,6 +1058,8 @@ models/get-external-wallets-response.ts
 models/get-fiat-accounts-response.ts
 models/get-filter-parameter.ts
 models/get-internal-wallets-response.ts
+models/get-layer-zero-dvn-config-response.ts
+models/get-layer-zero-peers-response.ts
 models/get-linked-collections-paginated-response.ts
 models/get-max-spendable-amount-response.ts
 models/get-mpc-keys-response.ts
@@ -1060,6 +1092,7 @@ models/issue-token-multichain-response.ts
 models/job-created.ts
 models/job.ts
 models/jobs.ts
+models/layer-zero-adapter-create-params.ts
 models/lean-abi-function.ts
 models/lean-contract-dto.ts
 models/lean-deployed-contract-response-dto.ts
@@ -1125,6 +1158,7 @@ models/payout-instruction.ts
 models/payout-response.ts
 models/payout-state.ts
 models/payout-status.ts
+models/peer-adapter-info.ts
 models/players.ts
 models/policy-and-validation-response.ts
 models/policy-check-result.ts
@@ -1167,6 +1201,11 @@ models/reissue-multichain-token-request.ts
 models/related-request.ts
 models/related-transaction.ts
 models/remove-collateral-request-body.ts
+models/remove-layer-zero-adapter-failed-result.ts
+models/remove-layer-zero-adapters-request.ts
+models/remove-layer-zero-adapters-response.ts
+models/remove-layer-zero-peers-request.ts
+models/remove-layer-zero-peers-response.ts
 models/rename-cosigner.ts
 models/rename-vault-account-response.ts
 models/rescan-transaction-request.ts
@@ -1203,6 +1242,10 @@ models/set-confirmations-threshold-request.ts
 models/set-confirmations-threshold-response.ts
 models/set-customer-ref-id-for-address-request.ts
 models/set-customer-ref-id-request.ts
+models/set-layer-zero-dvn-config-request.ts
+models/set-layer-zero-dvn-config-response.ts
+models/set-layer-zero-peers-request.ts
+models/set-layer-zero-peers-response.ts
 models/set-network-id-discoverability-request.ts
 models/set-network-id-name-request.ts
 models/set-network-id-response.ts
@@ -1392,6 +1435,7 @@ models/user-role.ts
 models/user-status.ts
 models/user-type.ts
 models/validate-address-response.ts
+models/validate-layer-zero-channel-response.ts
 models/validated-transactions-for-rescan-response.ts
 models/validated-transactions-for-rescan.ts
 models/validation-key-dto.ts
