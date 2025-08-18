@@ -47,13 +47,23 @@ import { CreateMultichainTokenRequest } from '../models';
 // @ts-ignore
 import { CreateTokenRequestDto } from '../models';
 // @ts-ignore
+import { DeployLayerZeroAdaptersRequest } from '../models';
+// @ts-ignore
+import { DeployLayerZeroAdaptersResponse } from '../models';
+// @ts-ignore
 import { DeployableAddressResponse } from '../models';
 // @ts-ignore
 import { DeployedContractNotFoundError } from '../models';
 // @ts-ignore
+import { ErrorResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetDeployableAddressRequest } from '../models';
+// @ts-ignore
+import { GetLayerZeroDvnConfigResponse } from '../models';
+// @ts-ignore
+import { GetLayerZeroPeersResponse } from '../models';
 // @ts-ignore
 import { GetLinkedCollectionsPaginatedResponse } from '../models';
 // @ts-ignore
@@ -65,6 +75,22 @@ import { NotFoundException } from '../models';
 // @ts-ignore
 import { ReissueMultichainTokenRequest } from '../models';
 // @ts-ignore
+import { RemoveLayerZeroAdaptersRequest } from '../models';
+// @ts-ignore
+import { RemoveLayerZeroAdaptersResponse } from '../models';
+// @ts-ignore
+import { RemoveLayerZeroPeersRequest } from '../models';
+// @ts-ignore
+import { RemoveLayerZeroPeersResponse } from '../models';
+// @ts-ignore
+import { SetLayerZeroDvnConfigRequest } from '../models';
+// @ts-ignore
+import { SetLayerZeroDvnConfigResponse } from '../models';
+// @ts-ignore
+import { SetLayerZeroPeersRequest } from '../models';
+// @ts-ignore
+import { SetLayerZeroPeersResponse } from '../models';
+// @ts-ignore
 import { TokenLinkDto } from '../models';
 // @ts-ignore
 import { TokenLinkExistsHttpError } from '../models';
@@ -74,6 +100,8 @@ import { TokenLinkNotMultichainCompatibleHttpError } from '../models';
 import { TokenLinkRequestDto } from '../models';
 // @ts-ignore
 import { TokensPaginatedResponse } from '../models';
+// @ts-ignore
+import { ValidateLayerZeroChannelResponse } from '../models';
 /**
  * TokenizationApi - axios parameter creator
  * @export
@@ -157,6 +185,86 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(collectionDeployRequestDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles and deactivates the specified adapter contracts.
+         * @summary Remove LayerZero adapters
+         * @param {RemoveLayerZeroAdaptersRequest} removeLayerZeroAdaptersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateAndUnlinkAdapters: async (removeLayerZeroAdaptersRequest: RemoveLayerZeroAdaptersRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('deactivateAndUnlinkAdapters', 'removeLayerZeroAdaptersRequest', removeLayerZeroAdaptersRequest)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(removeLayerZeroAdaptersRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deploy LayerZero adapters for multichain token bridging functionality. This endpoint creates adapter contracts that enable cross-chain token transfers.
+         * @summary Deploy LayerZero adapters
+         * @param {DeployLayerZeroAdaptersRequest} deployLayerZeroAdaptersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deployAndLinkAdapters: async (deployLayerZeroAdaptersRequest: DeployLayerZeroAdaptersRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('deployAndLinkAdapters', 'deployLayerZeroAdaptersRequest', deployLayerZeroAdaptersRequest)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(deployLayerZeroAdaptersRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -266,6 +374,77 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(getDeployableAddressRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns DVN configurations for channels between the source adapter and its peers.
+         * @summary Get LayerZero DVN configuration
+         * @param {string} adapterTokenLinkId The token link id of the adapter token link
+         * @param {string} [peerAdapterTokenLinkId] Optional peer adapter token link ID to filter results
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLayerZeroDvnConfig: async (adapterTokenLinkId: string, peerAdapterTokenLinkId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getLayerZeroDvnConfig', 'adapterTokenLinkId', adapterTokenLinkId)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/dvns`
+                .replace(`{${"adapterTokenLinkId"}}`, encodeURIComponent(String(adapterTokenLinkId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (peerAdapterTokenLinkId !== undefined) {
+                localVarQueryParameter['peerAdapterTokenLinkId'] = peerAdapterTokenLinkId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieve the LayerZero peers configured for a specific adapter. Returns information about peer relationships for cross-chain communication.
+         * @summary Get LayerZero peers
+         * @param {string} adapterTokenLinkId The token link id of the adapter token link
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLayerZeroPeers: async (adapterTokenLinkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getLayerZeroPeers', 'adapterTokenLinkId', adapterTokenLinkId)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/peers`
+                .replace(`{${"adapterTokenLinkId"}}`, encodeURIComponent(String(adapterTokenLinkId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -606,6 +785,126 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
+         * Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer relationships between LayerZero adapters.
+         * @summary Remove LayerZero peers
+         * @param {RemoveLayerZeroPeersRequest} removeLayerZeroPeersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeLayerZeroPeers: async (removeLayerZeroPeersRequest: RemoveLayerZeroPeersRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('removeLayerZeroPeers', 'removeLayerZeroPeersRequest', removeLayerZeroPeersRequest)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero/config/peers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(removeLayerZeroPeersRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration for message verification between source and destination adapters.
+         * @summary Set LayerZero DVN configuration
+         * @param {SetLayerZeroDvnConfigRequest} setLayerZeroDvnConfigRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setLayerZeroDvnConfig: async (setLayerZeroDvnConfigRequest: SetLayerZeroDvnConfigRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setLayerZeroDvnConfig', 'setLayerZeroDvnConfigRequest', setLayerZeroDvnConfigRequest)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero/config/dvns`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setLayerZeroDvnConfigRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Set LayerZero peers to establish connections between adapter contracts. This endpoint creates peer relationships that enable cross-chain communication. It sets the destination adapter as a peer of the source adapter. If `bidirectional` is true, it also sets the source adapter as a peer of the destination adapter(s).
+         * @summary Set LayerZero peers
+         * @param {SetLayerZeroPeersRequest} setLayerZeroPeersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setLayerZeroPeers: async (setLayerZeroPeersRequest: SetLayerZeroPeersRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setLayerZeroPeers', 'setLayerZeroPeersRequest', setLayerZeroPeersRequest)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero/config/peers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(setLayerZeroPeersRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
          * @summary Unlink a token
          * @param {string} id The token link id
@@ -671,6 +970,48 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Validate the LayerZero channel configuration between adapters. This endpoint checks if the channel configuration is correct and returns any validation errors.
+         * @summary Validate LayerZero channel configuration
+         * @param {string} adapterTokenLinkId The token link ID of the adapter
+         * @param {string} peerAdapterTokenLinkId Peer adapter token link ID to validate against
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateLayerZeroChannelConfig: async (adapterTokenLinkId: string, peerAdapterTokenLinkId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('validateLayerZeroChannelConfig', 'adapterTokenLinkId', adapterTokenLinkId)
+            assertParamExistsAndNotEmpty('validateLayerZeroChannelConfig', 'peerAdapterTokenLinkId', peerAdapterTokenLinkId)
+            const localVarPath = `/tokenization/multichain/bridge/layerzero/validate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (adapterTokenLinkId !== undefined) {
+                localVarQueryParameter['adapterTokenLinkId'] = adapterTokenLinkId;
+            }
+
+            if (peerAdapterTokenLinkId !== undefined) {
+                localVarQueryParameter['peerAdapterTokenLinkId'] = peerAdapterTokenLinkId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -708,6 +1049,34 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createNewCollection(collectionDeployRequestDto, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TokenizationApi.createNewCollection']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles and deactivates the specified adapter contracts.
+         * @summary Remove LayerZero adapters
+         * @param {RemoveLayerZeroAdaptersRequest} removeLayerZeroAdaptersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest: RemoveLayerZeroAdaptersRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemoveLayerZeroAdaptersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.deactivateAndUnlinkAdapters']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Deploy LayerZero adapters for multichain token bridging functionality. This endpoint creates adapter contracts that enable cross-chain token transfers.
+         * @summary Deploy LayerZero adapters
+         * @param {DeployLayerZeroAdaptersRequest} deployLayerZeroAdaptersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deployAndLinkAdapters(deployLayerZeroAdaptersRequest: DeployLayerZeroAdaptersRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeployLayerZeroAdaptersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deployAndLinkAdapters(deployLayerZeroAdaptersRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.deployAndLinkAdapters']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -749,6 +1118,33 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDeployableAddress(getDeployableAddressRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TokenizationApi.getDeployableAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns DVN configurations for channels between the source adapter and its peers.
+         * @summary Get LayerZero DVN configuration
+         * @param {string} adapterTokenLinkId The token link id of the adapter token link
+         * @param {string} [peerAdapterTokenLinkId] Optional peer adapter token link ID to filter results
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLayerZeroDvnConfig(adapterTokenLinkId: string, peerAdapterTokenLinkId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLayerZeroDvnConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLayerZeroDvnConfig(adapterTokenLinkId, peerAdapterTokenLinkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getLayerZeroDvnConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Retrieve the LayerZero peers configured for a specific adapter. Returns information about peer relationships for cross-chain communication.
+         * @summary Get LayerZero peers
+         * @param {string} adapterTokenLinkId The token link id of the adapter token link
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLayerZeroPeers(adapterTokenLinkId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetLayerZeroPeersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLayerZeroPeers(adapterTokenLinkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getLayerZeroPeers']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -867,6 +1263,48 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer relationships between LayerZero adapters.
+         * @summary Remove LayerZero peers
+         * @param {RemoveLayerZeroPeersRequest} removeLayerZeroPeersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeLayerZeroPeers(removeLayerZeroPeersRequest: RemoveLayerZeroPeersRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RemoveLayerZeroPeersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeLayerZeroPeers(removeLayerZeroPeersRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.removeLayerZeroPeers']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration for message verification between source and destination adapters.
+         * @summary Set LayerZero DVN configuration
+         * @param {SetLayerZeroDvnConfigRequest} setLayerZeroDvnConfigRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest: SetLayerZeroDvnConfigRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetLayerZeroDvnConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.setLayerZeroDvnConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Set LayerZero peers to establish connections between adapter contracts. This endpoint creates peer relationships that enable cross-chain communication. It sets the destination adapter as a peer of the source adapter. If `bidirectional` is true, it also sets the source adapter as a peer of the destination adapter(s).
+         * @summary Set LayerZero peers
+         * @param {SetLayerZeroPeersRequest} setLayerZeroPeersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setLayerZeroPeers(setLayerZeroPeersRequest: SetLayerZeroPeersRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SetLayerZeroPeersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setLayerZeroPeers(setLayerZeroPeersRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.setLayerZeroPeers']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
          * @summary Unlink a token
          * @param {string} id The token link id
@@ -890,6 +1328,20 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.unlinkCollection(id, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TokenizationApi.unlinkCollection']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Validate the LayerZero channel configuration between adapters. This endpoint checks if the channel configuration is correct and returns any validation errors.
+         * @summary Validate LayerZero channel configuration
+         * @param {string} adapterTokenLinkId The token link ID of the adapter
+         * @param {string} peerAdapterTokenLinkId Peer adapter token link ID to validate against
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async validateLayerZeroChannelConfig(adapterTokenLinkId: string, peerAdapterTokenLinkId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidateLayerZeroChannelResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateLayerZeroChannelConfig(adapterTokenLinkId, peerAdapterTokenLinkId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.validateLayerZeroChannelConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -923,6 +1375,26 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.createNewCollection(requestParameters.collectionDeployRequestDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles and deactivates the specified adapter contracts.
+         * @summary Remove LayerZero adapters
+         * @param {TokenizationApiDeactivateAndUnlinkAdaptersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateAndUnlinkAdapters(requestParameters: TokenizationApiDeactivateAndUnlinkAdaptersRequest, options?: RawAxiosRequestConfig): AxiosPromise<RemoveLayerZeroAdaptersResponse> {
+            return localVarFp.deactivateAndUnlinkAdapters(requestParameters.removeLayerZeroAdaptersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deploy LayerZero adapters for multichain token bridging functionality. This endpoint creates adapter contracts that enable cross-chain token transfers.
+         * @summary Deploy LayerZero adapters
+         * @param {TokenizationApiDeployAndLinkAdaptersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deployAndLinkAdapters(requestParameters: TokenizationApiDeployAndLinkAdaptersRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeployLayerZeroAdaptersResponse> {
+            return localVarFp.deployAndLinkAdapters(requestParameters.deployLayerZeroAdaptersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get collection token details by id
          * @summary Get collection token details
          * @param {TokenizationApiFetchCollectionTokenDetailsRequest} requestParameters Request parameters.
@@ -951,6 +1423,26 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
          */
         getDeployableAddress(requestParameters: TokenizationApiGetDeployableAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeployableAddressResponse> {
             return localVarFp.getDeployableAddress(requestParameters.getDeployableAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns DVN configurations for channels between the source adapter and its peers.
+         * @summary Get LayerZero DVN configuration
+         * @param {TokenizationApiGetLayerZeroDvnConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLayerZeroDvnConfig(requestParameters: TokenizationApiGetLayerZeroDvnConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLayerZeroDvnConfigResponse> {
+            return localVarFp.getLayerZeroDvnConfig(requestParameters.adapterTokenLinkId, requestParameters.peerAdapterTokenLinkId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieve the LayerZero peers configured for a specific adapter. Returns information about peer relationships for cross-chain communication.
+         * @summary Get LayerZero peers
+         * @param {TokenizationApiGetLayerZeroPeersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLayerZeroPeers(requestParameters: TokenizationApiGetLayerZeroPeersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetLayerZeroPeersResponse> {
+            return localVarFp.getLayerZeroPeers(requestParameters.adapterTokenLinkId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get collections (paginated)
@@ -1033,6 +1525,36 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.reIssueTokenMultiChain(requestParameters.reissueMultichainTokenRequest, requestParameters.tokenLinkId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer relationships between LayerZero adapters.
+         * @summary Remove LayerZero peers
+         * @param {TokenizationApiRemoveLayerZeroPeersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeLayerZeroPeers(requestParameters: TokenizationApiRemoveLayerZeroPeersRequest, options?: RawAxiosRequestConfig): AxiosPromise<RemoveLayerZeroPeersResponse> {
+            return localVarFp.removeLayerZeroPeers(requestParameters.removeLayerZeroPeersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration for message verification between source and destination adapters.
+         * @summary Set LayerZero DVN configuration
+         * @param {TokenizationApiSetLayerZeroDvnConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setLayerZeroDvnConfig(requestParameters: TokenizationApiSetLayerZeroDvnConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetLayerZeroDvnConfigResponse> {
+            return localVarFp.setLayerZeroDvnConfig(requestParameters.setLayerZeroDvnConfigRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Set LayerZero peers to establish connections between adapter contracts. This endpoint creates peer relationships that enable cross-chain communication. It sets the destination adapter as a peer of the source adapter. If `bidirectional` is true, it also sets the source adapter as a peer of the destination adapter(s).
+         * @summary Set LayerZero peers
+         * @param {TokenizationApiSetLayerZeroPeersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setLayerZeroPeers(requestParameters: TokenizationApiSetLayerZeroPeersRequest, options?: RawAxiosRequestConfig): AxiosPromise<SetLayerZeroPeersResponse> {
+            return localVarFp.setLayerZeroPeers(requestParameters.setLayerZeroPeersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
          * @summary Unlink a token
          * @param {TokenizationApiUnlinkRequest} requestParameters Request parameters.
@@ -1051,6 +1573,16 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
          */
         unlinkCollection(requestParameters: TokenizationApiUnlinkCollectionRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.unlinkCollection(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate the LayerZero channel configuration between adapters. This endpoint checks if the channel configuration is correct and returns any validation errors.
+         * @summary Validate LayerZero channel configuration
+         * @param {TokenizationApiValidateLayerZeroChannelConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        validateLayerZeroChannelConfig(requestParameters: TokenizationApiValidateLayerZeroChannelConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidateLayerZeroChannelResponse> {
+            return localVarFp.validateLayerZeroChannelConfig(requestParameters.adapterTokenLinkId, requestParameters.peerAdapterTokenLinkId, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1100,6 +1632,48 @@ export interface TokenizationApiCreateNewCollectionRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof TokenizationApiCreateNewCollection
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for deactivateAndUnlinkAdapters operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiDeactivateAndUnlinkAdaptersRequest
+ */
+export interface TokenizationApiDeactivateAndUnlinkAdaptersRequest {
+    /**
+     * 
+     * @type {RemoveLayerZeroAdaptersRequest}
+     * @memberof TokenizationApiDeactivateAndUnlinkAdapters
+     */
+    readonly removeLayerZeroAdaptersRequest: RemoveLayerZeroAdaptersRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiDeactivateAndUnlinkAdapters
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for deployAndLinkAdapters operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiDeployAndLinkAdaptersRequest
+ */
+export interface TokenizationApiDeployAndLinkAdaptersRequest {
+    /**
+     * 
+     * @type {DeployLayerZeroAdaptersRequest}
+     * @memberof TokenizationApiDeployAndLinkAdapters
+     */
+    readonly deployLayerZeroAdaptersRequest: DeployLayerZeroAdaptersRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiDeployAndLinkAdapters
      */
     readonly idempotencyKey?: string
 }
@@ -1158,6 +1732,41 @@ export interface TokenizationApiGetDeployableAddressRequest {
      * @memberof TokenizationApiGetDeployableAddress
      */
     readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for getLayerZeroDvnConfig operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetLayerZeroDvnConfigRequest
+ */
+export interface TokenizationApiGetLayerZeroDvnConfigRequest {
+    /**
+     * The token link id of the adapter token link
+     * @type {string}
+     * @memberof TokenizationApiGetLayerZeroDvnConfig
+     */
+    readonly adapterTokenLinkId: string
+
+    /**
+     * Optional peer adapter token link ID to filter results
+     * @type {string}
+     * @memberof TokenizationApiGetLayerZeroDvnConfig
+     */
+    readonly peerAdapterTokenLinkId?: string
+}
+
+/**
+ * Request parameters for getLayerZeroPeers operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetLayerZeroPeersRequest
+ */
+export interface TokenizationApiGetLayerZeroPeersRequest {
+    /**
+     * The token link id of the adapter token link
+     * @type {string}
+     * @memberof TokenizationApiGetLayerZeroPeers
+     */
+    readonly adapterTokenLinkId: string
 }
 
 /**
@@ -1350,6 +1959,69 @@ export interface TokenizationApiReIssueTokenMultiChainRequest {
 }
 
 /**
+ * Request parameters for removeLayerZeroPeers operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiRemoveLayerZeroPeersRequest
+ */
+export interface TokenizationApiRemoveLayerZeroPeersRequest {
+    /**
+     * 
+     * @type {RemoveLayerZeroPeersRequest}
+     * @memberof TokenizationApiRemoveLayerZeroPeers
+     */
+    readonly removeLayerZeroPeersRequest: RemoveLayerZeroPeersRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiRemoveLayerZeroPeers
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setLayerZeroDvnConfig operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiSetLayerZeroDvnConfigRequest
+ */
+export interface TokenizationApiSetLayerZeroDvnConfigRequest {
+    /**
+     * 
+     * @type {SetLayerZeroDvnConfigRequest}
+     * @memberof TokenizationApiSetLayerZeroDvnConfig
+     */
+    readonly setLayerZeroDvnConfigRequest: SetLayerZeroDvnConfigRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiSetLayerZeroDvnConfig
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setLayerZeroPeers operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiSetLayerZeroPeersRequest
+ */
+export interface TokenizationApiSetLayerZeroPeersRequest {
+    /**
+     * 
+     * @type {SetLayerZeroPeersRequest}
+     * @memberof TokenizationApiSetLayerZeroPeers
+     */
+    readonly setLayerZeroPeersRequest: SetLayerZeroPeersRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TokenizationApiSetLayerZeroPeers
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for unlink operation in TokenizationApi.
  * @export
  * @interface TokenizationApiUnlinkRequest
@@ -1375,6 +2047,27 @@ export interface TokenizationApiUnlinkCollectionRequest {
      * @memberof TokenizationApiUnlinkCollection
      */
     readonly id: string
+}
+
+/**
+ * Request parameters for validateLayerZeroChannelConfig operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiValidateLayerZeroChannelConfigRequest
+ */
+export interface TokenizationApiValidateLayerZeroChannelConfigRequest {
+    /**
+     * The token link ID of the adapter
+     * @type {string}
+     * @memberof TokenizationApiValidateLayerZeroChannelConfig
+     */
+    readonly adapterTokenLinkId: string
+
+    /**
+     * Peer adapter token link ID to validate against
+     * @type {string}
+     * @memberof TokenizationApiValidateLayerZeroChannelConfig
+     */
+    readonly peerAdapterTokenLinkId: string
 }
 
 /**
@@ -1406,6 +2099,30 @@ export class TokenizationApi extends BaseAPI {
      */
     public createNewCollection(requestParameters: TokenizationApiCreateNewCollectionRequest) {
         return TokenizationApiFp(this.configuration).createNewCollection(requestParameters.collectionDeployRequestDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles and deactivates the specified adapter contracts.
+     * @summary Remove LayerZero adapters
+     * @param {TokenizationApiDeactivateAndUnlinkAdaptersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public deactivateAndUnlinkAdapters(requestParameters: TokenizationApiDeactivateAndUnlinkAdaptersRequest) {
+        return TokenizationApiFp(this.configuration).deactivateAndUnlinkAdapters(requestParameters.removeLayerZeroAdaptersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Deploy LayerZero adapters for multichain token bridging functionality. This endpoint creates adapter contracts that enable cross-chain token transfers.
+     * @summary Deploy LayerZero adapters
+     * @param {TokenizationApiDeployAndLinkAdaptersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public deployAndLinkAdapters(requestParameters: TokenizationApiDeployAndLinkAdaptersRequest) {
+        return TokenizationApiFp(this.configuration).deployAndLinkAdapters(requestParameters.deployLayerZeroAdaptersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1442,6 +2159,30 @@ export class TokenizationApi extends BaseAPI {
      */
     public getDeployableAddress(requestParameters: TokenizationApiGetDeployableAddressRequest) {
         return TokenizationApiFp(this.configuration).getDeployableAddress(requestParameters.getDeployableAddressRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns DVN configurations for channels between the source adapter and its peers.
+     * @summary Get LayerZero DVN configuration
+     * @param {TokenizationApiGetLayerZeroDvnConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getLayerZeroDvnConfig(requestParameters: TokenizationApiGetLayerZeroDvnConfigRequest) {
+        return TokenizationApiFp(this.configuration).getLayerZeroDvnConfig(requestParameters.adapterTokenLinkId, requestParameters.peerAdapterTokenLinkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieve the LayerZero peers configured for a specific adapter. Returns information about peer relationships for cross-chain communication.
+     * @summary Get LayerZero peers
+     * @param {TokenizationApiGetLayerZeroPeersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getLayerZeroPeers(requestParameters: TokenizationApiGetLayerZeroPeersRequest) {
+        return TokenizationApiFp(this.configuration).getLayerZeroPeers(requestParameters.adapterTokenLinkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1541,6 +2282,42 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
+     * Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer relationships between LayerZero adapters.
+     * @summary Remove LayerZero peers
+     * @param {TokenizationApiRemoveLayerZeroPeersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public removeLayerZeroPeers(requestParameters: TokenizationApiRemoveLayerZeroPeersRequest) {
+        return TokenizationApiFp(this.configuration).removeLayerZeroPeers(requestParameters.removeLayerZeroPeersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration for message verification between source and destination adapters.
+     * @summary Set LayerZero DVN configuration
+     * @param {TokenizationApiSetLayerZeroDvnConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public setLayerZeroDvnConfig(requestParameters: TokenizationApiSetLayerZeroDvnConfigRequest) {
+        return TokenizationApiFp(this.configuration).setLayerZeroDvnConfig(requestParameters.setLayerZeroDvnConfigRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Set LayerZero peers to establish connections between adapter contracts. This endpoint creates peer relationships that enable cross-chain communication. It sets the destination adapter as a peer of the source adapter. If `bidirectional` is true, it also sets the source adapter as a peer of the destination adapter(s).
+     * @summary Set LayerZero peers
+     * @param {TokenizationApiSetLayerZeroPeersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public setLayerZeroPeers(requestParameters: TokenizationApiSetLayerZeroPeersRequest) {
+        return TokenizationApiFp(this.configuration).setLayerZeroPeers(requestParameters.setLayerZeroPeersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Unlink a token. The token will be unlinked from the workspace. The token will not be deleted on chain nor the refId, only the link to the workspace will be removed.
      * @summary Unlink a token
      * @param {TokenizationApiUnlinkRequest} requestParameters Request parameters.
@@ -1562,6 +2339,18 @@ export class TokenizationApi extends BaseAPI {
      */
     public unlinkCollection(requestParameters: TokenizationApiUnlinkCollectionRequest) {
         return TokenizationApiFp(this.configuration).unlinkCollection(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Validate the LayerZero channel configuration between adapters. This endpoint checks if the channel configuration is correct and returns any validation errors.
+     * @summary Validate LayerZero channel configuration
+     * @param {TokenizationApiValidateLayerZeroChannelConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public validateLayerZeroChannelConfig(requestParameters: TokenizationApiValidateLayerZeroChannelConfigRequest) {
+        return TokenizationApiFp(this.configuration).validateLayerZeroChannelConfig(requestParameters.adapterTokenLinkId, requestParameters.peerAdapterTokenLinkId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

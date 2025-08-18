@@ -11,6 +11,7 @@
 |**relayType** | **string** | Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY) | [optional] [default to undefined]|
 |**relayId** | **string** | The vault account ID of the relay | [optional] [default to undefined]|
 |**relayName** | **string** | The name of the tenant, only for THIRD_PARTY relays | [optional] [default to undefined]|
+|**feeUSD** | **string** | The USD value of the fee | [optional] [default to undefined]|
 
 
 ## Enum: FeeInfoRelayTypeEnum

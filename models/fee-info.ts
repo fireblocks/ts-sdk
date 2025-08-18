@@ -62,6 +62,12 @@ export interface FeeInfo {
      * @memberof FeeInfo
      */
     'relayName'?: string;
+    /**
+     * The USD value of the fee
+     * @type {string}
+     * @memberof FeeInfo
+     */
+    'feeUSD'?: string;
 }
 
 export const FeeInfoRelayTypeEnum = {

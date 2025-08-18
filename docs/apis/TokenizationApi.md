@@ -6,9 +6,13 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**burnCollectionToken**](#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
 [**createNewCollection**](#createNewCollection) | **POST** /tokenization/collections | Create a new collection
+[**deactivateAndUnlinkAdapters**](#deactivateAndUnlinkAdapters) | **DELETE** /tokenization/multichain/bridge/layerzero | Remove LayerZero adapters
+[**deployAndLinkAdapters**](#deployAndLinkAdapters) | **POST** /tokenization/multichain/bridge/layerzero | Deploy LayerZero adapters
 [**fetchCollectionTokenDetails**](#fetchCollectionTokenDetails) | **GET** /tokenization/collections/{id}/tokens/{tokenId} | Get collection token details
 [**getCollectionById**](#getCollectionById) | **GET** /tokenization/collections/{id} | Get a collection by id
 [**getDeployableAddress**](#getDeployableAddress) | **POST** /tokenization/multichain/deterministic_address | Get deterministic address for contract deployment
+[**getLayerZeroDvnConfig**](#getLayerZeroDvnConfig) | **GET** /tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/dvns | Get LayerZero DVN configuration
+[**getLayerZeroPeers**](#getLayerZeroPeers) | **GET** /tokenization/multichain/bridge/layerzero/config/{adapterTokenLinkId}/peers | Get LayerZero peers
 [**getLinkedCollections**](#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 [**getLinkedToken**](#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 [**getLinkedTokens**](#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
@@ -17,8 +21,12 @@ Method | HTTP request | Description
 [**link**](#link) | **POST** /tokenization/tokens/link | Link a contract
 [**mintCollectionToken**](#mintCollectionToken) | **POST** /tokenization/collections/{id}/tokens/mint | Mint tokens
 [**reIssueTokenMultiChain**](#reIssueTokenMultiChain) | **POST** /tokenization/multichain/reissue/token/{tokenLinkId} | Reissue a multichain token
+[**removeLayerZeroPeers**](#removeLayerZeroPeers) | **DELETE** /tokenization/multichain/bridge/layerzero/config/peers | Remove LayerZero peers
+[**setLayerZeroDvnConfig**](#setLayerZeroDvnConfig) | **POST** /tokenization/multichain/bridge/layerzero/config/dvns | Set LayerZero DVN configuration
+[**setLayerZeroPeers**](#setLayerZeroPeers) | **POST** /tokenization/multichain/bridge/layerzero/config/peers | Set LayerZero peers
 [**unlink**](#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 [**unlinkCollection**](#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
+[**validateLayerZeroChannelConfig**](#validateLayerZeroChannelConfig) | **GET** /tokenization/multichain/bridge/layerzero/validate | Validate LayerZero channel configuration
 
 
 # **burnCollectionToken**
@@ -147,6 +155,139 @@ No authorization required
 |-------------|-------------|------------------|
 **201** | Collection was created successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deactivateAndUnlinkAdapters**
+> RemoveLayerZeroAdaptersResponse deactivateAndUnlinkAdapters(removeLayerZeroAdaptersRequest)
+
+Remove LayerZero adapters by deactivating and unlinking them. This endpoint revokes roles and deactivates the specified adapter contracts.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiDeactivateAndUnlinkAdaptersRequest, RemoveLayerZeroAdaptersResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiDeactivateAndUnlinkAdaptersRequest = {
+  // RemoveLayerZeroAdaptersRequest
+  removeLayerZeroAdaptersRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.deactivateAndUnlinkAdapters(body).then((res: FireblocksResponse<RemoveLayerZeroAdaptersResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **removeLayerZeroAdaptersRequest** | **[RemoveLayerZeroAdaptersRequest](../models/RemoveLayerZeroAdaptersRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RemoveLayerZeroAdaptersResponse](../models/RemoveLayerZeroAdaptersResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero adapters removal process completed |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**409** | Token link processing error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deployAndLinkAdapters**
+> DeployLayerZeroAdaptersResponse deployAndLinkAdapters(deployLayerZeroAdaptersRequest)
+
+Deploy LayerZero adapters for multichain token bridging functionality. This endpoint creates adapter contracts that enable cross-chain token transfers.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiDeployAndLinkAdaptersRequest, DeployLayerZeroAdaptersResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiDeployAndLinkAdaptersRequest = {
+  // DeployLayerZeroAdaptersRequest
+  deployLayerZeroAdaptersRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.deployAndLinkAdapters(body).then((res: FireblocksResponse<DeployLayerZeroAdaptersResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deployLayerZeroAdaptersRequest** | **[DeployLayerZeroAdaptersRequest](../models/DeployLayerZeroAdaptersRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[DeployLayerZeroAdaptersResponse](../models/DeployLayerZeroAdaptersResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero adapters deployed successfully |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**409** | Token link preparation error |  -  |
+**422** | Token link is not fungible |  -  |
+**500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
@@ -335,6 +476,133 @@ No authorization required
 **400** | Invalid parameters or template has no bytecode |  -  |
 **409** | Address is already taken |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getLayerZeroDvnConfig**
+> GetLayerZeroDvnConfigResponse getLayerZeroDvnConfig()
+
+Retrieve the DVN (Data Verification Network) configuration for a specific adapter. Returns DVN configurations for channels between the source adapter and its peers.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetLayerZeroDvnConfigRequest, GetLayerZeroDvnConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetLayerZeroDvnConfigRequest = {
+  // string | The token link id of the adapter token link
+  adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d,
+  // string | Optional peer adapter token link ID to filter results (optional)
+  peerAdapterTokenLinkId: 6add4f2a-b206-4114-8f94-2882618ffbb4,
+};
+
+fireblocks.tokenization.getLayerZeroDvnConfig(body).then((res: FireblocksResponse<GetLayerZeroDvnConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **adapterTokenLinkId** | [**string**] | The token link id of the adapter token link | defaults to undefined
+ **peerAdapterTokenLinkId** | [**string**] | Optional peer adapter token link ID to filter results | (optional) defaults to undefined
+
+
+### Return type
+
+**[GetLayerZeroDvnConfigResponse](../models/GetLayerZeroDvnConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero DVN configuration retrieved successfully |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getLayerZeroPeers**
+> GetLayerZeroPeersResponse getLayerZeroPeers()
+
+Retrieve the LayerZero peers configured for a specific adapter. Returns information about peer relationships for cross-chain communication.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetLayerZeroPeersRequest, GetLayerZeroPeersResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetLayerZeroPeersRequest = {
+  // string | The token link id of the adapter token link
+  adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d,
+};
+
+fireblocks.tokenization.getLayerZeroPeers(body).then((res: FireblocksResponse<GetLayerZeroPeersResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **adapterTokenLinkId** | [**string**] | The token link id of the adapter token link | defaults to undefined
+
+
+### Return type
+
+**[GetLayerZeroPeersResponse](../models/GetLayerZeroPeersResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero peers retrieved successfully |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
@@ -858,6 +1126,206 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **removeLayerZeroPeers**
+> RemoveLayerZeroPeersResponse removeLayerZeroPeers(removeLayerZeroPeersRequest)
+
+Remove LayerZero peers to disconnect adapter contracts. This endpoint removes peer relationships between LayerZero adapters.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiRemoveLayerZeroPeersRequest, RemoveLayerZeroPeersResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiRemoveLayerZeroPeersRequest = {
+  // RemoveLayerZeroPeersRequest
+  removeLayerZeroPeersRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.removeLayerZeroPeers(body).then((res: FireblocksResponse<RemoveLayerZeroPeersResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **removeLayerZeroPeersRequest** | **[RemoveLayerZeroPeersRequest](../models/RemoveLayerZeroPeersRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RemoveLayerZeroPeersResponse](../models/RemoveLayerZeroPeersResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero peers removal process completed |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**409** | Token link processing error |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **setLayerZeroDvnConfig**
+> SetLayerZeroDvnConfigResponse setLayerZeroDvnConfig(setLayerZeroDvnConfigRequest)
+
+Configure DVN settings for LayerZero adapters. This endpoint sets up the DVN configuration for message verification between source and destination adapters.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiSetLayerZeroDvnConfigRequest, SetLayerZeroDvnConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiSetLayerZeroDvnConfigRequest = {
+  // SetLayerZeroDvnConfigRequest
+  setLayerZeroDvnConfigRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.setLayerZeroDvnConfig(body).then((res: FireblocksResponse<SetLayerZeroDvnConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **setLayerZeroDvnConfigRequest** | **[SetLayerZeroDvnConfigRequest](../models/SetLayerZeroDvnConfigRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[SetLayerZeroDvnConfigResponse](../models/SetLayerZeroDvnConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero DVN configuration set successfully |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**409** | Token link preparation error |  -  |
+**422** | Bridging protocol blockchain metadata not found |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **setLayerZeroPeers**
+> SetLayerZeroPeersResponse setLayerZeroPeers(setLayerZeroPeersRequest)
+
+Set LayerZero peers to establish connections between adapter contracts. This endpoint creates peer relationships that enable cross-chain communication. It sets the destination adapter as a peer of the source adapter. If `bidirectional` is true, it also sets the source adapter as a peer of the destination adapter(s).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiSetLayerZeroPeersRequest, SetLayerZeroPeersResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiSetLayerZeroPeersRequest = {
+  // SetLayerZeroPeersRequest
+  setLayerZeroPeersRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tokenization.setLayerZeroPeers(body).then((res: FireblocksResponse<SetLayerZeroPeersResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **setLayerZeroPeersRequest** | **[SetLayerZeroPeersRequest](../models/SetLayerZeroPeersRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[SetLayerZeroPeersResponse](../models/SetLayerZeroPeersResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero peers set successfully |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**409** | Token link preparation error |  -  |
+**422** | Token link is not fungible |  -  |
+**500** | Internal server error |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **unlink**
 > unlink()
 
@@ -978,6 +1446,72 @@ No authorization required
 **204** | Collection unlinked successfully |  -  |
 **404** | Link for collection does not exist |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **validateLayerZeroChannelConfig**
+> ValidateLayerZeroChannelResponse validateLayerZeroChannelConfig()
+
+Validate the LayerZero channel configuration between adapters. This endpoint checks if the channel configuration is correct and returns any validation errors.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiValidateLayerZeroChannelConfigRequest, ValidateLayerZeroChannelResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiValidateLayerZeroChannelConfigRequest = {
+  // string | The token link ID of the adapter
+  adapterTokenLinkId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d,
+  // string | Peer adapter token link ID to validate against
+  peerAdapterTokenLinkId: 6add4f2a-b206-4114-8f94-2882618ffbb4,
+};
+
+fireblocks.tokenization.validateLayerZeroChannelConfig(body).then((res: FireblocksResponse<ValidateLayerZeroChannelResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **adapterTokenLinkId** | [**string**] | The token link ID of the adapter | defaults to undefined
+ **peerAdapterTokenLinkId** | [**string**] | Peer adapter token link ID to validate against | defaults to undefined
+
+
+### Return type
+
+**[ValidateLayerZeroChannelResponse](../models/ValidateLayerZeroChannelResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | LayerZero channel configuration validation completed |  -  |
+**400** | Bad request, invalid input data or parameters |  -  |
+**404** | Token link not found |  -  |
+**422** | Bridging protocol blockchain metadata not found |  -  |
+**500** | Internal server error |  -  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
