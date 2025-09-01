@@ -39,6 +39,7 @@ import { ApiUserApi,
          OffExchangesApi, 
          PaymentsPayoutApi, 
          PolicyEditorBetaApi, 
+         PolicyEditorV2BetaApi, 
          ResetDeviceApi, 
          SmartTransferApi, 
          StakingApi, 
@@ -89,6 +90,7 @@ export class Fireblocks {
     private _offExchanges?: OffExchangesApi;
     private _paymentsPayout?: PaymentsPayoutApi;
     private _policyEditorBeta?: PolicyEditorBetaApi;
+    private _policyEditorV2Beta?: PolicyEditorV2BetaApi;
     private _resetDevice?: ResetDeviceApi;
     private _smartTransfer?: SmartTransferApi;
     private _staking?: StakingApi;
@@ -206,6 +208,9 @@ export class Fireblocks {
     }
     get policyEditorBeta(): PolicyEditorBetaApi {
         return this._policyEditorBeta ?? new PolicyEditorBetaApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get policyEditorV2Beta(): PolicyEditorV2BetaApi {
+        return this._policyEditorV2Beta ?? new PolicyEditorV2BetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get resetDevice(): ResetDeviceApi {
         return this._resetDevice ?? new ResetDeviceApi(this.config, undefined, this.axiosManager.axios);

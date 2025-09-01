@@ -35,6 +35,8 @@ import { NotificationAttemptsPaginatedResponse } from '../models';
 // @ts-ignore
 import { NotificationPaginatedResponse } from '../models';
 // @ts-ignore
+import { NotificationStatus } from '../models';
+// @ts-ignore
 import { NotificationWithData } from '../models';
 // @ts-ignore
 import { ResendFailedNotificationsJobStatusResponse } from '../models';
@@ -48,6 +50,8 @@ import { ResendNotificationsByResourceIdRequest } from '../models';
 import { UpdateWebhookRequest } from '../models';
 // @ts-ignore
 import { Webhook } from '../models';
+// @ts-ignore
+import { WebhookEvent } from '../models';
 // @ts-ignore
 import { WebhookPaginatedResponse } from '../models';
 /**
@@ -224,10 +228,15 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
          * @param {GetNotificationsSortByEnum} [sortBy] Sort by field
          * @param {string} [pageCursor] Cursor of the required page
          * @param {number} [pageSize] Maximum number of items in the page
+         * @param {number} [startTime] Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago)
+         * @param {number} [endTime] End time in milliseconds since epoch to filter by notifications created before this time (default current time)
+         * @param {Array<NotificationStatus>} [statuses] List of notification statuses to filter by
+         * @param {Array<WebhookEvent>} [events] List of webhook event types to filter by
+         * @param {string} [resourceId] Resource ID to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getNotifications: async (webhookId: string, order?: GetNotificationsOrderEnum, sortBy?: GetNotificationsSortByEnum, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getNotifications: async (webhookId: string, order?: GetNotificationsOrderEnum, sortBy?: GetNotificationsSortByEnum, pageCursor?: string, pageSize?: number, startTime?: number, endTime?: number, statuses?: Array<NotificationStatus>, events?: Array<WebhookEvent>, resourceId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getNotifications', 'webhookId', webhookId)
             const localVarPath = `/webhooks/{webhookId}/notifications`
                 .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)));
@@ -256,6 +265,26 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
 
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (startTime !== undefined) {
+                localVarQueryParameter['startTime'] = startTime;
+            }
+
+            if (endTime !== undefined) {
+                localVarQueryParameter['endTime'] = endTime;
+            }
+
+            if (statuses) {
+                localVarQueryParameter['statuses'] = statuses;
+            }
+
+            if (events) {
+                localVarQueryParameter['events'] = events;
+            }
+
+            if (resourceId !== undefined) {
+                localVarQueryParameter['resourceId'] = resourceId;
             }
 
 
@@ -624,11 +653,16 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
          * @param {GetNotificationsSortByEnum} [sortBy] Sort by field
          * @param {string} [pageCursor] Cursor of the required page
          * @param {number} [pageSize] Maximum number of items in the page
+         * @param {number} [startTime] Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago)
+         * @param {number} [endTime] End time in milliseconds since epoch to filter by notifications created before this time (default current time)
+         * @param {Array<NotificationStatus>} [statuses] List of notification statuses to filter by
+         * @param {Array<WebhookEvent>} [events] List of webhook event types to filter by
+         * @param {string} [resourceId] Resource ID to filter by
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getNotifications(webhookId: string, order?: GetNotificationsOrderEnum, sortBy?: GetNotificationsSortByEnum, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationPaginatedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(webhookId, order, sortBy, pageCursor, pageSize, options);
+        async getNotifications(webhookId: string, order?: GetNotificationsOrderEnum, sortBy?: GetNotificationsSortByEnum, pageCursor?: string, pageSize?: number, startTime?: number, endTime?: number, statuses?: Array<NotificationStatus>, events?: Array<WebhookEvent>, resourceId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<NotificationPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getNotifications(webhookId, order, sortBy, pageCursor, pageSize, startTime, endTime, statuses, events, resourceId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.getNotifications']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -792,7 +826,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          * @throws {RequiredError}
          */
         getNotifications(requestParameters: WebhooksV2ApiGetNotificationsRequest, options?: RawAxiosRequestConfig): AxiosPromise<NotificationPaginatedResponse> {
-            return localVarFp.getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+            return localVarFp.getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.startTime, requestParameters.endTime, requestParameters.statuses, requestParameters.events, requestParameters.resourceId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get the status of a resend job 
@@ -1005,6 +1039,41 @@ export interface WebhooksV2ApiGetNotificationsRequest {
      * @memberof WebhooksV2ApiGetNotifications
      */
     readonly pageSize?: number
+
+    /**
+     * Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago)
+     * @type {number}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly startTime?: number
+
+    /**
+     * End time in milliseconds since epoch to filter by notifications created before this time (default current time)
+     * @type {number}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly endTime?: number
+
+    /**
+     * List of notification statuses to filter by
+     * @type {Array<NotificationStatus>}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly statuses?: Array<NotificationStatus>
+
+    /**
+     * List of webhook event types to filter by
+     * @type {Array<WebhookEvent>}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly events?: Array<WebhookEvent>
+
+    /**
+     * Resource ID to filter by
+     * @type {string}
+     * @memberof WebhooksV2ApiGetNotifications
+     */
+    readonly resourceId?: string
 }
 
 /**
@@ -1239,7 +1308,7 @@ export class WebhooksV2Api extends BaseAPI {
      * @memberof WebhooksV2Api
      */
     public getNotifications(requestParameters: WebhooksV2ApiGetNotificationsRequest) {
-        return WebhooksV2ApiFp(this.configuration).getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return WebhooksV2ApiFp(this.configuration).getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.startTime, requestParameters.endTime, requestParameters.statuses, requestParameters.events, requestParameters.resourceId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

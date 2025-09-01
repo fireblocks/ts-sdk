@@ -41,6 +41,7 @@ export * from './api/otabeta-api';
 export * from './api/off-exchanges-api';
 export * from './api/payments-payout-api';
 export * from './api/policy-editor-beta-api';
+export * from './api/policy-editor-v2-beta-api';
 export * from './api/reset-device-api';
 export * from './api/smart-transfer-api';
 export * from './api/staking-api';

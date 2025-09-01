@@ -4,9 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**editedBy** | **string** | The user id of the user who last edited the policy | [optional] [default to undefined]|
+|**policyType** | [**PolicyType**](PolicyType.md) |  | [default to undefined]|
+|**editedBy** | **string** | The user ID of the user who last edited the policy | [optional] [default to undefined]|
 |**editedAt** | **string** | The timestamp of the last edit of the policy | [optional] [default to undefined]|
-|**publishedBy** | **string** | The user id of the user who last published the policy | [optional] [default to undefined]|
+|**publishedBy** | **string** | The user ID of the user who last published the policy | [optional] [default to undefined]|
 |**publishedAt** | **string** | The timestamp of the last publish of the policy | [optional] [default to undefined]|
 
 

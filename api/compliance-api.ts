@@ -27,6 +27,10 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AmlVerdictManualRequest } from '../models';
+// @ts-ignore
+import { AmlVerdictManualResponse } from '../models';
+// @ts-ignore
 import { ComplianceResultFullPayload } from '../models';
 // @ts-ignore
 import { CreateTransactionResponse } from '../models';
@@ -238,6 +242,46 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
+         * @summary Set AML Verdict for Manual Screening Verdict.
+         * @param {AmlVerdictManualRequest} amlVerdictManualRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setAmlVerdict: async (amlVerdictManualRequest: AmlVerdictManualRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setAmlVerdict', 'amlVerdictManualRequest', amlVerdictManualRequest)
+            const localVarPath = `/screening/aml/verdict/manual`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(amlVerdictManualRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
          * @summary Update AML Configuration
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -433,6 +477,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
+         * @summary Set AML Verdict for Manual Screening Verdict.
+         * @param {AmlVerdictManualRequest} amlVerdictManualRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setAmlVerdict(amlVerdictManualRequest: AmlVerdictManualRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AmlVerdictManualResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setAmlVerdict(amlVerdictManualRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.setAmlVerdict']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
          * @summary Update AML Configuration
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -539,6 +597,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
+         * @summary Set AML Verdict for Manual Screening Verdict.
+         * @param {ComplianceApiSetAmlVerdictRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setAmlVerdict(requestParameters: ComplianceApiSetAmlVerdictRequest, options?: RawAxiosRequestConfig): AxiosPromise<AmlVerdictManualResponse> {
+            return localVarFp.setAmlVerdict(requestParameters.amlVerdictManualRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
          * @summary Update AML Configuration
          * @param {ComplianceApiUpdateAmlScreeningConfigurationRequest} requestParameters Request parameters.
@@ -602,6 +670,27 @@ export interface ComplianceApiRetryRejectedTransactionBypassScreeningChecksReque
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof ComplianceApiRetryRejectedTransactionBypassScreeningChecks
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setAmlVerdict operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiSetAmlVerdictRequest
+ */
+export interface ComplianceApiSetAmlVerdictRequest {
+    /**
+     * 
+     * @type {AmlVerdictManualRequest}
+     * @memberof ComplianceApiSetAmlVerdict
+     */
+    readonly amlVerdictManualRequest: AmlVerdictManualRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiSetAmlVerdict
      */
     readonly idempotencyKey?: string
 }
@@ -728,6 +817,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public retryRejectedTransactionBypassScreeningChecks(requestParameters: ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest) {
         return ComplianceApiFp(this.configuration).retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
+     * @summary Set AML Verdict for Manual Screening Verdict.
+     * @param {ComplianceApiSetAmlVerdictRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public setAmlVerdict(requestParameters: ComplianceApiSetAmlVerdictRequest) {
+        return ComplianceApiFp(this.configuration).setAmlVerdict(requestParameters.amlVerdictManualRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

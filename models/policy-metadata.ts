@@ -13,15 +13,24 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { PolicyType } from './policy-type';
 
 /**
- * Policy related metadata
+ * Policy metadata
  * @export
  * @interface PolicyMetadata
  */
 export interface PolicyMetadata {
     /**
-     * The user id of the user who last edited the policy
+     * 
+     * @type {PolicyType}
+     * @memberof PolicyMetadata
+     */
+    'policyType': PolicyType;
+    /**
+     * The user ID of the user who last edited the policy
      * @type {string}
      * @memberof PolicyMetadata
      */
@@ -33,7 +42,7 @@ export interface PolicyMetadata {
      */
     'editedAt'?: string;
     /**
-     * The user id of the user who last published the policy
+     * The user ID of the user who last published the policy
      * @type {string}
      * @memberof PolicyMetadata
      */
@@ -45,4 +54,6 @@ export interface PolicyMetadata {
      */
     'publishedAt'?: string;
 }
+
+
 

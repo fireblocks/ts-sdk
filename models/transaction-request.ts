@@ -69,7 +69,7 @@ export interface TransactionRequest {
      */
     'note'?: string;
     /**
-     * An optional but highly recommended parameter. Fireblocks will reject future transactions with same ID.  You should set this to a unique ID representing the transaction, to avoid submitting the same transaction twice. This helps with cases where submitting the transaction responds with an error code due to Internet interruptions, but the transaction was actually sent and processed. To validate whether a transaction has been processed, [Find a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid). There is no specific format required for this parameter.
+     * **This parameter will become required for all transactions on March 1, 2026.** This parameter allows you to add a unique ID of your own to help prevent duplicate transactions. No specific format is required for this parameter. After you submit a transaction with an external ID, Fireblocks will automatically reject all future transactions with the same ID. Using an external ID primarily helps in situations where, even though a submitted transaction responds with an error due to an internet outage,  the transaction was still sent to and processed on the blockchain.  Use the [Get a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/gettransactionbyexternalid)  endpoint to validate whether these transactions have been processed.
      * @type {string}
      * @memberof TransactionRequest
      */

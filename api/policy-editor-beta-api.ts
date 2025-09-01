@@ -27,17 +27,17 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { DraftReviewAndValidationResponse } from '../models';
-// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
-import { PolicyAndValidationResponse } from '../models';
+import { LegacyDraftReviewAndValidationResponse } from '../models';
 // @ts-ignore
-import { PolicyRules } from '../models';
+import { LegacyPolicyAndValidationResponse } from '../models';
 // @ts-ignore
-import { PublishDraftRequest } from '../models';
+import { LegacyPolicyRules } from '../models';
 // @ts-ignore
-import { PublishResult } from '../models';
+import { LegacyPublishDraftRequest } from '../models';
+// @ts-ignore
+import { LegacyPublishResult } from '../models';
 /**
  * PolicyEditorBetaApi - axios parameter creator
  * @export
@@ -45,12 +45,12 @@ import { PublishResult } from '../models';
 export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Returns the active policy and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getActivePolicy` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active policy and its validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActivePolicy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getActivePolicyLegacy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tap/active_policy`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -75,12 +75,12 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Returns the active draft and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Returns the active draft and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active draft
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDraft: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getDraftLegacy: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -105,15 +105,15 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Send publish request of certain draft id and returns the response. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `publishDraft` endpoint under policy/paths provides improved functionality and better performance.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
-         * @param {PublishDraftRequest} publishDraftRequest 
+         * @param {LegacyPublishDraftRequest} legacyPublishDraftRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishDraft: async (publishDraftRequest: PublishDraftRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('publishDraft', 'publishDraftRequest', publishDraftRequest)
+        publishDraftLegacy: async (legacyPublishDraftRequest: LegacyPublishDraftRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('publishDraftLegacy', 'legacyPublishDraftRequest', legacyPublishDraftRequest)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -137,7 +137,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(publishDraftRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(legacyPublishDraftRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -147,13 +147,13 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a set of policy rules
-         * @param {PolicyRules} policyRules 
+         * @param {LegacyPolicyRules} legacyPolicyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPolicyRules: async (policyRules: PolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('publishPolicyRules', 'policyRules', policyRules)
+        publishPolicyRules: async (legacyPolicyRules: LegacyPolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('publishPolicyRules', 'legacyPolicyRules', legacyPolicyRules)
             const localVarPath = `/tap/publish`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -177,7 +177,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(policyRules, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(legacyPolicyRules, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -185,15 +185,15 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Update the draft and return its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `updateDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
-         * @param {PolicyRules} policyRules 
+         * @param {LegacyPolicyRules} legacyPolicyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDraft: async (policyRules: PolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('updateDraft', 'policyRules', policyRules)
+        updateDraftLegacy: async (legacyPolicyRules: LegacyPolicyRules, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateDraftLegacy', 'legacyPolicyRules', legacyPolicyRules)
             const localVarPath = `/tap/draft`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -217,7 +217,7 @@ export const PolicyEditorBetaApiAxiosParamCreator = function (configuration?: Co
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(policyRules, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(legacyPolicyRules, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -235,69 +235,69 @@ export const PolicyEditorBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = PolicyEditorBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Returns the active policy and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getActivePolicy` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active policy and its validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getActivePolicy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PolicyAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicy(options);
+        async getActivePolicyLegacy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegacyPolicyAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getActivePolicyLegacy(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['PolicyEditorBetaApi.getActivePolicy']?.[index]?.url;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.getActivePolicyLegacy']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the active draft and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Returns the active draft and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active draft
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getDraft(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraft(options);
+        async getDraftLegacy(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegacyDraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraftLegacy(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['PolicyEditorBetaApi.getDraft']?.[index]?.url;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.getDraftLegacy']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Send publish request of certain draft id and returns the response. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `publishDraft` endpoint under policy/paths provides improved functionality and better performance.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
-         * @param {PublishDraftRequest} publishDraftRequest 
+         * @param {LegacyPublishDraftRequest} legacyPublishDraftRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishDraft(publishDraftRequest: PublishDraftRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraft(publishDraftRequest, idempotencyKey, options);
+        async publishDraftLegacy(legacyPublishDraftRequest: LegacyPublishDraftRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegacyPublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishDraftLegacy(legacyPublishDraftRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['PolicyEditorBetaApi.publishDraft']?.[index]?.url;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.publishDraftLegacy']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a set of policy rules
-         * @param {PolicyRules} policyRules 
+         * @param {LegacyPolicyRules} legacyPolicyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async publishPolicyRules(policyRules: PolicyRules, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublishResult>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(policyRules, idempotencyKey, options);
+        async publishPolicyRules(legacyPolicyRules: LegacyPolicyRules, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegacyPublishResult>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.publishPolicyRules(legacyPolicyRules, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['PolicyEditorBetaApi.publishPolicyRules']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Update the draft and return its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `updateDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
-         * @param {PolicyRules} policyRules 
+         * @param {LegacyPolicyRules} legacyPolicyRules 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateDraft(policyRules: PolicyRules, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DraftReviewAndValidationResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraft(policyRules, idempotencyKey, options);
+        async updateDraftLegacy(legacyPolicyRules: LegacyPolicyRules, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegacyDraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateDraftLegacy(legacyPolicyRules, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['PolicyEditorBetaApi.updateDraft']?.[index]?.url;
+            const operationBasePath = operationServerMap['PolicyEditorBetaApi.updateDraftLegacy']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -311,32 +311,32 @@ export const PolicyEditorBetaApiFactory = function (configuration?: Configuratio
     const localVarFp = PolicyEditorBetaApiFp(configuration)
     return {
         /**
-         * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Returns the active policy and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getActivePolicy` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active policy and its validation
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActivePolicy(options?: RawAxiosRequestConfig): AxiosPromise<PolicyAndValidationResponse> {
-            return localVarFp.getActivePolicy(options).then((request) => request(axios, basePath));
+        getActivePolicyLegacy(options?: RawAxiosRequestConfig): AxiosPromise<LegacyPolicyAndValidationResponse> {
+            return localVarFp.getActivePolicyLegacy(options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the active draft and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Returns the active draft and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Get the active draft
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getDraft(options?: RawAxiosRequestConfig): AxiosPromise<DraftReviewAndValidationResponse> {
-            return localVarFp.getDraft(options).then((request) => request(axios, basePath));
+        getDraftLegacy(options?: RawAxiosRequestConfig): AxiosPromise<LegacyDraftReviewAndValidationResponse> {
+            return localVarFp.getDraftLegacy(options).then((request) => request(axios, basePath));
         },
         /**
-         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Send publish request of certain draft id and returns the response. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `publishDraft` endpoint under policy/paths provides improved functionality and better performance.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
-         * @param {PolicyEditorBetaApiPublishDraftRequest} requestParameters Request parameters.
+         * @param {PolicyEditorBetaApiPublishDraftLegacyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublishResult> {
-            return localVarFp.publishDraft(requestParameters.publishDraftRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        publishDraftLegacy(requestParameters: PolicyEditorBetaApiPublishDraftLegacyRequest, options?: RawAxiosRequestConfig): AxiosPromise<LegacyPublishResult> {
+            return localVarFp.publishDraftLegacy(requestParameters.legacyPublishDraftRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Send publish request of set of policy rules and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
@@ -345,39 +345,39 @@ export const PolicyEditorBetaApiFactory = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublishResult> {
-            return localVarFp.publishPolicyRules(requestParameters.policyRules, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest, options?: RawAxiosRequestConfig): AxiosPromise<LegacyPublishResult> {
+            return localVarFp.publishPolicyRules(requestParameters.legacyPolicyRules, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Legacy Endpoint – Update the draft and return its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `updateDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Update the draft with a new set of rules
-         * @param {PolicyEditorBetaApiUpdateDraftRequest} requestParameters Request parameters.
+         * @param {PolicyEditorBetaApiUpdateDraftLegacyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest, options?: RawAxiosRequestConfig): AxiosPromise<DraftReviewAndValidationResponse> {
-            return localVarFp.updateDraft(requestParameters.policyRules, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        updateDraftLegacy(requestParameters: PolicyEditorBetaApiUpdateDraftLegacyRequest, options?: RawAxiosRequestConfig): AxiosPromise<LegacyDraftReviewAndValidationResponse> {
+            return localVarFp.updateDraftLegacy(requestParameters.legacyPolicyRules, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for publishDraft operation in PolicyEditorBetaApi.
+ * Request parameters for publishDraftLegacy operation in PolicyEditorBetaApi.
  * @export
- * @interface PolicyEditorBetaApiPublishDraftRequest
+ * @interface PolicyEditorBetaApiPublishDraftLegacyRequest
  */
-export interface PolicyEditorBetaApiPublishDraftRequest {
+export interface PolicyEditorBetaApiPublishDraftLegacyRequest {
     /**
      * 
-     * @type {PublishDraftRequest}
-     * @memberof PolicyEditorBetaApiPublishDraft
+     * @type {LegacyPublishDraftRequest}
+     * @memberof PolicyEditorBetaApiPublishDraftLegacy
      */
-    readonly publishDraftRequest: PublishDraftRequest
+    readonly legacyPublishDraftRequest: LegacyPublishDraftRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof PolicyEditorBetaApiPublishDraft
+     * @memberof PolicyEditorBetaApiPublishDraftLegacy
      */
     readonly idempotencyKey?: string
 }
@@ -390,10 +390,10 @@ export interface PolicyEditorBetaApiPublishDraftRequest {
 export interface PolicyEditorBetaApiPublishPolicyRulesRequest {
     /**
      * 
-     * @type {PolicyRules}
+     * @type {LegacyPolicyRules}
      * @memberof PolicyEditorBetaApiPublishPolicyRules
      */
-    readonly policyRules: PolicyRules
+    readonly legacyPolicyRules: LegacyPolicyRules
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -404,22 +404,22 @@ export interface PolicyEditorBetaApiPublishPolicyRulesRequest {
 }
 
 /**
- * Request parameters for updateDraft operation in PolicyEditorBetaApi.
+ * Request parameters for updateDraftLegacy operation in PolicyEditorBetaApi.
  * @export
- * @interface PolicyEditorBetaApiUpdateDraftRequest
+ * @interface PolicyEditorBetaApiUpdateDraftLegacyRequest
  */
-export interface PolicyEditorBetaApiUpdateDraftRequest {
+export interface PolicyEditorBetaApiUpdateDraftLegacyRequest {
     /**
      * 
-     * @type {PolicyRules}
-     * @memberof PolicyEditorBetaApiUpdateDraft
+     * @type {LegacyPolicyRules}
+     * @memberof PolicyEditorBetaApiUpdateDraftLegacy
      */
-    readonly policyRules: PolicyRules
+    readonly legacyPolicyRules: LegacyPolicyRules
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof PolicyEditorBetaApiUpdateDraft
+     * @memberof PolicyEditorBetaApiUpdateDraftLegacy
      */
     readonly idempotencyKey?: string
 }
@@ -432,37 +432,37 @@ export interface PolicyEditorBetaApiUpdateDraftRequest {
  */
 export class PolicyEditorBetaApi extends BaseAPI {
     /**
-     * Returns the active policy and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+     * Legacy Endpoint – Returns the active policy and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getActivePolicy` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      * @summary Get the active policy and its validation
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public getActivePolicy() {
-        return PolicyEditorBetaApiFp(this.configuration).getActivePolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getActivePolicyLegacy() {
+        return PolicyEditorBetaApiFp(this.configuration).getActivePolicyLegacy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns the active draft and its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+     * Legacy Endpoint – Returns the active draft and its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `getDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      * @summary Get the active draft
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public getDraft() {
-        return PolicyEditorBetaApiFp(this.configuration).getDraft().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getDraftLegacy() {
+        return PolicyEditorBetaApiFp(this.configuration).getDraftLegacy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+     * Legacy Endpoint – Send publish request of certain draft id and returns the response. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `publishDraft` endpoint under policy/paths provides improved functionality and better performance.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      * @summary Send publish request for a certain draft id
-     * @param {PolicyEditorBetaApiPublishDraftRequest} requestParameters Request parameters.
+     * @param {PolicyEditorBetaApiPublishDraftLegacyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public publishDraft(requestParameters: PolicyEditorBetaApiPublishDraftRequest) {
-        return PolicyEditorBetaApiFp(this.configuration).publishDraft(requestParameters.publishDraftRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public publishDraftLegacy(requestParameters: PolicyEditorBetaApiPublishDraftLegacyRequest) {
+        return PolicyEditorBetaApiFp(this.configuration).publishDraftLegacy(requestParameters.legacyPublishDraftRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -474,19 +474,19 @@ export class PolicyEditorBetaApi extends BaseAPI {
      * @memberof PolicyEditorBetaApi
      */
     public publishPolicyRules(requestParameters: PolicyEditorBetaApiPublishPolicyRulesRequest) {
-        return PolicyEditorBetaApiFp(this.configuration).publishPolicyRules(requestParameters.policyRules, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return PolicyEditorBetaApiFp(this.configuration).publishPolicyRules(requestParameters.legacyPolicyRules, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Update the draft and return its validation. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+     * Legacy Endpoint – Update the draft and return its validation. </br> **Note:**  - This endpoint will remain available for the foreseeable future and is not deprecated.</br> - The `updateDraft` endpoint under policy/paths provides policy type-specific operations and improved functionality.</br> - These endpoints are currently in beta and might be subject to changes.</br> If you want to participate and learn more about the Fireblocks TAP, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      * @summary Update the draft with a new set of rules
-     * @param {PolicyEditorBetaApiUpdateDraftRequest} requestParameters Request parameters.
+     * @param {PolicyEditorBetaApiUpdateDraftLegacyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof PolicyEditorBetaApi
      */
-    public updateDraft(requestParameters: PolicyEditorBetaApiUpdateDraftRequest) {
-        return PolicyEditorBetaApiFp(this.configuration).updateDraft(requestParameters.policyRules, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateDraftLegacy(requestParameters: PolicyEditorBetaApiUpdateDraftLegacyRequest) {
+        return PolicyEditorBetaApiFp(this.configuration).updateDraftLegacy(requestParameters.legacyPolicyRules, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

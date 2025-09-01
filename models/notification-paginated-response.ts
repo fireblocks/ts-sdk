@@ -30,6 +30,12 @@ export interface NotificationPaginatedResponse {
      */
     'data': Array<Notification>;
     /**
+     * The total number of notifications after all filters applied (not returned when \'pageCursor\' parameter is used)
+     * @type {number}
+     * @memberof NotificationPaginatedResponse
+     */
+    'total'?: number | null;
+    /**
      * The ID of the next page
      * @type {string}
      * @memberof NotificationPaginatedResponse
