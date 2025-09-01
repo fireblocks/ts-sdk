@@ -307,6 +307,16 @@ let body: WebhooksV2ApiGetNotificationsRequest = {
   pageCursor: pageCursor_example,
   // number | Maximum number of items in the page (optional)
   pageSize: 10,
+  // number | Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago) (optional)
+  startTime: 1625097600000,
+  // number | End time in milliseconds since epoch to filter by notifications created before this time (default current time) (optional)
+  endTime: 1625017600000,
+  // Array<NotificationStatus> | List of notification statuses to filter by (optional)
+  statuses: param_value,
+  // Array<WebhookEvent> | List of webhook event types to filter by (optional)
+  events: param_value,
+  // string | Resource ID to filter by (optional)
+  resourceId: 44fcead0-7053-4831-a53a-df7fb90d440f,
 };
 
 fireblocks.webhooksV2.getNotifications(body).then((res: FireblocksResponse<NotificationPaginatedResponse>) => {
@@ -324,6 +334,11 @@ Name | Type | Description  | Notes
  **sortBy** | [**&#39;id&#39; | &#39;createdAt&#39; | &#39;updatedAt&#39; | &#39;status&#39; | &#39;eventType&#39; | &#39;resourceId&#39;**]**Array<&#39;id&#39; &#124; &#39;createdAt&#39; &#124; &#39;updatedAt&#39; &#124; &#39;status&#39; &#124; &#39;eventType&#39; &#124; &#39;resourceId&#39;>** | Sort by field | (optional) defaults to 'updatedAt'
  **pageCursor** | [**string**] | Cursor of the required page | (optional) defaults to undefined
  **pageSize** | [**number**] | Maximum number of items in the page | (optional) defaults to 100
+ **startTime** | [**number**] | Start time in milliseconds since epoch to filter by notifications created after this time (default 31 days ago) | (optional) defaults to undefined
+ **endTime** | [**number**] | End time in milliseconds since epoch to filter by notifications created before this time (default current time) | (optional) defaults to undefined
+ **statuses** | **Array&lt;NotificationStatus&gt;** | List of notification statuses to filter by | (optional) defaults to undefined
+ **events** | **Array&lt;WebhookEvent&gt;** | List of webhook event types to filter by | (optional) defaults to undefined
+ **resourceId** | [**string**] | Resource ID to filter by | (optional) defaults to undefined
 
 
 ### Return type

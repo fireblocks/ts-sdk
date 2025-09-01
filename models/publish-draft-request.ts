@@ -13,18 +13,27 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { PolicyType } from './policy-type';
 
 /**
- * 
+ * Request schema for publishing draft with policy types and draft ID
  * @export
  * @interface PublishDraftRequest
  */
 export interface PublishDraftRequest {
     /**
-     * draft unique identifier
+     * 
+     * @type {Array<PolicyType>}
+     * @memberof PublishDraftRequest
+     */
+    'policyTypes': Array<PolicyType>;
+    /**
+     * The ID of the draft to publish
      * @type {string}
      * @memberof PublishDraftRequest
      */
-    'draftId'?: string;
+    'draftId': string;
 }
 

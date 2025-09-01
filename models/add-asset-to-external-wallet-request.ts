@@ -15,18 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AddAssetToExternalWalletRequestOneOf } from './add-asset-to-external-wallet-request-one-of';
+import { AdditionalInfoRequest } from './additional-info-request';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AddAssetToExternalWalletRequestOneOf1 } from './add-asset-to-external-wallet-request-one-of1';
+import { AdditionalInfoRequestAdditionalInfo } from './additional-info-request-additional-info';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AddAssetToExternalWalletRequestOneOf1AdditionalInfo } from './add-asset-to-external-wallet-request-one-of1-additional-info';
+import { BasicAddressRequest } from './basic-address-request';
 
 /**
  * @type AddAssetToExternalWalletRequest
+ * Request schema for adding an asset to an external wallet
  * @export
  */
-export type AddAssetToExternalWalletRequest = AddAssetToExternalWalletRequestOneOf | AddAssetToExternalWalletRequestOneOf1;
+export type AddAssetToExternalWalletRequest = AdditionalInfoRequest | BasicAddressRequest;
 
 
