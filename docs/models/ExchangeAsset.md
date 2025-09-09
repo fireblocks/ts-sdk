@@ -10,6 +10,10 @@
 |**total** | **string** |  | [optional] [default to undefined]|
 |**available** | **string** |  | [optional] [default to undefined]|
 |**credit** | **string** |  | [optional] [default to undefined]|
+|**assetId** | **string** | The id of the asset | [optional] [default to undefined]|
+|**providerSymbol** | **string** | The provider symbol of the asset | [optional] [default to undefined]|
+|**assetSymbol** | **string** | The asset symbol of the asset | [optional] [default to undefined]|
+|**assetLegacyId** | **string** | The asset legacy id of the asset | [optional] [default to undefined]|
 
 
 

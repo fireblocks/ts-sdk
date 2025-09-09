@@ -11,6 +11,7 @@
 |**website** | **string** | Vendor’s website | [optional] [default to undefined]|
 |**media** | [**Array&lt;AssetMedia&gt;**](AssetMedia.md) | Asset’s media | [optional] [default to undefined]|
 |**note** | [**AssetNote**](AssetNote.md) |  | [optional] [default to undefined]|
+|**features** | [**Array&lt;AssetFeature&gt;**](AssetFeature.md) | Asset features | [optional] [default to undefined]|
 
 
 

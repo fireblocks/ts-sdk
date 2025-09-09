@@ -18,6 +18,7 @@ import { ApiUserApi,
          BlockchainsAssetsApi, 
          ComplianceApi, 
          ComplianceScreeningConfigurationApi, 
+         ConnectedAccountsBetaApi, 
          ConsoleUserApi, 
          ContractInteractionsApi, 
          ContractTemplatesApi, 
@@ -43,9 +44,9 @@ import { ApiUserApi,
          ResetDeviceApi, 
          SmartTransferApi, 
          StakingApi, 
-         SwapBetaApi, 
          TagsApi, 
          TokenizationApi, 
+         TradingBetaApi, 
          TransactionsApi, 
          TravelRuleApi, 
          UserGroupsBetaApi, 
@@ -69,6 +70,7 @@ export class Fireblocks {
     private _blockchainsAssets?: BlockchainsAssetsApi;
     private _compliance?: ComplianceApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
+    private _connectedAccountsBeta?: ConnectedAccountsBetaApi;
     private _consoleUser?: ConsoleUserApi;
     private _contractInteractions?: ContractInteractionsApi;
     private _contractTemplates?: ContractTemplatesApi;
@@ -94,9 +96,9 @@ export class Fireblocks {
     private _resetDevice?: ResetDeviceApi;
     private _smartTransfer?: SmartTransferApi;
     private _staking?: StakingApi;
-    private _swapBeta?: SwapBetaApi;
     private _tags?: TagsApi;
     private _tokenization?: TokenizationApi;
+    private _tradingBeta?: TradingBetaApi;
     private _transactions?: TransactionsApi;
     private _travelRule?: TravelRuleApi;
     private _userGroupsBeta?: UserGroupsBetaApi;
@@ -145,6 +147,9 @@ export class Fireblocks {
     }
     get complianceScreeningConfiguration(): ComplianceScreeningConfigurationApi {
         return this._complianceScreeningConfiguration ?? new ComplianceScreeningConfigurationApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get connectedAccountsBeta(): ConnectedAccountsBetaApi {
+        return this._connectedAccountsBeta ?? new ConnectedAccountsBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get consoleUser(): ConsoleUserApi {
         return this._consoleUser ?? new ConsoleUserApi(this.config, undefined, this.axiosManager.axios);
@@ -221,14 +226,14 @@ export class Fireblocks {
     get staking(): StakingApi {
         return this._staking ?? new StakingApi(this.config, undefined, this.axiosManager.axios);
     }
-    get swapBeta(): SwapBetaApi {
-        return this._swapBeta ?? new SwapBetaApi(this.config, undefined, this.axiosManager.axios);
-    }
     get tags(): TagsApi {
         return this._tags ?? new TagsApi(this.config, undefined, this.axiosManager.axios);
     }
     get tokenization(): TokenizationApi {
         return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get tradingBeta(): TradingBetaApi {
+        return this._tradingBeta ?? new TradingBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get transactions(): TransactionsApi {
         return this._transactions ?? new TransactionsApi(this.config, undefined, this.axiosManager.axios);

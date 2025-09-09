@@ -1,0 +1,12 @@
+# ConnectedSingleAccount
+
+## Properties
+
+|Name | Type | Description | Notes|
+|------------ | ------------- | ------------- | -------------|
+|**subAccountsIds** | **Array&lt;string&gt;** | IDs of sub-accounts associated with this connected account. | [optional] [default to undefined]|
+
+
+
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
