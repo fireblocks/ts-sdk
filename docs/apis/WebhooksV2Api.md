@@ -555,7 +555,7 @@ No authorization required
 # **resendFailedNotifications**
 > ResendFailedNotificationsResponse resendFailedNotifications(resendFailedNotificationsRequest, )
 
-Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
 
 ### Example
 
@@ -622,7 +622,7 @@ No authorization required
 # **resendNotificationById**
 > resendNotificationById()
 
-Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
 
 ### Example
 
@@ -688,7 +688,7 @@ No authorization required
 # **resendNotificationsByResourceId**
 > resendNotificationsByResourceId(resendNotificationsByResourceIdRequest, )
 
-Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
 
 ### Example
 

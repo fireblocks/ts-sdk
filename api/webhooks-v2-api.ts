@@ -413,7 +413,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend failed notifications
          * @param {ResendFailedNotificationsRequest} resendFailedNotificationsRequest 
          * @param {string} webhookId The ID of the webhook
@@ -456,7 +456,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notification by id
          * @param {string} webhookId The ID of the webhook
          * @param {string} notificationId The ID of the notification
@@ -497,7 +497,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notifications by resource Id
          * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
          * @param {string} webhookId The ID of the webhook
@@ -710,7 +710,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend failed notifications
          * @param {ResendFailedNotificationsRequest} resendFailedNotificationsRequest 
          * @param {string} webhookId The ID of the webhook
@@ -725,7 +725,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notification by id
          * @param {string} webhookId The ID of the webhook
          * @param {string} notificationId The ID of the notification
@@ -740,7 +740,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notifications by resource Id
          * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
          * @param {string} webhookId The ID of the webhook
@@ -859,7 +859,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getWebhooks(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend failed notifications
          * @param {WebhooksV2ApiResendFailedNotificationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -869,7 +869,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.resendFailedNotifications(requestParameters.resendFailedNotificationsRequest, requestParameters.webhookId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notification by id
          * @param {WebhooksV2ApiResendNotificationByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -879,7 +879,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+         * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notifications by resource Id
          * @param {WebhooksV2ApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1348,7 +1348,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+     * Resend all failed notifications for a webhook in the last 24 hours  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
      * @summary Resend failed notifications
      * @param {WebhooksV2ApiResendFailedNotificationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1360,7 +1360,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+     * Resend notification by ID  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
      * @summary Resend notification by id
      * @param {WebhooksV2ApiResendNotificationByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1372,7 +1372,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
+     * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
      * @summary Resend notifications by resource Id
      * @param {WebhooksV2ApiResendNotificationsByResourceIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

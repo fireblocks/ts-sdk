@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { AssetFeature } from './asset-feature';
+// May contain unused imports in some cases
+// @ts-ignore
 import { AssetMedia } from './asset-media';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -71,6 +74,12 @@ export interface AssetDetailsMetadata {
      * @memberof AssetDetailsMetadata
      */
     'note'?: AssetNote;
+    /**
+     * Asset features
+     * @type {Array<AssetFeature>}
+     * @memberof AssetDetailsMetadata
+     */
+    'features'?: Array<AssetFeature>;
 }
 
 
