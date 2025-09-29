@@ -21,11 +21,11 @@
  */
 export interface ComplianceScreeningResult {
     /**
-     * 
+     * Screening provider
      * @type {string}
      * @memberof ComplianceScreeningResult
      */
-    'provider'?: string;
+    'provider'?: ComplianceScreeningResultProviderEnum;
     /**
      * The payload of the screening result. The payload is a JSON object that contains the screening result. The payload is different for each screening provider. 
      * @type {object}
@@ -33,11 +33,11 @@ export interface ComplianceScreeningResult {
      */
     'payload'?: object;
     /**
-     * 
+     * Reason AML screening was bypassed
      * @type {string}
      * @memberof ComplianceScreeningResult
      */
-    'bypassReason'?: string;
+    'bypassReason'?: ComplianceScreeningResultBypassReasonEnum;
     /**
      * 
      * @type {string}
@@ -52,6 +52,29 @@ export interface ComplianceScreeningResult {
     'timestamp'?: number;
 }
 
+export const ComplianceScreeningResultProviderEnum = {
+    Chainalysis: 'CHAINALYSIS',
+    Elliptic: 'ELLIPTIC',
+    ChainalysisV2: 'CHAINALYSIS_V2',
+    EllipticHolistic: 'ELLIPTIC_HOLISTIC',
+    None: 'NONE'
+} as const;
+
+export type ComplianceScreeningResultProviderEnum = typeof ComplianceScreeningResultProviderEnum[keyof typeof ComplianceScreeningResultProviderEnum];
+export const ComplianceScreeningResultBypassReasonEnum = {
+    Manual: 'MANUAL',
+    UnsupportedAsset: 'UNSUPPORTED_ASSET',
+    BypassedFailure: 'BYPASSED_FAILURE',
+    UnsupportedRoute: 'UNSUPPORTED_ROUTE',
+    PassedByPolicy: 'PASSED_BY_POLICY',
+    TimedOut: 'TIMED_OUT',
+    BadCredentials: 'BAD_CREDENTIALS',
+    ConfigurationError: 'CONFIGURATION_ERROR',
+    DroppedByBlockchain: 'DROPPED_BY_BLOCKCHAIN',
+    ProcessDismissed: 'PROCESS_DISMISSED'
+} as const;
+
+export type ComplianceScreeningResultBypassReasonEnum = typeof ComplianceScreeningResultBypassReasonEnum[keyof typeof ComplianceScreeningResultBypassReasonEnum];
 export const ComplianceScreeningResultScreeningStatusEnum = {
     Completed: 'COMPLETED',
     Pending: 'PENDING',

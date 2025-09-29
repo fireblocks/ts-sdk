@@ -590,10 +590,12 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
          * @param {string} [externalRefId] External ref. ID that workspace can use to identify ticket outside of Fireblocks system.
          * @param {string} [after] ID of the record after which to fetch $limit records
          * @param {number} [limit] Number of records to fetch. By default, it is 100
+         * @param {SearchTicketsSortByEnum} [sortBy] Sort by field
+         * @param {SearchTicketsOrderEnum} [order] ASC / DESC ordering (default DESC)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchTickets: async (q?: string, statuses?: Array<SearchTicketsStatusesEnum>, networkId?: string, createdByMe?: boolean, expiresAfter?: string, expiresBefore?: string, type?: SearchTicketsTypeEnum, externalRefId?: string, after?: string, limit?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        searchTickets: async (q?: string, statuses?: Array<SearchTicketsStatusesEnum>, networkId?: string, createdByMe?: boolean, expiresAfter?: string, expiresBefore?: string, type?: SearchTicketsTypeEnum, externalRefId?: string, after?: string, limit?: number, sortBy?: SearchTicketsSortByEnum, order?: SearchTicketsOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/smart-transfers`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -648,6 +650,14 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
             }
 
 
@@ -1084,11 +1094,13 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
          * @param {string} [externalRefId] External ref. ID that workspace can use to identify ticket outside of Fireblocks system.
          * @param {string} [after] ID of the record after which to fetch $limit records
          * @param {number} [limit] Number of records to fetch. By default, it is 100
+         * @param {SearchTicketsSortByEnum} [sortBy] Sort by field
+         * @param {SearchTicketsOrderEnum} [order] ASC / DESC ordering (default DESC)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchTickets(q?: string, statuses?: Array<SearchTicketsStatusesEnum>, networkId?: string, createdByMe?: boolean, expiresAfter?: string, expiresBefore?: string, type?: SearchTicketsTypeEnum, externalRefId?: string, after?: string, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketFilteredResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, options);
+        async searchTickets(q?: string, statuses?: Array<SearchTicketsStatusesEnum>, networkId?: string, createdByMe?: boolean, expiresAfter?: string, expiresBefore?: string, type?: SearchTicketsTypeEnum, externalRefId?: string, after?: string, limit?: number, sortBy?: SearchTicketsSortByEnum, order?: SearchTicketsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SmartTransferTicketFilteredResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.searchTickets(q, statuses, networkId, createdByMe, expiresAfter, expiresBefore, type, externalRefId, after, limit, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['SmartTransferApi.searchTickets']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1314,7 +1326,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
          * @throws {RequiredError}
          */
         searchTickets(requestParameters: SmartTransferApiSearchTicketsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<SmartTransferTicketFilteredResponse> {
-            return localVarFp.searchTickets(requestParameters.q, requestParameters.statuses, requestParameters.networkId, requestParameters.createdByMe, requestParameters.expiresAfter, requestParameters.expiresBefore, requestParameters.type, requestParameters.externalRefId, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
+            return localVarFp.searchTickets(requestParameters.q, requestParameters.statuses, requestParameters.networkId, requestParameters.createdByMe, requestParameters.expiresAfter, requestParameters.expiresBefore, requestParameters.type, requestParameters.externalRefId, requestParameters.after, requestParameters.limit, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
          * Set external id Smart Transfer ticket
@@ -1724,6 +1736,20 @@ export interface SmartTransferApiSearchTicketsRequest {
      * @memberof SmartTransferApiSearchTickets
      */
     readonly limit?: number
+
+    /**
+     * Sort by field
+     * @type {'createdAt' | 'updatedAt' | 'submittedAt'}
+     * @memberof SmartTransferApiSearchTickets
+     */
+    readonly sortBy?: SearchTicketsSortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof SmartTransferApiSearchTickets
+     */
+    readonly order?: SearchTicketsOrderEnum
 }
 
 /**
@@ -2036,7 +2062,7 @@ export class SmartTransferApi extends BaseAPI {
      * @memberof SmartTransferApi
      */
     public searchTickets(requestParameters: SmartTransferApiSearchTicketsRequest = {}) {
-        return SmartTransferApiFp(this.configuration).searchTickets(requestParameters.q, requestParameters.statuses, requestParameters.networkId, requestParameters.createdByMe, requestParameters.expiresAfter, requestParameters.expiresBefore, requestParameters.type, requestParameters.externalRefId, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return SmartTransferApiFp(this.configuration).searchTickets(requestParameters.q, requestParameters.statuses, requestParameters.networkId, requestParameters.createdByMe, requestParameters.expiresAfter, requestParameters.expiresBefore, requestParameters.type, requestParameters.externalRefId, requestParameters.after, requestParameters.limit, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2121,3 +2147,20 @@ export const SearchTicketsTypeEnum = {
     Dvp: 'DVP'
 } as const;
 export type SearchTicketsTypeEnum = typeof SearchTicketsTypeEnum[keyof typeof SearchTicketsTypeEnum];
+/**
+ * @export
+ */
+export const SearchTicketsSortByEnum = {
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt',
+    SubmittedAt: 'submittedAt'
+} as const;
+export type SearchTicketsSortByEnum = typeof SearchTicketsSortByEnum[keyof typeof SearchTicketsSortByEnum];
+/**
+ * @export
+ */
+export const SearchTicketsOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type SearchTicketsOrderEnum = typeof SearchTicketsOrderEnum[keyof typeof SearchTicketsOrderEnum];

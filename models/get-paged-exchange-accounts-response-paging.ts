@@ -17,19 +17,19 @@
 /**
  * 
  * @export
- * @interface ExchangeAccountsPagedPaging
+ * @interface GetPagedExchangeAccountsResponsePaging
  */
-export interface ExchangeAccountsPagedPaging {
+export interface GetPagedExchangeAccountsResponsePaging {
     /**
      * Query value to the after page
      * @type {string}
-     * @memberof ExchangeAccountsPagedPaging
+     * @memberof GetPagedExchangeAccountsResponsePaging
      */
     'after'?: string;
     /**
      * Query value to the before page
      * @type {string}
-     * @memberof ExchangeAccountsPagedPaging
+     * @memberof GetPagedExchangeAccountsResponsePaging
      */
     'before'?: string;
 }

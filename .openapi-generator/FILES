@@ -305,8 +305,6 @@ EstimatedNetworkFeeResponse.md
 EstimatedTransactionFeeResponse.md
 ExchangeAccount.md
 ExchangeAccountsApi.md
-ExchangeAccountsPaged.md
-ExchangeAccountsPagedPaging.md
 ExchangeAsset.md
 ExchangeSettlementTransactionsResponse.md
 ExchangeTradingAccount.md
@@ -334,6 +332,7 @@ FeeBreakdownOneOf.md
 FeeBreakdownOneOf1.md
 FeeInfo.md
 FeeLevel.md
+FeePayerInfo.md
 FetchAbiRequestDto.md
 FiatAccount.md
 FiatAccountType.md
@@ -374,6 +373,7 @@ GetOrdersResponse.md
 GetOtaStatusResponse.md
 GetOwnershipTokensResponse.md
 GetPagedExchangeAccountsResponse.md
+GetPagedExchangeAccountsResponsePaging.md
 GetRoutingPolicyAssetGroupsResponse.md
 GetSigningKeyResponseDto.md
 GetSupportedAssetsResponse.md
@@ -1198,8 +1198,6 @@ models/estimated-network-fee-response.ts
 models/estimated-transaction-fee-response.ts
 models/evmtoken-create-params-dto.ts
 models/exchange-account.ts
-models/exchange-accounts-paged-paging.ts
-models/exchange-accounts-paged.ts
 models/exchange-asset.ts
 models/exchange-settlement-transactions-response.ts
 models/exchange-trading-account.ts
@@ -1225,6 +1223,7 @@ models/fee-breakdown-one-of1.ts
 models/fee-breakdown.ts
 models/fee-info.ts
 models/fee-level.ts
+models/fee-payer-info.ts
 models/fee.ts
 models/fetch-abi-request-dto.ts
 models/fiat-account-type.ts
@@ -1263,6 +1262,7 @@ models/get-nfts-response.ts
 models/get-orders-response.ts
 models/get-ota-status-response.ts
 models/get-ownership-tokens-response.ts
+models/get-paged-exchange-accounts-response-paging.ts
 models/get-paged-exchange-accounts-response.ts
 models/get-routing-policy-asset-groups-response.ts
 models/get-signing-key-response-dto.ts

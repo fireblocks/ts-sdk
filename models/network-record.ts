@@ -88,19 +88,7 @@ export interface NetworkRecord {
      * @type {string}
      * @memberof NetworkRecord
      */
-    'sourceAddress'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof NetworkRecord
-     */
     'amountUSD'?: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof NetworkRecord
-     */
-    'index'?: number;
     /**
      * 
      * @type {RewardInfo}
