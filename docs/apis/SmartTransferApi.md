@@ -907,6 +907,10 @@ let body: SmartTransferApiSearchTicketsRequest = {
   after: after_example,
   // number | Number of records to fetch. By default, it is 100 (optional)
   limit: 8.14,
+  // 'createdAt' | 'updatedAt' | 'submittedAt' | Sort by field (optional)
+  sortBy: createdAt,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: DESC,
 };
 
 fireblocks.smartTransfer.searchTickets(body).then((res: FireblocksResponse<SmartTransferTicketFilteredResponse>) => {
@@ -929,6 +933,8 @@ Name | Type | Description  | Notes
  **externalRefId** | [**string**] | External ref. ID that workspace can use to identify ticket outside of Fireblocks system. | (optional) defaults to undefined
  **after** | [**string**] | ID of the record after which to fetch $limit records | (optional) defaults to undefined
  **limit** | [**number**] | Number of records to fetch. By default, it is 100 | (optional) defaults to undefined
+ **sortBy** | [**&#39;createdAt&#39; | &#39;updatedAt&#39; | &#39;submittedAt&#39;**]**Array<&#39;createdAt&#39; &#124; &#39;updatedAt&#39; &#124; &#39;submittedAt&#39;>** | Sort by field | (optional) defaults to 'createdAt'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
 
 
 ### Return type
