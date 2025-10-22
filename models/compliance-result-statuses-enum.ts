@@ -43,7 +43,8 @@ export const ComplianceResultStatusesEnum = {
     TrIncomingStarted: 'TRIncomingStarted',
     TrIncomingCompleted: 'TRIncomingCompleted',
     TrIncomingFailed: 'TRIncomingFailed',
-    IncomingCompleted: 'IncomingCompleted'
+    IncomingCompleted: 'IncomingCompleted',
+    UpdateCompleted: 'UpdateCompleted'
 } as const;
 
 export type ComplianceResultStatusesEnum = typeof ComplianceResultStatusesEnum[keyof typeof ComplianceResultStatusesEnum];

@@ -59,5 +59,11 @@ export interface CollectionMintRequestDto {
      * @memberof CollectionMintRequestDto
      */
     'metadata'?: CollectionTokenMetadataDto;
+    /**
+     * External id that can be used to identify the transaction in your system. The unique identifier of the transaction outside of Fireblocks with max length of 255 characters
+     * @type {string}
+     * @memberof CollectionMintRequestDto
+     */
+    'externalId'?: string;
 }
 
