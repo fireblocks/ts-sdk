@@ -305,6 +305,8 @@ let body: KeyLinkBetaApiGetSigningKeysListRequest = {
   available: true,
   // boolean | Return keys that are assigned to a vault account (optional)
   isAssigned: true,
+  // string | A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value. (optional)
+  keyPrefix: keyPrefix_example,
 };
 
 fireblocks.keyLinkBeta.getSigningKeysList(body).then((res: FireblocksResponse<GetSigningKeyResponseDto>) => {
@@ -327,6 +329,7 @@ Name | Type | Description  | Notes
  **enabled** | [**boolean**] | Return keys that have been proof of ownership | (optional) defaults to undefined
  **available** | [**boolean**] | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set | (optional) defaults to undefined
  **isAssigned** | [**boolean**] | Return keys that are assigned to a vault account | (optional) defaults to undefined
+ **keyPrefix** | [**string**] | A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value. | (optional) defaults to undefined
 
 
 ### Return type

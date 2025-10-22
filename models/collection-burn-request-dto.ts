@@ -38,5 +38,11 @@ export interface CollectionBurnRequestDto {
      * @memberof CollectionBurnRequestDto
      */
     'amount'?: string;
+    /**
+     * External id that can be used to identify the transaction in your system. The unique identifier of the transaction outside of Fireblocks with max length of 255 characters
+     * @type {string}
+     * @memberof CollectionBurnRequestDto
+     */
+    'externalId'?: string;
 }
 
