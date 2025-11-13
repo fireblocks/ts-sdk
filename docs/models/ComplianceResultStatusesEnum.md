@@ -3,6 +3,10 @@
 ## Enum
 
 
+* `Unknown` (value: `'Unknown'`)
+
+* `Stalled` (value: `'Stalled'`)
+
 * `Started` (value: `'Started'`)
 
 * `NetworkConnectionAddressResolve` (value: `'NetworkConnectionAddressResolve'`)
@@ -21,13 +25,45 @@
 
 * `TrStarted` (value: `'TRStarted'`)
 
+* `TrLinkStarted` (value: `'TRLinkStarted'`)
+
+* `TrLinkDestinationStarted` (value: `'TRLinkDestinationStarted'`)
+
+* `TrLinkDestinationPrescreenPolicy` (value: `'TRLinkDestinationPrescreenPolicy'`)
+
+* `TrLinkDestinationNoTrmPolicy` (value: `'TRLinkDestinationNoTRMPolicy'`)
+
+* `TrLinkDestinationScreen` (value: `'TRLinkDestinationScreen'`)
+
+* `TrLinkDestinationPostscreenPolicy` (value: `'TRLinkDestinationPostscreenPolicy'`)
+
+* `TrLinkDestinationCompleted` (value: `'TRLinkDestinationCompleted'`)
+
+* `TrLinkCompleted` (value: `'TRLinkCompleted'`)
+
 * `TrCompleted` (value: `'TRCompleted'`)
 
 * `TrFailed` (value: `'TRFailed'`)
 
 * `Completed` (value: `'Completed'`)
 
+* `RegistrationStarted` (value: `'RegistrationStarted'`)
+
+* `RegistrationWaitForFirstConfirmation` (value: `'RegistrationWaitForFirstConfirmation'`)
+
+* `AmlRegistrationStarted` (value: `'AMLRegistrationStarted'`)
+
+* `AmlRegistrationCompleted` (value: `'AMLRegistrationCompleted'`)
+
+* `TrUpdateStarted` (value: `'TRUpdateStarted'`)
+
+* `TrUpdateCompleted` (value: `'TRUpdateCompleted'`)
+
+* `UpdateCompleted` (value: `'UpdateCompleted'`)
+
 * `IncomingStarted` (value: `'IncomingStarted'`)
+
+* `IncomingByorkSl` (value: `'IncomingByorkSL'`)
 
 * `IncomingScreeningPrepare` (value: `'IncomingScreeningPrepare'`)
 
@@ -49,7 +85,19 @@
 
 * `IncomingCompleted` (value: `'IncomingCompleted'`)
 
-* `UpdateCompleted` (value: `'UpdateCompleted'`)
+* `AddressAmlInitiated` (value: `'AddressAmlInitiated'`)
+
+* `AddressAmlAddressResolve` (value: `'AddressAmlAddressResolve'`)
+
+* `AddressAmlPrepare` (value: `'AddressAmlPrepare'`)
+
+* `AddressAmlProcessing` (value: `'AddressAmlProcessing'`)
+
+* `AddressAmlSucceeded` (value: `'AddressAmlSucceeded'`)
+
+* `AddressAmlFailed` (value: `'AddressAmlFailed'`)
+
+* `AddressAmlCompleted` (value: `'AddressAmlCompleted'`)
 
 
 

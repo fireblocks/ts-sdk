@@ -18,6 +18,9 @@
 import { AccountConfig } from './account-config';
 // May contain unused imports in some cases
 // @ts-ignore
+import { AmountConfig } from './amount-config';
+// May contain unused imports in some cases
+// @ts-ignore
 import { AmountOverTimeConfig } from './amount-over-time-config';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -30,6 +33,9 @@ import { AssetConfig } from './asset-config';
 import { ContractMethodPattern } from './contract-method-pattern';
 // May contain unused imports in some cases
 // @ts-ignore
+import { DAppAddressConfig } from './dapp-address-config';
+// May contain unused imports in some cases
+// @ts-ignore
 import { DerivationPathConfig } from './derivation-path-config';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -39,6 +45,9 @@ import { DestinationConfig } from './destination-config';
 import { InitiatorConfigPattern } from './initiator-config-pattern';
 // May contain unused imports in some cases
 // @ts-ignore
+import { OrderSide } from './order-side';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PolicyType } from './policy-type';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -46,6 +55,9 @@ import { ProgramCallConfig } from './program-call-config';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ScreeningMetadataConfig } from './screening-metadata-config';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SourceConfig } from './source-config';
 // May contain unused imports in some cases
 // @ts-ignore
 import { VerdictConfig } from './verdict-config';
@@ -88,16 +100,10 @@ export interface PolicyRule {
     'initiator': InitiatorConfigPattern;
     /**
      * 
-     * @type {AssetConfig}
+     * @type {SourceConfig}
      * @memberof PolicyRule
      */
-    'asset': AssetConfig;
-    /**
-     * 
-     * @type {AccountConfig}
-     * @memberof PolicyRule
-     */
-    'source': AccountConfig;
+    'source': SourceConfig;
     /**
      * 
      * @type {VerdictConfig}
@@ -112,6 +118,12 @@ export interface PolicyRule {
     'subType'?: PolicyType;
     /**
      * 
+     * @type {AssetConfig}
+     * @memberof PolicyRule
+     */
+    'asset'?: AssetConfig;
+    /**
+     * 
      * @type {DestinationConfig}
      * @memberof PolicyRule
      */
@@ -124,16 +136,22 @@ export interface PolicyRule {
     'account'?: AccountConfig;
     /**
      * 
+     * @type {OrderSide}
+     * @memberof PolicyRule
+     */
+    'side'?: OrderSide;
+    /**
+     * 
      * @type {AmountOverTimeConfig}
      * @memberof PolicyRule
      */
     'amountOverTime'?: AmountOverTimeConfig;
     /**
      * 
-     * @type {AmountRange}
+     * @type {AmountConfig}
      * @memberof PolicyRule
      */
-    'amount'?: AmountRange;
+    'amount'?: AmountConfig;
     /**
      * External descriptor for the rule
      * @type {string}
@@ -188,6 +206,12 @@ export interface PolicyRule {
      * @memberof PolicyRule
      */
     'baseAmount'?: AmountRange;
+    /**
+     * 
+     * @type {DAppAddressConfig}
+     * @memberof PolicyRule
+     */
+    'dAppAddress'?: DAppAddressConfig;
     /**
      * 
      * @type {DerivationPathConfig}

@@ -15,7 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AmountOverTimeConfigRange } from './amount-over-time-config-range';
+import { AmountRangeMinMax2 } from './amount-range-min-max2';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PolicyCurrency } from './policy-currency';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TimePeriodConfig } from './time-period-config';
@@ -28,30 +31,23 @@ import { TimePeriodConfig } from './time-period-config';
 export interface AmountOverTimeConfig {
     /**
      * 
-     * @type {AmountOverTimeConfigRange}
+     * @type {AmountRangeMinMax2}
      * @memberof AmountOverTimeConfig
      */
-    'range': AmountOverTimeConfigRange;
+    'range': AmountRangeMinMax2;
+    /**
+     * 
+     * @type {PolicyCurrency}
+     * @memberof AmountOverTimeConfig
+     */
+    'currency': PolicyCurrency;
     /**
      * 
      * @type {TimePeriodConfig}
      * @memberof AmountOverTimeConfig
      */
     'timePeriod': TimePeriodConfig;
-    /**
-     * Currency for the amount
-     * @type {string}
-     * @memberof AmountOverTimeConfig
-     */
-    'currency'?: AmountOverTimeConfigCurrencyEnum;
 }
 
-export const AmountOverTimeConfigCurrencyEnum = {
-    Native: 'NATIVE',
-    Usd: 'USD',
-    Eur: 'EUR'
-} as const;
-
-export type AmountOverTimeConfigCurrencyEnum = typeof AmountOverTimeConfigCurrencyEnum[keyof typeof AmountOverTimeConfigCurrencyEnum];
 
 

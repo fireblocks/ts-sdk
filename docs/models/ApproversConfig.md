@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**canInitiatorApprove** | **boolean** | Whether initiator can approve | [optional] [default to undefined]|
+|**canInitiatorApprove** | **boolean** | Whether initiator can approve | [default to undefined]|
 |**operator** | **string** | Operator for approval groups | [optional] [default to undefined]|
 |**allowOperatorAsAuthorizer** | **boolean** | Whether operator can be authorizer | [optional] [default to undefined]|
 |**approvalGroups** | [**Array&lt;ApproversConfigApprovalGroupsInner&gt;**](ApproversConfigApprovalGroupsInner.md) | List of approval groups | [optional] [default to undefined]|

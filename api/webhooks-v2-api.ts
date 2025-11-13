@@ -53,6 +53,8 @@ import { Webhook } from '../models';
 // @ts-ignore
 import { WebhookEvent } from '../models';
 // @ts-ignore
+import { WebhookMetric } from '../models';
+// @ts-ignore
 import { WebhookPaginatedResponse } from '../models';
 /**
  * WebhooksV2Api - axios parameter creator
@@ -119,6 +121,42 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             }
 
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get webhook metrics by webhook id and metric name 
+         * @summary Get webhook metrics
+         * @param {string} webhookId 
+         * @param {GetMetricsMetricNameEnum} metricName Name of the metric to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMetrics: async (webhookId: string, metricName: GetMetricsMetricNameEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getMetrics', 'webhookId', webhookId)
+            assertParamExistsAndNotEmpty('getMetrics', 'metricName', metricName)
+            const localVarPath = `/webhooks/{webhookId}/metrics/{metricName}`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
+                .replace(`{${"metricName"}}`, encodeURIComponent(String(metricName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -615,6 +653,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Get webhook metrics by webhook id and metric name 
+         * @summary Get webhook metrics
+         * @param {string} webhookId 
+         * @param {GetMetricsMetricNameEnum} metricName Name of the metric to retrieve
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMetrics(webhookId: string, metricName: GetMetricsMetricNameEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMetric>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMetrics(webhookId, metricName, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getMetrics']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get notification by id 
          * @summary Get notification by id
          * @param {string} webhookId The ID of the webhook to fetch
@@ -799,6 +851,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.deleteWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Get webhook metrics by webhook id and metric name 
+         * @summary Get webhook metrics
+         * @param {WebhooksV2ApiGetMetricsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMetrics(requestParameters: WebhooksV2ApiGetMetricsRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMetric> {
+            return localVarFp.getMetrics(requestParameters.webhookId, requestParameters.metricName, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get notification by id 
          * @summary Get notification by id
          * @param {WebhooksV2ApiGetNotificationRequest} requestParameters Request parameters.
@@ -934,6 +996,27 @@ export interface WebhooksV2ApiDeleteWebhookRequest {
      * @memberof WebhooksV2ApiDeleteWebhook
      */
     readonly webhookId: string
+}
+
+/**
+ * Request parameters for getMetrics operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetMetricsRequest
+ */
+export interface WebhooksV2ApiGetMetricsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof WebhooksV2ApiGetMetrics
+     */
+    readonly webhookId: string
+
+    /**
+     * Name of the metric to retrieve
+     * @type {'LAST_ACTIVE_HOUR_ERROR_RATE'}
+     * @memberof WebhooksV2ApiGetMetrics
+     */
+    readonly metricName: GetMetricsMetricNameEnum
 }
 
 /**
@@ -1276,6 +1359,18 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Get webhook metrics by webhook id and metric name 
+     * @summary Get webhook metrics
+     * @param {WebhooksV2ApiGetMetricsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getMetrics(requestParameters: WebhooksV2ApiGetMetricsRequest) {
+        return WebhooksV2ApiFp(this.configuration).getMetrics(requestParameters.webhookId, requestParameters.metricName).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get notification by id 
      * @summary Get notification by id
      * @param {WebhooksV2ApiGetNotificationRequest} requestParameters Request parameters.
@@ -1396,6 +1491,13 @@ export class WebhooksV2Api extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const GetMetricsMetricNameEnum = {
+    LastActiveHourErrorRate: 'LAST_ACTIVE_HOUR_ERROR_RATE'
+} as const;
+export type GetMetricsMetricNameEnum = typeof GetMetricsMetricNameEnum[keyof typeof GetMetricsMetricNameEnum];
 /**
  * @export
  */

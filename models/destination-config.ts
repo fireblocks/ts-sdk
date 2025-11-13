@@ -22,6 +22,9 @@ import { AccountType2 } from './account-type2';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PolicyOperator } from './policy-operator';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PolicyTag } from './policy-tag';
 
 /**
  * Destination configuration for policy rules
@@ -29,12 +32,6 @@ import { PolicyOperator } from './policy-operator';
  * @interface DestinationConfig
  */
 export interface DestinationConfig {
-    /**
-     * 
-     * @type {AccountType2}
-     * @memberof DestinationConfig
-     */
-    'type': AccountType2;
     /**
      * 
      * @type {PolicyOperator}
@@ -48,6 +45,12 @@ export interface DestinationConfig {
      */
     'addressType': DestinationConfigAddressTypeEnum;
     /**
+     * Destination account types
+     * @type {Array<AccountType2>}
+     * @memberof DestinationConfig
+     */
+    'type'?: Array<AccountType2>;
+    /**
      * 
      * @type {Array<AccountIdentifier>}
      * @memberof DestinationConfig
@@ -60,7 +63,13 @@ export interface DestinationConfig {
      */
     'ids'?: Array<AccountIdentifier>;
     /**
-     * Whether to match from account or source
+     * Tags for destination matching
+     * @type {Array<PolicyTag>}
+     * @memberof DestinationConfig
+     */
+    'tags'?: Array<PolicyTag>;
+    /**
+     * Whether to match from account or source (relevant only for ORDER policy type). If set to ACCOUNT, only matchFrom is allowed and other fields are not required.
      * @type {string}
      * @memberof DestinationConfig
      */
@@ -68,11 +77,9 @@ export interface DestinationConfig {
 }
 
 export const DestinationConfigAddressTypeEnum = {
-    All: 'ALL',
     Star: '*',
     Whitelisted: 'WHITELISTED',
-    OneTime: 'ONE_TIME',
-    OecPartner: 'OEC_PARTNER'
+    OneTime: 'ONE_TIME'
 } as const;
 
 export type DestinationConfigAddressTypeEnum = typeof DestinationConfigAddressTypeEnum[keyof typeof DestinationConfigAddressTypeEnum];

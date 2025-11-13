@@ -13,30 +13,21 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmountRangeMinMax2 } from './amount-range-min-max2';
 
 /**
- * Amount range configuration
+ * Amount range with minimum and maximum values
  * @export
  * @interface AmountRange
  */
 export interface AmountRange {
     /**
-     * Minimum amount
-     * @type {string}
+     * 
+     * @type {AmountRangeMinMax2}
      * @memberof AmountRange
      */
-    'min': string;
-    /**
-     * Maximum amount
-     * @type {string}
-     * @memberof AmountRange
-     */
-    'max': string;
-    /**
-     * Currency for the amount
-     * @type {string}
-     * @memberof AmountRange
-     */
-    'currency': string;
+    'range': AmountRangeMinMax2;
 }
 

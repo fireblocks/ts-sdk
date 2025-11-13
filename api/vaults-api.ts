@@ -77,6 +77,10 @@ import { VaultAccount } from '../models';
 // @ts-ignore
 import { VaultAccountsPagedResponse } from '../models';
 // @ts-ignore
+import { VaultAccountsTagAttachmentOperationsRequest } from '../models';
+// @ts-ignore
+import { VaultAccountsTagAttachmentOperationsResponse } from '../models';
+// @ts-ignore
 import { VaultAccountsTagAttachmentsRequest } from '../models';
 // @ts-ignore
 import { VaultActionStatus } from '../models';
@@ -130,8 +134,48 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Attach one or more tags to the requested vault accounts.
-         * @summary Attach tags to a vault accounts
+         * Attach or detach one or more tags from the requested vault accounts.
+         * @summary Attach or detach tags from a vault accounts
+         * @param {VaultAccountsTagAttachmentOperationsRequest} vaultAccountsTagAttachmentOperationsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        attachOrDetachTagsFromVaultAccounts: async (vaultAccountsTagAttachmentOperationsRequest: VaultAccountsTagAttachmentOperationsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('attachOrDetachTagsFromVaultAccounts', 'vaultAccountsTagAttachmentOperationsRequest', vaultAccountsTagAttachmentOperationsRequest)
+            const localVarPath = `/vault/accounts/attached_tags`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(vaultAccountsTagAttachmentOperationsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+         * @summary Attach tags to a vault accounts (deprecated)
          * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -424,8 +468,8 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Detach one or more tags from the requested vault account.
-         * @summary Detach tags from a vault accounts
+         * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+         * @summary Detach tags from a vault accounts (deprecated)
          * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -1397,8 +1441,22 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Attach one or more tags to the requested vault accounts.
-         * @summary Attach tags to a vault accounts
+         * Attach or detach one or more tags from the requested vault accounts.
+         * @summary Attach or detach tags from a vault accounts
+         * @param {VaultAccountsTagAttachmentOperationsRequest} vaultAccountsTagAttachmentOperationsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest: VaultAccountsTagAttachmentOperationsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsTagAttachmentOperationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.attachOrDetachTagsFromVaultAccounts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+         * @summary Attach tags to a vault accounts (deprecated)
          * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -1501,8 +1559,8 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Detach one or more tags from the requested vault account.
-         * @summary Detach tags from a vault accounts
+         * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+         * @summary Detach tags from a vault accounts (deprecated)
          * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -1854,8 +1912,18 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Attach one or more tags to the requested vault accounts.
-         * @summary Attach tags to a vault accounts
+         * Attach or detach one or more tags from the requested vault accounts.
+         * @summary Attach or detach tags from a vault accounts
+         * @param {VaultsApiAttachOrDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        attachOrDetachTagsFromVaultAccounts(requestParameters: VaultsApiAttachOrDetachTagsFromVaultAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAccountsTagAttachmentOperationsResponse> {
+            return localVarFp.attachOrDetachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentOperationsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+         * @summary Attach tags to a vault accounts (deprecated)
          * @param {VaultsApiAttachTagsToVaultAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1924,8 +1992,8 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Detach one or more tags from the requested vault account.
-         * @summary Detach tags from a vault accounts
+         * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+         * @summary Detach tags from a vault accounts (deprecated)
          * @param {VaultsApiDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2170,6 +2238,27 @@ export interface VaultsApiActivateAssetForVaultAccountRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof VaultsApiActivateAssetForVaultAccount
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for attachOrDetachTagsFromVaultAccounts operation in VaultsApi.
+ * @export
+ * @interface VaultsApiAttachOrDetachTagsFromVaultAccountsRequest
+ */
+export interface VaultsApiAttachOrDetachTagsFromVaultAccountsRequest {
+    /**
+     * 
+     * @type {VaultAccountsTagAttachmentOperationsRequest}
+     * @memberof VaultsApiAttachOrDetachTagsFromVaultAccounts
+     */
+    readonly vaultAccountsTagAttachmentOperationsRequest: VaultAccountsTagAttachmentOperationsRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiAttachOrDetachTagsFromVaultAccounts
      */
     readonly idempotencyKey?: string
 }
@@ -3020,8 +3109,20 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Attach one or more tags to the requested vault accounts.
-     * @summary Attach tags to a vault accounts
+     * Attach or detach one or more tags from the requested vault accounts.
+     * @summary Attach or detach tags from a vault accounts
+     * @param {VaultsApiAttachOrDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public attachOrDetachTagsFromVaultAccounts(requestParameters: VaultsApiAttachOrDetachTagsFromVaultAccountsRequest) {
+        return VaultsApiFp(this.configuration).attachOrDetachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentOperationsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+     * @summary Attach tags to a vault accounts (deprecated)
      * @param {VaultsApiAttachTagsToVaultAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3104,8 +3205,8 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Detach one or more tags from the requested vault account.
-     * @summary Detach tags from a vault accounts
+     * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
+     * @summary Detach tags from a vault accounts (deprecated)
      * @param {VaultsApiDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

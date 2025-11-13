@@ -31,12 +31,6 @@ import { PolicyUserIds } from './policy-user-ids';
 export interface InitiatorConfig {
     /**
      * 
-     * @type {PolicyOperator}
-     * @memberof InitiatorConfig
-     */
-    'operator': PolicyOperator;
-    /**
-     * 
      * @type {PolicyUserIds}
      * @memberof InitiatorConfig
      */
@@ -65,6 +59,12 @@ export interface InitiatorConfig {
      * @memberof InitiatorConfig
      */
     'exchange'?: Array<string>;
+    /**
+     * 
+     * @type {PolicyOperator}
+     * @memberof InitiatorConfig
+     */
+    'operator'?: PolicyOperator;
 }
 
 

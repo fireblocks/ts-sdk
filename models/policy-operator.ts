@@ -21,8 +21,7 @@
  */
 
 export const PolicyOperator = {
-    Includes: 'INCLUDES',
-    Excludes: 'EXCLUDES'
+    Includes: 'INCLUDES'
 } as const;
 
 export type PolicyOperator = typeof PolicyOperator[keyof typeof PolicyOperator];

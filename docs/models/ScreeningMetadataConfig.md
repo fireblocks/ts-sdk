@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**direction** | **string** | Direction of transaction | [default to undefined]|
+|**direction** | **string** | Direction of transaction | [optional] [default to undefined]|
 |**provider** | **string** | Screening provider | [optional] [default to undefined]|
 |**riskRating** | **string** | Risk rating threshold | [optional] [default to undefined]|
 |**riskScore** | **string** | Risk score threshold | [optional] [default to undefined]|

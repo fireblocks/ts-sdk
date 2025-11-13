@@ -4,9 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**min** | **string** | Minimum amount | [default to undefined]|
-|**max** | **string** | Maximum amount | [default to undefined]|
-|**currency** | **string** | Currency for the amount | [default to undefined]|
+|**range** | [**AmountRangeMinMax2**](AmountRangeMinMax2.md) |  | [default to undefined]|
 
 
 

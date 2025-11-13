@@ -18,12 +18,15 @@
 import { ExecutionResponseBaseDetails } from './execution-response-base-details';
 // May contain unused imports in some cases
 // @ts-ignore
+import { QuoteExecutionTypeDetails } from './quote-execution-type-details';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransferRail } from './transfer-rail';
 
 /**
  * @type QuoteExecutionResponseDetails
  * @export
  */
-export type QuoteExecutionResponseDetails = ExecutionResponseBaseDetails;
+export type QuoteExecutionResponseDetails = ExecutionResponseBaseDetails & QuoteExecutionTypeDetails;
 
 

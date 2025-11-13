@@ -18,12 +18,15 @@
 import { QuoteExecutionRequestDetails } from './quote-execution-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteExecutionWithRequoteRequestDetailsAllOfReQuote } from './quote-execution-with-requote-request-details-all-of-re-quote';
+import { ReQuoteDetails } from './re-quote-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ReQuoteDetailsReQuote } from './re-quote-details-re-quote';
 
 /**
  * @type QuoteExecutionWithRequoteRequestDetails
  * @export
  */
-export type QuoteExecutionWithRequoteRequestDetails = QuoteExecutionRequestDetails;
+export type QuoteExecutionWithRequoteRequestDetails = QuoteExecutionRequestDetails & ReQuoteDetails;
 
 

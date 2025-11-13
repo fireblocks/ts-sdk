@@ -16,11 +16,14 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { BaseProvider } from './base-provider';
+// May contain unused imports in some cases
+// @ts-ignore
+import { DirectAccessProviderDetails } from './direct-access-provider-details';
 
 /**
  * @type DirectAccessProvider
  * @export
  */
-export type DirectAccessProvider = BaseProvider;
+export type DirectAccessProvider = BaseProvider & DirectAccessProviderDetails;
 
 

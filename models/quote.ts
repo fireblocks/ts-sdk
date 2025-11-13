@@ -22,103 +22,14 @@ import { ExecutionStepDetails } from './execution-step-details';
 // May contain unused imports in some cases
 // @ts-ignore
 import { Fee } from './fee';
+// May contain unused imports in some cases
+// @ts-ignore
+import { QuotePropertiesDetails } from './quote-properties-details';
 
 /**
- * 
+ * @type Quote
  * @export
- * @interface Quote
  */
-export interface Quote {
-    /**
-     * 
-     * @type {AccessType}
-     * @memberof Quote
-     */
-    'via': AccessType;
-    /**
-     * 
-     * @type {string}
-     * @memberof Quote
-     */
-    'id': string;
-    /**
-     * Indicates this is an indicative quote
-     * @type {string}
-     * @memberof Quote
-     */
-    'type': QuoteTypeEnum;
-    /**
-     * 
-     * @type {string}
-     * @memberof Quote
-     */
-    'quoteAssetId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Quote
-     */
-    'baseAssetId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Quote
-     */
-    'baseAmount': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Quote
-     */
-    'quoteAmount': string;
-    /**
-     * Side of the order
-     * @type {string}
-     * @memberof Quote
-     */
-    'side': QuoteSideEnum;
-    /**
-     * ISO 8601 timestamp of the expiration time of the quote.
-     * @type {string}
-     * @memberof Quote
-     */
-    'expiresAt': string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Quote
-     */
-    'priceImpact'?: number;
-    /**
-     * 
-     * @type {string}
-     * @memberof Quote
-     */
-    'quoteMinAmount'?: string;
-    /**
-     * 
-     * @type {Array<ExecutionStepDetails>}
-     * @memberof Quote
-     */
-    'executionSteps'?: Array<ExecutionStepDetails>;
-    /**
-     * 
-     * @type {Array<Fee>}
-     * @memberof Quote
-     */
-    'generalFees'?: Array<Fee>;
-}
-
-export const QuoteTypeEnum = {
-    Indicative: 'INDICATIVE'
-} as const;
-
-export type QuoteTypeEnum = typeof QuoteTypeEnum[keyof typeof QuoteTypeEnum];
-export const QuoteSideEnum = {
-    Buy: 'BUY',
-    Sell: 'SELL'
-} as const;
-
-export type QuoteSideEnum = typeof QuoteSideEnum[keyof typeof QuoteSideEnum];
+export type Quote = QuotePropertiesDetails;
 
 

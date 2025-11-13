@@ -4,15 +4,22 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
+|**type** | **string** | Order type for limit orders | [default to undefined]|
+|**timeInForce** | [**TimeInForce**](TimeInForce.md) |  | [default to undefined]|
+|**limitPrice** | **string** | Price for limit orders | [default to undefined]|
 |**side** | **string** | Side of the order | [default to SideEnum_Buy]|
 |**baseAmount** | **string** | Amount to convert | [default to undefined]|
 |**baseAssetId** | **string** | Source asset identifier | [default to undefined]|
 |**quoteAssetId** | **string** | Target asset identifier | [default to undefined]|
-|**type** | **string** | Order type for limit orders | [default to undefined]|
-|**timeInForce** | [**TimeInForce**](TimeInForce.md) |  | [default to undefined]|
-|**limitPrice** | **string** | Price for limit orders | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
+
+
+## Enum: LimitExecutionRequestDetailsTypeEnum
+
+
+* `Limit` (value: `'LIMIT'`)
+
 
 
 ## Enum: LimitExecutionRequestDetailsSideEnum
@@ -21,13 +28,6 @@
 * `Buy` (value: `'BUY'`)
 
 * `Sell` (value: `'SELL'`)
-
-
-
-## Enum: LimitExecutionRequestDetailsTypeEnum
-
-
-* `Limit` (value: `'LIMIT'`)
 
 
 

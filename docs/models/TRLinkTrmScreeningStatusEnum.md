@@ -1,0 +1,16 @@
+# TRLinkTrmScreeningStatusEnum
+
+## Enum
+
+
+* `Pending` (value: `'PENDING'`)
+
+* `Accepted` (value: `'ACCEPTED'`)
+
+* `Rejected` (value: `'REJECTED'`)
+
+* `Failed` (value: `'FAILED'`)
+
+
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

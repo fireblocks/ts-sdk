@@ -22,25 +22,28 @@ import { AccountType2 } from './account-type2';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PolicyOperator } from './policy-operator';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PolicyTag } from './policy-tag';
 
 /**
- * Policy source/destination configuration
+ * Policy account configuration
  * @export
  * @interface AccountConfig
  */
 export interface AccountConfig {
     /**
      * 
-     * @type {AccountType2}
-     * @memberof AccountConfig
-     */
-    'type': AccountType2;
-    /**
-     * 
      * @type {PolicyOperator}
      * @memberof AccountConfig
      */
     'operator': PolicyOperator;
+    /**
+     * Account types
+     * @type {Array<AccountType2>}
+     * @memberof AccountConfig
+     */
+    'type'?: Array<AccountType2>;
     /**
      * 
      * @type {Array<AccountIdentifier>}
@@ -53,6 +56,12 @@ export interface AccountConfig {
      * @memberof AccountConfig
      */
     'ids'?: Array<AccountIdentifier>;
+    /**
+     * Tags for account matching
+     * @type {Array<PolicyTag>}
+     * @memberof AccountConfig
+     */
+    'tags'?: Array<PolicyTag>;
     /**
      * Whether to match from account or source
      * @type {string}

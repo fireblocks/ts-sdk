@@ -4,20 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**range** | [**AmountOverTimeConfigRange**](AmountOverTimeConfigRange.md) |  | [default to undefined]|
+|**range** | [**AmountRangeMinMax2**](AmountRangeMinMax2.md) |  | [default to undefined]|
+|**currency** | [**PolicyCurrency**](PolicyCurrency.md) |  | [default to undefined]|
 |**timePeriod** | [**TimePeriodConfig**](TimePeriodConfig.md) |  | [default to undefined]|
-|**currency** | **string** | Currency for the amount | [optional] [default to undefined]|
-
-
-## Enum: AmountOverTimeConfigCurrencyEnum
-
-
-* `Native` (value: `'NATIVE'`)
-
-* `Usd` (value: `'USD'`)
-
-* `Eur` (value: `'EUR'`)
-
 
 
 

@@ -551,6 +551,10 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: TransactionsApiGetTransactionsRequest = {
+  // string | Cursor returned in next-page header that can be used to fetch the next page of results (optional)
+  next: next_example,
+  // string | Cursor returned in prev-page header that can be used to fetch the previous page of results (optional)
+  prev: prev_example,
   // string | Unix timestamp in milliseconds. Returns only transactions created before the specified date (optional)
   before: before_example,
   // string | Unix timestamp in milliseconds. Returns only transactions created after the specified date (optional)
@@ -591,6 +595,8 @@ fireblocks.transactions.getTransactions(body).then((res: FireblocksResponse<GetT
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **next** | [**string**] | Cursor returned in next-page header that can be used to fetch the next page of results | (optional) defaults to undefined
+ **prev** | [**string**] | Cursor returned in prev-page header that can be used to fetch the previous page of results | (optional) defaults to undefined
  **before** | [**string**] | Unix timestamp in milliseconds. Returns only transactions created before the specified date | (optional) defaults to undefined
  **after** | [**string**] | Unix timestamp in milliseconds. Returns only transactions created after the specified date | (optional) defaults to undefined
  **status** | [**string**] | You can filter by one of the statuses. | (optional) defaults to undefined
