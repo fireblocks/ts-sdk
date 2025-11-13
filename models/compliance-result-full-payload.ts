@@ -22,6 +22,12 @@ import { ComplianceResultStatusesEnum } from './compliance-result-statuses-enum'
 // May contain unused imports in some cases
 // @ts-ignore
 import { ComplianceScreeningResultFullPayload } from './compliance-screening-result-full-payload';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TRLinkRegistrationResultFullPayload } from './trlink-registration-result-full-payload';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TRLinkResultFullPayload } from './trlink-result-full-payload';
 
 /**
  * The result of the Compliance AML/Travel Rule screening.
@@ -59,6 +65,18 @@ export interface ComplianceResultFullPayload {
      * @memberof ComplianceResultFullPayload
      */
     'amlRegistration'?: AmlRegistrationResultFullPayload;
+    /**
+     * 
+     * @type {TRLinkRegistrationResultFullPayload}
+     * @memberof ComplianceResultFullPayload
+     */
+    'trlinkRegistration'?: TRLinkRegistrationResultFullPayload;
+    /**
+     * The list of TRLink destination screening results.
+     * @type {Array<TRLinkResultFullPayload>}
+     * @memberof ComplianceResultFullPayload
+     */
+    'trlinkDestinations'?: Array<TRLinkResultFullPayload>;
 }
 
 

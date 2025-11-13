@@ -387,6 +387,8 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
         /**
          * Lists the transaction history for your workspace.
          * @summary List transaction history
+         * @param {string} [next] Cursor returned in next-page header that can be used to fetch the next page of results
+         * @param {string} [prev] Cursor returned in prev-page header that can be used to fetch the previous page of results
          * @param {string} [before] Unix timestamp in milliseconds. Returns only transactions created before the specified date
          * @param {string} [after] Unix timestamp in milliseconds. Returns only transactions created after the specified date
          * @param {string} [status] You can filter by one of the statuses.
@@ -404,7 +406,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTransactions: async (before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTransactions: async (next?: string, prev?: string, before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/transactions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -416,6 +418,14 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (next !== undefined) {
+                localVarQueryParameter['next'] = next;
+            }
+
+            if (prev !== undefined) {
+                localVarQueryParameter['prev'] = prev;
+            }
 
             if (before !== undefined) {
                 localVarQueryParameter['before'] = before;
@@ -814,6 +824,8 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
         /**
          * Lists the transaction history for your workspace.
          * @summary List transaction history
+         * @param {string} [next] Cursor returned in next-page header that can be used to fetch the next page of results
+         * @param {string} [prev] Cursor returned in prev-page header that can be used to fetch the previous page of results
          * @param {string} [before] Unix timestamp in milliseconds. Returns only transactions created before the specified date
          * @param {string} [after] Unix timestamp in milliseconds. Returns only transactions created after the specified date
          * @param {string} [status] You can filter by one of the statuses.
@@ -831,8 +843,8 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTransactions(before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTransactionsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, options);
+        async getTransactions(next?: string, prev?: string, before?: string, after?: string, status?: string, orderBy?: GetTransactionsOrderByEnum, sort?: GetTransactionsSortEnum, limit?: number, sourceType?: GetTransactionsSourceTypeEnum, sourceId?: string, destType?: GetTransactionsDestTypeEnum, destId?: string, assets?: string, txHash?: string, sourceWalletId?: string, destWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetTransactionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTransactions(next, prev, before, after, status, orderBy, sort, limit, sourceType, sourceId, destType, destId, assets, txHash, sourceWalletId, destWalletId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TransactionsApi.getTransactions']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1008,7 +1020,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
          * @throws {RequiredError}
          */
         getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetTransactionsResponse> {
-            return localVarFp.getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, options).then((request) => request(axios, basePath));
+            return localVarFp.getTransactions(requestParameters.next, requestParameters.prev, requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, options).then((request) => request(axios, basePath));
         },
         /**
          * rescan transaction by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
@@ -1251,6 +1263,20 @@ export interface TransactionsApiGetTransactionByExternalIdRequest {
  * @interface TransactionsApiGetTransactionsRequest
  */
 export interface TransactionsApiGetTransactionsRequest {
+    /**
+     * Cursor returned in next-page header that can be used to fetch the next page of results
+     * @type {string}
+     * @memberof TransactionsApiGetTransactions
+     */
+    readonly next?: string
+
+    /**
+     * Cursor returned in prev-page header that can be used to fetch the previous page of results
+     * @type {string}
+     * @memberof TransactionsApiGetTransactions
+     */
+    readonly prev?: string
+
     /**
      * Unix timestamp in milliseconds. Returns only transactions created before the specified date
      * @type {string}
@@ -1588,7 +1614,7 @@ export class TransactionsApi extends BaseAPI {
      * @memberof TransactionsApi
      */
     public getTransactions(requestParameters: TransactionsApiGetTransactionsRequest = {}) {
-        return TransactionsApiFp(this.configuration).getTransactions(requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return TransactionsApiFp(this.configuration).getTransactions(requestParameters.next, requestParameters.prev, requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

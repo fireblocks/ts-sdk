@@ -25,7 +25,7 @@ export interface ScreeningMetadataConfig {
      * @type {string}
      * @memberof ScreeningMetadataConfig
      */
-    'direction': ScreeningMetadataConfigDirectionEnum;
+    'direction'?: ScreeningMetadataConfigDirectionEnum;
     /**
      * Screening provider
      * @type {string}

@@ -25,7 +25,8 @@ export const ExecutionStepType = {
     Permit: 'PERMIT',
     ContractCall: 'CONTRACT_CALL',
     Execute: 'EXECUTE',
-    Settlement: 'SETTLEMENT'
+    Settlement: 'SETTLEMENT',
+    Delivery: 'DELIVERY'
 } as const;
 
 export type ExecutionStepType = typeof ExecutionStepType[keyof typeof ExecutionStepType];

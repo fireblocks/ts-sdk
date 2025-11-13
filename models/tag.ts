@@ -38,5 +38,23 @@ export interface Tag {
      * @memberof Tag
      */
     'description'?: string;
+    /**
+     * Whether the tag is protected
+     * @type {boolean}
+     * @memberof Tag
+     */
+    'isProtected'?: boolean;
+    /**
+     * The color of the tag in hex format
+     * @type {string}
+     * @memberof Tag
+     */
+    'color'?: string;
+    /**
+     * The date and time the tag was last updated
+     * @type {string}
+     * @memberof Tag
+     */
+    'updatedAt'?: string;
 }
 

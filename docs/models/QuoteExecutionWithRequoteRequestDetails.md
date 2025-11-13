@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | Order type for quote orders | [default to undefined]|
 |**quoteId** | **string** | Quote ID for quote orders | [default to undefined]|
-|**reQuote** | [**QuoteExecutionWithRequoteRequestDetailsAllOfReQuote**](QuoteExecutionWithRequoteRequestDetailsAllOfReQuote.md) |  | [optional] [default to undefined]|
+|**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: QuoteExecutionWithRequoteRequestDetailsTypeEnum

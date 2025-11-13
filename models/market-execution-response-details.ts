@@ -18,12 +18,15 @@
 import { ExecutionResponseBaseDetails } from './execution-response-base-details';
 // May contain unused imports in some cases
 // @ts-ignore
+import { MarketTypeDetails } from './market-type-details';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransferRail } from './transfer-rail';
 
 /**
  * @type MarketExecutionResponseDetails
  * @export
  */
-export type MarketExecutionResponseDetails = ExecutionResponseBaseDetails;
+export type MarketExecutionResponseDetails = ExecutionResponseBaseDetails & MarketTypeDetails;
 
 

@@ -28,7 +28,7 @@ export interface ApproversConfig {
      * @type {boolean}
      * @memberof ApproversConfig
      */
-    'canInitiatorApprove'?: boolean;
+    'canInitiatorApprove': boolean;
     /**
      * Operator for approval groups
      * @type {string}

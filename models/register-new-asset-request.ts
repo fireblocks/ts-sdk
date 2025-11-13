@@ -27,7 +27,7 @@ export interface RegisterNewAssetRequest {
      */
     'blockchainId': string;
     /**
-     * Asset address. - EVM-based chains: token contract address - Stellar (XLM): issuer address - Algorand (ALGO): asset ID - TRON (TRX): token contract address - NEAR: token address - Solana: token\'s mint account address 
+     * Asset address. - EVM-based chains: token contract address - Stellar (XLM): issuer address - Algorand (ALGO): asset ID - TRON (TRX): token contract address - NEAR: token address - Solana: token\'s mint account address - Sui: token\'s type 
      * @type {string}
      * @memberof RegisterNewAssetRequest
      */

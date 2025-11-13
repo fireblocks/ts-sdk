@@ -5,28 +5,12 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** |  | [default to undefined]|
-|**address** | [**AccountHolderDetails**](AccountHolderDetails.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [default to undefined]|
+|**address** | [**MobileMoneyAddress**](MobileMoneyAddress.md) |  | [default to undefined]|
+|**referenceId** | **string** |  | [optional] [default to undefined]|
 
 
 ## Enum: PaymentInstructionsTypeEnum
 
-
-* `Iban` (value: `'IBAN'`)
-
-* `Swift` (value: `'SWIFT'`)
-
-* `Ach` (value: `'ACH'`)
-
-* `UsWire` (value: `'US_WIRE'`)
-
-* `Spei` (value: `'SPEI'`)
-
-* `Sepa` (value: `'SEPA'`)
-
-* `Pix` (value: `'PIX'`)
-
-* `LocalBankTransferAfrica` (value: `'LOCAL_BANK_TRANSFER_AFRICA'`)
 
 * `MobileMoney` (value: `'MOBILE_MONEY'`)
 

@@ -18,6 +18,9 @@
 import { ExecutionResponseBaseDetails } from './execution-response-base-details';
 // May contain unused imports in some cases
 // @ts-ignore
+import { LimitTypeDetails } from './limit-type-details';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TimeInForce } from './time-in-force';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -27,6 +30,6 @@ import { TransferRail } from './transfer-rail';
  * @type LimitExecutionResponseDetails
  * @export
  */
-export type LimitExecutionResponseDetails = ExecutionResponseBaseDetails;
+export type LimitExecutionResponseDetails = ExecutionResponseBaseDetails & LimitTypeDetails;
 
 

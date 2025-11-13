@@ -9,14 +9,15 @@
 |**policyEngineVersion** | **string** | Policy engine version | [default to undefined]|
 |**type** | [**PolicyType**](PolicyType.md) |  | [default to undefined]|
 |**initiator** | [**InitiatorConfigPattern**](InitiatorConfigPattern.md) |  | [default to undefined]|
-|**asset** | [**AssetConfig**](AssetConfig.md) |  | [default to undefined]|
-|**source** | [**AccountConfig**](AccountConfig.md) |  | [default to undefined]|
+|**source** | [**SourceConfig**](SourceConfig.md) |  | [default to undefined]|
 |**verdict** | [**VerdictConfig**](VerdictConfig.md) |  | [default to undefined]|
 |**subType** | [**PolicyType**](PolicyType.md) |  | [optional] [default to undefined]|
+|**asset** | [**AssetConfig**](AssetConfig.md) |  | [optional] [default to undefined]|
 |**destination** | [**DestinationConfig**](DestinationConfig.md) |  | [optional] [default to undefined]|
 |**account** | [**AccountConfig**](AccountConfig.md) |  | [optional] [default to undefined]|
+|**side** | [**OrderSide**](OrderSide.md) |  | [optional] [default to undefined]|
 |**amountOverTime** | [**AmountOverTimeConfig**](AmountOverTimeConfig.md) |  | [optional] [default to undefined]|
-|**amount** | [**AmountRange**](AmountRange.md) |  | [optional] [default to undefined]|
+|**amount** | [**AmountConfig**](AmountConfig.md) |  | [optional] [default to undefined]|
 |**externalDescriptor** | **string** | External descriptor for the rule | [optional] [default to undefined]|
 |**method** | [**ContractMethodPattern**](ContractMethodPattern.md) |  | [optional] [default to undefined]|
 |**isGlobalPolicy** | **boolean** | Whether this is a global policy | [optional] [default to undefined]|
@@ -26,6 +27,7 @@
 |**baseAsset** | [**AssetConfig**](AssetConfig.md) |  | [optional] [default to undefined]|
 |**quoteAmount** | [**AmountRange**](AmountRange.md) |  | [optional] [default to undefined]|
 |**baseAmount** | [**AmountRange**](AmountRange.md) |  | [optional] [default to undefined]|
+|**dAppAddress** | [**DAppAddressConfig**](DAppAddressConfig.md) |  | [optional] [default to undefined]|
 |**derivationPath** | [**DerivationPathConfig**](DerivationPathConfig.md) |  | [optional] [default to undefined]|
 |**index** | **number** | Index for the policy rule | [optional] [default to undefined]|
 

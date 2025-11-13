@@ -5,14 +5,15 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activateAssetForVaultAccount**](#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
-[**attachTagsToVaultAccounts**](#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts
+[**attachOrDetachTagsFromVaultAccounts**](#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from a vault accounts
+[**attachTagsToVaultAccounts**](#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts (deprecated)
 [**createLegacyAddress**](#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 [**createMultipleAccounts**](#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
 [**createMultipleDepositAddresses**](#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 [**createVaultAccount**](#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 [**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
-[**detachTagsFromVaultAccounts**](#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts
+[**detachTagsFromVaultAccounts**](#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts (deprecated)
 [**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
 [**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
 [**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
@@ -102,10 +103,74 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **attachOrDetachTagsFromVaultAccounts**
+> VaultAccountsTagAttachmentOperationsResponse attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest)
+
+Attach or detach one or more tags from the requested vault accounts.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiAttachOrDetachTagsFromVaultAccountsRequest, VaultAccountsTagAttachmentOperationsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiAttachOrDetachTagsFromVaultAccountsRequest = {
+  // VaultAccountsTagAttachmentOperationsRequest
+  vaultAccountsTagAttachmentOperationsRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.attachOrDetachTagsFromVaultAccounts(body).then((res: FireblocksResponse<VaultAccountsTagAttachmentOperationsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountsTagAttachmentOperationsRequest** | **[VaultAccountsTagAttachmentOperationsRequest](../models/VaultAccountsTagAttachmentOperationsRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[VaultAccountsTagAttachmentOperationsResponse](../models/VaultAccountsTagAttachmentOperationsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Tags were attached/detached successfully |  * X-Request-ID -  <br>  |
+**400** | - Invalid request parameters. - Same tag ID is provided in both tagIdsToAttach and tagIdsToDetach. - Vault accounts are archived.  |  * X-Request-ID -  <br>  |
+**404** | - Tags with the requested ID not found. - Vault accounts with the requested ID not found.  |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **attachTagsToVaultAccounts**
 > attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest)
 
-Attach one or more tags to the requested vault accounts.
+Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
 
 ### Example
 
@@ -563,7 +628,7 @@ No authorization required
 # **detachTagsFromVaultAccounts**
 > detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest)
 
-Detach one or more tags from the requested vault account.
+Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
 
 ### Example
 

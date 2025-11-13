@@ -13,43 +13,211 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmlStatusEnum } from './aml-status-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningAmlResult } from './screening-aml-result';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningRiskLevelEnum } from './screening-risk-level-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningTravelRulePrescreeningRule } from './screening-travel-rule-prescreening-rule';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningTravelRuleResult } from './screening-travel-rule-result';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningVerdictEnum } from './screening-verdict-enum';
 
 /**
- * The result of the Travel Rule screening.
+ * The result of the AML/Travel Rule screening. This unified schema contains all fields that may be returned for both AML and Travel Rule screening results. Not all fields will be present in every response - the actual fields depend on the screening type and provider. 
  * @export
  * @interface ComplianceScreeningResultFullPayload
  */
 export interface ComplianceScreeningResultFullPayload {
     /**
-     * 
+     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, etc. For Travel Rule: NOTABENE, SUMSUB, or any TRLink provider name 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
      */
     'provider'?: string;
     /**
-     * The payload of the screening result. The payload is a JSON object that contains the screening result. The payload is different for each screening provider. 
+     * The raw payload of the screening result from the provider. The payload is a JSON object that contains the screening result. The payload structure is different for each screening provider. This field contains the complete, unmodified response from the screening service. 
      * @type {object}
      * @memberof ComplianceScreeningResultFullPayload
      */
     'payload'?: object;
     /**
-     * 
+     * Unix timestamp in milliseconds when the screening result was generated
+     * @type {number}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'timestamp'?: number;
+    /**
+     * Current status of the screening process
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'screeningStatus'?: ComplianceScreeningResultFullPayloadScreeningStatusEnum;
+    /**
+     * Reason for bypassing the screening, if applicable. For AML: SANCTIONS_SCREENING_BYPASS, SANCTIONS_RECIPIENT_BYPASS, etc. For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc. 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
      */
     'bypassReason'?: string;
     /**
      * 
+     * @type {AmlStatusEnum}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'status'?: AmlStatusEnum;
+    /**
+     * 
+     * @type {AmlStatusEnum}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'prevStatus'?: AmlStatusEnum;
+    /**
+     * Previous bypass reason before the current bypass reason change
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
      */
-    'screeningStatus'?: ComplianceScreeningResultFullPayloadScreeningStatusEnum;
+    'prevBypassReason'?: string;
     /**
      * 
+     * @type {ScreeningVerdictEnum}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'verdict'?: ScreeningVerdictEnum;
+    /**
+     * 
+     * @type {ScreeningRiskLevelEnum}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'risk'?: ScreeningRiskLevelEnum;
+    /**
+     * 
+     * @type {ScreeningRiskLevelEnum}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'extendedRisk'?: ScreeningRiskLevelEnum;
+    /**
+     * External identifier for the screening (provider-specific)
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'externalId'?: string;
+    /**
+     * Customer-provided reference identifier for tracking
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'customerRefId'?: string;
+    /**
+     * Internal reference identifier
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'refId'?: string;
+    /**
+     * Risk category classification. Examples: EXCHANGE, GAMBLING, MIXER, DARKNET_SERVICE, SANCTIONED_ENTITY 
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'category'?: string;
+    /**
+     * Numeric identifier for the risk category
      * @type {number}
      * @memberof ComplianceScreeningResultFullPayload
      */
-    'timestamp'?: number;
+    'categoryId'?: number;
+    /**
+     * The destination blockchain address associated with the screening
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'destAddress'?: string;
+    /**
+     * Destination tag or memo (for chains that support it like XRP, XLM)
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'destTag'?: string;
+    /**
+     * The destination record identifier used by the screening provider
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'destRecordId'?: string;
+    /**
+     * Cryptographic signature for address resolution verification
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'addressResolutionSignature'?: string;
+    /**
+     * 
+     * @type {ScreeningAmlResult}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'amlResult'?: ScreeningAmlResult;
+    /**
+     * 
+     * @type {ScreeningTravelRuleResult}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'result'?: ScreeningTravelRuleResult;
+    /**
+     * Additional human-readable details or message about the screening result
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'detailsMessage'?: string;
+    /**
+     * Information about the AML alert that was matched, if any. Contains details about the specific alert that triggered during screening. 
+     * @type {object}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'matchedAlert'?: object;
+    /**
+     * The matched rule information for this screening result. Contains details about which screening rule was applied and matched. 
+     * @type {object}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'matchedRule'?: object;
+    /**
+     * 
+     * @type {ScreeningTravelRulePrescreeningRule}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'matchedPrescreeningRule'?: ScreeningTravelRulePrescreeningRule;
+    /**
+     * Matched no-TRM (Travel Rule Message) screening rule details. Used when TRLink screening detects a missing TRM scenario. 
+     * @type {object}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'matchedNoTrmScreeningRule'?: object;
+    /**
+     * Customer integration identifier used by Travel Rule providers
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'customerIntegrationId'?: string;
+    /**
+     * Customer short name registered with Travel Rule providers
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'customerShortName'?: string;
+    /**
+     * Travel rule message identifier for linking and tracking across providers
+     * @type {string}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'travelRuleMessageId'?: string;
 }
 
 export const ComplianceScreeningResultFullPayloadScreeningStatusEnum = {

@@ -13,50 +13,14 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { FeePropertiesDetails } from './fee-properties-details';
 
 /**
- * 
+ * @type Fee
  * @export
- * @interface Fee
  */
-export interface Fee {
-    /**
-     * The type of fee, such as ORDER, NETWORK, or SPREAD. ORDER - Fee for executing the order. NETWORK - Fee for network transactions. SPREAD - Fee for the difference between buy and sell prices. 
-     * @type {string}
-     * @memberof Fee
-     */
-    'feeType': FeeFeeTypeEnum;
-    /**
-     * The asset identifier for the fee.
-     * @type {string}
-     * @memberof Fee
-     */
-    'assetId': string;
-    /**
-     * 
-     * @type {string}
-     * @memberof Fee
-     */
-    'amountType': FeeAmountTypeEnum;
-    /**
-     * Fee in basis points (1 = 0.01%, 10000 = 100%)
-     * @type {number}
-     * @memberof Fee
-     */
-    'amount': number;
-}
-
-export const FeeFeeTypeEnum = {
-    Order: 'ORDER',
-    Network: 'NETWORK',
-    Spread: 'SPREAD'
-} as const;
-
-export type FeeFeeTypeEnum = typeof FeeFeeTypeEnum[keyof typeof FeeFeeTypeEnum];
-export const FeeAmountTypeEnum = {
-    Bps: 'BPS'
-} as const;
-
-export type FeeAmountTypeEnum = typeof FeeAmountTypeEnum[keyof typeof FeeAmountTypeEnum];
+export type Fee = FeePropertiesDetails;
 
 

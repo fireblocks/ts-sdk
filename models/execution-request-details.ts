@@ -24,7 +24,7 @@ import { MarketExecutionRequestDetails } from './market-execution-request-detail
 import { QuoteExecutionWithRequoteRequestDetails } from './quote-execution-with-requote-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteExecutionWithRequoteRequestDetailsAllOfReQuote } from './quote-execution-with-requote-request-details-all-of-re-quote';
+import { ReQuoteDetailsReQuote } from './re-quote-details-re-quote';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TimeInForce } from './time-in-force';

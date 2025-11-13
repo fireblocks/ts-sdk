@@ -22,6 +22,7 @@
 
 export const OrderStatus = {
     Created: 'CREATED',
+    AwaitingPayment: 'AWAITING_PAYMENT',
     PendingUserAction: 'PENDING_USER_ACTION',
     Processing: 'PROCESSING',
     Canceled: 'CANCELED',

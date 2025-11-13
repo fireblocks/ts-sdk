@@ -18,7 +18,10 @@
 import { QuoteExecutionResponseDetails } from './quote-execution-response-details';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteExecutionWithRequoteResponseDetailsAllOfReQuote } from './quote-execution-with-requote-response-details-all-of-re-quote';
+import { ReQuoteDetails } from './re-quote-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ReQuoteDetailsReQuote } from './re-quote-details-re-quote';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransferRail } from './transfer-rail';
@@ -27,6 +30,6 @@ import { TransferRail } from './transfer-rail';
  * @type QuoteExecutionWithRequoteResponseDetails
  * @export
  */
-export type QuoteExecutionWithRequoteResponseDetails = QuoteExecutionResponseDetails;
+export type QuoteExecutionWithRequoteResponseDetails = QuoteExecutionResponseDetails & ReQuoteDetails;
 
 

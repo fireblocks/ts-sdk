@@ -15,12 +15,14 @@
 
 
 /**
- * Status of compliance result screening.
+ * Status of compliance result screening
  * @export
  * @enum {string}
  */
 
 export const ComplianceResultStatusesEnum = {
+    Unknown: 'Unknown',
+    Stalled: 'Stalled',
     Started: 'Started',
     NetworkConnectionAddressResolve: 'NetworkConnectionAddressResolve',
     ScreeningPrepare: 'ScreeningPrepare',
@@ -30,10 +32,26 @@ export const ComplianceResultStatusesEnum = {
     AmlinBackground: 'AMLInBackground',
     TrPreconditionChecks: 'TRPreconditionChecks',
     TrStarted: 'TRStarted',
+    TrLinkStarted: 'TRLinkStarted',
+    TrLinkDestinationStarted: 'TRLinkDestinationStarted',
+    TrLinkDestinationPrescreenPolicy: 'TRLinkDestinationPrescreenPolicy',
+    TrLinkDestinationNoTrmPolicy: 'TRLinkDestinationNoTRMPolicy',
+    TrLinkDestinationScreen: 'TRLinkDestinationScreen',
+    TrLinkDestinationPostscreenPolicy: 'TRLinkDestinationPostscreenPolicy',
+    TrLinkDestinationCompleted: 'TRLinkDestinationCompleted',
+    TrLinkCompleted: 'TRLinkCompleted',
     TrCompleted: 'TRCompleted',
     TrFailed: 'TRFailed',
     Completed: 'Completed',
+    RegistrationStarted: 'RegistrationStarted',
+    RegistrationWaitForFirstConfirmation: 'RegistrationWaitForFirstConfirmation',
+    AmlRegistrationStarted: 'AMLRegistrationStarted',
+    AmlRegistrationCompleted: 'AMLRegistrationCompleted',
+    TrUpdateStarted: 'TRUpdateStarted',
+    TrUpdateCompleted: 'TRUpdateCompleted',
+    UpdateCompleted: 'UpdateCompleted',
     IncomingStarted: 'IncomingStarted',
+    IncomingByorkSl: 'IncomingByorkSL',
     IncomingScreeningPrepare: 'IncomingScreeningPrepare',
     IncomingWaitForFirstConfirmation: 'IncomingWaitForFirstConfirmation',
     AmlIncomingStarted: 'AMLIncomingStarted',
@@ -44,7 +62,13 @@ export const ComplianceResultStatusesEnum = {
     TrIncomingCompleted: 'TRIncomingCompleted',
     TrIncomingFailed: 'TRIncomingFailed',
     IncomingCompleted: 'IncomingCompleted',
-    UpdateCompleted: 'UpdateCompleted'
+    AddressAmlInitiated: 'AddressAmlInitiated',
+    AddressAmlAddressResolve: 'AddressAmlAddressResolve',
+    AddressAmlPrepare: 'AddressAmlPrepare',
+    AddressAmlProcessing: 'AddressAmlProcessing',
+    AddressAmlSucceeded: 'AddressAmlSucceeded',
+    AddressAmlFailed: 'AddressAmlFailed',
+    AddressAmlCompleted: 'AddressAmlCompleted'
 } as const;
 
 export type ComplianceResultStatusesEnum = typeof ComplianceResultStatusesEnum[keyof typeof ComplianceResultStatusesEnum];

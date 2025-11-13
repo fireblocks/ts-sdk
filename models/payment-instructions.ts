@@ -15,46 +15,18 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccountHolderDetails } from './account-holder-details';
+import { FiatDestination } from './fiat-destination';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MobileMoneyAddress } from './mobile-money-address';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PaymentInstructionsDetails } from './payment-instructions-details';
 
 /**
- * 
+ * @type PaymentInstructions
  * @export
- * @interface PaymentInstructions
  */
-export interface PaymentInstructions {
-    /**
-     * 
-     * @type {string}
-     * @memberof PaymentInstructions
-     */
-    'type': PaymentInstructionsTypeEnum;
-    /**
-     * 
-     * @type {AccountHolderDetails}
-     * @memberof PaymentInstructions
-     */
-    'address': AccountHolderDetails;
-    /**
-     * 
-     * @type {string}
-     * @memberof PaymentInstructions
-     */
-    'referenceId': string;
-}
-
-export const PaymentInstructionsTypeEnum = {
-    Iban: 'IBAN',
-    Swift: 'SWIFT',
-    Ach: 'ACH',
-    UsWire: 'US_WIRE',
-    Spei: 'SPEI',
-    Sepa: 'SEPA',
-    Pix: 'PIX',
-    LocalBankTransferAfrica: 'LOCAL_BANK_TRANSFER_AFRICA',
-    MobileMoney: 'MOBILE_MONEY'
-} as const;
-
-export type PaymentInstructionsTypeEnum = typeof PaymentInstructionsTypeEnum[keyof typeof PaymentInstructionsTypeEnum];
+export type PaymentInstructions = FiatDestination & PaymentInstructionsDetails;
 
 

@@ -13,68 +13,213 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmlResult } from './aml-result';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmlStatusEnum } from './aml-status-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningRiskLevelEnum } from './screening-risk-level-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningVerdictEnum } from './screening-verdict-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRulePrescreeningRule } from './travel-rule-prescreening-rule';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRuleResult } from './travel-rule-result';
 
 /**
- * 
+ * The result of the AML/Travel Rule screening. This unified schema contains all fields that may be returned for both AML and Travel Rule screening results. Not all fields will be present in every response - the actual fields depend on the screening type and provider. 
  * @export
  * @interface ComplianceScreeningResult
  */
 export interface ComplianceScreeningResult {
     /**
-     * Screening provider
+     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, SCORECHAIN, MERKLE_SCIENCE, etc. For Travel Rule: NOTABENE, SYGNA, or any TRLink provider name 
      * @type {string}
      * @memberof ComplianceScreeningResult
      */
-    'provider'?: ComplianceScreeningResultProviderEnum;
+    'provider'?: string;
     /**
-     * The payload of the screening result. The payload is a JSON object that contains the screening result. The payload is different for each screening provider. 
+     * The raw payload of the screening result from the provider. The payload is a JSON object that contains the screening result. The payload structure is different for each screening provider. This field contains the complete, unmodified response from the screening service. 
      * @type {object}
      * @memberof ComplianceScreeningResult
      */
     'payload'?: object;
     /**
-     * Reason AML screening was bypassed
-     * @type {string}
+     * Unix timestamp in milliseconds when the screening result was generated
+     * @type {number}
      * @memberof ComplianceScreeningResult
      */
-    'bypassReason'?: ComplianceScreeningResultBypassReasonEnum;
+    'timestamp'?: number;
     /**
-     * 
+     * Current status of the screening process
      * @type {string}
      * @memberof ComplianceScreeningResult
      */
     'screeningStatus'?: ComplianceScreeningResultScreeningStatusEnum;
     /**
+     * Reason for bypassing the screening, if applicable. For AML: SANCTIONS_SCREENING_BYPASS, SANCTIONS_RECIPIENT_BYPASS, etc. For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc. 
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'bypassReason'?: string;
+    /**
      * 
+     * @type {AmlStatusEnum}
+     * @memberof ComplianceScreeningResult
+     */
+    'status'?: AmlStatusEnum;
+    /**
+     * 
+     * @type {AmlStatusEnum}
+     * @memberof ComplianceScreeningResult
+     */
+    'prevStatus'?: AmlStatusEnum;
+    /**
+     * Previous bypass reason before the current bypass reason change
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'prevBypassReason'?: string;
+    /**
+     * 
+     * @type {ScreeningVerdictEnum}
+     * @memberof ComplianceScreeningResult
+     */
+    'verdict'?: ScreeningVerdictEnum;
+    /**
+     * 
+     * @type {ScreeningRiskLevelEnum}
+     * @memberof ComplianceScreeningResult
+     */
+    'risk'?: ScreeningRiskLevelEnum;
+    /**
+     * 
+     * @type {ScreeningRiskLevelEnum}
+     * @memberof ComplianceScreeningResult
+     */
+    'extendedRisk'?: ScreeningRiskLevelEnum;
+    /**
+     * External identifier for the screening (provider-specific)
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'externalId'?: string;
+    /**
+     * Customer-provided reference identifier for tracking
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'customerRefId'?: string;
+    /**
+     * Internal reference identifier
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'refId'?: string;
+    /**
+     * Risk category classification. Examples: EXCHANGE, GAMBLING, MIXER, DARKNET_SERVICE, SANCTIONED_ENTITY 
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'category'?: string;
+    /**
+     * Numeric identifier for the risk category
      * @type {number}
      * @memberof ComplianceScreeningResult
      */
-    'timestamp'?: number;
+    'categoryId'?: number;
+    /**
+     * The destination blockchain address associated with the screening
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'destAddress'?: string;
+    /**
+     * Destination tag or memo (for chains that support it like XRP, XLM)
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'destTag'?: string;
+    /**
+     * The destination record identifier used by the screening provider
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'destRecordId'?: string;
+    /**
+     * Cryptographic signature for address resolution verification
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'addressResolutionSignature'?: string;
+    /**
+     * 
+     * @type {AmlResult}
+     * @memberof ComplianceScreeningResult
+     */
+    'amlResult'?: AmlResult;
+    /**
+     * 
+     * @type {TravelRuleResult}
+     * @memberof ComplianceScreeningResult
+     */
+    'result'?: TravelRuleResult;
+    /**
+     * Additional human-readable details or message about the screening result
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'detailsMessage'?: string;
+    /**
+     * Information about the AML alert that was matched, if any. Contains details about the specific alert that triggered during screening. 
+     * @type {object}
+     * @memberof ComplianceScreeningResult
+     */
+    'matchedAlert'?: object;
+    /**
+     * The matched rule information for this screening result. Contains details about which screening rule was applied and matched. 
+     * @type {object}
+     * @memberof ComplianceScreeningResult
+     */
+    'matchedRule'?: object;
+    /**
+     * 
+     * @type {TravelRulePrescreeningRule}
+     * @memberof ComplianceScreeningResult
+     */
+    'matchedPrescreeningRule'?: TravelRulePrescreeningRule;
+    /**
+     * Matched no-TRM (Travel Rule Message) screening rule details. Used when TRLink screening detects a missing TRM scenario. 
+     * @type {object}
+     * @memberof ComplianceScreeningResult
+     */
+    'matchedNoTrmScreeningRule'?: object;
+    /**
+     * Customer integration identifier used by Travel Rule providers
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'customerIntegrationId'?: string;
+    /**
+     * Customer short name registered with Travel Rule providers
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'customerShortName'?: string;
+    /**
+     * Travel rule message identifier for linking and tracking across providers
+     * @type {string}
+     * @memberof ComplianceScreeningResult
+     */
+    'travelRuleMessageId'?: string;
 }
 
-export const ComplianceScreeningResultProviderEnum = {
-    Chainalysis: 'CHAINALYSIS',
-    Elliptic: 'ELLIPTIC',
-    ChainalysisV2: 'CHAINALYSIS_V2',
-    EllipticHolistic: 'ELLIPTIC_HOLISTIC',
-    None: 'NONE'
-} as const;
-
-export type ComplianceScreeningResultProviderEnum = typeof ComplianceScreeningResultProviderEnum[keyof typeof ComplianceScreeningResultProviderEnum];
-export const ComplianceScreeningResultBypassReasonEnum = {
-    Manual: 'MANUAL',
-    UnsupportedAsset: 'UNSUPPORTED_ASSET',
-    BypassedFailure: 'BYPASSED_FAILURE',
-    UnsupportedRoute: 'UNSUPPORTED_ROUTE',
-    PassedByPolicy: 'PASSED_BY_POLICY',
-    TimedOut: 'TIMED_OUT',
-    BadCredentials: 'BAD_CREDENTIALS',
-    ConfigurationError: 'CONFIGURATION_ERROR',
-    DroppedByBlockchain: 'DROPPED_BY_BLOCKCHAIN',
-    ProcessDismissed: 'PROCESS_DISMISSED'
-} as const;
-
-export type ComplianceScreeningResultBypassReasonEnum = typeof ComplianceScreeningResultBypassReasonEnum[keyof typeof ComplianceScreeningResultBypassReasonEnum];
 export const ComplianceScreeningResultScreeningStatusEnum = {
     Completed: 'COMPLETED',
     Pending: 'PENDING',
