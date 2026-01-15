@@ -6,17 +6,22 @@ jobs:
   build:
     strategy:
       matrix:
-        node-version: [ 18, 20, 22, 24 ]
-        os: [ macos-14, windows-latest, ubuntu-22.04, ubuntu-24.04 ]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [18, 20, 22, 24]
+        npm-version: [10, 11]
+        os: [macos-14, windows-latest, ubuntu-22.04, ubuntu-24.04]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
+      
+      - name: Install npm ${{ matrix.npm-version }}
+        run: npm install -g npm@^${{ matrix.npm-version }}
+
       - run: npm ci
       - run: npm run build --if-present
       - run: npm pack
