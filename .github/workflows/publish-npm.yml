@@ -84,14 +84,22 @@ jobs:
           ref: master
           fetch-depth: 0
       
-      - name: Set up Node for GitLab
+      # First setup-node: for installing dependencies from npmjs.org
+      - name: Set up Node for dependency installation
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      # Second setup-node: reconfigure for publishing to GitLab
+      - name: Set up Node for GitLab publishing
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           registry-url: 'https://gitlab.com/api/v4/projects/20565764/packages/npm/'
-      
-      - name: Install dependencies
-        run: npm install
       
       - name: Publish package to GitLab
         run: npm publish
