@@ -2,8 +2,6 @@ name: Publish to NPM
 on:
   release:
     types: [published]
-env:
-  GIT_TERMINAL_PROMPT: 1
 
 jobs:
   bump-version:
