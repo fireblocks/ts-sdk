@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ReadCallFunctionDtoAbiFunction } from './read-call-function-dto-abi-function';
+import { ReadAbiFunction } from './read-abi-function';
 
 /**
  * 
@@ -24,10 +24,10 @@ import { ReadCallFunctionDtoAbiFunction } from './read-call-function-dto-abi-fun
  */
 export interface ReadCallFunctionDto {
     /**
-     * 
-     * @type {ReadCallFunctionDtoAbiFunction}
+     * The abi of the read function you wish to call
+     * @type {Array<ReadAbiFunction>}
      * @memberof ReadCallFunctionDto
      */
-    'abiFunction': ReadCallFunctionDtoAbiFunction;
+    'abiFunction': Array<ReadAbiFunction>;
 }
 

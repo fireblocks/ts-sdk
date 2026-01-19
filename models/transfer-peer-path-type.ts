@@ -32,10 +32,7 @@ export const TransferPeerPathType = {
     GasStation: 'GAS_STATION',
     OneTimeAddress: 'ONE_TIME_ADDRESS',
     Unknown: 'UNKNOWN',
-    EndUserWallet: 'END_USER_WALLET',
-    ProgramCall: 'PROGRAM_CALL',
-    MultiDestination: 'MULTI_DESTINATION',
-    OecPartner: 'OEC_PARTNER'
+    EndUserWallet: 'END_USER_WALLET'
 } as const;
 
 export type TransferPeerPathType = typeof TransferPeerPathType[keyof typeof TransferPeerPathType];

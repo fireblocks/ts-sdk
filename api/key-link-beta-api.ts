@@ -212,17 +212,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
          * @param {number} [pageSize] Amount of results to return in the next page
          * @param {GetSigningKeysListSortByEnum} [sortBy] Field(s) to use for sorting
          * @param {GetSigningKeysListOrderEnum} [order] Is the order ascending or descending
-         * @param {number} [vaultAccountId] Return keys assigned to a specific vault
-         * @param {string} [agentUserId] Return keys associated with a specific agent user
-         * @param {GetSigningKeysListAlgorithmEnum} [algorithm] Return only keys with a specific algorithm
-         * @param {boolean} [enabled] Return keys that have been proof of ownership
-         * @param {boolean} [available] Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
-         * @param {boolean | null} [isAssigned] Return keys that are assigned to a vault account
-         * @param {string} [keyPrefix] A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSigningKeysList: async (pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, isAssigned?: boolean | null, keyPrefix?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getSigningKeysList: async (pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/key_link/signing_keys`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -249,34 +242,6 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
 
             if (order !== undefined) {
                 localVarQueryParameter['order'] = order;
-            }
-
-            if (vaultAccountId !== undefined) {
-                localVarQueryParameter['vaultAccountId'] = vaultAccountId;
-            }
-
-            if (agentUserId !== undefined) {
-                localVarQueryParameter['agentUserId'] = agentUserId;
-            }
-
-            if (algorithm !== undefined) {
-                localVarQueryParameter['algorithm'] = algorithm;
-            }
-
-            if (enabled !== undefined) {
-                localVarQueryParameter['enabled'] = enabled;
-            }
-
-            if (available !== undefined) {
-                localVarQueryParameter['available'] = available;
-            }
-
-            if (isAssigned !== undefined) {
-                localVarQueryParameter['isAssigned'] = isAssigned;
-            }
-
-            if (keyPrefix !== undefined) {
-                localVarQueryParameter['keyPrefix'] = keyPrefix;
             }
 
 
@@ -521,18 +486,11 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
          * @param {number} [pageSize] Amount of results to return in the next page
          * @param {GetSigningKeysListSortByEnum} [sortBy] Field(s) to use for sorting
          * @param {GetSigningKeysListOrderEnum} [order] Is the order ascending or descending
-         * @param {number} [vaultAccountId] Return keys assigned to a specific vault
-         * @param {string} [agentUserId] Return keys associated with a specific agent user
-         * @param {GetSigningKeysListAlgorithmEnum} [algorithm] Return only keys with a specific algorithm
-         * @param {boolean} [enabled] Return keys that have been proof of ownership
-         * @param {boolean} [available] Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
-         * @param {boolean | null} [isAssigned] Return keys that are assigned to a vault account
-         * @param {string} [keyPrefix] A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getSigningKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, isAssigned?: boolean | null, keyPrefix?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSigningKeyResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, keyPrefix, options);
+        async getSigningKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSigningKeyResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKeysList(pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['KeyLinkBetaApi.getSigningKeysList']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -652,7 +610,7 @@ export const KeyLinkBetaApiFactory = function (configuration?: Configuration, ba
          * @throws {RequiredError}
          */
         getSigningKeysList(requestParameters: KeyLinkBetaApiGetSigningKeysListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetSigningKeyResponseDto> {
-            return localVarFp.getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned, requestParameters.keyPrefix, options).then((request) => request(axios, basePath));
+            return localVarFp.getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a validation key if it exists, identified by the specified `keyId`. Please note that this endpoint is available only for Key Link enabled workspaces. **Note:**  This endpoint is currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Key Link, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.
@@ -807,55 +765,6 @@ export interface KeyLinkBetaApiGetSigningKeysListRequest {
      * @memberof KeyLinkBetaApiGetSigningKeysList
      */
     readonly order?: GetSigningKeysListOrderEnum
-
-    /**
-     * Return keys assigned to a specific vault
-     * @type {number}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly vaultAccountId?: number
-
-    /**
-     * Return keys associated with a specific agent user
-     * @type {string}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly agentUserId?: string
-
-    /**
-     * Return only keys with a specific algorithm
-     * @type {'ECDSA_SECP256K1' | 'EDDSA_ED25519'}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly algorithm?: GetSigningKeysListAlgorithmEnum
-
-    /**
-     * Return keys that have been proof of ownership
-     * @type {boolean}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly enabled?: boolean
-
-    /**
-     * Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
-     * @type {boolean}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly available?: boolean
-
-    /**
-     * Return keys that are assigned to a vault account
-     * @type {boolean}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly isAssigned?: boolean | null
-
-    /**
-     * A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value.
-     * @type {string}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
-     */
-    readonly keyPrefix?: string
 }
 
 /**
@@ -1013,7 +922,7 @@ export class KeyLinkBetaApi extends BaseAPI {
      * @memberof KeyLinkBetaApi
      */
     public getSigningKeysList(requestParameters: KeyLinkBetaApiGetSigningKeysListRequest = {}) {
-        return KeyLinkBetaApiFp(this.configuration).getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned, requestParameters.keyPrefix).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return KeyLinkBetaApiFp(this.configuration).getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1080,14 +989,6 @@ export const GetSigningKeysListOrderEnum = {
     Desc: 'DESC'
 } as const;
 export type GetSigningKeysListOrderEnum = typeof GetSigningKeysListOrderEnum[keyof typeof GetSigningKeysListOrderEnum];
-/**
- * @export
- */
-export const GetSigningKeysListAlgorithmEnum = {
-    EcdsaSecp256K1: 'ECDSA_SECP256K1',
-    EddsaEd25519: 'EDDSA_ED25519'
-} as const;
-export type GetSigningKeysListAlgorithmEnum = typeof GetSigningKeysListAlgorithmEnum[keyof typeof GetSigningKeysListAlgorithmEnum];
 /**
  * @export
  */

@@ -4,8 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**policyTypes** | [**Array&lt;PolicyType&gt;**](PolicyType.md) |  | [default to undefined]|
-|**draftId** | **string** | The ID of the draft to publish | [default to undefined]|
+|**draftId** | **string** | draft unique identifier | [optional] [default to undefined]|
 
 
 

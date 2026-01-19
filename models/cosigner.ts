@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { Version } from './version';
 
 /**
  * 
@@ -40,29 +37,6 @@ export interface Cosigner {
      * @type {string}
      * @memberof Cosigner
      */
-    'name'?: string;
-    /**
-     * The type of the cosigner
-     * @type {string}
-     * @memberof Cosigner
-     */
-    'type'?: CosignerTypeEnum;
-    /**
-     * 
-     * @type {Version}
-     * @memberof Cosigner
-     */
-    'version'?: Version;
+    'name'?: string | null;
 }
-
-export const CosignerTypeEnum = {
-    Sandbox: 'SANDBOX',
-    Sgx: 'SGX',
-    GcpConfspace: 'GCP-CONFSPACE',
-    AwsNitro: 'AWS-NITRO',
-    Plain: 'PLAIN'
-} as const;
-
-export type CosignerTypeEnum = typeof CosignerTypeEnum[keyof typeof CosignerTypeEnum];
-
 

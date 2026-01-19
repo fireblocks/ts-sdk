@@ -51,11 +51,11 @@ export interface ContractTemplateDto {
      */
     'description': string;
     /**
-     * The abi of the contract template. Necessary for displaying and for after deployment encoding
-     * @type {Array<AbiFunction>}
+     * 
+     * @type {Array<Array<AbiFunction>>}
      * @memberof ContractTemplateDto
      */
-    'abi': Array<AbiFunction>;
+    'abi': Array<Array<AbiFunction>>;
     /**
      * Is this a contract that is viewable by all fireblocks\'s users or is it visible only for this workspace
      * @type {boolean}

@@ -15,10 +15,10 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AssetMetadata } from './asset-metadata';
+import { AssetResponseMetadata } from './asset-response-metadata';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AssetOnchain } from './asset-onchain';
+import { AssetResponseOnchain } from './asset-response-onchain';
 
 /**
  * 
@@ -40,16 +40,16 @@ export interface AssetResponse {
     'assetClass': AssetResponseAssetClassEnum;
     /**
      * 
-     * @type {AssetOnchain}
+     * @type {AssetResponseOnchain}
      * @memberof AssetResponse
      */
-    'onchain': AssetOnchain;
+    'onchain': AssetResponseOnchain;
     /**
      * 
-     * @type {AssetMetadata}
+     * @type {AssetResponseMetadata}
      * @memberof AssetResponse
      */
-    'metadata': AssetMetadata;
+    'metadata': AssetResponseMetadata;
 }
 
 export const AssetResponseAssetClassEnum = {

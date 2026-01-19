@@ -24,109 +24,271 @@ import { TravelRuleIssuers } from './travel-rule-issuers';
  */
 export interface TravelRuleVASP {
     /**
-     * The Decentralized Identifier (DID) of the VASP.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'did': string;
     /**
-     * The name of the VASP.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'name': string;
     /**
-     * The current verification status of the VASP.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'verificationStatus': string;
     /**
-     * The first line of the VASP\'s address.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'addressLine1': string;
     /**
-     * The city where the VASP is located.
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'addressLine2': string;
+    /**
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'city': string;
     /**
-     * The country where the VASP is registered (ISO-3166 Alpha-2 code).
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'country': string;
     /**
-     * Comma-separated list of email domains associated with the VASP.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'emailDomains': string;
     /**
-     * The official website of the VASP.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'website': string;
     /**
-     * The legal structure of the VASP (e.g., Corporation, LLC).
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'logo': string;
+    /**
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'legalStructure': string;
     /**
-     * The legal name of the VASP.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'legalName': string;
     /**
-     * The year the VASP was founded.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'yearFounded': string;
     /**
-     * The country where the VASP is incorporated (ISO-3166 Alpha-2 code).
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'incorporationCountry': string;
     /**
-     * Indicates whether the VASP is regulated.
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'isRegulated': string;
     /**
-     * The jurisdictions where the VASP operates.
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'otherNames': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'identificationType': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'identificationCountry': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'businessNumber': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'regulatoryAuthorities': string;
+    /**
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'jurisdictions': string;
     /**
-     * Travel rule compliance status for TRLight.
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'street': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'number': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'unit': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'postCode': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'state': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'certificates': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'description': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_OPENVASP': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_SYGNA': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_TRISA': string;
+    /**
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_TRLIGHT': string;
     /**
-     * Timestamp when the VASP record was created.
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_EMAIL': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_TRP': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_SHYFT': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'travelRule_USTRAVELRULEWG': string;
+    /**
+     * 
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'createdAt': string;
     /**
-     * Indicates if the VASP has an admin.
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'createdBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'updatedAt': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'updatedBy': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'lastSentDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'lastReceivedDate': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'documents': string;
+    /**
+     * 
      * @type {boolean}
      * @memberof TravelRuleVASP
      */
     'hasAdmin': boolean;
     /**
-     * Indicates if the VASP is notifiable for compliance reasons.
+     * 
      * @type {boolean}
      * @memberof TravelRuleVASP
      */
@@ -137,167 +299,5 @@ export interface TravelRuleVASP {
      * @memberof TravelRuleVASP
      */
     'issuers': TravelRuleIssuers;
-    /**
-     * The second line of the VASP\'s address (if applicable).
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'addressLine2'?: string;
-    /**
-     * URL to the logo of the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'logo'?: string;
-    /**
-     * Other names the VASP is known by.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'otherNames'?: string;
-    /**
-     * The type of identification used by the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'identificationType'?: string;
-    /**
-     * The country of identification for the VASP (ISO-3166 Alpha-2 code).
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'identificationCountry'?: string;
-    /**
-     * The business registration number of the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'businessNumber'?: string;
-    /**
-     * The regulatory authorities overseeing the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'regulatoryAuthorities'?: string;
-    /**
-     * The street name where the VASP is located.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'street'?: string;
-    /**
-     * The building number of the VASP\'s address.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'number'?: string;
-    /**
-     * The unit or suite number of the VASP\'s address.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'unit'?: string;
-    /**
-     * The postal code of the VASP\'s location.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'postCode'?: string;
-    /**
-     * The state or region where the VASP is located.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'state'?: string;
-    /**
-     * Certificates or licenses held by the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'certificates'?: string;
-    /**
-     * A brief description of the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'description'?: string;
-    /**
-     * Travel rule compliance status for OpenVASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_OPENVASP'?: string;
-    /**
-     * Travel rule compliance status for Sygna.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_SYGNA'?: string;
-    /**
-     * Travel rule compliance status for TRISA.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_TRISA'?: string;
-    /**
-     * Travel rule compliance status for EMAIL.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_EMAIL'?: string;
-    /**
-     * Travel rule compliance status for TRP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_TRP'?: string;
-    /**
-     * Travel rule compliance status for Shyft.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_SHYFT'?: string;
-    /**
-     * Travel rule compliance status for US Travel Rule WG.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'travelRule_USTRAVELRULEWG'?: string;
-    /**
-     * User or system that created the VASP record.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'createdBy'?: string;
-    /**
-     * Timestamp of the last update to the VASP record.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'updatedAt'?: string;
-    /**
-     * User or system that last updated the VASP record.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'updatedBy'?: string;
-    /**
-     * The last date a transaction was sent by the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'lastSentDate'?: string;
-    /**
-     * The last date a transaction was received by the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'lastReceivedDate'?: string;
-    /**
-     * Documents associated with the VASP.
-     * @type {string}
-     * @memberof TravelRuleVASP
-     */
-    'documents'?: string;
 }
 

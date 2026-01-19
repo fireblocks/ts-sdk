@@ -10,7 +10,6 @@
 |**name** | **string** |  | [optional] [default to undefined]|
 |**walletId** | **string** |  | [optional] [default to undefined]|
 |**oneTimeAddress** | [**OneTimeAddress**](OneTimeAddress.md) |  | [optional] [default to undefined]|
-|**isCollateral** | **boolean** | indicate if the destination is collateral account | [optional] [default to undefined]|
 
 
 

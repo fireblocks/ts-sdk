@@ -22,9 +22,6 @@ import { TravelRulePiiIVMS } from './travel-rule-pii-ivms';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TravelRuleTransactionBlockchainInfo } from './travel-rule-transaction-blockchain-info';
-// May contain unused imports in some cases
-// @ts-ignore
-import { TravelRuleValidatePiiIVMS } from './travel-rule-validate-pii-ivms';
 
 /**
  * 
@@ -33,131 +30,77 @@ import { TravelRuleValidatePiiIVMS } from './travel-rule-validate-pii-ivms';
  */
 export interface TravelRuleValidateFullTransactionRequest {
     /**
-     * 
-     * @type {TravelRuleValidatePiiIVMS}
+     * Information about the originator of the transaction
+     * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'originator': TravelRuleValidatePiiIVMS;
+    'originator': TravelRulePiiIVMS;
     /**
-     * 
-     * @type {TravelRuleValidatePiiIVMS}
+     * Information about the beneficiary of the transaction
+     * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'beneficiary': TravelRuleValidatePiiIVMS;
+    'beneficiary': TravelRulePiiIVMS;
     /**
-     * The Decentralized Identifier (DID) of the exchange (VASP) that is sending the virtual assets. This identifier is unique to the exchange and is generated when the exchange\'s account is  created in the Notabene network.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originatorVASPdid'?: string;
-    /**
-     * The Decentralized Identifier (DID) of the exchange (VASP) that is receiving the virtual assets. This identifier is unique to the exchange and is generated when the exchange\'s account is  created in the Notabene network.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryVASPdid'?: string;
-    /**
-     * Transaction asset symbol (e.g., BTC, ETH, USDC).  By using the `notation` query string, users can select the type of asset notation: - `fireblocks`: Converts asset symbols to Fireblocks notation. - `notabene`: Retains the original Notabene asset symbol format.
+     * The asset involved in the transaction
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'transactionAsset'?: string;
     /**
-     * Transaction amount in the transaction asset. For example, if the asset is BTC, the amount  is the value in BTC units.  By using the `notation` query string, users can select the type of amount notation: - `fireblocks`: Converts the amount to Fireblocks notation (e.g., adjusted for decimals). - `notabene`: Retains the original Notabene amount format.
+     * The amount of the transaction
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'transactionAmount'?: string;
     /**
-     * The name of the VASP acting as the transaction originator.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originatorVASPname'?: string;
-    /**
-     * The name of the VASP acting as the transaction beneficiary.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryVASPname'?: string;
-    /**
-     * 
-     * @type {TravelRuleTransactionBlockchainInfo}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'transactionBlockchainInfo'?: TravelRuleTransactionBlockchainInfo;
-    /**
-     * Encrypted data related to the transaction.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'encrypted'?: string;
-    /**
-     * The protocol used to perform the travel rule.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'protocol'?: TravelRuleValidateFullTransactionRequestProtocolEnum;
-    /**
-     * Whether to skip validation of beneficiary data.
-     * @type {boolean}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'skipBeneficiaryDataValidation'?: boolean;
-    /**
-     * Whether to check if the transaction complies with the travel rule in the beneficiary VASP\'s jurisdiction.
-     * @type {boolean}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'travelRuleBehavior'?: boolean;
-    /**
-     * A reference ID related to the originator of the transaction.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originatorRef'?: string;
-    /**
-     * A reference ID related to the beneficiary of the transaction.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryRef'?: string;
-    /**
-     * A reference ID related to the travel rule behavior.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'travelRuleBehaviorRef'?: string;
-    /**
-     * 
-     * @type {TravelRuleOwnershipProof}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'originatorProof'?: TravelRuleOwnershipProof;
-    /**
-     * 
-     * @type {TravelRuleOwnershipProof}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryProof'?: TravelRuleOwnershipProof;
-    /**
-     * The Decentralized Identifier (DID) of the person at the receiving exchange (VASP).  This identifier is generated when the customer is registered in the Notabene network,  or automatically created based on the `beneficiaryRef`.  - If neither `beneficiaryRef` nor `beneficiaryDid` is provided in the `txCreate` payload,    a new random DID is generated for every transaction.
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'beneficiaryDid'?: string;
-    /**
-     * The Decentralized Identifier (DID) of the person at the exchange (VASP) who is requesting the withdrawal. This identifier is generated when the customer is registered in the Notabene network or automatically created based on the `originatorRef`.  - If neither `originatorRef` nor `originatorDid` is provided in the `txCreate` payload,    a new random DID is generated for every transaction.
+     * The DID of the transaction originator
      * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'originatorDid'?: string;
     /**
-     * Indicates if the transaction involves a non-custodial wallet.
-     * @type {boolean}
+     * The DID of the transaction beneficiary
+     * @type {string}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
-    'isNonCustodial'?: boolean;
+    'beneficiaryDid'?: string;
+    /**
+     * The VASP ID of the transaction originator
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'originatorVASPdid'?: string;
+    /**
+     * The VASP ID of the transaction beneficiary
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'beneficiaryVASPdid'?: string;
+    /**
+     * The name of the VASP acting as the beneficiary
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'beneficiaryVASPname'?: string;
+    /**
+     * Information about the blockchain transaction
+     * @type {TravelRuleTransactionBlockchainInfo}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'transactionBlockchainInfo'?: TravelRuleTransactionBlockchainInfo;
+    /**
+     * Encrypted data related to the transaction
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'encrypted'?: string;
+    /**
+     * The protocol used to perform the travel rule
+     * @type {string}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'protocol'?: string;
     /**
      * The email address where a notification should be sent upon completion of the travel rule
      * @type {string}
@@ -165,26 +108,34 @@ export interface TravelRuleValidateFullTransactionRequest {
      */
     'notificationEmail'?: string;
     /**
-     * 
+     * Whether to skip validation of beneficiary data
+     * @type {boolean}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'skipBeneficiaryDataValidation'?: boolean;
+    /**
+     * Whether to check if the transaction is a TRAVEL_RULE in the beneficiary VASP\'s jurisdiction
+     * @type {boolean}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'travelRuleBehavior'?: boolean;
+    /**
+     * Ownership proof related to the originator of the transaction
+     * @type {TravelRuleOwnershipProof}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'originatorProof'?: TravelRuleOwnershipProof;
+    /**
+     * Ownership proof related to the beneficiary of the transaction
+     * @type {TravelRuleOwnershipProof}
+     * @memberof TravelRuleValidateFullTransactionRequest
+     */
+    'beneficiaryProof'?: TravelRuleOwnershipProof;
+    /**
+     * Personal identifiable information related to the transaction
      * @type {TravelRulePiiIVMS}
      * @memberof TravelRuleValidateFullTransactionRequest
      */
     'pii'?: TravelRulePiiIVMS;
-    /**
-     * The URL of the personal identifiable information related to the transaction
-     * @type {string}
-     * @memberof TravelRuleValidateFullTransactionRequest
-     */
-    'pii_url'?: string;
 }
-
-export const TravelRuleValidateFullTransactionRequestProtocolEnum = {
-    TrLight: 'TRLight',
-    Trp: 'TRP',
-    OpenVasp: 'OpenVASP',
-    Gtr: 'GTR'
-} as const;
-
-export type TravelRuleValidateFullTransactionRequestProtocolEnum = typeof TravelRuleValidateFullTransactionRequestProtocolEnum[keyof typeof TravelRuleValidateFullTransactionRequestProtocolEnum];
-
 

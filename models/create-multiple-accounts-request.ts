@@ -25,30 +25,12 @@ export interface CreateMultipleAccountsRequest {
      * @type {number}
      * @memberof CreateMultipleAccountsRequest
      */
-    'count': number;
+    'count'?: number;
     /**
-     * Array of base asset IDs
+     * Array of asset IDs
      * @type {Array<string>}
      * @memberof CreateMultipleAccountsRequest
      */
-    'baseAssetIds': Array<string>;
-    /**
-     * Names to assign to vault accounts. if vaultAccountNamesStartingIndex or prefix is used it\'ll fail
-     * @type {Array<string>}
-     * @memberof CreateMultipleAccountsRequest
-     */
-    'names'?: Array<string>;
-    /**
-     * Copy vault accounts names starting from this index. If names array is used it\'ll fail
-     * @type {number}
-     * @memberof CreateMultipleAccountsRequest
-     */
-    'vaultAccountNamesStartingIndex'?: number;
-    /**
-     * When copying from existing vault accounts (vaultAccountNamesStartingIndex) then adding a prefix to the names. If names array is used it\'ll fail
-     * @type {string}
-     * @memberof CreateMultipleAccountsRequest
-     */
-    'prefix'?: string;
+    'assetIds'?: Array<string>;
 }
 

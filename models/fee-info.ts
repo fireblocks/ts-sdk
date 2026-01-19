@@ -38,55 +38,5 @@ export interface FeeInfo {
      * @memberof FeeInfo
      */
     'gasPrice'?: string;
-    /**
-     * Layer 1 network fee for Layer 2 blockchain transactions
-     * @type {string}
-     * @memberof FeeInfo
-     */
-    'L1networkFee'?: string;
-    /**
-     * Layer 2 network fee (gas price component for Layer 2 transactions)
-     * @type {string}
-     * @memberof FeeInfo
-     */
-    'L2networkFee'?: string;
-    /**
-     * Wether the fee was paid by the relay or not
-     * @type {boolean}
-     * @memberof FeeInfo
-     */
-    'paidByRelay'?: boolean;
-    /**
-     * Wether the relay is the same tenant (LOCAL) or another tenant (THIRD_PARTY)
-     * @type {string}
-     * @memberof FeeInfo
-     */
-    'relayType'?: FeeInfoRelayTypeEnum;
-    /**
-     * The vault account ID of the relay
-     * @type {string}
-     * @memberof FeeInfo
-     */
-    'relayId'?: string;
-    /**
-     * The name of the tenant, only for THIRD_PARTY relays
-     * @type {string}
-     * @memberof FeeInfo
-     */
-    'relayName'?: string;
-    /**
-     * The USD value of the fee
-     * @type {string}
-     * @memberof FeeInfo
-     */
-    'feeUSD'?: string;
 }
-
-export const FeeInfoRelayTypeEnum = {
-    Local: 'LOCAL',
-    ThirdParty: 'THIRD_PARTY'
-} as const;
-
-export type FeeInfoRelayTypeEnum = typeof FeeInfoRelayTypeEnum[keyof typeof FeeInfoRelayTypeEnum];
-
 

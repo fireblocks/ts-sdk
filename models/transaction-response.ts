@@ -27,16 +27,13 @@ import { AuthorizationInfo } from './authorization-info';
 import { BlockInfo } from './block-info';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ComplianceResults } from './compliance-results';
+import { ComplianceResult } from './compliance-result';
 // May contain unused imports in some cases
 // @ts-ignore
 import { DestinationTransferPeerPathResponse } from './destination-transfer-peer-path-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { FeeInfo } from './fee-info';
-// May contain unused imports in some cases
-// @ts-ignore
-import { FeePayerInfo } from './fee-payer-info';
 // May contain unused imports in some cases
 // @ts-ignore
 import { GetTransactionOperation } from './get-transaction-operation';
@@ -116,12 +113,6 @@ export interface TransactionResponse {
      * @memberof TransactionResponse
      */
     'assetId'?: string;
-    /**
-     * Type classification of the asset
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'assetType'?: string;
     /**
      * 
      * @type {SourceTransferPeerPathResponse}
@@ -262,42 +253,12 @@ export interface TransactionResponse {
     'amlScreeningResult'?: AmlScreeningResult;
     /**
      * 
-     * @type {ComplianceResults}
+     * @type {ComplianceResult}
      * @memberof TransactionResponse
      */
-    'complianceResults'?: ComplianceResults;
+    'complianceResult'?: ComplianceResult;
     /**
-     * Indicates the transaction was not broadcast by Fireblocks
-     * @type {boolean}
-     * @memberof TransactionResponse
-     */
-    'notBroadcastByFireblocks'?: boolean;
-    /**
-     * DApp URL for Web3 transactions
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'dappUrl'?: string;
-    /**
-     * Gas limit for EVM-based blockchain transactions
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'gasLimit'?: string;
-    /**
-     * Blockchain-specific index or identifier for the transaction
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'blockchainIndex'?: string;
-    /**
-     * Solana rent payment amount
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'paidRent'?: string;
-    /**
-     * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks) 
+     * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. 
      * @type {object}
      * @memberof TransactionResponse
      */
@@ -332,12 +293,6 @@ export interface TransactionResponse {
      * @memberof TransactionResponse
      */
     'rewardInfo'?: RewardInfo;
-    /**
-     * 
-     * @type {FeePayerInfo}
-     * @memberof TransactionResponse
-     */
-    'feePayerInfo'?: FeePayerInfo;
     /**
      * 
      * @type {SystemMessageInfo}
@@ -405,24 +360,6 @@ export interface TransactionResponse {
      * @memberof TransactionResponse
      */
     'errorDescription'?: string;
-    /**
-     * if the transaction is a replace by fee (RBF) transaction, this is the hash of the transsaction that was replaced
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'replacedTxHash'?: string;
-    /**
-     * blockchain nonce for the transaction
-     * @type {string}
-     * @memberof TransactionResponse
-     */
-    'nonce'?: string;
-    /**
-     * A JSON used to store additional data that is blockchain-specific.
-     * @type {object}
-     * @memberof TransactionResponse
-     */
-    'blockchainInfo'?: object;
 }
 
 export const TransactionResponseAddressTypeEnum = {

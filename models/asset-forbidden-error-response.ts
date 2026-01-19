@@ -28,9 +28,9 @@ export interface AssetForbiddenErrorResponse {
     'message': string;
     /**
      * Error code
-     * @type {number}
+     * @type {string}
      * @memberof AssetForbiddenErrorResponse
      */
-    'code': number;
+    'code': string;
 }
 

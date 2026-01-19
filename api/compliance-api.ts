@@ -27,23 +27,13 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { AmlVerdictManualRequest } from '../models';
-// @ts-ignore
-import { AmlVerdictManualResponse } from '../models';
-// @ts-ignore
-import { ComplianceResultFullPayload } from '../models';
-// @ts-ignore
-import { CreateTransactionResponse } from '../models';
-// @ts-ignore
-import { ErrorSchema } from '../models';
-// @ts-ignore
 import { ScreeningConfigurationsRequest } from '../models';
 // @ts-ignore
 import { ScreeningPolicyResponse } from '../models';
 // @ts-ignore
 import { ScreeningProviderRulesConfigurationResponse } from '../models';
 // @ts-ignore
-import { ScreeningUpdateConfigurations } from '../models';
+import { ScreeningUpdateConfigurationsRequest } from '../models';
 /**
  * ComplianceApi - axios parameter creator
  * @export
@@ -141,39 +131,6 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Provides all the compliance details for the given screened transaction.
-         * @summary Provides all the compliance details for the given screened transaction.
-         * @param {string} txId Fireblocks transaction ID of the screened transaction
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getScreeningFullDetails: async (txId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getScreeningFullDetails', 'txId', txId)
-            const localVarPath = `/screening/transaction/{txId}`
-                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Get the screening policy for Travel Rule.
          * @summary Travel Rule - View Screening Policy
          * @param {*} [options] Override http request option.
@@ -197,84 +154,6 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
-         * @param {string} txId The transaction id that was rejected by screening checks
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retryRejectedTransactionBypassScreeningChecks: async (txId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('retryRejectedTransactionBypassScreeningChecks', 'txId', txId)
-            const localVarPath = `/screening/transaction/{txId}/bypass_screening_policy`
-                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-         * @summary Set AML Verdict for Manual Screening Verdict.
-         * @param {AmlVerdictManualRequest} amlVerdictManualRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setAmlVerdict: async (amlVerdictManualRequest: AmlVerdictManualRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('setAmlVerdict', 'amlVerdictManualRequest', amlVerdictManualRequest)
-            const localVarPath = `/screening/aml/verdict/manual`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(amlVerdictManualRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -319,13 +198,11 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
         /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
-         * @param {ScreeningUpdateConfigurations} screeningUpdateConfigurations 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateScreeningConfiguration: async (screeningUpdateConfigurations: ScreeningUpdateConfigurations, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('updateScreeningConfiguration', 'screeningUpdateConfigurations', screeningUpdateConfigurations)
+        updateScreeningConfiguration: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/screening/configurations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -344,12 +221,9 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
 
 
     
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(screeningUpdateConfigurations, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -438,19 +312,6 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Provides all the compliance details for the given screened transaction.
-         * @summary Provides all the compliance details for the given screened transaction.
-         * @param {string} txId Fireblocks transaction ID of the screened transaction
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getScreeningFullDetails(txId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ComplianceResultFullPayload>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getScreeningFullDetails(txId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceApi.getScreeningFullDetails']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Get the screening policy for Travel Rule.
          * @summary Travel Rule - View Screening Policy
          * @param {*} [options] Override http request option.
@@ -460,34 +321,6 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getScreeningPolicy(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.getScreeningPolicy']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
-         * @param {string} txId The transaction id that was rejected by screening checks
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async retryRejectedTransactionBypassScreeningChecks(txId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateTransactionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.retryRejectedTransactionBypassScreeningChecks(txId, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceApi.retryRejectedTransactionBypassScreeningChecks']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-         * @summary Set AML Verdict for Manual Screening Verdict.
-         * @param {AmlVerdictManualRequest} amlVerdictManualRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async setAmlVerdict(amlVerdictManualRequest: AmlVerdictManualRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AmlVerdictManualResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAmlVerdict(amlVerdictManualRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceApi.setAmlVerdict']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -506,13 +339,12 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
         /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
-         * @param {ScreeningUpdateConfigurations} screeningUpdateConfigurations 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateScreeningConfiguration(screeningUpdateConfigurations: ScreeningUpdateConfigurations, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ScreeningUpdateConfigurations>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateScreeningConfiguration(screeningUpdateConfigurations, idempotencyKey, options);
+        async updateScreeningConfiguration(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ScreeningUpdateConfigurationsRequest>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateScreeningConfiguration(idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.updateScreeningConfiguration']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -568,16 +400,6 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getPostScreeningPolicy(options).then((request) => request(axios, basePath));
         },
         /**
-         * Provides all the compliance details for the given screened transaction.
-         * @summary Provides all the compliance details for the given screened transaction.
-         * @param {ComplianceApiGetScreeningFullDetailsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getScreeningFullDetails(requestParameters: ComplianceApiGetScreeningFullDetailsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ComplianceResultFullPayload> {
-            return localVarFp.getScreeningFullDetails(requestParameters.txId, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Get the screening policy for Travel Rule.
          * @summary Travel Rule - View Screening Policy
          * @param {*} [options] Override http request option.
@@ -585,26 +407,6 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         getScreeningPolicy(options?: RawAxiosRequestConfig): AxiosPromise<ScreeningProviderRulesConfigurationResponse> {
             return localVarFp.getScreeningPolicy(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
-         * @param {ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        retryRejectedTransactionBypassScreeningChecks(requestParameters: ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateTransactionResponse> {
-            return localVarFp.retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-         * @summary Set AML Verdict for Manual Screening Verdict.
-         * @param {ComplianceApiSetAmlVerdictRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setAmlVerdict(requestParameters: ComplianceApiSetAmlVerdictRequest, options?: RawAxiosRequestConfig): AxiosPromise<AmlVerdictManualResponse> {
-            return localVarFp.setAmlVerdict(requestParameters.amlVerdictManualRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
@@ -623,8 +425,8 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest, options?: RawAxiosRequestConfig): AxiosPromise<ScreeningUpdateConfigurations> {
-            return localVarFp.updateScreeningConfiguration(requestParameters.screeningUpdateConfigurations, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ScreeningUpdateConfigurationsRequest> {
+            return localVarFp.updateScreeningConfiguration(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for Travel Rule.
@@ -638,62 +440,6 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
         },
     };
 };
-
-/**
- * Request parameters for getScreeningFullDetails operation in ComplianceApi.
- * @export
- * @interface ComplianceApiGetScreeningFullDetailsRequest
- */
-export interface ComplianceApiGetScreeningFullDetailsRequest {
-    /**
-     * Fireblocks transaction ID of the screened transaction
-     * @type {string}
-     * @memberof ComplianceApiGetScreeningFullDetails
-     */
-    readonly txId: string
-}
-
-/**
- * Request parameters for retryRejectedTransactionBypassScreeningChecks operation in ComplianceApi.
- * @export
- * @interface ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest
- */
-export interface ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest {
-    /**
-     * The transaction id that was rejected by screening checks
-     * @type {string}
-     * @memberof ComplianceApiRetryRejectedTransactionBypassScreeningChecks
-     */
-    readonly txId: string
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof ComplianceApiRetryRejectedTransactionBypassScreeningChecks
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
- * Request parameters for setAmlVerdict operation in ComplianceApi.
- * @export
- * @interface ComplianceApiSetAmlVerdictRequest
- */
-export interface ComplianceApiSetAmlVerdictRequest {
-    /**
-     * 
-     * @type {AmlVerdictManualRequest}
-     * @memberof ComplianceApiSetAmlVerdict
-     */
-    readonly amlVerdictManualRequest: AmlVerdictManualRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof ComplianceApiSetAmlVerdict
-     */
-    readonly idempotencyKey?: string
-}
 
 /**
  * Request parameters for updateAmlScreeningConfiguration operation in ComplianceApi.
@@ -715,13 +461,6 @@ export interface ComplianceApiUpdateAmlScreeningConfigurationRequest {
  * @interface ComplianceApiUpdateScreeningConfigurationRequest
  */
 export interface ComplianceApiUpdateScreeningConfigurationRequest {
-    /**
-     * 
-     * @type {ScreeningUpdateConfigurations}
-     * @memberof ComplianceApiUpdateScreeningConfiguration
-     */
-    readonly screeningUpdateConfigurations: ScreeningUpdateConfigurations
-
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
@@ -785,18 +524,6 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Provides all the compliance details for the given screened transaction.
-     * @summary Provides all the compliance details for the given screened transaction.
-     * @param {ComplianceApiGetScreeningFullDetailsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ComplianceApi
-     */
-    public getScreeningFullDetails(requestParameters: ComplianceApiGetScreeningFullDetailsRequest) {
-        return ComplianceApiFp(this.configuration).getScreeningFullDetails(requestParameters.txId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
      * Get the screening policy for Travel Rule.
      * @summary Travel Rule - View Screening Policy
      * @param {*} [options] Override http request option.
@@ -805,30 +532,6 @@ export class ComplianceApi extends BaseAPI {
      */
     public getScreeningPolicy() {
         return ComplianceApiFp(this.configuration).getScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-     * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
-     * @param {ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ComplianceApi
-     */
-    public retryRejectedTransactionBypassScreeningChecks(requestParameters: ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest) {
-        return ComplianceApiFp(this.configuration).retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-     * @summary Set AML Verdict for Manual Screening Verdict.
-     * @param {ComplianceApiSetAmlVerdictRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ComplianceApi
-     */
-    public setAmlVerdict(requestParameters: ComplianceApiSetAmlVerdictRequest) {
-        return ComplianceApiFp(this.configuration).setAmlVerdict(requestParameters.amlVerdictManualRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -851,8 +554,8 @@ export class ComplianceApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof ComplianceApi
      */
-    public updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest) {
-        return ComplianceApiFp(this.configuration).updateScreeningConfiguration(requestParameters.screeningUpdateConfigurations, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateScreeningConfiguration(requestParameters: ComplianceApiUpdateScreeningConfigurationRequest = {}) {
+        return ComplianceApiFp(this.configuration).updateScreeningConfiguration(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

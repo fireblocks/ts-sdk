@@ -10,7 +10,6 @@
 |**hiddenOnUI** | **boolean** |  | [optional] [default to undefined]|
 |**customerRefId** | **string** |  | [optional] [default to undefined]|
 |**autoFuel** | **boolean** |  | [optional] [default to undefined]|
-|**tags** | [**Array&lt;Tag&gt;**](Tag.md) | List of tags attached to the vault account | [optional] [default to undefined]|
 
 
 

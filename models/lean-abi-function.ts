@@ -35,27 +35,5 @@ export interface LeanAbiFunction {
      * @memberof LeanAbiFunction
      */
     'name'?: string;
-    /**
-     * The function outputs
-     * @type {Array<ParameterWithValue>}
-     * @memberof LeanAbiFunction
-     */
-    'outputs'?: Array<ParameterWithValue>;
-    /**
-     * The state mutability of the function (e.g., view, pure, nonpayable, payable)
-     * @type {string}
-     * @memberof LeanAbiFunction
-     */
-    'stateMutability'?: LeanAbiFunctionStateMutabilityEnum;
 }
-
-export const LeanAbiFunctionStateMutabilityEnum = {
-    View: 'view',
-    Pure: 'pure',
-    Nonpayable: 'nonpayable',
-    Payable: 'payable'
-} as const;
-
-export type LeanAbiFunctionStateMutabilityEnum = typeof LeanAbiFunctionStateMutabilityEnum[keyof typeof LeanAbiFunctionStateMutabilityEnum];
-
 

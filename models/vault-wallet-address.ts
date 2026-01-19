@@ -90,9 +90,7 @@ export interface VaultWalletAddress {
 
 export const VaultWalletAddressAddressFormatEnum = {
     Segwit: 'SEGWIT',
-    Legacy: 'LEGACY',
-    Base: 'BASE',
-    Payment: 'PAYMENT'
+    Legacy: 'LEGACY'
 } as const;
 
 export type VaultWalletAddressAddressFormatEnum = typeof VaultWalletAddressAddressFormatEnum[keyof typeof VaultWalletAddressAddressFormatEnum];

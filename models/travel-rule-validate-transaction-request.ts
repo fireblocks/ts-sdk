@@ -24,7 +24,7 @@ import { TravelRuleAddress } from './travel-rule-address';
  */
 export interface TravelRuleValidateTransactionRequest {
     /**
-     * Transaction asset symbol (BTC,ETH)
+     * Transaction asset symbol BTC,ETH)
      * @type {string}
      * @memberof TravelRuleValidateTransactionRequest
      */
@@ -53,12 +53,6 @@ export interface TravelRuleValidateTransactionRequest {
      * @memberof TravelRuleValidateTransactionRequest
      */
     'originatorEqualsBeneficiary': boolean;
-    /**
-     * Number of decimals in the transaction asset. This is used to convert the transaction amount to the smallest unit of the asset
-     * @type {number}
-     * @memberof TravelRuleValidateTransactionRequest
-     */
-    'transactionAssetDecimals'?: number;
     /**
      * This will also check if the transaction is a TRAVEL_RULE in the beneficiary VASP\'s jurisdiction
      * @type {boolean}
@@ -90,7 +84,7 @@ export interface TravelRuleValidateTransactionRequest {
      */
     'beneficiaryAccountNumber'?: string;
     /**
-     * 
+     * Beneficiary  name
      * @type {TravelRuleAddress}
      * @memberof TravelRuleValidateTransactionRequest
      */

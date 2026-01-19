@@ -7,7 +7,6 @@
 |**low** | [**TransactionFee**](TransactionFee.md) |  | [default to undefined]|
 |**medium** | [**TransactionFee**](TransactionFee.md) |  | [default to undefined]|
 |**high** | [**TransactionFee**](TransactionFee.md) |  | [default to undefined]|
-|**feeDetails** | [**EstimatedFeeDetails**](EstimatedFeeDetails.md) |  | [optional] [default to undefined]|
 
 
 

@@ -35,12 +35,6 @@ import { CreateAssetsRequest } from '../models';
 // @ts-ignore
 import { CreateMultipleAccountsRequest } from '../models';
 // @ts-ignore
-import { CreateMultipleDepositAddressesJobStatus } from '../models';
-// @ts-ignore
-import { CreateMultipleDepositAddressesRequest } from '../models';
-// @ts-ignore
-import { CreateMultipleVaultAccountsJobStatus } from '../models';
-// @ts-ignore
 import { CreateVaultAccountRequest } from '../models';
 // @ts-ignore
 import { CreateVaultAssetResponse } from '../models';
@@ -76,12 +70,6 @@ import { UpdateVaultAccountRequest } from '../models';
 import { VaultAccount } from '../models';
 // @ts-ignore
 import { VaultAccountsPagedResponse } from '../models';
-// @ts-ignore
-import { VaultAccountsTagAttachmentOperationsRequest } from '../models';
-// @ts-ignore
-import { VaultAccountsTagAttachmentOperationsResponse } from '../models';
-// @ts-ignore
-import { VaultAccountsTagAttachmentsRequest } from '../models';
 // @ts-ignore
 import { VaultActionStatus } from '../models';
 // @ts-ignore
@@ -134,86 +122,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Attach or detach one or more tags from the requested vault accounts.
-         * @summary Attach or detach tags from a vault accounts
-         * @param {VaultAccountsTagAttachmentOperationsRequest} vaultAccountsTagAttachmentOperationsRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        attachOrDetachTagsFromVaultAccounts: async (vaultAccountsTagAttachmentOperationsRequest: VaultAccountsTagAttachmentOperationsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('attachOrDetachTagsFromVaultAccounts', 'vaultAccountsTagAttachmentOperationsRequest', vaultAccountsTagAttachmentOperationsRequest)
-            const localVarPath = `/vault/accounts/attached_tags`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(vaultAccountsTagAttachmentOperationsRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-         * @summary Attach tags to a vault accounts (deprecated)
-         * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        attachTagsToVaultAccounts: async (vaultAccountsTagAttachmentsRequest: VaultAccountsTagAttachmentsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('attachTagsToVaultAccounts', 'vaultAccountsTagAttachmentsRequest', vaultAccountsTagAttachmentsRequest)
-            const localVarPath = `/vault/accounts/attached_tags/attach`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(vaultAccountsTagAttachmentsRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Converts an existing segwit address to the legacy format.
          * @summary Convert a segwit address to legacy format
          * @param {string} vaultAccountId The ID of the vault account
@@ -258,7 +166,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
          * @summary Bulk creation of new vault accounts
          * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -291,46 +199,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createMultipleAccountsRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
-         * @summary Bulk creation of new deposit addresses
-         * @param {CreateMultipleDepositAddressesRequest} createMultipleDepositAddressesRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createMultipleDepositAddresses: async (createMultipleDepositAddressesRequest: CreateMultipleDepositAddressesRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('createMultipleDepositAddresses', 'createMultipleDepositAddressesRequest', createMultipleDepositAddressesRequest)
-            const localVarPath = `/vault/accounts/addresses/bulk`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createMultipleDepositAddressesRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -468,46 +336,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-         * @summary Detach tags from a vault accounts (deprecated)
-         * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        detachTagsFromVaultAccounts: async (vaultAccountsTagAttachmentsRequest: VaultAccountsTagAttachmentsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('detachTagsFromVaultAccounts', 'vaultAccountsTagAttachmentsRequest', vaultAccountsTagAttachmentsRequest)
-            const localVarPath = `/vault/accounts/attached_tags/detach`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(vaultAccountsTagAttachmentsRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
          * @summary List asset wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only asset wallets with total balance larger than this amount are returned.
@@ -555,72 +383,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-         * @summary Get job status of bulk creation of new deposit addresses
-         * @param {string} jobId The ID of the job to create addresses
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCreateMultipleDepositAddressesJobStatus: async (jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getCreateMultipleDepositAddressesJobStatus', 'jobId', jobId)
-            const localVarPath = `/vault/accounts/addresses/bulk/{jobId}`
-                .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-         * @summary Get job status of bulk creation of new vault accounts
-         * @param {string} jobId The ID of the job to create addresses
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCreateMultipleVaultAccountsJobStatus: async (jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getCreateMultipleVaultAccountsJobStatus', 'jobId', jobId)
-            const localVarPath = `/vault/accounts/bulk/{jobId}`
-                .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
 
     
@@ -685,11 +447,10 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} [before] 
          * @param {string} [after] 
          * @param {number} [limit] 
-         * @param {Array<string>} [tagIds] List of tag IDs to filter vault accounts.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: GetPagedVaultAccountsOrderByEnum, before?: string, after?: string, limit?: number, tagIds?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getPagedVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: GetPagedVaultAccountsOrderByEnum, before?: string, after?: string, limit?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/vault/accounts_paged`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -732,10 +493,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
-            }
-
-            if (tagIds) {
-                localVarQueryParameter['tagIds'] = tagIds;
             }
 
 
@@ -1441,34 +1198,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Attach or detach one or more tags from the requested vault accounts.
-         * @summary Attach or detach tags from a vault accounts
-         * @param {VaultAccountsTagAttachmentOperationsRequest} vaultAccountsTagAttachmentOperationsRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest: VaultAccountsTagAttachmentOperationsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsTagAttachmentOperationsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.attachOrDetachTagsFromVaultAccounts']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-         * @summary Attach tags to a vault accounts (deprecated)
-         * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest: VaultAccountsTagAttachmentsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.attachTagsToVaultAccounts']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Converts an existing segwit address to the legacy format.
          * @summary Convert a segwit address to legacy format
          * @param {string} vaultAccountId The ID of the vault account
@@ -1485,7 +1214,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
          * @summary Bulk creation of new vault accounts
          * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1496,20 +1225,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createMultipleAccounts(createMultipleAccountsRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.createMultipleAccounts']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
-         * @summary Bulk creation of new deposit addresses
-         * @param {CreateMultipleDepositAddressesRequest} createMultipleDepositAddressesRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async createMultipleDepositAddresses(createMultipleDepositAddressesRequest: CreateMultipleDepositAddressesRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<JobCreated>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createMultipleDepositAddresses(createMultipleDepositAddressesRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.createMultipleDepositAddresses']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1559,20 +1274,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-         * @summary Detach tags from a vault accounts (deprecated)
-         * @param {VaultAccountsTagAttachmentsRequest} vaultAccountsTagAttachmentsRequest 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest: VaultAccountsTagAttachmentsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.detachTagsFromVaultAccounts']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
          * @summary List asset wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only asset wallets with total balance larger than this amount are returned.
@@ -1588,32 +1289,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getAssetWallets']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-         * @summary Get job status of bulk creation of new deposit addresses
-         * @param {string} jobId The ID of the job to create addresses
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCreateMultipleDepositAddressesJobStatus(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateMultipleDepositAddressesJobStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCreateMultipleDepositAddressesJobStatus(jobId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.getCreateMultipleDepositAddressesJobStatus']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-         * @summary Get job status of bulk creation of new vault accounts
-         * @param {string} jobId The ID of the job to create addresses
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCreateMultipleVaultAccountsJobStatus(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateMultipleVaultAccountsJobStatus>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCreateMultipleVaultAccountsJobStatus(jobId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.getCreateMultipleVaultAccountsJobStatus']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1642,12 +1317,11 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {string} [before] 
          * @param {string} [after] 
          * @param {number} [limit] 
-         * @param {Array<string>} [tagIds] List of tag IDs to filter vault accounts.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: GetPagedVaultAccountsOrderByEnum, before?: string, after?: string, limit?: number, tagIds?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, tagIds, options);
+        async getPagedVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, orderBy?: GetPagedVaultAccountsOrderByEnum, before?: string, after?: string, limit?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<VaultAccountsPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPagedVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, orderBy, before, after, limit, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getPagedVaultAccounts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1912,26 +1586,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Attach or detach one or more tags from the requested vault accounts.
-         * @summary Attach or detach tags from a vault accounts
-         * @param {VaultsApiAttachOrDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        attachOrDetachTagsFromVaultAccounts(requestParameters: VaultsApiAttachOrDetachTagsFromVaultAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultAccountsTagAttachmentOperationsResponse> {
-            return localVarFp.attachOrDetachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentOperationsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-         * @summary Attach tags to a vault accounts (deprecated)
-         * @param {VaultsApiAttachTagsToVaultAccountsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        attachTagsToVaultAccounts(requestParameters: VaultsApiAttachTagsToVaultAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.attachTagsToVaultAccounts(requestParameters.vaultAccountsTagAttachmentsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Converts an existing segwit address to the legacy format.
          * @summary Convert a segwit address to legacy format
          * @param {VaultsApiCreateLegacyAddressRequest} requestParameters Request parameters.
@@ -1942,7 +1596,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createLegacyAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
          * @summary Bulk creation of new vault accounts
          * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1950,16 +1604,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         createMultipleAccounts(requestParameters: VaultsApiCreateMultipleAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
             return localVarFp.createMultipleAccounts(requestParameters.createMultipleAccountsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
-         * @summary Bulk creation of new deposit addresses
-         * @param {VaultsApiCreateMultipleDepositAddressesRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        createMultipleDepositAddresses(requestParameters: VaultsApiCreateMultipleDepositAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
-            return localVarFp.createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new vault account with the requested name.
@@ -1992,16 +1636,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-         * @summary Detach tags from a vault accounts (deprecated)
-         * @param {VaultsApiDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        detachTagsFromVaultAccounts(requestParameters: VaultsApiDetachTagsFromVaultAccountsRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.detachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
          * @summary List asset wallets (Paginated)
          * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
@@ -2010,26 +1644,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAssetWalletResponse> {
             return localVarFp.getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-         * @summary Get job status of bulk creation of new deposit addresses
-         * @param {VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCreateMultipleDepositAddressesJobStatus(requestParameters: VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateMultipleDepositAddressesJobStatus> {
-            return localVarFp.getCreateMultipleDepositAddressesJobStatus(requestParameters.jobId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-         * @summary Get job status of bulk creation of new vault accounts
-         * @param {VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCreateMultipleVaultAccountsJobStatus(requestParameters: VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateMultipleVaultAccountsJobStatus> {
-            return localVarFp.getCreateMultipleVaultAccountsJobStatus(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
@@ -2049,7 +1663,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<VaultAccountsPagedResponse> {
-            return localVarFp.getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, requestParameters.tagIds, options).then((request) => request(axios, basePath));
+            return localVarFp.getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets the public key information based on derivation path and signing algorithm.
@@ -2243,48 +1857,6 @@ export interface VaultsApiActivateAssetForVaultAccountRequest {
 }
 
 /**
- * Request parameters for attachOrDetachTagsFromVaultAccounts operation in VaultsApi.
- * @export
- * @interface VaultsApiAttachOrDetachTagsFromVaultAccountsRequest
- */
-export interface VaultsApiAttachOrDetachTagsFromVaultAccountsRequest {
-    /**
-     * 
-     * @type {VaultAccountsTagAttachmentOperationsRequest}
-     * @memberof VaultsApiAttachOrDetachTagsFromVaultAccounts
-     */
-    readonly vaultAccountsTagAttachmentOperationsRequest: VaultAccountsTagAttachmentOperationsRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof VaultsApiAttachOrDetachTagsFromVaultAccounts
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
- * Request parameters for attachTagsToVaultAccounts operation in VaultsApi.
- * @export
- * @interface VaultsApiAttachTagsToVaultAccountsRequest
- */
-export interface VaultsApiAttachTagsToVaultAccountsRequest {
-    /**
-     * 
-     * @type {VaultAccountsTagAttachmentsRequest}
-     * @memberof VaultsApiAttachTagsToVaultAccounts
-     */
-    readonly vaultAccountsTagAttachmentsRequest: VaultAccountsTagAttachmentsRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof VaultsApiAttachTagsToVaultAccounts
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
  * Request parameters for createLegacyAddress operation in VaultsApi.
  * @export
  * @interface VaultsApiCreateLegacyAddressRequest
@@ -2336,27 +1908,6 @@ export interface VaultsApiCreateMultipleAccountsRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof VaultsApiCreateMultipleAccounts
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
- * Request parameters for createMultipleDepositAddresses operation in VaultsApi.
- * @export
- * @interface VaultsApiCreateMultipleDepositAddressesRequest
- */
-export interface VaultsApiCreateMultipleDepositAddressesRequest {
-    /**
-     * 
-     * @type {CreateMultipleDepositAddressesRequest}
-     * @memberof VaultsApiCreateMultipleDepositAddresses
-     */
-    readonly createMultipleDepositAddressesRequest: CreateMultipleDepositAddressesRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof VaultsApiCreateMultipleDepositAddresses
      */
     readonly idempotencyKey?: string
 }
@@ -2453,27 +2004,6 @@ export interface VaultsApiCreateVaultAccountAssetAddressRequest {
 }
 
 /**
- * Request parameters for detachTagsFromVaultAccounts operation in VaultsApi.
- * @export
- * @interface VaultsApiDetachTagsFromVaultAccountsRequest
- */
-export interface VaultsApiDetachTagsFromVaultAccountsRequest {
-    /**
-     * 
-     * @type {VaultAccountsTagAttachmentsRequest}
-     * @memberof VaultsApiDetachTagsFromVaultAccounts
-     */
-    readonly vaultAccountsTagAttachmentsRequest: VaultAccountsTagAttachmentsRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof VaultsApiDetachTagsFromVaultAccounts
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
  * Request parameters for getAssetWallets operation in VaultsApi.
  * @export
  * @interface VaultsApiGetAssetWalletsRequest
@@ -2520,34 +2050,6 @@ export interface VaultsApiGetAssetWalletsRequest {
      * @memberof VaultsApiGetAssetWallets
      */
     readonly limit?: number
-}
-
-/**
- * Request parameters for getCreateMultipleDepositAddressesJobStatus operation in VaultsApi.
- * @export
- * @interface VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest
- */
-export interface VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest {
-    /**
-     * The ID of the job to create addresses
-     * @type {string}
-     * @memberof VaultsApiGetCreateMultipleDepositAddressesJobStatus
-     */
-    readonly jobId: string
-}
-
-/**
- * Request parameters for getCreateMultipleVaultAccountsJobStatus operation in VaultsApi.
- * @export
- * @interface VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest
- */
-export interface VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest {
-    /**
-     * The ID of the job to create addresses
-     * @type {string}
-     * @memberof VaultsApiGetCreateMultipleVaultAccountsJobStatus
-     */
-    readonly jobId: string
 }
 
 /**
@@ -2639,13 +2141,6 @@ export interface VaultsApiGetPagedVaultAccountsRequest {
      * @memberof VaultsApiGetPagedVaultAccounts
      */
     readonly limit?: number
-
-    /**
-     * List of tag IDs to filter vault accounts.
-     * @type {Array<string>}
-     * @memberof VaultsApiGetPagedVaultAccounts
-     */
-    readonly tagIds?: Array<string>
 }
 
 /**
@@ -3109,30 +2604,6 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Attach or detach one or more tags from the requested vault accounts.
-     * @summary Attach or detach tags from a vault accounts
-     * @param {VaultsApiAttachOrDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public attachOrDetachTagsFromVaultAccounts(requestParameters: VaultsApiAttachOrDetachTagsFromVaultAccountsRequest) {
-        return VaultsApiFp(this.configuration).attachOrDetachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentOperationsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-     * @summary Attach tags to a vault accounts (deprecated)
-     * @param {VaultsApiAttachTagsToVaultAccountsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public attachTagsToVaultAccounts(requestParameters: VaultsApiAttachTagsToVaultAccountsRequest) {
-        return VaultsApiFp(this.configuration).attachTagsToVaultAccounts(requestParameters.vaultAccountsTagAttachmentsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
      * Converts an existing segwit address to the legacy format.
      * @summary Convert a segwit address to legacy format
      * @param {VaultsApiCreateLegacyAddressRequest} requestParameters Request parameters.
@@ -3145,7 +2616,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+     * Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. 
      * @summary Bulk creation of new vault accounts
      * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3154,18 +2625,6 @@ export class VaultsApi extends BaseAPI {
      */
     public createMultipleAccounts(requestParameters: VaultsApiCreateMultipleAccountsRequest) {
         return VaultsApiFp(this.configuration).createMultipleAccounts(requestParameters.createMultipleAccountsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
-     * @summary Bulk creation of new deposit addresses
-     * @param {VaultsApiCreateMultipleDepositAddressesRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public createMultipleDepositAddresses(requestParameters: VaultsApiCreateMultipleDepositAddressesRequest) {
-        return VaultsApiFp(this.configuration).createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3205,18 +2664,6 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-     * @summary Detach tags from a vault accounts (deprecated)
-     * @param {VaultsApiDetachTagsFromVaultAccountsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public detachTagsFromVaultAccounts(requestParameters: VaultsApiDetachTagsFromVaultAccountsRequest) {
-        return VaultsApiFp(this.configuration).detachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
      * Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
      * @summary List asset wallets (Paginated)
      * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
@@ -3226,30 +2673,6 @@ export class VaultsApi extends BaseAPI {
      */
     public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}) {
         return VaultsApiFp(this.configuration).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-     * @summary Get job status of bulk creation of new deposit addresses
-     * @param {VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public getCreateMultipleDepositAddressesJobStatus(requestParameters: VaultsApiGetCreateMultipleDepositAddressesJobStatusRequest) {
-        return VaultsApiFp(this.configuration).getCreateMultipleDepositAddressesJobStatus(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
-     * @summary Get job status of bulk creation of new vault accounts
-     * @param {VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public getCreateMultipleVaultAccountsJobStatus(requestParameters: VaultsApiGetCreateMultipleVaultAccountsJobStatusRequest) {
-        return VaultsApiFp(this.configuration).getCreateMultipleVaultAccountsJobStatus(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3273,7 +2696,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public getPagedVaultAccounts(requestParameters: VaultsApiGetPagedVaultAccountsRequest = {}) {
-        return VaultsApiFp(this.configuration).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, requestParameters.tagIds).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

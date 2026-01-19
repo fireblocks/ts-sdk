@@ -4,9 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**txHash** | **string** | The hash of the transaction | [optional] [default to undefined]|
-|**origin** | **string** | The origin address of the transaction | [optional] [default to undefined]|
-|**destination** | **string** | The destination address of the transaction | [optional] [default to undefined]|
+|**txHash** | **string** |  | [optional] [default to undefined]|
+|**origin** | **string** |  | [optional] [default to undefined]|
+|**destination** | **string** |  | [optional] [default to undefined]|
 
 
 

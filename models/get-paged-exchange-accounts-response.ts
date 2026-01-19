@@ -15,40 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ExchangeAccount } from './exchange-account';
-// May contain unused imports in some cases
-// @ts-ignore
-import { GetPagedExchangeAccountsResponsePaging } from './get-paged-exchange-accounts-response-paging';
+import { ExchangeAccountsPaged } from './exchange-accounts-paged';
 
 /**
  * 
  * @export
  * @interface GetPagedExchangeAccountsResponse
  */
-export interface GetPagedExchangeAccountsResponse {
-    /**
-     * 
-     * @type {Array<ExchangeAccount>}
-     * @memberof GetPagedExchangeAccountsResponse
-     */
-    'exchanges': Array<ExchangeAccount>;
-    /**
-     * 
-     * @type {GetPagedExchangeAccountsResponsePaging}
-     * @memberof GetPagedExchangeAccountsResponse
-     */
-    'paging'?: GetPagedExchangeAccountsResponsePaging;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetPagedExchangeAccountsResponse
-     */
-    'prevUrl'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof GetPagedExchangeAccountsResponse
-     */
-    'nextUrl'?: string;
+export interface GetPagedExchangeAccountsResponse extends Array<ExchangeAccountsPaged> {
 }
 

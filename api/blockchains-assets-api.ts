@@ -27,11 +27,7 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { Asset } from '../models';
-// @ts-ignore
 import { AssetBadRequestErrorResponse } from '../models';
-// @ts-ignore
-import { AssetClass } from '../models';
 // @ts-ignore
 import { AssetConflictErrorResponse } from '../models';
 // @ts-ignore
@@ -41,35 +37,13 @@ import { AssetInternalServerErrorResponse } from '../models';
 // @ts-ignore
 import { AssetNotFoundErrorResponse } from '../models';
 // @ts-ignore
-import { AssetPriceForbiddenErrorResponse } from '../models';
-// @ts-ignore
-import { AssetPriceNotFoundErrorResponse } from '../models';
-// @ts-ignore
-import { AssetPriceResponse } from '../models';
-// @ts-ignore
 import { AssetResponse } from '../models';
-// @ts-ignore
-import { AssetScope } from '../models';
-// @ts-ignore
-import { BlockchainNotFoundErrorResponse } from '../models';
-// @ts-ignore
-import { BlockchainResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetSupportedAssetsResponse } from '../models';
 // @ts-ignore
-import { ListAssetsResponse } from '../models';
-// @ts-ignore
-import { ListBlockchainsResponse } from '../models';
-// @ts-ignore
 import { RegisterNewAssetRequest } from '../models';
-// @ts-ignore
-import { SetAssetPriceRequest } from '../models';
-// @ts-ignore
-import { TokenInfoNotFoundErrorResponse } from '../models';
-// @ts-ignore
-import { UpdateAssetUserMetadataRequest } from '../models';
 /**
  * BlockchainsAssetsApi - axios parameter creator
  * @export
@@ -77,79 +51,8 @@ import { UpdateAssetUserMetadataRequest } from '../models';
 export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
-         * @summary Get an asset
-         * @param {string} id The ID or legacyId of the asset
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAsset: async (id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getAsset', 'id', id)
-            const localVarPath = `/assets/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns an blockchain by ID or legacyID. 
-         * @summary Get an blockchain
-         * @param {string} id The ID or legacyId of the blockchain
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBlockchain: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getBlockchain', 'id', id)
-            const localVarPath = `/blockchains/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br> **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.</br>   - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>   - We recommend transitioning to the `listAssets` endpoint for better results. 
-         * @summary List all asset types supported by Fireblocks - legacy endpoint
+         * Returns all asset types supported by Fireblocks.
+         * @summary List all asset types supported by Fireblocks
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -178,142 +81,7 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br> **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br> 
-         * @summary List assets
-         * @param {string} [blockchainId] Blockchain id of the assets
-         * @param {AssetClass} [assetClass] Assets class
-         * @param {string} [symbol] Assets onchain symbol
-         * @param {AssetScope} [scope] Scope of the assets
-         * @param {boolean} [deprecated] Are assets deprecated
-         * @param {Array<string>} [ids] A list of asset IDs (max 100)
-         * @param {string} [pageCursor] Next page cursor to fetch
-         * @param {number} [pageSize] Items per page
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAssets: async (blockchainId?: string, assetClass?: AssetClass, symbol?: string, scope?: AssetScope, deprecated?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/assets`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (blockchainId !== undefined) {
-                localVarQueryParameter['blockchainId'] = blockchainId;
-            }
-
-            if (assetClass !== undefined) {
-                localVarQueryParameter['assetClass'] = assetClass;
-            }
-
-            if (symbol !== undefined) {
-                localVarQueryParameter['symbol'] = symbol;
-            }
-
-            if (scope !== undefined) {
-                localVarQueryParameter['scope'] = scope;
-            }
-
-            if (deprecated !== undefined) {
-                localVarQueryParameter['deprecated'] = deprecated;
-            }
-
-            if (ids) {
-                localVarQueryParameter['ids'] = ids;
-            }
-
-            if (pageCursor !== undefined) {
-                localVarQueryParameter['pageCursor'] = pageCursor;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns all blockchains supported by Fireblocks. 
-         * @summary List blockchains
-         * @param {string} [protocol] Blockchain protocol
-         * @param {boolean} [deprecated] Is blockchain deprecated
-         * @param {boolean} [test] Is test blockchain
-         * @param {Array<string>} [ids] A list of blockchain IDs (max 100)
-         * @param {string} [pageCursor] Page cursor to fetch
-         * @param {number} [pageSize] Items per page (max 500)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listBlockchains: async (protocol?: string, deprecated?: boolean, test?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/blockchains`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (protocol !== undefined) {
-                localVarQueryParameter['protocol'] = protocol;
-            }
-
-            if (deprecated !== undefined) {
-                localVarQueryParameter['deprecated'] = deprecated;
-            }
-
-            if (test !== undefined) {
-                localVarQueryParameter['test'] = test;
-            }
-
-            if (ids) {
-                localVarQueryParameter['ids'] = ids;
-            }
-
-            if (pageCursor !== undefined) {
-                localVarQueryParameter['pageCursor'] = pageCursor;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui 
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
          * @summary Register an asset
          * @param {RegisterNewAssetRequest} [registerNewAssetRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -351,90 +119,6 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
                 options: localVarRequestOptions,
             };
         },
-        /**
-         * Set asset price for the given asset id. Returns the asset price response. 
-         * @summary Set asset price
-         * @param {string} id The ID of the asset
-         * @param {SetAssetPriceRequest} [setAssetPriceRequest] 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setAssetPrice: async (id: string, setAssetPriceRequest?: SetAssetPriceRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('setAssetPrice', 'id', id)
-            const localVarPath = `/assets/prices/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(setAssetPriceRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
-         * @summary Update the user’s metadata for an asset
-         * @param {string} id The ID or legacyId of the asset
-         * @param {UpdateAssetUserMetadataRequest} [updateAssetUserMetadataRequest] 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateAssetUserMetadata: async (id: string, updateAssetUserMetadataRequest?: UpdateAssetUserMetadataRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('updateAssetUserMetadata', 'id', id)
-            const localVarPath = `/assets/{id}`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(updateAssetUserMetadataRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
     }
 };
 
@@ -446,35 +130,8 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlockchainsAssetsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
-         * @summary Get an asset
-         * @param {string} id The ID or legacyId of the asset
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getAsset(id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Asset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAsset(id, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['BlockchainsAssetsApi.getAsset']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Returns an blockchain by ID or legacyID. 
-         * @summary Get an blockchain
-         * @param {string} id The ID or legacyId of the blockchain
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getBlockchain(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BlockchainResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBlockchain(id, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['BlockchainsAssetsApi.getBlockchain']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br> **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.</br>   - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>   - We recommend transitioning to the `listAssets` endpoint for better results. 
-         * @summary List all asset types supported by Fireblocks - legacy endpoint
+         * Returns all asset types supported by Fireblocks.
+         * @summary List all asset types supported by Fireblocks
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -485,46 +142,7 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br> **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br> 
-         * @summary List assets
-         * @param {string} [blockchainId] Blockchain id of the assets
-         * @param {AssetClass} [assetClass] Assets class
-         * @param {string} [symbol] Assets onchain symbol
-         * @param {AssetScope} [scope] Scope of the assets
-         * @param {boolean} [deprecated] Are assets deprecated
-         * @param {Array<string>} [ids] A list of asset IDs (max 100)
-         * @param {string} [pageCursor] Next page cursor to fetch
-         * @param {number} [pageSize] Items per page
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listAssets(blockchainId?: string, assetClass?: AssetClass, symbol?: string, scope?: AssetScope, deprecated?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListAssetsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listAssets(blockchainId, assetClass, symbol, scope, deprecated, ids, pageCursor, pageSize, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['BlockchainsAssetsApi.listAssets']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Returns all blockchains supported by Fireblocks. 
-         * @summary List blockchains
-         * @param {string} [protocol] Blockchain protocol
-         * @param {boolean} [deprecated] Is blockchain deprecated
-         * @param {boolean} [test] Is test blockchain
-         * @param {Array<string>} [ids] A list of blockchain IDs (max 100)
-         * @param {string} [pageCursor] Page cursor to fetch
-         * @param {number} [pageSize] Items per page (max 500)
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listBlockchains(protocol?: string, deprecated?: boolean, test?: boolean, ids?: Array<string>, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListBlockchainsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listBlockchains(protocol, deprecated, test, ids, pageCursor, pageSize, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['BlockchainsAssetsApi.listBlockchains']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui 
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
          * @summary Register an asset
          * @param {RegisterNewAssetRequest} [registerNewAssetRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -535,36 +153,6 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.registerNewAsset(registerNewAssetRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['BlockchainsAssetsApi.registerNewAsset']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Set asset price for the given asset id. Returns the asset price response. 
-         * @summary Set asset price
-         * @param {string} id The ID of the asset
-         * @param {SetAssetPriceRequest} [setAssetPriceRequest] 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async setAssetPrice(id: string, setAssetPriceRequest?: SetAssetPriceRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AssetPriceResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.setAssetPrice(id, setAssetPriceRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['BlockchainsAssetsApi.setAssetPrice']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
-         * @summary Update the user’s metadata for an asset
-         * @param {string} id The ID or legacyId of the asset
-         * @param {UpdateAssetUserMetadataRequest} [updateAssetUserMetadataRequest] 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateAssetUserMetadata(id: string, updateAssetUserMetadataRequest?: UpdateAssetUserMetadataRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Asset>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateAssetUserMetadata(id, updateAssetUserMetadataRequest, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['BlockchainsAssetsApi.updateAssetUserMetadata']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
@@ -578,28 +166,8 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
     const localVarFp = BlockchainsAssetsApiFp(configuration)
     return {
         /**
-         * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
-         * @summary Get an asset
-         * @param {BlockchainsAssetsApiGetAssetRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAsset(requestParameters: BlockchainsAssetsApiGetAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<Asset> {
-            return localVarFp.getAsset(requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns an blockchain by ID or legacyID. 
-         * @summary Get an blockchain
-         * @param {BlockchainsAssetsApiGetBlockchainRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getBlockchain(requestParameters: BlockchainsAssetsApiGetBlockchainRequest, options?: RawAxiosRequestConfig): AxiosPromise<BlockchainResponse> {
-            return localVarFp.getBlockchain(requestParameters.id, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br> **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.</br>   - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>   - We recommend transitioning to the `listAssets` endpoint for better results. 
-         * @summary List all asset types supported by Fireblocks - legacy endpoint
+         * Returns all asset types supported by Fireblocks.
+         * @summary List all asset types supported by Fireblocks
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -607,27 +175,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
             return localVarFp.getSupportedAssets(options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br> **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br> 
-         * @summary List assets
-         * @param {BlockchainsAssetsApiListAssetsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listAssets(requestParameters: BlockchainsAssetsApiListAssetsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListAssetsResponse> {
-            return localVarFp.listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns all blockchains supported by Fireblocks. 
-         * @summary List blockchains
-         * @param {BlockchainsAssetsApiListBlockchainsRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listBlockchains(requestParameters: BlockchainsAssetsApiListBlockchainsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListBlockchainsResponse> {
-            return localVarFp.listBlockchains(requestParameters.protocol, requestParameters.deprecated, requestParameters.test, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui 
+         * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
          * @summary Register an asset
          * @param {BlockchainsAssetsApiRegisterNewAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -636,182 +184,8 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
         registerNewAsset(requestParameters: BlockchainsAssetsApiRegisterNewAssetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<AssetResponse> {
             return localVarFp.registerNewAsset(requestParameters.registerNewAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
-        /**
-         * Set asset price for the given asset id. Returns the asset price response. 
-         * @summary Set asset price
-         * @param {BlockchainsAssetsApiSetAssetPriceRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        setAssetPrice(requestParameters: BlockchainsAssetsApiSetAssetPriceRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssetPriceResponse> {
-            return localVarFp.setAssetPrice(requestParameters.id, requestParameters.setAssetPriceRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
-         * @summary Update the user’s metadata for an asset
-         * @param {BlockchainsAssetsApiUpdateAssetUserMetadataRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateAssetUserMetadata(requestParameters: BlockchainsAssetsApiUpdateAssetUserMetadataRequest, options?: RawAxiosRequestConfig): AxiosPromise<Asset> {
-            return localVarFp.updateAssetUserMetadata(requestParameters.id, requestParameters.updateAssetUserMetadataRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
     };
 };
-
-/**
- * Request parameters for getAsset operation in BlockchainsAssetsApi.
- * @export
- * @interface BlockchainsAssetsApiGetAssetRequest
- */
-export interface BlockchainsAssetsApiGetAssetRequest {
-    /**
-     * The ID or legacyId of the asset
-     * @type {string}
-     * @memberof BlockchainsAssetsApiGetAsset
-     */
-    readonly id: string
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof BlockchainsAssetsApiGetAsset
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
- * Request parameters for getBlockchain operation in BlockchainsAssetsApi.
- * @export
- * @interface BlockchainsAssetsApiGetBlockchainRequest
- */
-export interface BlockchainsAssetsApiGetBlockchainRequest {
-    /**
-     * The ID or legacyId of the blockchain
-     * @type {string}
-     * @memberof BlockchainsAssetsApiGetBlockchain
-     */
-    readonly id: string
-}
-
-/**
- * Request parameters for listAssets operation in BlockchainsAssetsApi.
- * @export
- * @interface BlockchainsAssetsApiListAssetsRequest
- */
-export interface BlockchainsAssetsApiListAssetsRequest {
-    /**
-     * Blockchain id of the assets
-     * @type {string}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly blockchainId?: string
-
-    /**
-     * Assets class
-     * @type {AssetClass}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly assetClass?: AssetClass
-
-    /**
-     * Assets onchain symbol
-     * @type {string}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly symbol?: string
-
-    /**
-     * Scope of the assets
-     * @type {AssetScope}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly scope?: AssetScope
-
-    /**
-     * Are assets deprecated
-     * @type {boolean}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly deprecated?: boolean
-
-    /**
-     * A list of asset IDs (max 100)
-     * @type {Array<string>}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly ids?: Array<string>
-
-    /**
-     * Next page cursor to fetch
-     * @type {string}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly pageCursor?: string
-
-    /**
-     * Items per page
-     * @type {number}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly pageSize?: number
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof BlockchainsAssetsApiListAssets
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
- * Request parameters for listBlockchains operation in BlockchainsAssetsApi.
- * @export
- * @interface BlockchainsAssetsApiListBlockchainsRequest
- */
-export interface BlockchainsAssetsApiListBlockchainsRequest {
-    /**
-     * Blockchain protocol
-     * @type {string}
-     * @memberof BlockchainsAssetsApiListBlockchains
-     */
-    readonly protocol?: string
-
-    /**
-     * Is blockchain deprecated
-     * @type {boolean}
-     * @memberof BlockchainsAssetsApiListBlockchains
-     */
-    readonly deprecated?: boolean
-
-    /**
-     * Is test blockchain
-     * @type {boolean}
-     * @memberof BlockchainsAssetsApiListBlockchains
-     */
-    readonly test?: boolean
-
-    /**
-     * A list of blockchain IDs (max 100)
-     * @type {Array<string>}
-     * @memberof BlockchainsAssetsApiListBlockchains
-     */
-    readonly ids?: Array<string>
-
-    /**
-     * Page cursor to fetch
-     * @type {string}
-     * @memberof BlockchainsAssetsApiListBlockchains
-     */
-    readonly pageCursor?: string
-
-    /**
-     * Items per page (max 500)
-     * @type {number}
-     * @memberof BlockchainsAssetsApiListBlockchains
-     */
-    readonly pageSize?: number
-}
 
 /**
  * Request parameters for registerNewAsset operation in BlockchainsAssetsApi.
@@ -835,62 +209,6 @@ export interface BlockchainsAssetsApiRegisterNewAssetRequest {
 }
 
 /**
- * Request parameters for setAssetPrice operation in BlockchainsAssetsApi.
- * @export
- * @interface BlockchainsAssetsApiSetAssetPriceRequest
- */
-export interface BlockchainsAssetsApiSetAssetPriceRequest {
-    /**
-     * The ID of the asset
-     * @type {string}
-     * @memberof BlockchainsAssetsApiSetAssetPrice
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {SetAssetPriceRequest}
-     * @memberof BlockchainsAssetsApiSetAssetPrice
-     */
-    readonly setAssetPriceRequest?: SetAssetPriceRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof BlockchainsAssetsApiSetAssetPrice
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
- * Request parameters for updateAssetUserMetadata operation in BlockchainsAssetsApi.
- * @export
- * @interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest
- */
-export interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest {
-    /**
-     * The ID or legacyId of the asset
-     * @type {string}
-     * @memberof BlockchainsAssetsApiUpdateAssetUserMetadata
-     */
-    readonly id: string
-
-    /**
-     * 
-     * @type {UpdateAssetUserMetadataRequest}
-     * @memberof BlockchainsAssetsApiUpdateAssetUserMetadata
-     */
-    readonly updateAssetUserMetadataRequest?: UpdateAssetUserMetadataRequest
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof BlockchainsAssetsApiUpdateAssetUserMetadata
-     */
-    readonly idempotencyKey?: string
-}
-
-/**
  * BlockchainsAssetsApi - object-oriented interface
  * @export
  * @class BlockchainsAssetsApi
@@ -898,32 +216,8 @@ export interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest {
  */
 export class BlockchainsAssetsApi extends BaseAPI {
     /**
-     * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
-     * @summary Get an asset
-     * @param {BlockchainsAssetsApiGetAssetRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlockchainsAssetsApi
-     */
-    public getAsset(requestParameters: BlockchainsAssetsApiGetAssetRequest) {
-        return BlockchainsAssetsApiFp(this.configuration).getAsset(requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Returns an blockchain by ID or legacyID. 
-     * @summary Get an blockchain
-     * @param {BlockchainsAssetsApiGetBlockchainRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlockchainsAssetsApi
-     */
-    public getBlockchain(requestParameters: BlockchainsAssetsApiGetBlockchainRequest) {
-        return BlockchainsAssetsApiFp(this.configuration).getBlockchain(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br> **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.</br>   - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>   - We recommend transitioning to the `listAssets` endpoint for better results. 
-     * @summary List all asset types supported by Fireblocks - legacy endpoint
+     * Returns all asset types supported by Fireblocks.
+     * @summary List all asset types supported by Fireblocks
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof BlockchainsAssetsApi
@@ -933,31 +227,7 @@ export class BlockchainsAssetsApi extends BaseAPI {
     }
 
     /**
-     * Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br> **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br> 
-     * @summary List assets
-     * @param {BlockchainsAssetsApiListAssetsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlockchainsAssetsApi
-     */
-    public listAssets(requestParameters: BlockchainsAssetsApiListAssetsRequest = {}) {
-        return BlockchainsAssetsApiFp(this.configuration).listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Returns all blockchains supported by Fireblocks. 
-     * @summary List blockchains
-     * @param {BlockchainsAssetsApiListBlockchainsRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlockchainsAssetsApi
-     */
-    public listBlockchains(requestParameters: BlockchainsAssetsApiListBlockchainsRequest = {}) {
-        return BlockchainsAssetsApiFp(this.configuration).listBlockchains(requestParameters.protocol, requestParameters.deprecated, requestParameters.test, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui 
+     * Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR 
      * @summary Register an asset
      * @param {BlockchainsAssetsApiRegisterNewAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -966,30 +236,6 @@ export class BlockchainsAssetsApi extends BaseAPI {
      */
     public registerNewAsset(requestParameters: BlockchainsAssetsApiRegisterNewAssetRequest = {}) {
         return BlockchainsAssetsApiFp(this.configuration).registerNewAsset(requestParameters.registerNewAssetRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Set asset price for the given asset id. Returns the asset price response. 
-     * @summary Set asset price
-     * @param {BlockchainsAssetsApiSetAssetPriceRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlockchainsAssetsApi
-     */
-    public setAssetPrice(requestParameters: BlockchainsAssetsApiSetAssetPriceRequest) {
-        return BlockchainsAssetsApiFp(this.configuration).setAssetPrice(requestParameters.id, requestParameters.setAssetPriceRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Update the user’s metadata for an asset.  Endpoint Permission: Owner, Admin, Non-Signing Admin, NCW Admin, Signer, Editor.
-     * @summary Update the user’s metadata for an asset
-     * @param {BlockchainsAssetsApiUpdateAssetUserMetadataRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlockchainsAssetsApi
-     */
-    public updateAssetUserMetadata(requestParameters: BlockchainsAssetsApiUpdateAssetUserMetadataRequest) {
-        return BlockchainsAssetsApiFp(this.configuration).updateAssetUserMetadata(requestParameters.id, requestParameters.updateAssetUserMetadataRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

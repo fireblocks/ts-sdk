@@ -41,7 +41,7 @@ import { Tasks } from '../models';
 export const JobManagementApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Stop the given job immediately. If the job is in the \'Active\' state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+         * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
          * @summary Cancel a running job
          * @param {string} jobId The requested job id
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -223,7 +223,7 @@ export const JobManagementApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Pause the given job, after the current task is done. A paused job can later be resumed by calling \'continue\', or canceled.
+         * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
          * @summary Pause a job
          * @param {string} jobId The requested job id
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -271,7 +271,7 @@ export const JobManagementApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = JobManagementApiAxiosParamCreator(configuration)
     return {
         /**
-         * Stop the given job immediately. If the job is in the \'Active\' state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+         * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
          * @summary Cancel a running job
          * @param {string} jobId The requested job id
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -339,7 +339,7 @@ export const JobManagementApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Pause the given job, after the current task is done. A paused job can later be resumed by calling \'continue\', or canceled.
+         * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
          * @summary Pause a job
          * @param {string} jobId The requested job id
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -363,7 +363,7 @@ export const JobManagementApiFactory = function (configuration?: Configuration, 
     const localVarFp = JobManagementApiFp(configuration)
     return {
         /**
-         * Stop the given job immediately. If the job is in the \'Active\' state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+         * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
          * @summary Cancel a running job
          * @param {JobManagementApiCancelJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -413,7 +413,7 @@ export const JobManagementApiFactory = function (configuration?: Configuration, 
             return localVarFp.getJobs(requestParameters.fromTime, requestParameters.toTime, options).then((request) => request(axios, basePath));
         },
         /**
-         * Pause the given job, after the current task is done. A paused job can later be resumed by calling \'continue\', or canceled.
+         * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
          * @summary Pause a job
          * @param {JobManagementApiPauseJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -545,7 +545,7 @@ export interface JobManagementApiPauseJobRequest {
  */
 export class JobManagementApi extends BaseAPI {
     /**
-     * Stop the given job immediately. If the job is in the \'Active\' state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
+     * Stop the given job immediately. If the job is in the ‘Active’ state, the job will be canceled after completing the current task. Vault accounts and Wallets that are already created will not be affected.
      * @summary Cancel a running job
      * @param {JobManagementApiCancelJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -605,7 +605,7 @@ export class JobManagementApi extends BaseAPI {
     }
 
     /**
-     * Pause the given job, after the current task is done. A paused job can later be resumed by calling \'continue\', or canceled.
+     * Pause the given job, after the current task is done. A paused job can later be resumed by calling ‘continue’, or canceled.
      * @summary Pause a job
      * @param {JobManagementApiPauseJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -15,9 +15,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { EstimatedFeeDetails } from './estimated-fee-details';
-// May contain unused imports in some cases
-// @ts-ignore
 import { TransactionFee } from './transaction-fee';
 
 /**
@@ -44,11 +41,5 @@ export interface EstimatedTransactionFeeResponse {
      * @memberof EstimatedTransactionFeeResponse
      */
     'high': TransactionFee;
-    /**
-     * 
-     * @type {EstimatedFeeDetails}
-     * @memberof EstimatedTransactionFeeResponse
-     */
-    'feeDetails'?: EstimatedFeeDetails;
 }
 

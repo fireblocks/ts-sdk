@@ -16,9 +16,6 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { AbiFunction } from './abi-function';
-// May contain unused imports in some cases
-// @ts-ignore
-import { ContractAbiResponseDtoAbiInner } from './contract-abi-response-dto-abi-inner';
 
 /**
  * 
@@ -28,10 +25,10 @@ import { ContractAbiResponseDtoAbiInner } from './contract-abi-response-dto-abi-
 export interface ContractAbiResponseDto {
     /**
      * The abi of the contract
-     * @type {Array<ContractAbiResponseDtoAbiInner>}
+     * @type {Array<AbiFunction>}
      * @memberof ContractAbiResponseDto
      */
-    'abi': Array<ContractAbiResponseDtoAbiInner>;
+    'abi': Array<AbiFunction>;
     /**
      * The abi of the implementation contract if exists. Relevant only for proxy patterns
      * @type {Array<AbiFunction>}

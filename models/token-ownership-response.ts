@@ -149,22 +149,7 @@ export const TokenOwnershipResponseBlockchainDescriptorEnum = {
     AmoyPolygonTest: 'AMOY_POLYGON_TEST',
     Xtz: 'XTZ',
     XtzTest: 'XTZ_TEST',
-    BasechainEth: 'BASECHAIN_ETH',
-    BasechainEthTest3: 'BASECHAIN_ETH_TEST3',
-    BasechainEthTest5: 'BASECHAIN_ETH_TEST5',
-    Etherlink: 'ETHERLINK',
-    EtherlinkTest: 'ETHERLINK_TEST',
-    Mantle: 'MANTLE',
-    MantleTest: 'MANTLE_TEST',
-    GunGunzilla: 'GUN_GUNZILLA',
-    GunGunzillaTest: 'GUN_GUNZILLA_TEST',
-    EthSoneium: 'ETH_SONEIUM',
-    SoneiumMinatoTest: 'SONEIUM_MINATO_TEST',
-    IotxIotex: 'IOTX_IOTEX',
-    KlayKaia: 'KLAY_KAIA',
-    KlayKaiaTest: 'KLAY_KAIA_TEST',
-    Apechain: 'APECHAIN',
-    ApechainTest: 'APECHAIN_TEST'
+    BasechainEth: 'BASECHAIN_ETH'
 } as const;
 
 export type TokenOwnershipResponseBlockchainDescriptorEnum = typeof TokenOwnershipResponseBlockchainDescriptorEnum[keyof typeof TokenOwnershipResponseBlockchainDescriptorEnum];

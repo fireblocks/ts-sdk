@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { CallbackHandler } from './callback-handler';
 
 /**
  * 
@@ -34,12 +31,6 @@ export interface ApiKey {
      * @type {string}
      * @memberof ApiKey
      */
-    'lastSeen'?: string;
-    /**
-     * 
-     * @type {CallbackHandler}
-     * @memberof ApiKey
-     */
-    'callbackHandler'?: CallbackHandler;
+    'lastSeen': string;
 }
 

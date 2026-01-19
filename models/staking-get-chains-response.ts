@@ -13,15 +13,12 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { ChainDescriptor } from './chain-descriptor';
 
 /**
  * 
  * @export
  * @interface StakingGetChainsResponse
  */
-export interface StakingGetChainsResponse extends Array<ChainDescriptor> {
+export interface StakingGetChainsResponse extends Array<string> {
 }
 

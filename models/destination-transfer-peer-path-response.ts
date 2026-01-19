@@ -36,7 +36,7 @@ export interface DestinationTransferPeerPathResponse {
      */
     'subType'?: string;
     /**
-     * The ID of the peer. You can retrieve the ID of each venue object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/getpagedvaultaccounts), [listing exchange account](https://developers.fireblocks.com/reference/getexchangeaccounts), [listing fiat accounts](https://developers.fireblocks.com/reference/getfiataccounts), [listing internal wallets](https://developers.fireblocks.com/reference/getinternalwallets), [listing external wallets](https://developers.fireblocks.com/reference/getexternalwallets), [listing network connections](https://developers.fireblocks.com/reference/getnetworkconnections). For the other types, this parameter is not needed.
+     * The ID of the peer. You can retrieve the ID of each venue object using the endpoints for [listing vault accounts](https://developers.fireblocks.com/reference/get_vault-accounts-paged), [listing exchange account](https://developers.fireblocks.com/reference/get_exchange-accounts), [listing fiat accounts](https://developers.fireblocks.com/reference/get_fiat-accounts), [listing internal wallets](https://developers.fireblocks.com/reference/get_internal-wallets), [listing external wallets](https://developers.fireblocks.com/reference/get_external-wallets), [listing network connections](https://developers.fireblocks.com/reference/get_network-connections). For the other types, this parameter is not needed.
      * @type {string}
      * @memberof DestinationTransferPeerPathResponse
      */
@@ -53,12 +53,6 @@ export interface DestinationTransferPeerPathResponse {
      * @memberof DestinationTransferPeerPathResponse
      */
     'walletId'?: string;
-    /**
-     * If this transaction is an exchange internal transfer, this field will be populated with the type of that trading account.
-     * @type {string}
-     * @memberof DestinationTransferPeerPathResponse
-     */
-    'tradingAccount'?: string | null;
 }
 
 

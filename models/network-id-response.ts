@@ -15,37 +15,15 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { NetworkId } from './network-id';
+// May contain unused imports in some cases
+// @ts-ignore
 import { NetworkIdRoutingPolicy } from './network-id-routing-policy';
 
 /**
- * 
+ * @type NetworkIdResponse
  * @export
- * @interface NetworkIdResponse
  */
-export interface NetworkIdResponse {
-    /**
-     * 
-     * @type {NetworkIdRoutingPolicy}
-     * @memberof NetworkIdResponse
-     */
-    'routingPolicy'?: NetworkIdRoutingPolicy;
-    /**
-     * The specific network is discoverable.
-     * @type {boolean}
-     * @memberof NetworkIdResponse
-     */
-    'isDiscoverable'?: boolean;
-    /**
-     * The specific network id
-     * @type {string}
-     * @memberof NetworkIdResponse
-     */
-    'id'?: string;
-    /**
-     * The specific network name
-     * @type {string}
-     * @memberof NetworkIdResponse
-     */
-    'name'?: string;
-}
+export type NetworkIdResponse = NetworkId;
+
 

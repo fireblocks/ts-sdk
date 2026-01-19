@@ -53,32 +53,5 @@ export interface CreateTokenRequestDto {
      * @memberof CreateTokenRequestDto
      */
     'displayName'?: string;
-    /**
-     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771 standard. When set to true, the transaction will be relayed by a designated relayer. The workspace must be configured to use Fireblocks gasless relay.
-     * @type {boolean}
-     * @memberof CreateTokenRequestDto
-     */
-    'useGasless'?: boolean;
-    /**
-     * Max fee amount for the write function transaction. interchangeable with the \'feeLevel\' field
-     * @type {string}
-     * @memberof CreateTokenRequestDto
-     */
-    'fee'?: string;
-    /**
-     * Fee level for the write function transaction. interchangeable with the \'fee\' field
-     * @type {string}
-     * @memberof CreateTokenRequestDto
-     */
-    'feeLevel'?: CreateTokenRequestDtoFeeLevelEnum;
 }
-
-export const CreateTokenRequestDtoFeeLevelEnum = {
-    Low: 'LOW',
-    Medium: 'MEDIUM',
-    High: 'HIGH'
-} as const;
-
-export type CreateTokenRequestDtoFeeLevelEnum = typeof CreateTokenRequestDtoFeeLevelEnum[keyof typeof CreateTokenRequestDtoFeeLevelEnum];
-
 

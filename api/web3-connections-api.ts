@@ -47,11 +47,10 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @summary Create a new Web3 connection.
          * @param {CreateConnectionRequest} createConnectionRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        create: async (createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, xEndUserWalletId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        create: async (createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('create', 'createConnectionRequest', createConnectionRequest)
             const localVarPath = `/connections/wc`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -67,10 +66,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-            if (xEndUserWalletId != null) {
-                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
             }
 
 
@@ -90,7 +85,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
         /**
          * Get open Web3 connections.
          * @summary List all open Web3 connections.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {GetOrderEnum} [order] List order; ascending or descending.
          * @param {GetFilterParameter} [filter] Parsed filter object
          * @param {GetSortEnum} [sort] Property to sort Web3 connections by.
@@ -99,7 +93,7 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        get: async (xEndUserWalletId?: string, order?: GetOrderEnum, filter?: GetFilterParameter, sort?: GetSortEnum, pageSize?: number, next?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        get: async (order?: GetOrderEnum, filter?: GetFilterParameter, sort?: GetSortEnum, pageSize?: number, next?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/connections`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -134,10 +128,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
                 localVarQueryParameter['next'] = next;
             }
 
-            if (xEndUserWalletId != null) {
-                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
-            }
-
 
     
             setSearchParams(localVarUrlObj, localVarQueryParameter);
@@ -153,11 +143,10 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * Remove a Web3 connection
          * @summary Remove an existing Web3 connection.
          * @param {string} id The ID of the existing Web3 connection to remove.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        remove: async (id: string, xEndUserWalletId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        remove: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('remove', 'id', id)
             const localVarPath = `/connections/wc/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
@@ -171,10 +160,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
-
-            if (xEndUserWalletId != null) {
-                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
-            }
 
 
     
@@ -193,11 +178,10 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
          * @param {RespondToConnectionRequest} respondToConnectionRequest 
          * @param {string} id The ID of the initiated Web3 connection to approve.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submit: async (respondToConnectionRequest: RespondToConnectionRequest, id: string, idempotencyKey?: string, xEndUserWalletId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        submit: async (respondToConnectionRequest: RespondToConnectionRequest, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExists('submit', 'respondToConnectionRequest', respondToConnectionRequest)
             assertParamExistsAndNotEmpty('submit', 'id', id)
             const localVarPath = `/connections/wc/{id}`
@@ -215,10 +199,6 @@ export const Web3ConnectionsApiAxiosParamCreator = function (configuration?: Con
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-            if (xEndUserWalletId != null) {
-                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
             }
 
 
@@ -250,12 +230,11 @@ export const Web3ConnectionsApiFp = function(configuration?: Configuration) {
          * @summary Create a new Web3 connection.
          * @param {CreateConnectionRequest} createConnectionRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async create(createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, xEndUserWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, idempotencyKey, xEndUserWalletId, options);
+        async create(createConnectionRequest: CreateConnectionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.create(createConnectionRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['Web3ConnectionsApi.create']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -263,7 +242,6 @@ export const Web3ConnectionsApiFp = function(configuration?: Configuration) {
         /**
          * Get open Web3 connections.
          * @summary List all open Web3 connections.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {GetOrderEnum} [order] List order; ascending or descending.
          * @param {GetFilterParameter} [filter] Parsed filter object
          * @param {GetSortEnum} [sort] Property to sort Web3 connections by.
@@ -272,8 +250,8 @@ export const Web3ConnectionsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async get(xEndUserWalletId?: string, order?: GetOrderEnum, filter?: GetFilterParameter, sort?: GetSortEnum, pageSize?: number, next?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.get(xEndUserWalletId, order, filter, sort, pageSize, next, options);
+        async get(order?: GetOrderEnum, filter?: GetFilterParameter, sort?: GetSortEnum, pageSize?: number, next?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.get(order, filter, sort, pageSize, next, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['Web3ConnectionsApi.get']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -282,12 +260,11 @@ export const Web3ConnectionsApiFp = function(configuration?: Configuration) {
          * Remove a Web3 connection
          * @summary Remove an existing Web3 connection.
          * @param {string} id The ID of the existing Web3 connection to remove.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async remove(id: string, xEndUserWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.remove(id, xEndUserWalletId, options);
+        async remove(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.remove(id, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['Web3ConnectionsApi.remove']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -298,12 +275,11 @@ export const Web3ConnectionsApiFp = function(configuration?: Configuration) {
          * @param {RespondToConnectionRequest} respondToConnectionRequest 
          * @param {string} id The ID of the initiated Web3 connection to approve.
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string, idempotencyKey?: string, xEndUserWalletId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.submit(respondToConnectionRequest, id, idempotencyKey, xEndUserWalletId, options);
+        async submit(respondToConnectionRequest: RespondToConnectionRequest, id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.submit(respondToConnectionRequest, id, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['Web3ConnectionsApi.submit']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -326,7 +302,7 @@ export const Web3ConnectionsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         create(requestParameters: Web3ConnectionsApiCreateRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateConnectionResponse> {
-            return localVarFp.create(requestParameters.createConnectionRequest, requestParameters.idempotencyKey, requestParameters.xEndUserWalletId, options).then((request) => request(axios, basePath));
+            return localVarFp.create(requestParameters.createConnectionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get open Web3 connections.
@@ -336,7 +312,7 @@ export const Web3ConnectionsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         get(requestParameters: Web3ConnectionsApiGetRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetConnectionsResponse> {
-            return localVarFp.get(requestParameters.xEndUserWalletId, requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next, options).then((request) => request(axios, basePath));
+            return localVarFp.get(requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next, options).then((request) => request(axios, basePath));
         },
         /**
          * Remove a Web3 connection
@@ -346,7 +322,7 @@ export const Web3ConnectionsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         remove(requestParameters: Web3ConnectionsApiRemoveRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.remove(requestParameters.id, requestParameters.xEndUserWalletId, options).then((request) => request(axios, basePath));
+            return localVarFp.remove(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
          * Submit a response to *approve* or *reject* an initiated Web3 connection. * Note: This call is used to complete your `POST /v1/connections/wc/` request.  After this succeeds, your new Web3 connection is created and functioning.
@@ -356,7 +332,7 @@ export const Web3ConnectionsApiFactory = function (configuration?: Configuration
          * @throws {RequiredError}
          */
         submit(requestParameters: Web3ConnectionsApiSubmitRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.submit(requestParameters.respondToConnectionRequest, requestParameters.id, requestParameters.idempotencyKey, requestParameters.xEndUserWalletId, options).then((request) => request(axios, basePath));
+            return localVarFp.submit(requestParameters.respondToConnectionRequest, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -380,13 +356,6 @@ export interface Web3ConnectionsApiCreateRequest {
      * @memberof Web3ConnectionsApiCreate
      */
     readonly idempotencyKey?: string
-
-    /**
-     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
-     * @type {string}
-     * @memberof Web3ConnectionsApiCreate
-     */
-    readonly xEndUserWalletId?: string
 }
 
 /**
@@ -395,13 +364,6 @@ export interface Web3ConnectionsApiCreateRequest {
  * @interface Web3ConnectionsApiGetRequest
  */
 export interface Web3ConnectionsApiGetRequest {
-    /**
-     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
-     * @type {string}
-     * @memberof Web3ConnectionsApiGet
-     */
-    readonly xEndUserWalletId?: string
-
     /**
      * List order; ascending or descending.
      * @type {'ASC' | 'DESC'}
@@ -450,13 +412,6 @@ export interface Web3ConnectionsApiRemoveRequest {
      * @memberof Web3ConnectionsApiRemove
      */
     readonly id: string
-
-    /**
-     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
-     * @type {string}
-     * @memberof Web3ConnectionsApiRemove
-     */
-    readonly xEndUserWalletId?: string
 }
 
 /**
@@ -485,13 +440,6 @@ export interface Web3ConnectionsApiSubmitRequest {
      * @memberof Web3ConnectionsApiSubmit
      */
     readonly idempotencyKey?: string
-
-    /**
-     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
-     * @type {string}
-     * @memberof Web3ConnectionsApiSubmit
-     */
-    readonly xEndUserWalletId?: string
 }
 
 /**
@@ -510,7 +458,7 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @memberof Web3ConnectionsApi
      */
     public create(requestParameters: Web3ConnectionsApiCreateRequest) {
-        return Web3ConnectionsApiFp(this.configuration).create(requestParameters.createConnectionRequest, requestParameters.idempotencyKey, requestParameters.xEndUserWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return Web3ConnectionsApiFp(this.configuration).create(requestParameters.createConnectionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -522,7 +470,7 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @memberof Web3ConnectionsApi
      */
     public get(requestParameters: Web3ConnectionsApiGetRequest = {}) {
-        return Web3ConnectionsApiFp(this.configuration).get(requestParameters.xEndUserWalletId, requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return Web3ConnectionsApiFp(this.configuration).get(requestParameters.order, requestParameters.filter, requestParameters.sort, requestParameters.pageSize, requestParameters.next).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -534,7 +482,7 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @memberof Web3ConnectionsApi
      */
     public remove(requestParameters: Web3ConnectionsApiRemoveRequest) {
-        return Web3ConnectionsApiFp(this.configuration).remove(requestParameters.id, requestParameters.xEndUserWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return Web3ConnectionsApiFp(this.configuration).remove(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -546,7 +494,7 @@ export class Web3ConnectionsApi extends BaseAPI {
      * @memberof Web3ConnectionsApi
      */
     public submit(requestParameters: Web3ConnectionsApiSubmitRequest) {
-        return Web3ConnectionsApiFp(this.configuration).submit(requestParameters.respondToConnectionRequest, requestParameters.id, requestParameters.idempotencyKey, requestParameters.xEndUserWalletId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return Web3ConnectionsApiFp(this.configuration).submit(requestParameters.respondToConnectionRequest, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

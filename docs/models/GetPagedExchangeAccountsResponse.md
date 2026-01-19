@@ -4,10 +4,6 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**exchanges** | [**Array&lt;ExchangeAccount&gt;**](ExchangeAccount.md) |  | [default to undefined]|
-|**paging** | [**GetPagedExchangeAccountsResponsePaging**](GetPagedExchangeAccountsResponsePaging.md) |  | [optional] [default to undefined]|
-|**prevUrl** | **string** |  | [optional] [default to undefined]|
-|**nextUrl** | **string** |  | [optional] [default to undefined]|
 
 
 

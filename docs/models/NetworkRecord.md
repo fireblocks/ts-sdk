@@ -13,7 +13,9 @@
 |**isDropped** | **boolean** |  | [optional] [default to undefined]|
 |**type** | **string** |  | [optional] [default to undefined]|
 |**destinationAddress** | **string** |  | [optional] [default to undefined]|
+|**sourceAddress** | **string** |  | [optional] [default to undefined]|
 |**amountUSD** | **string** |  | [optional] [default to undefined]|
+|**index** | **number** |  | [optional] [default to undefined]|
 |**rewardInfo** | [**RewardInfo**](RewardInfo.md) |  | [optional] [default to undefined]|
 
 

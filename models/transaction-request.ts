@@ -69,7 +69,7 @@ export interface TransactionRequest {
      */
     'note'?: string;
     /**
-     * **This parameter will become required for all transactions on March 1, 2026.** This parameter allows you to add a unique ID of your own to help prevent duplicate transactions. No specific format is required for this parameter. After you submit a transaction with an external ID, Fireblocks will automatically reject all future transactions with the same ID. Using an external ID primarily helps in situations where, even though a submitted transaction responds with an error due to an internet outage,  the transaction was still sent to and processed on the blockchain.  Use the [Get a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/gettransactionbyexternalid)  endpoint to validate whether these transactions have been processed.
+     * An optional but highly recommended parameter. Fireblocks will reject future transactions with same ID.  You should set this to a unique ID representing the transaction, to avoid submitting the same transaction twice. This helps with cases where submitting the transaction responds with an error code due to Internet interruptions, but the transaction was actually sent and processed. To validate whether a transaction has been processed, [Find a specific transaction by external transaction ID](https://developers.fireblocks.com/reference/get_transactions-external-tx-id-externaltxid). There is no specific format required for this parameter.
      * @type {string}
      * @memberof TransactionRequest
      */
@@ -147,12 +147,6 @@ export interface TransactionRequest {
      */
     'maxFee'?: string;
     /**
-     * For BTC-based blockchains only. The maximum fee (in the units of the fee-paying asset) that should be paid for the transaction.
-     * @type {string}
-     * @memberof TransactionRequest
-     */
-    'maxTotalFee'?: string;
-    /**
      * 
      * @type {TransactionRequestGasLimit}
      * @memberof TransactionRequest
@@ -177,7 +171,7 @@ export interface TransactionRequest {
      */
     'replaceTxByHash'?: string;
     /**
-     * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks) 
+     * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. 
      * @type {object}
      * @memberof TransactionRequest
      */
@@ -194,12 +188,6 @@ export interface TransactionRequest {
      * @memberof TransactionRequest
      */
     'travelRuleMessage'?: TravelRuleCreateTransactionRequest;
-    /**
-     * The ID of the travel rule message from any travel rule provider. Used for travel rule linking functionality to associate transactions with existing travel rule messages.
-     * @type {string}
-     * @memberof TransactionRequest
-     */
-    'travelRuleMessageId'?: string;
     /**
      * This feature is no longer supported.
      * @type {boolean}
@@ -221,12 +209,6 @@ export interface TransactionRequest {
      * @deprecated
      */
     'cpuStaking'?: TransactionRequestNetworkStaking;
-    /**
-     * - Override the default gasless configuration by sending true\\false
-     * @type {boolean}
-     * @memberof TransactionRequest
-     */
-    'useGasless'?: boolean;
 }
 
 export const TransactionRequestFeeLevelEnum = {

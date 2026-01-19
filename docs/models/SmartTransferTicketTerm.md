@@ -18,7 +18,6 @@
 |**status** | **string** | Ticket term status | [default to undefined]|
 |**createdAt** | **string** | Date and time when the term is created. | [default to undefined]|
 |**updatedAt** | **string** | Date and time of last term update. | [default to undefined]|
-|**dvpSrcDstVaultId** | **string** | Identifier of the source and destination vault for DVP execution | [optional] [default to undefined]|
 |**amountUsd** | **string** | Amount USD | [optional] [default to undefined]|
 
 

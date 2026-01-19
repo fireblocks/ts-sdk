@@ -7,7 +7,7 @@
 |**id** | **string** | The unique identifier of the contract template | [default to undefined]|
 |**name** | **string** | The name of the contract template | [default to undefined]|
 |**description** | **string** | A short description of the contract template | [default to undefined]|
-|**abi** | [**Array&lt;AbiFunction&gt;**](AbiFunction.md) | The abi of the contract template. Necessary for displaying and for after deployment encoding | [default to undefined]|
+|**abi** | **Array&lt;Array&lt;AbiFunction&gt;&gt;** |  | [default to undefined]|
 |**isPublic** | **boolean** | Is this a contract that is viewable by all fireblocks\&#39;s users or is it visible only for this workspace | [default to undefined]|
 |**initializationPhase** | **string** |  | [default to undefined]|
 |**longDescription** | **string** | A full description of the contract template. May contain   to break the lines | [optional] [default to undefined]|

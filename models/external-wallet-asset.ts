@@ -46,16 +46,16 @@ export interface ExternalWalletAsset {
     'address'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ExternalWalletAsset
      */
-    'balance'?: number;
+    'balance'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof ExternalWalletAsset
      */
-    'lockedAmount'?: number;
+    'lockedAmount'?: string;
     /**
      * 
      * @type {string}

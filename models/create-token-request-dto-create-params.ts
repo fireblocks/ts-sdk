@@ -21,15 +21,12 @@ import { EVMTokenCreateParamsDto } from './evmtoken-create-params-dto';
 import { ParameterWithValue } from './parameter-with-value';
 // May contain unused imports in some cases
 // @ts-ignore
-import { SolanaSimpleCreateParams } from './solana-simple-create-params';
-// May contain unused imports in some cases
-// @ts-ignore
 import { StellarRippleCreateParamsDto } from './stellar-ripple-create-params-dto';
 
 /**
  * @type CreateTokenRequestDtoCreateParams
  * @export
  */
-export type CreateTokenRequestDtoCreateParams = EVMTokenCreateParamsDto | SolanaSimpleCreateParams | StellarRippleCreateParamsDto;
+export type CreateTokenRequestDtoCreateParams = EVMTokenCreateParamsDto | StellarRippleCreateParamsDto;
 
 

@@ -28,9 +28,9 @@ export interface AssetInternalServerErrorResponse {
     'message': string;
     /**
      * Error code
-     * @type {number}
+     * @type {string}
      * @memberof AssetInternalServerErrorResponse
      */
-    'code': number;
+    'code': string;
 }
 

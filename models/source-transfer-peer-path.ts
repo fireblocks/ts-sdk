@@ -56,12 +56,6 @@ export interface SourceTransferPeerPath {
      * @memberof SourceTransferPeerPath
      */
     'walletId'?: string;
-    /**
-     * indicate if the source is collateral account
-     * @type {boolean}
-     * @memberof SourceTransferPeerPath
-     */
-    'isCollateral'?: boolean;
 }
 
 

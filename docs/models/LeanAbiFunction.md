@@ -6,21 +6,6 @@
 |------------ | ------------- | ------------- | -------------|
 |**inputs** | [**Array&lt;ParameterWithValue&gt;**](ParameterWithValue.md) | The function inputs | [default to undefined]|
 |**name** | **string** | The function name | [optional] [default to undefined]|
-|**outputs** | [**Array&lt;ParameterWithValue&gt;**](ParameterWithValue.md) | The function outputs | [optional] [default to undefined]|
-|**stateMutability** | **string** | The state mutability of the function (e.g., view, pure, nonpayable, payable) | [optional] [default to undefined]|
-
-
-## Enum: LeanAbiFunctionStateMutabilityEnum
-
-
-* `View` (value: `'view'`)
-
-* `Pure` (value: `'pure'`)
-
-* `Nonpayable` (value: `'nonpayable'`)
-
-* `Payable` (value: `'payable'`)
-
 
 
 

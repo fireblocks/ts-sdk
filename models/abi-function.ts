@@ -24,11 +24,17 @@ import { Parameter } from './parameter';
  */
 export interface AbiFunction {
     /**
-     * The type of the function
+     * The type if the function
      * @type {string}
      * @memberof AbiFunction
      */
     'type': AbiFunctionTypeEnum;
+    /**
+     * The parameters that this function/constructor posses
+     * @type {Array<Parameter>}
+     * @memberof AbiFunction
+     */
+    'inputs': Array<Parameter>;
     /**
      * The name of the contract function as it appears in the ABI
      * @type {string}
@@ -41,12 +47,6 @@ export interface AbiFunction {
      * @memberof AbiFunction
      */
     'stateMutability'?: AbiFunctionStateMutabilityEnum;
-    /**
-     * The parameters that this function/constructor posses
-     * @type {Array<Parameter>}
-     * @memberof AbiFunction
-     */
-    'inputs'?: Array<Parameter>;
     /**
      * The parameters that this \'read\' function returns
      * @type {Array<Parameter>}
@@ -62,12 +62,8 @@ export interface AbiFunction {
 }
 
 export const AbiFunctionTypeEnum = {
-    Constructor: 'constructor',
     Function: 'function',
-    Error: 'error',
-    Event: 'event',
-    Receive: 'receive',
-    Fallback: 'fallback'
+    Constructor: 'constructor'
 } as const;
 
 export type AbiFunctionTypeEnum = typeof AbiFunctionTypeEnum[keyof typeof AbiFunctionTypeEnum];

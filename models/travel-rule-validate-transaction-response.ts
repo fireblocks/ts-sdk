@@ -37,13 +37,13 @@ export interface TravelRuleValidateTransactionResponse {
      * @type {string}
      * @memberof TravelRuleValidateTransactionResponse
      */
-    'beneficiaryAddressType': TravelRuleValidateTransactionResponseBeneficiaryAddressTypeEnum;
+    'beneficiaryAddressType': string;
     /**
      * \"addressSource\" will tell you if the address was found in your internal address book or identified by the blockchain analytics provider.
      * @type {string}
      * @memberof TravelRuleValidateTransactionResponse
      */
-    'addressSource': TravelRuleValidateTransactionResponseAddressSourceEnum;
+    'addressSource': string;
     /**
      * The VASP DID of the beneficiary VASP
      * @type {string}
@@ -63,23 +63,4 @@ export interface TravelRuleValidateTransactionResponse {
      */
     'warnings': Array<string>;
 }
-
-export const TravelRuleValidateTransactionResponseBeneficiaryAddressTypeEnum = {
-    Unknown: 'UNKNOWN',
-    Hosted: 'HOSTED',
-    Unhosted: 'UNHOSTED'
-} as const;
-
-export type TravelRuleValidateTransactionResponseBeneficiaryAddressTypeEnum = typeof TravelRuleValidateTransactionResponseBeneficiaryAddressTypeEnum[keyof typeof TravelRuleValidateTransactionResponseBeneficiaryAddressTypeEnum];
-export const TravelRuleValidateTransactionResponseAddressSourceEnum = {
-    Unknown: 'UNKNOWN',
-    AddressHash: 'ADDRESS_HASH',
-    AddressGraph: 'ADDRESS_GRAPH',
-    Chainalysis: 'CHAINALYSIS',
-    Elliptic: 'ELLIPTIC',
-    Crystal: 'CRYSTAL'
-} as const;
-
-export type TravelRuleValidateTransactionResponseAddressSourceEnum = typeof TravelRuleValidateTransactionResponseAddressSourceEnum[keyof typeof TravelRuleValidateTransactionResponseAddressSourceEnum];
-
 

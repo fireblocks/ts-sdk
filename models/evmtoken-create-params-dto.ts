@@ -30,10 +30,10 @@ export interface EVMTokenCreateParamsDto {
      */
     'contractId': string;
     /**
-     * The deploy function parameters and values of the contract template
-     * @type {Array<ParameterWithValue>}
+     * The constructor parameters and values of the contract template
+     * @type {Array<Array<ParameterWithValue>>}
      * @memberof EVMTokenCreateParamsDto
      */
-    'deployFunctionParams'?: Array<ParameterWithValue>;
+    'constructorParams'?: Array<Array<ParameterWithValue>>;
 }
 

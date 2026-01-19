@@ -35,36 +35,6 @@
 
 * `BasechainEth` (value: `'BASECHAIN_ETH'`)
 
-* `BasechainEthTest3` (value: `'BASECHAIN_ETH_TEST3'`)
-
-* `BasechainEthTest5` (value: `'BASECHAIN_ETH_TEST5'`)
-
-* `Etherlink` (value: `'ETHERLINK'`)
-
-* `EtherlinkTest` (value: `'ETHERLINK_TEST'`)
-
-* `Mantle` (value: `'MANTLE'`)
-
-* `MantleTest` (value: `'MANTLE_TEST'`)
-
-* `GunGunzilla` (value: `'GUN_GUNZILLA'`)
-
-* `GunGunzillaTest` (value: `'GUN_GUNZILLA_TEST'`)
-
-* `EthSoneium` (value: `'ETH_SONEIUM'`)
-
-* `SoneiumMinatoTest` (value: `'SONEIUM_MINATO_TEST'`)
-
-* `IotxIotex` (value: `'IOTX_IOTEX'`)
-
-* `KlayKaia` (value: `'KLAY_KAIA'`)
-
-* `KlayKaiaTest` (value: `'KLAY_KAIA_TEST'`)
-
-* `Apechain` (value: `'APECHAIN'`)
-
-* `ApechainTest` (value: `'APECHAIN_TEST'`)
-
 
 
 

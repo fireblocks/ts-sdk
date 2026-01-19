@@ -15,54 +15,38 @@
 
 
 /**
- * Exchange account\'s type
+ * 
  * @export
  * @enum {string}
  */
 
 export const ExchangeType = {
-    IndependentReserve: 'INDEPENDENT_RESERVE',
-    EnclaveMarkets: 'ENCLAVE_MARKETS',
-    Bit: 'BIT',
-    Coinflex: 'COINFLEX',
-    Kucoin: 'KUCOIN',
-    Pxs: 'PXS',
-    Liquid: 'LIQUID',
-    Bithumb: 'BITHUMB',
-    Bitfinex: 'BITFINEX',
-    Bitso: 'BITSO',
-    Bitstamp: 'BITSTAMP',
-    Kraken: 'KRAKEN',
-    Krakenintl: 'KRAKENINTL',
     Binance: 'BINANCE',
     Binanceus: 'BINANCEUS',
-    Cryptocom: 'CRYPTOCOM',
-    BybitV2: 'BYBIT_V2',
-    Coinbasepro: 'COINBASEPRO',
-    Coinbaseprime: 'COINBASEPRIME',
-    Coinbaseinternational: 'COINBASEINTERNATIONAL',
-    Whitebit: 'WHITEBIT',
-    Coinbaseexchange: 'COINBASEEXCHANGE',
-    Korbit: 'KORBIT',
-    Hitbtc: 'HITBTC',
-    Gemini: 'GEMINI',
-    Circle: 'CIRCLE',
+    Bitfinex: 'BITFINEX',
+    Bithumb: 'BITHUMB',
     Bitmex: 'BITMEX',
-    Huobi: 'HUOBI',
-    Deribit: 'DERIBIT',
-    OkcoinV5: 'OKCOIN_V5',
-    Okex: 'OKEX',
+    Bitso: 'BITSO',
+    Bitstamp: 'BITSTAMP',
+    Bittrex: 'BITTREX',
+    Circle: 'CIRCLE',
+    Coinbasepro: 'COINBASEPRO',
     Coinmetro: 'COINMETRO',
-    Gateio: 'GATEIO',
-    Scrypt: 'SCRYPT',
-    Coinhako: 'COINHAKO',
-    Lightbit: 'LIGHTBIT',
-    Bullish: 'BULLISH',
-    CanvasConnect: 'CANVAS_CONNECT',
-    Bitget: 'BITGET',
-    Luno: 'LUNO',
-    BitGenera: 'BIT_GENERA',
-    Transfero: 'TRANSFERO'
+    Coinspro: 'COINSPRO',
+    Cryptocom: 'CRYPTOCOM',
+    Deribit: 'DERIBIT',
+    Ftx: 'FTX',
+    Fixus: 'FIXUS',
+    Gemini: 'GEMINI',
+    Hitbtc: 'HITBTC',
+    Huobi: 'HUOBI',
+    Korbit: 'KORBIT',
+    Kraken: 'KRAKEN',
+    Liquid: 'LIQUID',
+    Poloniex: 'POLONIEX',
+    Okcoin: 'OKCOIN',
+    Okex: 'OKEX',
+    Seedcx: 'SEEDCX'
 } as const;
 
 export type ExchangeType = typeof ExchangeType[keyof typeof ExchangeType];

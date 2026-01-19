@@ -12,7 +12,7 @@
 |**frozen** | **string** | The cumulative frozen balance | [optional] [default to undefined]|
 |**lockedAmount** | **string** | Funds in outgoing transactions that are not yet published to the network | [optional] [default to undefined]|
 |**staked** | **string** | Staked balance | [optional] [default to undefined]|
-|**totalStakedCPU** | **string** | Deprecated | [optional] [default to undefined]|
+|**totalStakedCPU** | **number** | Deprecated | [optional] [default to undefined]|
 |**totalStakedNetwork** | **string** | Deprecated | [optional] [default to undefined]|
 |**selfStakedCPU** | **string** | Deprecated | [optional] [default to undefined]|
 |**selfStakedNetwork** | **string** | Deprecated | [optional] [default to undefined]|

@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Delegation } from './delegation';
+import { DelegationDto } from './delegation-dto';
 
 /**
  * 
  * @export
  * @interface StakingGetAllDelegationsResponse
  */
-export interface StakingGetAllDelegationsResponse extends Array<Delegation> {
+export interface StakingGetAllDelegationsResponse extends Array<DelegationDto> {
 }
 

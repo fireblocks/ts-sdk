@@ -293,20 +293,6 @@ let body: KeyLinkBetaApiGetSigningKeysListRequest = {
   sortBy: sortBy_example,
   // 'ASC' | 'DESC' | Is the order ascending or descending (optional)
   order: order_example,
-  // number | Return keys assigned to a specific vault (optional)
-  vaultAccountId: 4,
-  // string | Return keys associated with a specific agent user (optional)
-  agentUserId: 12fed207-5bdf-4a0c-ab12-fcd2627f75d1,
-  // 'ECDSA_SECP256K1' | 'EDDSA_ED25519' | Return only keys with a specific algorithm (optional)
-  algorithm: ECDSA_SECP256K1,
-  // boolean | Return keys that have been proof of ownership (optional)
-  enabled: true,
-  // boolean | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set (optional)
-  available: true,
-  // boolean | Return keys that are assigned to a vault account (optional)
-  isAssigned: true,
-  // string | A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value. (optional)
-  keyPrefix: keyPrefix_example,
 };
 
 fireblocks.keyLinkBeta.getSigningKeysList(body).then((res: FireblocksResponse<GetSigningKeyResponseDto>) => {
@@ -323,13 +309,6 @@ Name | Type | Description  | Notes
  **pageSize** | [**number**] | Amount of results to return in the next page | (optional) defaults to 10
  **sortBy** | [**&#39;createdAt&#39;**]**Array<&#39;createdAt&#39;>** | Field(s) to use for sorting | (optional) defaults to 'createdAt'
  **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | Is the order ascending or descending | (optional) defaults to 'ASC'
- **vaultAccountId** | [**number**] | Return keys assigned to a specific vault | (optional) defaults to undefined
- **agentUserId** | [**string**] | Return keys associated with a specific agent user | (optional) defaults to undefined
- **algorithm** | [**&#39;ECDSA_SECP256K1&#39; | &#39;EDDSA_ED25519&#39;**]**Array<&#39;ECDSA_SECP256K1&#39; &#124; &#39;EDDSA_ED25519&#39;>** | Return only keys with a specific algorithm | (optional) defaults to undefined
- **enabled** | [**boolean**] | Return keys that have been proof of ownership | (optional) defaults to undefined
- **available** | [**boolean**] | Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set | (optional) defaults to undefined
- **isAssigned** | [**boolean**] | Return keys that are assigned to a vault account | (optional) defaults to undefined
- **keyPrefix** | [**string**] | A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value. | (optional) defaults to undefined
 
 
 ### Return type

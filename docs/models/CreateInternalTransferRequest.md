@@ -4,10 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**asset** | **string** |  | [default to undefined]|
-|**amount** | **string** |  | [default to undefined]|
-|**sourceType** | [**TradingAccountType**](TradingAccountType.md) |  | [default to undefined]|
-|**destType** | [**TradingAccountType**](TradingAccountType.md) |  | [default to undefined]|
+|**asset** | **string** |  | [optional] [default to undefined]|
+|**amount** | **string** |  | [optional] [default to undefined]|
+|**sourceType** | [**TradingAccountType**](TradingAccountType.md) |  | [optional] [default to undefined]|
+|**destType** | [**TradingAccountType**](TradingAccountType.md) |  | [optional] [default to undefined]|
 
 
 

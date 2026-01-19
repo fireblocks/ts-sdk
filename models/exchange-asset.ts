@@ -50,35 +50,5 @@ export interface ExchangeAsset {
      * @memberof ExchangeAsset
      */
     'available'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof ExchangeAsset
-     */
-    'credit'?: string;
-    /**
-     * The id of the asset
-     * @type {string}
-     * @memberof ExchangeAsset
-     */
-    'assetId'?: string;
-    /**
-     * The provider symbol of the asset
-     * @type {string}
-     * @memberof ExchangeAsset
-     */
-    'providerSymbol'?: string;
-    /**
-     * The asset symbol of the asset
-     * @type {string}
-     * @memberof ExchangeAsset
-     */
-    'assetSymbol'?: string;
-    /**
-     * The asset legacy id of the asset
-     * @type {string}
-     * @memberof ExchangeAsset
-     */
-    'assetLegacyId'?: string;
 }
 

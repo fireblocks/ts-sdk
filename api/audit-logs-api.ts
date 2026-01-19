@@ -30,6 +30,8 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetAuditLogsResponse } from '../models';
+// @ts-ignore
+import { GetAuditLogsResponseDTO } from '../models';
 /**
  * AuditLogsApi - axios parameter creator
  * @export
@@ -76,6 +78,41 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {GetAuditsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAudits: async (timePeriod?: GetAuditsTimePeriodEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/audits`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (timePeriod !== undefined) {
+                localVarQueryParameter['timePeriod'] = timePeriod;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -100,6 +137,19 @@ export const AuditLogsApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['AuditLogsApi.getAuditLogs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {GetAuditsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAudits(timePeriod?: GetAuditsTimePeriodEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAuditLogsResponseDTO>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAudits(timePeriod, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['AuditLogsApi.getAudits']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -119,6 +169,16 @@ export const AuditLogsApiFactory = function (configuration?: Configuration, base
          */
         getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetAuditLogsResponse> {
             return localVarFp.getAuditLogs(requestParameters.timePeriod, requestParameters.cursor, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get all audits
+         * @summary Get audit logs
+         * @param {AuditLogsApiGetAuditsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAudits(requestParameters: AuditLogsApiGetAuditsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetAuditLogsResponseDTO> {
+            return localVarFp.getAudits(requestParameters.timePeriod, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -145,6 +205,20 @@ export interface AuditLogsApiGetAuditLogsRequest {
 }
 
 /**
+ * Request parameters for getAudits operation in AuditLogsApi.
+ * @export
+ * @interface AuditLogsApiGetAuditsRequest
+ */
+export interface AuditLogsApiGetAuditsRequest {
+    /**
+     * The last time period to fetch audit logs
+     * @type {'DAY' | 'WEEK'}
+     * @memberof AuditLogsApiGetAudits
+     */
+    readonly timePeriod?: GetAuditsTimePeriodEnum
+}
+
+/**
  * AuditLogsApi - object-oriented interface
  * @export
  * @class AuditLogsApi
@@ -162,6 +236,18 @@ export class AuditLogsApi extends BaseAPI {
     public getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}) {
         return AuditLogsApiFp(this.configuration).getAuditLogs(requestParameters.timePeriod, requestParameters.cursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
+
+    /**
+     * Get all audits
+     * @summary Get audit logs
+     * @param {AuditLogsApiGetAuditsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AuditLogsApi
+     */
+    public getAudits(requestParameters: AuditLogsApiGetAuditsRequest = {}) {
+        return AuditLogsApiFp(this.configuration).getAudits(requestParameters.timePeriod).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
 }
 
 /**
@@ -172,3 +258,11 @@ export const GetAuditLogsTimePeriodEnum = {
     Week: 'WEEK'
 } as const;
 export type GetAuditLogsTimePeriodEnum = typeof GetAuditLogsTimePeriodEnum[keyof typeof GetAuditLogsTimePeriodEnum];
+/**
+ * @export
+ */
+export const GetAuditsTimePeriodEnum = {
+    Day: 'DAY',
+    Week: 'WEEK'
+} as const;
+export type GetAuditsTimePeriodEnum = typeof GetAuditsTimePeriodEnum[keyof typeof GetAuditsTimePeriodEnum];

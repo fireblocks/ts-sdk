@@ -48,17 +48,11 @@ export interface ContractUploadRequest {
      */
     'bytecode': string;
     /**
-     * The type of the contract template
-     * @type {string}
+     * 
+     * @type {Array<Array<AbiFunction>>}
      * @memberof ContractUploadRequest
      */
-    'type': ContractUploadRequestTypeEnum;
-    /**
-     * The abi of the contract template. Necessary for displaying and for after deployment encoding
-     * @type {Array<AbiFunction>}
-     * @memberof ContractUploadRequest
-     */
-    'abi': Array<AbiFunction>;
+    'abi': Array<Array<AbiFunction>>;
     /**
      * A full description of the contract template. May contain   to break the lines
      * @type {string}
@@ -72,6 +66,12 @@ export interface ContractUploadRequest {
      */
     'sourcecode'?: string;
     /**
+     * The type of the contract template
+     * @type {string}
+     * @memberof ContractUploadRequest
+     */
+    'type'?: ContractUploadRequestTypeEnum;
+    /**
      * A `natspec` compliant documentation json. Can be retrieved from the output json after compilation
      * @type {ContractDoc}
      * @memberof ContractUploadRequest
@@ -83,12 +83,6 @@ export interface ContractUploadRequest {
      * @memberof ContractUploadRequest
      */
     'attributes'?: ContractAttributes;
-    /**
-     * The protocol that the template will be used for
-     * @type {string}
-     * @memberof ContractUploadRequest
-     */
-    'protocol'?: ContractUploadRequestProtocolEnum;
 }
 
 export const ContractUploadRequestTypeEnum = {
@@ -100,11 +94,5 @@ export const ContractUploadRequestTypeEnum = {
 } as const;
 
 export type ContractUploadRequestTypeEnum = typeof ContractUploadRequestTypeEnum[keyof typeof ContractUploadRequestTypeEnum];
-export const ContractUploadRequestProtocolEnum = {
-    Eth: 'ETH',
-    Sol: 'SOL'
-} as const;
-
-export type ContractUploadRequestProtocolEnum = typeof ContractUploadRequestProtocolEnum[keyof typeof ContractUploadRequestProtocolEnum];
 
 

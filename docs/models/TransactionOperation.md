@@ -9,17 +9,11 @@
 
 * `ContractCall` (value: `'CONTRACT_CALL'`)
 
-* `ProgramCall` (value: `'PROGRAM_CALL'`)
-
 * `Mint` (value: `'MINT'`)
 
 * `Raw` (value: `'RAW'`)
 
 * `TypedMessage` (value: `'TYPED_MESSAGE'`)
-
-* `Approve` (value: `'APPROVE'`)
-
-* `EnableAsset` (value: `'ENABLE_ASSET'`)
 
 
 

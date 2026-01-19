@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WriteCallFunctionDtoAbiFunction } from './write-call-function-dto-abi-function';
+import { WriteAbiFunction } from './write-abi-function';
 
 /**
  * 
@@ -30,11 +30,11 @@ export interface WriteCallFunctionDto {
      */
     'vaultAccountId': string;
     /**
-     * 
-     * @type {WriteCallFunctionDtoAbiFunction}
+     * The abi of the read function you wish to call
+     * @type {Array<WriteAbiFunction>}
      * @memberof WriteCallFunctionDto
      */
-    'abiFunction': WriteCallFunctionDtoAbiFunction;
+    'abiFunction': Array<WriteAbiFunction>;
     /**
      * Amount in base asset. Being used in payable functions
      * @type {string}
@@ -59,18 +59,6 @@ export interface WriteCallFunctionDto {
      * @memberof WriteCallFunctionDto
      */
     'note'?: string;
-    /**
-     * Indicates whether the token should be created in a gasless manner, utilizing the ERC-2771 standard. When set to true, the transaction will be relayed by a designated relayer. The workspace must be configured to use Fireblocks gasless relay.
-     * @type {boolean}
-     * @memberof WriteCallFunctionDto
-     */
-    'useGasless'?: boolean;
-    /**
-     * External id that can be used to identify the transaction in your system. The unique identifier of the transaction outside of Fireblocks with max length of 255 characters
-     * @type {string}
-     * @memberof WriteCallFunctionDto
-     */
-    'externalId'?: string;
 }
 
 export const WriteCallFunctionDtoFeeLevelEnum = {

@@ -26,11 +26,5 @@ export interface InternalTransferResponse {
      * @memberof InternalTransferResponse
      */
     'success': boolean;
-    /**
-     * The transaction ID of the internal transfer
-     * @type {string}
-     * @memberof InternalTransferResponse
-     */
-    'id'?: string | null;
 }
 

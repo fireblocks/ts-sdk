@@ -35,8 +35,6 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetInternalWalletsResponse } from '../models';
 // @ts-ignore
-import { PaginatedAssetsResponse } from '../models';
-// @ts-ignore
 import { SetCustomerRefIdRequest } from '../models';
 // @ts-ignore
 import { UnmanagedWallet } from '../models';
@@ -49,7 +47,7 @@ import { WalletAsset } from '../models';
 export const InternalWalletsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Creates a new internal wallet with the requested name.  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a new internal wallet with the requested name.
          * @summary Create an internal wallet
          * @param {CreateWalletRequest} [createWalletRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -88,7 +86,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Adds an asset to an existing internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks    Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds an asset to an existing internal wallet.
          * @summary Add an asset to an internal wallet
          * @param {string} walletId The ID of the wallet
          * @param {string} assetId The ID of the asset to add
@@ -133,7 +131,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes an internal wallet by ID.
          * @summary Delete an internal wallet
          * @param {string} walletId The ID of the wallet to delete
          * @param {*} [options] Override http request option.
@@ -166,8 +164,8 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Deletes a whitelisted address (for an asset) from an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-         * @summary Delete a whitelisted address
+         * Deletes a whitelisted address (for an asset) from an internal wallet.
+         * @summary Delete a whitelisted address from an internal wallet
          * @param {string} walletId The ID of the wallet
          * @param {string} assetId The ID of the asset to delete
          * @param {*} [options] Override http request option.
@@ -202,8 +200,8 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Returns information for an asset in an internal wallet.  This endpoint will be deprecated after 6 months. </br>As part of the depreciation process this endpoint will no longer return balances, only addresses. </br>Until it is deprecated, this endpoint will behave the same way.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary Get an asset from an internal wallet
+         * Returns all assets in an internal wallet by ID.
+         * @summary Get assets for internal wallet
          * @param {string} walletId The ID of the wallet to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -235,7 +233,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Returns information for an asset in an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns information for an asset in an internal wallet.
          * @summary Get an asset from an internal wallet
          * @param {string} walletId The ID of the wallet
          * @param {string} assetId The ID of the asset to return
@@ -271,50 +269,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Returns a paginated response of assets in an internal wallet.  This is a new paginated endpoint that gets all the assets from the wallet container with balances. </br>This endpoint returns a limited amount of results with a quick response time.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary List assets in an internal wallet (Paginated)
-         * @param {string} walletId The ID of the internal wallet to return assets for
-         * @param {number} [pageSize] 
-         * @param {string} [pageCursor] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getInternalWalletAssetsPaginated: async (walletId: string, pageSize?: number, pageCursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getInternalWalletAssetsPaginated', 'walletId', walletId)
-            const localVarPath = `/internal_wallets/{walletId}/assets`
-                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (pageCursor !== undefined) {
-                localVarQueryParameter['pageCursor'] = pageCursor;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Gets a list of internal wallets.   **Note**: - BTC-based assets belonging to whitelisted addresses cannot be   retrieved between 00:00 UTC and 00:01 UTC daily due to third-party   provider, Blockchain, being unavailable for this 60 second period.   </br>Please wait until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT include the balances anymore.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
          * @summary List internal wallets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -344,7 +299,7 @@ export const InternalWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
-         * Sets an AML/KYT customer reference ID for the specific internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Sets an AML/KYT customer reference ID for the specific internal wallet.
          * @summary Set an AML/KYT customer reference ID for an internal wallet
          * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} walletId The wallet ID
@@ -397,7 +352,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = InternalWalletsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Creates a new internal wallet with the requested name.  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a new internal wallet with the requested name.
          * @summary Create an internal wallet
          * @param {CreateWalletRequest} [createWalletRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -411,7 +366,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Adds an asset to an existing internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks    Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds an asset to an existing internal wallet.
          * @summary Add an asset to an internal wallet
          * @param {string} walletId The ID of the wallet
          * @param {string} assetId The ID of the asset to add
@@ -427,7 +382,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes an internal wallet by ID.
          * @summary Delete an internal wallet
          * @param {string} walletId The ID of the wallet to delete
          * @param {*} [options] Override http request option.
@@ -440,8 +395,8 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deletes a whitelisted address (for an asset) from an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-         * @summary Delete a whitelisted address
+         * Deletes a whitelisted address (for an asset) from an internal wallet.
+         * @summary Delete a whitelisted address from an internal wallet
          * @param {string} walletId The ID of the wallet
          * @param {string} assetId The ID of the asset to delete
          * @param {*} [options] Override http request option.
@@ -454,8 +409,8 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns information for an asset in an internal wallet.  This endpoint will be deprecated after 6 months. </br>As part of the depreciation process this endpoint will no longer return balances, only addresses. </br>Until it is deprecated, this endpoint will behave the same way.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary Get an asset from an internal wallet
+         * Returns all assets in an internal wallet by ID.
+         * @summary Get assets for internal wallet
          * @param {string} walletId The ID of the wallet to return
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -467,7 +422,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns information for an asset in an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns information for an asset in an internal wallet.
          * @summary Get an asset from an internal wallet
          * @param {string} walletId The ID of the wallet
          * @param {string} assetId The ID of the asset to return
@@ -481,22 +436,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a paginated response of assets in an internal wallet.  This is a new paginated endpoint that gets all the assets from the wallet container with balances. </br>This endpoint returns a limited amount of results with a quick response time.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary List assets in an internal wallet (Paginated)
-         * @param {string} walletId The ID of the internal wallet to return assets for
-         * @param {number} [pageSize] 
-         * @param {string} [pageCursor] 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getInternalWalletAssetsPaginated(walletId: string, pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PaginatedAssetsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getInternalWalletAssetsPaginated(walletId, pageSize, pageCursor, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['InternalWalletsApi.getInternalWalletAssetsPaginated']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Gets a list of internal wallets.   **Note**: - BTC-based assets belonging to whitelisted addresses cannot be   retrieved between 00:00 UTC and 00:01 UTC daily due to third-party   provider, Blockchain, being unavailable for this 60 second period.   </br>Please wait until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT include the balances anymore.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
          * @summary List internal wallets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -508,7 +448,7 @@ export const InternalWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Sets an AML/KYT customer reference ID for the specific internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Sets an AML/KYT customer reference ID for the specific internal wallet.
          * @summary Set an AML/KYT customer reference ID for an internal wallet
          * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} walletId The wallet ID
@@ -533,7 +473,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
     const localVarFp = InternalWalletsApiFp(configuration)
     return {
         /**
-         * Creates a new internal wallet with the requested name.  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a new internal wallet with the requested name.
          * @summary Create an internal wallet
          * @param {InternalWalletsApiCreateInternalWalletRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -543,7 +483,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.createInternalWallet(requestParameters.createWalletRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Adds an asset to an existing internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks    Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds an asset to an existing internal wallet.
          * @summary Add an asset to an internal wallet
          * @param {InternalWalletsApiCreateInternalWalletAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -553,7 +493,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.createInternalWalletAsset(requestParameters.walletId, requestParameters.assetId, requestParameters.createInternalWalletAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes an internal wallet by ID.
          * @summary Delete an internal wallet
          * @param {InternalWalletsApiDeleteInternalWalletRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -563,8 +503,8 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.deleteInternalWallet(requestParameters.walletId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deletes a whitelisted address (for an asset) from an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-         * @summary Delete a whitelisted address
+         * Deletes a whitelisted address (for an asset) from an internal wallet.
+         * @summary Delete a whitelisted address from an internal wallet
          * @param {InternalWalletsApiDeleteInternalWalletAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -573,8 +513,8 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.deleteInternalWalletAsset(requestParameters.walletId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns information for an asset in an internal wallet.  This endpoint will be deprecated after 6 months. </br>As part of the depreciation process this endpoint will no longer return balances, only addresses. </br>Until it is deprecated, this endpoint will behave the same way.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary Get an asset from an internal wallet
+         * Returns all assets in an internal wallet by ID.
+         * @summary Get assets for internal wallet
          * @param {InternalWalletsApiGetInternalWalletRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -583,7 +523,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.getInternalWallet(requestParameters.walletId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns information for an asset in an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns information for an asset in an internal wallet.
          * @summary Get an asset from an internal wallet
          * @param {InternalWalletsApiGetInternalWalletAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -593,17 +533,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.getInternalWalletAsset(requestParameters.walletId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a paginated response of assets in an internal wallet.  This is a new paginated endpoint that gets all the assets from the wallet container with balances. </br>This endpoint returns a limited amount of results with a quick response time.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary List assets in an internal wallet (Paginated)
-         * @param {InternalWalletsApiGetInternalWalletAssetsPaginatedRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getInternalWalletAssetsPaginated(requestParameters: InternalWalletsApiGetInternalWalletAssetsPaginatedRequest, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAssetsResponse> {
-            return localVarFp.getInternalWalletAssetsPaginated(requestParameters.walletId, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Gets a list of internal wallets.   **Note**: - BTC-based assets belonging to whitelisted addresses cannot be   retrieved between 00:00 UTC and 00:01 UTC daily due to third-party   provider, Blockchain, being unavailable for this 60 second period.   </br>Please wait until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT include the balances anymore.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
          * @summary List internal wallets
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -612,7 +542,7 @@ export const InternalWalletsApiFactory = function (configuration?: Configuration
             return localVarFp.getInternalWallets(options).then((request) => request(axios, basePath));
         },
         /**
-         * Sets an AML/KYT customer reference ID for the specific internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Sets an AML/KYT customer reference ID for the specific internal wallet.
          * @summary Set an AML/KYT customer reference ID for an internal wallet
          * @param {InternalWalletsApiSetCustomerRefIdForInternalWalletRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -751,34 +681,6 @@ export interface InternalWalletsApiGetInternalWalletAssetRequest {
 }
 
 /**
- * Request parameters for getInternalWalletAssetsPaginated operation in InternalWalletsApi.
- * @export
- * @interface InternalWalletsApiGetInternalWalletAssetsPaginatedRequest
- */
-export interface InternalWalletsApiGetInternalWalletAssetsPaginatedRequest {
-    /**
-     * The ID of the internal wallet to return assets for
-     * @type {string}
-     * @memberof InternalWalletsApiGetInternalWalletAssetsPaginated
-     */
-    readonly walletId: string
-
-    /**
-     * 
-     * @type {number}
-     * @memberof InternalWalletsApiGetInternalWalletAssetsPaginated
-     */
-    readonly pageSize?: number
-
-    /**
-     * 
-     * @type {string}
-     * @memberof InternalWalletsApiGetInternalWalletAssetsPaginated
-     */
-    readonly pageCursor?: string
-}
-
-/**
  * Request parameters for setCustomerRefIdForInternalWallet operation in InternalWalletsApi.
  * @export
  * @interface InternalWalletsApiSetCustomerRefIdForInternalWalletRequest
@@ -814,7 +716,7 @@ export interface InternalWalletsApiSetCustomerRefIdForInternalWalletRequest {
  */
 export class InternalWalletsApi extends BaseAPI {
     /**
-     * Creates a new internal wallet with the requested name.  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Creates a new internal wallet with the requested name.
      * @summary Create an internal wallet
      * @param {InternalWalletsApiCreateInternalWalletRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -826,7 +728,7 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Adds an asset to an existing internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks    Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Adds an asset to an existing internal wallet.
      * @summary Add an asset to an internal wallet
      * @param {InternalWalletsApiCreateInternalWalletAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -838,7 +740,7 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Deletes an internal wallet by ID.
      * @summary Delete an internal wallet
      * @param {InternalWalletsApiDeleteInternalWalletRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -850,8 +752,8 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Deletes a whitelisted address (for an asset) from an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
-     * @summary Delete a whitelisted address
+     * Deletes a whitelisted address (for an asset) from an internal wallet.
+     * @summary Delete a whitelisted address from an internal wallet
      * @param {InternalWalletsApiDeleteInternalWalletAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -862,8 +764,8 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Returns information for an asset in an internal wallet.  This endpoint will be deprecated after 6 months. </br>As part of the depreciation process this endpoint will no longer return balances, only addresses. </br>Until it is deprecated, this endpoint will behave the same way.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     * @summary Get an asset from an internal wallet
+     * Returns all assets in an internal wallet by ID.
+     * @summary Get assets for internal wallet
      * @param {InternalWalletsApiGetInternalWalletRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -874,7 +776,7 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Returns information for an asset in an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns information for an asset in an internal wallet.
      * @summary Get an asset from an internal wallet
      * @param {InternalWalletsApiGetInternalWalletAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -886,19 +788,7 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Returns a paginated response of assets in an internal wallet.  This is a new paginated endpoint that gets all the assets from the wallet container with balances. </br>This endpoint returns a limited amount of results with a quick response time.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     * @summary List assets in an internal wallet (Paginated)
-     * @param {InternalWalletsApiGetInternalWalletAssetsPaginatedRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof InternalWalletsApi
-     */
-    public getInternalWalletAssetsPaginated(requestParameters: InternalWalletsApiGetInternalWalletAssetsPaginatedRequest) {
-        return InternalWalletsApiFp(this.configuration).getInternalWalletAssetsPaginated(requestParameters.walletId, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Gets a list of internal wallets.   **Note**: - BTC-based assets belonging to whitelisted addresses cannot be   retrieved between 00:00 UTC and 00:01 UTC daily due to third-party   provider, Blockchain, being unavailable for this 60 second period.   </br>Please wait until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT include the balances anymore.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Gets a list of internal wallets.  **Note**: BTC-based assets belonging to whitelisted addresses cannot be retrieved between 00:00 UTC and 00:01 UTC daily due to third-party provider, Blockchair, being unavailable for this 60 second period. Please wait until the next minute to retrieve BTC-based assets. 
      * @summary List internal wallets
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -909,7 +799,7 @@ export class InternalWalletsApi extends BaseAPI {
     }
 
     /**
-     * Sets an AML/KYT customer reference ID for the specific internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Sets an AML/KYT customer reference ID for the specific internal wallet.
      * @summary Set an AML/KYT customer reference ID for an internal wallet
      * @param {InternalWalletsApiSetCustomerRefIdForInternalWalletRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

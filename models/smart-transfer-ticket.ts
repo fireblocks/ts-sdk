@@ -30,7 +30,7 @@ export interface SmartTransferTicket {
      */
     'id': string;
     /**
-     * Kind of Smart Transfer. Can be either `ASYNC` or `DVP`
+     * Kind of Smart Transfer. Can be either `ASYNC` or `ATOMIC`
      * @type {string}
      * @memberof SmartTransferTicket
      */
@@ -71,18 +71,6 @@ export interface SmartTransferTicket {
      * @memberof SmartTransferTicket
      */
     'direction'?: SmartTransferTicketDirectionEnum;
-    /**
-     * Current status of DVP execution
-     * @type {string}
-     * @memberof SmartTransferTicket
-     */
-    'dvpExecutionStatus'?: SmartTransferTicketDvpExecutionStatusEnum;
-    /**
-     * ID of network profile that created order
-     * @type {string}
-     * @memberof SmartTransferTicket
-     */
-    'orderCreatedByNetworkId'?: string;
     /**
      * Ticket terms (legs)
      * @type {Array<SmartTransferTicketTerm>}
@@ -158,8 +146,7 @@ export interface SmartTransferTicket {
 }
 
 export const SmartTransferTicketTypeEnum = {
-    Async: 'ASYNC',
-    Dvp: 'DVP'
+    Async: 'ASYNC'
 } as const;
 
 export type SmartTransferTicketTypeEnum = typeof SmartTransferTicketTypeEnum[keyof typeof SmartTransferTicketTypeEnum];
@@ -182,16 +169,5 @@ export const SmartTransferTicketDirectionEnum = {
 } as const;
 
 export type SmartTransferTicketDirectionEnum = typeof SmartTransferTicketDirectionEnum[keyof typeof SmartTransferTicketDirectionEnum];
-export const SmartTransferTicketDvpExecutionStatusEnum = {
-    Started: 'STARTED',
-    CreatingOrder: 'CREATING_ORDER',
-    OrderCreated: 'ORDER_CREATED',
-    Fulfilling: 'FULFILLING',
-    FulfillingOrderFailed: 'FULFILLING_ORDER_FAILED',
-    CreatingOrderFailed: 'CREATING_ORDER_FAILED',
-    Fulfilled: 'FULFILLED'
-} as const;
-
-export type SmartTransferTicketDvpExecutionStatusEnum = typeof SmartTransferTicketDvpExecutionStatusEnum[keyof typeof SmartTransferTicketDvpExecutionStatusEnum];
 
 

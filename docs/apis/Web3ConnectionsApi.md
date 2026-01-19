@@ -35,8 +35,6 @@ let body: Web3ConnectionsApiCreateRequest = {
   createConnectionRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
-  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
 };
 
 fireblocks.web3Connections.create(body).then((res: FireblocksResponse<CreateConnectionResponse>) => {
@@ -51,7 +49,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **createConnectionRequest** | **[CreateConnectionRequest](../models/CreateConnectionRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
- **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
 
 
 ### Return type
@@ -98,8 +95,6 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: Web3ConnectionsApiGetRequest = {
-  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
   // 'ASC' | 'DESC' | List order; ascending or descending. (optional)
   order: order_example,
   // GetFilterParameter | Parsed filter object (optional)
@@ -122,7 +117,6 @@ fireblocks.web3Connections.get(body).then((res: FireblocksResponse<GetConnection
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
  **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | List order; ascending or descending. | (optional) defaults to 'ASC'
  **filter** | **GetFilterParameter** | Parsed filter object | (optional) defaults to undefined
  **sort** | [**&#39;id&#39; | &#39;userId&#39; | &#39;vaultAccountId&#39; | &#39;createdAt&#39; | &#39;feeLevel&#39; | &#39;appUrl&#39; | &#39;appName&#39;**]**Array<&#39;id&#39; &#124; &#39;userId&#39; &#124; &#39;vaultAccountId&#39; &#124; &#39;createdAt&#39; &#124; &#39;feeLevel&#39; &#124; &#39;appUrl&#39; &#124; &#39;appName&#39;>** | Property to sort Web3 connections by. | (optional) defaults to 'createdAt'
@@ -176,8 +170,6 @@ const fireblocks = new Fireblocks();
 let body: Web3ConnectionsApiRemoveRequest = {
   // string | The ID of the existing Web3 connection to remove.
   id: id_example,
-  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
 };
 
 fireblocks.web3Connections.remove(body).then((res: FireblocksResponse<any>) => {
@@ -191,7 +183,6 @@ fireblocks.web3Connections.remove(body).then((res: FireblocksResponse<any>) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**string**] | The ID of the existing Web3 connection to remove. | defaults to undefined
- **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
 
 
 ### Return type
@@ -244,8 +235,6 @@ let body: Web3ConnectionsApiSubmitRequest = {
   id: id_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
-  // string | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. (optional)
-  xEndUserWalletId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
 };
 
 fireblocks.web3Connections.submit(body).then((res: FireblocksResponse<any>) => {
@@ -261,7 +250,6 @@ Name | Type | Description  | Notes
  **respondToConnectionRequest** | **[RespondToConnectionRequest](../models/RespondToConnectionRequest.md)**|  |
  **id** | [**string**] | The ID of the initiated Web3 connection to approve. | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
- **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | (optional) defaults to undefined
 
 
 ### Return type

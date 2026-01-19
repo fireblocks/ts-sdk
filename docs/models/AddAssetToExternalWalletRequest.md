@@ -4,8 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**address** | **string** | The wallet\&#39;s address (or xpub) of the external wallet | [default to undefined]|
-|**additionalInfo** | [**AdditionalInfoRequestAdditionalInfo**](AdditionalInfoRequestAdditionalInfo.md) |  | [default to undefined]|
+|**address** | **string** | The wallet\&#39;s address (or xpub) of the wallet | [default to undefined]|
+|**additionalInfo** | [**AddAssetToExternalWalletRequestOneOf1AdditionalInfo**](AddAssetToExternalWalletRequestOneOf1AdditionalInfo.md) |  | [default to undefined]|
 |**tag** | **string** | For XRP wallets, the destination tag; for EOS/XLM, the memo; for the fiat providers (BLINC by BCB Group), the Bank Transfer Description | [optional] [default to undefined]|
 
 

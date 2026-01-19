@@ -37,10 +37,10 @@ export interface ContractDoc {
     'methods': { [key: string]: FunctionDoc; };
     /**
      * The version of the contract
-     * @type {number}
+     * @type {string}
      * @memberof ContractDoc
      */
-    'version': number;
+    'version': string;
     /**
      * A description of the contract
      * @type {string}

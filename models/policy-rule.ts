@@ -15,221 +15,272 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccountConfig } from './account-config';
+import { PolicyRuleAmount } from './policy-rule-amount';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AmountConfig } from './amount-config';
+import { PolicyRuleAmountAggregation } from './policy-rule-amount-aggregation';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AmountOverTimeConfig } from './amount-over-time-config';
+import { PolicyRuleAuthorizationGroups } from './policy-rule-authorization-groups';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AmountRange } from './amount-range';
+import { PolicyRuleDesignatedSigners } from './policy-rule-designated-signers';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AssetConfig } from './asset-config';
+import { PolicyRuleDst } from './policy-rule-dst';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ContractMethodPattern } from './contract-method-pattern';
+import { PolicyRuleOperators } from './policy-rule-operators';
 // May contain unused imports in some cases
 // @ts-ignore
-import { DAppAddressConfig } from './dapp-address-config';
+import { PolicyRuleRawMessageSigning } from './policy-rule-raw-message-signing';
 // May contain unused imports in some cases
 // @ts-ignore
-import { DerivationPathConfig } from './derivation-path-config';
+import { PolicyRuleSrc } from './policy-rule-src';
 // May contain unused imports in some cases
 // @ts-ignore
-import { DestinationConfig } from './destination-config';
+import { PolicySrcOrDestSubType } from './policy-src-or-dest-sub-type';
 // May contain unused imports in some cases
 // @ts-ignore
-import { InitiatorConfigPattern } from './initiator-config-pattern';
-// May contain unused imports in some cases
-// @ts-ignore
-import { OrderSide } from './order-side';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PolicyType } from './policy-type';
-// May contain unused imports in some cases
-// @ts-ignore
-import { ProgramCallConfig } from './program-call-config';
-// May contain unused imports in some cases
-// @ts-ignore
-import { ScreeningMetadataConfig } from './screening-metadata-config';
-// May contain unused imports in some cases
-// @ts-ignore
-import { SourceConfig } from './source-config';
-// May contain unused imports in some cases
-// @ts-ignore
-import { VerdictConfig } from './verdict-config';
+import { PolicySrcOrDestType } from './policy-src-or-dest-type';
 
 /**
- * V2 Policy rule which is enforced on transactions
+ * Policy rule which is enforced on transactions
  * @export
  * @interface PolicyRule
  */
 export interface PolicyRule {
     /**
-     * Name of the policy rule
+     * Policy rule type
      * @type {string}
      * @memberof PolicyRule
      */
-    'name': string;
+    'type': PolicyRuleTypeEnum;
     /**
-     * Unique identifier for the policy rule
+     * Defines what occurs when a transaction meets the rule\'s criteria * ALLOW - The transaction goes through and can be signed without requiring additional approvals * BLOCK - The transaction is automatically blocked * 2-TIER - Only these users or user groups can approve             If any of them reject the transaction before the required approval threshold is met, the transaction doesn\'t go through            The list of entities are set is \"authorizationGroups\" field 
      * @type {string}
      * @memberof PolicyRule
      */
-    'id': string;
+    'action': PolicyRuleActionEnum;
     /**
-     * Policy engine version
+     * Defines the type of asset being transacted, options are * \"*\" - All assets * Specific asset 
      * @type {string}
      * @memberof PolicyRule
      */
-    'policyEngineVersion': PolicyRulePolicyEngineVersionEnum;
+    'asset': string;
     /**
-     * 
-     * @type {PolicyType}
+     * * USD - Limits the amount of any asset users can transfer based on the USD equivalent of the asset. * EUR - Limits the amount of any asset users can transfer based on the EURO equivalent of the asset. * NATIVE - Limits the amount of an asset a user can transfer when using a specific asset. 
+     * @type {string}
      * @memberof PolicyRule
      */
-    'type': PolicyType;
+    'amountCurrency': PolicyRuleAmountCurrencyEnum;
     /**
-     * 
-     * @type {InitiatorConfigPattern}
+     * * SINGLE_TX - limit applies to a single transaction * TIMEFRAME - limit applies to all transactions within the defined time period 
+     * @type {string}
      * @memberof PolicyRule
      */
-    'initiator': InitiatorConfigPattern;
+    'amountScope': PolicyRuleAmountScopeEnum;
     /**
      * 
-     * @type {SourceConfig}
+     * @type {PolicyRuleAmount}
      * @memberof PolicyRule
      */
-    'source': SourceConfig;
+    'amount': PolicyRuleAmount;
+    /**
+     * Time period in seconds applied by the amountScope field to accumulate transferred amounts in transactions that match the rule, until the total exceeds the value you specify under Minimum. When the specified amount is reached within that period, whether by one or many transactions, further transactions in that period either fail or require more approvals. 
+     * @type {number}
+     * @memberof PolicyRule
+     */
+    'periodSec': number;
+    /**
+     * (deprecated - replaced by \"operators\")  | Defines users who can initiate the type of transaction to which the rule applies. options are * \"*\" - All users are allowed * Specific User id
+     * @type {string}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'operator'?: string;
     /**
      * 
-     * @type {VerdictConfig}
+     * @type {PolicyRuleOperators}
      * @memberof PolicyRule
      */
-    'verdict': VerdictConfig;
+    'operators'?: PolicyRuleOperators;
+    /**
+     * Defines the type of transaction to which the rule applies.   * TRANSFER - Default. Transfers funds from one account to another   * CONTRACT_CALL - Calls a smart contract, mainly for DeFi operations.   * APPROVE - Allows a smart contract to withdraw from a designated wallet.   * MINT - Perform a mint operation (increase supply) on a supported token   * BURN - Perform a burn operation (reduce supply) on a supported token   * SUPPLY - Use for DeFi to lend assets   * REDEEM - Use for DeFi to get lending back   * STAKE - Allows you to allocate and lock certain assets for earning staking rewards.   * RAW - An off-chain message with no predefined format, use it to sign any message with your private key.   * TYPED_MESSAGE - An off-chain message type that follows a predefined format, used to sign specific messages that are not actual transactions. 
+     * @type {string}
+     * @memberof PolicyRule
+     */
+    'transactionType'?: PolicyRuleTransactionTypeEnum;
+    /**
+     * (deprecated - replaced by \"designatedSigners\") Id representing the user who signs transactions that match a specific rule
+     * @type {string}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'designatedSigner'?: string;
     /**
      * 
-     * @type {PolicyType}
+     * @type {PolicyRuleDesignatedSigners}
      * @memberof PolicyRule
      */
-    'subType'?: PolicyType;
+    'designatedSigners'?: PolicyRuleDesignatedSigners;
+    /**
+     * (deprecated - replaced by "src") source account type
+     * @type {PolicySrcOrDestType}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'srcType'?: PolicySrcOrDestType;
+    /**
+     * (deprecated - replaced by "src") source sub account type
+     * @type {PolicySrcOrDestSubType}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'srcSubType'?: PolicySrcOrDestSubType;
+    /**
+     * (deprecated - replaced by "src") source account id
+     * @type {string}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'srcId'?: string;
     /**
      * 
-     * @type {AssetConfig}
+     * @type {PolicyRuleSrc}
      * @memberof PolicyRule
      */
-    'asset'?: AssetConfig;
+    'src'?: PolicyRuleSrc;
+    /**
+     * (deprecated - replaced by "dst") destination account type
+     * @type {PolicySrcOrDestType}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'dstType'?: PolicySrcOrDestType;
+    /**
+     * (deprecated - replaced by "dst") destination sub account type
+     * @type {PolicySrcOrDestSubType}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'dstSubType'?: PolicySrcOrDestSubType;
+    /**
+     * (deprecated - replaced by "dst") destination account id
+     * @type {string}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'dstId'?: string;
     /**
      * 
-     * @type {DestinationConfig}
+     * @type {PolicyRuleDst}
      * @memberof PolicyRule
      */
-    'destination'?: DestinationConfig;
+    'dst'?: PolicyRuleDst;
+    /**
+     * Defines whether the destination to which you are sending funds must be whitelisted, to allow one-time transfers to non-whitelisted external addresses, or both. By default, you can only transfer to an external address after it’s whitelisted.   * WHITELISTED - Can only be sent to whitelisted addresses.   * ONE_TIME - Can only be sent to non-whitelisted external addresses.   * \"*\" - can be sent to whitelisted addresses or non-whitelisted external 
+     * @type {string}
+     * @memberof PolicyRule
+     */
+    'dstAddressType'?: PolicyRuleDstAddressTypeEnum;
+    /**
+     * (deprecated - replaced by \"authorizationGroups\") Allowed entities which can approves a transaction
+     * @type {Array<string>}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'authorizers'?: Array<string>;
+    /**
+     * (deprecated - replaced by \"authorizationGroups\") Min amount of entities which are needed to approve a transaction
+     * @type {number}
+     * @memberof PolicyRule
+     * @deprecated
+     */
+    'authorizersCount'?: number;
     /**
      * 
-     * @type {AccountConfig}
+     * @type {PolicyRuleAuthorizationGroups}
      * @memberof PolicyRule
      */
-    'account'?: AccountConfig;
+    'authorizationGroups'?: PolicyRuleAuthorizationGroups;
     /**
      * 
-     * @type {OrderSide}
+     * @type {PolicyRuleAmountAggregation}
      * @memberof PolicyRule
      */
-    'side'?: OrderSide;
+    'amountAggregation'?: PolicyRuleAmountAggregation;
     /**
      * 
-     * @type {AmountOverTimeConfig}
+     * @type {PolicyRuleRawMessageSigning}
      * @memberof PolicyRule
      */
-    'amountOverTime'?: AmountOverTimeConfig;
+    'rawMessageSigning'?: PolicyRuleRawMessageSigning;
     /**
-     * 
-     * @type {AmountConfig}
+     * Applying this rule over APPROVE type transactions (can only be enabled when rule\'s transaction type is TRANSFER)
+     * @type {boolean}
      * @memberof PolicyRule
      */
-    'amount'?: AmountConfig;
+    'applyForApprove'?: boolean;
     /**
-     * External descriptor for the rule
+     * Applying this rule over TYPED_MESSAGE type transactions (can only be enabled when rule\'s transaction type is CONTRACT_CALL)
+     * @type {boolean}
+     * @memberof PolicyRule
+     */
+    'applyForTypedMessage'?: boolean;
+    /**
+     * A unique id identifying the rule
      * @type {string}
      * @memberof PolicyRule
      */
     'externalDescriptor'?: string;
-    /**
-     * 
-     * @type {ContractMethodPattern}
-     * @memberof PolicyRule
-     */
-    'method'?: ContractMethodPattern;
-    /**
-     * Whether this is a global policy
-     * @type {boolean}
-     * @memberof PolicyRule
-     */
-    'isGlobalPolicy'?: boolean;
-    /**
-     * 
-     * @type {ProgramCallConfig}
-     * @memberof PolicyRule
-     */
-    'programCall'?: ProgramCallConfig;
-    /**
-     * 
-     * @type {ScreeningMetadataConfig}
-     * @memberof PolicyRule
-     */
-    'screeningMetadata'?: ScreeningMetadataConfig;
-    /**
-     * 
-     * @type {AssetConfig}
-     * @memberof PolicyRule
-     */
-    'quoteAsset'?: AssetConfig;
-    /**
-     * 
-     * @type {AssetConfig}
-     * @memberof PolicyRule
-     */
-    'baseAsset'?: AssetConfig;
-    /**
-     * 
-     * @type {AmountRange}
-     * @memberof PolicyRule
-     */
-    'quoteAmount'?: AmountRange;
-    /**
-     * 
-     * @type {AmountRange}
-     * @memberof PolicyRule
-     */
-    'baseAmount'?: AmountRange;
-    /**
-     * 
-     * @type {DAppAddressConfig}
-     * @memberof PolicyRule
-     */
-    'dAppAddress'?: DAppAddressConfig;
-    /**
-     * 
-     * @type {DerivationPathConfig}
-     * @memberof PolicyRule
-     */
-    'derivationPath'?: DerivationPathConfig;
-    /**
-     * Index for the policy rule
-     * @type {number}
-     * @memberof PolicyRule
-     */
-    'index'?: number;
 }
 
-export const PolicyRulePolicyEngineVersionEnum = {
-    V2: 'v2'
+export const PolicyRuleTypeEnum = {
+    Transfer: 'TRANSFER'
 } as const;
 
-export type PolicyRulePolicyEngineVersionEnum = typeof PolicyRulePolicyEngineVersionEnum[keyof typeof PolicyRulePolicyEngineVersionEnum];
+export type PolicyRuleTypeEnum = typeof PolicyRuleTypeEnum[keyof typeof PolicyRuleTypeEnum];
+export const PolicyRuleActionEnum = {
+    Allow: 'ALLOW',
+    Block: 'BLOCK',
+    _2Tier: '2-TIER'
+} as const;
+
+export type PolicyRuleActionEnum = typeof PolicyRuleActionEnum[keyof typeof PolicyRuleActionEnum];
+export const PolicyRuleAmountCurrencyEnum = {
+    Usd: 'USD',
+    Eur: 'EUR',
+    Native: 'NATIVE'
+} as const;
+
+export type PolicyRuleAmountCurrencyEnum = typeof PolicyRuleAmountCurrencyEnum[keyof typeof PolicyRuleAmountCurrencyEnum];
+export const PolicyRuleAmountScopeEnum = {
+    SingleTx: 'SINGLE_TX',
+    Timeframe: 'TIMEFRAME'
+} as const;
+
+export type PolicyRuleAmountScopeEnum = typeof PolicyRuleAmountScopeEnum[keyof typeof PolicyRuleAmountScopeEnum];
+export const PolicyRuleTransactionTypeEnum = {
+    Transfer: 'TRANSFER',
+    ContractCall: 'CONTRACT_CALL',
+    Approve: 'APPROVE',
+    Mint: 'MINT',
+    Burn: 'BURN',
+    Supply: 'SUPPLY',
+    Redeem: 'REDEEM',
+    Stake: 'STAKE',
+    Raw: 'RAW',
+    TypedMessage: 'TYPED_MESSAGE'
+} as const;
+
+export type PolicyRuleTransactionTypeEnum = typeof PolicyRuleTransactionTypeEnum[keyof typeof PolicyRuleTransactionTypeEnum];
+export const PolicyRuleDstAddressTypeEnum = {
+    Whitelisted: 'WHITELISTED',
+    OneTime: 'ONE_TIME',
+    Star: '*'
+} as const;
+
+export type PolicyRuleDstAddressTypeEnum = typeof PolicyRuleDstAddressTypeEnum[keyof typeof PolicyRuleDstAddressTypeEnum];
 
 

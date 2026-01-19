@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**abiFunction** | [**ReadCallFunctionDtoAbiFunction**](ReadCallFunctionDtoAbiFunction.md) |  | [default to undefined]|
+|**abiFunction** | [**Array&lt;ReadAbiFunction&gt;**](ReadAbiFunction.md) | The abi of the read function you wish to call | [default to undefined]|
 
 
 
