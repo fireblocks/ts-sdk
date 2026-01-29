@@ -13,7 +13,7 @@ Method | HTTP request | Description
 # **getActivePolicy**
 > PolicyAndValidationResponse getActivePolicy()
 
-Returns the active policy and its validation for a specific policy type. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+Returns the active policy and its validation for a specific policy type.  **Note:** This endpoint is currently in beta and subject to change. If you want to participate in the Policies beta, contact your Fireblocks Customer Success Manager or send an email to csm@fireblocks.com.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

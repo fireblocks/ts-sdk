@@ -4,21 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
+|**type** | [**ExternalAccountType**](ExternalAccountType.md) |  | [default to undefined]|
 |**accountId** | **string** |  | [default to undefined]|
-
-
-## Enum: SettlementSourceAccountTypeEnum
-
-
-* `VaultAccount` (value: `'VAULT_ACCOUNT'`)
-
-* `ConnectedAccount` (value: `'CONNECTED_ACCOUNT'`)
-
-* `FiatAccount` (value: `'FIAT_ACCOUNT'`)
-
-* `External` (value: `'EXTERNAL'`)
-
+|**senderInformation** | [**ExternalAccountSenderInformation**](ExternalAccountSenderInformation.md) |  | [optional] [default to undefined]|
 
 
 

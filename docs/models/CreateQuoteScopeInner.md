@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**providerId** | **string** | The ID of the provider associated with the account. | [default to undefined]|
-|**accountId** | **string** | The ID of the account associated with the provider. | [default to undefined]|
+|**accountId** | **string** | The ID of the account associated with the provider. | [optional] [default to undefined]|
 
 
 

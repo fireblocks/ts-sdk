@@ -17,7 +17,7 @@ Method | HTTP request | Description
 # **addAssetToExternalWallet**
 > ExternalWalletAsset addAssetToExternalWallet()
 
-Adds an asset to an existing external wallet.
+Adds an asset to an existing external wallet. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -86,7 +86,7 @@ No authorization required
 # **createExternalWallet**
 > UnmanagedWallet createExternalWallet()
 
-Creates a new external wallet with the requested name.
+Creates a new external wallet with the requested name.  External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.  - You cannot see the balance of the external wallet. - You cannot initiate transactions from an external wallet as the source via Fireblocks. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -149,7 +149,7 @@ No authorization required
 # **deleteExternalWallet**
 > deleteExternalWallet()
 
-Deletes an external wallet by ID.
+Deletes an external wallet by ID. External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -209,7 +209,7 @@ No authorization required
 # **getExternalWallet**
 > UnmanagedWallet getExternalWallet()
 
-Returns an external wallet by ID.
+Returns an external wallet by ID. External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -269,7 +269,7 @@ No authorization required
 # **getExternalWalletAsset**
 > ExternalWalletAsset getExternalWalletAsset()
 
-Returns an external wallet by wallet ID and asset ID.
+Returns an external wallet by wallet ID and asset ID. External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -332,7 +332,7 @@ No authorization required
 # **getExternalWallets**
 > GetExternalWalletsResponse getExternalWallets()
 
-Gets a list of external wallets under the workspace.
+Gets a list of external wallets under the workspace.  External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties.  - You cannot see the balance of the external wallet. - You cannot initiate transactions from an external wallet as the source via Fireblocks. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -386,7 +386,7 @@ No authorization required
 # **removeAssetFromExternalWallet**
 > removeAssetFromExternalWallet()
 
-Deletes an external wallet asset by ID.
+Deletes an external wallet asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -449,7 +449,7 @@ No authorization required
 # **setExternalWalletCustomerRefId**
 > setExternalWalletCustomerRefId(setCustomerRefIdRequest, )
 
-Sets an AML/KYT customer reference ID for the specific external wallet.
+Sets an AML/KYT customer reference ID for the specific external wallet. External Wallet is a whitelisted address of a wallet that belongs to your users/counterparties. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

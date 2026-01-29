@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** |  | [default to undefined]|
 |**via** | [**AccessType**](AccessType.md) |  | [default to undefined]|
-|**side** | **string** | Side of the order | [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** |  | [default to undefined]|
 |**baseAssetId** | **string** |  | [default to undefined]|
 |**quoteAssetId** | **string** |  | [default to undefined]|
@@ -15,15 +15,6 @@
 |**createdAt** | **string** |  | [default to undefined]|
 |**quoteAmount** | **string** |  | [optional] [default to undefined]|
 |**source** | [**SettlementSourceAccount**](SettlementSourceAccount.md) |  | [optional] [default to undefined]|
-
-
-## Enum: OrderSummarySideEnum
-
-
-* `Buy` (value: `'BUY'`)
-
-* `Sell` (value: `'SELL'`)
-
 
 
 

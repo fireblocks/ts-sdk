@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**PeerType**](PeerType.md) |  | [default to undefined]|
+|**type** | [**OneTimeAddressPeerType**](OneTimeAddressPeerType.md) |  | [default to undefined]|
 |**accountId** | **string** |  | [default to undefined]|
 |**address** | **string** |  | [default to undefined]|
 |**tag** | **string** |  | [optional] [default to undefined]|
