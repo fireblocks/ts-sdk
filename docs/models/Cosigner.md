@@ -8,7 +8,7 @@
 |**id** | **string** | The unique identifier of the cosigner | [default to undefined]|
 |**name** | **string** | The name of the cosigner | [optional] [default to undefined]|
 |**type** | **string** | The type of the cosigner | [optional] [default to undefined]|
-|**version** | [**Version**](Version.md) |  | [optional] [default to undefined]|
+|**version** | [**VersionSummary**](VersionSummary.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: CosignerTypeEnum

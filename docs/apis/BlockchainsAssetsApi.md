@@ -5,8 +5,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAsset**](#getAsset) | **GET** /assets/{id} | Get an asset
-[**getBlockchain**](#getBlockchain) | **GET** /blockchains/{id} | Get an blockchain
-[**getSupportedAssets**](#getSupportedAssets) | **GET** /supported_assets | List all asset types supported by Fireblocks - legacy endpoint
+[**getBlockchain**](#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID
+[**getSupportedAssets**](#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy)
 [**listAssets**](#listAssets) | **GET** /assets | List assets
 [**listBlockchains**](#listBlockchains) | **GET** /blockchains | List blockchains
 [**registerNewAsset**](#registerNewAsset) | **POST** /assets | Register an asset
@@ -82,7 +82,7 @@ No authorization required
 # **getBlockchain**
 > BlockchainResponse getBlockchain()
 
-Returns an blockchain by ID or legacyID. 
+Returns a blockchain by ID or legacyID. 
 
 ### Example
 
@@ -144,7 +144,7 @@ No authorization required
 # **getSupportedAssets**
 > GetSupportedAssetsResponse getSupportedAssets()
 
-Legacy Endpoint – Retrieves all assets supported by Fireblocks in your workspace without extended information.</br> **Note**:    - This endpoint will remain available for the foreseeable future and is not deprecated.</br>   - The `listAssets` endpoint provides more detailed asset information and improved performance.</br>   - We recommend transitioning to the `listAssets` endpoint for better results. 
+**This legacy endpoint has not been deprecated but it should not be used in your operations. Instead, use the new [List assets](https://developers.fireblocks.com/reference/listassets) endpoint for better performance and to retrieve more detailed asset information.**  Retrieves all assets supported by Fireblocks in your workspace.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -198,7 +198,7 @@ No authorization required
 # **listAssets**
 > ListAssetsResponse listAssets()
 
-Retrieves all assets supported by Fireblocks in your workspace, providing extended information and enhanced performance compared to the legacy `supported_assets` endpoint.</br> **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice.</br> 
+Retrieves a paginated list of all assets supported by Fireblocks in your workspace  **Note:** We will continue to support and display the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
 
 ### Example
 
@@ -283,7 +283,7 @@ No authorization required
 # **listBlockchains**
 > ListBlockchainsResponse listBlockchains()
 
-Returns all blockchains supported by Fireblocks. 
+Returns all blockchains supported by Fireblocks.</br> 
 
 ### Example
 
@@ -359,7 +359,7 @@ No authorization required
 # **registerNewAsset**
 > AssetResponse registerNewAsset()
 
-Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui 
+Register a new asset to a workspace and return the newly created asset\'s details. Currently supported chains are: - EVM based chains - Stellar - Algorand - TRON - NEAR - Solana - Sui - TON 
 
 ### Example
 

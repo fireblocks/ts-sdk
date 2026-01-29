@@ -5,32 +5,31 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activateAssetForVaultAccount**](#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
-[**attachOrDetachTagsFromVaultAccounts**](#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from a vault accounts
-[**attachTagsToVaultAccounts**](#attachTagsToVaultAccounts) | **POST** /vault/accounts/attached_tags/attach | Attach tags to a vault accounts (deprecated)
+[**attachOrDetachTagsFromVaultAccounts**](#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts
 [**createLegacyAddress**](#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 [**createMultipleAccounts**](#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
 [**createMultipleDepositAddresses**](#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
 [**createVaultAccount**](#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
-[**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new wallet
+[**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
-[**detachTagsFromVaultAccounts**](#detachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags/detach | Detach tags from a vault accounts (deprecated)
-[**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | List asset wallets (Paginated)
-[**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get job status of bulk creation of new deposit addresses
+[**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
+[**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 [**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
-[**getMaxSpendableAmount**](#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get the maximum spendable amount in a single transaction.
-[**getPagedVaultAccounts**](#getPagedVaultAccounts) | **GET** /vault/accounts_paged | List vault accounts (Paginated)
-[**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key information
-[**getPublicKeyInfoForAddress**](#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key for a vault account
+[**getMaxBipIndexUsed**](#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used | Get maximum BIP44 index used
+[**getMaxSpendableAmount**](#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction
+[**getPagedVaultAccounts**](#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated)
+[**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
+[**getPublicKeyInfoForAddress**](#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset\&#39;s public key
 [**getUnspentInputs**](#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information
-[**getVaultAccount**](#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Find a vault account by ID
+[**getVaultAccount**](#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID
 [**getVaultAccountAsset**](#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
-[**getVaultAccountAssetAddressesPaginated**](#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | List addresses (Paginated)
+[**getVaultAccountAssetAddressesPaginated**](#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | Get addresses (Paginated)
 [**getVaultAssets**](#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
-[**getVaultBalanceByAsset**](#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by asset
+[**getVaultBalanceByAsset**](#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset
 [**hideVaultAccount**](#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 [**setCustomerRefIdForAddress**](#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
-[**setVaultAccountAutoFuel**](#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Turn autofueling on or off
-[**setVaultAccountCustomerRefId**](#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT customer reference ID for a vault account
+[**setVaultAccountAutoFuel**](#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
+[**setVaultAccountCustomerRefId**](#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account
 [**unhideVaultAccount**](#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console
 [**updateVaultAccount**](#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account
 [**updateVaultAccountAssetAddress**](#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description
@@ -40,7 +39,7 @@ Method | HTTP request | Description
 # **activateAssetForVaultAccount**
 > CreateVaultAssetResponse activateAssetForVaultAccount()
 
-Initiates activation for a wallet in a vault account.
+Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -106,7 +105,7 @@ No authorization required
 # **attachOrDetachTagsFromVaultAccounts**
 > VaultAccountsTagAttachmentOperationsResponse attachOrDetachTagsFromVaultAccounts(vaultAccountsTagAttachmentOperationsRequest)
 
-Attach or detach one or more tags from the requested vault accounts.
+Attach or detach one or more tags from the requested vault accounts. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
 
 ### Example
 
@@ -167,72 +166,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **attachTagsToVaultAccounts**
-> attachTagsToVaultAccounts(vaultAccountsTagAttachmentsRequest)
-
-Attach one or more tags to the requested vault accounts. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiAttachTagsToVaultAccountsRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: VaultsApiAttachTagsToVaultAccountsRequest = {
-  // VaultAccountsTagAttachmentsRequest
-  vaultAccountsTagAttachmentsRequest: param_value,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
-
-fireblocks.vaults.attachTagsToVaultAccounts(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **vaultAccountsTagAttachmentsRequest** | **[VaultAccountsTagAttachmentsRequest](../models/VaultAccountsTagAttachmentsRequest.md)**|  |
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | Tags were attached successfully |  -  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **createLegacyAddress**
 > CreateAddressResponse createLegacyAddress()
 
-Converts an existing segwit address to the legacy format.
+Converts an existing segwit address to the legacy format. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -301,7 +238,7 @@ No authorization required
 # **createMultipleAccounts**
 > JobCreated createMultipleAccounts(createMultipleAccountsRequest)
 
-Create multiple vault accounts by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit accounts to 10k per operation and 200k per customer during beta testing. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -364,7 +301,7 @@ No authorization required
 # **createMultipleDepositAddresses**
 > JobCreated createMultipleDepositAddresses(createMultipleDepositAddressesRequest)
 
-Create multiple deposit address by running an async job. </br> **Note**: - We limit accounts to 10k per operation. Endpoint Permission: Admin, Non-Signing Admin. 
+**For UTXO blockchains only.**  Create multiple deposit addresses by running an async job. - The target Vault account should already have a UTXO asset wallet with a permanent address. - Limited to a maximum of 10,000 addresses per operation. Use multiple operations for the same Vault account/permanent address if needed.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -427,7 +364,7 @@ No authorization required
 # **createVaultAccount**
 > VaultAccount createVaultAccount(createVaultAccountRequest)
 
-Creates a new vault account with the requested name.
+Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -490,7 +427,7 @@ No authorization required
 # **createVaultAccountAsset**
 > CreateVaultAssetResponse createVaultAccountAsset()
 
-Creates a wallet for a specific asset in a vault account.
+Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -559,7 +496,7 @@ No authorization required
 # **createVaultAccountAssetAddress**
 > CreateAddressResponse createVaultAccountAssetAddress()
 
-Creates a new deposit address for an asset of a vault account.
+Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -625,72 +562,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **detachTagsFromVaultAccounts**
-> detachTagsFromVaultAccounts(vaultAccountsTagAttachmentsRequest)
-
-Detach one or more tags from the requested vault account. This endpoint is deprecated. Please use /vault/accounts/attached_tags instead.
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, VaultsApiDetachTagsFromVaultAccountsRequest } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: VaultsApiDetachTagsFromVaultAccountsRequest = {
-  // VaultAccountsTagAttachmentsRequest
-  vaultAccountsTagAttachmentsRequest: param_value,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
-
-fireblocks.vaults.detachTagsFromVaultAccounts(body).then((res: FireblocksResponse<any>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **vaultAccountsTagAttachmentsRequest** | **[VaultAccountsTagAttachmentsRequest](../models/VaultAccountsTagAttachmentsRequest.md)**|  |
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-void (empty response body)
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | Tags were detached successfully |  -  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **getAssetWallets**
 > PaginatedAssetWalletResponse getAssetWallets()
 
-Gets all asset wallets at all of the vault accounts in your workspace. An asset wallet is an asset at a vault account. This method allows fast traversal of all account balances. 
+Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -708,17 +583,17 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: VaultsApiGetAssetWalletsRequest = {
-  // number | When specified, only asset wallets with total balance larger than this amount are returned. (optional)
+  // number | When specified, only vault wallets with total balance greater than this amount are returned. (optional)
   totalAmountLargerThan: 8.14,
-  // string | When specified, only asset wallets cross vault accounts that have this asset ID are returned. (optional)
+  // string | When specified, only vault wallets with the specified ID are returned. (optional)
   assetId: assetId_example,
   // 'ASC' | 'DESC' (optional)
   orderBy: orderBy_example,
-  // string | Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page. (optional)
+  // string | Fetches the next paginated response before this element.  This element is a cursor and is returned at the response of the previous page.  (optional)
   before: before_example,
   // string | Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page. (optional)
   after: after_example,
-  // number | The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000. (optional)
+  // number | The maximum number of vault wallets in a single response.   The default is 200 and the maximum is 1000.  (optional)
   limit: 8.14,
 };
 
@@ -732,12 +607,12 @@ fireblocks.vaults.getAssetWallets(body).then((res: FireblocksResponse<PaginatedA
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **totalAmountLargerThan** | [**number**] | When specified, only asset wallets with total balance larger than this amount are returned. | (optional) defaults to undefined
- **assetId** | [**string**] | When specified, only asset wallets cross vault accounts that have this asset ID are returned. | (optional) defaults to undefined
+ **totalAmountLargerThan** | [**number**] | When specified, only vault wallets with total balance greater than this amount are returned. | (optional) defaults to undefined
+ **assetId** | [**string**] | When specified, only vault wallets with the specified ID are returned. | (optional) defaults to undefined
  **orderBy** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** |  | (optional) defaults to 'DESC'
- **before** | [**string**] | Fetches the next paginated response before this element. This element is a cursor and is returned at the response of the previous page. | (optional) defaults to undefined
+ **before** | [**string**] | Fetches the next paginated response before this element.  This element is a cursor and is returned at the response of the previous page.  | (optional) defaults to undefined
  **after** | [**string**] | Fetches the next paginated response after this element. This element is a cursor and is returned at the response of the previous page. | (optional) defaults to undefined
- **limit** | [**number**] | The maximum number of asset wallets in a single response. The default is 200 and the maximum is 1000. | (optional) defaults to 200
+ **limit** | [**number**] | The maximum number of vault wallets in a single response.   The default is 200 and the maximum is 1000.  | (optional) defaults to 200
 
 
 ### Return type
@@ -764,7 +639,7 @@ No authorization required
 # **getCreateMultipleDepositAddressesJobStatus**
 > CreateMultipleDepositAddressesJobStatus getCreateMultipleDepositAddressesJobStatus()
 
-Returns the status of bulk creation of new deposit addresses job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
+Returns the current status of (or an error for) the specified deposit addresss bulk creation job.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer. 
 
 ### Example
 
@@ -824,7 +699,7 @@ No authorization required
 # **getCreateMultipleVaultAccountsJobStatus**
 > CreateMultipleVaultAccountsJobStatus getCreateMultipleVaultAccountsJobStatus()
 
-Returns the status of bulk creation of new vault accounts job and the result or error Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
+Returns the current status of (or error for) the specified vault account bulk creation job.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
 
 ### Example
 
@@ -881,10 +756,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getMaxBipIndexUsed**
+> GetMaxBipIndexUsedResponse getMaxBipIndexUsed()
+
+Retrieves the maximum BIP44 address index and change address index used for a specific asset in a vault account (BIP44 standard).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetMaxBipIndexUsedRequest, GetMaxBipIndexUsedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetMaxBipIndexUsedRequest = {
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | The ID of the asset
+  assetId: assetId_example,
+};
+
+fireblocks.vaults.getMaxBipIndexUsed(body).then((res: FireblocksResponse<GetMaxBipIndexUsedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+ **assetId** | [**string**] | The ID of the asset | defaults to undefined
+
+
+### Return type
+
+**[GetMaxBipIndexUsedResponse](../models/GetMaxBipIndexUsedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | OK |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getMaxSpendableAmount**
 > GetMaxSpendableAmountResponse getMaxSpendableAmount()
 
-Get the maximum amount of a particular asset that can be spent in a single transaction from a specified vault account (UTXO assets only, with a limitation on number of inputs embedded). Send several transactions if you want to spend more than the maximum spendable amount.
+**UTXO assets only.**  Retrieve the maximum amount of the specified asset that can be spent in a single transaction from the specified vault account.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
 
 ### Example
 
@@ -950,7 +888,7 @@ No authorization required
 # **getPagedVaultAccounts**
 > VaultAccountsPagedResponse getPagedVaultAccounts()
 
-Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time.
+Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -972,8 +910,8 @@ let body: VaultsApiGetPagedVaultAccountsRequest = {
   namePrefix: namePrefix_example,
   // string (optional)
   nameSuffix: nameSuffix_example,
-  // number | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. (optional)
-  minAmountThreshold: 8.14,
+  // number | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value. (optional)
+  minAmountThreshold: 10,
   // string (optional)
   assetId: assetId_example,
   // 'ASC' | 'DESC' (optional)
@@ -984,8 +922,12 @@ let body: VaultsApiGetPagedVaultAccountsRequest = {
   after: after_example,
   // number (optional)
   limit: 8.14,
-  // Array<string> | List of tag IDs to filter vault accounts. (optional)
+  // Array<string> | DEPRECATED - use includeTagIds instead (optional)
   tagIds: param_value,
+  // Array<string> | List of tag IDs to include. Vault accounts with any of these tags will be included (optional)
+  includeTagIds: param_value,
+  // Array<string> | List of tag IDs to exclude. Vault accounts with any of these tags will be filtered out (optional)
+  excludeTagIds: param_value,
 };
 
 fireblocks.vaults.getPagedVaultAccounts(body).then((res: FireblocksResponse<VaultAccountsPagedResponse>) => {
@@ -1000,13 +942,15 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namePrefix** | [**string**] |  | (optional) defaults to undefined
  **nameSuffix** | [**string**] |  | (optional) defaults to undefined
- **minAmountThreshold** | [**number**] | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. | (optional) defaults to undefined
+ **minAmountThreshold** | [**number**] | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value. | (optional) defaults to undefined
  **assetId** | [**string**] |  | (optional) defaults to undefined
  **orderBy** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** |  | (optional) defaults to 'DESC'
  **before** | [**string**] |  | (optional) defaults to undefined
  **after** | [**string**] |  | (optional) defaults to undefined
  **limit** | [**number**] |  | (optional) defaults to 200
- **tagIds** | **Array&lt;string&gt;** | List of tag IDs to filter vault accounts. | (optional) defaults to undefined
+ **tagIds** | **Array&lt;string&gt;** | DEPRECATED - use includeTagIds instead | (optional) defaults to undefined
+ **includeTagIds** | **Array&lt;string&gt;** | List of tag IDs to include. Vault accounts with any of these tags will be included | (optional) defaults to undefined
+ **excludeTagIds** | **Array&lt;string&gt;** | List of tag IDs to exclude. Vault accounts with any of these tags will be filtered out | (optional) defaults to undefined
 
 
 ### Return type
@@ -1033,7 +977,7 @@ No authorization required
 # **getPublicKeyInfo**
 > PublicKeyInformation getPublicKeyInfo()
 
-Gets the public key information based on derivation path and signing algorithm.
+Gets the public key information based on derivation path and signing algorithm. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1099,7 +1043,7 @@ No authorization required
 # **getPublicKeyInfoForAddress**
 > PublicKeyInformation getPublicKeyInfoForAddress()
 
-Gets the public key information for the vault account.
+Get the public key information for a specific asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1171,7 +1115,7 @@ No authorization required
 # **getUnspentInputs**
 > GetUnspentInputsResponse getUnspentInputs()
 
-Returns unspent inputs information of an asset in a vault account.
+Returns unspent inputs information of an UTXO asset in a vault account.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1234,7 +1178,7 @@ No authorization required
 # **getVaultAccount**
 > VaultAccount getVaultAccount()
 
-Returns the requested vault account.
+Get a vault account by its unique ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1252,7 +1196,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: VaultsApiGetVaultAccountRequest = {
-  // string | The ID of the vault account to return type: string
+  // string | The ID of the vault account
   vaultAccountId: vaultAccountId_example,
 };
 
@@ -1266,7 +1210,7 @@ fireblocks.vaults.getVaultAccount(body).then((res: FireblocksResponse<VaultAccou
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **vaultAccountId** | [**string**] | The ID of the vault account to return type: string | defaults to undefined
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
 
 
 ### Return type
@@ -1294,7 +1238,7 @@ No authorization required
 # **getVaultAccountAsset**
 > VaultAsset getVaultAccountAsset()
 
-Returns a wallet for a specific asset of a vault account.
+Returns a specific vault wallet balance information for a specific asset.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
 
 ### Example
 
@@ -1357,7 +1301,7 @@ No authorization required
 # **getVaultAccountAssetAddressesPaginated**
 > PaginatedAddressResponse getVaultAccountAssetAddressesPaginated()
 
-Returns a paginated response of the addresses for a given vault account and asset.
+Returns a paginated response of the addresses for a given vault account and asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1429,7 +1373,7 @@ No authorization required
 # **getVaultAssets**
 > GetVaultAssetsResponse getVaultAssets()
 
-Gets the assets amount summary for all accounts or filtered accounts.
+Gets the assets amount summary for all accounts or filtered accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1492,7 +1436,7 @@ No authorization required
 # **getVaultBalanceByAsset**
 > VaultAsset getVaultBalanceByAsset()
 
-Gets the vault balance summary for an asset.
+Get the total balance of an asset across all the vault accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1552,7 +1496,7 @@ No authorization required
 # **hideVaultAccount**
 > VaultActionStatus hideVaultAccount()
 
-Hides the requested vault account from the web console view.
+Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1615,7 +1559,7 @@ No authorization required
 # **setCustomerRefIdForAddress**
 > VaultActionStatus setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, )
 
-Sets an AML/KYT customer reference ID for a specific address.
+Sets an AML/KYT customer reference ID for a specific address. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1687,7 +1631,7 @@ No authorization required
 # **setVaultAccountAutoFuel**
 > VaultActionStatus setVaultAccountAutoFuel(setAutoFuelRequest, )
 
-Sets the autofueling property of the vault account to enabled or disabled.
+Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1753,7 +1697,7 @@ No authorization required
 # **setVaultAccountCustomerRefId**
 > VaultActionStatus setVaultAccountCustomerRefId(setCustomerRefIdRequest, )
 
-Assigns an AML/KYT customer reference ID for the vault account.
+Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1819,7 +1763,7 @@ No authorization required
 # **unhideVaultAccount**
 > VaultActionStatus unhideVaultAccount()
 
-Makes a hidden vault account visible in web console view.
+Makes a hidden vault account visible in web console view. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1882,7 +1826,7 @@ No authorization required
 # **updateVaultAccount**
 > RenameVaultAccountResponse updateVaultAccount(updateVaultAccountRequest, )
 
-Renames the requested vault account.
+Renames the requested vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -1948,7 +1892,7 @@ No authorization required
 # **updateVaultAccountAssetAddress**
 > VaultActionStatus updateVaultAccountAssetAddress()
 
-Updates the description of an existing address of an asset in a vault account.
+Updates the description of an existing address of an asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -2020,7 +1964,7 @@ No authorization required
 # **updateVaultAccountAssetBalance**
 > VaultAsset updateVaultAccountAssetBalance()
 
-Updates the balance of a specific asset in a vault account.
+Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

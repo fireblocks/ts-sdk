@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**decodeContractData**](#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log
+[**getContractAddress**](#getContractAddress) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash} | Get contract address by transaction hash
 [**getDeployedContractAbi**](#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract\&#39;s ABI
 [**getTransactionReceipt**](#getTransactionReceipt) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash}/receipt | Get transaction receipt
 [**readCallFunction**](#readCallFunction) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions/read | Call a read function on a deployed contract
@@ -81,10 +82,76 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getContractAddress**
+> ContractAddressResponse getContractAddress()
+
+Retrieve the contract address by blockchain native asset ID and transaction hash
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ContractInteractionsApiGetContractAddressRequest, ContractAddressResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ContractInteractionsApiGetContractAddressRequest = {
+  // string | The blockchain base assetId
+  baseAssetId: ETH_TEST3,
+  // string | The transaction hash
+  txHash: 0x3b015ca0518c55d7bff4e3f5aa5d0431705771553ba8a95cf20e34cb597f57f6,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.contractInteractions.getContractAddress(body).then((res: FireblocksResponse<ContractAddressResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **baseAssetId** | [**string**] | The blockchain base assetId | defaults to undefined
+ **txHash** | [**string**] | The transaction hash | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ContractAddressResponse](../models/ContractAddressResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Retrieved The Contract Address Successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getDeployedContractAbi**
 > ContractAbiResponseDto getDeployedContractAbi()
 
-Return deployed contract\'s ABI by blockchain native asset id and contract address
+Return deployed contract\'s ABI by blockchain native asset id and contract address. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
 
 ### Example
 
@@ -104,8 +171,8 @@ const fireblocks = new Fireblocks();
 let body: ContractInteractionsApiGetDeployedContractAbiRequest = {
   // string | The contract\'s onchain address
   contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66,
-  // string
-  baseAssetId: baseAssetId_example,
+  // string | The blockchain base assetId
+  baseAssetId: ETH,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -121,7 +188,7 @@ fireblocks.contractInteractions.getDeployedContractAbi(body).then((res: Firebloc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **contractAddress** | [**string**] | The contract\&#39;s onchain address | defaults to undefined
- **baseAssetId** | [**string**] |  | defaults to undefined
+ **baseAssetId** | [**string**] | The blockchain base assetId | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -150,7 +217,7 @@ No authorization required
 # **getTransactionReceipt**
 > TransactionReceiptResponse getTransactionReceipt()
 
-Retrieve the transaction receipt by blockchain native asset ID and transaction hash
+Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
 
 ### Example
 

@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**getLinkedCollections**](#getLinkedCollections) | **GET** /tokenization/collections | Get collections
 [**getLinkedToken**](#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 [**getLinkedTokens**](#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
+[**getLinkedTokensCount**](#getLinkedTokensCount) | **GET** /tokenization/tokens/count | Get the total count of linked tokens
 [**issueNewToken**](#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
 [**issueTokenMultiChain**](#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 [**link**](#link) | **POST** /tokenization/tokens/link | Link a contract
@@ -98,7 +99,7 @@ No authorization required
 # **createNewCollection**
 > CollectionLinkDto createNewCollection(collectionDeployRequestDto)
 
-Create a new collection and link it as a token
+Create a new collection and link it as a token. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
 
 ### Example
 
@@ -609,7 +610,7 @@ No authorization required
 # **getLinkedCollections**
 > GetLinkedCollectionsPaginatedResponse getLinkedCollections()
 
-Get collections (paginated)
+Get collections (paginated). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -798,10 +799,64 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getLinkedTokensCount**
+> LinkedTokensCount getLinkedTokensCount()
+
+Get the total count of linked tokens
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, LinkedTokensCount } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.tokenization.getLinkedTokensCount(body).then((res: FireblocksResponse<LinkedTokensCount>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[LinkedTokensCount](../models/LinkedTokensCount.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Count fetched successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **issueNewToken**
 > TokenLinkDto issueNewToken(createTokenRequestDto)
 
-Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed.
+Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
 
 ### Example
 
