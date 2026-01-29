@@ -13,7 +13,7 @@ Method | HTTP request | Description
 # **getGasStationByAssetId**
 > GasStationPropertiesResponse getGasStationByAssetId()
 
-Returns gas station settings and balances for a requested asset.
+Returns gas station settings and balances for a requested asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -73,7 +73,7 @@ No authorization required
 # **getGasStationInfo**
 > GasStationPropertiesResponse getGasStationInfo()
 
-Returns gas station settings and ETH balance.
+Returns gas station settings and ETH balance. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -127,7 +127,7 @@ No authorization required
 # **updateGasStationConfiguration**
 > EditGasStationConfigurationResponse updateGasStationConfiguration(gasStationConfiguration)
 
-Configures gas station settings for ETH.
+Configures gas station settings for ETH. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -190,7 +190,7 @@ No authorization required
 # **updateGasStationConfigurationByAssetId**
 > EditGasStationConfigurationResponse updateGasStationConfigurationByAssetId(gasStationConfiguration, )
 
-Configures gas station settings for a requested asset.
+Configures gas station settings for a requested asset. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
