@@ -4,14 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Indicates this is an indicative quote | [default to undefined]|
-
-
-## Enum: IndicativeQuoteTypeTypeEnum
-
-
-* `Indicative` (value: `'INDICATIVE'`)
-
+|**type** | [**IndicativeQuoteEnum**](IndicativeQuoteEnum.md) |  | [default to undefined]|
 
 
 

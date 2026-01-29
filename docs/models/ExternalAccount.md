@@ -4,14 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
-
-
-## Enum: ExternalAccountTypeEnum
-
-
-* `External` (value: `'EXTERNAL'`)
-
+|**type** | [**ExternalAccountType**](ExternalAccountType.md) |  | [default to undefined]|
+|**senderInformation** | [**ExternalAccountSenderInformation**](ExternalAccountSenderInformation.md) |  | [optional] [default to undefined]|
 
 
 

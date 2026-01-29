@@ -1,15 +1,15 @@
 name-template: 'v$RESOLVED_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 categories:
-  - title: '🚀 Features'
+  - title: '💥 Breaking Changes'
+    labels:
+      - 'breaking change'
+  - title: '🚀 Feature'
     labels:
       - 'feature'
-      - 'enhancement'
-  - title: '🐛 Bug Fixes'
+  - title: '🔧 Fix'
     labels:
       - 'fix'
-      - 'bugfix'
-      - 'bug'
   - title: '🧰 Maintenance'
     label: 'chore'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
@@ -17,40 +17,24 @@ change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add
 version-resolver:
   major:
     labels:
-      - 'major'
-      - 'breaking'
+      - 'breaking change'
   minor:
     labels:
-      - 'minor'
-      - 'enhancement'
+      - 'feature'
   patch:
     labels:
-      - 'patch'
-      - 'bug'
+      - 'fix'
   default: patch
 template: |
-  ## Changes
-
-  $CHANGES
+  $BODY
 autolabeler:
-  - label: 'chore'
-    files:
-      - '*.md'
-    branch:
-      - '/docs{0,1}\/.+/'
-  - label: 'bug'
-    branch:
-      - '/fix\/.+/'
+  - label: 'feature'
     title:
-      - '/fix/i'
-      - '/bugfix/i'
-  - label: 'enhancement'
+      - '/minor/i'
+  - label: 'fix'
     title:
-      - '/added/i'
-      - '/add/i'
-      - '/feature/i'
-      - '/feat/i'
-      - '/support/i'
-      - '/enable/i'
-    branch:
-      - '/feature\/.+/'
+      - '/patch/i'
+  - label: 'breaking change'
+    title:
+      - '/major/i'
+
