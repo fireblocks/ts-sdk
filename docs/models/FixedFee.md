@@ -4,15 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**amountType** | **string** |  | [default to undefined]|
+|**amountType** | [**FixedAmountTypeEnum**](FixedAmountTypeEnum.md) |  | [default to undefined]|
 |**amount** | **string** | The fixed amount of the fee | [default to undefined]|
-
-
-## Enum: FixedFeeAmountTypeEnum
-
-
-* `Fixed` (value: `'FIXED'`)
-
 
 
 

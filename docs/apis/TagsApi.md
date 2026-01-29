@@ -4,17 +4,85 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createTag**](#createTag) | **POST** /tags | Create a tag
+[**cancelApprovalRequest**](#cancelApprovalRequest) | **POST** /tags/approval_requests/{id}/cancel | Cancel an approval request by id
+[**createTag**](#createTag) | **POST** /tags | Create a new tag
 [**deleteTag**](#deleteTag) | **DELETE** /tags/{tagId} | Delete a tag
+[**getApprovalRequest**](#getApprovalRequest) | **GET** /tags/approval_requests/{id} | Get an approval request by id
 [**getTag**](#getTag) | **GET** /tags/{tagId} | Get a tag
 [**getTags**](#getTags) | **GET** /tags | Get list of tags
 [**updateTag**](#updateTag) | **PATCH** /tags/{tagId} | Update a tag
 
 
+# **cancelApprovalRequest**
+> cancelApprovalRequest()
+
+Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202 Accepted when the cancellation is processed.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TagsApiCancelApprovalRequestRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TagsApiCancelApprovalRequestRequest = {
+  // string
+  id: 12345,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tags.cancelApprovalRequest(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] |  | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Approval request cancellation processed |  * X-Request-ID -  <br>  |
+**401** | Unauthorized |  * X-Request-ID -  <br>  |
+**404** | Approval request not found |  * X-Request-ID -  <br>  |
+**409** | Invalid approval request state - cannot cancel request that is not in PENDING status |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **createTag**
 > Tag createTag(createTagRequest)
 
-Create a new tag.
+Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER. For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
 
 ### Example
 
@@ -69,14 +137,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A tag object |  * X-Request-ID -  <br>  |
+**201** | Tag created successfully |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **deleteTag**
 > deleteTag()
 
-Delete the specified tag.
+Delete the specified tag. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
 
 ### Example
 
@@ -129,6 +197,68 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Tag was deleted successfully |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getApprovalRequest**
+> ApprovalRequest getApprovalRequest()
+
+Get an approval request by id
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TagsApiGetApprovalRequestRequest, ApprovalRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TagsApiGetApprovalRequestRequest = {
+  // string
+  id: 12345,
+};
+
+fireblocks.tags.getApprovalRequest(body).then((res: FireblocksResponse<ApprovalRequest>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] |  | defaults to undefined
+
+
+### Return type
+
+**[ApprovalRequest](../models/ApprovalRequest.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Approval request fetched successfully |  * X-Request-ID -  <br>  |
+**401** | Unauthorized |  * X-Request-ID -  <br>  |
+**404** | Approval request not found |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
@@ -220,6 +350,10 @@ let body: TagsApiGetTagsRequest = {
   label: VIP,
   // Array<string> | List of tag IDs to filter by. (optional)
   tagIds: param_value,
+  // boolean | Whether to include pending approval requests info. (optional)
+  includePendingApprovalsInfo: true,
+  // boolean (optional)
+  isProtected: true,
 };
 
 fireblocks.tags.getTags(body).then((res: FireblocksResponse<TagsPagedResponse>) => {
@@ -236,6 +370,8 @@ Name | Type | Description  | Notes
  **pageSize** | [**number**] | Maximum number of items in the page | (optional) defaults to 100
  **label** | [**string**] | Label prefix to filter by. | (optional) defaults to undefined
  **tagIds** | **Array&lt;string&gt;** | List of tag IDs to filter by. | (optional) defaults to undefined
+ **includePendingApprovalsInfo** | [**boolean**] | Whether to include pending approval requests info. | (optional) defaults to false
+ **isProtected** | [**boolean**] |  | (optional) defaults to undefined
 
 
 ### Return type
@@ -255,14 +391,14 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A TagsPagedResponse object |  * X-Request-ID -  <br>  |
+**200** | Tags fetched successfully |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **updateTag**
 > Tag updateTag(updateTagRequest, )
 
-Update an existing specified tag.
+Update an existing specified tag. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
 
 ### Example
 

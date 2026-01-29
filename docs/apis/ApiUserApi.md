@@ -4,14 +4,14 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createApiUser**](#createApiUser) | **POST** /management/api_users | Create Api user
-[**getApiUsers**](#getApiUsers) | **GET** /management/api_users | Get Api users
+[**createApiUser**](#createApiUser) | **POST** /management/api_users | Create API Key
+[**getApiUsers**](#getApiUsers) | **GET** /management/api_users | Get API Keys
 
 
 # **createApiUser**
 > createApiUser()
 
-Creates Api user in your tenant
+Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -78,7 +78,7 @@ No authorization required
 # **getApiUsers**
 > GetAPIUsersResponse getApiUsers()
 
-Get Api users of your tenant
+List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

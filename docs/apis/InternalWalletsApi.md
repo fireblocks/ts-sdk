@@ -8,17 +8,17 @@ Method | HTTP request | Description
 [**createInternalWalletAsset**](#createInternalWalletAsset) | **POST** /internal_wallets/{walletId}/{assetId} | Add an asset to an internal wallet
 [**deleteInternalWallet**](#deleteInternalWallet) | **DELETE** /internal_wallets/{walletId} | Delete an internal wallet
 [**deleteInternalWalletAsset**](#deleteInternalWalletAsset) | **DELETE** /internal_wallets/{walletId}/{assetId} | Delete a whitelisted address
-[**getInternalWallet**](#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get an asset from an internal wallet
+[**getInternalWallet**](#getInternalWallet) | **GET** /internal_wallets/{walletId} | Get assets for internal wallet
 [**getInternalWalletAsset**](#getInternalWalletAsset) | **GET** /internal_wallets/{walletId}/{assetId} | Get an asset from an internal wallet
 [**getInternalWalletAssetsPaginated**](#getInternalWalletAssetsPaginated) | **GET** /internal_wallets/{walletId}/assets | List assets in an internal wallet (Paginated)
 [**getInternalWallets**](#getInternalWallets) | **GET** /internal_wallets | List internal wallets
-[**setCustomerRefIdForInternalWallet**](#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for an internal wallet
+[**setCustomerRefIdForInternalWallet**](#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for internal wallet
 
 
 # **createInternalWallet**
 > UnmanagedWallet createInternalWallet()
 
-Creates a new internal wallet with the requested name.  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Creates a new internal wallet with the requested name. Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)
 
 ### Example
 
@@ -81,7 +81,7 @@ No authorization required
 # **createInternalWalletAsset**
 > WalletAsset createInternalWalletAsset()
 
-Adds an asset to an existing internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks    Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Adds an asset to an existing internal wallet.
 
 ### Example
 
@@ -150,7 +150,7 @@ No authorization required
 # **deleteInternalWallet**
 > deleteInternalWallet()
 
-Deletes an internal wallet by ID. Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes an internal wallet by ID.
 
 ### Example
 
@@ -210,7 +210,7 @@ No authorization required
 # **deleteInternalWalletAsset**
 > deleteInternalWalletAsset()
 
-Deletes a whitelisted address (for an asset) from an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes a whitelisted address (for an asset) from an internal wallet.
 
 ### Example
 
@@ -273,7 +273,7 @@ No authorization required
 # **getInternalWallet**
 > UnmanagedWallet getInternalWallet()
 
-Returns information for an asset in an internal wallet.  This endpoint will be deprecated after 6 months. </br>As part of the depreciation process this endpoint will no longer return balances, only addresses. </br>Until it is deprecated, this endpoint will behave the same way.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns information for an internal wallet.
 
 ### Example
 
@@ -333,7 +333,7 @@ No authorization required
 # **getInternalWalletAsset**
 > WalletAsset getInternalWalletAsset()
 
-Returns information for an asset in an internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns information for an asset in an internal wallet.
 
 ### Example
 
@@ -396,7 +396,7 @@ No authorization required
 # **getInternalWalletAssetsPaginated**
 > PaginatedAssetsResponse getInternalWalletAssetsPaginated()
 
-Returns a paginated response of assets in an internal wallet.  This is a new paginated endpoint that gets all the assets from the wallet container with balances. </br>This endpoint returns a limited amount of results with a quick response time.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns a paginated response of assets in an internal wallet.
 
 ### Example
 
@@ -462,7 +462,7 @@ No authorization required
 # **getInternalWallets**
 > GetInternalWalletsResponse getInternalWallets()
 
-Gets a list of internal wallets.   **Note**: - BTC-based assets belonging to whitelisted addresses cannot be   retrieved between 00:00 UTC and 00:01 UTC daily due to third-party   provider, Blockchain, being unavailable for this 60 second period.   </br>Please wait until the next minute to retrieve BTC-based assets. - The list of assets returned will NOT include the balances anymore.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets a list of internal wallets. 
 
 ### Example
 
@@ -516,7 +516,7 @@ No authorization required
 # **setCustomerRefIdForInternalWallet**
 > setCustomerRefIdForInternalWallet(setCustomerRefIdRequest, )
 
-Sets an AML/KYT customer reference ID for the specific internal wallet.  Internal Wallets are whitelisted wallets that belong to you outside of Fireblocks.    - You can see the balance of the Internal Wallet via Fireblocks   - You cannot initiate transactions from Internal Wallets through Fireblocks  Learn more about Whitelisted Internal Addresses [here](https://developers.fireblocks.com/docs/whitelist-addresses#internal-wallets)  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Sets an AML/KYT customer reference ID for the specific internal wallet.
 
 ### Example
 

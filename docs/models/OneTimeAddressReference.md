@@ -4,16 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
+|**type** | [**OneTimeAddressPeerType**](OneTimeAddressPeerType.md) |  | [default to undefined]|
 |**address** | **string** |  | [default to undefined]|
 |**tag** | **string** |  | [optional] [default to undefined]|
-
-
-## Enum: OneTimeAddressReferenceTypeEnum
-
-
-* `OneTimeAddress` (value: `'ONE_TIME_ADDRESS'`)
-
 
 
 
