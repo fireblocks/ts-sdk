@@ -4,19 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
+|**type** | [**PlatformPeerType**](PlatformPeerType.md) |  | [default to undefined]|
 |**accountId** | **string** |  | [default to undefined]|
-
-
-## Enum: PlatformAccountTypeEnum
-
-
-* `VaultAccount` (value: `'VAULT_ACCOUNT'`)
-
-* `ConnectedAccount` (value: `'CONNECTED_ACCOUNT'`)
-
-* `FiatAccount` (value: `'FIAT_ACCOUNT'`)
-
 
 
 

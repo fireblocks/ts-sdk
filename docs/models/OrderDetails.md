@@ -8,7 +8,7 @@
 |**via** | [**AccessType**](AccessType.md) |  | [default to undefined]|
 |**status** | [**OrderStatus**](OrderStatus.md) |  | [default to undefined]|
 |**createdAt** | **string** |  | [default to undefined]|
-|**executionSteps** | [**Array&lt;ExecutionStep&gt;**](ExecutionStep.md) |  | [default to undefined]|
+|**executionSteps** | [**Array&lt;OrderExecutionStep&gt;**](OrderExecutionStep.md) |  | [default to undefined]|
 |**executionResponseDetails** | [**ExecutionResponseDetails**](ExecutionResponseDetails.md) |  | [default to undefined]|
 |**settlement** | [**Settlement**](Settlement.md) |  | [default to undefined]|
 |**createdBy** | **string** | The ID of the user who created the order | [default to undefined]|
@@ -20,6 +20,7 @@
 |**customerInternalReferenceId** | **string** | Internal reference ID for the customer | [optional] [default to undefined]|
 |**note** | **string** | Optional note for the Order | [optional] [default to undefined]|
 |**expiresAt** | **string** |  | [optional] [default to undefined]|
+|**failure** | [**Failure**](Failure.md) |  | [optional] [default to undefined]|
 
 
 

@@ -4,14 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Order type for market orders | [default to undefined]|
-
-
-## Enum: MarketTypeDetailsTypeEnum
-
-
-* `Market` (value: `'MARKET'`)
-
+|**type** | [**MarketTypeEnum**](MarketTypeEnum.md) |  | [default to undefined]|
 
 
 

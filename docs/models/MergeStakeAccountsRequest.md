@@ -8,7 +8,7 @@
 |**destinationId** | **string** | Id of the destination position to merge into | [default to undefined]|
 |**fee** | **string** | Represents the fee for a transaction, which can be specified as a percentage value. Only one of fee/feeLevel is required. | [optional] [default to undefined]|
 |**feeLevel** | [**FeeLevel**](FeeLevel.md) |  | [optional] [default to undefined]|
-|**txNote** | **string** | The note to associate with the transactions. | [optional] [default to undefined]|
+|**txNote** | **string** | The note to associate with the merge transaction. | [optional] [default to undefined]|
 
 
 
