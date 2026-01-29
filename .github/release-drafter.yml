@@ -37,4 +37,7 @@ autolabeler:
   - label: 'fix'
     title:
       - '/\(patch\)/'
+  - label: 'chore'
+    title:
+      - '/^$/' 
 
