@@ -4,17 +4,79 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**disconnectConnectedAccount**](#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 [**getConnectedAccount**](#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
 [**getConnectedAccountBalances**](#getConnectedAccountBalances) | **GET** /connected_accounts/{accountId}/balances | Get balances for an account
 [**getConnectedAccountRates**](#getConnectedAccountRates) | **GET** /connected_accounts/{accountId}/rates | Get exchange rates for an account
 [**getConnectedAccountTradingPairs**](#getConnectedAccountTradingPairs) | **GET** /connected_accounts/{accountId}/manifest/capabilities/trading/pairs | Get supported trading pairs for an account
 [**getConnectedAccounts**](#getConnectedAccounts) | **GET** /connected_accounts | Get connected accounts
+[**renameConnectedAccount**](#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
 
+
+# **disconnectConnectedAccount**
+> disconnectConnectedAccount()
+
+Disconnect a connected account by ID. </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsBetaApiDisconnectConnectedAccountRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ConnectedAccountsBetaApiDisconnectConnectedAccountRequest = {
+  // string | The ID of the account to disconnect.
+  accountId: accountId_example,
+};
+
+fireblocks.connectedAccountsBeta.disconnectConnectedAccount(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | [**string**] | The ID of the account to disconnect. | defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Account disconnected successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getConnectedAccount**
 > ConnectedSingleAccountResponse getConnectedAccount()
 
-Retrieve detailed information about a specific connected account by ID. </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+Retrieve detailed information about a specific connected account by ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -74,7 +136,7 @@ No authorization required
 # **getConnectedAccountBalances**
 > ConnectedAccountBalancesResponse getConnectedAccountBalances()
 
-Retrieve current asset balances for a specific connected account as a flat list (one row per assetId, balanceType)  </br>  **Note**:  - This endpoint is currently in beta and might be subject to changes. 
+Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -140,7 +202,7 @@ No authorization required
 # **getConnectedAccountRates**
 > ConnectedAccountRateResponse getConnectedAccountRates()
 
-Retrieve current exchange rates for converting between specific assets in a connected account.
+Retrieve current exchange rates for converting between specific assets in a connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -206,7 +268,7 @@ No authorization required
 # **getConnectedAccountTradingPairs**
 > ConnectedAccountTradingPairsResponse getConnectedAccountTradingPairs()
 
-Retrieve all asset trading pairs supported by a specific connected account, including the pair type (quote, market, onOffRamp).
+Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -272,7 +334,7 @@ No authorization required
 # **getConnectedAccounts**
 > ConnectedAccountsResponse getConnectedAccounts()
 
-Returns all connected accounts </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+Returns all connected accounts.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -331,6 +393,77 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Get accounts response |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **renameConnectedAccount**
+> RenameConnectedAccountResponse renameConnectedAccount(renameConnectedAccountRequest, )
+
+Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsBetaApiRenameConnectedAccountRequest, RenameConnectedAccountResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ConnectedAccountsBetaApiRenameConnectedAccountRequest = {
+  // RenameConnectedAccountRequest
+  renameConnectedAccountRequest: param_value,
+  // string | The unique identifier of the connected account
+  accountId: accountId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.connectedAccountsBeta.renameConnectedAccount(body).then((res: FireblocksResponse<RenameConnectedAccountResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **renameConnectedAccountRequest** | **[RenameConnectedAccountRequest](../models/RenameConnectedAccountRequest.md)**|  |
+ **accountId** | [**string**] | The unique identifier of the connected account | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RenameConnectedAccountResponse](../models/RenameConnectedAccountResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully renamed connected account. |  * X-Request-ID -  <br>  |
+**400** | Bad request. Missing tenantId, accountId, or accountName. |  -  |
+**401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  -  |
+**403** | Failed to rename connected account. |  -  |
+**404** | Connected account not found |  -  |
+**409** | Conflict. Account name is already in use by another account. |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -11,7 +11,7 @@
 ## Enum: USWireDestinationTypeEnum
 
 
-* `UsWire` (value: `'US_WIRE'`)
+* `Wire` (value: `'WIRE'`)
 
 
 
