@@ -6,7 +6,7 @@ on:
       - master_changelog_test
   pull_request:
     types: [opened, reopened, synchronize]
-
+    
 jobs:
   update_release_draft:
     runs-on: ubuntu-latest
@@ -15,6 +15,5 @@ jobs:
         with:
           config-name: release-drafter.yml
           commitish: 'master_changelog_test'
-          disable-releaser: ${{ github.event_name == 'pull_request' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
