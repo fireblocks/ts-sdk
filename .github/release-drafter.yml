@@ -10,8 +10,6 @@ categories:
   - title: '🔧 Fix'
     labels:
       - 'patch'
-  - title: '🧰 Maintenance'
-    label: 'chore'
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&'
 version-resolver:
