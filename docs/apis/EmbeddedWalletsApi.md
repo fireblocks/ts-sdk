@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addEmbeddedWalletAsset**](#addEmbeddedWalletAsset) | **POST** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Add asset to account
+[**assignEmbeddedWallet**](#assignEmbeddedWallet) | **POST** /ncw/wallets/{walletId}/assign | Assign a wallet
 [**createEmbeddedWallet**](#createEmbeddedWallet) | **POST** /ncw/wallets | Create a new wallet
 [**createEmbeddedWalletAccount**](#createEmbeddedWalletAccount) | **POST** /ncw/wallets/{walletId}/accounts | Create a new account
 [**getEmbeddedWallet**](#getEmbeddedWallet) | **GET** /ncw/wallets/{walletId} | Get a wallet
@@ -12,14 +13,19 @@ Method | HTTP request | Description
 [**getEmbeddedWalletAddresses**](#getEmbeddedWalletAddresses) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/addresses | Retrieve asset addresses
 [**getEmbeddedWalletAsset**](#getEmbeddedWalletAsset) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Retrieve asset
 [**getEmbeddedWalletAssetBalance**](#getEmbeddedWalletAssetBalance) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Retrieve asset balance
+[**getEmbeddedWalletAssets**](#getEmbeddedWalletAssets) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets | Retrieve assets
 [**getEmbeddedWalletDevice**](#getEmbeddedWalletDevice) | **GET** /ncw/wallets/{walletId}/devices/{deviceId} | Get Embedded Wallet Device
 [**getEmbeddedWalletDeviceSetupState**](#getEmbeddedWalletDeviceSetupState) | **GET** /ncw/wallets/{walletId}/devices/{deviceId}/setup_status | Get device key setup state
+[**getEmbeddedWalletDevicesPaginated**](#getEmbeddedWalletDevicesPaginated) | **GET** /ncw/wallets/{walletId}/devices_paginated | Get registered devices - paginated
 [**getEmbeddedWalletLatestBackup**](#getEmbeddedWalletLatestBackup) | **GET** /ncw/wallets/{walletId}/backup/latest | Get wallet Latest Backup details
 [**getEmbeddedWalletPublicKeyInfoForAddress**](#getEmbeddedWalletPublicKeyInfoForAddress) | **GET** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/{change}/{addressIndex}/public_key_info | Get the public key of an asset
+[**getEmbeddedWalletSetupStatus**](#getEmbeddedWalletSetupStatus) | **GET** /ncw/wallets/{walletId}/setup_status | Get wallet key setup state
 [**getEmbeddedWalletSupportedAssets**](#getEmbeddedWalletSupportedAssets) | **GET** /ncw/wallets/supported_assets | Retrieve supported assets
 [**getEmbeddedWallets**](#getEmbeddedWallets) | **GET** /ncw/wallets | List wallets
 [**getPublicKeyInfoNcw**](#getPublicKeyInfoNcw) | **GET** /ncw/wallets/{walletId}/public_key_info | Get the public key for a derivation path
 [**refreshEmbeddedWalletAssetBalance**](#refreshEmbeddedWalletAssetBalance) | **PUT** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId}/balance | Refresh asset balance
+[**updateEmbeddedWalletDeviceStatus**](#updateEmbeddedWalletDeviceStatus) | **PATCH** /ncw/wallets/{walletId}/devices/{deviceId}/status | Update device status
+[**updateEmbeddedWalletStatus**](#updateEmbeddedWalletStatus) | **PATCH** /ncw/wallets/{walletId}/status | Update wallet status
 
 
 # **addEmbeddedWalletAsset**
@@ -87,6 +93,69 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Created |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **assignEmbeddedWallet**
+> EmbeddedWallet assignEmbeddedWallet()
+
+Assign a specific Non Custodial Wallet to a user
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EmbeddedWalletsApiAssignEmbeddedWalletRequest, EmbeddedWallet } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: EmbeddedWalletsApiAssignEmbeddedWalletRequest = {
+  // string | Wallet Id
+  walletId: 550e8400-e29b-41d4-a716-446655440000,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.embeddedWallets.assignEmbeddedWallet(body).then((res: FireblocksResponse<EmbeddedWallet>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **walletId** | [**string**] | Wallet Id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[EmbeddedWallet](../models/EmbeddedWallet.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Wallet Assigned |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -550,6 +619,81 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getEmbeddedWalletAssets**
+> EmbeddedWalletPaginatedAssetsResponse getEmbeddedWalletAssets()
+
+Retrieve assets for a specific account under a specific Non Custodial Wallet
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EmbeddedWalletsApiGetEmbeddedWalletAssetsRequest, EmbeddedWalletPaginatedAssetsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: EmbeddedWalletsApiGetEmbeddedWalletAssetsRequest = {
+  // string | Wallet Id
+  walletId: 550e8400-e29b-41d4-a716-446655440000,
+  // string | The ID of the account
+  accountId: 0,
+  // Array<'assetId' | 'createdAt'> | Sort by fields (optional)
+  sort: param_value,
+  // string | Cursor to the next page (optional)
+  pageCursor: pageCursor_example,
+  // number | Amount of results to return in the next page (optional)
+  pageSize: 8.14,
+  // 'ASC' | 'DESC' | Is the order ascending or descending (optional)
+  order: order_example,
+};
+
+fireblocks.embeddedWallets.getEmbeddedWalletAssets(body).then((res: FireblocksResponse<EmbeddedWalletPaginatedAssetsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **walletId** | [**string**] | Wallet Id | defaults to undefined
+ **accountId** | [**string**] | The ID of the account | defaults to undefined
+ **sort** | **Array<&#39;assetId&#39; &#124; &#39;createdAt&#39;>** | Sort by fields | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Cursor to the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Amount of results to return in the next page | (optional) defaults to 200
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | Is the order ascending or descending | (optional) defaults to 'ASC'
+
+
+### Return type
+
+**[EmbeddedWalletPaginatedAssetsResponse](../models/EmbeddedWalletPaginatedAssetsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getEmbeddedWalletDevice**
 > EmbeddedWalletDevice getEmbeddedWalletDevice()
 
@@ -672,6 +816,79 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getEmbeddedWalletDevicesPaginated**
+> EmbeddedWalletPaginatedDevicesResponse getEmbeddedWalletDevicesPaginated()
+
+Get a paginated list of registered devices for a specific Non Custodial Wallet
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EmbeddedWalletsApiGetEmbeddedWalletDevicesPaginatedRequest, EmbeddedWalletPaginatedDevicesResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: EmbeddedWalletsApiGetEmbeddedWalletDevicesPaginatedRequest = {
+  // string | Wallet Id
+  walletId: 550e8400-e29b-41d4-a716-446655440000,
+  // Array<'createdAt'> | Sort by fields (optional)
+  sort: param_value,
+  // string | Cursor to the next page (optional)
+  pageCursor: pageCursor_example,
+  // number | Amount of results to return in the next page (optional)
+  pageSize: 8.14,
+  // 'ASC' | 'DESC' | Is the order ascending or descending (optional)
+  order: order_example,
+};
+
+fireblocks.embeddedWallets.getEmbeddedWalletDevicesPaginated(body).then((res: FireblocksResponse<EmbeddedWalletPaginatedDevicesResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **walletId** | [**string**] | Wallet Id | defaults to undefined
+ **sort** | **Array<&#39;createdAt&#39;>** | Sort by fields | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Cursor to the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Amount of results to return in the next page | (optional) defaults to 200
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | Is the order ascending or descending | (optional) defaults to 'ASC'
+
+
+### Return type
+
+**[EmbeddedWalletPaginatedDevicesResponse](../models/EmbeddedWalletPaginatedDevicesResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  * X-Request-ID -  <br>  |
+**400** | Query parameters were invalid |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -810,6 +1027,66 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Public Key Information |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getEmbeddedWalletSetupStatus**
+> EmbeddedWalletSetupStatusResponse getEmbeddedWalletSetupStatus()
+
+Get the key setup state for a specific Non Custodial Wallet, including required algorithms and device setup status
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EmbeddedWalletsApiGetEmbeddedWalletSetupStatusRequest, EmbeddedWalletSetupStatusResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: EmbeddedWalletsApiGetEmbeddedWalletSetupStatusRequest = {
+  // string | Wallet Id
+  walletId: 550e8400-e29b-41d4-a716-446655440000,
+};
+
+fireblocks.embeddedWallets.getEmbeddedWalletSetupStatus(body).then((res: FireblocksResponse<EmbeddedWalletSetupStatusResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **walletId** | [**string**] | Wallet Id | defaults to undefined
+
+
+### Return type
+
+**[EmbeddedWalletSetupStatusResponse](../models/EmbeddedWalletSetupStatusResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1089,6 +1366,141 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateEmbeddedWalletDeviceStatus**
+> updateEmbeddedWalletDeviceStatus(enableDevice, )
+
+Update the enabled/disabled status of a specific device for a Non Custodial Wallet
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EmbeddedWalletsApiUpdateEmbeddedWalletDeviceStatusRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: EmbeddedWalletsApiUpdateEmbeddedWalletDeviceStatusRequest = {
+  // EnableDevice
+  enableDevice: param_value,
+  // string | Wallet Id
+  walletId: 550e8400-e29b-41d4-a716-446655440000,
+  // string | Device Id
+  deviceId: 9ee1bff0-6dba-4f0c-9b75-03fe90e66fa3,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.embeddedWallets.updateEmbeddedWalletDeviceStatus(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enableDevice** | **[EnableDevice](../models/EnableDevice.md)**|  |
+ **walletId** | [**string**] | Wallet Id | defaults to undefined
+ **deviceId** | [**string**] | Device Id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No Content - Device status updated successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateEmbeddedWalletStatus**
+> updateEmbeddedWalletStatus(enableWallet, )
+
+Update the enabled/disabled status of a specific Non Custodial Wallet
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EmbeddedWalletsApiUpdateEmbeddedWalletStatusRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: EmbeddedWalletsApiUpdateEmbeddedWalletStatusRequest = {
+  // EnableWallet
+  enableWallet: param_value,
+  // string | Wallet Id
+  walletId: 550e8400-e29b-41d4-a716-446655440000,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.embeddedWallets.updateEmbeddedWalletStatus(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enableWallet** | **[EnableWallet](../models/EnableWallet.md)**|  |
+ **walletId** | [**string**] | Wallet Id | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | No Content - Wallet status updated successfully |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -4,15 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
+|**type** | [**PrefundedSettlementType**](PrefundedSettlementType.md) |  | [default to undefined]|
 |**destinationAccount** | [**AccountReference**](AccountReference.md) |  | [default to undefined]|
-
-
-## Enum: PrefundedSettlementTypeEnum
-
-
-* `Prefunded` (value: `'PREFUNDED'`)
-
 
 
 

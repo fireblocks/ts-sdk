@@ -8,20 +8,9 @@
 |**baseAssetId** | **string** |  | [default to undefined]|
 |**quoteAssetId** | **string** |  | [default to undefined]|
 |**baseAmount** | **string** | The amount to convert from | [default to undefined]|
-|**side** | **string** | Side of the order | [default to undefined]|
-|**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
-|**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**slippageBps** | **number** | Slippage tolerance in basis points (bps) for defi quotes - 1 is 0.01% and 10000 is 100% | [optional] [default to 50]|
 |**settlement** | [**DVPSettlement**](DVPSettlement.md) |  | [optional] [default to undefined]|
-
-
-## Enum: CreateQuoteSideEnum
-
-
-* `Buy` (value: `'BUY'`)
-
-* `Sell` (value: `'SELL'`)
-
 
 
 
