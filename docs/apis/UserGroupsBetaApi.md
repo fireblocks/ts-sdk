@@ -14,7 +14,7 @@ Method | HTTP request | Description
 # **createUserGroup**
 > CreateUserGroupResponse createUserGroup(userGroupCreateRequest)
 
-Create a new user group.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Create a new user group. Users with the Viewer role cannot be added to groups. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -197,7 +197,7 @@ No authorization required
 # **getUserGroups**
 > UserGroupsResponse getUserGroups()
 
-Get all user groups in your workspace. </br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

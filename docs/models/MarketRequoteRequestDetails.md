@@ -4,14 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Indicates that the order should be re-quoted if the original quote is expired. This will lead to a market order. | [default to undefined]|
-
-
-## Enum: MarketRequoteRequestDetailsTypeEnum
-
-
-* `Market` (value: `'MARKET'`)
-
+|**type** | [**MarketRequoteTypeEnum**](MarketRequoteTypeEnum.md) |  | [default to undefined]|
 
 
 

@@ -6,16 +6,15 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancelTransaction**](#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 [**createTransaction**](#createTransaction) | **POST** /transactions | Create a new transaction
-[**dropTransaction**](#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH transaction by ID
+[**dropTransaction**](#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH (EVM) transaction by ID
 [**estimateNetworkFee**](#estimateNetworkFee) | **GET** /estimate_network_fee | Estimate the required fee for an asset
 [**estimateTransactionFee**](#estimateTransactionFee) | **POST** /transactions/estimate_fee | Estimate transaction fee
 [**freezeTransaction**](#freezeTransaction) | **POST** /transactions/{txId}/freeze | Freeze a transaction
-[**getTransaction**](#getTransaction) | **GET** /transactions/{txId} | Find a specific transaction by Fireblocks transaction ID
-[**getTransactionByExternalId**](#getTransactionByExternalId) | **GET** /transactions/external_tx_id/{externalTxId} | Find a specific transaction by external transaction ID
-[**getTransactions**](#getTransactions) | **GET** /transactions | List transaction history
-[**rescanTransactionsBeta**](#rescanTransactionsBeta) | **POST** /transactions/rescan | rescan array of transactions
+[**getTransaction**](#getTransaction) | **GET** /transactions/{txId} | Get a specific transaction by Fireblocks transaction ID
+[**getTransactionByExternalId**](#getTransactionByExternalId) | **GET** /transactions/external_tx_id/{externalTxId} | Get a specific transaction by external transaction ID
+[**getTransactions**](#getTransactions) | **GET** /transactions | Get transaction history
 [**setConfirmationThresholdByTransactionHash**](#setConfirmationThresholdByTransactionHash) | **POST** /txHash/{txHash}/set_confirmation_threshold | Set confirmation threshold by transaction hash
-[**setTransactionConfirmationThreshold**](#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by transaction ID
+[**setTransactionConfirmationThreshold**](#setTransactionConfirmationThreshold) | **POST** /transactions/{txId}/set_confirmation_threshold | Set confirmation threshold by Fireblocks Transaction ID
 [**unfreezeTransaction**](#unfreezeTransaction) | **POST** /transactions/{txId}/unfreeze | Unfreeze a transaction
 [**validateAddress**](#validateAddress) | **GET** /transactions/validate_address/{assetId}/{address} | Validate destination address
 
@@ -23,7 +22,7 @@ Method | HTTP request | Description
 # **cancelTransaction**
 > CancelTransactionResponse cancelTransaction()
 
-Cancels a transaction by ID.
+Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -89,7 +88,7 @@ No authorization required
 # **createTransaction**
 > CreateTransactionResponse createTransaction()
 
-Creates a new transaction.
+Creates a new transaction. This endpoint can be used for regular Transfers, Contract Calls, Raw & Typed message signing. - For Transfers, the required parameters are: `assetId`, `source`, `destination` and `amount`. - For Contract Calls, the required parameters are: `operation.CONTRACT_CALL`, `assetId` (Base Asset), `source`,
 
 ### Example
 
@@ -155,7 +154,7 @@ No authorization required
 # **dropTransaction**
 > DropTransactionResponse dropTransaction()
 
-Drops a stuck ETH transaction and creates a replacement transaction.
+Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -224,7 +223,7 @@ No authorization required
 # **estimateNetworkFee**
 > EstimatedNetworkFeeResponse estimateNetworkFee()
 
-Gets the estimated required fee for an asset. For UTXO based assets, the response will contain the suggested fee per byte, for ETH/ETC based assets, the suggested gas price, and for XRP/XLM, the transaction fee.
+Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -284,7 +283,7 @@ No authorization required
 # **estimateTransactionFee**
 > EstimatedTransactionFeeResponse estimateTransactionFee()
 
-Estimates the transaction fee for a transaction request. * Note: Supports all Fireblocks assets except ZCash (ZEC).
+Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -347,7 +346,7 @@ No authorization required
 # **freezeTransaction**
 > FreezeTransactionResponse freezeTransaction()
 
-Freezes a transaction by ID.
+Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -412,7 +411,7 @@ No authorization required
 # **getTransaction**
 > TransactionResponse getTransaction()
 
-Returns a transaction by ID.
+Get a specific transaction data by Fireblocks Transaction ID </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -473,7 +472,7 @@ No authorization required
 # **getTransactionByExternalId**
 > TransactionResponse getTransactionByExternalId()
 
-Returns transaction by external transaction ID.
+Returns transaction by external transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -533,7 +532,7 @@ No authorization required
 # **getTransactions**
 > GetTransactionsResponse getTransactions()
 
-Lists the transaction history for your workspace.
+Get the transaction history for your workspace.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
 
 ### Example
 
@@ -555,13 +554,13 @@ let body: TransactionsApiGetTransactionsRequest = {
   next: next_example,
   // string | Cursor returned in prev-page header that can be used to fetch the previous page of results (optional)
   prev: prev_example,
-  // string | Unix timestamp in milliseconds. Returns only transactions created before the specified date (optional)
+  // string | Unix timestamp in milliseconds. Returns only transactions created before the specified date. Provides an explicit end time. If not provided, default value will be applied, and may change over time.  The current default value is the past 90 days.  (optional)
   before: before_example,
-  // string | Unix timestamp in milliseconds. Returns only transactions created after the specified date (optional)
+  // string | Unix timestamp in milliseconds. Returns only transactions created after the specified date. Provides an explicit start time. If not provided, default value will be applied, and may change over time.  The current default value is the past 90 days.  (optional)
   after: after_example,
   // string | You can filter by one of the statuses. (optional)
   status: status_example,
-  // 'createdAt' | 'lastUpdated' | The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions. (optional)
+  // 'createdAt' | 'lastUpdated' | The field to order the results by.  **Note:** Ordering by a field that is not `createdAt` may result in transactions that receive updates as you request the next or previous pages of results, resulting in missing those transactions.  (optional)
   orderBy: orderBy_example,
   // 'ASC' | 'DESC' | The direction to order the results by (optional)
   sort: sort_example,
@@ -597,10 +596,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **next** | [**string**] | Cursor returned in next-page header that can be used to fetch the next page of results | (optional) defaults to undefined
  **prev** | [**string**] | Cursor returned in prev-page header that can be used to fetch the previous page of results | (optional) defaults to undefined
- **before** | [**string**] | Unix timestamp in milliseconds. Returns only transactions created before the specified date | (optional) defaults to undefined
- **after** | [**string**] | Unix timestamp in milliseconds. Returns only transactions created after the specified date | (optional) defaults to undefined
+ **before** | [**string**] | Unix timestamp in milliseconds. Returns only transactions created before the specified date. Provides an explicit end time. If not provided, default value will be applied, and may change over time.  The current default value is the past 90 days.  | (optional) defaults to undefined
+ **after** | [**string**] | Unix timestamp in milliseconds. Returns only transactions created after the specified date. Provides an explicit start time. If not provided, default value will be applied, and may change over time.  The current default value is the past 90 days.  | (optional) defaults to undefined
  **status** | [**string**] | You can filter by one of the statuses. | (optional) defaults to undefined
- **orderBy** | [**&#39;createdAt&#39; | &#39;lastUpdated&#39;**]**Array<&#39;createdAt&#39; &#124; &#39;lastUpdated&#39;>** | The field to order the results by  **Note**: Ordering by a field that is not createdAt may result with transactions that receive updates as you request the next or previous pages of results, resulting with missing those transactions. | (optional) defaults to undefined
+ **orderBy** | [**&#39;createdAt&#39; | &#39;lastUpdated&#39;**]**Array<&#39;createdAt&#39; &#124; &#39;lastUpdated&#39;>** | The field to order the results by.  **Note:** Ordering by a field that is not &#x60;createdAt&#x60; may result in transactions that receive updates as you request the next or previous pages of results, resulting in missing those transactions.  | (optional) defaults to undefined
  **sort** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | The direction to order the results by | (optional) defaults to undefined
  **limit** | [**number**] | Limits the number of results. If not provided, a limit of 200 will be used. The maximum allowed limit is 500 | (optional) defaults to 200
  **sourceType** | [**&#39;VAULT_ACCOUNT&#39; | &#39;EXCHANGE_ACCOUNT&#39; | &#39;INTERNAL_WALLET&#39; | &#39;EXTERNAL_WALLET&#39; | &#39;CONTRACT&#39; | &#39;FIAT_ACCOUNT&#39; | &#39;NETWORK_CONNECTION&#39; | &#39;COMPOUND&#39; | &#39;UNKNOWN&#39; | &#39;GAS_STATION&#39; | &#39;END_USER_WALLET&#39;**]**Array<&#39;VAULT_ACCOUNT&#39; &#124; &#39;EXCHANGE_ACCOUNT&#39; &#124; &#39;INTERNAL_WALLET&#39; &#124; &#39;EXTERNAL_WALLET&#39; &#124; &#39;CONTRACT&#39; &#124; &#39;FIAT_ACCOUNT&#39; &#124; &#39;NETWORK_CONNECTION&#39; &#124; &#39;COMPOUND&#39; &#124; &#39;UNKNOWN&#39; &#124; &#39;GAS_STATION&#39; &#124; &#39;END_USER_WALLET&#39;>** | The source type of the transaction | (optional) defaults to undefined
@@ -635,73 +634,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **rescanTransactionsBeta**
-> ValidatedTransactionsForRescanResponse rescanTransactionsBeta(rescanTransactionRequest)
-
-rescan transaction by running an async job. </br> **Note**: - These endpoints are currently in beta and might be subject to changes. - We limit the amount of the transaction to 16 per request. 
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TransactionsApiRescanTransactionsBetaRequest, ValidatedTransactionsForRescanResponse } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: TransactionsApiRescanTransactionsBetaRequest = {
-  // RescanTransactionRequest
-  rescanTransactionRequest: param_value,
-  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
-  idempotencyKey: idempotencyKey_example,
-};
-
-fireblocks.transactions.rescanTransactionsBeta(body).then((res: FireblocksResponse<ValidatedTransactionsForRescanResponse>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **rescanTransactionRequest** | **[RescanTransactionRequest](../models/RescanTransactionRequest.md)**|  |
- **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
-
-
-### Return type
-
-**[ValidatedTransactionsForRescanResponse](../models/ValidatedTransactionsForRescanResponse.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | A array of validated transactions that were sent to rescan |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **setConfirmationThresholdByTransactionHash**
 > SetConfirmationsThresholdResponse setConfirmationThresholdByTransactionHash()
 
-Overrides the required number of confirmations for transaction completion by transaction hash.
+Overrides the required number of confirmations for transaction completion by transaction hash. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -767,7 +703,7 @@ No authorization required
 # **setTransactionConfirmationThreshold**
 > SetConfirmationsThresholdResponse setTransactionConfirmationThreshold()
 
-Overrides the required number of confirmations for transaction completion by transaction ID.
+Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -833,7 +769,7 @@ No authorization required
 # **unfreezeTransaction**
 > UnfreezeTransactionResponse unfreezeTransaction()
 
-Unfreezes a transaction by ID and makes the transaction available again.
+Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -898,7 +834,7 @@ No authorization required
 # **validateAddress**
 > ValidateAddressResponse validateAddress()
 
-Checks if an address is valid (for XRP, DOT, XLM, and EOS).
+Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
