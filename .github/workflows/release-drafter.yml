@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: release-drafter/release-drafter@v6
         with:
-          config-name: ../release-drafter.yml
+          config-name: release-drafter.yml
           commitish: 'master_changelog_test'
           disable-releaser: ${{ github.event_name == 'pull_request' }}
         env:
