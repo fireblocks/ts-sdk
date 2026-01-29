@@ -4,10 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Order type for limit orders | [default to undefined]|
-|**timeInForce** | [**TimeInForce**](TimeInForce.md) |  | [default to undefined]|
-|**limitPrice** | **string** | Price for limit orders | [default to undefined]|
-|**side** | **string** | Side of the order | [default to SideEnum_Buy]|
+|**type** | [**QuoteTypeEnum**](QuoteTypeEnum.md) |  | [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** | Amount to convert | [default to undefined]|
 |**baseAssetId** | **string** | Source asset identifier | [default to undefined]|
 |**quoteAssetId** | **string** | Target asset identifier | [default to undefined]|
@@ -15,26 +13,6 @@
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  | [optional] [default to undefined]|
-
-
-## Enum: ExecutionRequestDetailsTypeEnum
-
-
-* `Limit` (value: `'LIMIT'`)
-
-* `Market` (value: `'MARKET'`)
-
-* `Quote` (value: `'QUOTE'`)
-
-
-
-## Enum: ExecutionRequestDetailsSideEnum
-
-
-* `Buy` (value: `'BUY'`)
-
-* `Sell` (value: `'SELL'`)
-
 
 
 
