@@ -19,7 +19,7 @@ Method | HTTP request | Description
 # **addCosigner**
 > AddCosignerResponse addCosigner(addCosignerRequest)
 
-Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired
+Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -82,7 +82,7 @@ No authorization required
 # **getApiKey**
 > ApiKey getApiKey()
 
-Get an API key by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
+Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -145,7 +145,7 @@ No authorization required
 # **getApiKeys**
 > ApiKeysPaginatedResponse getApiKeys()
 
-Get all cosigner paired API keys (paginated)
+Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -214,7 +214,7 @@ No authorization required
 # **getCosigner**
 > Cosigner getCosigner()
 
-Get a cosigner by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
+Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -274,7 +274,7 @@ No authorization required
 # **getCosigners**
 > CosignersPaginatedResponse getCosigners()
 
-Get all workspace cosigners (paginated) **Note:** These endpoints are currently in beta and might be subject to changes. 
+Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -340,7 +340,7 @@ No authorization required
 # **getRequestStatus**
 > Status getRequestStatus()
 
-Get the status of an asynchronous request
+Get the status of an asynchronous request </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -406,7 +406,7 @@ No authorization required
 # **pairApiKey**
 > PairApiKeyResponse pairApiKey(pairApiKeyRequest, )
 
-Pair an API key to a cosigner
+Pair an API key to a cosigner </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -475,7 +475,7 @@ No authorization required
 # **renameCosigner**
 > Cosigner renameCosigner(renameCosigner, )
 
-Rename a cosigner by ID **Note:** These endpoints are currently in beta and might be subject to changes. 
+Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -538,7 +538,7 @@ No authorization required
 # **unpairApiKey**
 > ApiKey unpairApiKey()
 
-Unpair an API key from a cosigner
+Unpair an API key from a cosigner </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 
@@ -601,7 +601,7 @@ No authorization required
 # **updateCallbackHandler**
 > UpdateCallbackHandlerResponse updateCallbackHandler(updateCallbackHandlerRequest, )
 
-Update the callback handler of an API key
+Update the callback handler of an API key </br>Endpoint Permission: Admin and Non-Signing Admin.
 
 ### Example
 

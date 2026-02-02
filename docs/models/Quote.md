@@ -6,33 +6,17 @@
 |------------ | ------------- | ------------- | -------------|
 |**via** | [**AccessType**](AccessType.md) |  | [default to undefined]|
 |**id** | **string** |  | [default to undefined]|
-|**type** | **string** | Indicates this is an indicative quote | [default to undefined]|
 |**quoteAssetId** | **string** |  | [default to undefined]|
 |**baseAssetId** | **string** |  | [default to undefined]|
 |**baseAmount** | **string** |  | [default to undefined]|
 |**quoteAmount** | **string** |  | [default to undefined]|
-|**side** | **string** | Side of the order | [default to undefined]|
-|**expiresAt** | **string** | ISO 8601 timestamp of the expiration time of the quote. | [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [default to undefined]|
+|**expiresAt** | **string** | The expiration time of the quote in ISO format. | [default to undefined]|
+|**type** | [**IndicativeQuoteEnum**](IndicativeQuoteEnum.md) |  | [default to undefined]|
 |**priceImpact** | **number** |  | [optional] [default to undefined]|
 |**quoteMinAmount** | **string** |  | [optional] [default to undefined]|
-|**executionSteps** | [**Array&lt;ExecutionStepDetails&gt;**](ExecutionStepDetails.md) |  | [optional] [default to undefined]|
+|**executionSteps** | [**Array&lt;QuoteExecutionStep&gt;**](QuoteExecutionStep.md) |  | [optional] [default to undefined]|
 |**generalFees** | [**Array&lt;Fee&gt;**](Fee.md) |  | [optional] [default to undefined]|
-
-
-## Enum: QuoteTypeEnum
-
-
-* `Indicative` (value: `'INDICATIVE'`)
-
-
-
-## Enum: QuoteSideEnum
-
-
-* `Buy` (value: `'BUY'`)
-
-* `Sell` (value: `'SELL'`)
-
 
 
 
