@@ -4,17 +4,8 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**assetTypes** | **Array&lt;string&gt;** |  | [default to undefined]|
+|**assetTypes** | [**Array&lt;AssetTypeEnum&gt;**](AssetTypeEnum.md) |  | [default to undefined]|
 |**capabilities** | [**Array&lt;Capability&gt;**](Capability.md) |  | [default to undefined]|
-
-
-## Enum: Array&lt;ManifestAssetTypesEnum&gt;
-
-
-* `Digital` (value: `'DIGITAL'`)
-
-* `Fiat` (value: `'FIAT'`)
-
 
 
 
