@@ -4,12 +4,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**approveDvPTicketTerm**](#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Define funding source and give approve to contract to transfer asset
+[**approveDvPTicketTerm**](#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 [**cancelTicket**](#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 [**createTicket**](#createTicket) | **POST** /smart-transfers | Create Ticket
 [**createTicketTerm**](#createTicketTerm) | **POST** /smart-transfers/{ticketId}/terms | Create leg (term)
-[**findTicketById**](#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Tickets by ID
-[**findTicketTermById**](#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Search ticket by leg (term) ID
+[**findTicketById**](#findTicketById) | **GET** /smart-transfers/{ticketId} | Search Ticket by ID
+[**findTicketTermById**](#findTicketTermById) | **GET** /smart-transfers/{ticketId}/terms/{termId} | Get Smart Transfer ticket term
 [**fulfillTicket**](#fulfillTicket) | **PUT** /smart-transfers/{ticketId}/fulfill | Fund ticket manually
 [**fundDvpTicket**](#fundDvpTicket) | **PUT** /smart_transfers/{ticketId}/dvp/fund | Fund dvp ticket
 [**fundTicketTerm**](#fundTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId}/fund | Define funding source
@@ -99,7 +99,7 @@ No authorization required
 # **cancelTicket**
 > SmartTransferTicketResponse cancelTicket()
 
-Cancel Smart Transfer ticket
+Cancel Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -164,7 +164,7 @@ No authorization required
 # **createTicket**
 > SmartTransferTicketResponse createTicket(smartTransferCreateTicket)
 
-Creates new Smart Transfer ticket
+Creates a new Smart Transfer ticket. Learn more about Fireblocks Smart Transfers [here](https://developers.fireblocks.com/docs/execute-smart-transfers).  **Note:** The `DVP` value is in Early Access and should only be used if Fireblocks has enabled it in your workspace. Contact your Customer Success Manager for more information.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -228,7 +228,7 @@ No authorization required
 # **createTicketTerm**
 > SmartTransferTicketTermResponse createTicketTerm(smartTransferCreateTicketTerm, )
 
-Creates new smart transfer ticket term (when the ticket status is DRAFT)
+Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -295,7 +295,7 @@ No authorization required
 # **findTicketById**
 > SmartTransferTicketResponse findTicketById()
 
-Find Smart Transfer ticket by id
+Find Smart Transfer ticket by id. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -356,7 +356,7 @@ No authorization required
 # **findTicketTermById**
 > SmartTransferTicketTermResponse findTicketTermById()
 
-Find Smart Transfer ticket term by id
+Find a specific term of a specific Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -420,7 +420,7 @@ No authorization required
 # **fulfillTicket**
 > SmartTransferTicketResponse fulfillTicket()
 
-Manually fulfill ticket, in case when all terms (legs) are funded manually
+Manually fulfill ticket, in case when all terms (legs) are funded manually. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -553,7 +553,7 @@ No authorization required
 # **fundTicketTerm**
 > SmartTransferTicketTermResponse fundTicketTerm(smartTransferFundTerm, )
 
-Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately)
+Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -679,7 +679,7 @@ No authorization required
 # **getSmartTransferUserGroups**
 > SmartTransferUserGroupsResponse getSmartTransferUserGroups()
 
-Get Smart Transfer user groups
+Get Smart Transfer user groups. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -734,7 +734,7 @@ No authorization required
 # **manuallyFundTicketTerm**
 > SmartTransferTicketTermResponse manuallyFundTicketTerm(smartTransferManuallyFundTerm, )
 
-Manually set ticket term transaction
+Manually set ticket term transaction. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -869,7 +869,7 @@ No authorization required
 # **searchTickets**
 > SmartTransferTicketFilteredResponse searchTickets()
 
-Finds Smart Transfer tickets that match the submitted criteria
+Find tickets by their title or ticker. You can also query all tickets without filters by not providing any input parameters. **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -962,7 +962,7 @@ No authorization required
 # **setExternalRefId**
 > SmartTransferTicketResponse setExternalRefId(smartTransferSetTicketExternalId, )
 
-Set external id Smart Transfer ticket
+Set external id Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1030,7 +1030,7 @@ No authorization required
 # **setTicketExpiration**
 > SmartTransferTicketResponse setTicketExpiration(smartTransferSetTicketExpiration, )
 
-Set expiration date on Smart Transfer ticket
+Set expiration date on Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1098,7 +1098,7 @@ No authorization required
 # **setUserGroups**
 > SmartTransferUserGroupsResponse setUserGroups(smartTransferSetUserGroups)
 
-Set Smart Transfer user group
+Set Smart Transfers user group to receive email notifications for Smart Transfers. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1162,7 +1162,7 @@ No authorization required
 # **submitTicket**
 > SmartTransferTicketResponse submitTicket(smartTransferSubmitTicket, )
 
-Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on
+Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

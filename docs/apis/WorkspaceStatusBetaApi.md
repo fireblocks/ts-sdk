@@ -10,7 +10,7 @@ Method | HTTP request | Description
 # **getWorkspaceStatus**
 > GetWorkspaceStatusResponse getWorkspaceStatus()
 
-Returns current workspace status
+Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

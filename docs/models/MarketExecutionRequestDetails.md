@@ -4,29 +4,13 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Order type for market orders | [default to undefined]|
-|**side** | **string** | Side of the order | [default to SideEnum_Buy]|
+|**type** | [**MarketTypeEnum**](MarketTypeEnum.md) |  | [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** | Amount to convert | [default to undefined]|
 |**baseAssetId** | **string** | Source asset identifier | [default to undefined]|
 |**quoteAssetId** | **string** | Target asset identifier | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
-
-
-## Enum: MarketExecutionRequestDetailsTypeEnum
-
-
-* `Market` (value: `'MARKET'`)
-
-
-
-## Enum: MarketExecutionRequestDetailsSideEnum
-
-
-* `Buy` (value: `'BUY'`)
-
-* `Sell` (value: `'SELL'`)
-
 
 
 

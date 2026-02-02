@@ -8,7 +8,7 @@
 |**bankAccountNumber** | **string** | The bank account number for the wire transfer. | [default to undefined]|
 |**routingNumber** | **string** | Routing number identifying the bank account. | [default to undefined]|
 |**bankName** | **string** | Name of the bank. | [optional] [default to undefined]|
-|**bankAddress** | **string** | Address of the bank. | [optional] [default to undefined]|
+|**bankAddress** | [**BankAddress**](BankAddress.md) |  | [optional] [default to undefined]|
 
 
 

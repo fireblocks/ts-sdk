@@ -4,26 +4,26 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**approveTermsOfServiceByProviderId**](#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve staking terms of service
-[**claimRewards**](#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Execute a Claim Rewards operation
-[**getAllDelegations**](#getAllDelegations) | **GET** /staking/positions | List staking positions details
-[**getChainInfo**](#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-specific staking summary
-[**getChains**](#getChains) | **GET** /staking/chains | List staking supported chains
-[**getDelegationById**](#getDelegationById) | **GET** /staking/positions/{id} | Get staking position details
-[**getProviders**](#getProviders) | **GET** /staking/providers | List staking providers details
-[**getSummary**](#getSummary) | **GET** /staking/positions/summary | Get staking summary details
-[**getSummaryByVault**](#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get staking summary details by vault
-[**mergeStakeAccounts**](#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge Solana on stake accounts
-[**split**](#split) | **POST** /staking/chains/{chainDescriptor}/split | Execute a Split operation on SOL/SOL_TEST stake account
-[**stake**](#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate Stake Operation
-[**unstake**](#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Execute an Unstake operation
-[**withdraw**](#withdraw) | **POST** /staking/chains/{chainDescriptor}/withdraw | Execute a Withdraw operation
+[**approveTermsOfServiceByProviderId**](#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve provider terms of service
+[**claimRewards**](#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Claim accrued rewards
+[**getAllDelegations**](#getAllDelegations) | **GET** /staking/positions | List staking positions
+[**getChainInfo**](#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
+[**getChains**](#getChains) | **GET** /staking/chains | List supported staking chains
+[**getDelegationById**](#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+[**getProviders**](#getProviders) | **GET** /staking/providers | List staking providers
+[**getSummary**](#getSummary) | **GET** /staking/positions/summary | Get positions summary
+[**getSummaryByVault**](#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault
+[**mergeStakeAccounts**](#mergeStakeAccounts) | **POST** /staking/chains/{chainDescriptor}/merge | Merge staking positions
+[**split**](#split) | **POST** /staking/chains/{chainDescriptor}/split | Split a staking position
+[**stake**](#stake) | **POST** /staking/chains/{chainDescriptor}/stake | Initiate or add to existing stake
+[**unstake**](#unstake) | **POST** /staking/chains/{chainDescriptor}/unstake | Initiate unstake
+[**withdraw**](#withdraw) | **POST** /staking/chains/{chainDescriptor}/withdraw | Withdraw staked funds
 
 
 # **approveTermsOfServiceByProviderId**
 > approveTermsOfServiceByProviderId()
 
-Approve the terms of service of the staking provider. This must be called before performing a staking action for the first time with this provider.
+Approves the provider\'s terms of service. Must be called once before performing any staking operation with this provider.
 
 ### Example
 
@@ -41,8 +41,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: StakingApiApproveTermsOfServiceByProviderIdRequest = {
-  // StakingProvider | The unique identifier of the staking provider
-  providerId: kiln,
+  // StakingProvider | Unique identifier of the staking provider.
+  providerId: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -57,7 +57,7 @@ fireblocks.staking.approveTermsOfServiceByProviderId(body).then((res: Fireblocks
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **providerId** | **StakingProvider** | The unique identifier of the staking provider | defaults to undefined
+ **providerId** | **StakingProvider** | Unique identifier of the staking provider. | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -78,7 +78,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | The terms of service have been successfully approved and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Terms of service accepted. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -86,7 +91,7 @@ No authorization required
 # **claimRewards**
 > claimRewards(claimRewardsRequest, )
 
-Perform a chain-specific Claim Rewards.
+Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
 
 ### Example
 
@@ -106,8 +111,8 @@ const fireblocks = new Fireblocks();
 let body: StakingApiClaimRewardsRequest = {
   // ClaimRewardsRequest
   claimRewardsRequest: param_value,
-  // 'MATIC' | 'SOL' | 'SOL_TEST' | The protocol identifier (e.g. \"MATIC\"/\"SOL\") to use
-  chainDescriptor: MATIC,
+  // 'SOL' | 'SOL_TEST' | 'MATIC' | Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL).
+  chainDescriptor: SOL,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -123,7 +128,7 @@ fireblocks.staking.claimRewards(body).then((res: FireblocksResponse<any>) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **claimRewardsRequest** | **[ClaimRewardsRequest](../models/ClaimRewardsRequest.md)**|  |
- **chainDescriptor** | [**&#39;MATIC&#39; | &#39;SOL&#39; | &#39;SOL_TEST&#39;**]**Array<&#39;MATIC&#39; &#124; &#39;SOL&#39; &#124; &#39;SOL_TEST&#39;>** | The protocol identifier (e.g. \&quot;MATIC\&quot;/\&quot;SOL\&quot;) to use | defaults to undefined
+ **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39; | &#39;MATIC&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39; &#124; &#39;MATIC&#39;>** | Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -144,7 +149,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Claim Rewards action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Claim-rewards request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -152,7 +162,7 @@ No authorization required
 # **getAllDelegations**
 > StakingGetAllDelegationsResponse getAllDelegations()
 
-Return detailed information on all staking positions, including the staked amount, rewards, status and more.
+Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -170,8 +180,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: StakingApiGetAllDelegationsRequest = {
-  // ChainDescriptor | Use \"ETH\" / \"SOL\" / \"MATIC\" / \"STETH_ETH\" in order to obtain information related to the specific blockchain network or retrieve information about all chains that have data available by providing no argument. (optional)
-  chainDescriptor: SOL,
+  // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. (optional)
+  chainDescriptor: param_value,
 };
 
 fireblocks.staking.getAllDelegations(body).then((res: FireblocksResponse<StakingGetAllDelegationsResponse>) => {
@@ -184,7 +194,7 @@ fireblocks.staking.getAllDelegations(body).then((res: FireblocksResponse<Staking
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chainDescriptor** | **ChainDescriptor** | Use \&quot;ETH\&quot; / \&quot;SOL\&quot; / \&quot;MATIC\&quot; / \&quot;STETH_ETH\&quot; in order to obtain information related to the specific blockchain network or retrieve information about all chains that have data available by providing no argument. | (optional) defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
 
 
 ### Return type
@@ -204,7 +214,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | An array of position data was returned successfully |  * X-Request-ID -  <br>  |
+**200** | Positions retrieved successfully. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -212,7 +227,7 @@ No authorization required
 # **getChainInfo**
 > ChainInfoResponse getChainInfo()
 
-Return chain-specific, staking-related information summary (e.g. epoch details, lockup durations, estimated rewards, etc.)
+Returns chain-specific staking information such as epoch/slot cadence, lockup or unbonding periods, fee/reward mechanics, and other operational constraints.
 
 ### Example
 
@@ -230,8 +245,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: StakingApiGetChainInfoRequest = {
-  // ChainDescriptor | The protocol identifier (e.g. \"ETH\"/\"SOL\"/\"MATIC\"/\"STETH_ETH\") to use
-  chainDescriptor: SOL,
+  // ChainDescriptor | Protocol identifier for the chain info staking operation (e.g., ETH/MATIC/SOL).
+  chainDescriptor: param_value,
 };
 
 fireblocks.staking.getChainInfo(body).then((res: FireblocksResponse<ChainInfoResponse>) => {
@@ -244,7 +259,7 @@ fireblocks.staking.getChainInfo(body).then((res: FireblocksResponse<ChainInfoRes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chainDescriptor** | **ChainDescriptor** | The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;/\&quot;STETH_ETH\&quot;) to use | defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier for the chain info staking operation (e.g., ETH/MATIC/SOL). | defaults to undefined
 
 
 ### Return type
@@ -264,7 +279,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Chain specific info summary was returned successfully |  * X-Request-ID -  <br>  |
+**200** | Chain-specific staking information returned successfully. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -272,7 +292,7 @@ No authorization required
 # **getChains**
 > StakingGetChainsResponse getChains()
 
-Return an alphabetical list of supported chains.
+Returns an alphabetical list of blockchains supported for staking by the current workspace context. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -318,7 +338,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | An array of supported chains was returned successfully |  * X-Request-ID -  <br>  |
+**200** | An array of supported chains was returned successfully. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -326,7 +350,7 @@ No authorization required
 # **getDelegationById**
 > Delegation getDelegationById()
 
-Return detailed information on a staking position, including the staked amount, rewards, status and more.
+Returns full details for a single staking position: amounts, rewards, status, chain, and vault.
 
 ### Example
 
@@ -344,8 +368,8 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: StakingApiGetDelegationByIdRequest = {
-  // string | The unique identifier of the staking position
-  id: 1fe3b61f-7e1f-4a19-aff0-4f0a524d44d7,
+  // string | Unique identifier of the staking position.
+  id: id_example,
 };
 
 fireblocks.staking.getDelegationById(body).then((res: FireblocksResponse<Delegation>) => {
@@ -358,7 +382,7 @@ fireblocks.staking.getDelegationById(body).then((res: FireblocksResponse<Delegat
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**string**] | The unique identifier of the staking position | defaults to undefined
+ **id** | [**string**] | Unique identifier of the staking position. | defaults to undefined
 
 
 ### Return type
@@ -378,7 +402,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Position data was returned successfully |  * X-Request-ID -  <br>  |
+**200** | Position retrieved successfully. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -386,7 +415,7 @@ No authorization required
 # **getProviders**
 > StakingGetProvidersResponse getProviders()
 
-Return information on all the available staking providers.
+Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -432,7 +461,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | An array of supported providers was returned successfully |  * X-Request-ID -  <br>  |
+**200** | Supported providers retrieved successfully. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -440,7 +473,7 @@ No authorization required
 # **getSummary**
 > DelegationSummary getSummary()
 
-Return a summary of all vaults, categorized by their status (active, inactive), the total amounts staked and total rewards per-chain.
+Returns an aggregated cross-vault summary: active/inactive counts, total staked, and total rewards per chain.
 
 ### Example
 
@@ -486,7 +519,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A summary for all vaults were returned successfully |  * X-Request-ID -  <br>  |
+**200** | Summary across all vaults returned successfully. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -494,7 +531,7 @@ No authorization required
 # **getSummaryByVault**
 > StakingGetSummaryByVaultResponse getSummaryByVault()
 
-Return a summary for each vault, categorized by their status (active, inactive), the total amounts staked and total rewards per-chain.
+Returns per-vault aggregates: status breakdown, total staked, and total rewards per chain.
 
 ### Example
 
@@ -540,7 +577,11 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | A summary for each vault were returned successfully |  * X-Request-ID -  <br>  |
+**200** | Per-vault summary returned successfully. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -548,7 +589,7 @@ No authorization required
 # **mergeStakeAccounts**
 > MergeStakeAccountsResponse mergeStakeAccounts(mergeStakeAccountsRequest, )
 
-Perform a Solana Merge of two active stake accounts into one.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -568,7 +609,7 @@ const fireblocks = new Fireblocks();
 let body: StakingApiMergeStakeAccountsRequest = {
   // MergeStakeAccountsRequest
   mergeStakeAccountsRequest: param_value,
-  // 'SOL' | 'SOL_TEST' | The protocol identifier (e.g. \"SOL\"/\"SOL_TEST\") to use
+  // 'SOL' | 'SOL_TEST' | Protocol identifier for the merge staking operation (e.g., SOL).
   chainDescriptor: SOL,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
@@ -585,7 +626,7 @@ fireblocks.staking.mergeStakeAccounts(body).then((res: FireblocksResponse<MergeS
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **mergeStakeAccountsRequest** | **[MergeStakeAccountsRequest](../models/MergeStakeAccountsRequest.md)**|  |
- **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39;>** | The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use | defaults to undefined
+ **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39;>** | Protocol identifier for the merge staking operation (e.g., SOL). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -606,7 +647,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Merge action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Merge request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -614,7 +660,7 @@ No authorization required
 # **split**
 > SplitResponse split(splitRequest, )
 
-Perform a Solana Split stake account.
+Splits a staking position by creating a new stake account with the requested amount, while keeping the original account with the remaining balance. Supported chains: Solana (SOL).
 
 ### Example
 
@@ -634,7 +680,7 @@ const fireblocks = new Fireblocks();
 let body: StakingApiSplitRequest = {
   // SplitRequest
   splitRequest: param_value,
-  // 'SOL' | 'SOL_TEST' | The protocol identifier (e.g. \"SOL\"/\"SOL_TEST\") to use
+  // 'SOL' | 'SOL_TEST' | Protocol identifier for the staking operation (e.g., SOL).
   chainDescriptor: SOL,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
@@ -651,7 +697,7 @@ fireblocks.staking.split(body).then((res: FireblocksResponse<SplitResponse>) => 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **splitRequest** | **[SplitRequest](../models/SplitRequest.md)**|  |
- **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39;>** | The protocol identifier (e.g. \&quot;SOL\&quot;/\&quot;SOL_TEST\&quot;) to use | defaults to undefined
+ **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39;>** | Protocol identifier for the staking operation (e.g., SOL). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -672,7 +718,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Split action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Split request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -680,7 +731,7 @@ No authorization required
 # **stake**
 > StakeResponse stake(stakeRequest, )
 
-Perform a chain-specific Stake.
+Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
 
 ### Example
 
@@ -700,8 +751,8 @@ const fireblocks = new Fireblocks();
 let body: StakingApiStakeRequest = {
   // StakeRequest
   stakeRequest: param_value,
-  // ChainDescriptor | The protocol identifier (e.g. \"ETH\"/\"SOL\"/\"MATIC\") to use
-  chainDescriptor: SOL,
+  // ChainDescriptor | Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA).
+  chainDescriptor: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -717,7 +768,7 @@ fireblocks.staking.stake(body).then((res: FireblocksResponse<StakeResponse>) => 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **stakeRequest** | **[StakeRequest](../models/StakeRequest.md)**|  |
- **chainDescriptor** | **ChainDescriptor** | The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -738,7 +789,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Stake action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Stake request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -746,7 +802,7 @@ No authorization required
 # **unstake**
 > unstake(unstakeRequest, )
 
-Execute an Unstake operation
+Submits a chain-specific unstake request.
 
 ### Example
 
@@ -766,8 +822,8 @@ const fireblocks = new Fireblocks();
 let body: StakingApiUnstakeRequest = {
   // UnstakeRequest
   unstakeRequest: param_value,
-  // ChainDescriptor | The protocol identifier (e.g. \"ETH\"/\"SOL\"/\"MATIC\") to use
-  chainDescriptor: SOL,
+  // ChainDescriptor | Protocol identifier for the unstake staking operation (e.g., SOL/SOL_TEST/MATIC).
+  chainDescriptor: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -783,7 +839,7 @@ fireblocks.staking.unstake(body).then((res: FireblocksResponse<any>) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **unstakeRequest** | **[UnstakeRequest](../models/UnstakeRequest.md)**|  |
- **chainDescriptor** | **ChainDescriptor** | The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier for the unstake staking operation (e.g., SOL/SOL_TEST/MATIC). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -804,7 +860,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Unstake action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Unstake request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -812,7 +873,7 @@ No authorization required
 # **withdraw**
 > withdraw(withdrawRequest, )
 
-Perform a chain-specific Withdraw.
+Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
 
 ### Example
 
@@ -832,8 +893,8 @@ const fireblocks = new Fireblocks();
 let body: StakingApiWithdrawRequest = {
   // WithdrawRequest
   withdrawRequest: param_value,
-  // ChainDescriptor | The protocol identifier (e.g. \"ETH\"/\"SOL\"/\"MATIC\") to use
-  chainDescriptor: SOL,
+  // ChainDescriptor | Protocol identifier for the withdraw staking operation (e.g., ATOM_COS/ETH/STETH_ETH).
+  chainDescriptor: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -849,7 +910,7 @@ fireblocks.staking.withdraw(body).then((res: FireblocksResponse<any>) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **withdrawRequest** | **[WithdrawRequest](../models/WithdrawRequest.md)**|  |
- **chainDescriptor** | **ChainDescriptor** | The protocol identifier (e.g. \&quot;ETH\&quot;/\&quot;SOL\&quot;/\&quot;MATIC\&quot;) to use | defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier for the withdraw staking operation (e.g., ATOM_COS/ETH/STETH_ETH). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -870,7 +931,12 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**201** | Withdraw action has been executed successfully on vault and is associated with 201 status code. |  * X-Request-ID -  <br>  |
+**201** | Withdraw request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

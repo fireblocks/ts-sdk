@@ -35,6 +35,7 @@
 |**authorizationInfo** | [**AuthorizationInfo**](AuthorizationInfo.md) |  | [optional] [default to undefined]|
 |**exchangeTxId** | **string** | If the transaction originated from an exchange, this is the ID of this transaction at the exchange. | [optional] [default to undefined]|
 |**customerRefId** | **string** | The ID for AML providers to associate the owner of funds with transactions. | [optional] [default to undefined]|
+|**travelRuleMessageId** | **string** | The ID of the travel rule message from any travel rule provider. Used for  travel rule linking functionality to associate transactions with existing  travel rule messages. | [optional] [default to undefined]|
 |**amlScreeningResult** | [**AmlScreeningResult**](AmlScreeningResult.md) |  | [optional] [default to undefined]|
 |**complianceResults** | [**ComplianceResults**](ComplianceResults.md) |  | [optional] [default to undefined]|
 |**notBroadcastByFireblocks** | **boolean** | Indicates the transaction was not broadcast by Fireblocks | [optional] [default to undefined]|
@@ -49,7 +50,7 @@
 |**index** | **number** | For UTXO based assets this is the vOut, for Ethereum based, this is the index of the event of the contract call.  **Note:** This field is not returned if a transaction uses the &#x60;destinations&#x60; object with more than one value. | [optional] [default to undefined]|
 |**rewardInfo** | [**RewardInfo**](RewardInfo.md) |  | [optional] [default to undefined]|
 |**feePayerInfo** | [**FeePayerInfo**](FeePayerInfo.md) |  | [optional] [default to undefined]|
-|**systemMessages** | [**SystemMessageInfo**](SystemMessageInfo.md) |  | [optional] [default to undefined]|
+|**systemMessages** | [**Array&lt;SystemMessageInfo&gt;**](SystemMessageInfo.md) |  | [optional] [default to undefined]|
 |**addressType** | **string** |  | [optional] [default to undefined]|
 |**requestedAmount** | **number** | The amount requested by the user. Deprecated - please use the &#x60;amountInfo&#x60; field for accuracy. | [optional] [default to undefined]|
 |**amount** | **number** | If the transfer is a withdrawal from an exchange, the actual amount that was requested to be transferred. Otherwise, the requested amount. Deprecated - please use the &#x60;amountInfo&#x60; field for accuracy. | [optional] [default to undefined]|
