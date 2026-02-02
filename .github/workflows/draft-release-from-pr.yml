@@ -74,27 +74,6 @@ jobs:
           echo "Calculated next version: v$MAJOR.$MINOR.$PATCH"
           echo "VERSION=v$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
 
-      - name: Build release TITLE (from your rules)
-        run: |
-          TITLE=$(jq -r '.[0].title' pr.json)
-          NUM=$(jq -r '.[0].number' pr.json)
-          LABELS=$(jq -r '.[0].labels[].name' pr.json)
-
-          REL_TITLE=""
-
-          if echo "$LABELS" | grep -q "major"; then
-            REL_TITLE="💥 Breaking Changes — $TITLE (#$NUM)"
-          elif echo "$LABELS" | grep -q "minor"; then
-            REL_TITLE="🚀 Feature — $TITLE (#$NUM)"
-          elif echo "$LABELS" | grep -q "patch"; then
-            REL_TITLE="🔧 Fix — $TITLE (#$NUM)"
-          else
-            REL_TITLE="$TITLE (#$NUM)"
-          fi
-
-          echo "Release title: $REL_TITLE"
-          echo "REL_TITLE=$REL_TITLE" >> $GITHUB_ENV
-
       - name: Create DRAFT release using PR BODY
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -103,11 +82,10 @@ jobs:
 
           echo "Creating draft release..."
           echo "Version: $VERSION"
-          echo "Title: $REL_TITLE"
 
           gh release create "$VERSION" \
             --draft \
-            --title "$REL_TITLE" \
+            --title "$VERSION" \
             --notes "$PR_BODY"
           
           echo "Draft release created successfully!"
