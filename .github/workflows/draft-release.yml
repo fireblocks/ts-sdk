@@ -1,4 +1,4 @@
-name: Draft Release on Merge
+name: Draft Release from PR
 
 on:
   push:
@@ -12,8 +12,9 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Find merged PR
+      - name: Get last merged PR
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -21,24 +22,71 @@ jobs:
             --state merged \
             --base master \
             --limit 1 \
-            --json number,title,body \
-            --jq '.[0]' > pr.json
+            --json number,title,body,labels \
+            > pr.json
 
-      - name: Create draft release
+      - name: Get latest release version
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          TITLE=$(jq -r '.title' pr.json)
-          BODY=$(jq -r '.body // empty' pr.json)
-          NUM=$(jq -r '.number' pr.json)
+          LAST_TAG=$(gh release list --limit 1 --json tagName -q '.[0].tagName')
 
-          if [[ -z "$BODY" ]]; then
-            BODY="$TITLE"
+          if [[ -z "$LAST_TAG" || "$LAST_TAG" == "null" ]]; then
+            echo "LAST_TAG=v0.1.0" >> $GITHUB_ENV
+          else
+            echo "LAST_TAG=$LAST_TAG" >> $GITHUB_ENV
           fi
 
-          TAG="pr-$NUM-$(date +%Y%m%d%H%M%S)"
+      - name: Calculate next version from labels
+        run: |
+          V="${LAST_TAG#v}"
 
-          gh release create "$TAG" \
+          MAJOR=$(echo $V | cut -d. -f1)
+          MINOR=$(echo $V | cut -d. -f2)
+          PATCH=$(echo $V | cut -d. -f3)
+
+          LABELS=$(jq -r '.[0].labels[].name' pr.json)
+
+          if echo "$LABELS" | grep -q "major"; then
+            MAJOR=$((MAJOR+1))
+            MINOR=0
+            PATCH=0
+          elif echo "$LABELS" | grep -q "minor"; then
+            MINOR=$((MINOR+1))
+            PATCH=0
+          else
+            PATCH=$((PATCH+1))
+          fi
+
+          echo "VERSION=v$MAJOR.$MINOR.$PATCH" >> $GITHUB_ENV
+
+      - name: Build release TITLE (from your rules)
+        run: |
+          TITLE=$(jq -r '.[0].title' pr.json)
+          NUM=$(jq -r '.[0].number' pr.json)
+          LABELS=$(jq -r '.[0].labels[].name' pr.json)
+
+          REL_TITLE=""
+
+          if echo "$LABELS" | grep -q "major"; then
+            REL_TITLE="💥 Breaking Changes — $TITLE (#$NUM)"
+          elif echo "$LABELS" | grep -q "minor"; then
+            REL_TITLE="🚀 Feature — $TITLE (#$NUM)"
+          elif echo "$LABELS" | grep -q "patch"; then
+            REL_TITLE="🔧 Fix — $TITLE (#$NUM)"
+          else
+            REL_TITLE="$TITLE (#$NUM)"
+          fi
+
+          echo "REL_TITLE=$REL_TITLE" >> $GITHUB_ENV
+
+      - name: Create DRAFT release using PR BODY
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_BODY=$(jq -r '.[0].body // ""' pr.json)
+
+          gh release create "$VERSION" \
             --draft \
-            --title "$TITLE" \
-            --notes "$BODY"
+            --title "$REL_TITLE" \
+            --notes "$PR_BODY"
