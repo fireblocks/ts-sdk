@@ -1,0 +1,44 @@
+name: Draft Release on Merge
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find merged PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr list \
+            --state merged \
+            --base master \
+            --limit 1 \
+            --json number,title,body \
+            --jq '.[0]' > pr.json
+
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE=$(jq -r '.title' pr.json)
+          BODY=$(jq -r '.body // empty' pr.json)
+          NUM=$(jq -r '.number' pr.json)
+
+          if [[ -z "$BODY" ]]; then
+            BODY="$TITLE"
+          fi
+
+          TAG="pr-$NUM-$(date +%Y%m%d%H%M%S)"
+
+          gh release create "$TAG" \
+            --draft \
+            --title "$TITLE" \
+            --notes "$BODY"
