@@ -21,12 +21,12 @@ jobs:
         run: |
           label=""
 
-          if [[ "$TITLE" =~ ^major: ]]; then
-            label="major"
-          elif [[ "$TITLE" =~ ^minor: ]]; then
-            label="minor"
-          elif [[ "$TITLE" =~ ^patch: ]]; then
-            label="patch"
+          if [[ "$TITLE" =~ \(major\) ]]; then
+          label="major"
+          elif [[ "$TITLE" =~ \(minor\) ]]; then
+          label="minor"
+          elif [[ "$TITLE" =~ \(patch\) ]]; then
+          label="patch"
           fi
 
           if [[ -n "$label" ]]; then
