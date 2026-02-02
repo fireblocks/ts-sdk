@@ -4,16 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Order type for quote orders | [default to undefined]|
+|**type** | [**QuoteTypeEnum**](QuoteTypeEnum.md) |  | [default to undefined]|
 |**quoteId** | **string** | Quote ID for quote orders | [default to undefined]|
 |**quoteAmount** | **string** | Quote amount for quote orders | [default to undefined]|
-
-
-## Enum: QuoteExecutionTypeDetailsTypeEnum
-
-
-* `Quote` (value: `'QUOTE'`)
-
 
 
 
