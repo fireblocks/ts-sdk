@@ -3,7 +3,6 @@ name: Draft Release from PR
 on:
   push:
     branches:
-      - master
       - master_changelog_test
 
 permissions:
@@ -24,7 +23,7 @@ jobs:
         run: |
           gh pr list \
             --state merged \
-            --base master \
+            --base master_changelog_test \
             --limit 1 \
             --json number,title,body,labels \
             > pr.json
