@@ -22,13 +22,16 @@ jobs:
           label=""
 
           if [[ "$TITLE" =~ \(major\) ]]; then
-          label="major"
+            label="major"
           elif [[ "$TITLE" =~ \(minor\) ]]; then
-          label="minor"
+            label="minor"
           elif [[ "$TITLE" =~ \(patch\) ]]; then
-          label="patch"
+            label="patch"
           fi
-
+          
           if [[ -n "$label" ]]; then
+            echo "Found label: $label"
             gh pr edit "$PR" --repo "$REPO" --add-label "$label"
+          else
+            echo "No label found in title: $TITLE"
           fi
