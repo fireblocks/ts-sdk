@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**getContractTemplateById**](#getContractTemplateById) | **GET** /tokenization/templates/{contractTemplateId} | Return contract template by id
 [**getContractTemplates**](#getContractTemplates) | **GET** /tokenization/templates | List all contract templates
 [**getFunctionAbiByContractTemplateId**](#getFunctionAbiByContractTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/function | Return contract template\&#39;s function
+[**getSupportedBlockchainsByTemplateId**](#getSupportedBlockchainsByTemplateId) | **GET** /tokenization/templates/{contractTemplateId}/supported_blockchains | Get supported blockchains for the template
 [**uploadContractTemplate**](#uploadContractTemplate) | **POST** /tokenization/templates | Upload contract template
 
 
@@ -269,7 +270,7 @@ No authorization required
 # **getContractTemplates**
 > TemplatesPaginatedResponse getContractTemplates()
 
-Return minimal representation of all the contract templates available for the workspace
+Return minimal representation of all the contract templates available for the workspace. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -297,7 +298,7 @@ let body: ContractTemplatesApiGetContractTemplatesRequest = {
   pageSize: 10,
   // 'FUNGIBLE_TOKEN' | 'NON_FUNGIBLE_TOKEN' | 'TOKEN_UTILITY' | The type of the contract templates you wish to retrieve. Can accept one type, more or none (optional)
   type: FUNGIBLE_TOKEN,
-  // 'ON_DEPLOYMENT' | 'POST_DEPLOYMENT' (optional)
+  // 'ON_DEPLOYMENT' | 'POST_DEPLOYMENT' | For standalone contracts use ON_DEPLOYMENT and for contracts that are behind proxies use POST_DEPLOYMENT (optional)
   initializationPhase: initializationPhase_example,
 };
 
@@ -316,7 +317,7 @@ Name | Type | Description  | Notes
  **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
  **pageSize** | [**number**] | Number of items per page, requesting more then max will return max items | (optional) defaults to undefined
  **type** | [**&#39;FUNGIBLE_TOKEN&#39; | &#39;NON_FUNGIBLE_TOKEN&#39; | &#39;TOKEN_UTILITY&#39;**]**Array<&#39;FUNGIBLE_TOKEN&#39; &#124; &#39;NON_FUNGIBLE_TOKEN&#39; &#124; &#39;TOKEN_UTILITY&#39;>** | The type of the contract templates you wish to retrieve. Can accept one type, more or none | (optional) defaults to undefined
- **initializationPhase** | [**&#39;ON_DEPLOYMENT&#39; | &#39;POST_DEPLOYMENT&#39;**]**Array<&#39;ON_DEPLOYMENT&#39; &#124; &#39;POST_DEPLOYMENT&#39;>** |  | (optional) defaults to undefined
+ **initializationPhase** | [**&#39;ON_DEPLOYMENT&#39; | &#39;POST_DEPLOYMENT&#39;**]**Array<&#39;ON_DEPLOYMENT&#39; &#124; &#39;POST_DEPLOYMENT&#39;>** | For standalone contracts use ON_DEPLOYMENT and for contracts that are behind proxies use POST_DEPLOYMENT | (optional) defaults to undefined
 
 
 ### Return type
@@ -400,6 +401,67 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Contract template&#x60;s function ABI was returned successfully |  -  |
+**404** | Could not find contract. |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getSupportedBlockchainsByTemplateId**
+> SupportedBlockChainsResponse getSupportedBlockchainsByTemplateId()
+
+Get supported blockchains for the template
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ContractTemplatesApiGetSupportedBlockchainsByTemplateIdRequest, SupportedBlockChainsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ContractTemplatesApiGetSupportedBlockchainsByTemplateIdRequest = {
+  // string | The Contract Template identifier
+  contractTemplateId: b70701f4-d7b1-4795-a8ee-b09cdb5b850d,
+};
+
+fireblocks.contractTemplates.getSupportedBlockchainsByTemplateId(body).then((res: FireblocksResponse<SupportedBlockChainsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **contractTemplateId** | [**string**] | The Contract Template identifier | defaults to undefined
+
+
+### Return type
+
+**[SupportedBlockChainsResponse](../models/SupportedBlockChainsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Supported blockchains list |  -  |
 **404** | Could not find contract. |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 

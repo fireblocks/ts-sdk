@@ -4,15 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Indicates this is a committed quote | [default to undefined]|
-|**expiresAt** | **string** | ISO 8601 timestamp of the expiration time of the quote. | [default to undefined]|
-
-
-## Enum: CommittedQuoteTypeTypeEnum
-
-
-* `Committed` (value: `'COMMITTED'`)
-
+|**type** | [**CommittedQuoteEnum**](CommittedQuoteEnum.md) |  | [default to undefined]|
 
 
 

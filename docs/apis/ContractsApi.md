@@ -4,19 +4,19 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addContractAsset**](#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a contract
-[**createContract**](#createContract) | **POST** /contracts | Create a contract
+[**addContractAsset**](#addContractAsset) | **POST** /contracts/{contractId}/{assetId} | Add an asset to a whitelisted contract
+[**createContract**](#createContract) | **POST** /contracts | Add a contract
 [**deleteContract**](#deleteContract) | **DELETE** /contracts/{contractId} | Delete a contract
-[**deleteContractAsset**](#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete a contract asset
-[**getContract**](#getContract) | **GET** /contracts/{contractId} | Find a specific contract
-[**getContractAsset**](#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a contract asset
-[**getContracts**](#getContracts) | **GET** /contracts | List contracts
+[**deleteContractAsset**](#deleteContractAsset) | **DELETE** /contracts/{contractId}/{assetId} | Delete an asset from a whitelisted contract
+[**getContract**](#getContract) | **GET** /contracts/{contractId} | Find a Specific Whitelisted Contract
+[**getContractAsset**](#getContractAsset) | **GET** /contracts/{contractId}/{assetId} | Find a whitelisted contract\&#39;s asset
+[**getContracts**](#getContracts) | **GET** /contracts | List Whitelisted Contracts
 
 
 # **addContractAsset**
 > ExternalWalletAsset addContractAsset()
 
-Adds an asset to an existing contract.
+Adds an asset to a whitelisted contract. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -85,7 +85,7 @@ No authorization required
 # **createContract**
 > UnmanagedWallet createContract()
 
-Creates a new contract.
+Adds a contract to the workspace whitelist. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -148,7 +148,7 @@ No authorization required
 # **deleteContract**
 > deleteContract()
 
-Deletes a contract by ID.
+Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -208,7 +208,7 @@ No authorization required
 # **deleteContractAsset**
 > deleteContractAsset()
 
-Deletes a contract asset by ID.
+Deletes a whitelisted contract asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -271,7 +271,7 @@ No authorization required
 # **getContract**
 > UnmanagedWallet getContract()
 
-Returns a contract by ID.
+Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -331,7 +331,7 @@ No authorization required
 # **getContractAsset**
 > ExternalWalletAsset getContractAsset()
 
-Returns a contract asset by ID.
+Returns a whitelisted contract\'s asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -394,7 +394,7 @@ No authorization required
 # **getContracts**
 > GetContractsResponse getContracts()
 
-Gets a list of contracts.
+Gets a list of whitelisted contracts. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
