@@ -1,6 +1,6 @@
 {
   "name": "@fireblocks/ts-sdk",
-  "version": "13.0.0",
+  "version": "0.0.0",
   "description": "OpenAPI client for @fireblocks/ts-sdk",
   "author": "Fireblocks SDK Generator",
   "repository": {
@@ -25,6 +25,9 @@
     "test": "jest --coverage --passWithNoTests --runInBand --detectOpenHandles --forceExit",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
+  },
+  "overrides": {
+    "@babel/core": "7.28.5"
   },
   "dependencies": {
     "jsonwebtoken": "^9.0.2",

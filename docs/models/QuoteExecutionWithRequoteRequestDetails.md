@@ -4,16 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | Order type for quote orders | [default to undefined]|
+|**type** | [**QuoteTypeEnum**](QuoteTypeEnum.md) |  | [default to undefined]|
 |**quoteId** | **string** | Quote ID for quote orders | [default to undefined]|
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  | [optional] [default to undefined]|
-
-
-## Enum: QuoteExecutionWithRequoteRequestDetailsTypeEnum
-
-
-* `Quote` (value: `'QUOTE'`)
-
 
 
 

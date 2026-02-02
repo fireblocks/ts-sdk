@@ -11,7 +11,7 @@
 ## Enum: LocalBankTransferAfricaDestinationTypeEnum
 
 
-* `LocalBankTransferAfrica` (value: `'LOCAL_BANK_TRANSFER_AFRICA'`)
+* `LocalBankTransfer` (value: `'LOCAL_BANK_TRANSFER'`)
 
 
 
