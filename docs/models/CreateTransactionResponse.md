@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** | The ID of the transaction. | [optional] [default to undefined]|
 |**status** | **string** | The primary status of the transaction. For details, see [Primary transaction statuses.] (https://developers.fireblocks.com/reference/primary-transaction-statuses) | [optional] [default to undefined]|
-|**systemMessages** | [**SystemMessageInfo**](SystemMessageInfo.md) |  | [optional] [default to undefined]|
+|**systemMessages** | [**Array&lt;SystemMessageInfo&gt;**](SystemMessageInfo.md) |  | [optional] [default to undefined]|
 
 
 

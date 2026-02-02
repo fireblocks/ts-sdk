@@ -11,6 +11,10 @@
 |**assetClass** | [**AssetClass**](AssetClass.md) |  | [default to undefined]|
 |**metadata** | [**AssetDetailsMetadata**](AssetDetailsMetadata.md) |  | [default to undefined]|
 |**blockchainId** | **string** | The ID of the asset\&#39;s blockchain | [optional] [default to undefined]|
+|**providerId** | **string** | The ID of the asset provider | [optional] [default to undefined]|
+|**peggedAssetId** | **string** | The ID of the pegged asset | [optional] [default to undefined]|
+|**assets** | **Array&lt;string&gt;** | List of asset IDs for virtual assets | [optional] [default to undefined]|
+|**decimals** | **number** | Number of decimals for FIAT assets | [optional] [default to undefined]|
 |**onchain** | [**AssetDetailsOnchain**](AssetDetailsOnchain.md) |  | [optional] [default to undefined]|
 
 

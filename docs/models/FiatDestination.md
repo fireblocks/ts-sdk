@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** |  | [default to undefined]|
-|**address** | [**MobileMoneyAddress**](MobileMoneyAddress.md) |  | [default to undefined]|
+|**address** | [**EuropeanSEPAAddress**](EuropeanSEPAAddress.md) |  | [default to undefined]|
 
 
 ## Enum: FiatDestinationTypeEnum
@@ -17,7 +17,7 @@
 
 * `Ach` (value: `'ACH'`)
 
-* `UsWire` (value: `'US_WIRE'`)
+* `Wire` (value: `'WIRE'`)
 
 * `Spei` (value: `'SPEI'`)
 
@@ -25,9 +25,11 @@
 
 * `Pix` (value: `'PIX'`)
 
-* `LocalBankTransferAfrica` (value: `'LOCAL_BANK_TRANSFER_AFRICA'`)
+* `LocalBankTransfer` (value: `'LOCAL_BANK_TRANSFER'`)
 
 * `MobileMoney` (value: `'MOBILE_MONEY'`)
+
+* `EuropeanSepa` (value: `'EUROPEAN_SEPA'`)
 
 
 

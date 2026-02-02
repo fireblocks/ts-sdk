@@ -4,13 +4,13 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getWhitelistIpAddresses**](#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Gets whitelisted ip addresses
+[**getWhitelistIpAddresses**](#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
 
 
 # **getWhitelistIpAddresses**
 > GetWhitelistIpAddressesResponse getWhitelistIpAddresses()
 
-Gets whitelisted ip addresses for given Api user.
+Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
