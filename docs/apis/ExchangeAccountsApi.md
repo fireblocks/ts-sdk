@@ -5,18 +5,18 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addExchangeAccount**](#addExchangeAccount) | **POST** /exchange_accounts | Add an exchange account
-[**convertAssets**](#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds from the source asset to the destination asset.
-[**getExchangeAccount**](#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Find a specific exchange account
-[**getExchangeAccountAsset**](#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Find an asset for an exchange account
+[**convertAssets**](#convertAssets) | **POST** /exchange_accounts/{exchangeAccountId}/convert | Convert exchange account funds
+[**getExchangeAccount**](#getExchangeAccount) | **GET** /exchange_accounts/{exchangeAccountId} | Get a specific exchange account
+[**getExchangeAccountAsset**](#getExchangeAccountAsset) | **GET** /exchange_accounts/{exchangeAccountId}/{assetId} | Get an asset for an exchange account
 [**getExchangeAccountsCredentialsPublicKey**](#getExchangeAccountsCredentialsPublicKey) | **GET** /exchange_accounts/credentials_public_key | Get public key to encrypt exchange credentials
-[**getPagedExchangeAccounts**](#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | Pagination list exchange accounts
+[**getPagedExchangeAccounts**](#getPagedExchangeAccounts) | **GET** /exchange_accounts/paged | List connected exchange accounts
 [**internalTransfer**](#internalTransfer) | **POST** /exchange_accounts/{exchangeAccountId}/internal_transfer | Internal transfer for exchange accounts
 
 
 # **addExchangeAccount**
 > AddExchangeAccountResponse addExchangeAccount(addExchangeAccountRequest)
 
-Add an exchange account to exchanges.
+Add an exchange account to exchanges.   Note: This endpoint currently only supports the following exchanges `INDEPENDENT_RESERVE`,`BIT`, `BITHUMB`, `BITSO`, `CRYPTOCOM`, `BYBIT_V2`, `WHITEBIT`, `HITBTC`, `GEMINI`, `HUOBI`, `GATEIO`, `COINHAKO`, `BULLISH`, `BITGET`, and `LUNO`  To add an exchange account, please use the following [guide](https://developers.fireblocks.com/docs/add-an-exchange-account). 
 
 ### Example
 
@@ -79,7 +79,7 @@ No authorization required
 # **convertAssets**
 > ConvertAssetsResponse convertAssets()
 
-Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions.
+Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -145,7 +145,7 @@ No authorization required
 # **getExchangeAccount**
 > ExchangeAccount getExchangeAccount()
 
-Returns an exchange account by ID.
+Returns an exchange account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -205,7 +205,7 @@ No authorization required
 # **getExchangeAccountAsset**
 > ExchangeAsset getExchangeAccountAsset()
 
-Returns an asset for an exchange account.
+Returns an asset for an exchange account. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -322,7 +322,7 @@ No authorization required
 # **getPagedExchangeAccounts**
 > GetPagedExchangeAccountsResponse getPagedExchangeAccounts()
 
-Returns a page include exchange accounts.
+Returns a list of the connected exchange accounts in your workspace. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -388,7 +388,7 @@ No authorization required
 # **internalTransfer**
 > InternalTransferResponse internalTransfer()
 
-Transfers funds between trading accounts under the same exchange account.
+Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

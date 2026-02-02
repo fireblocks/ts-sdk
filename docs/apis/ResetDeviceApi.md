@@ -10,7 +10,7 @@ Method | HTTP request | Description
 # **resetDevice**
 > resetDevice()
 
-Resets mobile device for given console user, that user will need to do mobile onboarding again.
+Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

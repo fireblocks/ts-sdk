@@ -4,6 +4,8 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createTrustProofOfAddress**](#createTrustProofOfAddress) | **POST** /screening/travel_rule/providers/trust/proof_of_address | Create Trust Network Proof of Address
+[**getTrustProofOfAddress**](#getTrustProofOfAddress) | **GET** /screening/travel_rule/providers/trust/proof_of_address/{transactionId} | Retrieve Trust Network Proof of Address Signature
 [**getVASPByDID**](#getVASPByDID) | **GET** /screening/travel_rule/vasp/{did} | Get VASP details
 [**getVASPs**](#getVASPs) | **GET** /screening/travel_rule/vasp | Get All VASPs
 [**getVaspForVault**](#getVaspForVault) | **GET** /screening/travel_rule/vault/{vaultAccountId}/vasp | Get assigned VASP to vault
@@ -11,6 +13,129 @@ Method | HTTP request | Description
 [**updateVasp**](#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
 [**validateFullTravelRuleTransaction**](#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
 
+
+# **createTrustProofOfAddress**
+> TrustProofOfAddressCreateResponse createTrustProofOfAddress(trustProofOfAddressRequest)
+
+Creates a cryptographic proof of address ownership for TRUST network.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TravelRuleApiCreateTrustProofOfAddressRequest, TrustProofOfAddressCreateResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TravelRuleApiCreateTrustProofOfAddressRequest = {
+  // TrustProofOfAddressRequest
+  trustProofOfAddressRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.travelRule.createTrustProofOfAddress(body).then((res: FireblocksResponse<TrustProofOfAddressCreateResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **trustProofOfAddressRequest** | **[TrustProofOfAddressRequest](../models/TrustProofOfAddressRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[TrustProofOfAddressCreateResponse](../models/TrustProofOfAddressCreateResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Proof of address transaction created successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTrustProofOfAddress**
+> TrustProofOfAddressResponse getTrustProofOfAddress()
+
+Retrieves the TRUST-compatible encoded signature for a proof of address transaction. Send this signature directly to TRUST for verification.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TravelRuleApiGetTrustProofOfAddressRequest, TrustProofOfAddressResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TravelRuleApiGetTrustProofOfAddressRequest = {
+  // string | Fireblocks transaction ID (UUID format)
+  transactionId: 550e8400-e29b-41d4-a716-446655440000,
+};
+
+fireblocks.travelRule.getTrustProofOfAddress(body).then((res: FireblocksResponse<TrustProofOfAddressResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **transactionId** | [**string**] | Fireblocks transaction ID (UUID format) | defaults to undefined
+
+
+### Return type
+
+**[TrustProofOfAddressResponse](../models/TrustProofOfAddressResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Encoded signature retrieved successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getVASPByDID**
 > TravelRuleVASP getVASPByDID()
