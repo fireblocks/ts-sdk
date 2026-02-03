@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**action** | [**TRLinkPreScreeningActionEnum**](TRLinkPreScreeningActionEnum.md) |  | [default to undefined]|
-|**customerId** | **string** | Reference to TrlinkCustomer.id | [optional] [default to undefined]|
+|**customerId** | **string** | Reference to TRLinkCustomer.id | [optional] [default to undefined]|
 |**direction** | [**TravelRuleDirectionEnum**](TravelRuleDirectionEnum.md) |  | [optional] [default to undefined]|
 |**sourceType** | [**TransferPeerTypeEnum**](TransferPeerTypeEnum.md) |  | [optional] [default to undefined]|
 |**sourceSubType** | [**TransferPeerSubTypeEnum**](TransferPeerSubTypeEnum.md) |  | [optional] [default to undefined]|
