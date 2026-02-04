@@ -49,48 +49,6 @@ export interface UnmanagedWallet {
     'test': boolean;
     /**
      * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test2': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test3': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test4': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test5': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test6': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test7': boolean;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof UnmanagedWallet
-     */
-    'test8': boolean;
-    /**
-     * 
      * @type {string}
      * @memberof UnmanagedWallet
      */
