@@ -103,6 +103,42 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Delete notification by id 
+         * @summary Delete notification by id
+         * @param {string} webhookId The ID of the webhook to fetch
+         * @param {string} notificationId The ID of the notification to fetch
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNotification: async (webhookId: string, notificationId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteNotification', 'webhookId', webhookId)
+            assertParamExistsAndNotEmpty('deleteNotification', 'notificationId', notificationId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/{notificationId}`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
+                .replace(`{${"notificationId"}}`, encodeURIComponent(String(notificationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {string} webhookId The unique identifier of the webhook
@@ -640,6 +676,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Delete notification by id 
+         * @summary Delete notification by id
+         * @param {string} webhookId The ID of the webhook to fetch
+         * @param {string} notificationId The ID of the notification to fetch
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteNotification(webhookId: string, notificationId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteNotification(webhookId, notificationId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.deleteNotification']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {string} webhookId The unique identifier of the webhook
@@ -841,6 +891,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Delete notification by id 
+         * @summary Delete notification by id
+         * @param {WebhooksV2ApiDeleteNotificationRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteNotification(requestParameters: WebhooksV2ApiDeleteNotificationRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteNotification(requestParameters.webhookId, requestParameters.notificationId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {WebhooksV2ApiDeleteWebhookRequest} requestParameters Request parameters.
@@ -982,6 +1042,27 @@ export interface WebhooksV2ApiCreateWebhookRequest {
      * @memberof WebhooksV2ApiCreateWebhook
      */
     readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for deleteNotification operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiDeleteNotificationRequest
+ */
+export interface WebhooksV2ApiDeleteNotificationRequest {
+    /**
+     * The ID of the webhook to fetch
+     * @type {string}
+     * @memberof WebhooksV2ApiDeleteNotification
+     */
+    readonly webhookId: string
+
+    /**
+     * The ID of the notification to fetch
+     * @type {string}
+     * @memberof WebhooksV2ApiDeleteNotification
+     */
+    readonly notificationId: string
 }
 
 /**
@@ -1344,6 +1425,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public createWebhook(requestParameters: WebhooksV2ApiCreateWebhookRequest) {
         return WebhooksV2ApiFp(this.configuration).createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Delete notification by id 
+     * @summary Delete notification by id
+     * @param {WebhooksV2ApiDeleteNotificationRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public deleteNotification(requestParameters: WebhooksV2ApiDeleteNotificationRequest) {
+        return WebhooksV2ApiFp(this.configuration).deleteNotification(requestParameters.webhookId, requestParameters.notificationId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
