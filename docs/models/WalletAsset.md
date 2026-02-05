@@ -9,7 +9,7 @@
 |**lockedAmount** | **string** |  | [optional] [default to undefined]|
 |**status** | [**ConfigChangeRequestStatus**](ConfigChangeRequestStatus.md) |  | [optional] [default to undefined]|
 |**address** | **string** |  | [optional] [default to undefined]|
-|**tag** | **string** |  | [optional] [default to undefined]|
+|**tag** | **boolean** |  | [optional] [default to undefined]|
 |**activationTime** | **string** |  | [optional] [default to undefined]|
 
 

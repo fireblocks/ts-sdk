@@ -55,10 +55,10 @@ export interface WalletAsset {
     'address'?: string;
     /**
      * 
-     * @type {string}
+     * @type {boolean}
      * @memberof WalletAsset
      */
-    'tag'?: string;
+    'tag'?: boolean;
     /**
      * 
      * @type {string}
