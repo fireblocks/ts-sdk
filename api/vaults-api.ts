@@ -564,7 +564,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
         getMaxBipIndexUsed: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getMaxBipIndexUsed', 'vaultAccountId', vaultAccountId)
             assertParamExistsAndNotEmpty('getMaxBipIndexUsed', 'assetId', assetId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used`
+            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
@@ -635,7 +635,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @summary Get vault accounts (Paginated)
          * @param {string} [namePrefix] 
          * @param {string} [nameSuffix] 
-         * @param {number} [minAmountThreshold] Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value.
+         * @param {number} [minAmountThreshold] Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value.
          * @param {string} [assetId] 
          * @param {GetPagedVaultAccountsOrderByEnum} [orderBy] 
          * @param {string} [before] 
@@ -1588,7 +1588,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @summary Get vault accounts (Paginated)
          * @param {string} [namePrefix] 
          * @param {string} [nameSuffix] 
-         * @param {number} [minAmountThreshold] Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value.
+         * @param {number} [minAmountThreshold] Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value.
          * @param {string} [assetId] 
          * @param {GetPagedVaultAccountsOrderByEnum} [orderBy] 
          * @param {string} [before] 
@@ -2522,7 +2522,7 @@ export interface VaultsApiGetPagedVaultAccountsRequest {
     readonly nameSuffix?: string
 
     /**
-     * Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value.
+     * Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value.
      * @type {number}
      * @memberof VaultsApiGetPagedVaultAccounts
      */

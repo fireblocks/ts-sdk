@@ -7,13 +7,13 @@ Method | HTTP request | Description
 [**checkThirdPartyRouting**](#checkThirdPartyRouting) | **GET** /network_connections/{connectionId}/is_third_party_routing/{assetType} | Retrieve third-party network routing validation
 [**createNetworkConnection**](#createNetworkConnection) | **POST** /network_connections | Create a new network connection
 [**createNetworkId**](#createNetworkId) | **POST** /network_ids | Creates a new Network ID
-[**deleteNetworkConnection**](#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Deletes a network connection by ID
-[**deleteNetworkId**](#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Deletes specific network ID.
+[**deleteNetworkConnection**](#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Delete a network connection by ID
+[**deleteNetworkId**](#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Delete specific network ID.
 [**getNetwork**](#getNetwork) | **GET** /network_connections/{connectionId} | Get a network connection
 [**getNetworkConnections**](#getNetworkConnections) | **GET** /network_connections | List network connections
-[**getNetworkId**](#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID.
+[**getNetworkId**](#getNetworkId) | **GET** /network_ids/{networkId} | Return specific network ID.
 [**getNetworkIds**](#getNetworkIds) | **GET** /network_ids | Get all network IDs
-[**getRoutingPolicyAssetGroups**](#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups
+[**getRoutingPolicyAssetGroups**](#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Return all enabled routing policy asset groups
 [**searchNetworkIds**](#searchNetworkIds) | **GET** /network_ids/search | Get both local IDs and discoverable remote IDs
 [**setNetworkIdDiscoverability**](#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
 [**setNetworkIdName**](#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID\&#39;s name.
@@ -150,7 +150,7 @@ No authorization required
 # **createNetworkId**
 > NetworkIdResponse createNetworkId()
 
-Creates a new Network ID.
+Create a new Network ID.
 
 ### Example
 

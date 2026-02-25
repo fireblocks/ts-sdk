@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { Quote } from './quote';
+// May contain unused imports in some cases
+// @ts-ignore
+import { QuoteFailure } from './quote-failure';
 
 /**
  * 
@@ -28,6 +31,12 @@ export interface QuotesResponse {
      * @type {Array<Quote>}
      * @memberof QuotesResponse
      */
-    'quotes'?: Array<Quote>;
+    'quotes': Array<Quote>;
+    /**
+     * List of partial failures encountered while requesting quotes. Empty when all quote attempts succeed.
+     * @type {Array<QuoteFailure>}
+     * @memberof QuotesResponse
+     */
+    'quoteFailures': Array<QuoteFailure>;
 }
 
