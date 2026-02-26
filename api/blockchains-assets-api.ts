@@ -77,6 +77,39 @@ import { UpdateAssetUserMetadataRequest } from '../models';
 export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Delete Asset by id 
+         * @summary Delete Asset by id
+         * @param {string} id The ID of the asset to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAsset: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteAsset', 'id', id)
+            const localVarPath = `/assets/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
          * @summary Get an asset
          * @param {string} id The ID or legacyId of the asset
@@ -446,6 +479,19 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlockchainsAssetsApiAxiosParamCreator(configuration)
     return {
         /**
+         * Delete Asset by id 
+         * @summary Delete Asset by id
+         * @param {string} id The ID of the asset to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteAsset(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteAsset(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['BlockchainsAssetsApi.deleteAsset']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
          * @summary Get an asset
          * @param {string} id The ID or legacyId of the asset
@@ -578,6 +624,16 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
     const localVarFp = BlockchainsAssetsApiFp(configuration)
     return {
         /**
+         * Delete Asset by id 
+         * @summary Delete Asset by id
+         * @param {BlockchainsAssetsApiDeleteAssetRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteAsset(requestParameters: BlockchainsAssetsApiDeleteAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteAsset(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
          * @summary Get an asset
          * @param {BlockchainsAssetsApiGetAssetRequest} requestParameters Request parameters.
@@ -658,6 +714,20 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
         },
     };
 };
+
+/**
+ * Request parameters for deleteAsset operation in BlockchainsAssetsApi.
+ * @export
+ * @interface BlockchainsAssetsApiDeleteAssetRequest
+ */
+export interface BlockchainsAssetsApiDeleteAssetRequest {
+    /**
+     * The ID of the asset to delete
+     * @type {string}
+     * @memberof BlockchainsAssetsApiDeleteAsset
+     */
+    readonly id: string
+}
 
 /**
  * Request parameters for getAsset operation in BlockchainsAssetsApi.
@@ -897,6 +967,18 @@ export interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest {
  * @extends {BaseAPI}
  */
 export class BlockchainsAssetsApi extends BaseAPI {
+    /**
+     * Delete Asset by id 
+     * @summary Delete Asset by id
+     * @param {BlockchainsAssetsApiDeleteAssetRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof BlockchainsAssetsApi
+     */
+    public deleteAsset(requestParameters: BlockchainsAssetsApiDeleteAssetRequest) {
+        return BlockchainsAssetsApiFp(this.configuration).deleteAsset(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
     /**
      * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
      * @summary Get an asset

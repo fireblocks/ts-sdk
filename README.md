@@ -129,6 +129,7 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**createApiUser**](docs/apis/ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
+*BlockchainsAssetsApi* | [**deleteAsset**](docs/apis/BlockchainsAssetsApi.md#deleteAsset) | **DELETE** /assets/{id} | Delete Asset by id
 *BlockchainsAssetsApi* | [**getAsset**](docs/apis/BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset
 *BlockchainsAssetsApi* | [**getBlockchain**](docs/apis/BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID
 *BlockchainsAssetsApi* | [**getSupportedAssets**](docs/apis/BlockchainsAssetsApi.md#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy)
@@ -272,13 +273,13 @@ Class | Method | HTTP request | Description
 *NetworkConnectionsApi* | [**checkThirdPartyRouting**](docs/apis/NetworkConnectionsApi.md#checkThirdPartyRouting) | **GET** /network_connections/{connectionId}/is_third_party_routing/{assetType} | Retrieve third-party network routing validation
 *NetworkConnectionsApi* | [**createNetworkConnection**](docs/apis/NetworkConnectionsApi.md#createNetworkConnection) | **POST** /network_connections | Create a new network connection
 *NetworkConnectionsApi* | [**createNetworkId**](docs/apis/NetworkConnectionsApi.md#createNetworkId) | **POST** /network_ids | Creates a new Network ID
-*NetworkConnectionsApi* | [**deleteNetworkConnection**](docs/apis/NetworkConnectionsApi.md#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Deletes a network connection by ID
-*NetworkConnectionsApi* | [**deleteNetworkId**](docs/apis/NetworkConnectionsApi.md#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Deletes specific network ID.
+*NetworkConnectionsApi* | [**deleteNetworkConnection**](docs/apis/NetworkConnectionsApi.md#deleteNetworkConnection) | **DELETE** /network_connections/{connectionId} | Delete a network connection by ID
+*NetworkConnectionsApi* | [**deleteNetworkId**](docs/apis/NetworkConnectionsApi.md#deleteNetworkId) | **DELETE** /network_ids/{networkId} | Delete specific network ID.
 *NetworkConnectionsApi* | [**getNetwork**](docs/apis/NetworkConnectionsApi.md#getNetwork) | **GET** /network_connections/{connectionId} | Get a network connection
 *NetworkConnectionsApi* | [**getNetworkConnections**](docs/apis/NetworkConnectionsApi.md#getNetworkConnections) | **GET** /network_connections | List network connections
-*NetworkConnectionsApi* | [**getNetworkId**](docs/apis/NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Returns specific network ID.
+*NetworkConnectionsApi* | [**getNetworkId**](docs/apis/NetworkConnectionsApi.md#getNetworkId) | **GET** /network_ids/{networkId} | Return specific network ID.
 *NetworkConnectionsApi* | [**getNetworkIds**](docs/apis/NetworkConnectionsApi.md#getNetworkIds) | **GET** /network_ids | Get all network IDs
-*NetworkConnectionsApi* | [**getRoutingPolicyAssetGroups**](docs/apis/NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Returns all enabled routing policy asset groups
+*NetworkConnectionsApi* | [**getRoutingPolicyAssetGroups**](docs/apis/NetworkConnectionsApi.md#getRoutingPolicyAssetGroups) | **GET** /network_ids/routing_policy_asset_groups | Return all enabled routing policy asset groups
 *NetworkConnectionsApi* | [**searchNetworkIds**](docs/apis/NetworkConnectionsApi.md#searchNetworkIds) | **GET** /network_ids/search | Get both local IDs and discoverable remote IDs
 *NetworkConnectionsApi* | [**setNetworkIdDiscoverability**](docs/apis/NetworkConnectionsApi.md#setNetworkIdDiscoverability) | **PATCH** /network_ids/{networkId}/set_discoverability | Update network ID\&#39;s discoverability.
 *NetworkConnectionsApi* | [**setNetworkIdName**](docs/apis/NetworkConnectionsApi.md#setNetworkIdName) | **PATCH** /network_ids/{networkId}/set_name | Update network ID\&#39;s name.
@@ -358,7 +359,7 @@ Class | Method | HTTP request | Description
 *TRLinkApi* | [**getTRLinkCustomerIntegrations**](docs/apis/TRLinkApi.md#getTRLinkCustomerIntegrations) | **GET** /screening/trlink/customers/{customerId}/integrations | Get customer integrations
 *TRLinkApi* | [**getTRLinkCustomers**](docs/apis/TRLinkApi.md#getTRLinkCustomers) | **GET** /screening/trlink/customers | Get all customers
 *TRLinkApi* | [**getTRLinkIntegrationPublicKey**](docs/apis/TRLinkApi.md#getTRLinkIntegrationPublicKey) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/public_key | Get public key for PII encryption
-*TRLinkApi* | [**getTRLinkPartners**](docs/apis/TRLinkApi.md#getTRLinkPartners) | **GET** /screening/trlink/partners | List available TRLink partners
+*TRLinkApi* | [**getTRLinkPartners**](docs/apis/TRLinkApi.md#getTRLinkPartners) | **GET** /screening/trlink/partners | List available TRSupport partners
 *TRLinkApi* | [**getTRLinkPolicy**](docs/apis/TRLinkApi.md#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy
 *TRLinkApi* | [**getTRLinkSupportedAsset**](docs/apis/TRLinkApi.md#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID
 *TRLinkApi* | [**getTRLinkTrmById**](docs/apis/TRLinkApi.md#getTRLinkTrmById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId} | Get TRM by ID
@@ -444,7 +445,7 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getAssetWallets**](docs/apis/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
 *VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/apis/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 *VaultsApi* | [**getCreateMultipleVaultAccountsJobStatus**](docs/apis/VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
-*VaultsApi* | [**getMaxBipIndexUsed**](docs/apis/VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used | Get maximum BIP44 index used
+*VaultsApi* | [**getMaxBipIndexUsed**](docs/apis/VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used
 *VaultsApi* | [**getMaxSpendableAmount**](docs/apis/VaultsApi.md#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction
 *VaultsApi* | [**getPagedVaultAccounts**](docs/apis/VaultsApi.md#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated)
 *VaultsApi* | [**getPublicKeyInfo**](docs/apis/VaultsApi.md#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
@@ -470,6 +471,7 @@ Class | Method | HTTP request | Description
 *WebhooksApi* | [**resendTransactionWebhooks**](docs/apis/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend webhooks for a transaction by ID
 *WebhooksApi* | [**resendWebhooks**](docs/apis/WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks
 *WebhooksV2Api* | [**createWebhook**](docs/apis/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook
+*WebhooksV2Api* | [**deleteNotification**](docs/apis/WebhooksV2Api.md#deleteNotification) | **DELETE** /webhooks/{webhookId}/notifications/{notificationId} | Delete notification by id
 *WebhooksV2Api* | [**deleteWebhook**](docs/apis/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 *WebhooksV2Api* | [**getMetrics**](docs/apis/WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
 *WebhooksV2Api* | [**getNotification**](docs/apis/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
@@ -1050,6 +1052,7 @@ Class | Method | HTTP request | Description
  - [PersonalEntityTypeEnum](docs/models/PersonalEntityTypeEnum.md)
  - [PersonalIdentification](docs/models/PersonalIdentification.md)
  - [PersonalIdentificationFullName](docs/models/PersonalIdentificationFullName.md)
+ - [PersonalIdentificationType](docs/models/PersonalIdentificationType.md)
  - [PixAddress](docs/models/PixAddress.md)
  - [PixDestination](docs/models/PixDestination.md)
  - [PixPaymentInfo](docs/models/PixPaymentInfo.md)
@@ -1089,6 +1092,7 @@ Class | Method | HTTP request | Description
  - [QuoteExecutionTypeDetails](docs/models/QuoteExecutionTypeDetails.md)
  - [QuoteExecutionWithRequoteRequestDetails](docs/models/QuoteExecutionWithRequoteRequestDetails.md)
  - [QuoteExecutionWithRequoteResponseDetails](docs/models/QuoteExecutionWithRequoteResponseDetails.md)
+ - [QuoteFailure](docs/models/QuoteFailure.md)
  - [QuotePropertiesDetails](docs/models/QuotePropertiesDetails.md)
  - [QuoteTypeEnum](docs/models/QuoteTypeEnum.md)
  - [QuotesResponse](docs/models/QuotesResponse.md)

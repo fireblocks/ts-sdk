@@ -30,6 +30,9 @@ import { PersonalIdentification } from './personal-identification';
 import { PersonalIdentificationFullName } from './personal-identification-full-name';
 // May contain unused imports in some cases
 // @ts-ignore
+import { PersonalIdentificationType } from './personal-identification-type';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PostalAddress } from './postal-address';
 
 /**

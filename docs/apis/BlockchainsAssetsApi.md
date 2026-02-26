@@ -4,6 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**deleteAsset**](#deleteAsset) | **DELETE** /assets/{id} | Delete Asset by id
 [**getAsset**](#getAsset) | **GET** /assets/{id} | Get an asset
 [**getBlockchain**](#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID
 [**getSupportedAssets**](#getSupportedAssets) | **GET** /supported_assets | List assets (Legacy)
@@ -13,6 +14,66 @@ Method | HTTP request | Description
 [**setAssetPrice**](#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 [**updateAssetUserMetadata**](#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset
 
+
+# **deleteAsset**
+> deleteAsset()
+
+Delete Asset by id 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, BlockchainsAssetsApiDeleteAssetRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: BlockchainsAssetsApiDeleteAssetRequest = {
+  // string | The ID of the asset to delete
+  id: id_example,
+};
+
+fireblocks.blockchainsAssets.deleteAsset(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The ID of the asset to delete | defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | OK |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getAsset**
 > Asset getAsset()

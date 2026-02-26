@@ -71,6 +71,18 @@ export interface CreateTokenRequestDto {
      * @memberof CreateTokenRequestDto
      */
     'feeLevel'?: CreateTokenRequestDtoFeeLevelEnum;
+    /**
+     * Custom note that describes the transaction at your Fireblocks workspace. This note will be visible in the Fireblocks UI and in the transaction details and not on the blockchain.
+     * @type {string}
+     * @memberof CreateTokenRequestDto
+     */
+    'txNote'?: string;
+    /**
+     * External id that can be used to identify the transaction in your system. The unique identifier of the transaction outside of Fireblocks with max length of 255 characters
+     * @type {string}
+     * @memberof CreateTokenRequestDto
+     */
+    'externalId'?: string;
 }
 
 export const CreateTokenRequestDtoFeeLevelEnum = {

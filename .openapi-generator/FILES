@@ -590,6 +590,7 @@ PeerType.md
 PersonalEntityTypeEnum.md
 PersonalIdentification.md
 PersonalIdentificationFullName.md
+PersonalIdentificationType.md
 PixAddress.md
 PixDestination.md
 PixPaymentInfo.md
@@ -631,6 +632,7 @@ QuoteExecutionStep.md
 QuoteExecutionTypeDetails.md
 QuoteExecutionWithRequoteRequestDetails.md
 QuoteExecutionWithRequoteResponseDetails.md
+QuoteFailure.md
 QuotePropertiesDetails.md
 QuoteTypeEnum.md
 QuotesResponse.md
@@ -1681,6 +1683,7 @@ models/peer-adapter-info.ts
 models/peer-type.ts
 models/personal-entity-type-enum.ts
 models/personal-identification-full-name.ts
+models/personal-identification-type.ts
 models/personal-identification.ts
 models/pix-address.ts
 models/pix-destination.ts
@@ -1720,6 +1723,7 @@ models/quote-execution-step.ts
 models/quote-execution-type-details.ts
 models/quote-execution-with-requote-request-details.ts
 models/quote-execution-with-requote-response-details.ts
+models/quote-failure.ts
 models/quote-properties-details.ts
 models/quote-type-enum.ts
 models/quote.ts
