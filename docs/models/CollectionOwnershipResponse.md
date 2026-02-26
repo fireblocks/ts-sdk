@@ -65,6 +65,10 @@
 
 * `ApechainTest` (value: `'APECHAIN_TEST'`)
 
+* `Cronos` (value: `'CRONOS'`)
+
+* `CronosTest` (value: `'CRONOS_TEST'`)
+
 
 
 

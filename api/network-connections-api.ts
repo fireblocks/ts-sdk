@@ -144,7 +144,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Creates a new Network ID.
+         * Create a new Network ID.
          * @summary Creates a new Network ID
          * @param {CreateNetworkIdRequest} [createNetworkIdRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -184,7 +184,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * Deletes an existing network connection specified by its connection ID.
-         * @summary Deletes a network connection by ID
+         * @summary Delete a network connection by ID
          * @param {string} connectionId The ID of the network connection to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -217,7 +217,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * Deletes a network by its ID.
-         * @summary Deletes specific network ID.
+         * @summary Delete specific network ID.
          * @param {string} networkId The ID of the network
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -313,7 +313,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * Returns specific network ID.
-         * @summary Returns specific network ID.
+         * @summary Return specific network ID.
          * @param {string} networkId The ID of the network
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -377,7 +377,7 @@ export const NetworkConnectionsApiAxiosParamCreator = function (configuration?: 
         },
         /**
          * Returns all enabled routing policy asset groups
-         * @summary Returns all enabled routing policy asset groups
+         * @summary Return all enabled routing policy asset groups
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -654,7 +654,7 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new Network ID.
+         * Create a new Network ID.
          * @summary Creates a new Network ID
          * @param {CreateNetworkIdRequest} [createNetworkIdRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -669,7 +669,7 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Deletes an existing network connection specified by its connection ID.
-         * @summary Deletes a network connection by ID
+         * @summary Delete a network connection by ID
          * @param {string} connectionId The ID of the network connection to delete
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -682,7 +682,7 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Deletes a network by its ID.
-         * @summary Deletes specific network ID.
+         * @summary Delete specific network ID.
          * @param {string} networkId The ID of the network
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -720,7 +720,7 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Returns specific network ID.
-         * @summary Returns specific network ID.
+         * @summary Return specific network ID.
          * @param {string} networkId The ID of the network
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -746,7 +746,7 @@ export const NetworkConnectionsApiFp = function(configuration?: Configuration) {
         },
         /**
          * Returns all enabled routing policy asset groups
-         * @summary Returns all enabled routing policy asset groups
+         * @summary Return all enabled routing policy asset groups
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -861,7 +861,7 @@ export const NetworkConnectionsApiFactory = function (configuration?: Configurat
             return localVarFp.createNetworkConnection(requestParameters.networkConnection, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new Network ID.
+         * Create a new Network ID.
          * @summary Creates a new Network ID
          * @param {NetworkConnectionsApiCreateNetworkIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -872,7 +872,7 @@ export const NetworkConnectionsApiFactory = function (configuration?: Configurat
         },
         /**
          * Deletes an existing network connection specified by its connection ID.
-         * @summary Deletes a network connection by ID
+         * @summary Delete a network connection by ID
          * @param {NetworkConnectionsApiDeleteNetworkConnectionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -882,7 +882,7 @@ export const NetworkConnectionsApiFactory = function (configuration?: Configurat
         },
         /**
          * Deletes a network by its ID.
-         * @summary Deletes specific network ID.
+         * @summary Delete specific network ID.
          * @param {NetworkConnectionsApiDeleteNetworkIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -911,7 +911,7 @@ export const NetworkConnectionsApiFactory = function (configuration?: Configurat
         },
         /**
          * Returns specific network ID.
-         * @summary Returns specific network ID.
+         * @summary Return specific network ID.
          * @param {NetworkConnectionsApiGetNetworkIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -931,7 +931,7 @@ export const NetworkConnectionsApiFactory = function (configuration?: Configurat
         },
         /**
          * Returns all enabled routing policy asset groups
-         * @summary Returns all enabled routing policy asset groups
+         * @summary Return all enabled routing policy asset groups
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1275,7 +1275,7 @@ export class NetworkConnectionsApi extends BaseAPI {
     }
 
     /**
-     * Creates a new Network ID.
+     * Create a new Network ID.
      * @summary Creates a new Network ID
      * @param {NetworkConnectionsApiCreateNetworkIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1288,7 +1288,7 @@ export class NetworkConnectionsApi extends BaseAPI {
 
     /**
      * Deletes an existing network connection specified by its connection ID.
-     * @summary Deletes a network connection by ID
+     * @summary Delete a network connection by ID
      * @param {NetworkConnectionsApiDeleteNetworkConnectionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1300,7 +1300,7 @@ export class NetworkConnectionsApi extends BaseAPI {
 
     /**
      * Deletes a network by its ID.
-     * @summary Deletes specific network ID.
+     * @summary Delete specific network ID.
      * @param {NetworkConnectionsApiDeleteNetworkIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1335,7 +1335,7 @@ export class NetworkConnectionsApi extends BaseAPI {
 
     /**
      * Returns specific network ID.
-     * @summary Returns specific network ID.
+     * @summary Return specific network ID.
      * @param {NetworkConnectionsApiGetNetworkIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1359,7 +1359,7 @@ export class NetworkConnectionsApi extends BaseAPI {
 
     /**
      * Returns all enabled routing policy asset groups
-     * @summary Returns all enabled routing policy asset groups
+     * @summary Return all enabled routing policy asset groups
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof NetworkConnectionsApi

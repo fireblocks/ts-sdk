@@ -43,6 +43,18 @@ export interface UnmanagedWallet {
     'assets': Array<WalletAsset>;
     /**
      * 
+     * @type {boolean}
+     * @memberof UnmanagedWallet
+     */
+    'test': boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof UnmanagedWallet
+     */
+    'test2': boolean;
+    /**
+     * 
      * @type {string}
      * @memberof UnmanagedWallet
      */

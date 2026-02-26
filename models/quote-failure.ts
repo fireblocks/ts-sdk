@@ -15,28 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { Quote } from './quote';
-// May contain unused imports in some cases
-// @ts-ignore
-import { QuoteFailure } from './quote-failure';
+import { TradingErrorSchema } from './trading-error-schema';
 
 /**
  * 
  * @export
- * @interface QuotesResponse
+ * @interface QuoteFailure
  */
-export interface QuotesResponse {
+export interface QuoteFailure {
+    /**
+     * Identifier of the provider for which the quote request failed.
+     * @type {string}
+     * @memberof QuoteFailure
+     */
+    'providerId': string;
     /**
      * 
-     * @type {Array<Quote>}
-     * @memberof QuotesResponse
+     * @type {TradingErrorSchema}
+     * @memberof QuoteFailure
      */
-    'quotes': Array<Quote>;
+    'error': TradingErrorSchema;
     /**
-     * List of partial failures encountered while requesting quotes. Empty when all quote attempts succeed.
-     * @type {Array<QuoteFailure>}
-     * @memberof QuotesResponse
+     * Identifier of the account for which the quote request failed (optional).
+     * @type {string}
+     * @memberof QuoteFailure
      */
-    'quoteFailures': Array<QuoteFailure>;
+    'accountId'?: string;
 }
 

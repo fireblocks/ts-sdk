@@ -36,13 +36,13 @@ export interface CreateQuote {
      */
     'scope': Array<CreateQuoteScopeInner>;
     /**
-     * 
+     * The asset you receive on BUY / give on SELL.
      * @type {string}
      * @memberof CreateQuote
      */
     'baseAssetId': string;
     /**
-     * 
+     * The counter asset used to pay/receive.
      * @type {string}
      * @memberof CreateQuote
      */

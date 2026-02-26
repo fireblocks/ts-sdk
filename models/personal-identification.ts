@@ -24,6 +24,9 @@ import { PersonalEntityTypeEnum } from './personal-entity-type-enum';
 import { PersonalIdentificationFullName } from './personal-identification-full-name';
 // May contain unused imports in some cases
 // @ts-ignore
+import { PersonalIdentificationType } from './personal-identification-type';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PostalAddress } from './postal-address';
 
 /**
@@ -80,6 +83,30 @@ export interface PersonalIdentification {
      * @memberof PersonalIdentification
      */
     'phone'?: string;
+    /**
+     * The identification number corresponding to the primary identification document type specified in idType
+     * @type {string}
+     * @memberof PersonalIdentification
+     */
+    'idNumber'?: string;
+    /**
+     * 
+     * @type {PersonalIdentificationType}
+     * @memberof PersonalIdentification
+     */
+    'idType'?: PersonalIdentificationType;
+    /**
+     * The identification number corresponding to the additional identification document type specified in additionalIdType
+     * @type {string}
+     * @memberof PersonalIdentification
+     */
+    'additionalIdNumber'?: string;
+    /**
+     * 
+     * @type {PersonalIdentificationType}
+     * @memberof PersonalIdentification
+     */
+    'additionalIdType'?: PersonalIdentificationType;
 }
 
 

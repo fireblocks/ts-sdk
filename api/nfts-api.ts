@@ -970,7 +970,7 @@ export interface NFTsApiGetNFTsRequest {
 export interface NFTsApiGetOwnershipTokensRequest {
     /**
      * Blockchain descriptor filter
-     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST'}
+     * @type {'ETH' | 'ETH_TEST3' | 'ETH_TEST5' | 'ETH_TEST6' | 'POLYGON' | 'POLYGON_TEST_MUMBAI' | 'AMOY_POLYGON_TEST' | 'XTZ' | 'XTZ_TEST' | 'BASECHAIN_ETH' | 'BASECHAIN_ETH_TEST3' | 'BASECHAIN_ETH_TEST5' | 'ETHERLINK' | 'ETHERLINK_TEST' | 'MANTLE' | 'MANTLE_TEST' | 'GUN_GUNZILLA' | 'GUN_GUNZILLA_TEST' | 'ETH_SONEIUM' | 'SONEIUM_MINATO_TEST' | 'IOTX_IOTEX' | 'KLAY_KAIA' | 'KLAY_KAIA_TEST' | 'APECHAIN' | 'APECHAIN_TEST' | 'CRONOS' | 'CRONOS_TEST'}
      * @memberof NFTsApiGetOwnershipTokens
      */
     readonly blockchainDescriptor?: GetOwnershipTokensBlockchainDescriptorEnum
@@ -1520,7 +1520,9 @@ export const GetOwnershipTokensBlockchainDescriptorEnum = {
     KlayKaia: 'KLAY_KAIA',
     KlayKaiaTest: 'KLAY_KAIA_TEST',
     Apechain: 'APECHAIN',
-    ApechainTest: 'APECHAIN_TEST'
+    ApechainTest: 'APECHAIN_TEST',
+    Cronos: 'CRONOS',
+    CronosTest: 'CRONOS_TEST'
 } as const;
 export type GetOwnershipTokensBlockchainDescriptorEnum = typeof GetOwnershipTokensBlockchainDescriptorEnum[keyof typeof GetOwnershipTokensBlockchainDescriptorEnum];
 /**

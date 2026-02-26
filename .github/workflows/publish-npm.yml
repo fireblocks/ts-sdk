@@ -40,7 +40,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git config --global user.name "Github Actions"
           npm --no-git-tag-version --allow-same-version version $tag
-          auto-changelog --hide-credit -l 0 -b 3
+          auto-changelog
           git add .
           git commit -m "release $tag"
           git push
