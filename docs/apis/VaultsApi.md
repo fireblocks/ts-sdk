@@ -15,7 +15,7 @@ Method | HTTP request | Description
 [**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
 [**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 [**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
-[**getMaxBipIndexUsed**](#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip_index_used | Get maximum BIP44 index used
+[**getMaxBipIndexUsed**](#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used
 [**getMaxSpendableAmount**](#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction
 [**getPagedVaultAccounts**](#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated)
 [**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
@@ -910,7 +910,7 @@ let body: VaultsApiGetPagedVaultAccountsRequest = {
   namePrefix: namePrefix_example,
   // string (optional)
   nameSuffix: nameSuffix_example,
-  // number | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value. (optional)
+  // number | Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value. (optional)
   minAmountThreshold: 10,
   // string (optional)
   assetId: assetId_example,
@@ -942,7 +942,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **namePrefix** | [**string**] |  | (optional) defaults to undefined
  **nameSuffix** | [**string**] |  | (optional) defaults to undefined
- **minAmountThreshold** | [**number**] | Specifying minAmountThreshold will filter accounts with balances greater than this value, otherwise, it will return all accounts. The amount set in this parameter is the native asset amount and not its USD value. | (optional) defaults to undefined
+ **minAmountThreshold** | [**number**] | Specifying minAmountThreshold will filter accounts whose total balance is greater than this value; otherwise, it returns all accounts. The amount set in this parameter represents the native asset amount, not its USD value. | (optional) defaults to undefined
  **assetId** | [**string**] |  | (optional) defaults to undefined
  **orderBy** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** |  | (optional) defaults to 'DESC'
  **before** | [**string**] |  | (optional) defaults to undefined

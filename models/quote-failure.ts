@@ -13,30 +13,33 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TradingErrorSchema } from './trading-error-schema';
 
 /**
- * Generic fee breakdown for other blockchains
+ * 
  * @export
- * @interface FeeBreakdownOneOf1
+ * @interface QuoteFailure
  */
-export interface FeeBreakdownOneOf1 {
+export interface QuoteFailure {
     /**
-     * Base fee component
+     * Identifier of the provider for which the quote request failed.
      * @type {string}
-     * @memberof FeeBreakdownOneOf1
+     * @memberof QuoteFailure
      */
-    'baseFee'?: string;
+    'providerId': string;
     /**
-     * Priority fee component
-     * @type {string}
-     * @memberof FeeBreakdownOneOf1
+     * 
+     * @type {TradingErrorSchema}
+     * @memberof QuoteFailure
      */
-    'priorityFee'?: string;
+    'error': TradingErrorSchema;
     /**
-     * Total fee amount
+     * Identifier of the account for which the quote request failed (optional).
      * @type {string}
-     * @memberof FeeBreakdownOneOf1
+     * @memberof QuoteFailure
      */
-    'totalFee'?: string;
+    'accountId'?: string;
 }
 

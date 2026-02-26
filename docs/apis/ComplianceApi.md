@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getAmlPostScreeningPolicy**](#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 [**getAmlScreeningPolicy**](#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
+[**getLegalEntityByAddress**](#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | Look up legal entity by address and asset
 [**getPostScreeningPolicy**](#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
 [**getScreeningFullDetails**](#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
 [**getScreeningPolicy**](#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
@@ -119,6 +120,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Screening policy retrieved successfully. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getLegalEntityByAddress**
+> AddressRegistryLegalEntity getLegalEntityByAddress()
+
+Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiGetLegalEntityByAddressRequest, AddressRegistryLegalEntity } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiGetLegalEntityByAddressRequest = {
+  // string | Blockchain address to look up
+  address: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0,
+  // string | Asset ID (e.g. ETH, BTC). Optional. (optional)
+  asset: ETH,
+};
+
+fireblocks.compliance.getLegalEntityByAddress(body).then((res: FireblocksResponse<AddressRegistryLegalEntity>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **address** | [**string**] | Blockchain address to look up | defaults to undefined
+ **asset** | [**string**] | Asset ID (e.g. ETH, BTC). Optional. | (optional) defaults to undefined
+
+
+### Return type
+
+**[AddressRegistryLegalEntity](../models/AddressRegistryLegalEntity.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Legal entity found |  * X-Request-ID -  <br>  |
+**400** | Bad request – missing or invalid address or asset |  * X-Request-ID -  <br>  |
+**403** | Forbidden – requester or address owner not opted in to the address registry (error codes 2140, 2141) |  * X-Request-ID -  <br>  |
+**404** | Address not resolved or entity not found (error code 2142) |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

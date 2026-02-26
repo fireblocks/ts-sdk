@@ -15,34 +15,22 @@
 
 
 /**
- * Solana-specific fee breakdown
+ * Error body for address-registry 4xx and 5xx.
  * @export
- * @interface FeeBreakdownOneOf
+ * @interface AddressRegistryError
  */
-export interface FeeBreakdownOneOf {
+export interface AddressRegistryError {
     /**
-     * Base fee for Solana transaction
+     * Human-readable error message
      * @type {string}
-     * @memberof FeeBreakdownOneOf
+     * @memberof AddressRegistryError
      */
-    'baseFee'?: string;
+    'message': string;
     /**
-     * Priority fee for Solana transaction
-     * @type {string}
-     * @memberof FeeBreakdownOneOf
+     * Numeric error code (2140–2143) for 403, 404 and 5xx responses.
+     * @type {number}
+     * @memberof AddressRegistryError
      */
-    'priorityFee'?: string;
-    /**
-     * Rent fee for Solana account creation/storage
-     * @type {string}
-     * @memberof FeeBreakdownOneOf
-     */
-    'rent'?: string;
-    /**
-     * Total fee amount
-     * @type {string}
-     * @memberof FeeBreakdownOneOf
-     */
-    'totalFee'?: string;
+    'code'?: number;
 }
 

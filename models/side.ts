@@ -15,7 +15,7 @@
 
 
 /**
- * Side of the order
+ * BUY: receive base / pay quote; SELL: give base / receive quote.
  * @export
  * @enum {string}
  */

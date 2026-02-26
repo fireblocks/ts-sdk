@@ -1,12 +1,11 @@
-# FeeBreakdownOneOf1
+# AddressRegistryError
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**baseFee** | **string** | Base fee component | [optional] [default to undefined]|
-|**priorityFee** | **string** | Priority fee component | [optional] [default to undefined]|
-|**totalFee** | **string** | Total fee amount | [optional] [default to undefined]|
+|**message** | **string** | Human-readable error message | [default to undefined]|
+|**code** | **number** | Numeric error code (2140–2143) for 403, 404 and 5xx responses. | [optional] [default to undefined]|
 
 
 

@@ -15,34 +15,28 @@
 
 
 /**
- * Fee breakdown details for a transaction estimate
+ * Legal entity resolved for an address-registry lookup
  * @export
- * @interface FeeBreakdown
+ * @interface AddressRegistryLegalEntity
  */
-export interface FeeBreakdown {
+export interface AddressRegistryLegalEntity {
     /**
-     * Base fee component
+     * Legal entity / company display name
      * @type {string}
-     * @memberof FeeBreakdown
+     * @memberof AddressRegistryLegalEntity
      */
-    'baseFee'?: string;
+    'companyName': string;
     /**
-     * Priority fee component
+     * Jurisdiction country code (e.g. ISO 3166-1 alpha-2)
      * @type {string}
-     * @memberof FeeBreakdown
+     * @memberof AddressRegistryLegalEntity
      */
-    'priorityFee'?: string;
+    'countryCode': string;
     /**
-     * Rent fee for account creation/storage (Solana-specific, optional)
+     * Company identifier for the resolved legal entity (UUID)
      * @type {string}
-     * @memberof FeeBreakdown
+     * @memberof AddressRegistryLegalEntity
      */
-    'rent'?: string;
-    /**
-     * Total fee amount
-     * @type {string}
-     * @memberof FeeBreakdown
-     */
-    'totalFee'?: string;
+    'companyId': string;
 }
 

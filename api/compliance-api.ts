@@ -27,6 +27,10 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AddressRegistryError } from '../models';
+// @ts-ignore
+import { AddressRegistryLegalEntity } from '../models';
+// @ts-ignore
 import { AmlVerdictManualRequest } from '../models';
 // @ts-ignore
 import { AmlVerdictManualResponse } from '../models';
@@ -98,6 +102,47 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
+         * @summary Look up legal entity by address and asset
+         * @param {string} address Blockchain address to look up
+         * @param {string} [asset] Asset ID (e.g. ETH, BTC). Optional.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLegalEntityByAddress: async (address: string, asset?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getLegalEntityByAddress', 'address', address)
+            const localVarPath = `/address_registry/legal_entity`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (address !== undefined) {
+                localVarQueryParameter['address'] = address;
+            }
+
+            if (asset !== undefined) {
+                localVarQueryParameter['asset'] = asset;
+            }
 
 
     
@@ -426,6 +471,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
+         * @summary Look up legal entity by address and asset
+         * @param {string} address Blockchain address to look up
+         * @param {string} [asset] Asset ID (e.g. ETH, BTC). Optional.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLegalEntityByAddress(address: string, asset?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryLegalEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLegalEntityByAddress(address, asset, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getLegalEntityByAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get the post-screening policy for Travel Rule.
          * @summary Travel Rule - View Post-Screening Policy
          * @param {*} [options] Override http request option.
@@ -559,6 +618,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getAmlScreeningPolicy(options).then((request) => request(axios, basePath));
         },
         /**
+         * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
+         * @summary Look up legal entity by address and asset
+         * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryLegalEntity> {
+            return localVarFp.getLegalEntityByAddress(requestParameters.address, requestParameters.asset, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get the post-screening policy for Travel Rule.
          * @summary Travel Rule - View Post-Screening Policy
          * @param {*} [options] Override http request option.
@@ -638,6 +707,27 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
         },
     };
 };
+
+/**
+ * Request parameters for getLegalEntityByAddress operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetLegalEntityByAddressRequest
+ */
+export interface ComplianceApiGetLegalEntityByAddressRequest {
+    /**
+     * Blockchain address to look up
+     * @type {string}
+     * @memberof ComplianceApiGetLegalEntityByAddress
+     */
+    readonly address: string
+
+    /**
+     * Asset ID (e.g. ETH, BTC). Optional.
+     * @type {string}
+     * @memberof ComplianceApiGetLegalEntityByAddress
+     */
+    readonly asset?: string
+}
 
 /**
  * Request parameters for getScreeningFullDetails operation in ComplianceApi.
@@ -771,6 +861,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public getAmlScreeningPolicy() {
         return ComplianceApiFp(this.configuration).getAmlScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
+     * @summary Look up legal entity by address and asset
+     * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest) {
+        return ComplianceApiFp(this.configuration).getLegalEntityByAddress(requestParameters.address, requestParameters.asset).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

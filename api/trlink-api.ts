@@ -219,7 +219,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Creates a new customer (legal entity/VASP) for TRLink Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
+         * Creates a new customer (legal entity/VASP) for TRSupport Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
          * @summary Create customer
          * @param {TRLinkCreateCustomerRequest} tRLinkCreateCustomerRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -259,7 +259,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Creates a new TRLink integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
          * @summary Create customer integration
          * @param {TRLinkCreateIntegrationRequest} tRLinkCreateIntegrationRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -477,7 +477,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Retrieves all TRLink integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
+         * Retrieves all TRSupport integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
          * @summary Get customer integrations
          * @param {string} customerId Customer unique identifier
          * @param {*} [options] Override http request option.
@@ -573,8 +573,8 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Retrieves a list of all available Travel Rule Link integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
-         * @summary List available TRLink partners
+         * Retrieves a list of all available Travel Rule Support integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
+         * @summary List available TRSupport partners
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -603,7 +603,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Retrieves the complete TRLink policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
+         * Retrieves the complete TRSupport policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
          * @summary Get TRLink policy
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1096,7 +1096,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new customer (legal entity/VASP) for TRLink Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
+         * Creates a new customer (legal entity/VASP) for TRSupport Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
          * @summary Create customer
          * @param {TRLinkCreateCustomerRequest} tRLinkCreateCustomerRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1110,7 +1110,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new TRLink integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
          * @summary Create customer integration
          * @param {TRLinkCreateIntegrationRequest} tRLinkCreateIntegrationRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1192,7 +1192,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves all TRLink integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
+         * Retrieves all TRSupport integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
          * @summary Get customer integrations
          * @param {string} customerId Customer unique identifier
          * @param {*} [options] Override http request option.
@@ -1230,8 +1230,8 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves a list of all available Travel Rule Link integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
-         * @summary List available TRLink partners
+         * Retrieves a list of all available Travel Rule Support integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
+         * @summary List available TRSupport partners
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1242,7 +1242,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves the complete TRLink policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
+         * Retrieves the complete TRSupport policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
          * @summary Get TRLink policy
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1441,7 +1441,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.connectTRLinkIntegration(requestParameters.tRLinkConnectIntegrationRequest, requestParameters.customerIntegrationId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new customer (legal entity/VASP) for TRLink Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
+         * Creates a new customer (legal entity/VASP) for TRSupport Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
          * @summary Create customer
          * @param {TRLinkApiCreateTRLinkCustomerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1451,7 +1451,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createTRLinkCustomer(requestParameters.tRLinkCreateCustomerRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new TRLink integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
          * @summary Create customer integration
          * @param {TRLinkApiCreateTRLinkIntegrationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1511,7 +1511,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getTRLinkCustomerIntegrationById(requestParameters.customerId, requestParameters.customerIntegrationId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves all TRLink integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
+         * Retrieves all TRSupport integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
          * @summary Get customer integrations
          * @param {TRLinkApiGetTRLinkCustomerIntegrationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1540,8 +1540,8 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getTRLinkIntegrationPublicKey(requestParameters.customerIntegrationId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves a list of all available Travel Rule Link integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
-         * @summary List available TRLink partners
+         * Retrieves a list of all available Travel Rule Support integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
+         * @summary List available TRSupport partners
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1549,7 +1549,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getTRLinkPartners(options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves the complete TRLink policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
+         * Retrieves the complete TRSupport policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
          * @summary Get TRLink policy
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2215,7 +2215,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Creates a new customer (legal entity/VASP) for TRLink Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
+     * Creates a new customer (legal entity/VASP) for TRSupport Travel Rule compliance operations. The customer represents your organization in the Travel Rule network and contains IVMS101-compliant identity information.
      * @summary Create customer
      * @param {TRLinkApiCreateTRLinkCustomerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2227,7 +2227,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Creates a new TRLink integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+     * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
      * @summary Create customer integration
      * @param {TRLinkApiCreateTRLinkIntegrationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2299,7 +2299,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Retrieves all TRLink integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
+     * Retrieves all TRSupport integrations for a specific customer. Returns a list of partner integrations configured for Travel Rule compliance.
      * @summary Get customer integrations
      * @param {TRLinkApiGetTRLinkCustomerIntegrationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2334,8 +2334,8 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Retrieves a list of all available Travel Rule Link integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
-     * @summary List available TRLink partners
+     * Retrieves a list of all available Travel Rule Support integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
+     * @summary List available TRSupport partners
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof TRLinkApi
@@ -2345,7 +2345,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Retrieves the complete TRLink policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
+     * Retrieves the complete TRSupport policy for the authenticated tenant, including pre-screening rules, post-screening rules, and missing TRM rules. Pre-screening rules determine whether transactions should be screened. Post-screening rules determine actions based on screening results. Missing TRM rules handle cases when screening data is unavailable.
      * @summary Get TRLink policy
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
