@@ -9,20 +9,22 @@
 |**keyType** | **string** |  | [default to undefined]|
 |**bankName** | **string** |  | [optional] [default to undefined]|
 |**bankCode** | **string** |  | [optional] [default to undefined]|
+|**qrCode** | **string** | The QR code to be used for the transfer | [optional] [default to undefined]|
+|**expirationDate** | **string** | The expiration date of the QR code | [optional] [default to undefined]|
 
 
 ## Enum: PixAddressKeyTypeEnum
 
 
-* `Cpf` (value: `'cpf'`)
+* `Cpf` (value: `'CPF'`)
 
-* `Cnpj` (value: `'cnpj'`)
+* `Cnpj` (value: `'CNPJ'`)
 
-* `Email` (value: `'email'`)
+* `Email` (value: `'EMAIL'`)
 
-* `Phone` (value: `'phone'`)
+* `Phone` (value: `'PHONE'`)
 
-* `Random` (value: `'random'`)
+* `Random` (value: `'RANDOM'`)
 
 
 

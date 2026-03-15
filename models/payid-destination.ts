@@ -13,18 +13,34 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { PayidAddress } from './payid-address';
 
 /**
  * 
  * @export
- * @enum {string}
+ * @interface PayidDestination
  */
+export interface PayidDestination {
+    /**
+     * 
+     * @type {string}
+     * @memberof PayidDestination
+     */
+    'type': PayidDestinationTypeEnum;
+    /**
+     * 
+     * @type {PayidAddress}
+     * @memberof PayidDestination
+     */
+    'address': PayidAddress;
+}
 
-export const ExternalAccountLocalBankAfricaType = {
-    LocalBankAfricaRail: 'LOCAL_BANK_AFRICA_RAIL'
+export const PayidDestinationTypeEnum = {
+    Payid: 'PAYID'
 } as const;
 
-export type ExternalAccountLocalBankAfricaType = typeof ExternalAccountLocalBankAfricaType[keyof typeof ExternalAccountLocalBankAfricaType];
-
+export type PayidDestinationTypeEnum = typeof PayidDestinationTypeEnum[keyof typeof PayidDestinationTypeEnum];
 
 

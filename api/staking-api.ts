@@ -152,6 +152,49 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Consolidate staking positions (ETH validator consolidation)
+         * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
+         * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        consolidate: async (mergeStakeAccountsRequest: MergeStakeAccountsRequest, chainDescriptor: ConsolidateChainDescriptorEnum, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('consolidate', 'mergeStakeAccountsRequest', mergeStakeAccountsRequest)
+            assertParamExistsAndNotEmpty('consolidate', 'chainDescriptor', chainDescriptor)
+            const localVarPath = `/staking/chains/{chainDescriptor}/consolidate`
+                .replace(`{${"chainDescriptor"}}`, encodeURIComponent(String(chainDescriptor)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(mergeStakeAccountsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
@@ -627,6 +670,21 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Consolidate staking positions (ETH validator consolidation)
+         * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
+         * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async consolidate(mergeStakeAccountsRequest: MergeStakeAccountsRequest, chainDescriptor: ConsolidateChainDescriptorEnum, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MergeStakeAccountsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.consolidate(mergeStakeAccountsRequest, chainDescriptor, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['StakingApi.consolidate']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
@@ -819,6 +877,16 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.claimRewards(requestParameters.claimRewardsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Consolidate staking positions (ETH validator consolidation)
+         * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        consolidate(requestParameters: StakingApiConsolidateRequest, options?: RawAxiosRequestConfig): AxiosPromise<MergeStakeAccountsResponse> {
+            return localVarFp.consolidate(requestParameters.mergeStakeAccountsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
          * @param {StakingApiGetAllDelegationsRequest} requestParameters Request parameters.
@@ -982,6 +1050,34 @@ export interface StakingApiClaimRewardsRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof StakingApiClaimRewards
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for consolidate operation in StakingApi.
+ * @export
+ * @interface StakingApiConsolidateRequest
+ */
+export interface StakingApiConsolidateRequest {
+    /**
+     * 
+     * @type {MergeStakeAccountsRequest}
+     * @memberof StakingApiConsolidate
+     */
+    readonly mergeStakeAccountsRequest: MergeStakeAccountsRequest
+
+    /**
+     * Protocol identifier for the staking operation (e.g., ETH).
+     * @type {'ETH' | 'ETH_TEST6' | 'ETH_TEST_HOODI'}
+     * @memberof StakingApiConsolidate
+     */
+    readonly chainDescriptor: ConsolidateChainDescriptorEnum
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof StakingApiConsolidate
      */
     readonly idempotencyKey?: string
 }
@@ -1200,6 +1296,18 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
+     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * @summary Consolidate staking positions (ETH validator consolidation)
+     * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StakingApi
+     */
+    public consolidate(requestParameters: StakingApiConsolidateRequest) {
+        return StakingApiFp(this.configuration).consolidate(requestParameters.mergeStakeAccountsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary List staking positions
      * @param {StakingApiGetAllDelegationsRequest} requestParameters Request parameters.
@@ -1349,6 +1457,15 @@ export const ClaimRewardsChainDescriptorEnum = {
     Matic: 'MATIC'
 } as const;
 export type ClaimRewardsChainDescriptorEnum = typeof ClaimRewardsChainDescriptorEnum[keyof typeof ClaimRewardsChainDescriptorEnum];
+/**
+ * @export
+ */
+export const ConsolidateChainDescriptorEnum = {
+    Eth: 'ETH',
+    EthTest6: 'ETH_TEST6',
+    EthTestHoodi: 'ETH_TEST_HOODI'
+} as const;
+export type ConsolidateChainDescriptorEnum = typeof ConsolidateChainDescriptorEnum[keyof typeof ConsolidateChainDescriptorEnum];
 /**
  * @export
  */

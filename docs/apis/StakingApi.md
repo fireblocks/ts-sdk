@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**approveTermsOfServiceByProviderId**](#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve provider terms of service
 [**claimRewards**](#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Claim accrued rewards
+[**consolidate**](#consolidate) | **POST** /staking/chains/{chainDescriptor}/consolidate | Consolidate staking positions (ETH validator consolidation)
 [**getAllDelegations**](#getAllDelegations) | **GET** /staking/positions | List staking positions
 [**getChainInfo**](#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 [**getChains**](#getChains) | **GET** /staking/chains | List supported staking chains
@@ -150,6 +151,77 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Claim-rewards request accepted and created. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **consolidate**
+> MergeStakeAccountsResponse consolidate(mergeStakeAccountsRequest, )
+
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingApiConsolidateRequest, MergeStakeAccountsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: StakingApiConsolidateRequest = {
+  // MergeStakeAccountsRequest
+  mergeStakeAccountsRequest: param_value,
+  // 'ETH' | 'ETH_TEST6' | 'ETH_TEST_HOODI' | Protocol identifier for the staking operation (e.g., ETH).
+  chainDescriptor: ETH,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.staking.consolidate(body).then((res: FireblocksResponse<MergeStakeAccountsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **mergeStakeAccountsRequest** | **[MergeStakeAccountsRequest](../models/MergeStakeAccountsRequest.md)**|  |
+ **chainDescriptor** | [**&#39;ETH&#39; | &#39;ETH_TEST6&#39; | &#39;ETH_TEST_HOODI&#39;**]**Array<&#39;ETH&#39; &#124; &#39;ETH_TEST6&#39; &#124; &#39;ETH_TEST_HOODI&#39;>** | Protocol identifier for the staking operation (e.g., ETH). | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[MergeStakeAccountsResponse](../models/MergeStakeAccountsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Merge request accepted and created. |  * X-Request-ID -  <br>  |
 **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
 **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
 **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |

@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { AccountHolderDetails } from './account-holder-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PaymentRedirect } from './payment-redirect';
 
 /**
  * 
@@ -47,5 +50,17 @@ export interface LocalBankTransferAfricaAddress {
      * @memberof LocalBankTransferAfricaAddress
      */
     'bankCode': string;
+    /**
+     * The URL to redirect to after the payment instruction is successful
+     * @type {string}
+     * @memberof LocalBankTransferAfricaAddress
+     */
+    'successPaymentInstructionRedirectUrl'?: string;
+    /**
+     * 
+     * @type {PaymentRedirect}
+     * @memberof LocalBankTransferAfricaAddress
+     */
+    'paymentRedirect'?: PaymentRedirect;
 }
 

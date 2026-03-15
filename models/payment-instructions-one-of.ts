@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { EuropeanSEPAAddress } from './european-sepaaddress';
-// May contain unused imports in some cases
-// @ts-ignore
 import { FiatDestination } from './fiat-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { FiatPaymentMetadata } from './fiat-payment-metadata';
+// May contain unused imports in some cases
+// @ts-ignore
+import { InternalTransferAddress } from './internal-transfer-address';
 
 /**
  * @type PaymentInstructionsOneOf

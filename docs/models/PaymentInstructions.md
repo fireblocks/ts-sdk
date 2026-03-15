@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | The type of destination. Use \&quot;BLOCKCHAIN\&quot; for blockchain address destinations. | [default to undefined]|
-|**address** | [**EuropeanSEPAAddress**](EuropeanSEPAAddress.md) |  | [default to undefined]|
+|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  | [default to undefined]|
 |**referenceId** | **string** |  | [optional] [default to undefined]|
 
 
@@ -14,7 +14,7 @@
 
 * `Blockchain` (value: `'BLOCKCHAIN'`)
 
-* `EuropeanSepa` (value: `'EUROPEAN_SEPA'`)
+* `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
 
 
 

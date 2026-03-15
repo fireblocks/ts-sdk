@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { ExternalAccountLocalBankAfricaType } from './external-account-local-bank-africa-type';
 
 /**
  * 
@@ -24,30 +21,10 @@ import { ExternalAccountLocalBankAfricaType } from './external-account-local-ban
  */
 export interface ExternalAccountLocalBankAfrica {
     /**
-     * 
-     * @type {ExternalAccountLocalBankAfricaType}
-     * @memberof ExternalAccountLocalBankAfrica
-     */
-    'type': ExternalAccountLocalBankAfricaType;
-    /**
-     * 
+     * URL to redirect the end user back to after they complete the payment on the bank/mobile provider page (e.g., the merchant checkout page)
      * @type {string}
      * @memberof ExternalAccountLocalBankAfrica
      */
-    'accountNumber': string;
-    /**
-     * Name of the bank
-     * @type {string}
-     * @memberof ExternalAccountLocalBankAfrica
-     */
-    'bankName': string;
-    /**
-     * Internal bank identifier
-     * @type {string}
-     * @memberof ExternalAccountLocalBankAfrica
-     */
-    'bankCode': string;
+    'successRedirectUrl'?: string;
 }
-
-
 

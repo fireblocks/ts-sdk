@@ -98,10 +98,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {string} [blockchainWalletType] Optional immutable blockchain wallet type to store per tenant+vault
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        activateAssetForVaultAccount: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, blockchainWalletType?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('activateAssetForVaultAccount', 'vaultAccountId', vaultAccountId)
             assertParamExistsAndNotEmpty('activateAssetForVaultAccount', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/activate`
@@ -117,6 +118,10 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (blockchainWalletType !== undefined) {
+                localVarQueryParameter['blockchainWalletType'] = blockchainWalletType;
+            }
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -218,7 +223,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
          * @summary Bulk creation of new vault accounts
          * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -344,10 +349,11 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} assetId The ID of the asset
          * @param {CreateAssetsRequest} [createAssetsRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {string} [blockchainWalletType] Optional immutable blockchain wallet type to store per tenant+vault
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        createVaultAccountAsset: async (vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, blockchainWalletType?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('createVaultAccountAsset', 'vaultAccountId', vaultAccountId)
             assertParamExistsAndNotEmpty('createVaultAccountAsset', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}`
@@ -363,6 +369,10 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (blockchainWalletType !== undefined) {
+                localVarQueryParameter['blockchainWalletType'] = blockchainWalletType;
+            }
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -1397,11 +1407,12 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {string} [blockchainWalletType] Optional immutable blockchain wallet type to store per tenant+vault
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey, options);
+        async activateAssetForVaultAccount(vaultAccountId: string, assetId: string, idempotencyKey?: string, blockchainWalletType?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey, blockchainWalletType, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.activateAssetForVaultAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1437,7 +1448,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
          * @summary Bulk creation of new vault accounts
          * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1485,11 +1496,12 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {string} assetId The ID of the asset
          * @param {CreateAssetsRequest} [createAssetsRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {string} [blockchainWalletType] Optional immutable blockchain wallet type to store per tenant+vault
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey, options);
+        async createVaultAccountAsset(vaultAccountId: string, assetId: string, createAssetsRequest?: CreateAssetsRequest, idempotencyKey?: string, blockchainWalletType?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateVaultAssetResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createVaultAccountAsset(vaultAccountId, assetId, createAssetsRequest, idempotencyKey, blockchainWalletType, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.createVaultAccountAsset']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1863,7 +1875,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateVaultAssetResponse> {
-            return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
         },
         /**
          * Attach or detach one or more tags from the requested vault accounts. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
@@ -1886,7 +1898,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createLegacyAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
          * @summary Bulk creation of new vault accounts
          * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1923,7 +1935,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateVaultAssetResponse> {
-            return localVarFp.createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+            return localVarFp.createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
@@ -2184,6 +2196,13 @@ export interface VaultsApiActivateAssetForVaultAccountRequest {
      * @memberof VaultsApiActivateAssetForVaultAccount
      */
     readonly idempotencyKey?: string
+
+    /**
+     * Optional immutable blockchain wallet type to store per tenant+vault
+     * @type {string}
+     * @memberof VaultsApiActivateAssetForVaultAccount
+     */
+    readonly blockchainWalletType?: string
 }
 
 /**
@@ -2338,6 +2357,13 @@ export interface VaultsApiCreateVaultAccountAssetRequest {
      * @memberof VaultsApiCreateVaultAccountAsset
      */
     readonly idempotencyKey?: string
+
+    /**
+     * Optional immutable blockchain wallet type to store per tenant+vault
+     * @type {string}
+     * @memberof VaultsApiCreateVaultAccountAsset
+     */
+    readonly blockchainWalletType?: string
 }
 
 /**
@@ -3042,7 +3068,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest) {
-        return VaultsApiFp(this.configuration).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3070,7 +3096,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+     * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
      * @summary Bulk creation of new vault accounts
      * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3114,7 +3140,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public createVaultAccountAsset(requestParameters: VaultsApiCreateVaultAccountAssetRequest) {
-        return VaultsApiFp(this.configuration).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey, requestParameters.blockchainWalletType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

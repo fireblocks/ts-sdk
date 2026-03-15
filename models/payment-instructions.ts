@@ -18,7 +18,7 @@
 import { BlockchainDestination } from './blockchain-destination';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EuropeanSEPAAddress } from './european-sepaaddress';
+import { InternalTransferAddress } from './internal-transfer-address';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PaymentInstructionsOneOf } from './payment-instructions-one-of';

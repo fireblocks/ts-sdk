@@ -63,6 +63,8 @@ let body: VaultsApiActivateAssetForVaultAccountRequest = {
   assetId: assetId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
+  // string | Optional immutable blockchain wallet type to store per tenant+vault (optional)
+  blockchainWalletType: blockchainWalletType_example,
 };
 
 fireblocks.vaults.activateAssetForVaultAccount(body).then((res: FireblocksResponse<CreateVaultAssetResponse>) => {
@@ -78,6 +80,7 @@ Name | Type | Description  | Notes
  **vaultAccountId** | [**string**] | The ID of the vault account to return, or \&#39;default\&#39; for the default vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+ **blockchainWalletType** | [**string**] | Optional immutable blockchain wallet type to store per tenant+vault | (optional) defaults to undefined
 
 
 ### Return type
@@ -238,7 +241,7 @@ No authorization required
 # **createMultipleAccounts**
 > JobCreated createMultipleAccounts(createMultipleAccountsRequest)
 
-Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -453,6 +456,8 @@ let body: VaultsApiCreateVaultAccountAssetRequest = {
   createAssetsRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
+  // string | Optional immutable blockchain wallet type to store per tenant+vault (optional)
+  blockchainWalletType: blockchainWalletType_example,
 };
 
 fireblocks.vaults.createVaultAccountAsset(body).then((res: FireblocksResponse<CreateVaultAssetResponse>) => {
@@ -469,6 +474,7 @@ Name | Type | Description  | Notes
  **vaultAccountId** | [**string**] | The ID of the vault account to return, or \&#39;default\&#39; for the default vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+ **blockchainWalletType** | [**string**] | Optional immutable blockchain wallet type to store per tenant+vault | (optional) defaults to undefined
 
 
 ### Return type

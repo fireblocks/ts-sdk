@@ -21,13 +21,22 @@ import { AbaPaymentInfo } from './aba-payment-info';
 import { AchPaymentInfo } from './ach-payment-info';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ChapsPaymentInfo } from './chaps-payment-info';
+// May contain unused imports in some cases
+// @ts-ignore
 import { IbanPaymentInfo } from './iban-payment-info';
+// May contain unused imports in some cases
+// @ts-ignore
+import { InteracPaymentInfo } from './interac-payment-info';
 // May contain unused imports in some cases
 // @ts-ignore
 import { LbtPaymentInfo } from './lbt-payment-info';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MomoPaymentInfo } from './momo-payment-info';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PayidPaymentInfo } from './payid-payment-info';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PixPaymentInfo } from './pix-payment-info';
@@ -49,6 +58,6 @@ import { UsWirePaymentInfo } from './us-wire-payment-info';
  * Additional payment information based on the payment rail type
  * @export
  */
-export type AdditionalInfoRequestAdditionalInfo = AbaPaymentInfo | AchPaymentInfo | IbanPaymentInfo | LbtPaymentInfo | MomoPaymentInfo | PixPaymentInfo | SepaPaymentInfo | SpeiAdvancedPaymentInfo | SpeiBasicPaymentInfo | UsWirePaymentInfo;
+export type AdditionalInfoRequestAdditionalInfo = AbaPaymentInfo | AchPaymentInfo | ChapsPaymentInfo | IbanPaymentInfo | InteracPaymentInfo | LbtPaymentInfo | MomoPaymentInfo | PayidPaymentInfo | PixPaymentInfo | SepaPaymentInfo | SpeiAdvancedPaymentInfo | SpeiBasicPaymentInfo | UsWirePaymentInfo;
 
 

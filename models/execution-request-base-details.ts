@@ -33,19 +33,19 @@ export interface ExecutionRequestBaseDetails {
      */
     'side': Side;
     /**
-     * Amount to convert
+     * Amount in baseAssetId. BUY = base amount to receive; SELL = base amount to sell.
      * @type {string}
      * @memberof ExecutionRequestBaseDetails
      */
     'baseAmount': string;
     /**
-     * Source asset identifier
+     * The asset you receive on BUY / give on SELL.
      * @type {string}
      * @memberof ExecutionRequestBaseDetails
      */
     'baseAssetId': string;
     /**
-     * Target asset identifier
+     * Counter asset used to pay/receive
      * @type {string}
      * @memberof ExecutionRequestBaseDetails
      */

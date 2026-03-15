@@ -58,5 +58,6 @@ export * from './api/web3-connections-api';
 export * from './api/webhooks-api';
 export * from './api/webhooks-v2-api';
 export * from './api/whitelist-ip-addresses-api';
+export * from './api/workspace-api';
 export * from './api/workspace-status-beta-api';
 
