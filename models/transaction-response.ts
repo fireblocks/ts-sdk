@@ -33,6 +33,9 @@ import { ComplianceResults } from './compliance-results';
 import { DestinationTransferPeerPathResponse } from './destination-transfer-peer-path-response';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ExtraParameters } from './extra-parameters';
+// May contain unused imports in some cases
+// @ts-ignore
 import { FeeInfo } from './fee-info';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -303,11 +306,11 @@ export interface TransactionResponse {
      */
     'paidRent'?: string;
     /**
-     * Additional protocol / operation specific key-value parameters:  For UTXO-based blockchain input selection, add the key `inputsSelection` with the value set the [input selection structure.](https://developers.fireblocks.com/reference/transaction-objects#inputsselection) The inputs can be retrieved from the [Retrieve Unspent Inputs endpoint.](https://developers.fireblocks.com/reference/get_vault-accounts-vaultaccountid-assetid-unspent-inputs)  For `RAW` operations, add the key `rawMessageData` with the value set to the [raw message data structure.](https://developers.fireblocks.com/reference/raw-signing-objects#rawmessagedata)  For `CONTRACT_CALL` operations, add the key `contractCallData` with the value set to the Ethereum smart contract Application Binary Interface (ABI) payload. The Fireblocks [development libraries](https://developers.fireblocks.com/docs/ethereum-development#convenience-libraries) are recommended for building contract call transactions. For **exchange compliance (e.g., Binance) and Travel Rule purposes**, include the key `piiData` containing a **custom JSON structure** with Personally Identifiable Information (PII) relevant to the transaction. This data must be fully **encrypted by the sender** before being submitted to the Fireblocks API. The recommended encryption method is **hybrid encryption** using AES-256-GCM for the payload and RSA-OAEP for key exchange, with the recipient exchange’s public key. [development libraries](https://developers.fireblocks.com/docs/a-developers-guide-to-constructing-encrypted-pii-messages-for-binance-via-fireblocks) 
-     * @type {object}
+     * 
+     * @type {ExtraParameters}
      * @memberof TransactionResponse
      */
-    'extraParameters'?: object;
+    'extraParameters'?: ExtraParameters;
     /**
      * 
      * @type {SignedMessages}

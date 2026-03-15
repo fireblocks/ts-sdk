@@ -53,14 +53,26 @@ export interface PixAddress {
      * @memberof PixAddress
      */
     'bankCode'?: string;
+    /**
+     * The QR code to be used for the transfer
+     * @type {string}
+     * @memberof PixAddress
+     */
+    'qrCode'?: string;
+    /**
+     * The expiration date of the QR code
+     * @type {string}
+     * @memberof PixAddress
+     */
+    'expirationDate'?: string;
 }
 
 export const PixAddressKeyTypeEnum = {
-    Cpf: 'cpf',
-    Cnpj: 'cnpj',
-    Email: 'email',
-    Phone: 'phone',
-    Random: 'random'
+    Cpf: 'CPF',
+    Cnpj: 'CNPJ',
+    Email: 'EMAIL',
+    Phone: 'PHONE',
+    Random: 'RANDOM'
 } as const;
 
 export type PixAddressKeyTypeEnum = typeof PixAddressKeyTypeEnum[keyof typeof PixAddressKeyTypeEnum];

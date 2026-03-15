@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { AccountHolderDetails } from './account-holder-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PaymentRedirect } from './payment-redirect';
 
 /**
  * 
@@ -53,6 +56,18 @@ export interface MobileMoneyAddress {
      * @memberof MobileMoneyAddress
      */
     'beneficiaryRelationship'?: string;
+    /**
+     * The URL to redirect to after the payment instruction is successful
+     * @type {string}
+     * @memberof MobileMoneyAddress
+     */
+    'successPaymentInstructionRedirectUrl'?: string;
+    /**
+     * 
+     * @type {PaymentRedirect}
+     * @memberof MobileMoneyAddress
+     */
+    'paymentRedirect'?: PaymentRedirect;
 }
 
 export const MobileMoneyAddressProviderEnum = {

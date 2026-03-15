@@ -132,6 +132,9 @@ ChainInfoResponse.md
 ChannelDvnConfigWithConfirmations.md
 ChannelDvnConfigWithConfirmationsReceiveConfig.md
 ChannelDvnConfigWithConfirmationsSendConfig.md
+ChapsAddress.md
+ChapsDestination.md
+ChapsPaymentInfo.md
 ClaimRewardsRequest.md
 CollectionBurnRequestDto.md
 CollectionBurnResponseDto.md
@@ -364,7 +367,6 @@ ExecutionStepType.md
 ExecutionTransferOperation.md
 ExternalAccount.md
 ExternalAccountLocalBankAfrica.md
-ExternalAccountLocalBankAfricaType.md
 ExternalAccountMobileMoney.md
 ExternalAccountMobileMoneyProvider.md
 ExternalAccountMobileMoneyType.md
@@ -372,6 +374,7 @@ ExternalAccountSenderInformation.md
 ExternalAccountType.md
 ExternalWalletAsset.md
 ExternalWalletsApi.md
+ExtraParameters.md
 Failure.md
 FailureReason.md
 Fee.md
@@ -450,7 +453,12 @@ IndicativeQuoteType.md
 InitiatorConfig.md
 InitiatorConfigPattern.md
 InstructionAmount.md
+InteracAddress.md
+InteracDestination.md
+InteracPaymentInfo.md
 InternalReference.md
+InternalTransferAddress.md
+InternalTransferDestination.md
 InternalTransferResponse.md
 InternalWalletsApi.md
 InvalidParamaterValueError.md
@@ -572,11 +580,15 @@ ParticipantsIdentification.md
 PayeeAccount.md
 PayeeAccountResponse.md
 PayeeAccountType.md
+PayidAddress.md
+PayidDestination.md
+PayidPaymentInfo.md
 PaymentAccount.md
 PaymentAccountResponse.md
 PaymentAccountType.md
 PaymentInstructions.md
 PaymentInstructionsOneOf.md
+PaymentRedirect.md
 PaymentsPayoutApi.md
 PayoutInitMethod.md
 PayoutInstruction.md
@@ -642,6 +654,7 @@ ReQuoteDetailsReQuote.md
 ReadAbiFunction.md
 ReadCallFunctionDto.md
 ReadCallFunctionDtoAbiFunction.md
+RecipientHandle.md
 RedeemFundsToLinkedDDAResponse.md
 RegisterNewAssetRequest.md
 ReissueMultichainTokenRequest.md
@@ -1062,6 +1075,8 @@ WithdrawRequest.md
 WorkflowConfigStatus.md
 WorkflowConfigurationId.md
 WorkflowExecutionOperation.md
+Workspace.md
+WorkspaceApi.md
 WorkspaceStatusBetaApi.md
 WriteAbiFunction.md
 WriteCallFunctionDto.md
@@ -1112,6 +1127,7 @@ api/web3-connections-api.ts
 api/webhooks-api.ts
 api/webhooks-v2-api.ts
 api/whitelist-ip-addresses-api.ts
+api/workspace-api.ts
 api/workspace-status-beta-api.ts
 base.ts
 client/client.ts
@@ -1249,6 +1265,9 @@ models/chain-info-response.ts
 models/channel-dvn-config-with-confirmations-receive-config.ts
 models/channel-dvn-config-with-confirmations-send-config.ts
 models/channel-dvn-config-with-confirmations.ts
+models/chaps-address.ts
+models/chaps-destination.ts
+models/chaps-payment-info.ts
 models/claim-rewards-request.ts
 models/collection-burn-request-dto.ts
 models/collection-burn-response-dto.ts
@@ -1468,7 +1487,6 @@ models/execution-step-error.ts
 models/execution-step-status-enum.ts
 models/execution-step-type.ts
 models/execution-transfer-operation.ts
-models/external-account-local-bank-africa-type.ts
 models/external-account-local-bank-africa.ts
 models/external-account-mobile-money-provider.ts
 models/external-account-mobile-money-type.ts
@@ -1477,6 +1495,7 @@ models/external-account-sender-information.ts
 models/external-account-type.ts
 models/external-account.ts
 models/external-wallet-asset.ts
+models/extra-parameters.ts
 models/failure-reason.ts
 models/failure.ts
 models/fee-breakdown.ts
@@ -1554,7 +1573,12 @@ models/indicative-quote-type.ts
 models/initiator-config-pattern.ts
 models/initiator-config.ts
 models/instruction-amount.ts
+models/interac-address.ts
+models/interac-destination.ts
+models/interac-payment-info.ts
 models/internal-reference.ts
+models/internal-transfer-address.ts
+models/internal-transfer-destination.ts
 models/internal-transfer-response.ts
 models/invalid-paramater-value-error.ts
 models/issue-token-multichain-response.ts
@@ -1667,11 +1691,15 @@ models/participants-identification.ts
 models/payee-account-response.ts
 models/payee-account-type.ts
 models/payee-account.ts
+models/payid-address.ts
+models/payid-destination.ts
+models/payid-payment-info.ts
 models/payment-account-response.ts
 models/payment-account-type.ts
 models/payment-account.ts
 models/payment-instructions-one-of.ts
 models/payment-instructions.ts
+models/payment-redirect.ts
 models/payout-init-method.ts
 models/payout-instruction-response.ts
 models/payout-instruction-state.ts
@@ -1733,6 +1761,7 @@ models/re-quote-details.ts
 models/read-abi-function.ts
 models/read-call-function-dto-abi-function.ts
 models/read-call-function-dto.ts
+models/recipient-handle.ts
 models/redeem-funds-to-linked-ddaresponse.ts
 models/register-new-asset-request.ts
 models/reissue-multichain-token-request.ts
@@ -2137,6 +2166,7 @@ models/withdraw-request.ts
 models/workflow-config-status.ts
 models/workflow-configuration-id.ts
 models/workflow-execution-operation.ts
+models/workspace.ts
 models/write-abi-function.ts
 models/write-call-function-dto-abi-function.ts
 models/write-call-function-dto.ts

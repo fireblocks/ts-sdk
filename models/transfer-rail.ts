@@ -15,7 +15,7 @@
 
 
 /**
- * Transfer rail:  * **BLOCKCHAIN** - Transfer over the public blockchain * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts or same api key) * **PEER** - Peer transfer within the same provider network * **SWIFT** - International wire transfer * **IBAN** - International Bank Account Number transfer * **US_WIRE** - Domestic wire transfer within the United States (e.g. FedWire) * **ACH** - Automated Clearing House transfer, typically takes longer but not as expensive as wire transfers * **SEPA** - Euro transfers within the SEPA zone * **SPEI** - Mexican interbank electronic payment system * **PIX** - Brazilian instant payment system * **LOCAL_BANK_TRANSFER_AFRICA** - Local bank transfers within Africa * **MOBILE_MONEY** - Mobile money transfers (e.g. M-Pesa) 
+ * Transfer rail:  * **BLOCKCHAIN** - Transfer over the public blockchain * **INTERNAL** - Internal transfer within the same account (e.g. sub-accounts or same api key) * **PEER** - Peer transfer within the same provider network * **SWIFT** - International wire transfer * **IBAN** - International Bank Account Number transfer * **US_WIRE** - Domestic wire transfer within the United States (e.g. FedWire) * **ACH** - Automated Clearing House transfer, typically takes longer but not as expensive as wire transfers * **SEPA** - Euro transfers within the SEPA zone * **SPEI** - Mexican interbank electronic payment system * **PIX** - Brazilian instant payment system * **LOCAL_BANK_TRANSFER_AFRICA** - Local bank transfers within Africa * **MOBILE_MONEY** - Mobile money transfers (e.g. M-Pesa) * **INTERNAL_TRANSFER** - Internal transfer within the same account * **INTERAC** - Canadian interbank transfer system * **PAYID** - Australian PayID payment system * **CHAPS** - The Clearing House Automated Payment System (CHAPS) is a real-time gross settlement payment system used for transactions in the United Kingdom 
  * @export
  * @enum {string}
  */
@@ -32,7 +32,11 @@ export const TransferRail = {
     Spei: 'SPEI',
     Pix: 'PIX',
     LocalBankTransferAfrica: 'LOCAL_BANK_TRANSFER_AFRICA',
-    MobileMoney: 'MOBILE_MONEY'
+    MobileMoney: 'MOBILE_MONEY',
+    InternalTransfer: 'INTERNAL_TRANSFER',
+    Interac: 'INTERAC',
+    Payid: 'PAYID',
+    Chaps: 'CHAPS'
 } as const;
 
 export type TransferRail = typeof TransferRail[keyof typeof TransferRail];

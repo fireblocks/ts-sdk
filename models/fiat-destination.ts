@@ -18,7 +18,7 @@
 import { AchDestination } from './ach-destination';
 // May contain unused imports in some cases
 // @ts-ignore
-import { EuropeanSEPAAddress } from './european-sepaaddress';
+import { ChapsDestination } from './chaps-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { EuropeanSEPADestination } from './european-sepadestination';
@@ -27,10 +27,22 @@ import { EuropeanSEPADestination } from './european-sepadestination';
 import { IbanDestination } from './iban-destination';
 // May contain unused imports in some cases
 // @ts-ignore
+import { InteracDestination } from './interac-destination';
+// May contain unused imports in some cases
+// @ts-ignore
+import { InternalTransferAddress } from './internal-transfer-address';
+// May contain unused imports in some cases
+// @ts-ignore
+import { InternalTransferDestination } from './internal-transfer-destination';
+// May contain unused imports in some cases
+// @ts-ignore
 import { LocalBankTransferAfricaDestination } from './local-bank-transfer-africa-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { MobileMoneyDestination } from './mobile-money-destination';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PayidDestination } from './payid-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PixDestination } from './pix-destination';
@@ -51,6 +63,6 @@ import { USWireDestination } from './uswire-destination';
  * @type FiatDestination
  * @export
  */
-export type FiatDestination = AchDestination | EuropeanSEPADestination | IbanDestination | LocalBankTransferAfricaDestination | MobileMoneyDestination | PixDestination | SEPADestination | SpeiDestination | SwiftDestination | USWireDestination;
+export type FiatDestination = AchDestination | ChapsDestination | EuropeanSEPADestination | IbanDestination | InteracDestination | InternalTransferDestination | LocalBankTransferAfricaDestination | MobileMoneyDestination | PayidDestination | PixDestination | SEPADestination | SpeiDestination | SwiftDestination | USWireDestination;
 
 

@@ -55,6 +55,7 @@ Web3ConnectionsApi,
 WebhooksApi, 
 WebhooksV2Api, 
 WhitelistIpAddressesApi, 
+WorkspaceApi, 
 WorkspaceStatusBetaApi
 } from '../api';
 import { AxiosRequestConfig, AxiosResponse } from "axios";
@@ -105,6 +106,7 @@ let mockWeb3ConnectionsApi: jest.Mock;
 let mockWebhooksApi: jest.Mock;
 let mockWebhooksV2Api: jest.Mock;
 let mockWhitelistIpAddressesApi: jest.Mock;
+let mockWorkspaceApi: jest.Mock;
 let mockWorkspaceStatusBetaApi: jest.Mock;
 
 jest.mock('../api', () => {
@@ -152,6 +154,7 @@ jest.mock('../api', () => {
     mockWebhooksApi = jest.fn();
     mockWebhooksV2Api = jest.fn();
     mockWhitelistIpAddressesApi = jest.fn();
+    mockWorkspaceApi = jest.fn();
     mockWorkspaceStatusBetaApi = jest.fn();
     const actual = jest.requireActual('../api');
     return {
@@ -200,6 +203,7 @@ jest.mock('../api', () => {
         WebhooksApi: mockWebhooksApi,
         WebhooksV2Api: mockWebhooksV2Api,
         WhitelistIpAddressesApi: mockWhitelistIpAddressesApi,
+        WorkspaceApi: mockWorkspaceApi,
         WorkspaceStatusBetaApi: mockWorkspaceStatusBetaApi,
     };
 });
@@ -455,6 +459,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return WhitelistIpAddressesApi', async () => {
             expect(fireblocks.whitelistIpAddresses).toBeInstanceOf(WhitelistIpAddressesApi);
             expect(mockWhitelistIpAddressesApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return WorkspaceApi', async () => {
+            expect(fireblocks.workspace).toBeInstanceOf(WorkspaceApi);
+            expect(mockWorkspaceApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return WorkspaceStatusBetaApi', async () => {
             expect(fireblocks.workspaceStatusBeta).toBeInstanceOf(WorkspaceStatusBetaApi);

@@ -9,6 +9,8 @@
 |**provider** | **string** | Mobile money provider | [default to undefined]|
 |**beneficiaryDocumentId** | **string** | Beneficiary document identification (may be required) | [optional] [default to undefined]|
 |**beneficiaryRelationship** | **string** | Relationship to beneficiary for AML purposes | [optional] [default to undefined]|
+|**successPaymentInstructionRedirectUrl** | **string** | The URL to redirect to after the payment instruction is successful | [optional] [default to undefined]|
+|**paymentRedirect** | [**PaymentRedirect**](PaymentRedirect.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: MobileMoneyAddressProviderEnum

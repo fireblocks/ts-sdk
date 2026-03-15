@@ -17,15 +17,15 @@
 |**abaAccountNumber** | **string** | The account number at the bank | [default to undefined]|
 |**abaCountry** | **string** | The country for the ABA transfer (ISO 3166-1 alpha-2 code) | [default to undefined]|
 |**speiClabe** | **string** | The CLABE (Clave Bancaria Estandarizada) number for SPEI transfers | [default to undefined]|
-|**rail** | **string** | The payment rail type for Lebanese bank transfers | [default to undefined]|
-|**addressingSystem** | **string** | The addressing system used for Lebanese bank transfers (Bank Account Number) | [default to undefined]|
+|**rail** | **string** | The payment rail type for CHAPS transfers | [default to undefined]|
+|**addressingSystem** | **string** | The addressing system used for CHAPS transfers | [default to undefined]|
 |**country** | **string** | The country for the transfer (ISO 3166-1 alpha-2 code) | [default to undefined]|
 |**bankName** | **string** | The name of the bank | [default to undefined]|
 |**clabe** | **string** | The CLABE (Clave Bancaria Estandarizada) number | [default to undefined]|
 |**pixKey** | **string** | The PIX key used for the transfer | [default to undefined]|
 |**bankCode** | **string** | The bank code or identifier | [default to undefined]|
 |**keyType** | **string** | The type of PIX key being used | [default to undefined]|
-|**accountNumber** | **string** | The bank account number | [default to undefined]|
+|**accountNumber** | **string** | UK bank account number | [default to undefined]|
 |**routingNumber** | **string** | The bank routing number (ABA routing number) | [default to undefined]|
 |**accountType** | **string** | The type of bank account | [default to undefined]|
 |**swiftCode** | **string** | The SWIFT/BIC code of the bank | [default to undefined]|
@@ -35,6 +35,14 @@
 |**bankAddressPostalCode** | **string** | The postal code of the bank\&#39;s address | [default to undefined]|
 |**mobilePhoneNumber** | **string** | The mobile phone number associated with the mobile money account | [default to undefined]|
 |**provider** | **string** | The mobile money service provider | [default to undefined]|
+|**recipientHandleType** | **string** | The type of recipient handler being used | [default to undefined]|
+|**recipientHandleValue** | **string** | Email address registered for Interac e-Transfer | [default to undefined]|
+|**message** | **string** | The message to be sent to the recipient | [default to undefined]|
+|**value** | **string** | The PayID identifier (email, phone, ABN, or organization ID) | [default to undefined]|
+|**type** | **string** | The type of PayID being used | [default to undefined]|
+|**sortCode** | **string** | UK bank sort code (format XX-XX-XX) | [default to undefined]|
+|**bankAccountCountry** | **string** | CHAPS bank account holder name | [default to undefined]|
+|**bankAccountHolderName** | **string** | CHAPS bank account holder name | [default to undefined]|
 |**accountHolderAddress2** | **string** | The secondary address line of the account holder (optional) | [optional] [default to undefined]|
 |**accountHolderDistrict** | **string** | The district or region where the account holder resides | [optional] [default to undefined]|
 |**speiName** | **string** | The name associated with the SPEI account | [optional] [default to undefined]|
@@ -50,19 +58,20 @@
 |**branchNumber** | **string** | The branch number of the bank | [optional] [default to undefined]|
 |**beneficiaryDocumentId** | **string** | The document ID of the beneficiary | [optional] [default to undefined]|
 |**beneficiaryRelationship** | **string** | The relationship between sender and beneficiary | [optional] [default to undefined]|
+|**bsb** | **string** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) | [optional] [default to undefined]|
 
 
 ## Enum: AdditionalInfoRequestAdditionalInfoRailEnum
 
 
-* `Lbt` (value: `'LBT'`)
+* `Chaps` (value: `'CHAPS'`)
 
 
 
 ## Enum: AdditionalInfoRequestAdditionalInfoAddressingSystemEnum
 
 
-* `Ban` (value: `'BAN'`)
+* `Chaps` (value: `'CHAPS'`)
 
 
 
@@ -100,6 +109,20 @@
 * `Mtn` (value: `'MTN'`)
 
 * `Tigo` (value: `'TIGO'`)
+
+
+
+## Enum: AdditionalInfoRequestAdditionalInfoRecipientHandleTypeEnum
+
+
+* `Email` (value: `'EMAIL'`)
+
+
+
+## Enum: AdditionalInfoRequestAdditionalInfoTypeEnum
+
+
+* `Email` (value: `'EMAIL'`)
 
 
 

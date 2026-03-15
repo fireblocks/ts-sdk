@@ -5,9 +5,9 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
-|**baseAmount** | **string** | Amount to convert | [default to undefined]|
-|**baseAssetId** | **string** | Source asset identifier | [default to undefined]|
-|**quoteAssetId** | **string** | Target asset identifier | [default to undefined]|
+|**baseAmount** | **string** | Amount in baseAssetId. BUY &#x3D; base amount to receive; SELL &#x3D; base amount to sell. | [default to undefined]|
+|**baseAssetId** | **string** | The asset you receive on BUY / give on SELL. | [default to undefined]|
+|**quoteAssetId** | **string** | Counter asset used to pay/receive | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 

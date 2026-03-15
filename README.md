@@ -334,6 +334,7 @@ Class | Method | HTTP request | Description
 *SmartTransferApi* | [**updateTicketTerm**](docs/apis/SmartTransferApi.md#updateTicketTerm) | **PUT** /smart-transfers/{ticketId}/terms/{termId} | Update ticket leg (term)
 *StakingApi* | [**approveTermsOfServiceByProviderId**](docs/apis/StakingApi.md#approveTermsOfServiceByProviderId) | **POST** /staking/providers/{providerId}/approveTermsOfService | Approve provider terms of service
 *StakingApi* | [**claimRewards**](docs/apis/StakingApi.md#claimRewards) | **POST** /staking/chains/{chainDescriptor}/claim_rewards | Claim accrued rewards
+*StakingApi* | [**consolidate**](docs/apis/StakingApi.md#consolidate) | **POST** /staking/chains/{chainDescriptor}/consolidate | Consolidate staking positions (ETH validator consolidation)
 *StakingApi* | [**getAllDelegations**](docs/apis/StakingApi.md#getAllDelegations) | **GET** /staking/positions | List staking positions
 *StakingApi* | [**getChainInfo**](docs/apis/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 *StakingApi* | [**getChains**](docs/apis/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
@@ -484,6 +485,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/apis/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2Api* | [**updateWebhook**](docs/apis/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/apis/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
+*WorkspaceApi* | [**getWorkspace**](docs/apis/WorkspaceApi.md#getWorkspace) | **GET** /workspace | Get workspace
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/apis/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
 
 
@@ -617,6 +619,9 @@ Class | Method | HTTP request | Description
  - [ChannelDvnConfigWithConfirmations](docs/models/ChannelDvnConfigWithConfirmations.md)
  - [ChannelDvnConfigWithConfirmationsReceiveConfig](docs/models/ChannelDvnConfigWithConfirmationsReceiveConfig.md)
  - [ChannelDvnConfigWithConfirmationsSendConfig](docs/models/ChannelDvnConfigWithConfirmationsSendConfig.md)
+ - [ChapsAddress](docs/models/ChapsAddress.md)
+ - [ChapsDestination](docs/models/ChapsDestination.md)
+ - [ChapsPaymentInfo](docs/models/ChapsPaymentInfo.md)
  - [ClaimRewardsRequest](docs/models/ClaimRewardsRequest.md)
  - [CollectionBurnRequestDto](docs/models/CollectionBurnRequestDto.md)
  - [CollectionBurnResponseDto](docs/models/CollectionBurnResponseDto.md)
@@ -838,13 +843,13 @@ Class | Method | HTTP request | Description
  - [ExecutionTransferOperation](docs/models/ExecutionTransferOperation.md)
  - [ExternalAccount](docs/models/ExternalAccount.md)
  - [ExternalAccountLocalBankAfrica](docs/models/ExternalAccountLocalBankAfrica.md)
- - [ExternalAccountLocalBankAfricaType](docs/models/ExternalAccountLocalBankAfricaType.md)
  - [ExternalAccountMobileMoney](docs/models/ExternalAccountMobileMoney.md)
  - [ExternalAccountMobileMoneyProvider](docs/models/ExternalAccountMobileMoneyProvider.md)
  - [ExternalAccountMobileMoneyType](docs/models/ExternalAccountMobileMoneyType.md)
  - [ExternalAccountSenderInformation](docs/models/ExternalAccountSenderInformation.md)
  - [ExternalAccountType](docs/models/ExternalAccountType.md)
  - [ExternalWalletAsset](docs/models/ExternalWalletAsset.md)
+ - [ExtraParameters](docs/models/ExtraParameters.md)
  - [Failure](docs/models/Failure.md)
  - [FailureReason](docs/models/FailureReason.md)
  - [Fee](docs/models/Fee.md)
@@ -921,7 +926,12 @@ Class | Method | HTTP request | Description
  - [InitiatorConfig](docs/models/InitiatorConfig.md)
  - [InitiatorConfigPattern](docs/models/InitiatorConfigPattern.md)
  - [InstructionAmount](docs/models/InstructionAmount.md)
+ - [InteracAddress](docs/models/InteracAddress.md)
+ - [InteracDestination](docs/models/InteracDestination.md)
+ - [InteracPaymentInfo](docs/models/InteracPaymentInfo.md)
  - [InternalReference](docs/models/InternalReference.md)
+ - [InternalTransferAddress](docs/models/InternalTransferAddress.md)
+ - [InternalTransferDestination](docs/models/InternalTransferDestination.md)
  - [InternalTransferResponse](docs/models/InternalTransferResponse.md)
  - [InvalidParamaterValueError](docs/models/InvalidParamaterValueError.md)
  - [IssueTokenMultichainResponse](docs/models/IssueTokenMultichainResponse.md)
@@ -1034,11 +1044,15 @@ Class | Method | HTTP request | Description
  - [PayeeAccount](docs/models/PayeeAccount.md)
  - [PayeeAccountResponse](docs/models/PayeeAccountResponse.md)
  - [PayeeAccountType](docs/models/PayeeAccountType.md)
+ - [PayidAddress](docs/models/PayidAddress.md)
+ - [PayidDestination](docs/models/PayidDestination.md)
+ - [PayidPaymentInfo](docs/models/PayidPaymentInfo.md)
  - [PaymentAccount](docs/models/PaymentAccount.md)
  - [PaymentAccountResponse](docs/models/PaymentAccountResponse.md)
  - [PaymentAccountType](docs/models/PaymentAccountType.md)
  - [PaymentInstructions](docs/models/PaymentInstructions.md)
  - [PaymentInstructionsOneOf](docs/models/PaymentInstructionsOneOf.md)
+ - [PaymentRedirect](docs/models/PaymentRedirect.md)
  - [PayoutInitMethod](docs/models/PayoutInitMethod.md)
  - [PayoutInstruction](docs/models/PayoutInstruction.md)
  - [PayoutInstructionResponse](docs/models/PayoutInstructionResponse.md)
@@ -1100,6 +1114,7 @@ Class | Method | HTTP request | Description
  - [ReadAbiFunction](docs/models/ReadAbiFunction.md)
  - [ReadCallFunctionDto](docs/models/ReadCallFunctionDto.md)
  - [ReadCallFunctionDtoAbiFunction](docs/models/ReadCallFunctionDtoAbiFunction.md)
+ - [RecipientHandle](docs/models/RecipientHandle.md)
  - [RedeemFundsToLinkedDDAResponse](docs/models/RedeemFundsToLinkedDDAResponse.md)
  - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
  - [ReissueMultichainTokenRequest](docs/models/ReissueMultichainTokenRequest.md)
@@ -1504,6 +1519,7 @@ Class | Method | HTTP request | Description
  - [WorkflowConfigStatus](docs/models/WorkflowConfigStatus.md)
  - [WorkflowConfigurationId](docs/models/WorkflowConfigurationId.md)
  - [WorkflowExecutionOperation](docs/models/WorkflowExecutionOperation.md)
+ - [Workspace](docs/models/Workspace.md)
  - [WriteAbiFunction](docs/models/WriteAbiFunction.md)
  - [WriteCallFunctionDto](docs/models/WriteCallFunctionDto.md)
  - [WriteCallFunctionDtoAbiFunction](docs/models/WriteCallFunctionDtoAbiFunction.md)

@@ -18,13 +18,13 @@
 import { ExternalAccountLocalBankAfrica } from './external-account-local-bank-africa';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ExternalAccountLocalBankAfricaType } from './external-account-local-bank-africa-type';
-// May contain unused imports in some cases
-// @ts-ignore
 import { ExternalAccountMobileMoney } from './external-account-mobile-money';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ExternalAccountMobileMoneyProvider } from './external-account-mobile-money-provider';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ExternalAccountMobileMoneyType } from './external-account-mobile-money-type';
 
 /**
  * @type ExternalAccountSenderInformation

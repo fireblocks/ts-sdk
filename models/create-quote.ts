@@ -22,6 +22,9 @@ import { DVPSettlement } from './dvpsettlement';
 // May contain unused imports in some cases
 // @ts-ignore
 import { Side } from './side';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TransferRail } from './transfer-rail';
 
 /**
  * 
@@ -48,7 +51,7 @@ export interface CreateQuote {
      */
     'quoteAssetId': string;
     /**
-     * The amount to convert from
+     * Amount in baseAssetId. BUY = base amount to receive; SELL = base amount to sell.
      * @type {string}
      * @memberof CreateQuote
      */
@@ -59,6 +62,18 @@ export interface CreateQuote {
      * @memberof CreateQuote
      */
     'side': Side;
+    /**
+     * 
+     * @type {TransferRail}
+     * @memberof CreateQuote
+     */
+    'baseAssetRail'?: TransferRail;
+    /**
+     * 
+     * @type {TransferRail}
+     * @memberof CreateQuote
+     */
+    'quoteAssetRail'?: TransferRail;
     /**
      * Slippage tolerance in basis points (bps) for defi quotes - 1 is 0.01% and 10000 is 100%
      * @type {number}

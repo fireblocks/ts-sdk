@@ -56,6 +56,7 @@ import { ApiUserApi,
          WebhooksApi, 
          WebhooksV2Api, 
          WhitelistIpAddressesApi, 
+         WorkspaceApi, 
          WorkspaceStatusBetaApi
          } from '../api';
 import { AxiosManager } from "../network/axiosManager";
@@ -108,6 +109,7 @@ export class Fireblocks {
     private _webhooks?: WebhooksApi;
     private _webhooksV2?: WebhooksV2Api;
     private _whitelistIpAddresses?: WhitelistIpAddressesApi;
+    private _workspace?: WorkspaceApi;
     private _workspaceStatusBeta?: WorkspaceStatusBetaApi;
 
 
@@ -261,6 +263,9 @@ export class Fireblocks {
     }
     get whitelistIpAddresses(): WhitelistIpAddressesApi {
         return this._whitelistIpAddresses ?? new WhitelistIpAddressesApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get workspace(): WorkspaceApi {
+        return this._workspace ?? new WorkspaceApi(this.config, undefined, this.axiosManager.axios);
     }
     get workspaceStatusBeta(): WorkspaceStatusBetaApi {
         return this._workspaceStatusBeta ?? new WorkspaceStatusBetaApi(this.config, undefined, this.axiosManager.axios);

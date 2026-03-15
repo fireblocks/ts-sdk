@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** |  | [default to undefined]|
-|**address** | [**EuropeanSEPAAddress**](EuropeanSEPAAddress.md) |  | [default to undefined]|
+|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  | [default to undefined]|
 
 
 ## Enum: FiatDestinationTypeEnum
@@ -30,6 +30,14 @@
 * `MobileMoney` (value: `'MOBILE_MONEY'`)
 
 * `EuropeanSepa` (value: `'EUROPEAN_SEPA'`)
+
+* `Chaps` (value: `'CHAPS'`)
+
+* `Interac` (value: `'INTERAC'`)
+
+* `Payid` (value: `'PAYID'`)
+
+* `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
 
 
 

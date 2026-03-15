@@ -5,14 +5,14 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** |  | [default to undefined]|
-|**address** | [**EuropeanSEPAAddress**](EuropeanSEPAAddress.md) |  | [default to undefined]|
+|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  | [default to undefined]|
 |**referenceId** | **string** |  | [optional] [default to undefined]|
 
 
 ## Enum: PaymentInstructionsOneOfTypeEnum
 
 
-* `EuropeanSepa` (value: `'EUROPEAN_SEPA'`)
+* `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
 
 
 
