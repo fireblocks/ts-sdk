@@ -24,7 +24,10 @@ jobs:
           cache: 'npm'
 
       - name: Install npm ${{ matrix.npm-version }}
-        run: npm install -g npm@^${{ matrix.npm-version }}
+        shell: bash
+        run: |
+          corepack disable 2>/dev/null || true
+          npx --yes npm@^${{ matrix.npm-version }} install -g npm@^${{ matrix.npm-version }}
 
       - run: npm ci
       - run: npm run build --if-present
