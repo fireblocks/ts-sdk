@@ -24,7 +24,10 @@ export const TravelRuleVerdictEnum = {
     Accept: 'ACCEPT',
     Reject: 'REJECT',
     Alert: 'ALERT',
-    Review: 'REVIEW'
+    Review: 'REVIEW',
+    Wait: 'WAIT',
+    Freeze: 'FREEZE',
+    Cancel: 'CANCEL'
 } as const;
 
 export type TravelRuleVerdictEnum = typeof TravelRuleVerdictEnum[keyof typeof TravelRuleVerdictEnum];

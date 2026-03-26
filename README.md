@@ -339,6 +339,7 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getChainInfo**](docs/apis/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 *StakingApi* | [**getChains**](docs/apis/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
 *StakingApi* | [**getDelegationById**](docs/apis/StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+*StakingApi* | [**getPositions**](docs/apis/StakingApi.md#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated)
 *StakingApi* | [**getProviders**](docs/apis/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers
 *StakingApi* | [**getSummary**](docs/apis/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary
 *StakingApi* | [**getSummaryByVault**](docs/apis/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault
@@ -407,6 +408,7 @@ Class | Method | HTTP request | Description
 *TradingBetaApi* | [**createQuote**](docs/apis/TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote
 *TradingBetaApi* | [**getOrder**](docs/apis/TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
 *TradingBetaApi* | [**getOrders**](docs/apis/TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders
+*TradingBetaApi* | [**getTradingProviderById**](docs/apis/TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 *TradingBetaApi* | [**getTradingProviders**](docs/apis/TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
 *TransactionsApi* | [**cancelTransaction**](docs/apis/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/apis/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
@@ -503,7 +505,8 @@ Class | Method | HTTP request | Description
  - [AccountAccess](docs/models/AccountAccess.md)
  - [AccountBase](docs/models/AccountBase.md)
  - [AccountBasedAccessProvider](docs/models/AccountBasedAccessProvider.md)
- - [AccountBasedAccessProviderDetails](docs/models/AccountBasedAccessProviderDetails.md)
+ - [AccountBasedAccessProviderInfo](docs/models/AccountBasedAccessProviderInfo.md)
+ - [AccountBasedProviderDetails](docs/models/AccountBasedProviderDetails.md)
  - [AccountConfig](docs/models/AccountConfig.md)
  - [AccountHolderDetails](docs/models/AccountHolderDetails.md)
  - [AccountIdentifier](docs/models/AccountIdentifier.md)
@@ -582,7 +585,6 @@ Class | Method | HTTP request | Description
  - [AssetPriceResponse](docs/models/AssetPriceResponse.md)
  - [AssetResponse](docs/models/AssetResponse.md)
  - [AssetScope](docs/models/AssetScope.md)
- - [AssetTypeEnum](docs/models/AssetTypeEnum.md)
  - [AssetTypeResponse](docs/models/AssetTypeResponse.md)
  - [AssetTypesConfig](docs/models/AssetTypesConfig.md)
  - [AssetTypesConfigInner](docs/models/AssetTypesConfigInner.md)
@@ -613,7 +615,6 @@ Class | Method | HTTP request | Description
  - [CallbackHandler](docs/models/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/models/CallbackHandlerRequest.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
- - [Capability](docs/models/Capability.md)
  - [ChainDescriptor](docs/models/ChainDescriptor.md)
  - [ChainInfoResponse](docs/models/ChainInfoResponse.md)
  - [ChannelDvnConfigWithConfirmations](docs/models/ChannelDvnConfigWithConfirmations.md)
@@ -768,7 +769,8 @@ Class | Method | HTTP request | Description
  - [DestinationTransferPeerPathResponse](docs/models/DestinationTransferPeerPathResponse.md)
  - [DirectAccess](docs/models/DirectAccess.md)
  - [DirectAccessProvider](docs/models/DirectAccessProvider.md)
- - [DirectAccessProviderDetails](docs/models/DirectAccessProviderDetails.md)
+ - [DirectAccessProviderInfo](docs/models/DirectAccessProviderInfo.md)
+ - [DirectProviderDetails](docs/models/DirectProviderDetails.md)
  - [DisbursementAmountInstruction](docs/models/DisbursementAmountInstruction.md)
  - [DisbursementConfigOperation](docs/models/DisbursementConfigOperation.md)
  - [DisbursementInstruction](docs/models/DisbursementInstruction.md)
@@ -834,6 +836,7 @@ Class | Method | HTTP request | Description
  - [ExecutionOperationStatus](docs/models/ExecutionOperationStatus.md)
  - [ExecutionRequestBaseDetails](docs/models/ExecutionRequestBaseDetails.md)
  - [ExecutionRequestDetails](docs/models/ExecutionRequestDetails.md)
+ - [ExecutionRequestDetailsType](docs/models/ExecutionRequestDetailsType.md)
  - [ExecutionResponseBaseDetails](docs/models/ExecutionResponseBaseDetails.md)
  - [ExecutionResponseDetails](docs/models/ExecutionResponseDetails.md)
  - [ExecutionScreeningOperation](docs/models/ExecutionScreeningOperation.md)
@@ -978,6 +981,11 @@ Class | Method | HTTP request | Description
  - [LocalBankTransferAfricaAddress](docs/models/LocalBankTransferAfricaAddress.md)
  - [LocalBankTransferAfricaDestination](docs/models/LocalBankTransferAfricaDestination.md)
  - [Manifest](docs/models/Manifest.md)
+ - [ManifestBase](docs/models/ManifestBase.md)
+ - [ManifestOrder](docs/models/ManifestOrder.md)
+ - [ManifestOrderInfo](docs/models/ManifestOrderInfo.md)
+ - [ManifestQuote](docs/models/ManifestQuote.md)
+ - [ManifestQuoteInfo](docs/models/ManifestQuoteInfo.md)
  - [MarketExecutionRequestDetails](docs/models/MarketExecutionRequestDetails.md)
  - [MarketExecutionResponseDetails](docs/models/MarketExecutionResponseDetails.md)
  - [MarketRequoteRequestDetails](docs/models/MarketRequoteRequestDetails.md)
@@ -1089,6 +1097,7 @@ Class | Method | HTTP request | Description
  - [PolicyValidation](docs/models/PolicyValidation.md)
  - [PolicyVerdictActionEnum](docs/models/PolicyVerdictActionEnum.md)
  - [PolicyVerdictActionEnum2](docs/models/PolicyVerdictActionEnum2.md)
+ - [Position](docs/models/Position.md)
  - [PostalAddress](docs/models/PostalAddress.md)
  - [PreScreening](docs/models/PreScreening.md)
  - [PrefundedSettlement](docs/models/PrefundedSettlement.md)
@@ -1160,8 +1169,8 @@ Class | Method | HTTP request | Description
  - [ScreeningOperationFailure](docs/models/ScreeningOperationFailure.md)
  - [ScreeningOperationType](docs/models/ScreeningOperationType.md)
  - [ScreeningPolicyResponse](docs/models/ScreeningPolicyResponse.md)
+ - [ScreeningProviderResponse](docs/models/ScreeningProviderResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/models/ScreeningProviderRulesConfigurationResponse.md)
- - [ScreeningRiskLevelEnum](docs/models/ScreeningRiskLevelEnum.md)
  - [ScreeningTRLinkAmount](docs/models/ScreeningTRLinkAmount.md)
  - [ScreeningTRLinkMissingTrmDecision](docs/models/ScreeningTRLinkMissingTrmDecision.md)
  - [ScreeningTRLinkMissingTrmRule](docs/models/ScreeningTRLinkMissingTrmRule.md)
@@ -1205,6 +1214,7 @@ Class | Method | HTTP request | Description
  - [SettlementRequestBody](docs/models/SettlementRequestBody.md)
  - [SettlementResponse](docs/models/SettlementResponse.md)
  - [SettlementSourceAccount](docs/models/SettlementSourceAccount.md)
+ - [SettlementTypeEnum](docs/models/SettlementTypeEnum.md)
  - [Side](docs/models/Side.md)
  - [SignedMessage](docs/models/SignedMessage.md)
  - [SignedMessageSignature](docs/models/SignedMessageSignature.md)
@@ -1260,6 +1270,7 @@ Class | Method | HTTP request | Description
  - [StakingGetChainsResponse](docs/models/StakingGetChainsResponse.md)
  - [StakingGetProvidersResponse](docs/models/StakingGetProvidersResponse.md)
  - [StakingGetSummaryByVaultResponse](docs/models/StakingGetSummaryByVaultResponse.md)
+ - [StakingPositionsPaginatedResponse](docs/models/StakingPositionsPaginatedResponse.md)
  - [StakingProvider](docs/models/StakingProvider.md)
  - [Status](docs/models/Status.md)
  - [StellarRippleCreateParamsDto](docs/models/StellarRippleCreateParamsDto.md)
@@ -1379,6 +1390,7 @@ Class | Method | HTTP request | Description
  - [TradingAccountType](docs/models/TradingAccountType.md)
  - [TradingErrorSchema](docs/models/TradingErrorSchema.md)
  - [TradingProvider](docs/models/TradingProvider.md)
+ - [TradingProviderDetails](docs/models/TradingProviderDetails.md)
  - [Transaction](docs/models/Transaction.md)
  - [TransactionDirection](docs/models/TransactionDirection.md)
  - [TransactionFee](docs/models/TransactionFee.md)

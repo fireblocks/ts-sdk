@@ -15,21 +15,16 @@
 
 
 /**
- * Risk level assessment for screening results. Possible values vary by provider and context. 
+ * Base manifest schema with common properties
  * @export
- * @enum {string}
+ * @interface ManifestBase
  */
-
-export const ScreeningRiskLevelEnum = {
-    VeryHigh: 'VERY_HIGH',
-    Severe: 'SEVERE',
-    High: 'HIGH',
-    Medium: 'MEDIUM',
-    Low: 'LOW',
-    Unknown: 'UNKNOWN'
-} as const;
-
-export type ScreeningRiskLevelEnum = typeof ScreeningRiskLevelEnum[keyof typeof ScreeningRiskLevelEnum];
-
-
+export interface ManifestBase {
+    /**
+     * Indicates whether the endpoint is supported by the provider
+     * @type {boolean}
+     * @memberof ManifestBase
+     */
+    'supported': boolean;
+}
 

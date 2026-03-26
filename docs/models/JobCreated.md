@@ -5,6 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**jobId** | **string** |  | [optional] [default to undefined]|
+|**approvalRequestId** | **string** | Approval request ID. Returned when a tag triggers an approval flow. | [optional] [default to undefined]|
 
 
 

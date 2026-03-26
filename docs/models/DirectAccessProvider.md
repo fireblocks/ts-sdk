@@ -7,10 +7,12 @@
 |**id** | **string** | Unique identifier for the provider | [default to undefined]|
 |**name** | **string** | Display name of the provider | [default to undefined]|
 |**accountBased** | **boolean** | Indicates whether the provider access model is through accounts or directly | [default to undefined]|
+|**manifest** | [**Manifest**](Manifest.md) |  | [default to undefined]|
 |**hasTermsOfService** | **boolean** | Whether the provider has terms of service | [default to undefined]|
 |**logo** | **string** | URL to the logo image of the provider | [optional] [default to undefined]|
 |**approved** | **boolean** | Whether the provider was approved for use | [optional] [default to undefined]|
 |**termsOfServiceUrl** | **string** | URL to the terms of service document | [optional] [default to undefined]|
+|**privacyPolicyUrl** | **string** | URL to the privacy policy document | [optional] [default to undefined]|
 
 
 

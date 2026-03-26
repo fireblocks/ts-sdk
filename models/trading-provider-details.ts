@@ -18,31 +18,18 @@
 import { AccountBase } from './account-base';
 // May contain unused imports in some cases
 // @ts-ignore
+import { AccountBasedProviderDetails } from './account-based-provider-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { DirectProviderDetails } from './direct-provider-details';
+// May contain unused imports in some cases
+// @ts-ignore
 import { Manifest } from './manifest';
 
 /**
- * 
+ * @type TradingProviderDetails
  * @export
- * @interface AccountBasedAccessProviderDetails
  */
-export interface AccountBasedAccessProviderDetails {
-    /**
-     * 
-     * @type {Manifest}
-     * @memberof AccountBasedAccessProviderDetails
-     */
-    'manifest': Manifest;
-    /**
-     * Whether the provider is currently connected
-     * @type {boolean}
-     * @memberof AccountBasedAccessProviderDetails
-     */
-    'connected': boolean;
-    /**
-     * 
-     * @type {Array<AccountBase>}
-     * @memberof AccountBasedAccessProviderDetails
-     */
-    'accounts'?: Array<AccountBase>;
-}
+export type TradingProviderDetails = AccountBasedProviderDetails | DirectProviderDetails;
+
 

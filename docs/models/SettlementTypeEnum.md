@@ -1,13 +1,11 @@
-# Capability
+# SettlementTypeEnum
 
 ## Enum
 
 
-* `Withdrawals` (value: `'WITHDRAWALS'`)
+* `Dvp` (value: `'DVP'`)
 
-* `Deposits` (value: `'DEPOSITS'`)
-
-* `Trading` (value: `'TRADING'`)
+* `Prefunded` (value: `'PREFUNDED'`)
 
 
 

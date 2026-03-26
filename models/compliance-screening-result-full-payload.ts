@@ -21,7 +21,7 @@ import { AmlStatusEnum } from './aml-status-enum';
 import { ScreeningAmlResult } from './screening-aml-result';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ScreeningRiskLevelEnum } from './screening-risk-level-enum';
+import { ScreeningProviderResponse } from './screening-provider-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ScreeningTravelRulePrescreeningRule } from './screening-travel-rule-prescreening-rule';
@@ -39,7 +39,7 @@ import { ScreeningVerdictEnum } from './screening-verdict-enum';
  */
 export interface ComplianceScreeningResultFullPayload {
     /**
-     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, etc. For Travel Rule: NOTABENE, SUMSUB, or any TRLink provider name 
+     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, etc. For Travel Rule: NOTABENE, SUMSUB, GTR, or any TRLink provider name 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
      */
@@ -63,7 +63,7 @@ export interface ComplianceScreeningResultFullPayload {
      */
     'screeningStatus'?: ComplianceScreeningResultFullPayloadScreeningStatusEnum;
     /**
-     * Reason for bypassing the screening, if applicable. For AML: SANCTIONS_SCREENING_BYPASS, SANCTIONS_RECIPIENT_BYPASS, etc. For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc. 
+     * Reason for bypassing the screening, if applicable. For AML: UNSUPPORTED_ASSET, PASSED_BY_POLICY. For Travel Rule: UNSUPPORTED_ASSET, NO_TRAVEL_RULE_MESSAGE, TRANSACTION_ZERO_AMOUNT. 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
      */
@@ -72,18 +72,21 @@ export interface ComplianceScreeningResultFullPayload {
      * 
      * @type {AmlStatusEnum}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'status'?: AmlStatusEnum;
     /**
      * 
      * @type {AmlStatusEnum}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'prevStatus'?: AmlStatusEnum;
     /**
-     * Previous bypass reason before the current bypass reason change
+     * Deprecated: This field is not currently returned in the API response. Previous bypass reason before the current bypass reason change. 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'prevBypassReason'?: string;
     /**
@@ -93,17 +96,18 @@ export interface ComplianceScreeningResultFullPayload {
      */
     'verdict'?: ScreeningVerdictEnum;
     /**
-     * 
-     * @type {ScreeningRiskLevelEnum}
+     * Risk level assessment for screening results. Values vary by provider and are not managed by this service.  Known values by provider: - Chainalysis: severeRisk, highRisk, mediumRisk, lowRisk, noRiskInfo - Elliptic: noRiskDetected  Legacy values (SCREAMING_SNAKE_CASE, may appear in old transactions): VERY_HIGH, SEVERE, HIGH, MEDIUM, LOW, NO_RISK_INFO, UNKNOWN 
+     * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
      */
-    'risk'?: ScreeningRiskLevelEnum;
+    'risk'?: string;
     /**
-     * 
-     * @type {ScreeningRiskLevelEnum}
+     * Deprecated: This field is not currently returned in the API response. Use risk instead. 
+     * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
-    'extendedRisk'?: ScreeningRiskLevelEnum;
+    'extendedRisk'?: string;
     /**
      * External identifier for the screening (provider-specific)
      * @type {string}
@@ -117,9 +121,10 @@ export interface ComplianceScreeningResultFullPayload {
      */
     'customerRefId'?: string;
     /**
-     * Internal reference identifier
+     * Deprecated: This field is not currently returned in the API response. Internal reference identifier. 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'refId'?: string;
     /**
@@ -147,27 +152,31 @@ export interface ComplianceScreeningResultFullPayload {
      */
     'destTag'?: string;
     /**
-     * The destination record identifier used by the screening provider
+     * Deprecated: This field is not currently returned in the API response. The destination record identifier used by the screening provider. 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'destRecordId'?: string;
     /**
-     * Cryptographic signature for address resolution verification
+     * Deprecated: This field is not currently returned in the API response. Cryptographic signature for address resolution verification. 
      * @type {string}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'addressResolutionSignature'?: string;
     /**
      * 
      * @type {ScreeningAmlResult}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'amlResult'?: ScreeningAmlResult;
     /**
      * 
      * @type {ScreeningTravelRuleResult}
      * @memberof ComplianceScreeningResultFullPayload
+     * @deprecated
      */
     'result'?: ScreeningTravelRuleResult;
     /**
@@ -218,6 +227,12 @@ export interface ComplianceScreeningResultFullPayload {
      * @memberof ComplianceScreeningResultFullPayload
      */
     'travelRuleMessageId'?: string;
+    /**
+     * 
+     * @type {ScreeningProviderResponse}
+     * @memberof ComplianceScreeningResultFullPayload
+     */
+    'providerResponse'?: ScreeningProviderResponse;
 }
 
 export const ComplianceScreeningResultFullPayloadScreeningStatusEnum = {

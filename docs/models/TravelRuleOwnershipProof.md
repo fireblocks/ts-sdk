@@ -10,6 +10,8 @@
 |**address** | **string** | The wallet address being verified. Examples: - For Ethereum: &#x60;0x896B...0b9b&#x60; - For Bitcoin: &#x60;1442...dxhsQ&#x60; | [optional] [default to undefined]|
 |**wallet_provider** | **string** | The wallet provider or method used for verification. Examples: - For Metamask: &#x60;Metamask&#x60; - For manual signature: &#x60;manual&#x60; | [optional] [default to undefined]|
 |**url** | **string** | The URL for the uploaded screenshot (for &#x60;screenshot&#x60; proof types only). Example: &#x60;https://example.com/uploaded_image.png&#x60; | [optional] [default to undefined]|
+|**did** | **string** | The Decentralized Identifier (DID) associated with the ownership proof. | [optional] [default to undefined]|
+|**status** | **string** | The status of the ownership proof verification. | [optional] [default to undefined]|
 |**confirmed** | **boolean** | Whether the user confirmed ownership of the wallet (for &#x60;self-declaration&#x60; proofs). Example: &#x60;true&#x60; | [optional] [default to undefined]|
 
 

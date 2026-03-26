@@ -57,6 +57,18 @@ export interface TravelRuleOwnershipProof {
      */
     'url'?: string;
     /**
+     * The Decentralized Identifier (DID) associated with the ownership proof.
+     * @type {string}
+     * @memberof TravelRuleOwnershipProof
+     */
+    'did'?: string;
+    /**
+     * The status of the ownership proof verification.
+     * @type {string}
+     * @memberof TravelRuleOwnershipProof
+     */
+    'status'?: string;
+    /**
      * Whether the user confirmed ownership of the wallet (for `self-declaration` proofs). Example: `true`
      * @type {boolean}
      * @memberof TravelRuleOwnershipProof

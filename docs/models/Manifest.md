@@ -4,8 +4,9 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**assetTypes** | [**Array&lt;AssetTypeEnum&gt;**](AssetTypeEnum.md) |  | [default to undefined]|
-|**capabilities** | [**Array&lt;Capability&gt;**](Capability.md) |  | [default to undefined]|
+|**order** | [**ManifestOrder**](ManifestOrder.md) |  | [default to undefined]|
+|**quote** | [**ManifestQuote**](ManifestQuote.md) |  | [default to undefined]|
+|**rate** | [**ManifestBase**](ManifestBase.md) |  | [default to undefined]|
 
 
 

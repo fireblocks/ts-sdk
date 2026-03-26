@@ -9,6 +9,7 @@
 |**names** | **Array&lt;string&gt;** | Names to assign to vault accounts. if vaultAccountNamesStartingIndex or prefix is used it\&#39;ll fail | [optional] [default to undefined]|
 |**vaultAccountNamesStartingIndex** | **number** | Copy vault accounts names starting from this index. If names array is used it\&#39;ll fail | [optional] [default to undefined]|
 |**prefix** | **string** | When copying from existing vault accounts (vaultAccountNamesStartingIndex) then adding a prefix to the names. If names array is used it\&#39;ll fail | [optional] [default to undefined]|
+|**tagIds** | **Array&lt;string&gt;** | Optional list of tag IDs to attach to all created vault accounts | [optional] [default to undefined]|
 
 
 
