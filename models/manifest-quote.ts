@@ -13,30 +13,20 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { DVPSettlementType } from './dvpsettlement-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ManifestBase } from './manifest-base';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ManifestQuoteInfo } from './manifest-quote-info';
 
 /**
- * 
+ * @type ManifestQuote
  * @export
- * @interface DirectAccessProviderDetails
  */
-export interface DirectAccessProviderDetails {
-    /**
-     * Whether the provider has terms of service
-     * @type {boolean}
-     * @memberof DirectAccessProviderDetails
-     */
-    'hasTermsOfService': boolean;
-    /**
-     * Whether the provider was approved for use
-     * @type {boolean}
-     * @memberof DirectAccessProviderDetails
-     */
-    'approved'?: boolean;
-    /**
-     * URL to the terms of service document
-     * @type {string}
-     * @memberof DirectAccessProviderDetails
-     */
-    'termsOfServiceUrl'?: string;
-}
+export type ManifestQuote = ManifestBase & ManifestQuoteInfo;
+
 

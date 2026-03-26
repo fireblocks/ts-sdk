@@ -13,19 +13,23 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ExecutionRequestDetailsType } from './execution-request-details-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ManifestBase } from './manifest-base';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ManifestOrderInfo } from './manifest-order-info';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SettlementTypeEnum } from './settlement-type-enum';
 
 /**
- * 
+ * @type ManifestOrder
  * @export
- * @enum {string}
  */
-
-export const AssetTypeEnum = {
-    Digital: 'DIGITAL',
-    Fiat: 'FIAT'
-} as const;
-
-export type AssetTypeEnum = typeof AssetTypeEnum[keyof typeof AssetTypeEnum];
-
+export type ManifestOrder = ManifestBase & ManifestOrderInfo;
 
 

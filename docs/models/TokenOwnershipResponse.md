@@ -81,6 +81,8 @@
 
 * `CronosTest` (value: `'CRONOS_TEST'`)
 
+* `RobinhoodChainTestnetTest` (value: `'ROBINHOOD_CHAIN_TESTNET_TEST'`)
+
 
 
 ## Enum: TokenOwnershipResponseStatusEnum

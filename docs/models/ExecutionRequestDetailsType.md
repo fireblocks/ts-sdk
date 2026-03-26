@@ -1,11 +1,11 @@
-# AssetTypeEnum
+# ExecutionRequestDetailsType
 
 ## Enum
 
 
-* `Digital` (value: `'DIGITAL'`)
+* `Quote` (value: `'QUOTE'`)
 
-* `Fiat` (value: `'FIAT'`)
+* `Market` (value: `'MARKET'`)
 
 
 

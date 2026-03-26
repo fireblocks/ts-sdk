@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { Manifest } from './manifest';
 
 /**
  * 
@@ -38,6 +41,12 @@ export interface BaseProvider {
      * @memberof BaseProvider
      */
     'accountBased': boolean;
+    /**
+     * 
+     * @type {Manifest}
+     * @memberof BaseProvider
+     */
+    'manifest': Manifest;
     /**
      * URL to the logo image of the provider
      * @type {string}
