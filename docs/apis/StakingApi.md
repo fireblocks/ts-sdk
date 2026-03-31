@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**getChainInfo**](#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 [**getChains**](#getChains) | **GET** /staking/chains | List supported staking chains
 [**getDelegationById**](#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+[**getPositions**](#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated)
 [**getProviders**](#getProviders) | **GET** /staking/providers | List staking providers
 [**getSummary**](#getSummary) | **GET** /staking/positions/summary | Get positions summary
 [**getSummaryByVault**](#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault
@@ -163,7 +164,7 @@ No authorization required
 # **consolidate**
 > MergeStakeAccountsResponse consolidate(mergeStakeAccountsRequest, )
 
-Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
 
 ### Example
 
@@ -254,6 +255,8 @@ const fireblocks = new Fireblocks();
 let body: StakingApiGetAllDelegationsRequest = {
   // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. (optional)
   chainDescriptor: param_value,
+  // string | Filter positions by vault account ID. (optional)
+  vaultAccountId: 1,
 };
 
 fireblocks.staking.getAllDelegations(body).then((res: FireblocksResponse<StakingGetAllDelegationsResponse>) => {
@@ -267,6 +270,7 @@ fireblocks.staking.getAllDelegations(body).then((res: FireblocksResponse<Staking
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
+ **vaultAccountId** | [**string**] | Filter positions by vault account ID. | (optional) defaults to undefined
 
 
 ### Return type
@@ -475,6 +479,83 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Position retrieved successfully. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getPositions**
+> StakingPositionsPaginatedResponse getPositions()
+
+Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingApiGetPositionsRequest, StakingPositionsPaginatedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: StakingApiGetPositionsRequest = {
+  // number | Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
+  pageSize: 10,
+  // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. (optional)
+  chainDescriptor: param_value,
+  // string | Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned. (optional)
+  vaultAccountId: 10,
+  // string | Cursor for the next page of results. Use the value from the \'next\' field in the previous response. (optional)
+  pageCursor: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: ASC,
+};
+
+fireblocks.staking.getPositions(body).then((res: FireblocksResponse<StakingPositionsPaginatedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageSize** | [**number**] | Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array. | defaults to 10
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
+ **vaultAccountId** | [**string**] | Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned. | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response. | (optional) defaults to undefined
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[StakingPositionsPaginatedResponse](../models/StakingPositionsPaginatedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Positions retrieved successfully with pagination. |  * X-Request-ID -  <br>  |
 **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
 **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
 **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |

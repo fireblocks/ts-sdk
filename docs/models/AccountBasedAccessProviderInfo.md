@@ -1,12 +1,11 @@
-# AccountBasedAccessProviderDetails
+# AccountBasedAccessProviderInfo
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**manifest** | [**Manifest**](Manifest.md) |  | [default to undefined]|
 |**connected** | **boolean** | Whether the provider is currently connected | [default to undefined]|
-|**accounts** | [**Array&lt;AccountBase&gt;**](AccountBase.md) |  | [optional] [default to undefined]|
+|**accounts** | [**Array&lt;AccountBase&gt;**](AccountBase.md) |  | [default to undefined]|
 
 
 

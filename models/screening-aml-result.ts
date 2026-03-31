@@ -21,7 +21,7 @@ import { ScreeningAmlAlert } from './screening-aml-alert';
 import { ScreeningAmlMatchedRule } from './screening-aml-matched-rule';
 
 /**
- * Detailed AML screening result information. Contains alerts, risk scores, and other AML-specific data from provider-specific responses. 
+ * Deprecated: This field is not currently returned in the API response. Detailed AML screening result information. Contains alerts, risk scores, and other AML-specific data from provider-specific responses. 
  * @export
  * @interface ScreeningAmlResult
  */

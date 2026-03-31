@@ -166,7 +166,8 @@ export const TokenOwnershipResponseBlockchainDescriptorEnum = {
     Apechain: 'APECHAIN',
     ApechainTest: 'APECHAIN_TEST',
     Cronos: 'CRONOS',
-    CronosTest: 'CRONOS_TEST'
+    CronosTest: 'CRONOS_TEST',
+    RobinhoodChainTestnetTest: 'ROBINHOOD_CHAIN_TESTNET_TEST'
 } as const;
 
 export type TokenOwnershipResponseBlockchainDescriptorEnum = typeof TokenOwnershipResponseBlockchainDescriptorEnum[keyof typeof TokenOwnershipResponseBlockchainDescriptorEnum];

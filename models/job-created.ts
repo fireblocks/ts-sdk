@@ -26,5 +26,11 @@ export interface JobCreated {
      * @memberof JobCreated
      */
     'jobId'?: string;
+    /**
+     * Approval request ID. Returned when a tag triggers an approval flow.
+     * @type {string}
+     * @memberof JobCreated
+     */
+    'approvalRequestId'?: string;
 }
 

@@ -18,12 +18,15 @@
 import { BaseProvider } from './base-provider';
 // May contain unused imports in some cases
 // @ts-ignore
-import { DirectAccessProviderDetails } from './direct-access-provider-details';
+import { DirectAccessProviderInfo } from './direct-access-provider-info';
+// May contain unused imports in some cases
+// @ts-ignore
+import { Manifest } from './manifest';
 
 /**
  * @type DirectAccessProvider
  * @export
  */
-export type DirectAccessProvider = BaseProvider & DirectAccessProviderDetails;
+export type DirectAccessProvider = BaseProvider & DirectAccessProviderInfo;
 
 

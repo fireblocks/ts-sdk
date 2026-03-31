@@ -1,4 +1,4 @@
-# DirectAccessProviderDetails
+# DirectAccessProviderInfo
 
 ## Properties
 
@@ -7,6 +7,7 @@
 |**hasTermsOfService** | **boolean** | Whether the provider has terms of service | [default to undefined]|
 |**approved** | **boolean** | Whether the provider was approved for use | [optional] [default to undefined]|
 |**termsOfServiceUrl** | **string** | URL to the terms of service document | [optional] [default to undefined]|
+|**privacyPolicyUrl** | **string** | URL to the privacy policy document | [optional] [default to undefined]|
 
 
 

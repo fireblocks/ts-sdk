@@ -15,18 +15,17 @@
 
 
 /**
- * 
+ * Execution type supported by the provider
  * @export
  * @enum {string}
  */
 
-export const Capability = {
-    Withdrawals: 'WITHDRAWALS',
-    Deposits: 'DEPOSITS',
-    Trading: 'TRADING'
+export const ExecutionRequestDetailsType = {
+    Quote: 'QUOTE',
+    Market: 'MARKET'
 } as const;
 
-export type Capability = typeof Capability[keyof typeof Capability];
+export type ExecutionRequestDetailsType = typeof ExecutionRequestDetailsType[keyof typeof ExecutionRequestDetailsType];
 
 
 

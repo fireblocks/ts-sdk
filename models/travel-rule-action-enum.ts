@@ -23,7 +23,9 @@
 export const TravelRuleActionEnum = {
     Screen: 'SCREEN',
     Bypass: 'BYPASS',
-    Block: 'BLOCK'
+    Block: 'BLOCK',
+    Pass: 'PASS',
+    Freeze: 'FREEZE'
 } as const;
 
 export type TravelRuleActionEnum = typeof TravelRuleActionEnum[keyof typeof TravelRuleActionEnum];

@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**createQuote**](#createQuote) | **POST** /trading/quotes | Create a quote
 [**getOrder**](#getOrder) | **GET** /trading/orders/{orderId} | Get order details
 [**getOrders**](#getOrders) | **GET** /trading/orders | Get orders
+[**getTradingProviderById**](#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 [**getTradingProviders**](#getTradingProviders) | **GET** /trading/providers | Get providers
 
 
@@ -295,6 +296,71 @@ No authorization required
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
 **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTradingProviderById**
+> TradingProviderDetails getTradingProviderById()
+
+Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingBetaApiGetTradingProviderByIdRequest, TradingProviderDetails } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TradingBetaApiGetTradingProviderByIdRequest = {
+  // string | The unique identifier of the provider.
+  providerId: providerId_example,
+};
+
+fireblocks.tradingBeta.getTradingProviderById(body).then((res: FireblocksResponse<TradingProviderDetails>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **providerId** | [**string**] | The unique identifier of the provider. | defaults to undefined
+
+
+### Return type
+
+**[TradingProviderDetails](../models/TradingProviderDetails.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Provider details |  * X-Request-ID -  <br>  |
+**401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+**403** | Forbidden - insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+**404** | Provider not found. |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded - slow down and retry later. |  * X-Request-ID -  <br>  |
 **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
