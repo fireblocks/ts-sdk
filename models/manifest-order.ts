@@ -15,34 +15,21 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccountBase } from './account-base';
+import { ExecutionRequestDetailsType } from './execution-request-details-type';
 // May contain unused imports in some cases
 // @ts-ignore
-import { Manifest } from './manifest';
+import { ManifestBase } from './manifest-base';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ManifestOrderInfo } from './manifest-order-info';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SettlementTypeEnum } from './settlement-type-enum';
 
 /**
- * 
+ * @type ManifestOrder
  * @export
- * @interface AccountBasedAccessProviderDetails
  */
-export interface AccountBasedAccessProviderDetails {
-    /**
-     * 
-     * @type {Manifest}
-     * @memberof AccountBasedAccessProviderDetails
-     */
-    'manifest': Manifest;
-    /**
-     * Whether the provider is currently connected
-     * @type {boolean}
-     * @memberof AccountBasedAccessProviderDetails
-     */
-    'connected': boolean;
-    /**
-     * 
-     * @type {Array<AccountBase>}
-     * @memberof AccountBasedAccessProviderDetails
-     */
-    'accounts'?: Array<AccountBase>;
-}
+export type ManifestOrder = ManifestBase & ManifestOrderInfo;
+
 

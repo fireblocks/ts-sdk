@@ -15,17 +15,16 @@
 
 
 /**
- * 
+ * Result of clearing all vault-level opt-outs for the address registry on this workspace.
  * @export
- * @enum {string}
+ * @interface AddressRegistryRemoveAllVaultOptOutsResponse
  */
-
-export const AssetTypeEnum = {
-    Digital: 'DIGITAL',
-    Fiat: 'FIAT'
-} as const;
-
-export type AssetTypeEnum = typeof AssetTypeEnum[keyof typeof AssetTypeEnum];
-
-
+export interface AddressRegistryRemoveAllVaultOptOutsResponse {
+    /**
+     * Number of opt-out rows deleted (0 if none existed).
+     * @type {number}
+     * @memberof AddressRegistryRemoveAllVaultOptOutsResponse
+     */
+    'removedCount': number;
+}
 

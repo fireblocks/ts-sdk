@@ -13,23 +13,23 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AccountBase } from './account-base';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AccountBasedProviderDetails } from './account-based-provider-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { DirectProviderDetails } from './direct-provider-details';
+// May contain unused imports in some cases
+// @ts-ignore
+import { Manifest } from './manifest';
 
 /**
- * Risk level assessment for screening results. Possible values vary by provider and context. 
+ * @type TradingProviderDetails
  * @export
- * @enum {string}
  */
-
-export const ScreeningRiskLevelEnum = {
-    VeryHigh: 'VERY_HIGH',
-    Severe: 'SEVERE',
-    High: 'HIGH',
-    Medium: 'MEDIUM',
-    Low: 'LOW',
-    Unknown: 'UNKNOWN'
-} as const;
-
-export type ScreeningRiskLevelEnum = typeof ScreeningRiskLevelEnum[keyof typeof ScreeningRiskLevelEnum];
-
+export type TradingProviderDetails = AccountBasedProviderDetails | DirectProviderDetails;
 
 

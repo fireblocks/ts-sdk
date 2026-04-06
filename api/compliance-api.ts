@@ -27,19 +27,49 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AddressRegistryAddVaultOptOutsRequest } from '../models';
+// @ts-ignore
+import { AddressRegistryAddVaultOptOutsResponse } from '../models';
+// @ts-ignore
 import { AddressRegistryError } from '../models';
 // @ts-ignore
+import { AddressRegistryGetVaultOptOutResponse } from '../models';
+// @ts-ignore
 import { AddressRegistryLegalEntity } from '../models';
+// @ts-ignore
+import { AddressRegistryLegalEntityLegacy } from '../models';
+// @ts-ignore
+import { AddressRegistryListVaultOptOutsResponse } from '../models';
+// @ts-ignore
+import { AddressRegistryRemoveAllVaultOptOutsResponse } from '../models';
+// @ts-ignore
+import { AddressRegistryRemoveVaultOptOutResponse } from '../models';
+// @ts-ignore
+import { AddressRegistryTenantRegistryResponse } from '../models';
+// @ts-ignore
+import { AddressRegistryVaultListOrder } from '../models';
 // @ts-ignore
 import { AmlVerdictManualRequest } from '../models';
 // @ts-ignore
 import { AmlVerdictManualResponse } from '../models';
+// @ts-ignore
+import { AssignVaultsToLegalEntityRequest } from '../models';
+// @ts-ignore
+import { AssignVaultsToLegalEntityResponse } from '../models';
 // @ts-ignore
 import { ComplianceResultFullPayload } from '../models';
 // @ts-ignore
 import { CreateTransactionResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { LegalEntityRegistration } from '../models';
+// @ts-ignore
+import { ListLegalEntitiesResponse } from '../models';
+// @ts-ignore
+import { ListVaultsForRegistrationResponse } from '../models';
+// @ts-ignore
+import { RegisterLegalEntityRequest } from '../models';
 // @ts-ignore
 import { ScreeningConfigurationsRequest } from '../models';
 // @ts-ignore
@@ -48,12 +78,160 @@ import { ScreeningPolicyResponse } from '../models';
 import { ScreeningProviderRulesConfigurationResponse } from '../models';
 // @ts-ignore
 import { ScreeningUpdateConfigurations } from '../models';
+// @ts-ignore
+import { UpdateLegalEntityRequest } from '../models';
 /**
  * ComplianceApi - axios parameter creator
  * @export
  */
 export const ComplianceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Adds one or more vault account ids to the workspace opt-out list for the address registry.
+         * @summary Add vault accounts to the address registry opt-out list
+         * @param {AddressRegistryAddVaultOptOutsRequest} addressRegistryAddVaultOptOutsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addAddressRegistryVaultOptOuts: async (addressRegistryAddVaultOptOutsRequest: AddressRegistryAddVaultOptOutsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('addAddressRegistryVaultOptOuts', 'addressRegistryAddVaultOptOutsRequest', addressRegistryAddVaultOptOutsRequest)
+            const localVarPath = `/address_registry/vaults`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addressRegistryAddVaultOptOutsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Assign vault accounts to a legal entity
+         * @param {AssignVaultsToLegalEntityRequest} assignVaultsToLegalEntityRequest 
+         * @param {string} legalEntityId The unique ID of the legal entity registration
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assignVaultsToLegalEntity: async (assignVaultsToLegalEntityRequest: AssignVaultsToLegalEntityRequest, legalEntityId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('assignVaultsToLegalEntity', 'assignVaultsToLegalEntityRequest', assignVaultsToLegalEntityRequest)
+            assertParamExistsAndNotEmpty('assignVaultsToLegalEntity', 'legalEntityId', legalEntityId)
+            const localVarPath = `/legal_entities/{legalEntityId}/vaults`
+                .replace(`{${"legalEntityId"}}`, encodeURIComponent(String(legalEntityId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(assignVaultsToLegalEntityRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
+         * @summary Get address registry participation status for the authenticated workspace
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAddressRegistryTenantParticipationStatus: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/tenant`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns whether this vault account is on the workspace opt-out list (`optedOut` true or false). List, add, and clear-all are available on `/v1/address_registry/vaults`; this path reads or removes one vault.
+         * @summary Get whether a vault account is opted out of the address registry
+         * @param {number} vaultAccountId Vault account id (non-negative integer).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAddressRegistryVaultOptOut: async (vaultAccountId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('getAddressRegistryVaultOptOut', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/address_registry/vaults/{vaultAccountId}`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Get the post-screening policy for AML.
          * @summary AML - View Post-Screening Policy
@@ -115,11 +293,45 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
-         * @summary Look up legal entity by address and asset
-         * @param {string} address Blockchain address to look up
-         * @param {string} [asset] Asset ID (e.g. ETH, BTC). Optional.
+         * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get a legal entity
+         * @param {string} legalEntityId The unique ID of the legal entity registration
          * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLegalEntity: async (legalEntityId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getLegalEntity', 'legalEntityId', legalEntityId)
+            const localVarPath = `/legal_entities/{legalEntityId}`
+                .replace(`{${"legalEntityId"}}`, encodeURIComponent(String(legalEntityId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
+         * @summary [Deprecated] Look up legal entity by address (query parameter)
+         * @param {string} address Blockchain address to look up
+         * @param {string} [asset] Optional asset identifier (this deprecated operation only).
+         * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         getLegalEntityByAddress: async (address: string, asset?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
@@ -143,6 +355,39 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             if (asset !== undefined) {
                 localVarQueryParameter['asset'] = asset;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+         * @summary Look up legal entity by blockchain address
+         * @param {string} address Blockchain address to look up
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLegalEntityForAddress: async (address: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getLegalEntityForAddress', 'address', address)
+            const localVarPath = `/address_registry/legal_entities/{address}`
+                .replace(`{${"address"}}`, encodeURIComponent(String(address)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -234,6 +479,317 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists vault accounts that are opted out of the address registry for this workspace. Pagination uses `next` and `prev` cursors from the response. If `pageSize` is omitted, **50** items are returned per page; allowed range is **1–100** per request.
+         * @summary List vault-level address registry opt-outs (paginated)
+         * @param {string} [pageCursor] Opaque cursor from a previous response (&#x60;next&#x60; or &#x60;prev&#x60;). Omit for the first page.
+         * @param {number} [pageSize] Page size. Default **50** if omitted; must be between **1** and **100**.
+         * @param {AddressRegistryVaultListOrder} [order] Sort direction by vault account id. Omit for ascending; use the enum value for descending.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listAddressRegistryVaultOptOuts: async (pageCursor?: string, pageSize?: number, order?: AddressRegistryVaultListOrder, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/vaults`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List legal entities (Paginated)
+         * @param {string} [vaultAccountId] The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
+         * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {number} [pageSize] Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {ListLegalEntitiesSortByEnum} [sortBy] Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {ListLegalEntitiesOrderEnum} [order] Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listLegalEntities: async (vaultAccountId?: string, pageCursor?: string, pageSize?: number, sortBy?: ListLegalEntitiesSortByEnum, order?: ListLegalEntitiesOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/legal_entities`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (vaultAccountId !== undefined) {
+                localVarQueryParameter['vaultAccountId'] = vaultAccountId;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List vault accounts for a legal entity (Paginated)
+         * @param {string} legalEntityId The unique ID of the legal entity registration
+         * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response
+         * @param {number} [pageSize] Maximum number of registrations to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listVaultsForLegalEntity: async (legalEntityId: string, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('listVaultsForLegalEntity', 'legalEntityId', legalEntityId)
+            const localVarPath = `/legal_entities/{legalEntityId}/vaults`
+                .replace(`{${"legalEntityId"}}`, encodeURIComponent(String(legalEntityId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
+         * @summary Opt the workspace in to the address registry
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optInAddressRegistryTenant: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/tenant`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
+         * @summary Opt the workspace out of the address registry
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optOutAddressRegistryTenant: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/tenant`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Register a new legal entity
+         * @param {RegisterLegalEntityRequest} registerLegalEntityRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerLegalEntity: async (registerLegalEntityRequest: RegisterLegalEntityRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('registerLegalEntity', 'registerLegalEntityRequest', registerLegalEntityRequest)
+            const localVarPath = `/legal_entities`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(registerLegalEntityRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Removes this vault account id from the workspace opt-out list if it is present; otherwise the call still succeeds. Response body matches GET (`optedOut` is `false` after success). To clear the whole list, use `DELETE /v1/address_registry/vaults`.
+         * @summary Remove a single vault account from the address registry opt-out list
+         * @param {number} vaultAccountId Vault account id (non-negative integer).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeAddressRegistryVaultOptOut: async (vaultAccountId: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('removeAddressRegistryVaultOptOut', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/address_registry/vaults/{vaultAccountId}`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Removes all vault accounts from the workspace opt-out list.
+         * @summary Remove all vault-level address registry opt-outs for the workspace
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeAllAddressRegistryVaultOptOuts: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/vaults`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -362,6 +918,49 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Update legal entity
+         * @param {UpdateLegalEntityRequest} updateLegalEntityRequest 
+         * @param {string} legalEntityId The unique ID of the legal entity registration
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateLegalEntity: async (updateLegalEntityRequest: UpdateLegalEntityRequest, legalEntityId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateLegalEntity', 'updateLegalEntityRequest', updateLegalEntityRequest)
+            assertParamExistsAndNotEmpty('updateLegalEntity', 'legalEntityId', legalEntityId)
+            const localVarPath = `/legal_entities/{legalEntityId}`
+                .replace(`{${"legalEntityId"}}`, encodeURIComponent(String(legalEntityId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateLegalEntityRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
          * @param {ScreeningUpdateConfigurations} screeningUpdateConfigurations 
@@ -447,6 +1046,60 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ComplianceApiAxiosParamCreator(configuration)
     return {
         /**
+         * Adds one or more vault account ids to the workspace opt-out list for the address registry.
+         * @summary Add vault accounts to the address registry opt-out list
+         * @param {AddressRegistryAddVaultOptOutsRequest} addressRegistryAddVaultOptOutsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async addAddressRegistryVaultOptOuts(addressRegistryAddVaultOptOutsRequest: AddressRegistryAddVaultOptOutsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryAddVaultOptOutsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addAddressRegistryVaultOptOuts(addressRegistryAddVaultOptOutsRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.addAddressRegistryVaultOptOuts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Assign vault accounts to a legal entity
+         * @param {AssignVaultsToLegalEntityRequest} assignVaultsToLegalEntityRequest 
+         * @param {string} legalEntityId The unique ID of the legal entity registration
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async assignVaultsToLegalEntity(assignVaultsToLegalEntityRequest: AssignVaultsToLegalEntityRequest, legalEntityId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AssignVaultsToLegalEntityResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.assignVaultsToLegalEntity(assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.assignVaultsToLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
+         * @summary Get address registry participation status for the authenticated workspace
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAddressRegistryTenantParticipationStatus(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryTenantRegistryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressRegistryTenantParticipationStatus(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getAddressRegistryTenantParticipationStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns whether this vault account is on the workspace opt-out list (`optedOut` true or false). List, add, and clear-all are available on `/v1/address_registry/vaults`; this path reads or removes one vault.
+         * @summary Get whether a vault account is opted out of the address registry
+         * @param {number} vaultAccountId Vault account id (non-negative integer).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAddressRegistryVaultOptOut(vaultAccountId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryGetVaultOptOutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressRegistryVaultOptOut(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getAddressRegistryVaultOptOut']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get the post-screening policy for AML.
          * @summary AML - View Post-Screening Policy
          * @param {*} [options] Override http request option.
@@ -471,17 +1124,44 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
-         * @summary Look up legal entity by address and asset
-         * @param {string} address Blockchain address to look up
-         * @param {string} [asset] Asset ID (e.g. ETH, BTC). Optional.
+         * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get a legal entity
+         * @param {string} legalEntityId The unique ID of the legal entity registration
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLegalEntityByAddress(address: string, asset?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryLegalEntity>> {
+        async getLegalEntity(legalEntityId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegalEntityRegistration>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLegalEntity(legalEntityId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
+         * @summary [Deprecated] Look up legal entity by address (query parameter)
+         * @param {string} address Blockchain address to look up
+         * @param {string} [asset] Optional asset identifier (this deprecated operation only).
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        async getLegalEntityByAddress(address: string, asset?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryLegalEntityLegacy>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLegalEntityByAddress(address, asset, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.getLegalEntityByAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+         * @summary Look up legal entity by blockchain address
+         * @param {string} address Blockchain address to look up
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLegalEntityForAddress(address: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryLegalEntity>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLegalEntityForAddress(address, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getLegalEntityForAddress']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -519,6 +1199,117 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getScreeningPolicy(options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.getScreeningPolicy']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Lists vault accounts that are opted out of the address registry for this workspace. Pagination uses `next` and `prev` cursors from the response. If `pageSize` is omitted, **50** items are returned per page; allowed range is **1–100** per request.
+         * @summary List vault-level address registry opt-outs (paginated)
+         * @param {string} [pageCursor] Opaque cursor from a previous response (&#x60;next&#x60; or &#x60;prev&#x60;). Omit for the first page.
+         * @param {number} [pageSize] Page size. Default **50** if omitted; must be between **1** and **100**.
+         * @param {AddressRegistryVaultListOrder} [order] Sort direction by vault account id. Omit for ascending; use the enum value for descending.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listAddressRegistryVaultOptOuts(pageCursor?: string, pageSize?: number, order?: AddressRegistryVaultListOrder, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryListVaultOptOutsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listAddressRegistryVaultOptOuts(pageCursor, pageSize, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.listAddressRegistryVaultOptOuts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List legal entities (Paginated)
+         * @param {string} [vaultAccountId] The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
+         * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {number} [pageSize] Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {ListLegalEntitiesSortByEnum} [sortBy] Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {ListLegalEntitiesOrderEnum} [order] Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listLegalEntities(vaultAccountId?: string, pageCursor?: string, pageSize?: number, sortBy?: ListLegalEntitiesSortByEnum, order?: ListLegalEntitiesOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListLegalEntitiesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listLegalEntities(vaultAccountId, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.listLegalEntities']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List vault accounts for a legal entity (Paginated)
+         * @param {string} legalEntityId The unique ID of the legal entity registration
+         * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response
+         * @param {number} [pageSize] Maximum number of registrations to return
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listVaultsForLegalEntity(legalEntityId: string, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListVaultsForRegistrationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listVaultsForLegalEntity(legalEntityId, pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.listVaultsForLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
+         * @summary Opt the workspace in to the address registry
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async optInAddressRegistryTenant(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryTenantRegistryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.optInAddressRegistryTenant(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.optInAddressRegistryTenant']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
+         * @summary Opt the workspace out of the address registry
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async optOutAddressRegistryTenant(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryTenantRegistryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.optOutAddressRegistryTenant(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.optOutAddressRegistryTenant']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Register a new legal entity
+         * @param {RegisterLegalEntityRequest} registerLegalEntityRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async registerLegalEntity(registerLegalEntityRequest: RegisterLegalEntityRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegalEntityRegistration>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.registerLegalEntity(registerLegalEntityRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.registerLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Removes this vault account id from the workspace opt-out list if it is present; otherwise the call still succeeds. Response body matches GET (`optedOut` is `false` after success). To clear the whole list, use `DELETE /v1/address_registry/vaults`.
+         * @summary Remove a single vault account from the address registry opt-out list
+         * @param {number} vaultAccountId Vault account id (non-negative integer).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeAddressRegistryVaultOptOut(vaultAccountId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryRemoveVaultOptOutResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeAddressRegistryVaultOptOut(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.removeAddressRegistryVaultOptOut']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Removes all vault accounts from the workspace opt-out list.
+         * @summary Remove all vault-level address registry opt-outs for the workspace
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async removeAllAddressRegistryVaultOptOuts(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryRemoveAllVaultOptOutsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.removeAllAddressRegistryVaultOptOuts(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.removeAllAddressRegistryVaultOptOuts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -563,6 +1354,21 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Update legal entity
+         * @param {UpdateLegalEntityRequest} updateLegalEntityRequest 
+         * @param {string} legalEntityId The unique ID of the legal entity registration
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateLegalEntity(updateLegalEntityRequest: UpdateLegalEntityRequest, legalEntityId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LegalEntityRegistration>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateLegalEntity(updateLegalEntityRequest, legalEntityId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.updateLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
          * @param {ScreeningUpdateConfigurations} screeningUpdateConfigurations 
@@ -600,6 +1406,45 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
     const localVarFp = ComplianceApiFp(configuration)
     return {
         /**
+         * Adds one or more vault account ids to the workspace opt-out list for the address registry.
+         * @summary Add vault accounts to the address registry opt-out list
+         * @param {ComplianceApiAddAddressRegistryVaultOptOutsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        addAddressRegistryVaultOptOuts(requestParameters: ComplianceApiAddAddressRegistryVaultOptOutsRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryAddVaultOptOutsResponse> {
+            return localVarFp.addAddressRegistryVaultOptOuts(requestParameters.addressRegistryAddVaultOptOutsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Assign vault accounts to a legal entity
+         * @param {ComplianceApiAssignVaultsToLegalEntityRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssignVaultsToLegalEntityResponse> {
+            return localVarFp.assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
+         * @summary Get address registry participation status for the authenticated workspace
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAddressRegistryTenantParticipationStatus(options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryTenantRegistryResponse> {
+            return localVarFp.getAddressRegistryTenantParticipationStatus(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns whether this vault account is on the workspace opt-out list (`optedOut` true or false). List, add, and clear-all are available on `/v1/address_registry/vaults`; this path reads or removes one vault.
+         * @summary Get whether a vault account is opted out of the address registry
+         * @param {ComplianceApiGetAddressRegistryVaultOptOutRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAddressRegistryVaultOptOut(requestParameters: ComplianceApiGetAddressRegistryVaultOptOutRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryGetVaultOptOutResponse> {
+            return localVarFp.getAddressRegistryVaultOptOut(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get the post-screening policy for AML.
          * @summary AML - View Post-Screening Policy
          * @param {*} [options] Override http request option.
@@ -618,14 +1463,35 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getAmlScreeningPolicy(options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
-         * @summary Look up legal entity by address and asset
-         * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
+         * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get a legal entity
+         * @param {ComplianceApiGetLegalEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryLegalEntity> {
+        getLegalEntity(requestParameters: ComplianceApiGetLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<LegalEntityRegistration> {
+            return localVarFp.getLegalEntity(requestParameters.legalEntityId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
+         * @summary [Deprecated] Look up legal entity by address (query parameter)
+         * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryLegalEntityLegacy> {
             return localVarFp.getLegalEntityByAddress(requestParameters.address, requestParameters.asset, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+         * @summary Look up legal entity by blockchain address
+         * @param {ComplianceApiGetLegalEntityForAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLegalEntityForAddress(requestParameters: ComplianceApiGetLegalEntityForAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryLegalEntity> {
+            return localVarFp.getLegalEntityForAddress(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
          * Get the post-screening policy for Travel Rule.
@@ -654,6 +1520,84 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         getScreeningPolicy(options?: RawAxiosRequestConfig): AxiosPromise<ScreeningProviderRulesConfigurationResponse> {
             return localVarFp.getScreeningPolicy(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists vault accounts that are opted out of the address registry for this workspace. Pagination uses `next` and `prev` cursors from the response. If `pageSize` is omitted, **50** items are returned per page; allowed range is **1–100** per request.
+         * @summary List vault-level address registry opt-outs (paginated)
+         * @param {ComplianceApiListAddressRegistryVaultOptOutsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listAddressRegistryVaultOptOuts(requestParameters: ComplianceApiListAddressRegistryVaultOptOutsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryListVaultOptOutsResponse> {
+            return localVarFp.listAddressRegistryVaultOptOuts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List legal entities (Paginated)
+         * @param {ComplianceApiListLegalEntitiesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listLegalEntities(requestParameters: ComplianceApiListLegalEntitiesRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListLegalEntitiesResponse> {
+            return localVarFp.listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List vault accounts for a legal entity (Paginated)
+         * @param {ComplianceApiListVaultsForLegalEntityRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listVaultsForLegalEntity(requestParameters: ComplianceApiListVaultsForLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListVaultsForRegistrationResponse> {
+            return localVarFp.listVaultsForLegalEntity(requestParameters.legalEntityId, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
+         * @summary Opt the workspace in to the address registry
+         * @param {ComplianceApiOptInAddressRegistryTenantRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optInAddressRegistryTenant(requestParameters: ComplianceApiOptInAddressRegistryTenantRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryTenantRegistryResponse> {
+            return localVarFp.optInAddressRegistryTenant(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
+         * @summary Opt the workspace out of the address registry
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optOutAddressRegistryTenant(options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryTenantRegistryResponse> {
+            return localVarFp.optOutAddressRegistryTenant(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Register a new legal entity
+         * @param {ComplianceApiRegisterLegalEntityRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerLegalEntity(requestParameters: ComplianceApiRegisterLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<LegalEntityRegistration> {
+            return localVarFp.registerLegalEntity(requestParameters.registerLegalEntityRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Removes this vault account id from the workspace opt-out list if it is present; otherwise the call still succeeds. Response body matches GET (`optedOut` is `false` after success). To clear the whole list, use `DELETE /v1/address_registry/vaults`.
+         * @summary Remove a single vault account from the address registry opt-out list
+         * @param {ComplianceApiRemoveAddressRegistryVaultOptOutRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeAddressRegistryVaultOptOut(requestParameters: ComplianceApiRemoveAddressRegistryVaultOptOutRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryRemoveVaultOptOutResponse> {
+            return localVarFp.removeAddressRegistryVaultOptOut(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Removes all vault accounts from the workspace opt-out list.
+         * @summary Remove all vault-level address registry opt-outs for the workspace
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        removeAllAddressRegistryVaultOptOuts(options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryRemoveAllVaultOptOutsResponse> {
+            return localVarFp.removeAllAddressRegistryVaultOptOuts(options).then((request) => request(axios, basePath));
         },
         /**
          * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
@@ -686,6 +1630,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.updateAmlScreeningConfiguration(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Update legal entity
+         * @param {ComplianceApiUpdateLegalEntityRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateLegalEntity(requestParameters: ComplianceApiUpdateLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<LegalEntityRegistration> {
+            return localVarFp.updateLegalEntity(requestParameters.updateLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Update tenant screening configuration.
          * @summary Tenant - Screening Configuration
          * @param {ComplianceApiUpdateScreeningConfigurationRequest} requestParameters Request parameters.
@@ -709,6 +1663,83 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
 };
 
 /**
+ * Request parameters for addAddressRegistryVaultOptOuts operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiAddAddressRegistryVaultOptOutsRequest
+ */
+export interface ComplianceApiAddAddressRegistryVaultOptOutsRequest {
+    /**
+     * 
+     * @type {AddressRegistryAddVaultOptOutsRequest}
+     * @memberof ComplianceApiAddAddressRegistryVaultOptOuts
+     */
+    readonly addressRegistryAddVaultOptOutsRequest: AddressRegistryAddVaultOptOutsRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiAddAddressRegistryVaultOptOuts
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for assignVaultsToLegalEntity operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiAssignVaultsToLegalEntityRequest
+ */
+export interface ComplianceApiAssignVaultsToLegalEntityRequest {
+    /**
+     * 
+     * @type {AssignVaultsToLegalEntityRequest}
+     * @memberof ComplianceApiAssignVaultsToLegalEntity
+     */
+    readonly assignVaultsToLegalEntityRequest: AssignVaultsToLegalEntityRequest
+
+    /**
+     * The unique ID of the legal entity registration
+     * @type {string}
+     * @memberof ComplianceApiAssignVaultsToLegalEntity
+     */
+    readonly legalEntityId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiAssignVaultsToLegalEntity
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for getAddressRegistryVaultOptOut operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetAddressRegistryVaultOptOutRequest
+ */
+export interface ComplianceApiGetAddressRegistryVaultOptOutRequest {
+    /**
+     * Vault account id (non-negative integer).
+     * @type {number}
+     * @memberof ComplianceApiGetAddressRegistryVaultOptOut
+     */
+    readonly vaultAccountId: number
+}
+
+/**
+ * Request parameters for getLegalEntity operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetLegalEntityRequest
+ */
+export interface ComplianceApiGetLegalEntityRequest {
+    /**
+     * The unique ID of the legal entity registration
+     * @type {string}
+     * @memberof ComplianceApiGetLegalEntity
+     */
+    readonly legalEntityId: string
+}
+
+/**
  * Request parameters for getLegalEntityByAddress operation in ComplianceApi.
  * @export
  * @interface ComplianceApiGetLegalEntityByAddressRequest
@@ -722,11 +1753,25 @@ export interface ComplianceApiGetLegalEntityByAddressRequest {
     readonly address: string
 
     /**
-     * Asset ID (e.g. ETH, BTC). Optional.
+     * Optional asset identifier (this deprecated operation only).
      * @type {string}
      * @memberof ComplianceApiGetLegalEntityByAddress
      */
     readonly asset?: string
+}
+
+/**
+ * Request parameters for getLegalEntityForAddress operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetLegalEntityForAddressRequest
+ */
+export interface ComplianceApiGetLegalEntityForAddressRequest {
+    /**
+     * Blockchain address to look up
+     * @type {string}
+     * @memberof ComplianceApiGetLegalEntityForAddress
+     */
+    readonly address: string
 }
 
 /**
@@ -741,6 +1786,153 @@ export interface ComplianceApiGetScreeningFullDetailsRequest {
      * @memberof ComplianceApiGetScreeningFullDetails
      */
     readonly txId: string
+}
+
+/**
+ * Request parameters for listAddressRegistryVaultOptOuts operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiListAddressRegistryVaultOptOutsRequest
+ */
+export interface ComplianceApiListAddressRegistryVaultOptOutsRequest {
+    /**
+     * Opaque cursor from a previous response (&#x60;next&#x60; or &#x60;prev&#x60;). Omit for the first page.
+     * @type {string}
+     * @memberof ComplianceApiListAddressRegistryVaultOptOuts
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Page size. Default **50** if omitted; must be between **1** and **100**.
+     * @type {number}
+     * @memberof ComplianceApiListAddressRegistryVaultOptOuts
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sort direction by vault account id. Omit for ascending; use the enum value for descending.
+     * @type {AddressRegistryVaultListOrder}
+     * @memberof ComplianceApiListAddressRegistryVaultOptOuts
+     */
+    readonly order?: AddressRegistryVaultListOrder
+}
+
+/**
+ * Request parameters for listLegalEntities operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiListLegalEntitiesRequest
+ */
+export interface ComplianceApiListLegalEntitiesRequest {
+    /**
+     * The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
+     * @type {string}
+     * @memberof ComplianceApiListLegalEntities
+     */
+    readonly vaultAccountId?: string
+
+    /**
+     * Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
+     * @type {string}
+     * @memberof ComplianceApiListLegalEntities
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided.
+     * @type {number}
+     * @memberof ComplianceApiListLegalEntities
+     */
+    readonly pageSize?: number
+
+    /**
+     * Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
+     * @type {'createdAt' | 'updatedAt'}
+     * @memberof ComplianceApiListLegalEntities
+     */
+    readonly sortBy?: ListLegalEntitiesSortByEnum
+
+    /**
+     * Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided.
+     * @type {'ASC' | 'DESC'}
+     * @memberof ComplianceApiListLegalEntities
+     */
+    readonly order?: ListLegalEntitiesOrderEnum
+}
+
+/**
+ * Request parameters for listVaultsForLegalEntity operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiListVaultsForLegalEntityRequest
+ */
+export interface ComplianceApiListVaultsForLegalEntityRequest {
+    /**
+     * The unique ID of the legal entity registration
+     * @type {string}
+     * @memberof ComplianceApiListVaultsForLegalEntity
+     */
+    readonly legalEntityId: string
+
+    /**
+     * Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response
+     * @type {string}
+     * @memberof ComplianceApiListVaultsForLegalEntity
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Maximum number of registrations to return
+     * @type {number}
+     * @memberof ComplianceApiListVaultsForLegalEntity
+     */
+    readonly pageSize?: number
+}
+
+/**
+ * Request parameters for optInAddressRegistryTenant operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiOptInAddressRegistryTenantRequest
+ */
+export interface ComplianceApiOptInAddressRegistryTenantRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiOptInAddressRegistryTenant
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for registerLegalEntity operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiRegisterLegalEntityRequest
+ */
+export interface ComplianceApiRegisterLegalEntityRequest {
+    /**
+     * 
+     * @type {RegisterLegalEntityRequest}
+     * @memberof ComplianceApiRegisterLegalEntity
+     */
+    readonly registerLegalEntityRequest: RegisterLegalEntityRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiRegisterLegalEntity
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for removeAddressRegistryVaultOptOut operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiRemoveAddressRegistryVaultOptOutRequest
+ */
+export interface ComplianceApiRemoveAddressRegistryVaultOptOutRequest {
+    /**
+     * Vault account id (non-negative integer).
+     * @type {number}
+     * @memberof ComplianceApiRemoveAddressRegistryVaultOptOut
+     */
+    readonly vaultAccountId: number
 }
 
 /**
@@ -800,6 +1992,34 @@ export interface ComplianceApiUpdateAmlScreeningConfigurationRequest {
 }
 
 /**
+ * Request parameters for updateLegalEntity operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiUpdateLegalEntityRequest
+ */
+export interface ComplianceApiUpdateLegalEntityRequest {
+    /**
+     * 
+     * @type {UpdateLegalEntityRequest}
+     * @memberof ComplianceApiUpdateLegalEntity
+     */
+    readonly updateLegalEntityRequest: UpdateLegalEntityRequest
+
+    /**
+     * The unique ID of the legal entity registration
+     * @type {string}
+     * @memberof ComplianceApiUpdateLegalEntity
+     */
+    readonly legalEntityId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiUpdateLegalEntity
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for updateScreeningConfiguration operation in ComplianceApi.
  * @export
  * @interface ComplianceApiUpdateScreeningConfigurationRequest
@@ -842,6 +2062,53 @@ export interface ComplianceApiUpdateTravelRuleConfigRequest {
  */
 export class ComplianceApi extends BaseAPI {
     /**
+     * Adds one or more vault account ids to the workspace opt-out list for the address registry.
+     * @summary Add vault accounts to the address registry opt-out list
+     * @param {ComplianceApiAddAddressRegistryVaultOptOutsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public addAddressRegistryVaultOptOuts(requestParameters: ComplianceApiAddAddressRegistryVaultOptOutsRequest) {
+        return ComplianceApiFp(this.configuration).addAddressRegistryVaultOptOuts(requestParameters.addressRegistryAddVaultOptOutsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * @summary Assign vault accounts to a legal entity
+     * @param {ComplianceApiAssignVaultsToLegalEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest) {
+        return ComplianceApiFp(this.configuration).assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
+     * @summary Get address registry participation status for the authenticated workspace
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getAddressRegistryTenantParticipationStatus() {
+        return ComplianceApiFp(this.configuration).getAddressRegistryTenantParticipationStatus().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns whether this vault account is on the workspace opt-out list (`optedOut` true or false). List, add, and clear-all are available on `/v1/address_registry/vaults`; this path reads or removes one vault.
+     * @summary Get whether a vault account is opted out of the address registry
+     * @param {ComplianceApiGetAddressRegistryVaultOptOutRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getAddressRegistryVaultOptOut(requestParameters: ComplianceApiGetAddressRegistryVaultOptOutRequest) {
+        return ComplianceApiFp(this.configuration).getAddressRegistryVaultOptOut(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get the post-screening policy for AML.
      * @summary AML - View Post-Screening Policy
      * @param {*} [options] Override http request option.
@@ -864,15 +2131,40 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Returns the legal entity (company name, jurisdiction, companyId) for the given blockchain address and optional asset. Both the requester and the owner of the address must be opted in to the address registry.
-     * @summary Look up legal entity by address and asset
+     * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Get a legal entity
+     * @param {ComplianceApiGetLegalEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getLegalEntity(requestParameters: ComplianceApiGetLegalEntityRequest) {
+        return ComplianceApiFp(this.configuration).getLegalEntity(requestParameters.legalEntityId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
+     * @summary [Deprecated] Look up legal entity by address (query parameter)
      * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
+     * @deprecated
      * @throws {RequiredError}
      * @memberof ComplianceApi
      */
     public getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest) {
         return ComplianceApiFp(this.configuration).getLegalEntityByAddress(requestParameters.address, requestParameters.asset).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+     * @summary Look up legal entity by blockchain address
+     * @param {ComplianceApiGetLegalEntityForAddressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getLegalEntityForAddress(requestParameters: ComplianceApiGetLegalEntityForAddressRequest) {
+        return ComplianceApiFp(this.configuration).getLegalEntityForAddress(requestParameters.address).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -907,6 +2199,100 @@ export class ComplianceApi extends BaseAPI {
      */
     public getScreeningPolicy() {
         return ComplianceApiFp(this.configuration).getScreeningPolicy().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Lists vault accounts that are opted out of the address registry for this workspace. Pagination uses `next` and `prev` cursors from the response. If `pageSize` is omitted, **50** items are returned per page; allowed range is **1–100** per request.
+     * @summary List vault-level address registry opt-outs (paginated)
+     * @param {ComplianceApiListAddressRegistryVaultOptOutsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public listAddressRegistryVaultOptOuts(requestParameters: ComplianceApiListAddressRegistryVaultOptOutsRequest = {}) {
+        return ComplianceApiFp(this.configuration).listAddressRegistryVaultOptOuts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary List legal entities (Paginated)
+     * @param {ComplianceApiListLegalEntitiesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public listLegalEntities(requestParameters: ComplianceApiListLegalEntitiesRequest = {}) {
+        return ComplianceApiFp(this.configuration).listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary List vault accounts for a legal entity (Paginated)
+     * @param {ComplianceApiListVaultsForLegalEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public listVaultsForLegalEntity(requestParameters: ComplianceApiListVaultsForLegalEntityRequest) {
+        return ComplianceApiFp(this.configuration).listVaultsForLegalEntity(requestParameters.legalEntityId, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
+     * @summary Opt the workspace in to the address registry
+     * @param {ComplianceApiOptInAddressRegistryTenantRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public optInAddressRegistryTenant(requestParameters: ComplianceApiOptInAddressRegistryTenantRequest = {}) {
+        return ComplianceApiFp(this.configuration).optInAddressRegistryTenant(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
+     * @summary Opt the workspace out of the address registry
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public optOutAddressRegistryTenant() {
+        return ComplianceApiFp(this.configuration).optOutAddressRegistryTenant().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * @summary Register a new legal entity
+     * @param {ComplianceApiRegisterLegalEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public registerLegalEntity(requestParameters: ComplianceApiRegisterLegalEntityRequest) {
+        return ComplianceApiFp(this.configuration).registerLegalEntity(requestParameters.registerLegalEntityRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Removes this vault account id from the workspace opt-out list if it is present; otherwise the call still succeeds. Response body matches GET (`optedOut` is `false` after success). To clear the whole list, use `DELETE /v1/address_registry/vaults`.
+     * @summary Remove a single vault account from the address registry opt-out list
+     * @param {ComplianceApiRemoveAddressRegistryVaultOptOutRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public removeAddressRegistryVaultOptOut(requestParameters: ComplianceApiRemoveAddressRegistryVaultOptOutRequest) {
+        return ComplianceApiFp(this.configuration).removeAddressRegistryVaultOptOut(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Removes all vault accounts from the workspace opt-out list.
+     * @summary Remove all vault-level address registry opt-outs for the workspace
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public removeAllAddressRegistryVaultOptOuts() {
+        return ComplianceApiFp(this.configuration).removeAllAddressRegistryVaultOptOuts().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -946,6 +2332,18 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
+     * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * @summary Update legal entity
+     * @param {ComplianceApiUpdateLegalEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public updateLegalEntity(requestParameters: ComplianceApiUpdateLegalEntityRequest) {
+        return ComplianceApiFp(this.configuration).updateLegalEntity(requestParameters.updateLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Update tenant screening configuration.
      * @summary Tenant - Screening Configuration
      * @param {ComplianceApiUpdateScreeningConfigurationRequest} requestParameters Request parameters.
@@ -970,3 +2368,19 @@ export class ComplianceApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const ListLegalEntitiesSortByEnum = {
+    CreatedAt: 'createdAt',
+    UpdatedAt: 'updatedAt'
+} as const;
+export type ListLegalEntitiesSortByEnum = typeof ListLegalEntitiesSortByEnum[keyof typeof ListLegalEntitiesSortByEnum];
+/**
+ * @export
+ */
+export const ListLegalEntitiesOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type ListLegalEntitiesOrderEnum = typeof ListLegalEntitiesOrderEnum[keyof typeof ListLegalEntitiesOrderEnum];

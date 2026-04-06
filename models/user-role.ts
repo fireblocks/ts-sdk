@@ -31,7 +31,9 @@ export const UserRole = {
     NonSigningAdmin: 'NON_SIGNING_ADMIN',
     Auditor: 'AUDITOR',
     NcwAdmin: 'NCW_ADMIN',
-    NcwSigner: 'NCW_SIGNER'
+    NcwSigner: 'NCW_SIGNER',
+    SecurityAdmin: 'SECURITY_ADMIN',
+    SecurityAuditor: 'SECURITY_AUDITOR'
 } as const;
 
 export type UserRole = typeof UserRole[keyof typeof UserRole];

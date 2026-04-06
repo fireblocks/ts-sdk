@@ -1,11 +1,11 @@
-# AssetTypeEnum
+# AddressRegistryVaultListOrder
 
 ## Enum
 
 
-* `Digital` (value: `'DIGITAL'`)
+* `Asc` (value: `'VAULT_OPT_OUT_LIST_ORDER_ASC'`)
 
-* `Fiat` (value: `'FIAT'`)
+* `Desc` (value: `'VAULT_OPT_OUT_LIST_ORDER_DESC'`)
 
 
 

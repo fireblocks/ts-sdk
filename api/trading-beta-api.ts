@@ -44,6 +44,8 @@ import { ProvidersListResponse } from '../models';
 import { QuotesResponse } from '../models';
 // @ts-ignore
 import { TradingErrorSchema } from '../models';
+// @ts-ignore
+import { TradingProviderDetails } from '../models';
 /**
  * TradingBetaApi - axios parameter creator
  * @export
@@ -240,6 +242,39 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
+         * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * @summary Get trading provider by ID
+         * @param {string} providerId The unique identifier of the provider.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTradingProviderById: async (providerId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTradingProviderById', 'providerId', providerId)
+            const localVarPath = `/trading/providers/{providerId}`
+                .replace(`{${"providerId"}}`, encodeURIComponent(String(providerId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get providers
          * @param {number} [pageSize] Page size for pagination.
@@ -352,6 +387,19 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * @summary Get trading provider by ID
+         * @param {string} providerId The unique identifier of the provider.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTradingProviderById(providerId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TradingProviderDetails>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTradingProviderById(providerId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TradingBetaApi.getTradingProviderById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get providers
          * @param {number} [pageSize] Page size for pagination.
@@ -414,6 +462,16 @@ export const TradingBetaApiFactory = function (configuration?: Configuration, ba
          */
         getOrders(requestParameters: TradingBetaApiGetOrdersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOrdersResponse> {
             return localVarFp.getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * @summary Get trading provider by ID
+         * @param {TradingBetaApiGetTradingProviderByIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTradingProviderById(requestParameters: TradingBetaApiGetTradingProviderByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<TradingProviderDetails> {
+            return localVarFp.getTradingProviderById(requestParameters.providerId, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
@@ -555,6 +613,20 @@ export interface TradingBetaApiGetOrdersRequest {
 }
 
 /**
+ * Request parameters for getTradingProviderById operation in TradingBetaApi.
+ * @export
+ * @interface TradingBetaApiGetTradingProviderByIdRequest
+ */
+export interface TradingBetaApiGetTradingProviderByIdRequest {
+    /**
+     * The unique identifier of the provider.
+     * @type {string}
+     * @memberof TradingBetaApiGetTradingProviderById
+     */
+    readonly providerId: string
+}
+
+/**
  * Request parameters for getTradingProviders operation in TradingBetaApi.
  * @export
  * @interface TradingBetaApiGetTradingProvidersRequest
@@ -628,6 +700,18 @@ export class TradingBetaApi extends BaseAPI {
      */
     public getOrders(requestParameters: TradingBetaApiGetOrdersRequest) {
         return TradingBetaApiFp(this.configuration).getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+     * @summary Get trading provider by ID
+     * @param {TradingBetaApiGetTradingProviderByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradingBetaApi
+     */
+    public getTradingProviderById(requestParameters: TradingBetaApiGetTradingProviderByIdRequest) {
+        return TradingBetaApiFp(this.configuration).getTradingProviderById(requestParameters.providerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

@@ -15,18 +15,19 @@
 
 
 /**
- * 
+ * Travel Rule provider identifier (string enum value).
  * @export
  * @enum {string}
  */
 
-export const Capability = {
-    Withdrawals: 'WITHDRAWALS',
-    Deposits: 'DEPOSITS',
-    Trading: 'TRADING'
+export const AddressRegistryTravelRuleProvider = {
+    Notabene: 'TRAVEL_RULE_PROVIDER_NOTABENE',
+    Sygna: 'TRAVEL_RULE_PROVIDER_SYGNA',
+    Trisa: 'TRAVEL_RULE_PROVIDER_TRISA',
+    Openvasp: 'TRAVEL_RULE_PROVIDER_OPENVASP'
 } as const;
 
-export type Capability = typeof Capability[keyof typeof Capability];
+export type AddressRegistryTravelRuleProvider = typeof AddressRegistryTravelRuleProvider[keyof typeof AddressRegistryTravelRuleProvider];
 
 
 

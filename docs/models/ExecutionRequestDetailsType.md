@@ -1,13 +1,11 @@
-# Capability
+# ExecutionRequestDetailsType
 
 ## Enum
 
 
-* `Withdrawals` (value: `'WITHDRAWALS'`)
+* `Quote` (value: `'QUOTE'`)
 
-* `Deposits` (value: `'DEPOSITS'`)
-
-* `Trading` (value: `'TRADING'`)
+* `Market` (value: `'MARKET'`)
 
 
 

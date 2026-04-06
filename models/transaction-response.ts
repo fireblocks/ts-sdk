@@ -114,7 +114,7 @@ export interface TransactionResponse {
      */
     'note'?: string;
     /**
-     * The ID of the asset to transfer, for `TRANSFER`, `MINT`, `BURN`, `ENABLE_ASSET`,`STAKE` ,`UNSTAKE` or `WITHDRAW` operations. [See the list of supported assets and their IDs on Fireblocks.](https://developers.fireblocks.com/reference/get_supported-assets)
+     * The ID of the asset to transfer for `TRANSFER`, `MINT`, `BURN`, `ENABLE_ASSET`, or `STAKE` operations. [See the list of supported assets and their IDs on Fireblocks](https://developers.fireblocks.com/reference/get_supported-assets).
      * @type {string}
      * @memberof TransactionResponse
      */

@@ -19,10 +19,6 @@
 
 * `Stake` (value: `'STAKE'`)
 
-* `Unstake` (value: `'UNSTAKE'`)
-
-* `Withdraw` (value: `'WITHDRAW'`)
-
 * `RedeemFromCompound` (value: `'REDEEM_FROM_COMPOUND'`)
 
 * `SupplyToCompound` (value: `'SUPPLY_TO_COMPOUND'`)
