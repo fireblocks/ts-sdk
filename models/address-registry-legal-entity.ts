@@ -13,30 +13,51 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AddressRegistryTravelRuleProvider } from './address-registry-travel-rule-provider';
 
 /**
- * Legal entity resolved for an address-registry lookup
+ * Legal entity details for a blockchain address.
  * @export
  * @interface AddressRegistryLegalEntity
  */
 export interface AddressRegistryLegalEntity {
     /**
-     * Legal entity / company display name
-     * @type {string}
+     * Whether the entity was resolved from verified public registry data (e.g. LEI sources).
+     * @type {boolean}
      * @memberof AddressRegistryLegalEntity
      */
-    'companyName': string;
+    'verified': boolean;
     /**
-     * Jurisdiction country code (e.g. ISO 3166-1 alpha-2)
+     * Legal entity display name.
      * @type {string}
      * @memberof AddressRegistryLegalEntity
      */
-    'countryCode': string;
+    'entityName': string;
     /**
-     * Company identifier for the resolved legal entity (UUID)
+     * Jurisdiction (e.g. ISO 3166-1 alpha-2 country code).
      * @type {string}
      * @memberof AddressRegistryLegalEntity
      */
-    'companyId': string;
+    'jurisdiction': string;
+    /**
+     * Legal Entity Identifier when available; may be empty when unverified.
+     * @type {string}
+     * @memberof AddressRegistryLegalEntity
+     */
+    'lei': string;
+    /**
+     * 
+     * @type {Array<AddressRegistryTravelRuleProvider>}
+     * @memberof AddressRegistryLegalEntity
+     */
+    'travelRuleProviders': Array<AddressRegistryTravelRuleProvider>;
+    /**
+     * Travel Rule contact email when available.
+     * @type {string}
+     * @memberof AddressRegistryLegalEntity
+     */
+    'email': string;
 }
 

@@ -59,6 +59,8 @@ import { StakingGetProvidersResponse } from '../models';
 // @ts-ignore
 import { StakingGetSummaryByVaultResponse } from '../models';
 // @ts-ignore
+import { StakingPositionsPaginatedResponse } from '../models';
+// @ts-ignore
 import { StakingProvider } from '../models';
 // @ts-ignore
 import { UnstakeRequest } from '../models';
@@ -152,7 +154,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
@@ -198,10 +200,11 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
          * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {string} [vaultAccountId] Filter positions by vault account ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllDelegations: async (chainDescriptor?: ChainDescriptor, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAllDelegations: async (chainDescriptor?: ChainDescriptor, vaultAccountId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/staking/positions`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -216,6 +219,10 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
 
             if (chainDescriptor !== undefined) {
                 localVarQueryParameter['chainDescriptor'] = chainDescriptor;
+            }
+
+            if (vaultAccountId !== undefined) {
+                localVarQueryParameter['vaultAccountId'] = vaultAccountId;
             }
 
 
@@ -313,6 +320,62 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary List staking positions (Paginated)
+         * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
+         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {string} [vaultAccountId] Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
+         * @param {string} [pageCursor] Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
+         * @param {GetPositionsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPositions: async (pageSize: number, chainDescriptor?: ChainDescriptor, vaultAccountId?: string, pageCursor?: string, order?: GetPositionsOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('getPositions', 'pageSize', pageSize)
+            const localVarPath = `/staking/positions_paginated`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (chainDescriptor !== undefined) {
+                localVarQueryParameter['chainDescriptor'] = chainDescriptor;
+            }
+
+            if (vaultAccountId !== undefined) {
+                localVarQueryParameter['vaultAccountId'] = vaultAccountId;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
 
 
     
@@ -670,7 +733,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
@@ -688,11 +751,12 @@ export const StakingApiFp = function(configuration?: Configuration) {
          * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {string} [vaultAccountId] Filter positions by vault account ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllDelegations(chainDescriptor?: ChainDescriptor, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingGetAllDelegationsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllDelegations(chainDescriptor, options);
+        async getAllDelegations(chainDescriptor?: ChainDescriptor, vaultAccountId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingGetAllDelegationsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllDelegations(chainDescriptor, vaultAccountId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingApi.getAllDelegations']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -733,6 +797,23 @@ export const StakingApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getDelegationById(id, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['StakingApi.getDelegationById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary List staking positions (Paginated)
+         * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
+         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {string} [vaultAccountId] Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
+         * @param {string} [pageCursor] Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
+         * @param {GetPositionsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPositions(pageSize: number, chainDescriptor?: ChainDescriptor, vaultAccountId?: string, pageCursor?: string, order?: GetPositionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingPositionsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPositions(pageSize, chainDescriptor, vaultAccountId, pageCursor, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['StakingApi.getPositions']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -877,7 +958,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.claimRewards(requestParameters.claimRewardsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -894,7 +975,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
          * @throws {RequiredError}
          */
         getAllDelegations(requestParameters: StakingApiGetAllDelegationsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<StakingGetAllDelegationsResponse> {
-            return localVarFp.getAllDelegations(requestParameters.chainDescriptor, options).then((request) => request(axios, basePath));
+            return localVarFp.getAllDelegations(requestParameters.chainDescriptor, requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns chain-specific staking information such as epoch/slot cadence, lockup or unbonding periods, fee/reward mechanics, and other operational constraints.
@@ -924,6 +1005,16 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
          */
         getDelegationById(requestParameters: StakingApiGetDelegationByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<Delegation> {
             return localVarFp.getDelegationById(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary List staking positions (Paginated)
+         * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPositions(requestParameters: StakingApiGetPositionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StakingPositionsPaginatedResponse> {
+            return localVarFp.getPositions(requestParameters.pageSize, requestParameters.chainDescriptor, requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
@@ -1094,6 +1185,13 @@ export interface StakingApiGetAllDelegationsRequest {
      * @memberof StakingApiGetAllDelegations
      */
     readonly chainDescriptor?: ChainDescriptor
+
+    /**
+     * Filter positions by vault account ID.
+     * @type {string}
+     * @memberof StakingApiGetAllDelegations
+     */
+    readonly vaultAccountId?: string
 }
 
 /**
@@ -1122,6 +1220,48 @@ export interface StakingApiGetDelegationByIdRequest {
      * @memberof StakingApiGetDelegationById
      */
     readonly id: string
+}
+
+/**
+ * Request parameters for getPositions operation in StakingApi.
+ * @export
+ * @interface StakingApiGetPositionsRequest
+ */
+export interface StakingApiGetPositionsRequest {
+    /**
+     * Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
+     * @type {number}
+     * @memberof StakingApiGetPositions
+     */
+    readonly pageSize: number
+
+    /**
+     * Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+     * @type {ChainDescriptor}
+     * @memberof StakingApiGetPositions
+     */
+    readonly chainDescriptor?: ChainDescriptor
+
+    /**
+     * Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
+     * @type {string}
+     * @memberof StakingApiGetPositions
+     */
+    readonly vaultAccountId?: string
+
+    /**
+     * Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
+     * @type {string}
+     * @memberof StakingApiGetPositions
+     */
+    readonly pageCursor?: string
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof StakingApiGetPositions
+     */
+    readonly order?: GetPositionsOrderEnum
 }
 
 /**
@@ -1296,7 +1436,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same validator provider and same vault account. On chain, this translates into a consolidation transaction, where the source validator is consolidated into the destination validator. Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
      * @summary Consolidate staking positions (ETH validator consolidation)
      * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1316,7 +1456,7 @@ export class StakingApi extends BaseAPI {
      * @memberof StakingApi
      */
     public getAllDelegations(requestParameters: StakingApiGetAllDelegationsRequest = {}) {
-        return StakingApiFp(this.configuration).getAllDelegations(requestParameters.chainDescriptor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return StakingApiFp(this.configuration).getAllDelegations(requestParameters.chainDescriptor, requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1352,6 +1492,18 @@ export class StakingApi extends BaseAPI {
      */
     public getDelegationById(requestParameters: StakingApiGetDelegationByIdRequest) {
         return StakingApiFp(this.configuration).getDelegationById(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * @summary List staking positions (Paginated)
+     * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StakingApi
+     */
+    public getPositions(requestParameters: StakingApiGetPositionsRequest) {
+        return StakingApiFp(this.configuration).getPositions(requestParameters.pageSize, requestParameters.chainDescriptor, requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1466,6 +1618,14 @@ export const ConsolidateChainDescriptorEnum = {
     EthTestHoodi: 'ETH_TEST_HOODI'
 } as const;
 export type ConsolidateChainDescriptorEnum = typeof ConsolidateChainDescriptorEnum[keyof typeof ConsolidateChainDescriptorEnum];
+/**
+ * @export
+ */
+export const GetPositionsOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetPositionsOrderEnum = typeof GetPositionsOrderEnum[keyof typeof GetPositionsOrderEnum];
 /**
  * @export
  */

@@ -259,7 +259,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation. You may optionally supply `customerIntegrationId` in the request body when your tenant is enabled for client-provided integration ids.
          * @summary Create customer integration
          * @param {TRLinkCreateIntegrationRequest} tRLinkCreateIntegrationRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -375,7 +375,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Disconnects a customer integration by removing stored credentials. The integration record is deleted and cannot be recovered.
+         * Disconnects the integration for the authenticated workspace (tenant): removes stored credentials and deletes this tenant\'s integration record. The operation is scoped to the caller\'s tenant; it does not remove partner-side state for other workspaces that reuse the same logical customer integration. The record cannot be recovered after delete.
          * @summary Disconnect customer integration
          * @param {string} customerIntegrationId Customer integration unique identifier
          * @param {*} [options] Override http request option.
@@ -1110,7 +1110,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation. You may optionally supply `customerIntegrationId` in the request body when your tenant is enabled for client-provided integration ids.
          * @summary Create customer integration
          * @param {TRLinkCreateIntegrationRequest} tRLinkCreateIntegrationRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1152,7 +1152,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Disconnects a customer integration by removing stored credentials. The integration record is deleted and cannot be recovered.
+         * Disconnects the integration for the authenticated workspace (tenant): removes stored credentials and deletes this tenant\'s integration record. The operation is scoped to the caller\'s tenant; it does not remove partner-side state for other workspaces that reuse the same logical customer integration. The record cannot be recovered after delete.
          * @summary Disconnect customer integration
          * @param {string} customerIntegrationId Customer integration unique identifier
          * @param {*} [options] Override http request option.
@@ -1451,7 +1451,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createTRLinkCustomer(requestParameters.tRLinkCreateCustomerRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+         * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation. You may optionally supply `customerIntegrationId` in the request body when your tenant is enabled for client-provided integration ids.
          * @summary Create customer integration
          * @param {TRLinkApiCreateTRLinkIntegrationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1481,7 +1481,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.deleteTRLinkCustomer(requestParameters.customerId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Disconnects a customer integration by removing stored credentials. The integration record is deleted and cannot be recovered.
+         * Disconnects the integration for the authenticated workspace (tenant): removes stored credentials and deletes this tenant\'s integration record. The operation is scoped to the caller\'s tenant; it does not remove partner-side state for other workspaces that reuse the same logical customer integration. The record cannot be recovered after delete.
          * @summary Disconnect customer integration
          * @param {TRLinkApiDisconnectTRLinkIntegrationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2227,7 +2227,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation.
+     * Creates a new TRSupport integration for a customer. This establishes a connection placeholder between a customer and a Travel Rule partner. Use the connect endpoint to provide credentials after creation. You may optionally supply `customerIntegrationId` in the request body when your tenant is enabled for client-provided integration ids.
      * @summary Create customer integration
      * @param {TRLinkApiCreateTRLinkIntegrationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2263,7 +2263,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Disconnects a customer integration by removing stored credentials. The integration record is deleted and cannot be recovered.
+     * Disconnects the integration for the authenticated workspace (tenant): removes stored credentials and deletes this tenant\'s integration record. The operation is scoped to the caller\'s tenant; it does not remove partner-side state for other workspaces that reuse the same logical customer integration. The record cannot be recovered after delete.
      * @summary Disconnect customer integration
      * @param {TRLinkApiDisconnectTRLinkIntegrationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

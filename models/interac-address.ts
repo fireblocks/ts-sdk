@@ -21,7 +21,7 @@ import { AccountHolderDetails } from './account-holder-details';
 import { RecipientHandle } from './recipient-handle';
 
 /**
- * 
+ * When true, funds are deposited directly into the recipient\'s bank account without a security question.  When false, a security question and answer are required to complete the transfer
  * @export
  * @interface InteracAddress
  */
@@ -39,10 +39,28 @@ export interface InteracAddress {
      */
     'recipientHandle': RecipientHandle;
     /**
+     * Whether to automatically deposit the funds into the account
+     * @type {boolean}
+     * @memberof InteracAddress
+     */
+    'autoDeposit': boolean;
+    /**
      * The message to be sent to the recipient
      * @type {string}
      * @memberof InteracAddress
      */
     'message'?: string;
+    /**
+     * The security question to be used for the security answer
+     * @type {string}
+     * @memberof InteracAddress
+     */
+    'securityQuestion'?: string;
+    /**
+     * The security answer to be used for the security question
+     * @type {string}
+     * @memberof InteracAddress
+     */
+    'securityAnswer'?: string;
 }
 

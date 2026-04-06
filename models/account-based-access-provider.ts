@@ -18,7 +18,7 @@
 import { AccountBase } from './account-base';
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccountBasedAccessProviderDetails } from './account-based-access-provider-details';
+import { AccountBasedAccessProviderInfo } from './account-based-access-provider-info';
 // May contain unused imports in some cases
 // @ts-ignore
 import { BaseProvider } from './base-provider';
@@ -30,6 +30,6 @@ import { Manifest } from './manifest';
  * @type AccountBasedAccessProvider
  * @export
  */
-export type AccountBasedAccessProvider = AccountBasedAccessProviderDetails & BaseProvider;
+export type AccountBasedAccessProvider = AccountBasedAccessProviderInfo & BaseProvider;
 
 

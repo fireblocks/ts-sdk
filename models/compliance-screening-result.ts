@@ -21,7 +21,7 @@ import { AmlResult } from './aml-result';
 import { AmlStatusEnum } from './aml-status-enum';
 // May contain unused imports in some cases
 // @ts-ignore
-import { ScreeningRiskLevelEnum } from './screening-risk-level-enum';
+import { ScreeningProviderResponse } from './screening-provider-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ScreeningVerdictEnum } from './screening-verdict-enum';
@@ -39,7 +39,7 @@ import { TravelRuleResult } from './travel-rule-result';
  */
 export interface ComplianceScreeningResult {
     /**
-     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, SCORECHAIN, MERKLE_SCIENCE, etc. For Travel Rule: NOTABENE, SYGNA, or any TRLink provider name 
+     * The AML/Travel Rule provider name. For AML: ELLIPTIC, CHAINALYSIS, etc. For Travel Rule: NOTABENE, SUMSUB, GTR, or any TRLink provider name. 
      * @type {string}
      * @memberof ComplianceScreeningResult
      */
@@ -63,7 +63,7 @@ export interface ComplianceScreeningResult {
      */
     'screeningStatus'?: ComplianceScreeningResultScreeningStatusEnum;
     /**
-     * Reason for bypassing the screening, if applicable. For AML: SANCTIONS_SCREENING_BYPASS, SANCTIONS_RECIPIENT_BYPASS, etc. For Travel Rule: BELOW_THRESHOLD, NO_TRM_AVAILABLE, etc. 
+     * Reason for bypassing the screening, if applicable. For AML: UNSUPPORTED_ASSET, PASSED_BY_POLICY. For Travel Rule: UNSUPPORTED_ASSET, NO_TRAVEL_RULE_MESSAGE, TRANSACTION_ZERO_AMOUNT. 
      * @type {string}
      * @memberof ComplianceScreeningResult
      */
@@ -72,18 +72,21 @@ export interface ComplianceScreeningResult {
      * 
      * @type {AmlStatusEnum}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'status'?: AmlStatusEnum;
     /**
      * 
      * @type {AmlStatusEnum}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'prevStatus'?: AmlStatusEnum;
     /**
-     * Previous bypass reason before the current bypass reason change
+     * Deprecated: This field is not currently returned in the API response. Previous bypass reason before the current bypass reason change. 
      * @type {string}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'prevBypassReason'?: string;
     /**
@@ -93,17 +96,18 @@ export interface ComplianceScreeningResult {
      */
     'verdict'?: ScreeningVerdictEnum;
     /**
-     * 
-     * @type {ScreeningRiskLevelEnum}
+     * Risk level assessment for screening results. Values vary by provider and are not managed by this service.  Known values by provider: - Chainalysis: severeRisk, highRisk, mediumRisk, lowRisk, noRiskInfo - Elliptic: noRiskDetected  Legacy values (SCREAMING_SNAKE_CASE, may appear in old transactions): VERY_HIGH, SEVERE, HIGH, MEDIUM, LOW, NO_RISK_INFO, UNKNOWN 
+     * @type {string}
      * @memberof ComplianceScreeningResult
      */
-    'risk'?: ScreeningRiskLevelEnum;
+    'risk'?: string;
     /**
-     * 
-     * @type {ScreeningRiskLevelEnum}
+     * Deprecated: This field is not currently returned in the API response. Use risk instead. 
+     * @type {string}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
-    'extendedRisk'?: ScreeningRiskLevelEnum;
+    'extendedRisk'?: string;
     /**
      * External identifier for the screening (provider-specific)
      * @type {string}
@@ -117,9 +121,10 @@ export interface ComplianceScreeningResult {
      */
     'customerRefId'?: string;
     /**
-     * Internal reference identifier
+     * Deprecated: This field is not currently returned in the API response. Internal reference identifier. 
      * @type {string}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'refId'?: string;
     /**
@@ -147,27 +152,31 @@ export interface ComplianceScreeningResult {
      */
     'destTag'?: string;
     /**
-     * The destination record identifier used by the screening provider
+     * Deprecated: This field is not currently returned in the API response. The destination record identifier used by the screening provider. 
      * @type {string}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'destRecordId'?: string;
     /**
-     * Cryptographic signature for address resolution verification
+     * Deprecated: This field is not currently returned in the API response. Cryptographic signature for address resolution verification. 
      * @type {string}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'addressResolutionSignature'?: string;
     /**
      * 
      * @type {AmlResult}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'amlResult'?: AmlResult;
     /**
      * 
      * @type {TravelRuleResult}
      * @memberof ComplianceScreeningResult
+     * @deprecated
      */
     'result'?: TravelRuleResult;
     /**
@@ -218,6 +227,12 @@ export interface ComplianceScreeningResult {
      * @memberof ComplianceScreeningResult
      */
     'travelRuleMessageId'?: string;
+    /**
+     * 
+     * @type {ScreeningProviderResponse}
+     * @memberof ComplianceScreeningResult
+     */
+    'providerResponse'?: ScreeningProviderResponse;
 }
 
 export const ComplianceScreeningResultScreeningStatusEnum = {

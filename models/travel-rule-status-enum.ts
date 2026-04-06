@@ -25,7 +25,10 @@ export const TravelRuleStatusEnum = {
     Pending: 'PENDING',
     Bypassed: 'BYPASSED',
     Failed: 'FAILED',
-    Frozen: 'FROZEN'
+    Frozen: 'FROZEN',
+    Rejected: 'REJECTED',
+    Canceled: 'CANCELED',
+    BlockingTimeExpired: 'BLOCKING_TIME_EXPIRED'
 } as const;
 
 export type TravelRuleStatusEnum = typeof TravelRuleStatusEnum[keyof typeof TravelRuleStatusEnum];

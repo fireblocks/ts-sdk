@@ -15,28 +15,24 @@
 
 
 /**
- * 
+ * Workspace participation in the address registry. Same shape for GET, POST (opt in), and DELETE (opt out).
  * @export
- * @interface DirectAccessProviderDetails
+ * @interface AddressRegistryTenantRegistryResponse
  */
-export interface DirectAccessProviderDetails {
+export interface AddressRegistryTenantRegistryResponse {
     /**
-     * Whether the provider has terms of service
-     * @type {boolean}
-     * @memberof DirectAccessProviderDetails
-     */
-    'hasTermsOfService': boolean;
-    /**
-     * Whether the provider was approved for use
-     * @type {boolean}
-     * @memberof DirectAccessProviderDetails
-     */
-    'approved'?: boolean;
-    /**
-     * URL to the terms of service document
+     * OPTED_IN or OPTED_OUT.
      * @type {string}
-     * @memberof DirectAccessProviderDetails
+     * @memberof AddressRegistryTenantRegistryResponse
      */
-    'termsOfServiceUrl'?: string;
+    'status': AddressRegistryTenantRegistryResponseStatusEnum;
 }
+
+export const AddressRegistryTenantRegistryResponseStatusEnum = {
+    In: 'OPTED_IN',
+    Out: 'OPTED_OUT'
+} as const;
+
+export type AddressRegistryTenantRegistryResponseStatusEnum = typeof AddressRegistryTenantRegistryResponseStatusEnum[keyof typeof AddressRegistryTenantRegistryResponseStatusEnum];
+
 

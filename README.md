@@ -137,15 +137,30 @@ Class | Method | HTTP request | Description
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/apis/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *BlockchainsAssetsApi* | [**setAssetPrice**](docs/apis/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 *BlockchainsAssetsApi* | [**updateAssetUserMetadata**](docs/apis/BlockchainsAssetsApi.md#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset
+*ComplianceApi* | [**addAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list
+*ComplianceApi* | [**assignVaultsToLegalEntity**](docs/apis/ComplianceApi.md#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity
+*ComplianceApi* | [**getAddressRegistryTenantParticipationStatus**](docs/apis/ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
+*ComplianceApi* | [**getAddressRegistryVaultOptOut**](docs/apis/ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
-*ComplianceApi* | [**getLegalEntityByAddress**](docs/apis/ComplianceApi.md#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | Look up legal entity by address and asset
+*ComplianceApi* | [**getLegalEntity**](docs/apis/ComplianceApi.md#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity
+*ComplianceApi* | [**getLegalEntityByAddress**](docs/apis/ComplianceApi.md#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | [Deprecated] Look up legal entity by address (query parameter)
+*ComplianceApi* | [**getLegalEntityForAddress**](docs/apis/ComplianceApi.md#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
 *ComplianceApi* | [**getScreeningFullDetails**](docs/apis/ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
 *ComplianceApi* | [**getScreeningPolicy**](docs/apis/ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
+*ComplianceApi* | [**listAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#listAddressRegistryVaultOptOuts) | **GET** /address_registry/vaults | List vault-level address registry opt-outs (paginated)
+*ComplianceApi* | [**listLegalEntities**](docs/apis/ComplianceApi.md#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated)
+*ComplianceApi* | [**listVaultsForLegalEntity**](docs/apis/ComplianceApi.md#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated)
+*ComplianceApi* | [**optInAddressRegistryTenant**](docs/apis/ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry
+*ComplianceApi* | [**optOutAddressRegistryTenant**](docs/apis/ComplianceApi.md#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt the workspace out of the address registry
+*ComplianceApi* | [**registerLegalEntity**](docs/apis/ComplianceApi.md#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity
+*ComplianceApi* | [**removeAddressRegistryVaultOptOut**](docs/apis/ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
+*ComplianceApi* | [**removeAllAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
 *ComplianceApi* | [**retryRejectedTransactionBypassScreeningChecks**](docs/apis/ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
 *ComplianceApi* | [**setAmlVerdict**](docs/apis/ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict for Manual Screening Verdict.
 *ComplianceApi* | [**updateAmlScreeningConfiguration**](docs/apis/ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
+*ComplianceApi* | [**updateLegalEntity**](docs/apis/ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 *ComplianceApi* | [**updateScreeningConfiguration**](docs/apis/ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/apis/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
 *ComplianceScreeningConfigurationApi* | [**getAmlScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getAmlScreeningConfiguration) | **GET** /screening/aml/policy_configuration | Get AML Screening Policy Configuration
@@ -339,6 +354,7 @@ Class | Method | HTTP request | Description
 *StakingApi* | [**getChainInfo**](docs/apis/StakingApi.md#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 *StakingApi* | [**getChains**](docs/apis/StakingApi.md#getChains) | **GET** /staking/chains | List supported staking chains
 *StakingApi* | [**getDelegationById**](docs/apis/StakingApi.md#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+*StakingApi* | [**getPositions**](docs/apis/StakingApi.md#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated)
 *StakingApi* | [**getProviders**](docs/apis/StakingApi.md#getProviders) | **GET** /staking/providers | List staking providers
 *StakingApi* | [**getSummary**](docs/apis/StakingApi.md#getSummary) | **GET** /staking/positions/summary | Get positions summary
 *StakingApi* | [**getSummaryByVault**](docs/apis/StakingApi.md#getSummaryByVault) | **GET** /staking/positions/summary/vaults | Get positions summary by vault
@@ -407,6 +423,7 @@ Class | Method | HTTP request | Description
 *TradingBetaApi* | [**createQuote**](docs/apis/TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote
 *TradingBetaApi* | [**getOrder**](docs/apis/TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
 *TradingBetaApi* | [**getOrders**](docs/apis/TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders
+*TradingBetaApi* | [**getTradingProviderById**](docs/apis/TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 *TradingBetaApi* | [**getTradingProviders**](docs/apis/TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
 *TransactionsApi* | [**cancelTransaction**](docs/apis/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/apis/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
@@ -503,7 +520,8 @@ Class | Method | HTTP request | Description
  - [AccountAccess](docs/models/AccountAccess.md)
  - [AccountBase](docs/models/AccountBase.md)
  - [AccountBasedAccessProvider](docs/models/AccountBasedAccessProvider.md)
- - [AccountBasedAccessProviderDetails](docs/models/AccountBasedAccessProviderDetails.md)
+ - [AccountBasedAccessProviderInfo](docs/models/AccountBasedAccessProviderInfo.md)
+ - [AccountBasedProviderDetails](docs/models/AccountBasedProviderDetails.md)
  - [AccountConfig](docs/models/AccountConfig.md)
  - [AccountHolderDetails](docs/models/AccountHolderDetails.md)
  - [AccountIdentifier](docs/models/AccountIdentifier.md)
@@ -530,8 +548,20 @@ Class | Method | HTTP request | Description
  - [AddressBalanceItemDto](docs/models/AddressBalanceItemDto.md)
  - [AddressBalancePagedResponse](docs/models/AddressBalancePagedResponse.md)
  - [AddressNotAvailableError](docs/models/AddressNotAvailableError.md)
+ - [AddressRegistryAddVaultOptOutsRequest](docs/models/AddressRegistryAddVaultOptOutsRequest.md)
+ - [AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner](docs/models/AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner.md)
+ - [AddressRegistryAddVaultOptOutsResponse](docs/models/AddressRegistryAddVaultOptOutsResponse.md)
  - [AddressRegistryError](docs/models/AddressRegistryError.md)
+ - [AddressRegistryGetVaultOptOutResponse](docs/models/AddressRegistryGetVaultOptOutResponse.md)
  - [AddressRegistryLegalEntity](docs/models/AddressRegistryLegalEntity.md)
+ - [AddressRegistryLegalEntityLegacy](docs/models/AddressRegistryLegalEntityLegacy.md)
+ - [AddressRegistryListVaultOptOutsResponse](docs/models/AddressRegistryListVaultOptOutsResponse.md)
+ - [AddressRegistryRemoveAllVaultOptOutsResponse](docs/models/AddressRegistryRemoveAllVaultOptOutsResponse.md)
+ - [AddressRegistryRemoveVaultOptOutResponse](docs/models/AddressRegistryRemoveVaultOptOutResponse.md)
+ - [AddressRegistryTenantRegistryResponse](docs/models/AddressRegistryTenantRegistryResponse.md)
+ - [AddressRegistryTravelRuleProvider](docs/models/AddressRegistryTravelRuleProvider.md)
+ - [AddressRegistryVaultListOrder](docs/models/AddressRegistryVaultListOrder.md)
+ - [AddressRegistryVaultOptOutItem](docs/models/AddressRegistryVaultOptOutItem.md)
  - [AlertExposureTypeEnum](docs/models/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/models/AlertLevelEnum.md)
  - [AmlAlert](docs/models/AmlAlert.md)
@@ -582,11 +612,12 @@ Class | Method | HTTP request | Description
  - [AssetPriceResponse](docs/models/AssetPriceResponse.md)
  - [AssetResponse](docs/models/AssetResponse.md)
  - [AssetScope](docs/models/AssetScope.md)
- - [AssetTypeEnum](docs/models/AssetTypeEnum.md)
  - [AssetTypeResponse](docs/models/AssetTypeResponse.md)
  - [AssetTypesConfig](docs/models/AssetTypesConfig.md)
  - [AssetTypesConfigInner](docs/models/AssetTypesConfigInner.md)
  - [AssetWallet](docs/models/AssetWallet.md)
+ - [AssignVaultsToLegalEntityRequest](docs/models/AssignVaultsToLegalEntityRequest.md)
+ - [AssignVaultsToLegalEntityResponse](docs/models/AssignVaultsToLegalEntityResponse.md)
  - [AuditLogData](docs/models/AuditLogData.md)
  - [AuditLogsData](docs/models/AuditLogsData.md)
  - [AuditorData](docs/models/AuditorData.md)
@@ -613,7 +644,6 @@ Class | Method | HTTP request | Description
  - [CallbackHandler](docs/models/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/models/CallbackHandlerRequest.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
- - [Capability](docs/models/Capability.md)
  - [ChainDescriptor](docs/models/ChainDescriptor.md)
  - [ChainInfoResponse](docs/models/ChainInfoResponse.md)
  - [ChannelDvnConfigWithConfirmations](docs/models/ChannelDvnConfigWithConfirmations.md)
@@ -768,7 +798,8 @@ Class | Method | HTTP request | Description
  - [DestinationTransferPeerPathResponse](docs/models/DestinationTransferPeerPathResponse.md)
  - [DirectAccess](docs/models/DirectAccess.md)
  - [DirectAccessProvider](docs/models/DirectAccessProvider.md)
- - [DirectAccessProviderDetails](docs/models/DirectAccessProviderDetails.md)
+ - [DirectAccessProviderInfo](docs/models/DirectAccessProviderInfo.md)
+ - [DirectProviderDetails](docs/models/DirectProviderDetails.md)
  - [DisbursementAmountInstruction](docs/models/DisbursementAmountInstruction.md)
  - [DisbursementConfigOperation](docs/models/DisbursementConfigOperation.md)
  - [DisbursementInstruction](docs/models/DisbursementInstruction.md)
@@ -834,6 +865,7 @@ Class | Method | HTTP request | Description
  - [ExecutionOperationStatus](docs/models/ExecutionOperationStatus.md)
  - [ExecutionRequestBaseDetails](docs/models/ExecutionRequestBaseDetails.md)
  - [ExecutionRequestDetails](docs/models/ExecutionRequestDetails.md)
+ - [ExecutionRequestDetailsType](docs/models/ExecutionRequestDetailsType.md)
  - [ExecutionResponseBaseDetails](docs/models/ExecutionResponseBaseDetails.md)
  - [ExecutionResponseDetails](docs/models/ExecutionResponseDetails.md)
  - [ExecutionScreeningOperation](docs/models/ExecutionScreeningOperation.md)
@@ -915,6 +947,7 @@ Class | Method | HTTP request | Description
  - [GetVaultAssetsResponse](docs/models/GetVaultAssetsResponse.md)
  - [GetWhitelistIpAddressesResponse](docs/models/GetWhitelistIpAddressesResponse.md)
  - [GetWorkspaceStatusResponse](docs/models/GetWorkspaceStatusResponse.md)
+ - [GleifData](docs/models/GleifData.md)
  - [HttpContractDoesNotExistError](docs/models/HttpContractDoesNotExistError.md)
  - [IbanAddress](docs/models/IbanAddress.md)
  - [IbanDestination](docs/models/IbanDestination.md)
@@ -970,14 +1003,23 @@ Class | Method | HTTP request | Description
  - [LegacyPublishResult](docs/models/LegacyPublishResult.md)
  - [LegacySrcOrDestAttributes](docs/models/LegacySrcOrDestAttributes.md)
  - [LegacySrcOrDestAttributesInner](docs/models/LegacySrcOrDestAttributesInner.md)
+ - [LegalEntityRegistration](docs/models/LegalEntityRegistration.md)
+ - [LeiStatus](docs/models/LeiStatus.md)
  - [LinkedTokensCount](docs/models/LinkedTokensCount.md)
  - [ListAssetsResponse](docs/models/ListAssetsResponse.md)
  - [ListBlockchainsResponse](docs/models/ListBlockchainsResponse.md)
+ - [ListLegalEntitiesResponse](docs/models/ListLegalEntitiesResponse.md)
  - [ListOwnedCollectionsResponse](docs/models/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/models/ListOwnedTokensResponse.md)
+ - [ListVaultsForRegistrationResponse](docs/models/ListVaultsForRegistrationResponse.md)
  - [LocalBankTransferAfricaAddress](docs/models/LocalBankTransferAfricaAddress.md)
  - [LocalBankTransferAfricaDestination](docs/models/LocalBankTransferAfricaDestination.md)
  - [Manifest](docs/models/Manifest.md)
+ - [ManifestBase](docs/models/ManifestBase.md)
+ - [ManifestOrder](docs/models/ManifestOrder.md)
+ - [ManifestOrderInfo](docs/models/ManifestOrderInfo.md)
+ - [ManifestQuote](docs/models/ManifestQuote.md)
+ - [ManifestQuoteInfo](docs/models/ManifestQuoteInfo.md)
  - [MarketExecutionRequestDetails](docs/models/MarketExecutionRequestDetails.md)
  - [MarketExecutionResponseDetails](docs/models/MarketExecutionResponseDetails.md)
  - [MarketRequoteRequestDetails](docs/models/MarketRequoteRequestDetails.md)
@@ -1089,6 +1131,7 @@ Class | Method | HTTP request | Description
  - [PolicyValidation](docs/models/PolicyValidation.md)
  - [PolicyVerdictActionEnum](docs/models/PolicyVerdictActionEnum.md)
  - [PolicyVerdictActionEnum2](docs/models/PolicyVerdictActionEnum2.md)
+ - [Position](docs/models/Position.md)
  - [PostalAddress](docs/models/PostalAddress.md)
  - [PreScreening](docs/models/PreScreening.md)
  - [PrefundedSettlement](docs/models/PrefundedSettlement.md)
@@ -1116,6 +1159,7 @@ Class | Method | HTTP request | Description
  - [ReadCallFunctionDtoAbiFunction](docs/models/ReadCallFunctionDtoAbiFunction.md)
  - [RecipientHandle](docs/models/RecipientHandle.md)
  - [RedeemFundsToLinkedDDAResponse](docs/models/RedeemFundsToLinkedDDAResponse.md)
+ - [RegisterLegalEntityRequest](docs/models/RegisterLegalEntityRequest.md)
  - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
  - [ReissueMultichainTokenRequest](docs/models/ReissueMultichainTokenRequest.md)
  - [RelatedRequest](docs/models/RelatedRequest.md)
@@ -1160,8 +1204,8 @@ Class | Method | HTTP request | Description
  - [ScreeningOperationFailure](docs/models/ScreeningOperationFailure.md)
  - [ScreeningOperationType](docs/models/ScreeningOperationType.md)
  - [ScreeningPolicyResponse](docs/models/ScreeningPolicyResponse.md)
+ - [ScreeningProviderResponse](docs/models/ScreeningProviderResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/models/ScreeningProviderRulesConfigurationResponse.md)
- - [ScreeningRiskLevelEnum](docs/models/ScreeningRiskLevelEnum.md)
  - [ScreeningTRLinkAmount](docs/models/ScreeningTRLinkAmount.md)
  - [ScreeningTRLinkMissingTrmDecision](docs/models/ScreeningTRLinkMissingTrmDecision.md)
  - [ScreeningTRLinkMissingTrmRule](docs/models/ScreeningTRLinkMissingTrmRule.md)
@@ -1205,6 +1249,7 @@ Class | Method | HTTP request | Description
  - [SettlementRequestBody](docs/models/SettlementRequestBody.md)
  - [SettlementResponse](docs/models/SettlementResponse.md)
  - [SettlementSourceAccount](docs/models/SettlementSourceAccount.md)
+ - [SettlementTypeEnum](docs/models/SettlementTypeEnum.md)
  - [Side](docs/models/Side.md)
  - [SignedMessage](docs/models/SignedMessage.md)
  - [SignedMessageSignature](docs/models/SignedMessageSignature.md)
@@ -1260,6 +1305,7 @@ Class | Method | HTTP request | Description
  - [StakingGetChainsResponse](docs/models/StakingGetChainsResponse.md)
  - [StakingGetProvidersResponse](docs/models/StakingGetProvidersResponse.md)
  - [StakingGetSummaryByVaultResponse](docs/models/StakingGetSummaryByVaultResponse.md)
+ - [StakingPositionsPaginatedResponse](docs/models/StakingPositionsPaginatedResponse.md)
  - [StakingProvider](docs/models/StakingProvider.md)
  - [Status](docs/models/Status.md)
  - [StellarRippleCreateParamsDto](docs/models/StellarRippleCreateParamsDto.md)
@@ -1379,6 +1425,7 @@ Class | Method | HTTP request | Description
  - [TradingAccountType](docs/models/TradingAccountType.md)
  - [TradingErrorSchema](docs/models/TradingErrorSchema.md)
  - [TradingProvider](docs/models/TradingProvider.md)
+ - [TradingProviderDetails](docs/models/TradingProviderDetails.md)
  - [Transaction](docs/models/Transaction.md)
  - [TransactionDirection](docs/models/TransactionDirection.md)
  - [TransactionFee](docs/models/TransactionFee.md)
@@ -1438,6 +1485,7 @@ Class | Method | HTTP request | Description
  - [TravelRulePiiIVMS](docs/models/TravelRulePiiIVMS.md)
  - [TravelRulePolicyRuleResponse](docs/models/TravelRulePolicyRuleResponse.md)
  - [TravelRulePrescreeningRule](docs/models/TravelRulePrescreeningRule.md)
+ - [TravelRuleProvider](docs/models/TravelRuleProvider.md)
  - [TravelRuleResult](docs/models/TravelRuleResult.md)
  - [TravelRuleStatusEnum](docs/models/TravelRuleStatusEnum.md)
  - [TravelRuleTransactionBlockchainInfo](docs/models/TravelRuleTransactionBlockchainInfo.md)
@@ -1474,6 +1522,7 @@ Class | Method | HTTP request | Description
  - [UpdateCallbackHandlerRequest](docs/models/UpdateCallbackHandlerRequest.md)
  - [UpdateCallbackHandlerResponse](docs/models/UpdateCallbackHandlerResponse.md)
  - [UpdateDraftRequest](docs/models/UpdateDraftRequest.md)
+ - [UpdateLegalEntityRequest](docs/models/UpdateLegalEntityRequest.md)
  - [UpdateTagRequest](docs/models/UpdateTagRequest.md)
  - [UpdateTokenOwnershipStatusDto](docs/models/UpdateTokenOwnershipStatusDto.md)
  - [UpdateTokensOwnershipSpamRequest](docs/models/UpdateTokensOwnershipSpamRequest.md)

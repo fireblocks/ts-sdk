@@ -15,28 +15,37 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AssetTypeEnum } from './asset-type-enum';
+import { ManifestBase } from './manifest-base';
 // May contain unused imports in some cases
 // @ts-ignore
-import { Capability } from './capability';
+import { ManifestOrder } from './manifest-order';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ManifestQuote } from './manifest-quote';
 
 /**
- * 
+ * The manifest of the provider, describing its supported order, quote, and rate requirements.
  * @export
  * @interface Manifest
  */
 export interface Manifest {
     /**
      * 
-     * @type {Array<AssetTypeEnum>}
+     * @type {ManifestOrder}
      * @memberof Manifest
      */
-    'assetTypes': Array<AssetTypeEnum>;
+    'order': ManifestOrder;
     /**
      * 
-     * @type {Array<Capability>}
+     * @type {ManifestQuote}
      * @memberof Manifest
      */
-    'capabilities': Array<Capability>;
+    'quote': ManifestQuote;
+    /**
+     * 
+     * @type {ManifestBase}
+     * @memberof Manifest
+     */
+    'rate': ManifestBase;
 }
 

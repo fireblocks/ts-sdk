@@ -50,5 +50,11 @@ export interface CreateMultipleAccountsRequest {
      * @memberof CreateMultipleAccountsRequest
      */
     'prefix'?: string;
+    /**
+     * Optional list of tag IDs to attach to all created vault accounts
+     * @type {Array<string>}
+     * @memberof CreateMultipleAccountsRequest
+     */
+    'tagIds'?: Array<string>;
 }
 
