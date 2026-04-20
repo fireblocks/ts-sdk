@@ -23,6 +23,7 @@
 export const TransferPeerPathType = {
     VaultAccount: 'VAULT_ACCOUNT',
     ExchangeAccount: 'EXCHANGE_ACCOUNT',
+    ConnectedAccount: 'CONNECTED_ACCOUNT',
     InternalWallet: 'INTERNAL_WALLET',
     ExternalWallet: 'EXTERNAL_WALLET',
     Contract: 'CONTRACT',

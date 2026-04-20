@@ -41,11 +41,5 @@ export interface ListLegalEntitiesResponse {
      * @memberof ListLegalEntitiesResponse
      */
     'next'?: string;
-    /**
-     * Cursor to pass as `pageCursor` to retrieve the previous page
-     * @type {string}
-     * @memberof ListLegalEntitiesResponse
-     */
-    'prev'?: string;
 }
 

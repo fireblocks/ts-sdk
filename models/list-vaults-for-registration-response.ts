@@ -38,11 +38,5 @@ export interface ListVaultsForRegistrationResponse {
      * @memberof ListVaultsForRegistrationResponse
      */
     'next'?: string;
-    /**
-     * Cursor to pass as `pageCursor` to retrieve the previous page
-     * @type {string}
-     * @memberof ListVaultsForRegistrationResponse
-     */
-    'prev'?: string;
 }
 

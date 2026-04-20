@@ -52,6 +52,9 @@ import { TransactionRequestPriorityFee } from './transaction-request-priority-fe
 // May contain unused imports in some cases
 // @ts-ignore
 import { TravelRuleCreateTransactionRequest } from './travel-rule-create-transaction-request';
+// May contain unused imports in some cases
+// @ts-ignore
+import { UtxoSelectionParams } from './utxo-selection-params';
 
 /**
  * 
@@ -185,6 +188,12 @@ export interface TransactionRequest {
      * @memberof TransactionRequest
      */
     'extraParameters'?: ExtraParameters;
+    /**
+     * 
+     * @type {UtxoSelectionParams}
+     * @memberof TransactionRequest
+     */
+    'utxoSelectionParams'?: UtxoSelectionParams;
     /**
      * The ID for AML providers to associate the owner of funds with transactions.
      * @type {string}

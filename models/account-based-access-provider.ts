@@ -28,6 +28,7 @@ import { Manifest } from './manifest';
 
 /**
  * @type AccountBasedAccessProvider
+ * Provider integrated via Fireblocks connected accounts (`accountBased` is `true`).
  * @export
  */
 export type AccountBasedAccessProvider = AccountBasedAccessProviderInfo & BaseProvider;

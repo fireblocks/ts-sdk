@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**connected** | **boolean** | Whether the provider is currently connected | [default to undefined]|
+|**connected** | **boolean** | Whether the provider is currently connected. | [default to undefined]|
 |**accounts** | [**Array&lt;AccountBase&gt;**](AccountBase.md) |  | [default to undefined]|
 
 

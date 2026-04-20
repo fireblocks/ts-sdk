@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { TRLinkAmount2 } from './trlink-amount2';
+import { ScreeningPolicyAmount } from './screening-policy-amount';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TRLinkMissingTrmAction2 } from './trlink-missing-trm-action2';
@@ -109,10 +109,10 @@ export interface TRLinkMissingTrmRule2 {
     'baseAsset'?: string | null;
     /**
      * 
-     * @type {TRLinkAmount2}
+     * @type {ScreeningPolicyAmount}
      * @memberof TRLinkMissingTrmRule2
      */
-    'amount'?: TRLinkAmount2;
+    'amount'?: ScreeningPolicyAmount;
     /**
      * Network protocol identifier
      * @type {string}

@@ -38,7 +38,15 @@ export const FailureReason = {
     OrderExpired: 'ORDER_EXPIRED',
     TransactionCancelled: 'TRANSACTION_CANCELLED',
     TransactionRejected: 'TRANSACTION_REJECTED',
-    TransactionBlocked: 'TRANSACTION_BLOCKED'
+    TransactionBlocked: 'TRANSACTION_BLOCKED',
+    ProviderInternalError: 'PROVIDER_INTERNAL_ERROR',
+    UnsupportedSourceAsset: 'UNSUPPORTED_SOURCE_ASSET',
+    UnsupportedDestinationAsset: 'UNSUPPORTED_DESTINATION_ASSET',
+    AmountBelowMinimum: 'AMOUNT_BELOW_MINIMUM',
+    PiiMissing: 'PII_MISSING',
+    ExternalSourceNotSupported: 'EXTERNAL_SOURCE_NOT_SUPPORTED',
+    UnsupportedRegion: 'UNSUPPORTED_REGION',
+    DestinationNotWhitelisted: 'DESTINATION_NOT_WHITELISTED'
 } as const;
 
 export type FailureReason = typeof FailureReason[keyof typeof FailureReason];

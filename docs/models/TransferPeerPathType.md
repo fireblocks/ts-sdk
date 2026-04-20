@@ -7,6 +7,8 @@
 
 * `ExchangeAccount` (value: `'EXCHANGE_ACCOUNT'`)
 
+* `ConnectedAccount` (value: `'CONNECTED_ACCOUNT'`)
+
 * `InternalWallet` (value: `'INTERNAL_WALLET'`)
 
 * `ExternalWallet` (value: `'EXTERNAL_WALLET'`)

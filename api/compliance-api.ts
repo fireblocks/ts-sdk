@@ -37,8 +37,6 @@ import { AddressRegistryGetVaultOptOutResponse } from '../models';
 // @ts-ignore
 import { AddressRegistryLegalEntity } from '../models';
 // @ts-ignore
-import { AddressRegistryLegalEntityLegacy } from '../models';
-// @ts-ignore
 import { AddressRegistryListVaultOptOutsResponse } from '../models';
 // @ts-ignore
 import { AddressRegistryRemoveAllVaultOptOutsResponse } from '../models';
@@ -57,11 +55,21 @@ import { AssignVaultsToLegalEntityRequest } from '../models';
 // @ts-ignore
 import { AssignVaultsToLegalEntityResponse } from '../models';
 // @ts-ignore
+import { ByorkConfigResponse } from '../models';
+// @ts-ignore
+import { ByorkSetTimeoutsRequest } from '../models';
+// @ts-ignore
+import { ByorkVerdictRequest } from '../models';
+// @ts-ignore
+import { ByorkVerdictResponse } from '../models';
+// @ts-ignore
 import { ComplianceResultFullPayload } from '../models';
 // @ts-ignore
 import { CreateTransactionResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetByorkVerdictResponse } from '../models';
 // @ts-ignore
 import { LegalEntityRegistration } from '../models';
 // @ts-ignore
@@ -86,6 +94,41 @@ import { UpdateLegalEntityRequest } from '../models';
  */
 export const ComplianceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Activate BYORK Light
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateByorkConfig: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/screening/byork/config/activate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Adds one or more vault account ids to the workspace opt-out list for the address registry.
          * @summary Add vault accounts to the address registry opt-out list
@@ -163,6 +206,41 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(assignVaultsToLegalEntityRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Deactivate BYORK Light
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateByorkConfig: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/screening/byork/config/deactivate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -293,6 +371,72 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be enabled for the tenant.
+         * @summary Get BYORK Light configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getByorkConfig: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/screening/byork/config`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the current BYORK verdict and status for a transaction. Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict is found for the transaction.
+         * @summary Get BYORK Light verdict
+         * @param {string} txId Transaction ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getByorkVerdict: async (txId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getByorkVerdict', 'txId', txId)
+            const localVarPath = `/screening/byork/verdict`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (txId !== undefined) {
+                localVarQueryParameter['txId'] = txId;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a legal entity
          * @param {string} legalEntityId The unique ID of the legal entity registration
@@ -326,49 +470,7 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
-         * @summary [Deprecated] Look up legal entity by address (query parameter)
-         * @param {string} address Blockchain address to look up
-         * @param {string} [asset] Optional asset identifier (this deprecated operation only).
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        getLegalEntityByAddress: async (address: string, asset?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getLegalEntityByAddress', 'address', address)
-            const localVarPath = `/address_registry/legal_entity`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (address !== undefined) {
-                localVarQueryParameter['address'] = address;
-            }
-
-            if (asset !== undefined) {
-                localVarQueryParameter['asset'] = asset;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+         * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
          * @summary Look up legal entity by blockchain address
          * @param {string} address Blockchain address to look up
          * @param {*} [options] Override http request option.
@@ -544,12 +646,10 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
          * @param {string} [vaultAccountId] The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
          * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
          * @param {number} [pageSize] Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided.
-         * @param {ListLegalEntitiesSortByEnum} [sortBy] Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
-         * @param {ListLegalEntitiesOrderEnum} [order] Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        listLegalEntities: async (vaultAccountId?: string, pageCursor?: string, pageSize?: number, sortBy?: ListLegalEntitiesSortByEnum, order?: ListLegalEntitiesOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        listLegalEntities: async (vaultAccountId?: string, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/legal_entities`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -572,14 +672,6 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
 
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (sortBy !== undefined) {
-                localVarQueryParameter['sortBy'] = sortBy;
-            }
-
-            if (order !== undefined) {
-                localVarQueryParameter['order'] = order;
             }
 
 
@@ -843,8 +935,8 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-         * @summary Set AML Verdict for Manual Screening Verdict.
+         * Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired, this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
+         * @summary Set AML Verdict (BYORK Super Light)
          * @param {AmlVerdictManualRequest} amlVerdictManualRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -876,6 +968,86 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(amlVerdictManualRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Set BYORK Light timeouts
+         * @param {ByorkSetTimeoutsRequest} byorkSetTimeoutsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setByorkTimeouts: async (byorkSetTimeoutsRequest: ByorkSetTimeoutsRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setByorkTimeouts', 'byorkSetTimeoutsRequest', byorkSetTimeoutsRequest)
+            const localVarPath = `/screening/byork/config/timeouts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PUT', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(byorkSetTimeoutsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the transaction is awaiting your decision, the verdict is applied immediately (response status COMPLETED). If processing has not yet reached that point, the verdict is stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant.
+         * @summary Set BYORK Light verdict
+         * @param {ByorkVerdictRequest} byorkVerdictRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setByorkVerdict: async (byorkVerdictRequest: ByorkVerdictRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setByorkVerdict', 'byorkVerdictRequest', byorkVerdictRequest)
+            const localVarPath = `/screening/byork/verdict`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(byorkVerdictRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1046,6 +1218,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ComplianceApiAxiosParamCreator(configuration)
     return {
         /**
+         * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Activate BYORK Light
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async activateByorkConfig(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ByorkConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateByorkConfig(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.activateByorkConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Adds one or more vault account ids to the workspace opt-out list for the address registry.
          * @summary Add vault accounts to the address registry opt-out list
          * @param {AddressRegistryAddVaultOptOutsRequest} addressRegistryAddVaultOptOutsRequest 
@@ -1072,6 +1257,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.assignVaultsToLegalEntity(assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.assignVaultsToLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Deactivate BYORK Light
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deactivateByorkConfig(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ByorkConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateByorkConfig(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.deactivateByorkConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1124,6 +1322,31 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be enabled for the tenant.
+         * @summary Get BYORK Light configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getByorkConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ByorkConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getByorkConfig(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getByorkConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the current BYORK verdict and status for a transaction. Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict is found for the transaction.
+         * @summary Get BYORK Light verdict
+         * @param {string} txId Transaction ID
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getByorkVerdict(txId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetByorkVerdictResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getByorkVerdict(txId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getByorkVerdict']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a legal entity
          * @param {string} legalEntityId The unique ID of the legal entity registration
@@ -1137,22 +1360,7 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
-         * @summary [Deprecated] Look up legal entity by address (query parameter)
-         * @param {string} address Blockchain address to look up
-         * @param {string} [asset] Optional asset identifier (this deprecated operation only).
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        async getLegalEntityByAddress(address: string, asset?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryLegalEntityLegacy>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getLegalEntityByAddress(address, asset, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ComplianceApi.getLegalEntityByAddress']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+         * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
          * @summary Look up legal entity by blockchain address
          * @param {string} address Blockchain address to look up
          * @param {*} [options] Override http request option.
@@ -1222,13 +1430,11 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
          * @param {string} [vaultAccountId] The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
          * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
          * @param {number} [pageSize] Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided.
-         * @param {ListLegalEntitiesSortByEnum} [sortBy] Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
-         * @param {ListLegalEntitiesOrderEnum} [order] Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async listLegalEntities(vaultAccountId?: string, pageCursor?: string, pageSize?: number, sortBy?: ListLegalEntitiesSortByEnum, order?: ListLegalEntitiesOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListLegalEntitiesResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listLegalEntities(vaultAccountId, pageCursor, pageSize, sortBy, order, options);
+        async listLegalEntities(vaultAccountId?: string, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListLegalEntitiesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listLegalEntities(vaultAccountId, pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.listLegalEntities']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1327,8 +1533,8 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-         * @summary Set AML Verdict for Manual Screening Verdict.
+         * Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired, this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
+         * @summary Set AML Verdict (BYORK Super Light)
          * @param {AmlVerdictManualRequest} amlVerdictManualRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -1338,6 +1544,34 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setAmlVerdict(amlVerdictManualRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.setAmlVerdict']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Set BYORK Light timeouts
+         * @param {ByorkSetTimeoutsRequest} byorkSetTimeoutsRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setByorkTimeouts(byorkSetTimeoutsRequest: ByorkSetTimeoutsRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ByorkConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setByorkTimeouts(byorkSetTimeoutsRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.setByorkTimeouts']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the transaction is awaiting your decision, the verdict is applied immediately (response status COMPLETED). If processing has not yet reached that point, the verdict is stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant.
+         * @summary Set BYORK Light verdict
+         * @param {ByorkVerdictRequest} byorkVerdictRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setByorkVerdict(byorkVerdictRequest: ByorkVerdictRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ByorkVerdictResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setByorkVerdict(byorkVerdictRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.setByorkVerdict']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1406,6 +1640,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
     const localVarFp = ComplianceApiFp(configuration)
     return {
         /**
+         * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Activate BYORK Light
+         * @param {ComplianceApiActivateByorkConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateByorkConfig(requestParameters: ComplianceApiActivateByorkConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ByorkConfigResponse> {
+            return localVarFp.activateByorkConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Adds one or more vault account ids to the workspace opt-out list for the address registry.
          * @summary Add vault accounts to the address registry opt-out list
          * @param {ComplianceApiAddAddressRegistryVaultOptOutsRequest} requestParameters Request parameters.
@@ -1424,6 +1668,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssignVaultsToLegalEntityResponse> {
             return localVarFp.assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Deactivate BYORK Light
+         * @param {ComplianceApiDeactivateByorkConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateByorkConfig(requestParameters: ComplianceApiDeactivateByorkConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ByorkConfigResponse> {
+            return localVarFp.deactivateByorkConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
@@ -1463,6 +1717,25 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getAmlScreeningPolicy(options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be enabled for the tenant.
+         * @summary Get BYORK Light configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getByorkConfig(options?: RawAxiosRequestConfig): AxiosPromise<ByorkConfigResponse> {
+            return localVarFp.getByorkConfig(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the current BYORK verdict and status for a transaction. Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict is found for the transaction.
+         * @summary Get BYORK Light verdict
+         * @param {ComplianceApiGetByorkVerdictRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getByorkVerdict(requestParameters: ComplianceApiGetByorkVerdictRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetByorkVerdictResponse> {
+            return localVarFp.getByorkVerdict(requestParameters.txId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a legal entity
          * @param {ComplianceApiGetLegalEntityRequest} requestParameters Request parameters.
@@ -1473,18 +1746,7 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getLegalEntity(requestParameters.legalEntityId, options).then((request) => request(axios, basePath));
         },
         /**
-         * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
-         * @summary [Deprecated] Look up legal entity by address (query parameter)
-         * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @deprecated
-         * @throws {RequiredError}
-         */
-        getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryLegalEntityLegacy> {
-            return localVarFp.getLegalEntityByAddress(requestParameters.address, requestParameters.asset, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+         * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
          * @summary Look up legal entity by blockchain address
          * @param {ComplianceApiGetLegalEntityForAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1539,7 +1801,7 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          * @throws {RequiredError}
          */
         listLegalEntities(requestParameters: ComplianceApiListLegalEntitiesRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListLegalEntitiesResponse> {
-            return localVarFp.listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+            return localVarFp.listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
@@ -1610,14 +1872,34 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.retryRejectedTransactionBypassScreeningChecks(requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-         * @summary Set AML Verdict for Manual Screening Verdict.
+         * Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired, this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
+         * @summary Set AML Verdict (BYORK Super Light)
          * @param {ComplianceApiSetAmlVerdictRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         setAmlVerdict(requestParameters: ComplianceApiSetAmlVerdictRequest, options?: RawAxiosRequestConfig): AxiosPromise<AmlVerdictManualResponse> {
             return localVarFp.setAmlVerdict(requestParameters.amlVerdictManualRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+         * @summary Set BYORK Light timeouts
+         * @param {ComplianceApiSetByorkTimeoutsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setByorkTimeouts(requestParameters: ComplianceApiSetByorkTimeoutsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ByorkConfigResponse> {
+            return localVarFp.setByorkTimeouts(requestParameters.byorkSetTimeoutsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the transaction is awaiting your decision, the verdict is applied immediately (response status COMPLETED). If processing has not yet reached that point, the verdict is stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant.
+         * @summary Set BYORK Light verdict
+         * @param {ComplianceApiSetByorkVerdictRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setByorkVerdict(requestParameters: ComplianceApiSetByorkVerdictRequest, options?: RawAxiosRequestConfig): AxiosPromise<ByorkVerdictResponse> {
+            return localVarFp.setByorkVerdict(requestParameters.byorkVerdictRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Updates bypass screening, inbound delay, or outbound delay configurations for AML.
@@ -1661,6 +1943,20 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
         },
     };
 };
+
+/**
+ * Request parameters for activateByorkConfig operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiActivateByorkConfigRequest
+ */
+export interface ComplianceApiActivateByorkConfigRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiActivateByorkConfig
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * Request parameters for addAddressRegistryVaultOptOuts operation in ComplianceApi.
@@ -1712,6 +2008,20 @@ export interface ComplianceApiAssignVaultsToLegalEntityRequest {
 }
 
 /**
+ * Request parameters for deactivateByorkConfig operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiDeactivateByorkConfigRequest
+ */
+export interface ComplianceApiDeactivateByorkConfigRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiDeactivateByorkConfig
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for getAddressRegistryVaultOptOut operation in ComplianceApi.
  * @export
  * @interface ComplianceApiGetAddressRegistryVaultOptOutRequest
@@ -1726,6 +2036,20 @@ export interface ComplianceApiGetAddressRegistryVaultOptOutRequest {
 }
 
 /**
+ * Request parameters for getByorkVerdict operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetByorkVerdictRequest
+ */
+export interface ComplianceApiGetByorkVerdictRequest {
+    /**
+     * Transaction ID
+     * @type {string}
+     * @memberof ComplianceApiGetByorkVerdict
+     */
+    readonly txId: string
+}
+
+/**
  * Request parameters for getLegalEntity operation in ComplianceApi.
  * @export
  * @interface ComplianceApiGetLegalEntityRequest
@@ -1737,27 +2061,6 @@ export interface ComplianceApiGetLegalEntityRequest {
      * @memberof ComplianceApiGetLegalEntity
      */
     readonly legalEntityId: string
-}
-
-/**
- * Request parameters for getLegalEntityByAddress operation in ComplianceApi.
- * @export
- * @interface ComplianceApiGetLegalEntityByAddressRequest
- */
-export interface ComplianceApiGetLegalEntityByAddressRequest {
-    /**
-     * Blockchain address to look up
-     * @type {string}
-     * @memberof ComplianceApiGetLegalEntityByAddress
-     */
-    readonly address: string
-
-    /**
-     * Optional asset identifier (this deprecated operation only).
-     * @type {string}
-     * @memberof ComplianceApiGetLegalEntityByAddress
-     */
-    readonly asset?: string
 }
 
 /**
@@ -1842,20 +2145,6 @@ export interface ComplianceApiListLegalEntitiesRequest {
      * @memberof ComplianceApiListLegalEntities
      */
     readonly pageSize?: number
-
-    /**
-     * Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided.
-     * @type {'createdAt' | 'updatedAt'}
-     * @memberof ComplianceApiListLegalEntities
-     */
-    readonly sortBy?: ListLegalEntitiesSortByEnum
-
-    /**
-     * Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided.
-     * @type {'ASC' | 'DESC'}
-     * @memberof ComplianceApiListLegalEntities
-     */
-    readonly order?: ListLegalEntitiesOrderEnum
 }
 
 /**
@@ -1978,6 +2267,48 @@ export interface ComplianceApiSetAmlVerdictRequest {
 }
 
 /**
+ * Request parameters for setByorkTimeouts operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiSetByorkTimeoutsRequest
+ */
+export interface ComplianceApiSetByorkTimeoutsRequest {
+    /**
+     * 
+     * @type {ByorkSetTimeoutsRequest}
+     * @memberof ComplianceApiSetByorkTimeouts
+     */
+    readonly byorkSetTimeoutsRequest: ByorkSetTimeoutsRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiSetByorkTimeouts
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setByorkVerdict operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiSetByorkVerdictRequest
+ */
+export interface ComplianceApiSetByorkVerdictRequest {
+    /**
+     * 
+     * @type {ByorkVerdictRequest}
+     * @memberof ComplianceApiSetByorkVerdict
+     */
+    readonly byorkVerdictRequest: ByorkVerdictRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiSetByorkVerdict
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for updateAmlScreeningConfiguration operation in ComplianceApi.
  * @export
  * @interface ComplianceApiUpdateAmlScreeningConfigurationRequest
@@ -2062,6 +2393,18 @@ export interface ComplianceApiUpdateTravelRuleConfigRequest {
  */
 export class ComplianceApi extends BaseAPI {
     /**
+     * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+     * @summary Activate BYORK Light
+     * @param {ComplianceApiActivateByorkConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public activateByorkConfig(requestParameters: ComplianceApiActivateByorkConfigRequest = {}) {
+        return ComplianceApiFp(this.configuration).activateByorkConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Adds one or more vault account ids to the workspace opt-out list for the address registry.
      * @summary Add vault accounts to the address registry opt-out list
      * @param {ComplianceApiAddAddressRegistryVaultOptOutsRequest} requestParameters Request parameters.
@@ -2083,6 +2426,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest) {
         return ComplianceApiFp(this.configuration).assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+     * @summary Deactivate BYORK Light
+     * @param {ComplianceApiDeactivateByorkConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public deactivateByorkConfig(requestParameters: ComplianceApiDeactivateByorkConfigRequest = {}) {
+        return ComplianceApiFp(this.configuration).deactivateByorkConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2131,6 +2486,29 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
+     * Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be enabled for the tenant.
+     * @summary Get BYORK Light configuration
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getByorkConfig() {
+        return ComplianceApiFp(this.configuration).getByorkConfig().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the current BYORK verdict and status for a transaction. Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict is found for the transaction.
+     * @summary Get BYORK Light verdict
+     * @param {ComplianceApiGetByorkVerdictRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getByorkVerdict(requestParameters: ComplianceApiGetByorkVerdictRequest) {
+        return ComplianceApiFp(this.configuration).getByorkVerdict(requestParameters.txId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get a legal entity
      * @param {ComplianceApiGetLegalEntityRequest} requestParameters Request parameters.
@@ -2143,20 +2521,7 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * **Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
-     * @summary [Deprecated] Look up legal entity by address (query parameter)
-     * @param {ComplianceApiGetLegalEntityByAddressRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @deprecated
-     * @throws {RequiredError}
-     * @memberof ComplianceApi
-     */
-    public getLegalEntityByAddress(requestParameters: ComplianceApiGetLegalEntityByAddressRequest) {
-        return ComplianceApiFp(this.configuration).getLegalEntityByAddress(requestParameters.address, requestParameters.asset).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+     * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
      * @summary Look up legal entity by blockchain address
      * @param {ComplianceApiGetLegalEntityForAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2222,7 +2587,7 @@ export class ComplianceApi extends BaseAPI {
      * @memberof ComplianceApi
      */
     public listLegalEntities(requestParameters: ComplianceApiListLegalEntitiesRequest = {}) {
-        return ComplianceApiFp(this.configuration).listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ComplianceApiFp(this.configuration).listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2308,8 +2673,8 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
-     * @summary Set AML Verdict for Manual Screening Verdict.
+     * Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired, this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
+     * @summary Set AML Verdict (BYORK Super Light)
      * @param {ComplianceApiSetAmlVerdictRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2317,6 +2682,30 @@ export class ComplianceApi extends BaseAPI {
      */
     public setAmlVerdict(requestParameters: ComplianceApiSetAmlVerdictRequest) {
         return ComplianceApiFp(this.configuration).setAmlVerdict(requestParameters.amlVerdictManualRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+     * @summary Set BYORK Light timeouts
+     * @param {ComplianceApiSetByorkTimeoutsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public setByorkTimeouts(requestParameters: ComplianceApiSetByorkTimeoutsRequest) {
+        return ComplianceApiFp(this.configuration).setByorkTimeouts(requestParameters.byorkSetTimeoutsRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the transaction is awaiting your decision, the verdict is applied immediately (response status COMPLETED). If processing has not yet reached that point, the verdict is stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant.
+     * @summary Set BYORK Light verdict
+     * @param {ComplianceApiSetByorkVerdictRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public setByorkVerdict(requestParameters: ComplianceApiSetByorkVerdictRequest) {
+        return ComplianceApiFp(this.configuration).setByorkVerdict(requestParameters.byorkVerdictRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2368,19 +2757,3 @@ export class ComplianceApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const ListLegalEntitiesSortByEnum = {
-    CreatedAt: 'createdAt',
-    UpdatedAt: 'updatedAt'
-} as const;
-export type ListLegalEntitiesSortByEnum = typeof ListLegalEntitiesSortByEnum[keyof typeof ListLegalEntitiesSortByEnum];
-/**
- * @export
- */
-export const ListLegalEntitiesOrderEnum = {
-    Asc: 'ASC',
-    Desc: 'DESC'
-} as const;
-export type ListLegalEntitiesOrderEnum = typeof ListLegalEntitiesOrderEnum[keyof typeof ListLegalEntitiesOrderEnum];

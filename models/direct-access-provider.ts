@@ -25,6 +25,7 @@ import { Manifest } from './manifest';
 
 /**
  * @type DirectAccessProvider
+ * Provider used without per-account linking (`accountBased` is `false`).
  * @export
  */
 export type DirectAccessProvider = BaseProvider & DirectAccessProviderInfo;

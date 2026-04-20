@@ -22,8 +22,7 @@
 
 export const TRLinkAssetFormat = {
     Fireblocks: 'fireblocks',
-    Coinmarketcap: 'coinmarketcap',
-    Slip44: 'slip44'
+    Coinmarketcap: 'coinmarketcap'
 } as const;
 
 export type TRLinkAssetFormat = typeof TRLinkAssetFormat[keyof typeof TRLinkAssetFormat];

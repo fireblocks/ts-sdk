@@ -14,7 +14,6 @@ AccountAccess.md
 AccountBase.md
 AccountBasedAccessProvider.md
 AccountBasedAccessProviderInfo.md
-AccountBasedProviderDetails.md
 AccountConfig.md
 AccountHolderDetails.md
 AccountIdentifier.md
@@ -25,6 +24,7 @@ AchAccountType.md
 AchAddress.md
 AchDestination.md
 AchPaymentInfo.md
+ActionRecord.md
 ActiveRolesResponse.md
 AdapterProcessingResult.md
 AddAbiRequestDto.md
@@ -47,7 +47,6 @@ AddressRegistryAddVaultOptOutsResponse.md
 AddressRegistryError.md
 AddressRegistryGetVaultOptOutResponse.md
 AddressRegistryLegalEntity.md
-AddressRegistryLegalEntityLegacy.md
 AddressRegistryListVaultOptOutsResponse.md
 AddressRegistryRemoveAllVaultOptOutsResponse.md
 AddressRegistryRemoveVaultOptOutResponse.md
@@ -80,6 +79,7 @@ ApiUserApi.md
 ApprovalRequest.md
 ApproversConfig.md
 ApproversConfigApprovalGroupsInner.md
+Apy.md
 Asset.md
 AssetAlreadyExistHttpError.md
 AssetAmount.md
@@ -112,6 +112,8 @@ AssetTypesConfigInner.md
 AssetWallet.md
 AssignVaultsToLegalEntityRequest.md
 AssignVaultsToLegalEntityResponse.md
+AttachDetachUtxoLabelsRequest.md
+AttachDetachUtxoLabelsResponse.md
 AuditLogData.md
 AuditLogsApi.md
 AuditLogsData.md
@@ -137,6 +139,14 @@ BlockchainsAssetsApi.md
 BpsFee.md
 BusinessEntityTypeEnum.md
 BusinessIdentification.md
+ByorkConfigResponse.md
+ByorkSetTimeoutsRequest.md
+ByorkSetVerdictEnum.md
+ByorkTimeoutRange.md
+ByorkVerdictEnum.md
+ByorkVerdictRequest.md
+ByorkVerdictResponse.md
+ByorkVerdictResponseStatusEnum.md
 CallbackHandler.md
 CallbackHandlerRequest.md
 CancelTransactionResponse.md
@@ -246,6 +256,8 @@ CreateConsoleUser.md
 CreateContractRequest.md
 CreateConversionConfigOperationRequest.md
 CreateDisbursementConfigOperationRequest.md
+CreateEarnActionRequest.md
+CreateEarnActionResponse.md
 CreateInternalTransferRequest.md
 CreateInternalWalletAssetRequest.md
 CreateMultichainTokenRequest.md
@@ -304,7 +316,6 @@ DestinationTransferPeerPathResponse.md
 DirectAccess.md
 DirectAccessProvider.md
 DirectAccessProviderInfo.md
-DirectProviderDetails.md
 DisbursementAmountInstruction.md
 DisbursementConfigOperation.md
 DisbursementInstruction.md
@@ -329,6 +340,9 @@ DropTransactionResponse.md
 DvnConfig.md
 DvnConfigWithConfirmations.md
 EVMTokenCreateParamsDto.md
+EarnAsset.md
+EarnBetaApi.md
+EarnProvider.md
 EditGasStationConfigurationResponse.md
 EmbeddedWallet.md
 EmbeddedWalletAccount.md
@@ -380,6 +394,7 @@ ExecutionStepError.md
 ExecutionStepStatusEnum.md
 ExecutionStepType.md
 ExecutionTransferOperation.md
+Exposure.md
 ExternalAccount.md
 ExternalAccountLocalBankAfrica.md
 ExternalAccountMobileMoney.md
@@ -409,6 +424,7 @@ FiatPaymentMetadata.md
 FiatTransfer.md
 FixedAmountTypeEnum.md
 FixedFee.md
+FlowDirection.md
 FreezeTransactionResponse.md
 FunctionDoc.md
 Funds.md
@@ -419,7 +435,10 @@ GasStationsApi.md
 GasslessStandardConfigurations.md
 GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
 GetAPIUsersResponse.md
+GetActionResponse.md
+GetActionsResponse.md
 GetAuditLogsResponse.md
+GetByorkVerdictResponse.md
 GetConnectionsResponse.md
 GetConsoleUsersResponse.md
 GetContractsResponse.md
@@ -439,11 +458,14 @@ GetMpcKeysResponse.md
 GetNFTsResponse.md
 GetNetworkConnectionsResponse.md
 GetNetworkIdsResponse.md
+GetOpportunitiesResponse.md
 GetOrdersResponse.md
 GetOtaStatusResponse.md
 GetOwnershipTokensResponse.md
 GetPagedExchangeAccountsResponse.md
 GetPagedExchangeAccountsResponsePaging.md
+GetPositionsResponse.md
+GetProvidersResponse.md
 GetRoutingPolicyAssetGroupsResponse.md
 GetSigningKeyResponseDto.md
 GetSupportedAssetsResponse.md
@@ -458,11 +480,13 @@ GetVaultAssetsResponse.md
 GetWhitelistIpAddressesResponse.md
 GetWorkspaceStatusResponse.md
 GleifData.md
+GleifOtherLegalEntityName.md
 HttpContractDoesNotExistError.md
 IbanAddress.md
 IbanDestination.md
 IbanPaymentInfo.md
 Identification.md
+IdentificationPolicyOverride.md
 IdlType.md
 IndicativeQuoteEnum.md
 IndicativeQuoteType.md
@@ -525,6 +549,7 @@ ListBlockchainsResponse.md
 ListLegalEntitiesResponse.md
 ListOwnedCollectionsResponse.md
 ListOwnedTokensResponse.md
+ListUtxosResponse.md
 ListVaultsForRegistrationResponse.md
 LocalBankTransferAfricaAddress.md
 LocalBankTransferAfricaDestination.md
@@ -584,6 +609,7 @@ OneTimeAddressAccount.md
 OneTimeAddressPeerType.md
 OneTimeAddressReference.md
 OperationExecutionFailure.md
+Opportunity.md
 OrderDetails.md
 OrderExecutionStep.md
 OrderSide.md
@@ -602,6 +628,8 @@ ParameterWithValue.md
 ParameterWithValueList.md
 ParticipantRelationshipType.md
 ParticipantsIdentification.md
+ParticipantsIdentificationPolicy.md
+ParticipantsIdentificationSupportedEndpoint.md
 PayeeAccount.md
 PayeeAccountResponse.md
 PayeeAccountType.md
@@ -654,6 +682,7 @@ PolicyValidation.md
 PolicyVerdictActionEnum.md
 PolicyVerdictActionEnum2.md
 Position.md
+Position2.md
 PostalAddress.md
 PreScreening.md
 PrefundedSettlement.md
@@ -697,6 +726,8 @@ RenameConnectedAccountRequest.md
 RenameConnectedAccountResponse.md
 RenameCosigner.md
 RenameVaultAccountResponse.md
+ResendByQueryRequest.md
+ResendByQueryResponse.md
 ResendFailedNotificationsJobStatusResponse.md
 ResendFailedNotificationsRequest.md
 ResendFailedNotificationsResponse.md
@@ -727,6 +758,9 @@ ScreeningOperationExecution.md
 ScreeningOperationExecutionOutput.md
 ScreeningOperationFailure.md
 ScreeningOperationType.md
+ScreeningPolicyAmount.md
+ScreeningPolicyAmountRange.md
+ScreeningPolicyCurrency.md
 ScreeningPolicyResponse.md
 ScreeningProviderResponse.md
 ScreeningProviderRulesConfigurationResponse.md
@@ -842,8 +876,6 @@ SwiftDestination.md
 SystemMessageInfo.md
 TRLinkAPIPagedResponse.md
 TRLinkAmount.md
-TRLinkAmount2.md
-TRLinkAmountRange.md
 TRLinkApi.md
 TRLinkAssessTravelRuleRequest.md
 TRLinkAssessTravelRuleResponse.md
@@ -857,7 +889,6 @@ TRLinkConnectIntegrationRequest.md
 TRLinkCreateCustomerRequest.md
 TRLinkCreateIntegrationRequest.md
 TRLinkCreateTrmRequest.md
-TRLinkCurrency.md
 TRLinkCustomerIntegrationResponse.md
 TRLinkCustomerIntegrationsListResponse.md
 TRLinkCustomerResponse.md
@@ -955,7 +986,6 @@ TradingAccountType.md
 TradingBetaApi.md
 TradingErrorSchema.md
 TradingProvider.md
-TradingProviderDetails.md
 Transaction.md
 TransactionDirection.md
 TransactionFee.md
@@ -1045,6 +1075,7 @@ TxLog.md
 TypedMessageTransactionStatusEnum.md
 USWireAddress.md
 USWireDestination.md
+UTXOManagementBetaApi.md
 UnfreezeTransactionResponse.md
 UnmanagedWallet.md
 UnspentInput.md
@@ -1074,6 +1105,13 @@ UserRole.md
 UserStatus.md
 UserType.md
 UsersApi.md
+UtxoIdentifier.md
+UtxoInput.md
+UtxoInput2.md
+UtxoInputSelection.md
+UtxoOutput.md
+UtxoSelectionFilters.md
+UtxoSelectionParams.md
 ValidateAddressResponse.md
 ValidateLayerZeroChannelResponse.md
 ValidationKeyDto.md
@@ -1127,6 +1165,7 @@ api/contract-templates-api.ts
 api/contracts-api.ts
 api/cosigners-beta-api.ts
 api/deployed-contracts-api.ts
+api/earn-beta-api.ts
 api/embedded-wallets-api.ts
 api/exchange-accounts-api.ts
 api/external-wallets-api.ts
@@ -1154,6 +1193,7 @@ api/travel-rule-api.ts
 api/trlink-api.ts
 api/user-groups-beta-api.ts
 api/users-api.ts
+api/utxomanagement-beta-api.ts
 api/vaults-api.ts
 api/web3-connections-api.ts
 api/webhooks-api.ts
@@ -1179,7 +1219,6 @@ models/account-access.ts
 models/account-base.ts
 models/account-based-access-provider-info.ts
 models/account-based-access-provider.ts
-models/account-based-provider-details.ts
 models/account-config.ts
 models/account-holder-details.ts
 models/account-identifier.ts
@@ -1191,6 +1230,7 @@ models/ach-account-type.ts
 models/ach-address.ts
 models/ach-destination.ts
 models/ach-payment-info.ts
+models/action-record.ts
 models/active-roles-response.ts
 models/adapter-processing-result.ts
 models/add-abi-request-dto.ts
@@ -1212,7 +1252,6 @@ models/address-registry-add-vault-opt-outs-request.ts
 models/address-registry-add-vault-opt-outs-response.ts
 models/address-registry-error.ts
 models/address-registry-get-vault-opt-out-response.ts
-models/address-registry-legal-entity-legacy.ts
 models/address-registry-legal-entity.ts
 models/address-registry-list-vault-opt-outs-response.ts
 models/address-registry-remove-all-vault-opt-outs-response.ts
@@ -1247,6 +1286,7 @@ models/apiusers.ts
 models/approval-request.ts
 models/approvers-config-approval-groups-inner.ts
 models/approvers-config.ts
+models/apy.ts
 models/asset-already-exist-http-error.ts
 models/asset-amount.ts
 models/asset-bad-request-error-response.ts
@@ -1279,6 +1319,8 @@ models/asset-wallet.ts
 models/asset.ts
 models/assign-vaults-to-legal-entity-request.ts
 models/assign-vaults-to-legal-entity-response.ts
+models/attach-detach-utxo-labels-request.ts
+models/attach-detach-utxo-labels-response.ts
 models/audit-log-data.ts
 models/audit-logs-data.ts
 models/auditor-data.ts
@@ -1302,6 +1344,14 @@ models/blockchain-transfer.ts
 models/bps-fee.ts
 models/business-entity-type-enum.ts
 models/business-identification.ts
+models/byork-config-response.ts
+models/byork-set-timeouts-request.ts
+models/byork-set-verdict-enum.ts
+models/byork-timeout-range.ts
+models/byork-verdict-enum.ts
+models/byork-verdict-request.ts
+models/byork-verdict-response-status-enum.ts
+models/byork-verdict-response.ts
 models/callback-handler-request.ts
 models/callback-handler.ts
 models/cancel-transaction-response.ts
@@ -1403,6 +1453,8 @@ models/create-console-user.ts
 models/create-contract-request.ts
 models/create-conversion-config-operation-request.ts
 models/create-disbursement-config-operation-request.ts
+models/create-earn-action-request.ts
+models/create-earn-action-response.ts
 models/create-internal-transfer-request.ts
 models/create-internal-wallet-asset-request.ts
 models/create-multichain-token-request-create-params.ts
@@ -1458,7 +1510,6 @@ models/destination.ts
 models/direct-access-provider-info.ts
 models/direct-access-provider.ts
 models/direct-access.ts
-models/direct-provider-details.ts
 models/disbursement-amount-instruction.ts
 models/disbursement-config-operation.ts
 models/disbursement-instruction-output.ts
@@ -1484,6 +1535,8 @@ models/dvn-config-with-confirmations.ts
 models/dvn-config.ts
 models/dvpsettlement-type.ts
 models/dvpsettlement.ts
+models/earn-asset.ts
+models/earn-provider.ts
 models/edit-gas-station-configuration-response.ts
 models/embedded-wallet-account.ts
 models/embedded-wallet-address-details.ts
@@ -1534,6 +1587,7 @@ models/execution-step-error.ts
 models/execution-step-status-enum.ts
 models/execution-step-type.ts
 models/execution-transfer-operation.ts
+models/exposure.ts
 models/external-account-local-bank-africa.ts
 models/external-account-mobile-money-provider.ts
 models/external-account-mobile-money-type.ts
@@ -1561,6 +1615,7 @@ models/fiat-payment-metadata.ts
 models/fiat-transfer.ts
 models/fixed-amount-type-enum.ts
 models/fixed-fee.ts
+models/flow-direction.ts
 models/freeze-transaction-response.ts
 models/function-doc.ts
 models/funds.ts
@@ -1569,8 +1624,11 @@ models/gas-station-configuration.ts
 models/gas-station-properties-response.ts
 models/gassless-standard-configurations-gasless-standard-configurations-value.ts
 models/gassless-standard-configurations.ts
+models/get-action-response.ts
+models/get-actions-response.ts
 models/get-apiusers-response.ts
 models/get-audit-logs-response.ts
+models/get-byork-verdict-response.ts
 models/get-connections-response.ts
 models/get-console-users-response.ts
 models/get-contracts-response.ts
@@ -1590,11 +1648,14 @@ models/get-mpc-keys-response.ts
 models/get-network-connections-response.ts
 models/get-network-ids-response.ts
 models/get-nfts-response.ts
+models/get-opportunities-response.ts
 models/get-orders-response.ts
 models/get-ota-status-response.ts
 models/get-ownership-tokens-response.ts
 models/get-paged-exchange-accounts-response-paging.ts
 models/get-paged-exchange-accounts-response.ts
+models/get-positions-response.ts
+models/get-providers-response.ts
 models/get-routing-policy-asset-groups-response.ts
 models/get-signing-key-response-dto.ts
 models/get-supported-assets-response.ts
@@ -1609,10 +1670,12 @@ models/get-vault-assets-response.ts
 models/get-whitelist-ip-addresses-response.ts
 models/get-workspace-status-response.ts
 models/gleif-data.ts
+models/gleif-other-legal-entity-name.ts
 models/http-contract-does-not-exist-error.ts
 models/iban-address.ts
 models/iban-destination.ts
 models/iban-payment-info.ts
+models/identification-policy-override.ts
 models/identification.ts
 models/idl-type.ts
 models/index.ts
@@ -1673,6 +1736,7 @@ models/list-blockchains-response.ts
 models/list-legal-entities-response.ts
 models/list-owned-collections-response.ts
 models/list-owned-tokens-response.ts
+models/list-utxos-response.ts
 models/list-vaults-for-registration-response.ts
 models/local-bank-transfer-africa-address.ts
 models/local-bank-transfer-africa-destination.ts
@@ -1727,6 +1791,7 @@ models/one-time-address-peer-type.ts
 models/one-time-address-reference.ts
 models/one-time-address.ts
 models/operation-execution-failure.ts
+models/opportunity.ts
 models/order-details.ts
 models/order-execution-step.ts
 models/order-side.ts
@@ -1744,6 +1809,8 @@ models/parameter-with-value-list.ts
 models/parameter-with-value.ts
 models/parameter.ts
 models/participant-relationship-type.ts
+models/participants-identification-policy.ts
+models/participants-identification-supported-endpoint.ts
 models/participants-identification.ts
 models/payee-account-response.ts
 models/payee-account-type.ts
@@ -1794,6 +1861,7 @@ models/policy-validation.ts
 models/policy-verdict-action-enum.ts
 models/policy-verdict-action-enum2.ts
 models/position.ts
+models/position2.ts
 models/postal-address.ts
 models/pre-screening.ts
 models/prefunded-settlement-type.ts
@@ -1836,6 +1904,8 @@ models/rename-connected-account-request.ts
 models/rename-connected-account-response.ts
 models/rename-cosigner.ts
 models/rename-vault-account-response.ts
+models/resend-by-query-request.ts
+models/resend-by-query-response.ts
 models/resend-failed-notifications-job-status-response.ts
 models/resend-failed-notifications-request.ts
 models/resend-failed-notifications-response.ts
@@ -1861,6 +1931,9 @@ models/screening-operation-execution-output.ts
 models/screening-operation-execution.ts
 models/screening-operation-failure.ts
 models/screening-operation-type.ts
+models/screening-policy-amount-range.ts
+models/screening-policy-amount.ts
+models/screening-policy-currency.ts
 models/screening-policy-response.ts
 models/screening-provider-response.ts
 models/screening-provider-rules-configuration-response.ts
@@ -2002,7 +2075,6 @@ models/total-supply-item-dto.ts
 models/total-supply-paged-response.ts
 models/trading-account-type.ts
 models/trading-error-schema.ts
-models/trading-provider-details.ts
 models/trading-provider.ts
 models/transaction-direction.ts
 models/transaction-fee.ts
@@ -2084,9 +2156,7 @@ models/travel-rule-validate-transaction-response.ts
 models/travel-rule-vasp-for-vault.ts
 models/travel-rule-vasp.ts
 models/travel-rule-verdict-enum.ts
-models/trlink-amount-range.ts
 models/trlink-amount.ts
-models/trlink-amount2.ts
 models/trlink-apipaged-response.ts
 models/trlink-assess-travel-rule-request.ts
 models/trlink-assess-travel-rule-response.ts
@@ -2100,7 +2170,6 @@ models/trlink-connect-integration-request.ts
 models/trlink-create-customer-request.ts
 models/trlink-create-integration-request.ts
 models/trlink-create-trm-request.ts
-models/trlink-currency.ts
 models/trlink-customer-integration-response.ts
 models/trlink-customer-integrations-list-response.ts
 models/trlink-customer-response.ts
@@ -2202,6 +2271,13 @@ models/user-status.ts
 models/user-type.ts
 models/uswire-address.ts
 models/uswire-destination.ts
+models/utxo-identifier.ts
+models/utxo-input-selection.ts
+models/utxo-input.ts
+models/utxo-input2.ts
+models/utxo-output.ts
+models/utxo-selection-filters.ts
+models/utxo-selection-params.ts
 models/validate-address-response.ts
 models/validate-layer-zero-channel-response.ts
 models/validation-key-dto.ts

@@ -137,14 +137,17 @@ Class | Method | HTTP request | Description
 *BlockchainsAssetsApi* | [**registerNewAsset**](docs/apis/BlockchainsAssetsApi.md#registerNewAsset) | **POST** /assets | Register an asset
 *BlockchainsAssetsApi* | [**setAssetPrice**](docs/apis/BlockchainsAssetsApi.md#setAssetPrice) | **POST** /assets/prices/{id} | Set asset price
 *BlockchainsAssetsApi* | [**updateAssetUserMetadata**](docs/apis/BlockchainsAssetsApi.md#updateAssetUserMetadata) | **PATCH** /assets/{id} | Update the user’s metadata for an asset
+*ComplianceApi* | [**activateByorkConfig**](docs/apis/ComplianceApi.md#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light
 *ComplianceApi* | [**addAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list
 *ComplianceApi* | [**assignVaultsToLegalEntity**](docs/apis/ComplianceApi.md#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity
+*ComplianceApi* | [**deactivateByorkConfig**](docs/apis/ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
 *ComplianceApi* | [**getAddressRegistryTenantParticipationStatus**](docs/apis/ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
 *ComplianceApi* | [**getAddressRegistryVaultOptOut**](docs/apis/ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
+*ComplianceApi* | [**getByorkConfig**](docs/apis/ComplianceApi.md#getByorkConfig) | **GET** /screening/byork/config | Get BYORK Light configuration
+*ComplianceApi* | [**getByorkVerdict**](docs/apis/ComplianceApi.md#getByorkVerdict) | **GET** /screening/byork/verdict | Get BYORK Light verdict
 *ComplianceApi* | [**getLegalEntity**](docs/apis/ComplianceApi.md#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity
-*ComplianceApi* | [**getLegalEntityByAddress**](docs/apis/ComplianceApi.md#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | [Deprecated] Look up legal entity by address (query parameter)
 *ComplianceApi* | [**getLegalEntityForAddress**](docs/apis/ComplianceApi.md#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
 *ComplianceApi* | [**getScreeningFullDetails**](docs/apis/ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
@@ -158,7 +161,9 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**removeAddressRegistryVaultOptOut**](docs/apis/ComplianceApi.md#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
 *ComplianceApi* | [**removeAllAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
 *ComplianceApi* | [**retryRejectedTransactionBypassScreeningChecks**](docs/apis/ComplianceApi.md#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
-*ComplianceApi* | [**setAmlVerdict**](docs/apis/ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict for Manual Screening Verdict.
+*ComplianceApi* | [**setAmlVerdict**](docs/apis/ComplianceApi.md#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict (BYORK Super Light)
+*ComplianceApi* | [**setByorkTimeouts**](docs/apis/ComplianceApi.md#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts
+*ComplianceApi* | [**setByorkVerdict**](docs/apis/ComplianceApi.md#setByorkVerdict) | **POST** /screening/byork/verdict | Set BYORK Light verdict
 *ComplianceApi* | [**updateAmlScreeningConfiguration**](docs/apis/ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
 *ComplianceApi* | [**updateLegalEntity**](docs/apis/ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 *ComplianceApi* | [**updateScreeningConfiguration**](docs/apis/ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
@@ -210,6 +215,13 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContractByAddress**](docs/apis/DeployedContractsApi.md#getDeployedContractByAddress) | **GET** /tokenization/contracts/{assetId}/{contractAddress} | Return deployed contract data
 *DeployedContractsApi* | [**getDeployedContractById**](docs/apis/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/apis/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
+*EarnBetaApi* | [**approveTermsOfService**](docs/apis/EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/{providerId}/approve_terms_of_service | Approve earn provider terms of service
+*EarnBetaApi* | [**createEarnAction**](docs/apis/EarnBetaApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw)
+*EarnBetaApi* | [**getEarnAction**](docs/apis/EarnBetaApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action
+*EarnBetaApi* | [**getEarnActions**](docs/apis/EarnBetaApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions
+*EarnBetaApi* | [**getEarnOpportunities**](docs/apis/EarnBetaApi.md#getEarnOpportunities) | **GET** /earn/opportunities | Get list of earn opportunities
+*EarnBetaApi* | [**getEarnPositions**](docs/apis/EarnBetaApi.md#getEarnPositions) | **GET** /earn/positions | Get list of earn positions
+*EarnBetaApi* | [**getEarnProviders**](docs/apis/EarnBetaApi.md#getEarnProviders) | **GET** /earn/providers | Get list of earn providers
 *EmbeddedWalletsApi* | [**addEmbeddedWalletAsset**](docs/apis/EmbeddedWalletsApi.md#addEmbeddedWalletAsset) | **POST** /ncw/wallets/{walletId}/accounts/{accountId}/assets/{assetId} | Add asset to account
 *EmbeddedWalletsApi* | [**assignEmbeddedWallet**](docs/apis/EmbeddedWalletsApi.md#assignEmbeddedWallet) | **POST** /ncw/wallets/{walletId}/assign | Assign a wallet
 *EmbeddedWalletsApi* | [**createEmbeddedWallet**](docs/apis/EmbeddedWalletsApi.md#createEmbeddedWallet) | **POST** /ncw/wallets | Create a new wallet
@@ -446,6 +458,8 @@ Class | Method | HTTP request | Description
 *TravelRuleApi* | [**setVaspForVault**](docs/apis/TravelRuleApi.md#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
 *TravelRuleApi* | [**updateVasp**](docs/apis/TravelRuleApi.md#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
 *TravelRuleApi* | [**validateFullTravelRuleTransaction**](docs/apis/TravelRuleApi.md#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
+*UTXOManagementBetaApi* | [**getUtxos**](docs/apis/UTXOManagementBetaApi.md#getUtxos) | **GET** /utxo_management/{vaultAccountId}/{assetId}/unspent_outputs | List unspent outputs (UTXOs)
+*UTXOManagementBetaApi* | [**updateUtxoLabels**](docs/apis/UTXOManagementBetaApi.md#updateUtxoLabels) | **PATCH** /utxo_management/{vaultAccountId}/{assetId}/labels | Attach or detach labels to/from UTXOs
 *UserGroupsBetaApi* | [**createUserGroup**](docs/apis/UserGroupsBetaApi.md#createUserGroup) | **POST** /management/user_groups | Create user group
 *UserGroupsBetaApi* | [**deleteUserGroup**](docs/apis/UserGroupsBetaApi.md#deleteUserGroup) | **DELETE** /management/user_groups/{groupId} | Delete user group
 *UserGroupsBetaApi* | [**getUserGroup**](docs/apis/UserGroupsBetaApi.md#getUserGroup) | **GET** /management/user_groups/{groupId} | Get user group
@@ -494,11 +508,13 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**getNotification**](docs/apis/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
 *WebhooksV2Api* | [**getNotificationAttempts**](docs/apis/WebhooksV2Api.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 *WebhooksV2Api* | [**getNotifications**](docs/apis/WebhooksV2Api.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
+*WebhooksV2Api* | [**getResendByQueryJobStatus**](docs/apis/WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 *WebhooksV2Api* | [**getResendJobStatus**](docs/apis/WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 *WebhooksV2Api* | [**getWebhook**](docs/apis/WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 *WebhooksV2Api* | [**getWebhooks**](docs/apis/WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks
 *WebhooksV2Api* | [**resendFailedNotifications**](docs/apis/WebhooksV2Api.md#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications
 *WebhooksV2Api* | [**resendNotificationById**](docs/apis/WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
+*WebhooksV2Api* | [**resendNotificationsByQuery**](docs/apis/WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 *WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/apis/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2Api* | [**updateWebhook**](docs/apis/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/apis/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
@@ -521,7 +537,6 @@ Class | Method | HTTP request | Description
  - [AccountBase](docs/models/AccountBase.md)
  - [AccountBasedAccessProvider](docs/models/AccountBasedAccessProvider.md)
  - [AccountBasedAccessProviderInfo](docs/models/AccountBasedAccessProviderInfo.md)
- - [AccountBasedProviderDetails](docs/models/AccountBasedProviderDetails.md)
  - [AccountConfig](docs/models/AccountConfig.md)
  - [AccountHolderDetails](docs/models/AccountHolderDetails.md)
  - [AccountIdentifier](docs/models/AccountIdentifier.md)
@@ -532,6 +547,7 @@ Class | Method | HTTP request | Description
  - [AchAddress](docs/models/AchAddress.md)
  - [AchDestination](docs/models/AchDestination.md)
  - [AchPaymentInfo](docs/models/AchPaymentInfo.md)
+ - [ActionRecord](docs/models/ActionRecord.md)
  - [ActiveRolesResponse](docs/models/ActiveRolesResponse.md)
  - [AdapterProcessingResult](docs/models/AdapterProcessingResult.md)
  - [AddAbiRequestDto](docs/models/AddAbiRequestDto.md)
@@ -554,7 +570,6 @@ Class | Method | HTTP request | Description
  - [AddressRegistryError](docs/models/AddressRegistryError.md)
  - [AddressRegistryGetVaultOptOutResponse](docs/models/AddressRegistryGetVaultOptOutResponse.md)
  - [AddressRegistryLegalEntity](docs/models/AddressRegistryLegalEntity.md)
- - [AddressRegistryLegalEntityLegacy](docs/models/AddressRegistryLegalEntityLegacy.md)
  - [AddressRegistryListVaultOptOutsResponse](docs/models/AddressRegistryListVaultOptOutsResponse.md)
  - [AddressRegistryRemoveAllVaultOptOutsResponse](docs/models/AddressRegistryRemoveAllVaultOptOutsResponse.md)
  - [AddressRegistryRemoveVaultOptOutResponse](docs/models/AddressRegistryRemoveVaultOptOutResponse.md)
@@ -586,6 +601,7 @@ Class | Method | HTTP request | Description
  - [ApprovalRequest](docs/models/ApprovalRequest.md)
  - [ApproversConfig](docs/models/ApproversConfig.md)
  - [ApproversConfigApprovalGroupsInner](docs/models/ApproversConfigApprovalGroupsInner.md)
+ - [Apy](docs/models/Apy.md)
  - [Asset](docs/models/Asset.md)
  - [AssetAlreadyExistHttpError](docs/models/AssetAlreadyExistHttpError.md)
  - [AssetAmount](docs/models/AssetAmount.md)
@@ -618,6 +634,8 @@ Class | Method | HTTP request | Description
  - [AssetWallet](docs/models/AssetWallet.md)
  - [AssignVaultsToLegalEntityRequest](docs/models/AssignVaultsToLegalEntityRequest.md)
  - [AssignVaultsToLegalEntityResponse](docs/models/AssignVaultsToLegalEntityResponse.md)
+ - [AttachDetachUtxoLabelsRequest](docs/models/AttachDetachUtxoLabelsRequest.md)
+ - [AttachDetachUtxoLabelsResponse](docs/models/AttachDetachUtxoLabelsResponse.md)
  - [AuditLogData](docs/models/AuditLogData.md)
  - [AuditLogsData](docs/models/AuditLogsData.md)
  - [AuditorData](docs/models/AuditorData.md)
@@ -641,6 +659,14 @@ Class | Method | HTTP request | Description
  - [BpsFee](docs/models/BpsFee.md)
  - [BusinessEntityTypeEnum](docs/models/BusinessEntityTypeEnum.md)
  - [BusinessIdentification](docs/models/BusinessIdentification.md)
+ - [ByorkConfigResponse](docs/models/ByorkConfigResponse.md)
+ - [ByorkSetTimeoutsRequest](docs/models/ByorkSetTimeoutsRequest.md)
+ - [ByorkSetVerdictEnum](docs/models/ByorkSetVerdictEnum.md)
+ - [ByorkTimeoutRange](docs/models/ByorkTimeoutRange.md)
+ - [ByorkVerdictEnum](docs/models/ByorkVerdictEnum.md)
+ - [ByorkVerdictRequest](docs/models/ByorkVerdictRequest.md)
+ - [ByorkVerdictResponse](docs/models/ByorkVerdictResponse.md)
+ - [ByorkVerdictResponseStatusEnum](docs/models/ByorkVerdictResponseStatusEnum.md)
  - [CallbackHandler](docs/models/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/models/CallbackHandlerRequest.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
@@ -742,6 +768,8 @@ Class | Method | HTTP request | Description
  - [CreateContractRequest](docs/models/CreateContractRequest.md)
  - [CreateConversionConfigOperationRequest](docs/models/CreateConversionConfigOperationRequest.md)
  - [CreateDisbursementConfigOperationRequest](docs/models/CreateDisbursementConfigOperationRequest.md)
+ - [CreateEarnActionRequest](docs/models/CreateEarnActionRequest.md)
+ - [CreateEarnActionResponse](docs/models/CreateEarnActionResponse.md)
  - [CreateInternalTransferRequest](docs/models/CreateInternalTransferRequest.md)
  - [CreateInternalWalletAssetRequest](docs/models/CreateInternalWalletAssetRequest.md)
  - [CreateMultichainTokenRequest](docs/models/CreateMultichainTokenRequest.md)
@@ -799,7 +827,6 @@ Class | Method | HTTP request | Description
  - [DirectAccess](docs/models/DirectAccess.md)
  - [DirectAccessProvider](docs/models/DirectAccessProvider.md)
  - [DirectAccessProviderInfo](docs/models/DirectAccessProviderInfo.md)
- - [DirectProviderDetails](docs/models/DirectProviderDetails.md)
  - [DisbursementAmountInstruction](docs/models/DisbursementAmountInstruction.md)
  - [DisbursementConfigOperation](docs/models/DisbursementConfigOperation.md)
  - [DisbursementInstruction](docs/models/DisbursementInstruction.md)
@@ -824,6 +851,8 @@ Class | Method | HTTP request | Description
  - [DvnConfig](docs/models/DvnConfig.md)
  - [DvnConfigWithConfirmations](docs/models/DvnConfigWithConfirmations.md)
  - [EVMTokenCreateParamsDto](docs/models/EVMTokenCreateParamsDto.md)
+ - [EarnAsset](docs/models/EarnAsset.md)
+ - [EarnProvider](docs/models/EarnProvider.md)
  - [EditGasStationConfigurationResponse](docs/models/EditGasStationConfigurationResponse.md)
  - [EmbeddedWallet](docs/models/EmbeddedWallet.md)
  - [EmbeddedWalletAccount](docs/models/EmbeddedWalletAccount.md)
@@ -873,6 +902,7 @@ Class | Method | HTTP request | Description
  - [ExecutionStepStatusEnum](docs/models/ExecutionStepStatusEnum.md)
  - [ExecutionStepType](docs/models/ExecutionStepType.md)
  - [ExecutionTransferOperation](docs/models/ExecutionTransferOperation.md)
+ - [Exposure](docs/models/Exposure.md)
  - [ExternalAccount](docs/models/ExternalAccount.md)
  - [ExternalAccountLocalBankAfrica](docs/models/ExternalAccountLocalBankAfrica.md)
  - [ExternalAccountMobileMoney](docs/models/ExternalAccountMobileMoney.md)
@@ -900,6 +930,7 @@ Class | Method | HTTP request | Description
  - [FiatTransfer](docs/models/FiatTransfer.md)
  - [FixedAmountTypeEnum](docs/models/FixedAmountTypeEnum.md)
  - [FixedFee](docs/models/FixedFee.md)
+ - [FlowDirection](docs/models/FlowDirection.md)
  - [FreezeTransactionResponse](docs/models/FreezeTransactionResponse.md)
  - [FunctionDoc](docs/models/FunctionDoc.md)
  - [Funds](docs/models/Funds.md)
@@ -909,7 +940,10 @@ Class | Method | HTTP request | Description
  - [GasslessStandardConfigurations](docs/models/GasslessStandardConfigurations.md)
  - [GasslessStandardConfigurationsGaslessStandardConfigurationsValue](docs/models/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md)
  - [GetAPIUsersResponse](docs/models/GetAPIUsersResponse.md)
+ - [GetActionResponse](docs/models/GetActionResponse.md)
+ - [GetActionsResponse](docs/models/GetActionsResponse.md)
  - [GetAuditLogsResponse](docs/models/GetAuditLogsResponse.md)
+ - [GetByorkVerdictResponse](docs/models/GetByorkVerdictResponse.md)
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
  - [GetConsoleUsersResponse](docs/models/GetConsoleUsersResponse.md)
  - [GetContractsResponse](docs/models/GetContractsResponse.md)
@@ -929,11 +963,14 @@ Class | Method | HTTP request | Description
  - [GetNFTsResponse](docs/models/GetNFTsResponse.md)
  - [GetNetworkConnectionsResponse](docs/models/GetNetworkConnectionsResponse.md)
  - [GetNetworkIdsResponse](docs/models/GetNetworkIdsResponse.md)
+ - [GetOpportunitiesResponse](docs/models/GetOpportunitiesResponse.md)
  - [GetOrdersResponse](docs/models/GetOrdersResponse.md)
  - [GetOtaStatusResponse](docs/models/GetOtaStatusResponse.md)
  - [GetOwnershipTokensResponse](docs/models/GetOwnershipTokensResponse.md)
  - [GetPagedExchangeAccountsResponse](docs/models/GetPagedExchangeAccountsResponse.md)
  - [GetPagedExchangeAccountsResponsePaging](docs/models/GetPagedExchangeAccountsResponsePaging.md)
+ - [GetPositionsResponse](docs/models/GetPositionsResponse.md)
+ - [GetProvidersResponse](docs/models/GetProvidersResponse.md)
  - [GetRoutingPolicyAssetGroupsResponse](docs/models/GetRoutingPolicyAssetGroupsResponse.md)
  - [GetSigningKeyResponseDto](docs/models/GetSigningKeyResponseDto.md)
  - [GetSupportedAssetsResponse](docs/models/GetSupportedAssetsResponse.md)
@@ -948,11 +985,13 @@ Class | Method | HTTP request | Description
  - [GetWhitelistIpAddressesResponse](docs/models/GetWhitelistIpAddressesResponse.md)
  - [GetWorkspaceStatusResponse](docs/models/GetWorkspaceStatusResponse.md)
  - [GleifData](docs/models/GleifData.md)
+ - [GleifOtherLegalEntityName](docs/models/GleifOtherLegalEntityName.md)
  - [HttpContractDoesNotExistError](docs/models/HttpContractDoesNotExistError.md)
  - [IbanAddress](docs/models/IbanAddress.md)
  - [IbanDestination](docs/models/IbanDestination.md)
  - [IbanPaymentInfo](docs/models/IbanPaymentInfo.md)
  - [Identification](docs/models/Identification.md)
+ - [IdentificationPolicyOverride](docs/models/IdentificationPolicyOverride.md)
  - [IdlType](docs/models/IdlType.md)
  - [IndicativeQuoteEnum](docs/models/IndicativeQuoteEnum.md)
  - [IndicativeQuoteType](docs/models/IndicativeQuoteType.md)
@@ -1011,6 +1050,7 @@ Class | Method | HTTP request | Description
  - [ListLegalEntitiesResponse](docs/models/ListLegalEntitiesResponse.md)
  - [ListOwnedCollectionsResponse](docs/models/ListOwnedCollectionsResponse.md)
  - [ListOwnedTokensResponse](docs/models/ListOwnedTokensResponse.md)
+ - [ListUtxosResponse](docs/models/ListUtxosResponse.md)
  - [ListVaultsForRegistrationResponse](docs/models/ListVaultsForRegistrationResponse.md)
  - [LocalBankTransferAfricaAddress](docs/models/LocalBankTransferAfricaAddress.md)
  - [LocalBankTransferAfricaDestination](docs/models/LocalBankTransferAfricaDestination.md)
@@ -1065,6 +1105,7 @@ Class | Method | HTTP request | Description
  - [OneTimeAddressPeerType](docs/models/OneTimeAddressPeerType.md)
  - [OneTimeAddressReference](docs/models/OneTimeAddressReference.md)
  - [OperationExecutionFailure](docs/models/OperationExecutionFailure.md)
+ - [Opportunity](docs/models/Opportunity.md)
  - [OrderDetails](docs/models/OrderDetails.md)
  - [OrderExecutionStep](docs/models/OrderExecutionStep.md)
  - [OrderSide](docs/models/OrderSide.md)
@@ -1083,6 +1124,8 @@ Class | Method | HTTP request | Description
  - [ParameterWithValueList](docs/models/ParameterWithValueList.md)
  - [ParticipantRelationshipType](docs/models/ParticipantRelationshipType.md)
  - [ParticipantsIdentification](docs/models/ParticipantsIdentification.md)
+ - [ParticipantsIdentificationPolicy](docs/models/ParticipantsIdentificationPolicy.md)
+ - [ParticipantsIdentificationSupportedEndpoint](docs/models/ParticipantsIdentificationSupportedEndpoint.md)
  - [PayeeAccount](docs/models/PayeeAccount.md)
  - [PayeeAccountResponse](docs/models/PayeeAccountResponse.md)
  - [PayeeAccountType](docs/models/PayeeAccountType.md)
@@ -1132,6 +1175,7 @@ Class | Method | HTTP request | Description
  - [PolicyVerdictActionEnum](docs/models/PolicyVerdictActionEnum.md)
  - [PolicyVerdictActionEnum2](docs/models/PolicyVerdictActionEnum2.md)
  - [Position](docs/models/Position.md)
+ - [Position2](docs/models/Position2.md)
  - [PostalAddress](docs/models/PostalAddress.md)
  - [PreScreening](docs/models/PreScreening.md)
  - [PrefundedSettlement](docs/models/PrefundedSettlement.md)
@@ -1174,6 +1218,8 @@ Class | Method | HTTP request | Description
  - [RenameConnectedAccountResponse](docs/models/RenameConnectedAccountResponse.md)
  - [RenameCosigner](docs/models/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
+ - [ResendByQueryRequest](docs/models/ResendByQueryRequest.md)
+ - [ResendByQueryResponse](docs/models/ResendByQueryResponse.md)
  - [ResendFailedNotificationsJobStatusResponse](docs/models/ResendFailedNotificationsJobStatusResponse.md)
  - [ResendFailedNotificationsRequest](docs/models/ResendFailedNotificationsRequest.md)
  - [ResendFailedNotificationsResponse](docs/models/ResendFailedNotificationsResponse.md)
@@ -1203,6 +1249,9 @@ Class | Method | HTTP request | Description
  - [ScreeningOperationExecutionOutput](docs/models/ScreeningOperationExecutionOutput.md)
  - [ScreeningOperationFailure](docs/models/ScreeningOperationFailure.md)
  - [ScreeningOperationType](docs/models/ScreeningOperationType.md)
+ - [ScreeningPolicyAmount](docs/models/ScreeningPolicyAmount.md)
+ - [ScreeningPolicyAmountRange](docs/models/ScreeningPolicyAmountRange.md)
+ - [ScreeningPolicyCurrency](docs/models/ScreeningPolicyCurrency.md)
  - [ScreeningPolicyResponse](docs/models/ScreeningPolicyResponse.md)
  - [ScreeningProviderResponse](docs/models/ScreeningProviderResponse.md)
  - [ScreeningProviderRulesConfigurationResponse](docs/models/ScreeningProviderRulesConfigurationResponse.md)
@@ -1316,8 +1365,6 @@ Class | Method | HTTP request | Description
  - [SystemMessageInfo](docs/models/SystemMessageInfo.md)
  - [TRLinkAPIPagedResponse](docs/models/TRLinkAPIPagedResponse.md)
  - [TRLinkAmount](docs/models/TRLinkAmount.md)
- - [TRLinkAmount2](docs/models/TRLinkAmount2.md)
- - [TRLinkAmountRange](docs/models/TRLinkAmountRange.md)
  - [TRLinkAssessTravelRuleRequest](docs/models/TRLinkAssessTravelRuleRequest.md)
  - [TRLinkAssessTravelRuleResponse](docs/models/TRLinkAssessTravelRuleResponse.md)
  - [TRLinkAssessmentDecision](docs/models/TRLinkAssessmentDecision.md)
@@ -1330,7 +1377,6 @@ Class | Method | HTTP request | Description
  - [TRLinkCreateCustomerRequest](docs/models/TRLinkCreateCustomerRequest.md)
  - [TRLinkCreateIntegrationRequest](docs/models/TRLinkCreateIntegrationRequest.md)
  - [TRLinkCreateTrmRequest](docs/models/TRLinkCreateTrmRequest.md)
- - [TRLinkCurrency](docs/models/TRLinkCurrency.md)
  - [TRLinkCustomerIntegrationResponse](docs/models/TRLinkCustomerIntegrationResponse.md)
  - [TRLinkCustomerIntegrationsListResponse](docs/models/TRLinkCustomerIntegrationsListResponse.md)
  - [TRLinkCustomerResponse](docs/models/TRLinkCustomerResponse.md)
@@ -1425,7 +1471,6 @@ Class | Method | HTTP request | Description
  - [TradingAccountType](docs/models/TradingAccountType.md)
  - [TradingErrorSchema](docs/models/TradingErrorSchema.md)
  - [TradingProvider](docs/models/TradingProvider.md)
- - [TradingProviderDetails](docs/models/TradingProviderDetails.md)
  - [Transaction](docs/models/Transaction.md)
  - [TransactionDirection](docs/models/TransactionDirection.md)
  - [TransactionFee](docs/models/TransactionFee.md)
@@ -1540,6 +1585,13 @@ Class | Method | HTTP request | Description
  - [UserRole](docs/models/UserRole.md)
  - [UserStatus](docs/models/UserStatus.md)
  - [UserType](docs/models/UserType.md)
+ - [UtxoIdentifier](docs/models/UtxoIdentifier.md)
+ - [UtxoInput](docs/models/UtxoInput.md)
+ - [UtxoInput2](docs/models/UtxoInput2.md)
+ - [UtxoInputSelection](docs/models/UtxoInputSelection.md)
+ - [UtxoOutput](docs/models/UtxoOutput.md)
+ - [UtxoSelectionFilters](docs/models/UtxoSelectionFilters.md)
+ - [UtxoSelectionParams](docs/models/UtxoSelectionParams.md)
  - [ValidateAddressResponse](docs/models/ValidateAddressResponse.md)
  - [ValidateLayerZeroChannelResponse](docs/models/ValidateLayerZeroChannelResponse.md)
  - [ValidationKeyDto](docs/models/ValidationKeyDto.md)
