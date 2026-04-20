@@ -7,8 +7,6 @@
 
 * `Internal` (value: `'INTERNAL'`)
 
-* `Peer` (value: `'PEER'`)
-
 * `Swift` (value: `'SWIFT'`)
 
 * `Iban` (value: `'IBAN'`)
@@ -23,17 +21,17 @@
 
 * `Pix` (value: `'PIX'`)
 
-* `LocalBankTransferAfrica` (value: `'LOCAL_BANK_TRANSFER_AFRICA'`)
+* `Lbt` (value: `'LBT'`)
 
-* `MobileMoney` (value: `'MOBILE_MONEY'`)
+* `Momo` (value: `'MOMO'`)
 
-* `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
-
-* `Interac` (value: `'INTERAC'`)
+* `Chaps` (value: `'CHAPS'`)
 
 * `Payid` (value: `'PAYID'`)
 
-* `Chaps` (value: `'CHAPS'`)
+* `Interac` (value: `'INTERAC'`)
+
+* `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
 
 
 

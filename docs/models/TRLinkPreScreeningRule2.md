@@ -17,7 +17,7 @@
 |**destId** | **string** | Destination identifier | [optional] [default to undefined]|
 |**asset** | **string** | Asset or cryptocurrency type | [optional] [default to undefined]|
 |**baseAsset** | **string** | Base asset for derivatives | [optional] [default to undefined]|
-|**amount** | [**TRLinkAmount2**](TRLinkAmount2.md) |  | [optional] [default to undefined]|
+|**amount** | [**ScreeningPolicyAmount**](ScreeningPolicyAmount.md) |  | [optional] [default to undefined]|
 |**networkProtocol** | **string** | Network protocol identifier | [optional] [default to undefined]|
 |**operation** | **string** | Operation type | [optional] [default to undefined]|
 |**description** | **string** | Rule description | [optional] [default to undefined]|

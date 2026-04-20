@@ -22,6 +22,9 @@ import { ManifestOrder } from './manifest-order';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ManifestQuote } from './manifest-quote';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParticipantsIdentificationPolicy } from './participants-identification-policy';
 
 /**
  * The manifest of the provider, describing its supported order, quote, and rate requirements.
@@ -47,5 +50,11 @@ export interface Manifest {
      * @memberof Manifest
      */
     'rate': ManifestBase;
+    /**
+     * 
+     * @type {ParticipantsIdentificationPolicy}
+     * @memberof Manifest
+     */
+    'participantsIdentificationPolicy'?: ParticipantsIdentificationPolicy;
 }
 

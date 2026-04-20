@@ -23,6 +23,7 @@ ContractTemplatesApi,
 ContractsApi, 
 CosignersBetaApi, 
 DeployedContractsApi, 
+EarnBetaApi, 
 EmbeddedWalletsApi, 
 ExchangeAccountsApi, 
 ExternalWalletsApi, 
@@ -48,6 +49,7 @@ TokenizationApi,
 TradingBetaApi, 
 TransactionsApi, 
 TravelRuleApi, 
+UTXOManagementBetaApi, 
 UserGroupsBetaApi, 
 UsersApi, 
 VaultsApi, 
@@ -74,6 +76,7 @@ let mockContractTemplatesApi: jest.Mock;
 let mockContractsApi: jest.Mock;
 let mockCosignersBetaApi: jest.Mock;
 let mockDeployedContractsApi: jest.Mock;
+let mockEarnBetaApi: jest.Mock;
 let mockEmbeddedWalletsApi: jest.Mock;
 let mockExchangeAccountsApi: jest.Mock;
 let mockExternalWalletsApi: jest.Mock;
@@ -99,6 +102,7 @@ let mockTokenizationApi: jest.Mock;
 let mockTradingBetaApi: jest.Mock;
 let mockTransactionsApi: jest.Mock;
 let mockTravelRuleApi: jest.Mock;
+let mockUTXOManagementBetaApi: jest.Mock;
 let mockUserGroupsBetaApi: jest.Mock;
 let mockUsersApi: jest.Mock;
 let mockVaultsApi: jest.Mock;
@@ -122,6 +126,7 @@ jest.mock('../api', () => {
     mockContractsApi = jest.fn();
     mockCosignersBetaApi = jest.fn();
     mockDeployedContractsApi = jest.fn();
+    mockEarnBetaApi = jest.fn();
     mockEmbeddedWalletsApi = jest.fn();
     mockExchangeAccountsApi = jest.fn();
     mockExternalWalletsApi = jest.fn();
@@ -147,6 +152,7 @@ jest.mock('../api', () => {
     mockTradingBetaApi = jest.fn();
     mockTransactionsApi = jest.fn();
     mockTravelRuleApi = jest.fn();
+    mockUTXOManagementBetaApi = jest.fn();
     mockUserGroupsBetaApi = jest.fn();
     mockUsersApi = jest.fn();
     mockVaultsApi = jest.fn();
@@ -171,6 +177,7 @@ jest.mock('../api', () => {
         ContractsApi: mockContractsApi,
         CosignersBetaApi: mockCosignersBetaApi,
         DeployedContractsApi: mockDeployedContractsApi,
+        EarnBetaApi: mockEarnBetaApi,
         EmbeddedWalletsApi: mockEmbeddedWalletsApi,
         ExchangeAccountsApi: mockExchangeAccountsApi,
         ExternalWalletsApi: mockExternalWalletsApi,
@@ -196,6 +203,7 @@ jest.mock('../api', () => {
         TradingBetaApi: mockTradingBetaApi,
         TransactionsApi: mockTransactionsApi,
         TravelRuleApi: mockTravelRuleApi,
+        UTXOManagementBetaApi: mockUTXOManagementBetaApi,
         UserGroupsBetaApi: mockUserGroupsBetaApi,
         UsersApi: mockUsersApi,
         VaultsApi: mockVaultsApi,
@@ -332,6 +340,10 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.deployedContracts).toBeInstanceOf(DeployedContractsApi);
             expect(mockDeployedContractsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
+        it('Should return EarnBetaApi', async () => {
+            expect(fireblocks.earnBeta).toBeInstanceOf(EarnBetaApi);
+            expect(mockEarnBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
         it('Should return EmbeddedWalletsApi', async () => {
             expect(fireblocks.embeddedWallets).toBeInstanceOf(EmbeddedWalletsApi);
             expect(mockEmbeddedWalletsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
@@ -431,6 +443,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return TravelRuleApi', async () => {
             expect(fireblocks.travelRule).toBeInstanceOf(TravelRuleApi);
             expect(mockTravelRuleApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return UTXOManagementBetaApi', async () => {
+            expect(fireblocks.utxoManagementBeta).toBeInstanceOf(UTXOManagementBetaApi);
+            expect(mockUTXOManagementBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return UserGroupsBetaApi', async () => {
             expect(fireblocks.userGroupsBeta).toBeInstanceOf(UserGroupsBetaApi);

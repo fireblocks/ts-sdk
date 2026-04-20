@@ -10,11 +10,13 @@ Method | HTTP request | Description
 [**getNotification**](#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
 [**getNotificationAttempts**](#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 [**getNotifications**](#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
+[**getResendByQueryJobStatus**](#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 [**getResendJobStatus**](#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 [**getWebhook**](#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
 [**getWebhooks**](#getWebhooks) | **GET** /webhooks | Get all webhooks
 [**resendFailedNotifications**](#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications
 [**resendNotificationById**](#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
+[**resendNotificationsByQuery**](#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 [**resendNotificationsByResourceId**](#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 [**updateWebhook**](#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
 
@@ -427,6 +429,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getResendByQueryJobStatus**
+> ResendFailedNotificationsJobStatusResponse getResendByQueryJobStatus()
+
+Get the status of a resend by query job 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiGetResendByQueryJobStatusRequest, ResendFailedNotificationsJobStatusResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiGetResendByQueryJobStatusRequest = {
+  // string | The ID of the webhook
+  webhookId: webhookId_example,
+  // string | The ID of the resend job
+  jobId: jobId_example,
+};
+
+fireblocks.webhooksV2.getResendByQueryJobStatus(body).then((res: FireblocksResponse<ResendFailedNotificationsJobStatusResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookId** | [**string**] | The ID of the webhook | defaults to undefined
+ **jobId** | [**string**] | The ID of the resend job | defaults to undefined
+
+
+### Return type
+
+**[ResendFailedNotificationsJobStatusResponse](../models/ResendFailedNotificationsJobStatusResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Job status |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getResendJobStatus**
 > ResendFailedNotificationsJobStatusResponse getResendJobStatus()
 
@@ -745,6 +810,73 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Resend notification request was accepted and is being processed |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **resendNotificationsByQuery**
+> ResendByQueryResponse resendNotificationsByQuery(resendByQueryRequest, )
+
+Resend notifications matching the given query filters (statuses, events, time range, resource ID)  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiResendNotificationsByQueryRequest, ResendByQueryResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiResendNotificationsByQueryRequest = {
+  // ResendByQueryRequest
+  resendByQueryRequest: param_value,
+  // string | The ID of the webhook
+  webhookId: webhookId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2.resendNotificationsByQuery(body).then((res: FireblocksResponse<ResendByQueryResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **resendByQueryRequest** | **[ResendByQueryRequest](../models/ResendByQueryRequest.md)**|  |
+ **webhookId** | [**string**] | The ID of the webhook | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ResendByQueryResponse](../models/ResendByQueryResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | No matching notifications to resend |  * X-Request-ID -  <br>  |
+**202** | Resend notifications request was accepted and is being processed |  * X-Request-ID -  <br>  * Location -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

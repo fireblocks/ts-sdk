@@ -52,7 +52,8 @@ export const TransferPeerPathSubType = {
     Paxos: 'PAXOS',
     Poloniex: 'POLONIEX',
     External: 'External',
-    Internal: 'Internal'
+    Internal: 'Internal',
+    VirtualAccount: 'VIRTUAL_ACCOUNT'
 } as const;
 
 export type TransferPeerPathSubType = typeof TransferPeerPathSubType[keyof typeof TransferPeerPathSubType];

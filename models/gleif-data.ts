@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { GleifOtherLegalEntityName } from './gleif-other-legal-entity-name';
 
 /**
  * GLEIF (Global Legal Entity Identifier Foundation) data for a legal entity
@@ -39,11 +42,17 @@ export interface GleifData {
      */
     'legalAddressCountry': string;
     /**
-     * Alternative names for the entity
-     * @type {Array<string>}
+     * Two-letter ISO 639-1 language code
+     * @type {string}
      * @memberof GleifData
      */
-    'otherNames'?: Array<string>;
+    'legalNameLanguage'?: string;
+    /**
+     * Alternative names for the entity
+     * @type {Array<GleifOtherLegalEntityName>}
+     * @memberof GleifData
+     */
+    'otherNames'?: Array<GleifOtherLegalEntityName>;
     /**
      * Region or state of the legal address
      * @type {string}

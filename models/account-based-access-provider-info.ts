@@ -24,7 +24,7 @@ import { AccountBase } from './account-base';
  */
 export interface AccountBasedAccessProviderInfo {
     /**
-     * Whether the provider is currently connected
+     * Whether the provider is currently connected.
      * @type {boolean}
      * @memberof AccountBasedAccessProviderInfo
      */

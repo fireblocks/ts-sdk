@@ -45,7 +45,7 @@ import { QuotesResponse } from '../models';
 // @ts-ignore
 import { TradingErrorSchema } from '../models';
 // @ts-ignore
-import { TradingProviderDetails } from '../models';
+import { TradingProvider } from '../models';
 /**
  * TradingBetaApi - axios parameter creator
  * @export
@@ -242,7 +242,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {string} providerId The unique identifier of the provider.
          * @param {*} [options] Override http request option.
@@ -387,13 +387,13 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {string} providerId The unique identifier of the provider.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTradingProviderById(providerId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TradingProviderDetails>> {
+        async getTradingProviderById(providerId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TradingProvider>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTradingProviderById(providerId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TradingBetaApi.getTradingProviderById']?.[index]?.url;
@@ -464,13 +464,13 @@ export const TradingBetaApiFactory = function (configuration?: Configuration, ba
             return localVarFp.getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {TradingBetaApiGetTradingProviderByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTradingProviderById(requestParameters: TradingBetaApiGetTradingProviderByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<TradingProviderDetails> {
+        getTradingProviderById(requestParameters: TradingBetaApiGetTradingProviderByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<TradingProvider> {
             return localVarFp.getTradingProviderById(requestParameters.providerId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -703,7 +703,7 @@ export class TradingBetaApi extends BaseAPI {
     }
 
     /**
-     * Retrieve detailed information about a specific provider including its full manifest with order/quote requirements.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+     * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
      * @summary Get trading provider by ID
      * @param {TradingBetaApiGetTradingProviderByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

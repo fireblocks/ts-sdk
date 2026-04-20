@@ -4,14 +4,17 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**activateByorkConfig**](#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light
 [**addAddressRegistryVaultOptOuts**](#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list
 [**assignVaultsToLegalEntity**](#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity
+[**deactivateByorkConfig**](#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
 [**getAddressRegistryTenantParticipationStatus**](#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
 [**getAddressRegistryVaultOptOut**](#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 [**getAmlPostScreeningPolicy**](#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 [**getAmlScreeningPolicy**](#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
+[**getByorkConfig**](#getByorkConfig) | **GET** /screening/byork/config | Get BYORK Light configuration
+[**getByorkVerdict**](#getByorkVerdict) | **GET** /screening/byork/verdict | Get BYORK Light verdict
 [**getLegalEntity**](#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity
-[**getLegalEntityByAddress**](#getLegalEntityByAddress) | **GET** /address_registry/legal_entity | [Deprecated] Look up legal entity by address (query parameter)
 [**getLegalEntityForAddress**](#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address
 [**getPostScreeningPolicy**](#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
 [**getScreeningFullDetails**](#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
@@ -25,12 +28,75 @@ Method | HTTP request | Description
 [**removeAddressRegistryVaultOptOut**](#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
 [**removeAllAddressRegistryVaultOptOuts**](#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
 [**retryRejectedTransactionBypassScreeningChecks**](#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Calling the \&quot;Bypass Screening Policy\&quot; API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
-[**setAmlVerdict**](#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict for Manual Screening Verdict.
+[**setAmlVerdict**](#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict (BYORK Super Light)
+[**setByorkTimeouts**](#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts
+[**setByorkVerdict**](#setByorkVerdict) | **POST** /screening/byork/verdict | Set BYORK Light verdict
 [**updateAmlScreeningConfiguration**](#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
 [**updateLegalEntity**](#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 [**updateScreeningConfiguration**](#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 [**updateTravelRuleConfig**](#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
 
+
+# **activateByorkConfig**
+> ByorkConfigResponse activateByorkConfig()
+
+Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiActivateByorkConfigRequest, ByorkConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiActivateByorkConfigRequest = {
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.activateByorkConfig(body).then((res: FireblocksResponse<ByorkConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ByorkConfigResponse](../models/ByorkConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | BYORK configuration activated. |  * X-Request-ID -  <br>  |
+**400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **addAddressRegistryVaultOptOuts**
 > AddressRegistryAddVaultOptOutsResponse addAddressRegistryVaultOptOuts(addressRegistryAddVaultOptOutsRequest)
@@ -159,6 +225,67 @@ No authorization required
 |-------------|-------------|------------------|
 **201** | Vault accounts assigned successfully |  * X-Request-ID -  <br>  |
 **404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deactivateByorkConfig**
+> ByorkConfigResponse deactivateByorkConfig()
+
+Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiDeactivateByorkConfigRequest, ByorkConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiDeactivateByorkConfigRequest = {
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.deactivateByorkConfig(body).then((res: FireblocksResponse<ByorkConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ByorkConfigResponse](../models/ByorkConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | BYORK configuration deactivated. |  * X-Request-ID -  <br>  |
+**400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -384,6 +511,124 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getByorkConfig**
+> ByorkConfigResponse getByorkConfig()
+
+Retrieves BYORK Light configuration for the authenticated tenant (timeouts, active flag, allowed timeout ranges). Returns default config when none exists. Requires BYORK Light to be enabled for the tenant.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ByorkConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.compliance.getByorkConfig(body).then((res: FireblocksResponse<ByorkConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[ByorkConfigResponse](../models/ByorkConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | BYORK configuration (or default). |  * X-Request-ID -  <br>  |
+**400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getByorkVerdict**
+> GetByorkVerdictResponse getByorkVerdict()
+
+Returns the current BYORK verdict and status for a transaction. Status can be PRE_ACCEPTED, PENDING, RECEIVED (verdict is final but processing not yet complete), or COMPLETED. Requires BYORK Light to be enabled for the tenant. Returns 404 if no BYORK verdict is found for the transaction.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiGetByorkVerdictRequest, GetByorkVerdictResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiGetByorkVerdictRequest = {
+  // string | Transaction ID
+  txId: 550e8400-e29b-41d4-a716-446655440000,
+};
+
+fireblocks.compliance.getByorkVerdict(body).then((res: FireblocksResponse<GetByorkVerdictResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **txId** | [**string**] | Transaction ID | defaults to undefined
+
+
+### Return type
+
+**[GetByorkVerdictResponse](../models/GetByorkVerdictResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Current verdict and status. |  * X-Request-ID -  <br>  |
+**400** | BYORK Light not enabled for tenant or txId missing. |  * X-Request-ID -  <br>  |
+**404** | No BYORK verdict found for this transaction. |  * X-Request-ID -  <br>  |
+**500** | Internal server error. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getLegalEntity**
 > LegalEntityRegistration getLegalEntity()
 
@@ -445,76 +690,10 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
-# **getLegalEntityByAddress**
-> AddressRegistryLegalEntityLegacy getLegalEntityByAddress()
-
-**Deprecated** — use `GET /v1/address_registry/legal_entities/{address}` instead. Here `address` is a **query** parameter; the replacement uses a path segment. The response includes only `companyName`, `countryCode`, and `companyId`. The replacement returns additional fields documented on that operation. Optional **`asset`** is supported here only (not on the replacement path).
-
-### Example
-
-
-```typescript
-import { readFileSync } from 'fs';
-import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ComplianceApiGetLegalEntityByAddressRequest, AddressRegistryLegalEntityLegacy } from '@fireblocks/ts-sdk';
-
-// Set the environment variables for authentication
-process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
-process.env.FIREBLOCKS_API_KEY = "my-api-key";
-process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
-
-const fireblocks = new Fireblocks();
-
-let body: ComplianceApiGetLegalEntityByAddressRequest = {
-  // string | Blockchain address to look up
-  address: 0x742d35cc6634c0532925a3b844bc9e7595f0beb0,
-  // string | Optional asset identifier (this deprecated operation only). (optional)
-  asset: ETH,
-};
-
-fireblocks.compliance.getLegalEntityByAddress(body).then((res: FireblocksResponse<AddressRegistryLegalEntityLegacy>) => {
-  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
-}).catch((error:any) => console.error(error));
-```
-
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **address** | [**string**] | Blockchain address to look up | defaults to undefined
- **asset** | [**string**] | Optional asset identifier (this deprecated operation only). | (optional) defaults to undefined
-
-
-### Return type
-
-**[AddressRegistryLegalEntityLegacy](../models/AddressRegistryLegalEntityLegacy.md)**
-
-### Authorization
-
-No authorization required
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Legal entity found |  * X-Request-ID -  <br>  |
-**400** | Bad request – missing or invalid address |  * X-Request-ID -  <br>  |
-**403** | Forbidden – the authenticated workspace is not opted in to the address registry (error code 2140) |  * X-Request-ID -  <br>  |
-**404** | Not found (error code 2142) — unresolved address, no legal entity for a resolved address, or the same not-found outcome in other cases. |  * X-Request-ID -  <br>  |
-**0** | Error Response |  * X-Request-ID -  <br>  |
-
-[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
-
 # **getLegalEntityForAddress**
 > AddressRegistryLegalEntity getLegalEntityForAddress()
 
-Returns legal entity information for the given blockchain address. URL-encode `{address}` when required. Prefer this operation over the deprecated `GET /v1/address_registry/legal_entity?address=…`, which returns only `companyName`, `countryCode`, and `companyId`. This operation adds verification status, LEI, Travel Rule providers, and contact email (see response properties).
+Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
 
 ### Example
 
@@ -567,8 +746,7 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Legal entity found |  * X-Request-ID -  <br>  |
-**400** | Bad request – missing or invalid address |  * X-Request-ID -  <br>  |
-**403** | Forbidden – the authenticated workspace is not opted in to the address registry (error code 2140) |  * X-Request-ID -  <br>  |
+**400** | Bad request — either request validation (path &#x60;{address}&#x60; empty or whitespace-only after trim, e.g. encoded spaces only; numeric code 4100), or the authenticated workspace is not opted in to the address registry (numeric code 2140). The &#x60;message&#x60; field describes the failure; use &#x60;code&#x60; to distinguish. |  * X-Request-ID -  <br>  |
 **404** | Not found (error code 2142) — unresolved address, no legal entity for a resolved address, or the same not-found outcome in other cases. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
@@ -834,10 +1012,6 @@ let body: ComplianceApiListLegalEntitiesRequest = {
   pageCursor: pageCursor_example,
   // number | Maximum number of registrations to return. Ignored when `vaultAccountId` is provided. (optional)
   pageSize: 56,
-  // 'createdAt' | 'updatedAt' | Field to sort results by. Ignored when `vaultAccountId` is provided. (optional)
-  sortBy: sortBy_example,
-  // 'ASC' | 'DESC' | Sort order. Ignored when `vaultAccountId` is provided. (optional)
-  order: order_example,
 };
 
 fireblocks.compliance.listLegalEntities(body).then((res: FireblocksResponse<ListLegalEntitiesResponse>) => {
@@ -853,8 +1027,6 @@ Name | Type | Description  | Notes
  **vaultAccountId** | [**string**] | The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored. | (optional) defaults to undefined
  **pageCursor** | [**string**] | Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided. | (optional) defaults to undefined
  **pageSize** | [**number**] | Maximum number of registrations to return. Ignored when &#x60;vaultAccountId&#x60; is provided. | (optional) defaults to 50
- **sortBy** | [**&#39;createdAt&#39; | &#39;updatedAt&#39;**]**Array<&#39;createdAt&#39; &#124; &#39;updatedAt&#39;>** | Field to sort results by. Ignored when &#x60;vaultAccountId&#x60; is provided. | (optional) defaults to undefined
- **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | Sort order. Ignored when &#x60;vaultAccountId&#x60; is provided. | (optional) defaults to 'DESC'
 
 
 ### Return type
@@ -1308,7 +1480,7 @@ No authorization required
 # **setAmlVerdict**
 > AmlVerdictManualResponse setAmlVerdict(amlVerdictManualRequest)
 
-Set AML verdict for incoming transactions when Manual Screening Verdict feature is enabled.
+Set AML verdict for incoming transactions when **BYORK Super Light** (Manual Screening Verdict) is enabled. This endpoint is for Super Light only. For **BYORK Light**, use POST /screening/byork/verdict instead. When Super Light is retired, this endpoint will be deprecated; use the BYORK Light verdict API for new integrations.
 
 ### Example
 
@@ -1366,6 +1538,137 @@ No authorization required
 **200** | AML verdict set successfully. |  -  |
 **400** | Feature not enabled for tenant. |  * X-Request-ID -  <br>  |
 **425** | Too Early - transaction not yet in pending screening. |  * X-Request-ID -  <br>  |
+**500** | Internal server error. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **setByorkTimeouts**
+> ByorkConfigResponse setByorkTimeouts(byorkSetTimeoutsRequest)
+
+Updates timeout values for BYORK wait-for-response (incoming and/or outgoing). At least one of incomingTimeoutSeconds or outgoingTimeoutSeconds is required. Values must be within the ranges returned in GET config (timeoutRangeIncoming for incomingTimeoutSeconds, timeoutRangeOutgoing for outgoingTimeoutSeconds). Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiSetByorkTimeoutsRequest, ByorkConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiSetByorkTimeoutsRequest = {
+  // ByorkSetTimeoutsRequest
+  byorkSetTimeoutsRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.setByorkTimeouts(body).then((res: FireblocksResponse<ByorkConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **byorkSetTimeoutsRequest** | **[ByorkSetTimeoutsRequest](../models/ByorkSetTimeoutsRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ByorkConfigResponse](../models/ByorkConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Timeouts updated. |  * X-Request-ID -  <br>  |
+**400** | BYORK Light not enabled, or timeout value out of range, or missing both timeouts. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **setByorkVerdict**
+> ByorkVerdictResponse setByorkVerdict(byorkVerdictRequest)
+
+Submit verdict (ACCEPT or REJECT) for a transaction in the BYORK Light flow. If the transaction is awaiting your decision, the verdict is applied immediately (response status COMPLETED). If processing has not yet reached that point, the verdict is stored and applied when it does (response status PRE_ACCEPTED). Requires BYORK Light to be enabled for the tenant.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiSetByorkVerdictRequest, ByorkVerdictResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiSetByorkVerdictRequest = {
+  // ByorkVerdictRequest
+  byorkVerdictRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.setByorkVerdict(body).then((res: FireblocksResponse<ByorkVerdictResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **byorkVerdictRequest** | **[ByorkVerdictRequest](../models/ByorkVerdictRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ByorkVerdictResponse](../models/ByorkVerdictResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Verdict applied (COMPLETED) or pre-accepted (PRE_ACCEPTED). |  * X-Request-ID -  <br>  |
+**400** | BYORK Light not enabled for tenant or invalid verdict. |  * X-Request-ID -  <br>  |
+**409** | BYORK decision already final, screening already completed, or state inconsistent. |  * X-Request-ID -  <br>  |
+**425** | Too Early - transaction not found (screening not started yet). |  * X-Request-ID -  <br>  |
 **500** | Internal server error. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 

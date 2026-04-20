@@ -39,6 +39,10 @@ import { NotificationStatus } from '../models';
 // @ts-ignore
 import { NotificationWithData } from '../models';
 // @ts-ignore
+import { ResendByQueryRequest } from '../models';
+// @ts-ignore
+import { ResendByQueryResponse } from '../models';
+// @ts-ignore
 import { ResendFailedNotificationsJobStatusResponse } from '../models';
 // @ts-ignore
 import { ResendFailedNotificationsRequest } from '../models';
@@ -337,6 +341,42 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Get the status of a resend by query job 
+         * @summary Get resend by query job status
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} jobId The ID of the resend job
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResendByQueryJobStatus: async (webhookId: string, jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getResendByQueryJobStatus', 'webhookId', webhookId)
+            assertParamExistsAndNotEmpty('getResendByQueryJobStatus', 'jobId', jobId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId}`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
+                .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get the status of a resend job 
          * @summary Get resend job status
          * @param {string} webhookId The ID of the webhook
@@ -535,6 +575,49 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Resend notifications matching the given query filters (statuses, events, time range, resource ID)  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
+         * @summary Resend notifications by query
+         * @param {ResendByQueryRequest} resendByQueryRequest 
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendNotificationsByQuery: async (resendByQueryRequest: ResendByQueryRequest, webhookId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('resendNotificationsByQuery', 'resendByQueryRequest', resendByQueryRequest)
+            assertParamExistsAndNotEmpty('resendNotificationsByQuery', 'webhookId', webhookId)
+            const localVarPath = `/webhooks/{webhookId}/notifications/resend_by_query`
+                .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(resendByQueryRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
          * @summary Resend notifications by resource Id
          * @param {ResendNotificationsByResourceIdRequest} resendNotificationsByResourceIdRequest 
@@ -720,6 +803,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Get the status of a resend by query job 
+         * @summary Get resend by query job status
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} jobId The ID of the resend job
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getResendByQueryJobStatus(webhookId: string, jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendFailedNotificationsJobStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getResendByQueryJobStatus(webhookId, jobId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getResendByQueryJobStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get the status of a resend job 
          * @summary Get resend job status
          * @param {string} webhookId The ID of the webhook
@@ -789,6 +886,21 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.resendNotificationById(webhookId, notificationId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.resendNotificationById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Resend notifications matching the given query filters (statuses, events, time range, resource ID)  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
+         * @summary Resend notifications by query
+         * @param {ResendByQueryRequest} resendByQueryRequest 
+         * @param {string} webhookId The ID of the webhook
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resendNotificationsByQuery(resendByQueryRequest: ResendByQueryRequest, webhookId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResendByQueryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resendNotificationsByQuery(resendByQueryRequest, webhookId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.resendNotificationsByQuery']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -891,6 +1003,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getNotifications(requestParameters.webhookId, requestParameters.order, requestParameters.sortBy, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.startTime, requestParameters.endTime, requestParameters.statuses, requestParameters.events, requestParameters.resourceId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Get the status of a resend by query job 
+         * @summary Get resend by query job status
+         * @param {WebhooksV2ApiGetResendByQueryJobStatusRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getResendByQueryJobStatus(requestParameters: WebhooksV2ApiGetResendByQueryJobStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResendFailedNotificationsJobStatusResponse> {
+            return localVarFp.getResendByQueryJobStatus(requestParameters.webhookId, requestParameters.jobId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get the status of a resend job 
          * @summary Get resend job status
          * @param {WebhooksV2ApiGetResendJobStatusRequest} requestParameters Request parameters.
@@ -939,6 +1061,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          */
         resendNotificationById(requestParameters: WebhooksV2ApiResendNotificationByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resend notifications matching the given query filters (statuses, events, time range, resource ID)  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
+         * @summary Resend notifications by query
+         * @param {WebhooksV2ApiResendNotificationsByQueryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resendNotificationsByQuery(requestParameters: WebhooksV2ApiResendNotificationsByQueryRequest, options?: RawAxiosRequestConfig): AxiosPromise<ResendByQueryResponse> {
+            return localVarFp.resendNotificationsByQuery(requestParameters.resendByQueryRequest, requestParameters.webhookId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Resend notifications by resource Id  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
@@ -1160,6 +1292,27 @@ export interface WebhooksV2ApiGetNotificationsRequest {
 }
 
 /**
+ * Request parameters for getResendByQueryJobStatus operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetResendByQueryJobStatusRequest
+ */
+export interface WebhooksV2ApiGetResendByQueryJobStatusRequest {
+    /**
+     * The ID of the webhook
+     * @type {string}
+     * @memberof WebhooksV2ApiGetResendByQueryJobStatus
+     */
+    readonly webhookId: string
+
+    /**
+     * The ID of the resend job
+     * @type {string}
+     * @memberof WebhooksV2ApiGetResendByQueryJobStatus
+     */
+    readonly jobId: string
+}
+
+/**
  * Request parameters for getResendJobStatus operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiGetResendJobStatusRequest
@@ -1274,6 +1427,34 @@ export interface WebhooksV2ApiResendNotificationByIdRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof WebhooksV2ApiResendNotificationById
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for resendNotificationsByQuery operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiResendNotificationsByQueryRequest
+ */
+export interface WebhooksV2ApiResendNotificationsByQueryRequest {
+    /**
+     * 
+     * @type {ResendByQueryRequest}
+     * @memberof WebhooksV2ApiResendNotificationsByQuery
+     */
+    readonly resendByQueryRequest: ResendByQueryRequest
+
+    /**
+     * The ID of the webhook
+     * @type {string}
+     * @memberof WebhooksV2ApiResendNotificationsByQuery
+     */
+    readonly webhookId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiResendNotificationsByQuery
      */
     readonly idempotencyKey?: string
 }
@@ -1407,6 +1588,18 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Get the status of a resend by query job 
+     * @summary Get resend by query job status
+     * @param {WebhooksV2ApiGetResendByQueryJobStatusRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getResendByQueryJobStatus(requestParameters: WebhooksV2ApiGetResendByQueryJobStatusRequest) {
+        return WebhooksV2ApiFp(this.configuration).getResendByQueryJobStatus(requestParameters.webhookId, requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get the status of a resend job 
      * @summary Get resend job status
      * @param {WebhooksV2ApiGetResendJobStatusRequest} requestParameters Request parameters.
@@ -1464,6 +1657,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public resendNotificationById(requestParameters: WebhooksV2ApiResendNotificationByIdRequest) {
         return WebhooksV2ApiFp(this.configuration).resendNotificationById(requestParameters.webhookId, requestParameters.notificationId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Resend notifications matching the given query filters (statuses, events, time range, resource ID)  Endpoint Permission: Owner, Admin, Non-Signing Admin, Editor, Signer. 
+     * @summary Resend notifications by query
+     * @param {WebhooksV2ApiResendNotificationsByQueryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public resendNotificationsByQuery(requestParameters: WebhooksV2ApiResendNotificationsByQueryRequest) {
+        return WebhooksV2ApiFp(this.configuration).resendNotificationsByQuery(requestParameters.resendByQueryRequest, requestParameters.webhookId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
