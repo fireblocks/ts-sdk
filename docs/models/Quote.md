@@ -17,6 +17,7 @@
 |**quoteMinAmount** | **string** |  | [optional] [default to undefined]|
 |**executionSteps** | [**Array&lt;QuoteExecutionStep&gt;**](QuoteExecutionStep.md) |  | [optional] [default to undefined]|
 |**generalFees** | [**Array&lt;Fee&gt;**](Fee.md) |  | [optional] [default to undefined]|
+|**orderCreationRequirements** | **string** | A JSON Schema Draft-7 document in string format describing the fields required when creating an order for this quote. The schema mirrors the structure of CreateOrderRequest.participantsIdentification json schema, so clients can validate their order payload before sending.  | [optional] [default to undefined]|
 
 
 

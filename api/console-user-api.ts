@@ -41,7 +41,7 @@ import { GetConsoleUsersResponse } from '../models';
 export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create console user
          * @param {CreateConsoleUser} [createConsoleUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -80,7 +80,7 @@ export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get console users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -120,7 +120,7 @@ export const ConsoleUserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ConsoleUserApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create console user
          * @param {CreateConsoleUser} [createConsoleUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -134,7 +134,7 @@ export const ConsoleUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get console users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -156,7 +156,7 @@ export const ConsoleUserApiFactory = function (configuration?: Configuration, ba
     const localVarFp = ConsoleUserApiFp(configuration)
     return {
         /**
-         * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create console user
          * @param {ConsoleUserApiCreateConsoleUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -166,7 +166,7 @@ export const ConsoleUserApiFactory = function (configuration?: Configuration, ba
             return localVarFp.createConsoleUser(requestParameters.createConsoleUser, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get console users
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -206,7 +206,7 @@ export interface ConsoleUserApiCreateConsoleUserRequest {
  */
 export class ConsoleUserApi extends BaseAPI {
     /**
-     * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Create console users in your workspace - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Learn more about Fireblocks Users management in the following [guide](https://developers.fireblocks.com/docs/manage-users). Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Create console user
      * @param {ConsoleUserApiCreateConsoleUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -218,7 +218,7 @@ export class ConsoleUserApi extends BaseAPI {
     }
 
     /**
-     * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Get console users for your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get console users
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

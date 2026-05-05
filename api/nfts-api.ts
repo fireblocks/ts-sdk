@@ -426,7 +426,7 @@ export const NFTsApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Refresh vault account tokens
          * @param {UpdateOwnershipTokensBlockchainDescriptorEnum} blockchainDescriptor Blockchain descriptor filter
          * @param {string} vaultAccountId Vault account filter
@@ -733,7 +733,7 @@ export const NFTsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Refresh vault account tokens
          * @param {UpdateOwnershipTokensBlockchainDescriptorEnum} blockchainDescriptor Blockchain descriptor filter
          * @param {string} vaultAccountId Vault account filter
@@ -864,7 +864,7 @@ export const NFTsApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.refreshNFTMetadata(requestParameters.id, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Refresh vault account tokens
          * @param {NFTsApiUpdateOwnershipTokensRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1427,7 +1427,7 @@ export class NFTsApi extends BaseAPI {
     }
 
     /**
-     * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Updates all tokens and balances per blockchain and vault account. Learn more about Fireblocks NFT management in the following [guide](https://developers.fireblocks.com/reference/deploy-an-nft-collection).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Refresh vault account tokens
      * @param {NFTsApiUpdateOwnershipTokensRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

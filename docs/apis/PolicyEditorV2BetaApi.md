@@ -73,7 +73,7 @@ No authorization required
 # **getDraft**
 > DraftReviewAndValidationResponse getDraft()
 
-Returns the active draft and its validation for a specific policy type. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -133,7 +133,7 @@ No authorization required
 # **publishDraft**
 > PublishResult publishDraft(publishDraftRequest)
 
-Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -196,7 +196,7 @@ No authorization required
 # **updateDraft**
 > DraftReviewAndValidationResponse updateDraft(updateDraftRequest)
 
-Update the draft and return its validation for specific policy types. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
 
 ### Example
 

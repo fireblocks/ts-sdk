@@ -14,7 +14,7 @@ Method | HTTP request | Description
 # **createUserGroup**
 > CreateUserGroupResponse createUserGroup(userGroupCreateRequest)
 
-Create a new user group. Users with the Viewer role cannot be added to groups. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -77,7 +77,7 @@ No authorization required
 # **deleteUserGroup**
 > deleteUserGroup()
 
-Delete a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Delete a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
 
 ### Example
 
@@ -137,7 +137,7 @@ No authorization required
 # **getUserGroup**
 > UserGroupResponse getUserGroup()
 
-Get a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Get a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
 
 ### Example
 
@@ -197,7 +197,7 @@ No authorization required
 # **getUserGroups**
 > UserGroupsResponse getUserGroups()
 
-Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -251,7 +251,7 @@ No authorization required
 # **updateUserGroup**
 > UserGroupCreateResponse updateUserGroup(userGroupUpdateRequest, )
 
-Update a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+Update a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
 
 ### Example
 

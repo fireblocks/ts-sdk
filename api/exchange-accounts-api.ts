@@ -95,7 +95,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Convert exchange account funds
          * @param {string} exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
          * @param {ConvertAssetsRequest} [convertAssetsRequest] 
@@ -137,7 +137,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Returns an exchange account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get a specific exchange account
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {*} [options] Override http request option.
@@ -170,7 +170,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Returns an asset for an exchange account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get an asset for an exchange account
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {string} assetId The ID of the asset to return
@@ -236,7 +236,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Returns a list of the connected exchange accounts in your workspace. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns a list of the connected exchange accounts in your workspace. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List connected exchange accounts
          * @param {number} limit number of exchanges per page
          * @param {string} [before] 
@@ -282,7 +282,7 @@ export const ExchangeAccountsApiAxiosParamCreator = function (configuration?: Co
             };
         },
         /**
-         * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Internal transfer for exchange accounts
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {CreateInternalTransferRequest} [createInternalTransferRequest] 
@@ -348,7 +348,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Convert exchange account funds
          * @param {string} exchangeAccountId The ID of the exchange account. Please make sure the exchange supports conversions. To find the ID of your exchange account, use GET/exchange_accounts.
          * @param {ConvertAssetsRequest} [convertAssetsRequest] 
@@ -363,7 +363,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns an exchange account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get a specific exchange account
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {*} [options] Override http request option.
@@ -376,7 +376,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns an asset for an exchange account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get an asset for an exchange account
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {string} assetId The ID of the asset to return
@@ -402,7 +402,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a list of the connected exchange accounts in your workspace. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns a list of the connected exchange accounts in your workspace. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List connected exchange accounts
          * @param {number} limit number of exchanges per page
          * @param {string} [before] 
@@ -417,7 +417,7 @@ export const ExchangeAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Internal transfer for exchange accounts
          * @param {string} exchangeAccountId The ID of the exchange account to return
          * @param {CreateInternalTransferRequest} [createInternalTransferRequest] 
@@ -452,7 +452,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
             return localVarFp.addExchangeAccount(requestParameters.addExchangeAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Convert exchange account funds
          * @param {ExchangeAccountsApiConvertAssetsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -462,7 +462,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
             return localVarFp.convertAssets(requestParameters.exchangeAccountId, requestParameters.convertAssetsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns an exchange account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get a specific exchange account
          * @param {ExchangeAccountsApiGetExchangeAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -472,7 +472,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
             return localVarFp.getExchangeAccount(requestParameters.exchangeAccountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns an asset for an exchange account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get an asset for an exchange account
          * @param {ExchangeAccountsApiGetExchangeAccountAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -491,7 +491,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
             return localVarFp.getExchangeAccountsCredentialsPublicKey(options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a list of the connected exchange accounts in your workspace. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns a list of the connected exchange accounts in your workspace. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List connected exchange accounts
          * @param {ExchangeAccountsApiGetPagedExchangeAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -501,7 +501,7 @@ export const ExchangeAccountsApiFactory = function (configuration?: Configuratio
             return localVarFp.getPagedExchangeAccounts(requestParameters.limit, requestParameters.before, requestParameters.after, options).then((request) => request(axios, basePath));
         },
         /**
-         * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Internal transfer for exchange accounts
          * @param {ExchangeAccountsApiInternalTransferRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -673,7 +673,7 @@ export class ExchangeAccountsApi extends BaseAPI {
     }
 
     /**
-     * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Convert exchange account funds
      * @param {ExchangeAccountsApiConvertAssetsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -685,7 +685,7 @@ export class ExchangeAccountsApi extends BaseAPI {
     }
 
     /**
-     * Returns an exchange account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get a specific exchange account
      * @param {ExchangeAccountsApiGetExchangeAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -697,7 +697,7 @@ export class ExchangeAccountsApi extends BaseAPI {
     }
 
     /**
-     * Returns an asset for an exchange account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get an asset for an exchange account
      * @param {ExchangeAccountsApiGetExchangeAccountAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -720,7 +720,7 @@ export class ExchangeAccountsApi extends BaseAPI {
     }
 
     /**
-     * Returns a list of the connected exchange accounts in your workspace. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Returns a list of the connected exchange accounts in your workspace. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary List connected exchange accounts
      * @param {ExchangeAccountsApiGetPagedExchangeAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -732,7 +732,7 @@ export class ExchangeAccountsApi extends BaseAPI {
     }
 
     /**
-     * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Internal transfer for exchange accounts
      * @param {ExchangeAccountsApiInternalTransferRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

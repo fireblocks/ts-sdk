@@ -33,6 +33,8 @@ export const ChainDescriptor = {
     Mantra: 'MANTRA',
     Matic: 'MATIC',
     Osmo: 'OSMO',
+    Pol: 'POL',
+    PolTest: 'POL_TEST',
     Sol: 'SOL',
     SolTest: 'SOL_TEST',
     StethEth: 'STETH_ETH',

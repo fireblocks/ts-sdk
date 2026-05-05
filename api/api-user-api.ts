@@ -41,7 +41,7 @@ import { GetAPIUsersResponse } from '../models';
 export const ApiUserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create API Key
          * @param {CreateAPIUser} [createAPIUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -80,7 +80,7 @@ export const ApiUserApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get API Keys
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -120,7 +120,7 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ApiUserApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create API Key
          * @param {CreateAPIUser} [createAPIUser] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -134,7 +134,7 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get API Keys
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -156,7 +156,7 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
     const localVarFp = ApiUserApiFp(configuration)
     return {
         /**
-         * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create API Key
          * @param {ApiUserApiCreateApiUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -166,7 +166,7 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.createApiUser(requestParameters.createAPIUser, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get API Keys
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -206,7 +206,7 @@ export interface ApiUserApiCreateApiUserRequest {
  */
 export class ApiUserApi extends BaseAPI {
     /**
-     * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Create API Key
      * @param {ApiUserApiCreateApiUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -218,7 +218,7 @@ export class ApiUserApi extends BaseAPI {
     }
 
     /**
-     * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get API Keys
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

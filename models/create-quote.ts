@@ -21,6 +21,9 @@ import { CreateQuoteScopeInner } from './create-quote-scope-inner';
 import { DVPSettlement } from './dvpsettlement';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ParticipantsIdentification } from './participants-identification';
+// May contain unused imports in some cases
+// @ts-ignore
 import { Side } from './side';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -86,6 +89,12 @@ export interface CreateQuote {
      * @memberof CreateQuote
      */
     'settlement'?: DVPSettlement;
+    /**
+     * 
+     * @type {ParticipantsIdentification}
+     * @memberof CreateQuote
+     */
+    'participantsIdentification'?: ParticipantsIdentification;
 }
 
 

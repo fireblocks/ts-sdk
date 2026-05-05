@@ -154,7 +154,7 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Create a new collection and link it as a token. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+         * Create a new collection and link it as a token. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Create a new collection
          * @param {CollectionDeployRequestDto} collectionDeployRequestDto 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -454,7 +454,7 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Get collections (paginated). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get collections
          * @param {string} [pageCursor] Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot;
          * @param {number} [pageSize] Number of items per page (max 100), requesting more then 100 will return 100 items
@@ -611,7 +611,7 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+         * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Issue a new token
          * @param {CreateTokenRequestDto} createTokenRequestDto 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1070,7 +1070,7 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Create a new collection and link it as a token. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+         * Create a new collection and link it as a token. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Create a new collection
          * @param {CollectionDeployRequestDto} collectionDeployRequestDto 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1180,7 +1180,7 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get collections (paginated). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get collections
          * @param {string} [pageCursor] Page cursor to get the next page, for example - \&quot;MjAyMy0xMi0xMyAyMDozNjowOC4zMDI&#x3D;:MTEwMA&#x3D;&#x3D;\&quot;
          * @param {number} [pageSize] Number of items per page (max 100), requesting more then 100 will return 100 items
@@ -1235,7 +1235,7 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+         * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Issue a new token
          * @param {CreateTokenRequestDto} createTokenRequestDto 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1409,7 +1409,7 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.burnCollectionToken(requestParameters.collectionBurnRequestDto, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create a new collection and link it as a token. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+         * Create a new collection and link it as a token. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Create a new collection
          * @param {TokenizationApiCreateNewCollectionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1489,7 +1489,7 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.getLayerZeroPeers(requestParameters.adapterTokenLinkId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get collections (paginated). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get collections
          * @param {TokenizationApiGetLinkedCollectionsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1528,7 +1528,7 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
             return localVarFp.getLinkedTokensCount(options).then((request) => request(axios, basePath));
         },
         /**
-         * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+         * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Issue a new token
          * @param {TokenizationApiIssueNewTokenRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2143,7 +2143,7 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
-     * Create a new collection and link it as a token. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+     * Create a new collection and link it as a token. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
      * @summary Create a new collection
      * @param {TokenizationApiCreateNewCollectionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2239,7 +2239,7 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
-     * Get collections (paginated). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get collections (paginated). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get collections
      * @param {TokenizationApiGetLinkedCollectionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2286,7 +2286,7 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
-     * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
+     * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
      * @summary Issue a new token
      * @param {TokenizationApiIssueNewTokenRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

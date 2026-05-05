@@ -24,7 +24,7 @@ import { NewAddress } from './new-address';
  */
 export interface CreateMultipleDepositAddressesJobStatus {
     /**
-     * 
+     * Status of the job. Possible values - Success, In Progress, Failed
      * @type {string}
      * @memberof CreateMultipleDepositAddressesJobStatus
      */

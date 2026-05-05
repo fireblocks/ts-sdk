@@ -55,7 +55,13 @@ import { TRLinkCustomerResponse } from '../models';
 // @ts-ignore
 import { TRLinkCustomersListResponse } from '../models';
 // @ts-ignore
+import { TRLinkGetRequiredActionsResponse } from '../models';
+// @ts-ignore
 import { TRLinkGetSupportedAssetResponse } from '../models';
+// @ts-ignore
+import { TRLinkManualDecisionRequest } from '../models';
+// @ts-ignore
+import { TRLinkManualDecisionResponse } from '../models';
 // @ts-ignore
 import { TRLinkPartnersListResponse } from '../models';
 // @ts-ignore
@@ -64,6 +70,8 @@ import { TRLinkPolicyResponse } from '../models';
 import { TRLinkPublicKeyResponse } from '../models';
 // @ts-ignore
 import { TRLinkRedirectTrmRequest } from '../models';
+// @ts-ignore
+import { TRLinkResolveActionRequest } from '../models';
 // @ts-ignore
 import { TRLinkSetDestinationTravelRuleMessageIdRequest } from '../models';
 // @ts-ignore
@@ -292,6 +300,52 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(tRLinkCreateIntegrationRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+         * @summary Manual decision for missing TRM
+         * @param {TRLinkManualDecisionRequest} tRLinkManualDecisionRequest 
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} txId Fireblocks transaction unique identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTRLinkManualDecision: async (tRLinkManualDecisionRequest: TRLinkManualDecisionRequest, customerIntegrationId: string, txId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createTRLinkManualDecision', 'tRLinkManualDecisionRequest', tRLinkManualDecisionRequest)
+            assertParamExistsAndNotEmpty('createTRLinkManualDecision', 'customerIntegrationId', customerIntegrationId)
+            assertParamExistsAndNotEmpty('createTRLinkManualDecision', 'txId', txId)
+            const localVarPath = `/screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision`
+                .replace(`{${"customerIntegrationId"}}`, encodeURIComponent(String(customerIntegrationId)))
+                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tRLinkManualDecisionRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -705,6 +759,42 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * Retrieves the list of required actions (e.g., PII fields) needed to process the Travel Rule Message.
+         * @summary Get required actions for a TRM
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} trmId Travel Rule Message unique identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTRLinkTrmRequiredActions: async (customerIntegrationId: string, trmId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTRLinkTrmRequiredActions', 'customerIntegrationId', customerIntegrationId)
+            assertParamExistsAndNotEmpty('getTRLinkTrmRequiredActions', 'trmId', trmId)
+            const localVarPath = `/screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/required_actions`
+                .replace(`{${"customerIntegrationId"}}`, encodeURIComponent(String(customerIntegrationId)))
+                .replace(`{${"trmId"}}`, encodeURIComponent(String(trmId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieves detailed information about a specific VASP by its unique identifier. Returns VASP details including public key if available.
          * @summary Get VASP by ID
          * @param {string} customerIntegrationId Customer integration unique identifier
@@ -866,6 +956,52 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(tRLinkRedirectTrmRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message action.
+         * @summary Resolve action for a TRM
+         * @param {TRLinkResolveActionRequest} tRLinkResolveActionRequest 
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} trmId Travel Rule Message unique identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resolveActionTRLinkTrm: async (tRLinkResolveActionRequest: TRLinkResolveActionRequest, customerIntegrationId: string, trmId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('resolveActionTRLinkTrm', 'tRLinkResolveActionRequest', tRLinkResolveActionRequest)
+            assertParamExistsAndNotEmpty('resolveActionTRLinkTrm', 'customerIntegrationId', customerIntegrationId)
+            assertParamExistsAndNotEmpty('resolveActionTRLinkTrm', 'trmId', trmId)
+            const localVarPath = `/screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/resolve_action`
+                .replace(`{${"customerIntegrationId"}}`, encodeURIComponent(String(customerIntegrationId)))
+                .replace(`{${"trmId"}}`, encodeURIComponent(String(trmId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(tRLinkResolveActionRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1124,6 +1260,22 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+         * @summary Manual decision for missing TRM
+         * @param {TRLinkManualDecisionRequest} tRLinkManualDecisionRequest 
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} txId Fireblocks transaction unique identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createTRLinkManualDecision(tRLinkManualDecisionRequest: TRLinkManualDecisionRequest, customerIntegrationId: string, txId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TRLinkManualDecisionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createTRLinkManualDecision(tRLinkManualDecisionRequest, customerIntegrationId, txId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TRLinkApi.createTRLinkManualDecision']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Creates a new travel rule message with IVMS101-compliant PII data. Encrypts sensitive originator and beneficiary information before sending to partner.
          * @summary Create Travel Rule Message
          * @param {TRLinkCreateTrmRequest} tRLinkCreateTrmRequest 
@@ -1282,6 +1434,20 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieves the list of required actions (e.g., PII fields) needed to process the Travel Rule Message.
+         * @summary Get required actions for a TRM
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} trmId Travel Rule Message unique identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTRLinkTrmRequiredActions(customerIntegrationId: string, trmId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TRLinkGetRequiredActionsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTRLinkTrmRequiredActions(customerIntegrationId, trmId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TRLinkApi.getTRLinkTrmRequiredActions']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Retrieves detailed information about a specific VASP by its unique identifier. Returns VASP details including public key if available.
          * @summary Get VASP by ID
          * @param {string} customerIntegrationId Customer integration unique identifier
@@ -1339,6 +1505,22 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.redirectTRLinkTrm(tRLinkRedirectTrmRequest, customerIntegrationId, trmId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TRLinkApi.redirectTRLinkTrm']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message action.
+         * @summary Resolve action for a TRM
+         * @param {TRLinkResolveActionRequest} tRLinkResolveActionRequest 
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} trmId Travel Rule Message unique identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async resolveActionTRLinkTrm(tRLinkResolveActionRequest: TRLinkResolveActionRequest, customerIntegrationId: string, trmId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TRLinkTrmInfoResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.resolveActionTRLinkTrm(tRLinkResolveActionRequest, customerIntegrationId, trmId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TRLinkApi.resolveActionTRLinkTrm']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1461,6 +1643,16 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createTRLinkIntegration(requestParameters.tRLinkCreateIntegrationRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+         * @summary Manual decision for missing TRM
+         * @param {TRLinkApiCreateTRLinkManualDecisionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createTRLinkManualDecision(requestParameters: TRLinkApiCreateTRLinkManualDecisionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TRLinkManualDecisionResponse> {
+            return localVarFp.createTRLinkManualDecision(requestParameters.tRLinkManualDecisionRequest, requestParameters.customerIntegrationId, requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Creates a new travel rule message with IVMS101-compliant PII data. Encrypts sensitive originator and beneficiary information before sending to partner.
          * @summary Create Travel Rule Message
          * @param {TRLinkApiCreateTRLinkTrmRequest} requestParameters Request parameters.
@@ -1578,6 +1770,16 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getTRLinkTrmById(requestParameters.customerIntegrationId, requestParameters.trmId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieves the list of required actions (e.g., PII fields) needed to process the Travel Rule Message.
+         * @summary Get required actions for a TRM
+         * @param {TRLinkApiGetTRLinkTrmRequiredActionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTRLinkTrmRequiredActions(requestParameters: TRLinkApiGetTRLinkTrmRequiredActionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<TRLinkGetRequiredActionsResponse> {
+            return localVarFp.getTRLinkTrmRequiredActions(requestParameters.customerIntegrationId, requestParameters.trmId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieves detailed information about a specific VASP by its unique identifier. Returns VASP details including public key if available.
          * @summary Get VASP by ID
          * @param {TRLinkApiGetTRLinkVaspByIdRequest} requestParameters Request parameters.
@@ -1616,6 +1818,16 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
          */
         redirectTRLinkTrm(requestParameters: TRLinkApiRedirectTRLinkTrmRequest, options?: RawAxiosRequestConfig): AxiosPromise<TRLinkTrmInfoResponse> {
             return localVarFp.redirectTRLinkTrm(requestParameters.tRLinkRedirectTrmRequest, requestParameters.customerIntegrationId, requestParameters.trmId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message action.
+         * @summary Resolve action for a TRM
+         * @param {TRLinkApiResolveActionTRLinkTrmRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        resolveActionTRLinkTrm(requestParameters: TRLinkApiResolveActionTRLinkTrmRequest, options?: RawAxiosRequestConfig): AxiosPromise<TRLinkTrmInfoResponse> {
+            return localVarFp.resolveActionTRLinkTrm(requestParameters.tRLinkResolveActionRequest, requestParameters.customerIntegrationId, requestParameters.trmId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Associates a Travel Rule Message ID with a specific destination in a multi-destination Fireblocks transaction. Matches destinations by amount and peer path.
@@ -1794,6 +2006,41 @@ export interface TRLinkApiCreateTRLinkIntegrationRequest {
 }
 
 /**
+ * Request parameters for createTRLinkManualDecision operation in TRLinkApi.
+ * @export
+ * @interface TRLinkApiCreateTRLinkManualDecisionRequest
+ */
+export interface TRLinkApiCreateTRLinkManualDecisionRequest {
+    /**
+     * 
+     * @type {TRLinkManualDecisionRequest}
+     * @memberof TRLinkApiCreateTRLinkManualDecision
+     */
+    readonly tRLinkManualDecisionRequest: TRLinkManualDecisionRequest
+
+    /**
+     * Customer integration unique identifier
+     * @type {string}
+     * @memberof TRLinkApiCreateTRLinkManualDecision
+     */
+    readonly customerIntegrationId: string
+
+    /**
+     * Fireblocks transaction unique identifier
+     * @type {string}
+     * @memberof TRLinkApiCreateTRLinkManualDecision
+     */
+    readonly txId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TRLinkApiCreateTRLinkManualDecision
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for createTRLinkTrm operation in TRLinkApi.
  * @export
  * @interface TRLinkApiCreateTRLinkTrmRequest
@@ -1955,6 +2202,27 @@ export interface TRLinkApiGetTRLinkTrmByIdRequest {
 }
 
 /**
+ * Request parameters for getTRLinkTrmRequiredActions operation in TRLinkApi.
+ * @export
+ * @interface TRLinkApiGetTRLinkTrmRequiredActionsRequest
+ */
+export interface TRLinkApiGetTRLinkTrmRequiredActionsRequest {
+    /**
+     * Customer integration unique identifier
+     * @type {string}
+     * @memberof TRLinkApiGetTRLinkTrmRequiredActions
+     */
+    readonly customerIntegrationId: string
+
+    /**
+     * Travel Rule Message unique identifier
+     * @type {string}
+     * @memberof TRLinkApiGetTRLinkTrmRequiredActions
+     */
+    readonly trmId: string
+}
+
+/**
  * Request parameters for getTRLinkVaspById operation in TRLinkApi.
  * @export
  * @interface TRLinkApiGetTRLinkVaspByIdRequest
@@ -2062,6 +2330,41 @@ export interface TRLinkApiRedirectTRLinkTrmRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof TRLinkApiRedirectTRLinkTrm
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for resolveActionTRLinkTrm operation in TRLinkApi.
+ * @export
+ * @interface TRLinkApiResolveActionTRLinkTrmRequest
+ */
+export interface TRLinkApiResolveActionTRLinkTrmRequest {
+    /**
+     * 
+     * @type {TRLinkResolveActionRequest}
+     * @memberof TRLinkApiResolveActionTRLinkTrm
+     */
+    readonly tRLinkResolveActionRequest: TRLinkResolveActionRequest
+
+    /**
+     * Customer integration unique identifier
+     * @type {string}
+     * @memberof TRLinkApiResolveActionTRLinkTrm
+     */
+    readonly customerIntegrationId: string
+
+    /**
+     * Travel Rule Message unique identifier
+     * @type {string}
+     * @memberof TRLinkApiResolveActionTRLinkTrm
+     */
+    readonly trmId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TRLinkApiResolveActionTRLinkTrm
      */
     readonly idempotencyKey?: string
 }
@@ -2239,6 +2542,18 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
+     * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+     * @summary Manual decision for missing TRM
+     * @param {TRLinkApiCreateTRLinkManualDecisionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TRLinkApi
+     */
+    public createTRLinkManualDecision(requestParameters: TRLinkApiCreateTRLinkManualDecisionRequest) {
+        return TRLinkApiFp(this.configuration).createTRLinkManualDecision(requestParameters.tRLinkManualDecisionRequest, requestParameters.customerIntegrationId, requestParameters.txId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Creates a new travel rule message with IVMS101-compliant PII data. Encrypts sensitive originator and beneficiary information before sending to partner.
      * @summary Create Travel Rule Message
      * @param {TRLinkApiCreateTRLinkTrmRequest} requestParameters Request parameters.
@@ -2380,6 +2695,18 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
+     * Retrieves the list of required actions (e.g., PII fields) needed to process the Travel Rule Message.
+     * @summary Get required actions for a TRM
+     * @param {TRLinkApiGetTRLinkTrmRequiredActionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TRLinkApi
+     */
+    public getTRLinkTrmRequiredActions(requestParameters: TRLinkApiGetTRLinkTrmRequiredActionsRequest) {
+        return TRLinkApiFp(this.configuration).getTRLinkTrmRequiredActions(requestParameters.customerIntegrationId, requestParameters.trmId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Retrieves detailed information about a specific VASP by its unique identifier. Returns VASP details including public key if available.
      * @summary Get VASP by ID
      * @param {TRLinkApiGetTRLinkVaspByIdRequest} requestParameters Request parameters.
@@ -2425,6 +2752,18 @@ export class TRLinkApi extends BaseAPI {
      */
     public redirectTRLinkTrm(requestParameters: TRLinkApiRedirectTRLinkTrmRequest) {
         return TRLinkApiFp(this.configuration).redirectTRLinkTrm(requestParameters.tRLinkRedirectTrmRequest, requestParameters.customerIntegrationId, requestParameters.trmId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message action.
+     * @summary Resolve action for a TRM
+     * @param {TRLinkApiResolveActionTRLinkTrmRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TRLinkApi
+     */
+    public resolveActionTRLinkTrm(requestParameters: TRLinkApiResolveActionTRLinkTrmRequest) {
+        return TRLinkApiFp(this.configuration).resolveActionTRLinkTrm(requestParameters.tRLinkResolveActionRequest, requestParameters.customerIntegrationId, requestParameters.trmId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

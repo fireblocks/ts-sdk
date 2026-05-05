@@ -63,6 +63,12 @@ export interface MomoPaymentInfo {
      */
     'provider': MomoPaymentInfoProviderEnum;
     /**
+     * The email address of the account holder
+     * @type {string}
+     * @memberof MomoPaymentInfo
+     */
+    'email': string;
+    /**
      * The document ID of the beneficiary
      * @type {string}
      * @memberof MomoPaymentInfo
@@ -90,7 +96,8 @@ export const MomoPaymentInfoProviderEnum = {
     MPesa: 'M_PESA',
     Airtel: 'AIRTEL',
     Mtn: 'MTN',
-    Tigo: 'TIGO'
+    Tigo: 'TIGO',
+    Wave: 'WAVE'
 } as const;
 
 export type MomoPaymentInfoProviderEnum = typeof MomoPaymentInfoProviderEnum[keyof typeof MomoPaymentInfoProviderEnum];

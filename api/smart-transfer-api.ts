@@ -119,7 +119,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Cancel Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Cancel Ticket
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -197,7 +197,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create leg (term)
          * @param {SmartTransferCreateTicketTerm} smartTransferCreateTicketTerm 
          * @param {string} ticketId 
@@ -240,7 +240,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Find Smart Transfer ticket by id. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Search Ticket by ID
          * @param {string} ticketId 
          * @param {*} [options] Override http request option.
@@ -273,7 +273,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Find a specific term of a specific Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Find a specific term of a specific Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get Smart Transfer ticket term
          * @param {string} ticketId 
          * @param {string} termId 
@@ -309,7 +309,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Manually fulfill ticket, in case when all terms (legs) are funded manually. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Manually fulfill ticket, in case when all terms (legs) are funded manually. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Fund ticket manually
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -390,7 +390,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Define funding source
          * @param {SmartTransferFundTerm} smartTransferFundTerm 
          * @param {string} ticketId 
@@ -466,7 +466,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Get Smart Transfer user groups. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get user group
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -496,7 +496,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Manually set ticket term transaction. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Manually set ticket term transaction. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Manually add term transaction
          * @param {SmartTransferManuallyFundTerm} smartTransferManuallyFundTerm 
          * @param {string} ticketId 
@@ -672,7 +672,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Set external id Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set external id Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add external ref. ID
          * @param {SmartTransferSetTicketExternalId} smartTransferSetTicketExternalId 
          * @param {string} ticketId 
@@ -715,7 +715,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Set expiration date on Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set expiration
          * @param {SmartTransferSetTicketExpiration} smartTransferSetTicketExpiration 
          * @param {string} ticketId 
@@ -758,7 +758,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Set Smart Transfers user group to receive email notifications for Smart Transfers. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set Smart Transfers user group to receive email notifications for Smart Transfers. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set user group
          * @param {SmartTransferSetUserGroups} smartTransferSetUserGroups 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -798,7 +798,7 @@ export const SmartTransferApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Submit ticket
          * @param {SmartTransferSubmitTicket} smartTransferSubmitTicket 
          * @param {string} ticketId 
@@ -913,7 +913,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Cancel Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Cancel Ticket
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -941,7 +941,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create leg (term)
          * @param {SmartTransferCreateTicketTerm} smartTransferCreateTicketTerm 
          * @param {string} ticketId 
@@ -956,7 +956,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Find Smart Transfer ticket by id. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Search Ticket by ID
          * @param {string} ticketId 
          * @param {*} [options] Override http request option.
@@ -969,7 +969,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Find a specific term of a specific Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Find a specific term of a specific Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get Smart Transfer ticket term
          * @param {string} ticketId 
          * @param {string} termId 
@@ -983,7 +983,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Manually fulfill ticket, in case when all terms (legs) are funded manually. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Manually fulfill ticket, in case when all terms (legs) are funded manually. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Fund ticket manually
          * @param {string} ticketId 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1012,7 +1012,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Define funding source
          * @param {SmartTransferFundTerm} smartTransferFundTerm 
          * @param {string} ticketId 
@@ -1040,7 +1040,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get Smart Transfer user groups. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get user group
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1052,7 +1052,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Manually set ticket term transaction. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Manually set ticket term transaction. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Manually add term transaction
          * @param {SmartTransferManuallyFundTerm} smartTransferManuallyFundTerm 
          * @param {string} ticketId 
@@ -1106,7 +1106,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Set external id Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set external id Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add external ref. ID
          * @param {SmartTransferSetTicketExternalId} smartTransferSetTicketExternalId 
          * @param {string} ticketId 
@@ -1121,7 +1121,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Set expiration date on Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set expiration
          * @param {SmartTransferSetTicketExpiration} smartTransferSetTicketExpiration 
          * @param {string} ticketId 
@@ -1136,7 +1136,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Set Smart Transfers user group to receive email notifications for Smart Transfers. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set Smart Transfers user group to receive email notifications for Smart Transfers. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set user group
          * @param {SmartTransferSetUserGroups} smartTransferSetUserGroups 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1150,7 +1150,7 @@ export const SmartTransferApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Submit ticket
          * @param {SmartTransferSubmitTicket} smartTransferSubmitTicket 
          * @param {string} ticketId 
@@ -1201,7 +1201,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.approveDvPTicketTerm(requestParameters.smartTransferApproveTerm, requestParameters.ticketId, requestParameters.termId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Cancel Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Cancel Ticket
          * @param {SmartTransferApiCancelTicketRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1221,7 +1221,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.createTicket(requestParameters.smartTransferCreateTicket, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create leg (term)
          * @param {SmartTransferApiCreateTicketTermRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1231,7 +1231,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.createTicketTerm(requestParameters.smartTransferCreateTicketTerm, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Find Smart Transfer ticket by id. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Search Ticket by ID
          * @param {SmartTransferApiFindTicketByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1241,7 +1241,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.findTicketById(requestParameters.ticketId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Find a specific term of a specific Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Find a specific term of a specific Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get Smart Transfer ticket term
          * @param {SmartTransferApiFindTicketTermByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1251,7 +1251,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.findTicketTermById(requestParameters.ticketId, requestParameters.termId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Manually fulfill ticket, in case when all terms (legs) are funded manually. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Manually fulfill ticket, in case when all terms (legs) are funded manually. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Fund ticket manually
          * @param {SmartTransferApiFulfillTicketRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1271,7 +1271,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.fundDvpTicket(requestParameters.smartTransferFundDvpTicket, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Define funding source
          * @param {SmartTransferApiFundTicketTermRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1290,7 +1290,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.getSmartTransferStatistic(options).then((request) => request(axios, basePath));
         },
         /**
-         * Get Smart Transfer user groups. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get user group
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1299,7 +1299,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.getSmartTransferUserGroups(options).then((request) => request(axios, basePath));
         },
         /**
-         * Manually set ticket term transaction. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Manually set ticket term transaction. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Manually add term transaction
          * @param {SmartTransferApiManuallyFundTicketTermRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1329,7 +1329,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.searchTickets(requestParameters.q, requestParameters.statuses, requestParameters.networkId, requestParameters.createdByMe, requestParameters.expiresAfter, requestParameters.expiresBefore, requestParameters.type, requestParameters.externalRefId, requestParameters.after, requestParameters.limit, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Set external id Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set external id Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add external ref. ID
          * @param {SmartTransferApiSetExternalRefIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1339,7 +1339,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.setExternalRefId(requestParameters.smartTransferSetTicketExternalId, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Set expiration date on Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set expiration
          * @param {SmartTransferApiSetTicketExpirationRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1349,7 +1349,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.setTicketExpiration(requestParameters.smartTransferSetTicketExpiration, requestParameters.ticketId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Set Smart Transfers user group to receive email notifications for Smart Transfers. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Set Smart Transfers user group to receive email notifications for Smart Transfers. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set user group
          * @param {SmartTransferApiSetUserGroupsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1359,7 +1359,7 @@ export const SmartTransferApiFactory = function (configuration?: Configuration, 
             return localVarFp.setUserGroups(requestParameters.smartTransferSetUserGroups, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Submit ticket
          * @param {SmartTransferApiSubmitTicketRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1912,7 +1912,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Cancel Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Cancel Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Cancel Ticket
      * @param {SmartTransferApiCancelTicketRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1936,7 +1936,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Creates new smart transfer ticket term (when the ticket status is DRAFT). Learn more about Fireblocks Smart Transfers in the following [guide](https://developers.fireblocks.com/docs/execute-smart-transfers). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Create leg (term)
      * @param {SmartTransferApiCreateTicketTermRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1948,7 +1948,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Find Smart Transfer ticket by id. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Find Smart Transfer ticket by id. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Search Ticket by ID
      * @param {SmartTransferApiFindTicketByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1960,7 +1960,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Find a specific term of a specific Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Find a specific term of a specific Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get Smart Transfer ticket term
      * @param {SmartTransferApiFindTicketTermByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1972,7 +1972,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Manually fulfill ticket, in case when all terms (legs) are funded manually. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Manually fulfill ticket, in case when all terms (legs) are funded manually. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Fund ticket manually
      * @param {SmartTransferApiFulfillTicketRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1996,7 +1996,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Set funding source for ticket term (in case of ASYNC tickets, this will execute transfer immediately). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Define funding source
      * @param {SmartTransferApiFundTicketTermRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2019,7 +2019,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Get Smart Transfer user groups. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get Smart Transfer user groups. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get user group
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -2030,7 +2030,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Manually set ticket term transaction. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Manually set ticket term transaction. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Manually add term transaction
      * @param {SmartTransferApiManuallyFundTicketTermRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2066,7 +2066,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Set external id Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Set external id Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Add external ref. ID
      * @param {SmartTransferApiSetExternalRefIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2078,7 +2078,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Set expiration date on Smart Transfer ticket. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Set expiration date on Smart Transfer ticket. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Set expiration
      * @param {SmartTransferApiSetTicketExpirationRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2090,7 +2090,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Set Smart Transfers user group to receive email notifications for Smart Transfers. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Set Smart Transfers user group to receive email notifications for Smart Transfers. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Set user group
      * @param {SmartTransferApiSetUserGroupsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2102,7 +2102,7 @@ export class SmartTransferApi extends BaseAPI {
     }
 
     /**
-     * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Submit Smart Transfer ticket - change status into ready for approval if auto approval is not turned on, or OPEN if auto approval is on. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Submit ticket
      * @param {SmartTransferApiSubmitTicketRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

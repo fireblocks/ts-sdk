@@ -270,7 +270,7 @@ No authorization required
 # **getContractTemplates**
 > TemplatesPaginatedResponse getContractTemplates()
 
-Return minimal representation of all the contract templates available for the workspace. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Return minimal representation of all the contract templates available for the workspace. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

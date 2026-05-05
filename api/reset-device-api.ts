@@ -37,7 +37,7 @@ import { ErrorSchema } from '../models';
 export const ResetDeviceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Resets device
          * @param {string} id The ID of the console user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -85,7 +85,7 @@ export const ResetDeviceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ResetDeviceApiAxiosParamCreator(configuration)
     return {
         /**
-         * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Resets device
          * @param {string} id The ID of the console user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -109,7 +109,7 @@ export const ResetDeviceApiFactory = function (configuration?: Configuration, ba
     const localVarFp = ResetDeviceApiFp(configuration)
     return {
         /**
-         * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Resets device
          * @param {ResetDeviceApiResetDeviceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -150,7 +150,7 @@ export interface ResetDeviceApiResetDeviceRequest {
  */
 export class ResetDeviceApi extends BaseAPI {
     /**
-     * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Resets mobile device for given console user, that user will need to do mobile onboarding again. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Resets device
      * @param {ResetDeviceApiResetDeviceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

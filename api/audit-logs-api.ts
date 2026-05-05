@@ -37,7 +37,7 @@ import { GetAuditLogsResponse } from '../models';
 export const AuditLogsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get audit logs
          * @param {GetAuditLogsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
          * @param {string} [cursor] The next id to start fetch audit logs from
@@ -87,7 +87,7 @@ export const AuditLogsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AuditLogsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get audit logs
          * @param {GetAuditLogsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
          * @param {string} [cursor] The next id to start fetch audit logs from
@@ -111,7 +111,7 @@ export const AuditLogsApiFactory = function (configuration?: Configuration, base
     const localVarFp = AuditLogsApiFp(configuration)
     return {
         /**
-         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get audit logs
          * @param {AuditLogsApiGetAuditLogsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -152,7 +152,7 @@ export interface AuditLogsApiGetAuditLogsRequest {
  */
 export class AuditLogsApi extends BaseAPI {
     /**
-     * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get audit logs
      * @param {AuditLogsApiGetAuditLogsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

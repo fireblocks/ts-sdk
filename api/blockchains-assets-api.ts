@@ -77,7 +77,7 @@ import { UpdateAssetUserMetadataRequest } from '../models';
 export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+         * Returns an asset by ID or legacyID.  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
          * @summary Get an asset
          * @param {string} id The ID or legacyId of the asset
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -253,7 +253,7 @@ export const BlockchainsAssetsApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * Returns all blockchains supported by Fireblocks.</br> 
+         * Returns all blockchains supported by Fireblocks. 
          * @summary List blockchains
          * @param {string} [protocol] Blockchain protocol
          * @param {boolean} [deprecated] Is blockchain deprecated
@@ -446,7 +446,7 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = BlockchainsAssetsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+         * Returns an asset by ID or legacyID.  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
          * @summary Get an asset
          * @param {string} id The ID or legacyId of the asset
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -506,7 +506,7 @@ export const BlockchainsAssetsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all blockchains supported by Fireblocks.</br> 
+         * Returns all blockchains supported by Fireblocks. 
          * @summary List blockchains
          * @param {string} [protocol] Blockchain protocol
          * @param {boolean} [deprecated] Is blockchain deprecated
@@ -578,7 +578,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
     const localVarFp = BlockchainsAssetsApiFp(configuration)
     return {
         /**
-         * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+         * Returns an asset by ID or legacyID.  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
          * @summary Get an asset
          * @param {BlockchainsAssetsApiGetAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -617,7 +617,7 @@ export const BlockchainsAssetsApiFactory = function (configuration?: Configurati
             return localVarFp.listAssets(requestParameters.blockchainId, requestParameters.assetClass, requestParameters.symbol, requestParameters.scope, requestParameters.deprecated, requestParameters.ids, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all blockchains supported by Fireblocks.</br> 
+         * Returns all blockchains supported by Fireblocks. 
          * @summary List blockchains
          * @param {BlockchainsAssetsApiListBlockchainsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -898,7 +898,7 @@ export interface BlockchainsAssetsApiUpdateAssetUserMetadataRequest {
  */
 export class BlockchainsAssetsApi extends BaseAPI {
     /**
-     * Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+     * Returns an asset by ID or legacyID.  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
      * @summary Get an asset
      * @param {BlockchainsAssetsApiGetAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -945,7 +945,7 @@ export class BlockchainsAssetsApi extends BaseAPI {
     }
 
     /**
-     * Returns all blockchains supported by Fireblocks.</br> 
+     * Returns all blockchains supported by Fireblocks. 
      * @summary List blockchains
      * @param {BlockchainsAssetsApiListBlockchainsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

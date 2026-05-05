@@ -111,10 +111,10 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
          * @summary Claim accrued rewards
          * @param {ClaimRewardsRequest} claimRewardsRequest 
-         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL).
+         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -154,7 +154,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
@@ -197,9 +197,9 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
-         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
          * @param {string} [vaultAccountId] Filter positions by vault account ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -270,7 +270,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns an alphabetical list of blockchains supported for staking by the current workspace context. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns an alphabetical list of blockchains supported for staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List supported staking chains
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -333,10 +333,10 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions (Paginated)
          * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
-         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
          * @param {string} [vaultAccountId] Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
          * @param {string} [pageCursor] Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
          * @param {GetPositionsOrderEnum} [order] ASC / DESC ordering (default DESC)
@@ -389,7 +389,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking providers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -479,7 +479,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Merge staking positions
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {MergeStakeAccountsChainDescriptorEnum} chainDescriptor Protocol identifier for the merge staking operation (e.g., SOL).
@@ -565,7 +565,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
+         * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new positions regardless of existing delegations.
          * @summary Initiate or add to existing stake
          * @param {StakeRequest} stakeRequest 
          * @param {ChainDescriptor} chainDescriptor Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA).
@@ -651,7 +651,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+         * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.  Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional \'amount\' field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting \'amount\' withdraws the entire available balance.
          * @summary Withdraw staked funds
          * @param {WithdrawRequest} withdrawRequest 
          * @param {ChainDescriptor} chainDescriptor Protocol identifier for the withdraw staking operation (e.g., ATOM_COS/ETH/STETH_ETH).
@@ -718,10 +718,10 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
          * @summary Claim accrued rewards
          * @param {ClaimRewardsRequest} claimRewardsRequest 
-         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL).
+         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -733,7 +733,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
@@ -748,9 +748,9 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
-         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
          * @param {string} [vaultAccountId] Filter positions by vault account ID.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -775,7 +775,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns an alphabetical list of blockchains supported for staking by the current workspace context. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns an alphabetical list of blockchains supported for staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List supported staking chains
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -800,10 +800,10 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions (Paginated)
          * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
-         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+         * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
          * @param {string} [vaultAccountId] Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned.
          * @param {string} [pageCursor] Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
          * @param {GetPositionsOrderEnum} [order] ASC / DESC ordering (default DESC)
@@ -817,7 +817,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking providers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -853,7 +853,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Merge staking positions
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {MergeStakeAccountsChainDescriptorEnum} chainDescriptor Protocol identifier for the merge staking operation (e.g., SOL).
@@ -883,7 +883,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
+         * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new positions regardless of existing delegations.
          * @summary Initiate or add to existing stake
          * @param {StakeRequest} stakeRequest 
          * @param {ChainDescriptor} chainDescriptor Protocol identifier for the stake staking operation (e.g., ATOM_COS/AXL/CELESTIA).
@@ -913,7 +913,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+         * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.  Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional \'amount\' field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting \'amount\' withdraws the entire available balance.
          * @summary Withdraw staked funds
          * @param {WithdrawRequest} withdrawRequest 
          * @param {ChainDescriptor} chainDescriptor Protocol identifier for the withdraw staking operation (e.g., ATOM_COS/ETH/STETH_ETH).
@@ -948,7 +948,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.approveTermsOfServiceByProviderId(requestParameters.providerId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
          * @summary Claim accrued rewards
          * @param {StakingApiClaimRewardsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -958,7 +958,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.claimRewards(requestParameters.claimRewardsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -968,7 +968,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.consolidate(requestParameters.mergeStakeAccountsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions
          * @param {StakingApiGetAllDelegationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -988,7 +988,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getChainInfo(requestParameters.chainDescriptor, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns an alphabetical list of blockchains supported for staking by the current workspace context. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns an alphabetical list of blockchains supported for staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List supported staking chains
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1007,7 +1007,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getDelegationById(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions (Paginated)
          * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1017,7 +1017,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getPositions(requestParameters.pageSize, requestParameters.chainDescriptor, requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking providers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1044,7 +1044,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getSummaryByVault(options).then((request) => request(axios, basePath));
         },
         /**
-         * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Merge staking positions
          * @param {StakingApiMergeStakeAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1064,7 +1064,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.split(requestParameters.splitRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
+         * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new positions regardless of existing delegations.
          * @summary Initiate or add to existing stake
          * @param {StakingApiStakeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1084,7 +1084,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.unstake(requestParameters.unstakeRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+         * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.  Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional \'amount\' field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting \'amount\' withdraws the entire available balance.
          * @summary Withdraw staked funds
          * @param {StakingApiWithdrawRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1131,8 +1131,8 @@ export interface StakingApiClaimRewardsRequest {
     readonly claimRewardsRequest: ClaimRewardsRequest
 
     /**
-     * Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL).
-     * @type {'SOL' | 'SOL_TEST' | 'MATIC'}
+     * Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
+     * @type {'SOL' | 'SOL_TEST' | 'MATIC' | 'POL' | 'POL_TEST'}
      * @memberof StakingApiClaimRewards
      */
     readonly chainDescriptor: ClaimRewardsChainDescriptorEnum
@@ -1180,7 +1180,7 @@ export interface StakingApiConsolidateRequest {
  */
 export interface StakingApiGetAllDelegationsRequest {
     /**
-     * Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+     * Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
      * @type {ChainDescriptor}
      * @memberof StakingApiGetAllDelegations
      */
@@ -1236,7 +1236,7 @@ export interface StakingApiGetPositionsRequest {
     readonly pageSize: number
 
     /**
-     * Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned.
+     * Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
      * @type {ChainDescriptor}
      * @memberof StakingApiGetPositions
      */
@@ -1424,7 +1424,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+     * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
      * @summary Claim accrued rewards
      * @param {StakingApiClaimRewardsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1436,7 +1436,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
      * @summary Consolidate staking positions (ETH validator consolidation)
      * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1448,7 +1448,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary List staking positions
      * @param {StakingApiGetAllDelegationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1472,7 +1472,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns an alphabetical list of blockchains supported for staking by the current workspace context. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns an alphabetical list of blockchains supported for staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary List supported staking chains
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1495,7 +1495,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary List staking positions (Paginated)
      * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1507,7 +1507,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary List staking providers
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -1540,7 +1540,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Merge staking positions
      * @param {StakingApiMergeStakeAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1564,7 +1564,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
+     * Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new positions regardless of existing delegations.
      * @summary Initiate or add to existing stake
      * @param {StakingApiStakeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1588,7 +1588,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+     * Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.  Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional \'amount\' field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting \'amount\' withdraws the entire available balance.
      * @summary Withdraw staked funds
      * @param {StakingApiWithdrawRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1606,7 +1606,9 @@ export class StakingApi extends BaseAPI {
 export const ClaimRewardsChainDescriptorEnum = {
     Sol: 'SOL',
     SolTest: 'SOL_TEST',
-    Matic: 'MATIC'
+    Matic: 'MATIC',
+    Pol: 'POL',
+    PolTest: 'POL_TEST'
 } as const;
 export type ClaimRewardsChainDescriptorEnum = typeof ClaimRewardsChainDescriptorEnum[keyof typeof ClaimRewardsChainDescriptorEnum];
 /**

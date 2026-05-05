@@ -87,7 +87,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Returns a fiat account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Find a specific fiat account
          * @param {string} accountId The ID of the fiat account to return
          * @param {*} [options] Override http request option.
@@ -120,7 +120,7 @@ export const FiatAccountsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Returns all fiat accounts. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List fiat accounts
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -217,7 +217,7 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a fiat account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Find a specific fiat account
          * @param {string} accountId The ID of the fiat account to return
          * @param {*} [options] Override http request option.
@@ -230,7 +230,7 @@ export const FiatAccountsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all fiat accounts. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List fiat accounts
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -277,7 +277,7 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
             return localVarFp.depositFundsFromLinkedDDA(requestParameters.accountId, requestParameters.funds, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a fiat account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Find a specific fiat account
          * @param {FiatAccountsApiGetFiatAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -287,7 +287,7 @@ export const FiatAccountsApiFactory = function (configuration?: Configuration, b
             return localVarFp.getFiatAccount(requestParameters.accountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all fiat accounts. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List fiat accounts
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -398,7 +398,7 @@ export class FiatAccountsApi extends BaseAPI {
     }
 
     /**
-     * Returns a fiat account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Find a specific fiat account
      * @param {FiatAccountsApiGetFiatAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -410,7 +410,7 @@ export class FiatAccountsApi extends BaseAPI {
     }
 
     /**
-     * Returns all fiat accounts. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary List fiat accounts
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -142,7 +142,7 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
             };
         },
         /**
-         * Return deployed contract\'s ABI by blockchain native asset id and contract address. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+         * Return deployed contract\'s ABI by blockchain native asset id and contract address. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
          * @summary Return deployed contract\'s ABI
          * @param {string} contractAddress The contract\&#39;s onchain address
          * @param {string} baseAssetId The blockchain base assetId
@@ -183,7 +183,7 @@ export const ContractInteractionsApiAxiosParamCreator = function (configuration?
             };
         },
         /**
-         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
          * @summary Get transaction receipt
          * @param {string} baseAssetId The blockchain base assetId
          * @param {string} txHash The transaction hash
@@ -352,7 +352,7 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Return deployed contract\'s ABI by blockchain native asset id and contract address. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+         * Return deployed contract\'s ABI by blockchain native asset id and contract address. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
          * @summary Return deployed contract\'s ABI
          * @param {string} contractAddress The contract\&#39;s onchain address
          * @param {string} baseAssetId The blockchain base assetId
@@ -367,7 +367,7 @@ export const ContractInteractionsApiFp = function(configuration?: Configuration)
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
          * @summary Get transaction receipt
          * @param {string} baseAssetId The blockchain base assetId
          * @param {string} txHash The transaction hash
@@ -443,7 +443,7 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
             return localVarFp.getContractAddress(requestParameters.baseAssetId, requestParameters.txHash, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Return deployed contract\'s ABI by blockchain native asset id and contract address. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+         * Return deployed contract\'s ABI by blockchain native asset id and contract address. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
          * @summary Return deployed contract\'s ABI
          * @param {ContractInteractionsApiGetDeployedContractAbiRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -453,7 +453,7 @@ export const ContractInteractionsApiFactory = function (configuration?: Configur
             return localVarFp.getDeployedContractAbi(requestParameters.contractAddress, requestParameters.baseAssetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+         * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
          * @summary Get transaction receipt
          * @param {ContractInteractionsApiGetTransactionReceiptRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -699,7 +699,7 @@ export class ContractInteractionsApi extends BaseAPI {
     }
 
     /**
-     * Return deployed contract\'s ABI by blockchain native asset id and contract address. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+     * Return deployed contract\'s ABI by blockchain native asset id and contract address. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
      * @summary Return deployed contract\'s ABI
      * @param {ContractInteractionsApiGetDeployedContractAbiRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -711,7 +711,7 @@ export class ContractInteractionsApi extends BaseAPI {
     }
 
     /**
-     * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+     * Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
      * @summary Get transaction receipt
      * @param {ContractInteractionsApiGetTransactionReceiptRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

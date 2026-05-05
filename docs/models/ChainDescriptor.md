@@ -27,6 +27,10 @@
 
 * `Osmo` (value: `'OSMO'`)
 
+* `Pol` (value: `'POL'`)
+
+* `PolTest` (value: `'POL_TEST'`)
+
 * `Sol` (value: `'SOL'`)
 
 * `SolTest` (value: `'SOL_TEST'`)

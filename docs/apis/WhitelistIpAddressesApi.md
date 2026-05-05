@@ -10,7 +10,7 @@ Method | HTTP request | Description
 # **getWhitelistIpAddresses**
 > GetWhitelistIpAddressesResponse getWhitelistIpAddresses()
 
-Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

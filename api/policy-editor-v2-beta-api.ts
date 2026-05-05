@@ -83,7 +83,7 @@ export const PolicyEditorV2BetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Returns the active draft and its validation for a specific policy type. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Get the active draft by policy type
          * @param {PolicyType} policyType The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
          * @param {*} [options] Override http request option.
@@ -119,7 +119,7 @@ export const PolicyEditorV2BetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PublishDraftRequest} publishDraftRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -159,7 +159,7 @@ export const PolicyEditorV2BetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Update the draft and return its validation for specific policy types. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Update the draft with a new set of rules by policy types
          * @param {UpdateDraftRequest} updateDraftRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -222,7 +222,7 @@ export const PolicyEditorV2BetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the active draft and its validation for a specific policy type. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Get the active draft by policy type
          * @param {PolicyType} policyType The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
          * @param {*} [options] Override http request option.
@@ -235,7 +235,7 @@ export const PolicyEditorV2BetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PublishDraftRequest} publishDraftRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -249,7 +249,7 @@ export const PolicyEditorV2BetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Update the draft and return its validation for specific policy types. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Update the draft with a new set of rules by policy types
          * @param {UpdateDraftRequest} updateDraftRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -283,7 +283,7 @@ export const PolicyEditorV2BetaApiFactory = function (configuration?: Configurat
             return localVarFp.getActivePolicy(requestParameters.policyType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the active draft and its validation for a specific policy type. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Get the active draft by policy type
          * @param {PolicyEditorV2BetaApiGetDraftRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -293,7 +293,7 @@ export const PolicyEditorV2BetaApiFactory = function (configuration?: Configurat
             return localVarFp.getDraft(requestParameters.policyType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+         * Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PolicyEditorV2BetaApiPublishDraftRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -303,7 +303,7 @@ export const PolicyEditorV2BetaApiFactory = function (configuration?: Configurat
             return localVarFp.publishDraft(requestParameters.publishDraftRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update the draft and return its validation for specific policy types. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+         * Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
          * @summary Update the draft with a new set of rules by policy types
          * @param {PolicyEditorV2BetaApiUpdateDraftRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -405,7 +405,7 @@ export class PolicyEditorV2BetaApi extends BaseAPI {
     }
 
     /**
-     * Returns the active draft and its validation for a specific policy type. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
      * @summary Get the active draft by policy type
      * @param {PolicyEditorV2BetaApiGetDraftRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -417,7 +417,7 @@ export class PolicyEditorV2BetaApi extends BaseAPI {
     }
 
     /**
-     * Send publish request of certain draft id and returns the response. </br> **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+     * Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
      * @summary Send publish request for a certain draft id
      * @param {PolicyEditorV2BetaApiPublishDraftRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -429,7 +429,7 @@ export class PolicyEditorV2BetaApi extends BaseAPI {
     }
 
     /**
-     * Update the draft and return its validation for specific policy types. </br> **Note:** These endpoints are currently in beta and might be subject to changes. 
+     * Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
      * @summary Update the draft with a new set of rules by policy types
      * @param {PolicyEditorV2BetaApiUpdateDraftRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

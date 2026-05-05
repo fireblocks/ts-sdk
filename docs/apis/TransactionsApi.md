@@ -22,7 +22,7 @@ Method | HTTP request | Description
 # **cancelTransaction**
 > CancelTransactionResponse cancelTransaction()
 
-Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -154,7 +154,7 @@ No authorization required
 # **dropTransaction**
 > DropTransactionResponse dropTransaction()
 
-Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -223,7 +223,7 @@ No authorization required
 # **estimateNetworkFee**
 > EstimatedNetworkFeeResponse estimateNetworkFee()
 
-Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -283,7 +283,7 @@ No authorization required
 # **estimateTransactionFee**
 > EstimatedTransactionFeeResponse estimateTransactionFee()
 
-Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Signer, Approver, Editor.
+Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available. Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -346,7 +346,7 @@ No authorization required
 # **freezeTransaction**
 > FreezeTransactionResponse freezeTransaction()
 
-Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen </br>Endpoint Permission: Admin, Non-Signing Admin.
+Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -411,7 +411,7 @@ No authorization required
 # **getTransaction**
 > TransactionResponse getTransaction()
 
-Get a specific transaction data by Fireblocks Transaction ID </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -472,7 +472,7 @@ No authorization required
 # **getTransactionByExternalId**
 > TransactionResponse getTransactionByExternalId()
 
-Returns transaction by external transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -637,7 +637,7 @@ No authorization required
 # **setConfirmationThresholdByTransactionHash**
 > SetConfirmationsThresholdResponse setConfirmationThresholdByTransactionHash()
 
-Overrides the required number of confirmations for transaction completion by transaction hash. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Overrides the required number of confirmations for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -703,7 +703,7 @@ No authorization required
 # **setTransactionConfirmationThreshold**
 > SetConfirmationsThresholdResponse setTransactionConfirmationThreshold()
 
-Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -769,7 +769,7 @@ No authorization required
 # **unfreezeTransaction**
 > UnfreezeTransactionResponse unfreezeTransaction()
 
-Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -834,7 +834,7 @@ No authorization required
 # **validateAddress**
 > ValidateAddressResponse validateAddress()
 
-Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

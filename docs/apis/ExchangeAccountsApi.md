@@ -79,7 +79,7 @@ No authorization required
 # **convertAssets**
 > ConvertAssetsResponse convertAssets()
 
-Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+Convert exchange account funds from the source asset to the destination asset. Coinbase (USD to USDC, USDC to USD) and Bitso (MXN to USD) are supported conversions. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -145,7 +145,7 @@ No authorization required
 # **getExchangeAccount**
 > ExchangeAccount getExchangeAccount()
 
-Returns an exchange account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Returns an exchange account by ID. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -205,7 +205,7 @@ No authorization required
 # **getExchangeAccountAsset**
 > ExchangeAsset getExchangeAccountAsset()
 
-Returns an asset for an exchange account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Returns an asset for an exchange account. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -322,7 +322,7 @@ No authorization required
 # **getPagedExchangeAccounts**
 > GetPagedExchangeAccountsResponse getPagedExchangeAccounts()
 
-Returns a list of the connected exchange accounts in your workspace. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Returns a list of the connected exchange accounts in your workspace. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -388,7 +388,7 @@ No authorization required
 # **internalTransfer**
 > InternalTransferResponse internalTransfer()
 
-Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). </br>Endpoint Permission: Admin, Non-Signing Admin.
+Transfers funds between trading accounts under the same exchange account. Learn more about Fireblocks Exchange Connectivity in the following [guide](https://developers.fireblocks.com/docs/connect-to-exchanges-and-fiat-providers). Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
