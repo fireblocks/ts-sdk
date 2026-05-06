@@ -65,6 +65,12 @@ import { ByorkVerdictResponse } from '../models';
 // @ts-ignore
 import { ComplianceResultFullPayload } from '../models';
 // @ts-ignore
+import { CounterpartyGroup } from '../models';
+// @ts-ignore
+import { CounterpartyGroupsPaginatedResponse } from '../models';
+// @ts-ignore
+import { CreateCounterpartyGroupRequest } from '../models';
+// @ts-ignore
 import { CreateTransactionResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
@@ -86,6 +92,8 @@ import { ScreeningPolicyResponse } from '../models';
 import { ScreeningProviderRulesConfigurationResponse } from '../models';
 // @ts-ignore
 import { ScreeningUpdateConfigurations } from '../models';
+// @ts-ignore
+import { UpdateCounterpartyGroupRequest } from '../models';
 // @ts-ignore
 import { UpdateLegalEntityRequest } from '../models';
 /**
@@ -170,7 +178,7 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Assign vault accounts to a legal entity
          * @param {AssignVaultsToLegalEntityRequest} assignVaultsToLegalEntityRequest 
          * @param {string} legalEntityId The unique ID of the legal entity registration
@@ -213,6 +221,46 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Create a counterparty group
+         * @param {CreateCounterpartyGroupRequest} createCounterpartyGroupRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createCounterpartyGroup: async (createCounterpartyGroupRequest: CreateCounterpartyGroupRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createCounterpartyGroup', 'createCounterpartyGroupRequest', createCounterpartyGroupRequest)
+            const localVarPath = `/counterparty_groups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createCounterpartyGroupRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
          * @summary Deactivate BYORK Light
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -235,6 +283,39 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Permanently deletes a counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Delete a counterparty group
+         * @param {string} groupId The unique identifier of the counterparty group
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteCounterpartyGroup: async (groupId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteCounterpartyGroup', 'groupId', groupId)
+            const localVarPath = `/counterparty_groups/{groupId}`
+                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -437,7 +518,40 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the details of a specific counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+         * @summary Get a counterparty group
+         * @param {string} groupId The unique identifier of the counterparty group
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCounterpartyGroup: async (groupId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCounterpartyGroup', 'groupId', groupId)
+            const localVarPath = `/counterparty_groups/{groupId}`
+                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns details of a specific legal entity registration, including GLEIF data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a legal entity
          * @param {string} legalEntityId The unique ID of the legal entity registration
          * @param {*} [options] Override http request option.
@@ -641,7 +755,47 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of counterparty groups.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+         * @summary List counterparty groups
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCounterpartyGroups: async (pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/counterparty_groups`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List legal entities (Paginated)
          * @param {string} [vaultAccountId] The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
          * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
@@ -686,7 +840,7 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List vault accounts for a legal entity (Paginated)
          * @param {string} legalEntityId The unique ID of the legal entity registration
          * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response
@@ -794,7 +948,7 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Register a new legal entity
          * @param {RegisterLegalEntityRequest} registerLegalEntityRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1090,7 +1244,50 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Updates an existing counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Update a counterparty group
+         * @param {UpdateCounterpartyGroupRequest} updateCounterpartyGroupRequest 
+         * @param {string} groupId The unique identifier of the counterparty group
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCounterpartyGroup: async (updateCounterpartyGroupRequest: UpdateCounterpartyGroupRequest, groupId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateCounterpartyGroup', 'updateCounterpartyGroupRequest', updateCounterpartyGroupRequest)
+            assertParamExistsAndNotEmpty('updateCounterpartyGroup', 'groupId', groupId)
+            const localVarPath = `/counterparty_groups/{groupId}`
+                .replace(`{${"groupId"}}`, encodeURIComponent(String(groupId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateCounterpartyGroupRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Update legal entity
          * @param {UpdateLegalEntityRequest} updateLegalEntityRequest 
          * @param {string} legalEntityId The unique ID of the legal entity registration
@@ -1245,7 +1442,7 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Assign vault accounts to a legal entity
          * @param {AssignVaultsToLegalEntityRequest} assignVaultsToLegalEntityRequest 
          * @param {string} legalEntityId The unique ID of the legal entity registration
@@ -1260,6 +1457,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Create a counterparty group
+         * @param {CreateCounterpartyGroupRequest} createCounterpartyGroupRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createCounterpartyGroup(createCounterpartyGroupRequest: CreateCounterpartyGroupRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CounterpartyGroup>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createCounterpartyGroup(createCounterpartyGroupRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.createCounterpartyGroup']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
          * @summary Deactivate BYORK Light
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1270,6 +1481,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateByorkConfig(idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.deactivateByorkConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Permanently deletes a counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Delete a counterparty group
+         * @param {string} groupId The unique identifier of the counterparty group
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteCounterpartyGroup(groupId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteCounterpartyGroup(groupId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.deleteCounterpartyGroup']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1347,7 +1571,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the details of a specific counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+         * @summary Get a counterparty group
+         * @param {string} groupId The unique identifier of the counterparty group
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCounterpartyGroup(groupId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CounterpartyGroup>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCounterpartyGroup(groupId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getCounterpartyGroup']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns details of a specific legal entity registration, including GLEIF data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a legal entity
          * @param {string} legalEntityId The unique ID of the legal entity registration
          * @param {*} [options] Override http request option.
@@ -1425,7 +1662,21 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of counterparty groups.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+         * @summary List counterparty groups
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async listCounterpartyGroups(pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CounterpartyGroupsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listCounterpartyGroups(pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.listCounterpartyGroups']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List legal entities (Paginated)
          * @param {string} [vaultAccountId] The ID of the vault account. When provided, returns the legal entity associated with that vault account and pagination parameters are ignored.
          * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response. Ignored when &#x60;vaultAccountId&#x60; is provided.
@@ -1440,7 +1691,7 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List vault accounts for a legal entity (Paginated)
          * @param {string} legalEntityId The unique ID of the legal entity registration
          * @param {string} [pageCursor] Cursor string returned in &#x60;next&#x60; or &#x60;prev&#x60; of a previous response
@@ -1480,7 +1731,7 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Register a new legal entity
          * @param {RegisterLegalEntityRequest} registerLegalEntityRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1588,7 +1839,22 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Updates an existing counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Update a counterparty group
+         * @param {UpdateCounterpartyGroupRequest} updateCounterpartyGroupRequest 
+         * @param {string} groupId The unique identifier of the counterparty group
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateCounterpartyGroup(updateCounterpartyGroupRequest: UpdateCounterpartyGroupRequest, groupId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CounterpartyGroup>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCounterpartyGroup(updateCounterpartyGroupRequest, groupId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.updateCounterpartyGroup']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Update legal entity
          * @param {UpdateLegalEntityRequest} updateLegalEntityRequest 
          * @param {string} legalEntityId The unique ID of the legal entity registration
@@ -1660,7 +1926,7 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.addAddressRegistryVaultOptOuts(requestParameters.addressRegistryAddVaultOptOutsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Assign vault accounts to a legal entity
          * @param {ComplianceApiAssignVaultsToLegalEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1668,6 +1934,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssignVaultsToLegalEntityResponse> {
             return localVarFp.assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Create a counterparty group
+         * @param {ComplianceApiCreateCounterpartyGroupRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createCounterpartyGroup(requestParameters: ComplianceApiCreateCounterpartyGroupRequest, options?: RawAxiosRequestConfig): AxiosPromise<CounterpartyGroup> {
+            return localVarFp.createCounterpartyGroup(requestParameters.createCounterpartyGroupRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
@@ -1678,6 +1954,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         deactivateByorkConfig(requestParameters: ComplianceApiDeactivateByorkConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ByorkConfigResponse> {
             return localVarFp.deactivateByorkConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Permanently deletes a counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Delete a counterparty group
+         * @param {ComplianceApiDeleteCounterpartyGroupRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteCounterpartyGroup(requestParameters: ComplianceApiDeleteCounterpartyGroupRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteCounterpartyGroup(requestParameters.groupId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
@@ -1736,7 +2022,17 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getByorkVerdict(requestParameters.txId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the details of a specific counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+         * @summary Get a counterparty group
+         * @param {ComplianceApiGetCounterpartyGroupRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCounterpartyGroup(requestParameters: ComplianceApiGetCounterpartyGroupRequest, options?: RawAxiosRequestConfig): AxiosPromise<CounterpartyGroup> {
+            return localVarFp.getCounterpartyGroup(requestParameters.groupId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns details of a specific legal entity registration, including GLEIF data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a legal entity
          * @param {ComplianceApiGetLegalEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1794,7 +2090,17 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.listAddressRegistryVaultOptOuts(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of counterparty groups.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+         * @summary List counterparty groups
+         * @param {ComplianceApiListCounterpartyGroupsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        listCounterpartyGroups(requestParameters: ComplianceApiListCounterpartyGroupsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CounterpartyGroupsPaginatedResponse> {
+            return localVarFp.listCounterpartyGroups(requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List legal entities (Paginated)
          * @param {ComplianceApiListLegalEntitiesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1804,7 +2110,7 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.listLegalEntities(requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List vault accounts for a legal entity (Paginated)
          * @param {ComplianceApiListVaultsForLegalEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1833,7 +2139,7 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.optOutAddressRegistryTenant(options).then((request) => request(axios, basePath));
         },
         /**
-         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Register a new legal entity
          * @param {ComplianceApiRegisterLegalEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1912,7 +2218,17 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.updateAmlScreeningConfiguration(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Updates an existing counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+         * @summary Update a counterparty group
+         * @param {ComplianceApiUpdateCounterpartyGroupRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateCounterpartyGroup(requestParameters: ComplianceApiUpdateCounterpartyGroupRequest, options?: RawAxiosRequestConfig): AxiosPromise<CounterpartyGroup> {
+            return localVarFp.updateCounterpartyGroup(requestParameters.updateCounterpartyGroupRequest, requestParameters.groupId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Update legal entity
          * @param {ComplianceApiUpdateLegalEntityRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2008,6 +2324,27 @@ export interface ComplianceApiAssignVaultsToLegalEntityRequest {
 }
 
 /**
+ * Request parameters for createCounterpartyGroup operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiCreateCounterpartyGroupRequest
+ */
+export interface ComplianceApiCreateCounterpartyGroupRequest {
+    /**
+     * 
+     * @type {CreateCounterpartyGroupRequest}
+     * @memberof ComplianceApiCreateCounterpartyGroup
+     */
+    readonly createCounterpartyGroupRequest: CreateCounterpartyGroupRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiCreateCounterpartyGroup
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for deactivateByorkConfig operation in ComplianceApi.
  * @export
  * @interface ComplianceApiDeactivateByorkConfigRequest
@@ -2019,6 +2356,20 @@ export interface ComplianceApiDeactivateByorkConfigRequest {
      * @memberof ComplianceApiDeactivateByorkConfig
      */
     readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for deleteCounterpartyGroup operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiDeleteCounterpartyGroupRequest
+ */
+export interface ComplianceApiDeleteCounterpartyGroupRequest {
+    /**
+     * The unique identifier of the counterparty group
+     * @type {string}
+     * @memberof ComplianceApiDeleteCounterpartyGroup
+     */
+    readonly groupId: string
 }
 
 /**
@@ -2047,6 +2398,20 @@ export interface ComplianceApiGetByorkVerdictRequest {
      * @memberof ComplianceApiGetByorkVerdict
      */
     readonly txId: string
+}
+
+/**
+ * Request parameters for getCounterpartyGroup operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiGetCounterpartyGroupRequest
+ */
+export interface ComplianceApiGetCounterpartyGroupRequest {
+    /**
+     * The unique identifier of the counterparty group
+     * @type {string}
+     * @memberof ComplianceApiGetCounterpartyGroup
+     */
+    readonly groupId: string
 }
 
 /**
@@ -2117,6 +2482,27 @@ export interface ComplianceApiListAddressRegistryVaultOptOutsRequest {
      * @memberof ComplianceApiListAddressRegistryVaultOptOuts
      */
     readonly order?: AddressRegistryVaultListOrder
+}
+
+/**
+ * Request parameters for listCounterpartyGroups operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiListCounterpartyGroupsRequest
+ */
+export interface ComplianceApiListCounterpartyGroupsRequest {
+    /**
+     * Cursor of the required page
+     * @type {string}
+     * @memberof ComplianceApiListCounterpartyGroups
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Maximum number of items in the page
+     * @type {number}
+     * @memberof ComplianceApiListCounterpartyGroups
+     */
+    readonly pageSize?: number
 }
 
 /**
@@ -2323,6 +2709,34 @@ export interface ComplianceApiUpdateAmlScreeningConfigurationRequest {
 }
 
 /**
+ * Request parameters for updateCounterpartyGroup operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiUpdateCounterpartyGroupRequest
+ */
+export interface ComplianceApiUpdateCounterpartyGroupRequest {
+    /**
+     * 
+     * @type {UpdateCounterpartyGroupRequest}
+     * @memberof ComplianceApiUpdateCounterpartyGroup
+     */
+    readonly updateCounterpartyGroupRequest: UpdateCounterpartyGroupRequest
+
+    /**
+     * The unique identifier of the counterparty group
+     * @type {string}
+     * @memberof ComplianceApiUpdateCounterpartyGroup
+     */
+    readonly groupId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiUpdateCounterpartyGroup
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for updateLegalEntity operation in ComplianceApi.
  * @export
  * @interface ComplianceApiUpdateLegalEntityRequest
@@ -2417,7 +2831,7 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Assign vault accounts to a legal entity
      * @param {ComplianceApiAssignVaultsToLegalEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2426,6 +2840,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest) {
         return ComplianceApiFp(this.configuration).assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+     * @summary Create a counterparty group
+     * @param {ComplianceApiCreateCounterpartyGroupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public createCounterpartyGroup(requestParameters: ComplianceApiCreateCounterpartyGroupRequest) {
+        return ComplianceApiFp(this.configuration).createCounterpartyGroup(requestParameters.createCounterpartyGroupRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2438,6 +2864,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public deactivateByorkConfig(requestParameters: ComplianceApiDeactivateByorkConfigRequest = {}) {
         return ComplianceApiFp(this.configuration).deactivateByorkConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Permanently deletes a counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+     * @summary Delete a counterparty group
+     * @param {ComplianceApiDeleteCounterpartyGroupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public deleteCounterpartyGroup(requestParameters: ComplianceApiDeleteCounterpartyGroupRequest) {
+        return ComplianceApiFp(this.configuration).deleteCounterpartyGroup(requestParameters.groupId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2509,7 +2947,19 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns the details of a specific counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+     * @summary Get a counterparty group
+     * @param {ComplianceApiGetCounterpartyGroupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getCounterpartyGroup(requestParameters: ComplianceApiGetCounterpartyGroupRequest) {
+        return ComplianceApiFp(this.configuration).getCounterpartyGroup(requestParameters.groupId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns details of a specific legal entity registration, including GLEIF data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get a legal entity
      * @param {ComplianceApiGetLegalEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2579,7 +3029,19 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns a paginated list of counterparty groups.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+     * @summary List counterparty groups
+     * @param {ComplianceApiListCounterpartyGroupsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public listCounterpartyGroups(requestParameters: ComplianceApiListCounterpartyGroupsRequest = {}) {
+        return ComplianceApiFp(this.configuration).listCounterpartyGroups(requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List legal entities (Paginated)
      * @param {ComplianceApiListLegalEntitiesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2591,7 +3053,7 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List vault accounts for a legal entity (Paginated)
      * @param {ComplianceApiListVaultsForLegalEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2626,7 +3088,7 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Register a new legal entity
      * @param {ComplianceApiRegisterLegalEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2721,7 +3183,19 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Updates an existing counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+     * @summary Update a counterparty group
+     * @param {ComplianceApiUpdateCounterpartyGroupRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public updateCounterpartyGroup(requestParameters: ComplianceApiUpdateCounterpartyGroupRequest) {
+        return ComplianceApiFp(this.configuration).updateCounterpartyGroup(requestParameters.updateCounterpartyGroupRequest, requestParameters.groupId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Update legal entity
      * @param {ComplianceApiUpdateLegalEntityRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -16,7 +16,7 @@ Method | HTTP request | Description
 # **addContractAsset**
 > ExternalWalletAsset addContractAsset()
 
-Adds an asset to a whitelisted contract. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -85,7 +85,7 @@ No authorization required
 # **createContract**
 > UnmanagedWallet createContract()
 
-Adds a contract to the workspace whitelist. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -148,7 +148,7 @@ No authorization required
 # **deleteContract**
 > deleteContract()
 
-Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -208,7 +208,7 @@ No authorization required
 # **deleteContractAsset**
 > deleteContractAsset()
 
-Deletes a whitelisted contract asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -271,7 +271,7 @@ No authorization required
 # **getContract**
 > UnmanagedWallet getContract()
 
-Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -331,7 +331,7 @@ No authorization required
 # **getContractAsset**
 > ExternalWalletAsset getContractAsset()
 
-Returns a whitelisted contract\'s asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns a whitelisted contract\'s asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -394,7 +394,7 @@ No authorization required
 # **getContracts**
 > GetContractsResponse getContracts()
 
-Gets a list of whitelisted contracts. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

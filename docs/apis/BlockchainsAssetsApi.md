@@ -17,7 +17,7 @@ Method | HTTP request | Description
 # **getAsset**
 > Asset getAsset()
 
-Returns an asset by ID or legacyID.</br>  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
+Returns an asset by ID or legacyID.  **Note**:    - We will continue displaying and supporting the legacy ID (API ID). Since not all Fireblocks services fully support the new Assets UUID, please use only the legacy ID until further notice. 
 
 ### Example
 
@@ -283,7 +283,7 @@ No authorization required
 # **listBlockchains**
 > ListBlockchainsResponse listBlockchains()
 
-Returns all blockchains supported by Fireblocks.</br> 
+Returns all blockchains supported by Fireblocks. 
 
 ### Example
 

@@ -45,7 +45,7 @@ import { UnmanagedWallet } from '../models';
 export const ContractsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Adds an asset to a whitelisted contract. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add an asset to a whitelisted contract
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to add
@@ -90,7 +90,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Adds a contract to the workspace whitelist. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add a contract
          * @param {CreateContractRequest} [createContractRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -129,7 +129,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Delete a contract
          * @param {string} contractId The ID of the contract to delete
          * @param {*} [options] Override http request option.
@@ -162,7 +162,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Deletes a whitelisted contract asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Delete an asset from a whitelisted contract
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to delete
@@ -198,7 +198,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a Specific Whitelisted Contract
          * @param {string} contractId The ID of the contract to return
          * @param {*} [options] Override http request option.
@@ -231,7 +231,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Returns a whitelisted contract\'s asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a whitelisted contract\'s asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a whitelisted contract\'s asset
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to return
@@ -267,7 +267,7 @@ export const ContractsApiAxiosParamCreator = function (configuration?: Configura
             };
         },
         /**
-         * Gets a list of whitelisted contracts. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List Whitelisted Contracts
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -307,7 +307,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ContractsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Adds an asset to a whitelisted contract. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add an asset to a whitelisted contract
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to add
@@ -323,7 +323,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Adds a contract to the workspace whitelist. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add a contract
          * @param {CreateContractRequest} [createContractRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -337,7 +337,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Delete a contract
          * @param {string} contractId The ID of the contract to delete
          * @param {*} [options] Override http request option.
@@ -350,7 +350,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deletes a whitelisted contract asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Delete an asset from a whitelisted contract
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to delete
@@ -364,7 +364,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a Specific Whitelisted Contract
          * @param {string} contractId The ID of the contract to return
          * @param {*} [options] Override http request option.
@@ -377,7 +377,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a whitelisted contract\'s asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a whitelisted contract\'s asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a whitelisted contract\'s asset
          * @param {string} contractId The ID of the contract
          * @param {string} assetId The ID of the asset to return
@@ -391,7 +391,7 @@ export const ContractsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Gets a list of whitelisted contracts. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List Whitelisted Contracts
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -413,7 +413,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
     const localVarFp = ContractsApiFp(configuration)
     return {
         /**
-         * Adds an asset to a whitelisted contract. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add an asset to a whitelisted contract
          * @param {ContractsApiAddContractAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -423,7 +423,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
             return localVarFp.addContractAsset(requestParameters.contractId, requestParameters.assetId, requestParameters.addContractAssetRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Adds a contract to the workspace whitelist. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add a contract
          * @param {ContractsApiCreateContractRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -433,7 +433,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
             return localVarFp.createContract(requestParameters.createContractRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Delete a contract
          * @param {ContractsApiDeleteContractRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -443,7 +443,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
             return localVarFp.deleteContract(requestParameters.contractId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deletes a whitelisted contract asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Delete an asset from a whitelisted contract
          * @param {ContractsApiDeleteContractAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -453,7 +453,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
             return localVarFp.deleteContractAsset(requestParameters.contractId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a Specific Whitelisted Contract
          * @param {ContractsApiGetContractRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -463,7 +463,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
             return localVarFp.getContract(requestParameters.contractId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a whitelisted contract\'s asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a whitelisted contract\'s asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a whitelisted contract\'s asset
          * @param {ContractsApiGetContractAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -473,7 +473,7 @@ export const ContractsApiFactory = function (configuration?: Configuration, base
             return localVarFp.getContractAsset(requestParameters.contractId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets a list of whitelisted contracts. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List Whitelisted Contracts
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -618,7 +618,7 @@ export interface ContractsApiGetContractAssetRequest {
  */
 export class ContractsApi extends BaseAPI {
     /**
-     * Adds an asset to a whitelisted contract. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Adds an asset to a whitelisted contract. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Add an asset to a whitelisted contract
      * @param {ContractsApiAddContractAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -630,7 +630,7 @@ export class ContractsApi extends BaseAPI {
     }
 
     /**
-     * Adds a contract to the workspace whitelist. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Adds a contract to the workspace whitelist. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Add a contract
      * @param {ContractsApiCreateContractRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -642,7 +642,7 @@ export class ContractsApi extends BaseAPI {
     }
 
     /**
-     * Deletes a contract by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Deletes a contract by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Delete a contract
      * @param {ContractsApiDeleteContractRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -654,7 +654,7 @@ export class ContractsApi extends BaseAPI {
     }
 
     /**
-     * Deletes a whitelisted contract asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Deletes a whitelisted contract asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Delete an asset from a whitelisted contract
      * @param {ContractsApiDeleteContractAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -666,7 +666,7 @@ export class ContractsApi extends BaseAPI {
     }
 
     /**
-     * Returns a whitelisted contract by Fireblocks Contract ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns a whitelisted contract by Fireblocks Contract ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Find a Specific Whitelisted Contract
      * @param {ContractsApiGetContractRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -678,7 +678,7 @@ export class ContractsApi extends BaseAPI {
     }
 
     /**
-     * Returns a whitelisted contract\'s asset by ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns a whitelisted contract\'s asset by ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Find a whitelisted contract\'s asset
      * @param {ContractsApiGetContractAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -690,7 +690,7 @@ export class ContractsApi extends BaseAPI {
     }
 
     /**
-     * Gets a list of whitelisted contracts. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Gets a list of whitelisted contracts. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List Whitelisted Contracts
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

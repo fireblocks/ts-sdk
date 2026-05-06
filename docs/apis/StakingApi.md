@@ -93,7 +93,7 @@ No authorization required
 # **claimRewards**
 > claimRewards(claimRewardsRequest, )
 
-Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (Matic). Behavior depends on protocol reward distribution.
+Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
 
 ### Example
 
@@ -113,7 +113,7 @@ const fireblocks = new Fireblocks();
 let body: StakingApiClaimRewardsRequest = {
   // ClaimRewardsRequest
   claimRewardsRequest: param_value,
-  // 'SOL' | 'SOL_TEST' | 'MATIC' | Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL).
+  // 'SOL' | 'SOL_TEST' | 'MATIC' | 'POL' | 'POL_TEST' | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
   chainDescriptor: SOL,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
@@ -130,7 +130,7 @@ fireblocks.staking.claimRewards(body).then((res: FireblocksResponse<any>) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **claimRewardsRequest** | **[ClaimRewardsRequest](../models/ClaimRewardsRequest.md)**|  |
- **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39; | &#39;MATIC&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39; &#124; &#39;MATIC&#39;>** | Protocol identifier for the claim rewards staking operation (e.g., MATIC/SOL). | defaults to undefined
+ **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39; | &#39;MATIC&#39; | &#39;POL&#39; | &#39;POL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39; &#124; &#39;MATIC&#39; &#124; &#39;POL&#39; &#124; &#39;POL_TEST&#39;>** | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -164,7 +164,7 @@ No authorization required
 # **consolidate**
 > MergeStakeAccountsResponse consolidate(mergeStakeAccountsRequest, )
 
-Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same funding vaults account (i.e. same withdrawals credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
 
 ### Example
 
@@ -235,7 +235,7 @@ No authorization required
 # **getAllDelegations**
 > StakingGetAllDelegationsResponse getAllDelegations()
 
-Returns all staking positions with core details: amounts, rewards, status, chain, and vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -253,7 +253,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: StakingApiGetAllDelegationsRequest = {
-  // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. (optional)
+  // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned. (optional)
   chainDescriptor: param_value,
   // string | Filter positions by vault account ID. (optional)
   vaultAccountId: 1,
@@ -269,7 +269,7 @@ fireblocks.staking.getAllDelegations(body).then((res: FireblocksResponse<Staking
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
  **vaultAccountId** | [**string**] | Filter positions by vault account ID. | (optional) defaults to undefined
 
 
@@ -368,7 +368,7 @@ No authorization required
 # **getChains**
 > StakingGetChainsResponse getChains()
 
-Returns an alphabetical list of blockchains supported for staking by the current workspace context. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns an alphabetical list of blockchains supported for staking by the current workspace context. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -491,7 +491,7 @@ No authorization required
 # **getPositions**
 > StakingPositionsPaginatedResponse getPositions()
 
-Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -511,7 +511,7 @@ const fireblocks = new Fireblocks();
 let body: StakingApiGetPositionsRequest = {
   // number | Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
   pageSize: 10,
-  // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. (optional)
+  // ChainDescriptor | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned. (optional)
   chainDescriptor: param_value,
   // string | Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned. (optional)
   vaultAccountId: 10,
@@ -532,7 +532,7 @@ fireblocks.staking.getPositions(body).then((res: FireblocksResponse<StakingPosit
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **pageSize** | [**number**] | Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array. | defaults to 10
- **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA}). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
+ **chainDescriptor** | **ChainDescriptor** | Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned. | (optional) defaults to undefined
  **vaultAccountId** | [**string**] | Filter positions by Fireblocks vault account ID. If omitted, positions across all vault accounts are returned. | (optional) defaults to undefined
  **pageCursor** | [**string**] | Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response. | (optional) defaults to undefined
  **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
@@ -568,7 +568,7 @@ No authorization required
 # **getProviders**
 > StakingGetProvidersResponse getProviders()
 
-Returns all available staking providers with metadata such as name, ID, and supported chains. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -742,7 +742,7 @@ No authorization required
 # **mergeStakeAccounts**
 > MergeStakeAccountsResponse mergeStakeAccounts(mergeStakeAccountsRequest, )
 
-Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). </br>Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
+Merges the source stake account into the destination, consolidating the balance into the destination and closing the source account once complete. Both accounts must be from the same validator provider and of same vault account.. Supported chains: Solana (SOL). Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -884,7 +884,7 @@ No authorization required
 # **stake**
 > StakeResponse stake(stakeRequest, )
 
-Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon: always create new positions regardless of existing delegations.
+Creates a new staking position and returns its unique ID. For Ethereum compounding validator (EIP-7251): when the \'id\' of an existing compounding validator position is provided, adds to that position; otherwise creates a new position. For Ethereum legacy validator: creates a new position regardless of existing delegations. For Cosmos chains and Ethereum liquid staking (Lido): automatically add to existing positions for the same validator provider and same vault account if one exists, otherwise create a new position. For Solana and Polygon (MATIC/POL): always create new positions regardless of existing delegations.
 
 ### Example
 
@@ -1026,7 +1026,7 @@ No authorization required
 # **withdraw**
 > withdraw(withdrawRequest, )
 
-Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.
+Withdraws funds that have completed the unbonding period. Typically requires the position to be deactivated first (unstake → unbond → withdraw). Amount and timing vary by chain protocol.  Partial withdrawal is supported for ETH compounding validators (EIP-7251/Pectra) and Cosmos chains via the optional \'amount\' field. For ETH compounding validators, the remaining balance must be at least 32 ETH after the withdrawal. For all other chains, omitting \'amount\' withdraws the entire available balance.
 
 ### Example
 

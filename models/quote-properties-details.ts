@@ -104,6 +104,12 @@ export interface QuotePropertiesDetails {
      * @memberof QuotePropertiesDetails
      */
     'generalFees'?: Array<Fee>;
+    /**
+     * A JSON Schema Draft-7 document in string format describing the fields required when creating an order for this quote. The schema mirrors the structure of CreateOrderRequest.participantsIdentification json schema, so clients can validate their order payload before sending. 
+     * @type {string}
+     * @memberof QuotePropertiesDetails
+     */
+    'orderCreationRequirements'?: string;
 }
 
 

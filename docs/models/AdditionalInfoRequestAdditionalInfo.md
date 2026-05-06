@@ -35,6 +35,7 @@
 |**bankAddressPostalCode** | **string** | The postal code of the bank\&#39;s address | [default to undefined]|
 |**mobilePhoneNumber** | **string** | The mobile phone number associated with the mobile money account | [default to undefined]|
 |**provider** | **string** | The mobile money service provider | [default to undefined]|
+|**email** | **string** | The email address of the account holder | [default to undefined]|
 |**recipientHandleType** | **string** | The type of recipient handler being used | [default to undefined]|
 |**recipientHandleValue** | **string** | Email address registered for Interac e-Transfer | [default to undefined]|
 |**message** | **string** | The message to be sent to the recipient | [default to undefined]|
@@ -109,6 +110,8 @@
 * `Mtn` (value: `'MTN'`)
 
 * `Tigo` (value: `'TIGO'`)
+
+* `Wave` (value: `'WAVE'`)
 
 
 

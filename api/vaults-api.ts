@@ -27,6 +27,10 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { CircleGatewayWalletInfoResponse } from '../models';
+// @ts-ignore
+import { CircleGatewayWalletStatusResponse } from '../models';
+// @ts-ignore
 import { CreateAddressRequest } from '../models';
 // @ts-ignore
 import { CreateAddressResponse } from '../models';
@@ -93,7 +97,7 @@ import { VaultAsset } from '../models';
 export const VaultsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Activate a wallet in a vault account
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
@@ -122,6 +126,44 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             if (blockchainWalletType !== undefined) {
                 localVarQueryParameter['blockchainWalletType'] = blockchainWalletType;
             }
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Activate a Circle Gateway wallet
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateCircleGatewayWalletBeta: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('activateCircleGatewayWalletBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/circle_gateway/activate`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
@@ -179,7 +221,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Converts an existing segwit address to the legacy format. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Converts an existing segwit address to the legacy format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Convert a segwit address to legacy format
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -303,7 +345,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create a new vault account
          * @param {CreateVaultAccountRequest} createVaultAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -343,7 +385,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create a new vault wallet
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
@@ -393,7 +435,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create new asset deposit address
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -438,7 +480,45 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Deactivate a Circle Gateway wallet
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateCircleGatewayWalletBeta: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deactivateCircleGatewayWalletBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/circle_gateway/deactivate`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only vault wallets with total balance greater than this amount are returned.
          * @param {string} [assetId] When specified, only vault wallets with the specified ID are returned.
@@ -485,6 +565,39 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get Circle Gateway wallet info
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCircleGatewayWalletInfoBeta: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCircleGatewayWalletInfoBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/circle_gateway`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -641,7 +754,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault accounts (Paginated)
          * @param {string} [namePrefix] 
          * @param {string} [nameSuffix] 
@@ -726,7 +839,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Gets the public key information based on derivation path and signing algorithm. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Gets the public key information based on derivation path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get the public key for a derivation path
          * @param {string} derivationPath 
          * @param {string} algorithm 
@@ -773,7 +886,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Get the public key information for a specific asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get the public key information for a specific asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get an asset\'s public key
          * @param {string} vaultAccountId 
          * @param {string} assetId 
@@ -820,7 +933,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Returns unspent inputs information of an UTXO asset in a vault account.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns unspent inputs information of an UTXO asset in a vault account.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get UTXO unspent inputs information
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -856,7 +969,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Get a vault account by its unique ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a vault account by ID
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -889,7 +1002,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Returns a specific vault wallet balance information for a specific asset.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
+         * Returns a specific vault wallet balance information for a specific asset.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
          * @summary Get the asset balance for a vault account
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -925,7 +1038,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Returns a paginated response of the addresses for a given vault account and asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get addresses (Paginated)
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -976,7 +1089,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Gets the assets amount summary for all accounts or filtered accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get asset balance for chosen assets
          * @param {string} [accountNamePrefix] 
          * @param {string} [accountNameSuffix] 
@@ -1016,7 +1129,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Get the total balance of an asset across all the vault accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get the total balance of an asset across all the vault accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault balance by an asset
          * @param {string} assetId 
          * @param {*} [options] Override http request option.
@@ -1049,7 +1162,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Hide a vault account in the console
          * @param {string} vaultAccountId The vault account to hide
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1087,7 +1200,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Sets an AML/KYT customer reference ID for a specific address. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Assign AML customer reference ID
          * @param {SetCustomerRefIdForAddressRequest} setCustomerRefIdForAddressRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -1136,7 +1249,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set auto fueling to on or off
          * @param {SetAutoFuelRequest} setAutoFuelRequest 
          * @param {string} vaultAccountId The vault account ID
@@ -1179,7 +1292,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Set an AML/KYT ID for a vault account
          * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} vaultAccountId The vault account ID
@@ -1222,7 +1335,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Makes a hidden vault account visible in web console view. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Makes a hidden vault account visible in web console view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Unhide a vault account in the console
          * @param {string} vaultAccountId The vault account to unhide
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1260,7 +1373,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Renames the requested vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Rename a vault account
          * @param {UpdateVaultAccountRequest} updateVaultAccountRequest 
          * @param {string} vaultAccountId The ID of the vault account to edit
@@ -1303,7 +1416,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Updates the description of an existing address of an asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates the description of an existing address of an asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Update address description
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -1351,7 +1464,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Refresh asset balance data
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -1402,7 +1515,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = VaultsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Activate a wallet in a vault account
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
@@ -1415,6 +1528,20 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.activateAssetForVaultAccount(vaultAccountId, assetId, idempotencyKey, blockchainWalletType, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.activateAssetForVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Activate a Circle Gateway wallet
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async activateCircleGatewayWalletBeta(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CircleGatewayWalletStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.activateCircleGatewayWalletBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1432,7 +1559,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Converts an existing segwit address to the legacy format. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Converts an existing segwit address to the legacy format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Convert a segwit address to legacy format
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -1476,7 +1603,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create a new vault account
          * @param {CreateVaultAccountRequest} createVaultAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1490,7 +1617,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create a new vault wallet
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
@@ -1507,7 +1634,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create new asset deposit address
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -1523,7 +1650,21 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Deactivate a Circle Gateway wallet
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deactivateCircleGatewayWalletBeta(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CircleGatewayWalletStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.deactivateCircleGatewayWalletBeta']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only vault wallets with total balance greater than this amount are returned.
          * @param {string} [assetId] When specified, only vault wallets with the specified ID are returned.
@@ -1538,6 +1679,19 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getAssetWallets']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get Circle Gateway wallet info
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCircleGatewayWalletInfoBeta(vaultAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CircleGatewayWalletInfoResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCircleGatewayWalletInfoBeta(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getCircleGatewayWalletInfoBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1596,7 +1750,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault accounts (Paginated)
          * @param {string} [namePrefix] 
          * @param {string} [nameSuffix] 
@@ -1619,7 +1773,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Gets the public key information based on derivation path and signing algorithm. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Gets the public key information based on derivation path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get the public key for a derivation path
          * @param {string} derivationPath 
          * @param {string} algorithm 
@@ -1634,7 +1788,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get the public key information for a specific asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get the public key information for a specific asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get an asset\'s public key
          * @param {string} vaultAccountId 
          * @param {string} assetId 
@@ -1651,7 +1805,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns unspent inputs information of an UTXO asset in a vault account.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns unspent inputs information of an UTXO asset in a vault account.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get UTXO unspent inputs information
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -1665,7 +1819,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get a vault account by its unique ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a vault account by ID
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -1678,7 +1832,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a specific vault wallet balance information for a specific asset.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
+         * Returns a specific vault wallet balance information for a specific asset.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
          * @summary Get the asset balance for a vault account
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -1692,7 +1846,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a paginated response of the addresses for a given vault account and asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get addresses (Paginated)
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -1709,7 +1863,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Gets the assets amount summary for all accounts or filtered accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get asset balance for chosen assets
          * @param {string} [accountNamePrefix] 
          * @param {string} [accountNameSuffix] 
@@ -1723,7 +1877,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get the total balance of an asset across all the vault accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get the total balance of an asset across all the vault accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault balance by an asset
          * @param {string} assetId 
          * @param {*} [options] Override http request option.
@@ -1736,7 +1890,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Hide a vault account in the console
          * @param {string} vaultAccountId The vault account to hide
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1750,7 +1904,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Sets an AML/KYT customer reference ID for a specific address. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Assign AML customer reference ID
          * @param {SetCustomerRefIdForAddressRequest} setCustomerRefIdForAddressRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -1767,7 +1921,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set auto fueling to on or off
          * @param {SetAutoFuelRequest} setAutoFuelRequest 
          * @param {string} vaultAccountId The vault account ID
@@ -1782,7 +1936,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Set an AML/KYT ID for a vault account
          * @param {SetCustomerRefIdRequest} setCustomerRefIdRequest 
          * @param {string} vaultAccountId The vault account ID
@@ -1797,7 +1951,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Makes a hidden vault account visible in web console view. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Makes a hidden vault account visible in web console view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Unhide a vault account in the console
          * @param {string} vaultAccountId The vault account to unhide
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1811,7 +1965,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Renames the requested vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Rename a vault account
          * @param {UpdateVaultAccountRequest} updateVaultAccountRequest 
          * @param {string} vaultAccountId The ID of the vault account to edit
@@ -1826,7 +1980,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates the description of an existing address of an asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates the description of an existing address of an asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Update address description
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -1843,7 +1997,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Refresh asset balance data
          * @param {string} vaultAccountId The ID of the vault account to return
          * @param {string} assetId The ID of the asset
@@ -1868,7 +2022,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = VaultsApiFp(configuration)
     return {
         /**
-         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Activate a wallet in a vault account
          * @param {VaultsApiActivateAssetForVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1876,6 +2030,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateVaultAssetResponse> {
             return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Activate a Circle Gateway wallet
+         * @param {VaultsApiActivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateCircleGatewayWalletBeta(requestParameters: VaultsApiActivateCircleGatewayWalletBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<CircleGatewayWalletStatusResponse> {
+            return localVarFp.activateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Attach or detach one or more tags from the requested vault accounts. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
@@ -1888,7 +2052,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.attachOrDetachTagsFromVaultAccounts(requestParameters.vaultAccountsTagAttachmentOperationsRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Converts an existing segwit address to the legacy format. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Converts an existing segwit address to the legacy format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Convert a segwit address to legacy format
          * @param {VaultsApiCreateLegacyAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1918,7 +2082,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create a new vault account
          * @param {VaultsApiCreateVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1928,7 +2092,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccount(requestParameters.createVaultAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create a new vault wallet
          * @param {VaultsApiCreateVaultAccountAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1938,7 +2102,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAssetsRequest, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create new asset deposit address
          * @param {VaultsApiCreateVaultAccountAssetAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1948,7 +2112,17 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Deactivate a Circle Gateway wallet
+         * @param {VaultsApiDeactivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateCircleGatewayWalletBeta(requestParameters: VaultsApiDeactivateCircleGatewayWalletBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<CircleGatewayWalletStatusResponse> {
+            return localVarFp.deactivateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault wallets (Paginated)
          * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1956,6 +2130,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAssetWalletResponse> {
             return localVarFp.getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get Circle Gateway wallet info
+         * @param {VaultsApiGetCircleGatewayWalletInfoBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCircleGatewayWalletInfoBeta(requestParameters: VaultsApiGetCircleGatewayWalletInfoBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<CircleGatewayWalletInfoResponse> {
+            return localVarFp.getCircleGatewayWalletInfoBeta(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the current status of (or an error for) the specified deposit addresss bulk creation job.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer. 
@@ -1998,7 +2182,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault accounts (Paginated)
          * @param {VaultsApiGetPagedVaultAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2008,7 +2192,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getPagedVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, requestParameters.tagIds, requestParameters.includeTagIds, requestParameters.excludeTagIds, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets the public key information based on derivation path and signing algorithm. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Gets the public key information based on derivation path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get the public key for a derivation path
          * @param {VaultsApiGetPublicKeyInfoRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2018,7 +2202,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getPublicKeyInfo(requestParameters.derivationPath, requestParameters.algorithm, requestParameters.compressed, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get the public key information for a specific asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get the public key information for a specific asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get an asset\'s public key
          * @param {VaultsApiGetPublicKeyInfoForAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2028,7 +2212,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getPublicKeyInfoForAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns unspent inputs information of an UTXO asset in a vault account.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns unspent inputs information of an UTXO asset in a vault account.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get UTXO unspent inputs information
          * @param {VaultsApiGetUnspentInputsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2038,7 +2222,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a vault account by its unique ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a vault account by ID
          * @param {VaultsApiGetVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2048,7 +2232,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultAccount(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a specific vault wallet balance information for a specific asset.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
+         * Returns a specific vault wallet balance information for a specific asset.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
          * @summary Get the asset balance for a vault account
          * @param {VaultsApiGetVaultAccountAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2058,7 +2242,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a paginated response of the addresses for a given vault account and asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get addresses (Paginated)
          * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2068,7 +2252,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets the assets amount summary for all accounts or filtered accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get asset balance for chosen assets
          * @param {VaultsApiGetVaultAssetsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2078,7 +2262,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultAssets(requestParameters.accountNamePrefix, requestParameters.accountNameSuffix, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get the total balance of an asset across all the vault accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get the total balance of an asset across all the vault accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault balance by an asset
          * @param {VaultsApiGetVaultBalanceByAssetRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2088,7 +2272,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultBalanceByAsset(requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Hide a vault account in the console
          * @param {VaultsApiHideVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2098,7 +2282,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Sets an AML/KYT customer reference ID for a specific address. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Assign AML customer reference ID
          * @param {VaultsApiSetCustomerRefIdForAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2108,7 +2292,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForAddressRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set auto fueling to on or off
          * @param {VaultsApiSetVaultAccountAutoFuelRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2118,7 +2302,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.setVaultAccountAutoFuel(requestParameters.setAutoFuelRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Set an AML/KYT ID for a vault account
          * @param {VaultsApiSetVaultAccountCustomerRefIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2128,7 +2312,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.setVaultAccountCustomerRefId(requestParameters.setCustomerRefIdRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Makes a hidden vault account visible in web console view. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Makes a hidden vault account visible in web console view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Unhide a vault account in the console
          * @param {VaultsApiUnhideVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2138,7 +2322,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Renames the requested vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Rename a vault account
          * @param {VaultsApiUpdateVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2148,7 +2332,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.updateVaultAccount(requestParameters.updateVaultAccountRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates the description of an existing address of an asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates the description of an existing address of an asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Update address description
          * @param {VaultsApiUpdateVaultAccountAssetAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2158,7 +2342,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.updateVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.updateVaultAccountAssetAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Refresh asset balance data
          * @param {VaultsApiUpdateVaultAccountAssetBalanceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2203,6 +2387,27 @@ export interface VaultsApiActivateAssetForVaultAccountRequest {
      * @memberof VaultsApiActivateAssetForVaultAccount
      */
     readonly blockchainWalletType?: string
+}
+
+/**
+ * Request parameters for activateCircleGatewayWalletBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiActivateCircleGatewayWalletBetaRequest
+ */
+export interface VaultsApiActivateCircleGatewayWalletBetaRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiActivateCircleGatewayWalletBeta
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiActivateCircleGatewayWalletBeta
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -2402,6 +2607,27 @@ export interface VaultsApiCreateVaultAccountAssetAddressRequest {
 }
 
 /**
+ * Request parameters for deactivateCircleGatewayWalletBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiDeactivateCircleGatewayWalletBetaRequest
+ */
+export interface VaultsApiDeactivateCircleGatewayWalletBetaRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiDeactivateCircleGatewayWalletBeta
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiDeactivateCircleGatewayWalletBeta
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for getAssetWallets operation in VaultsApi.
  * @export
  * @interface VaultsApiGetAssetWalletsRequest
@@ -2448,6 +2674,20 @@ export interface VaultsApiGetAssetWalletsRequest {
      * @memberof VaultsApiGetAssetWallets
      */
     readonly limit?: number
+}
+
+/**
+ * Request parameters for getCircleGatewayWalletInfoBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetCircleGatewayWalletInfoBetaRequest
+ */
+export interface VaultsApiGetCircleGatewayWalletInfoBetaRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiGetCircleGatewayWalletInfoBeta
+     */
+    readonly vaultAccountId: string
 }
 
 /**
@@ -3060,7 +3300,7 @@ export interface VaultsApiUpdateVaultAccountAssetBalanceRequest {
  */
 export class VaultsApi extends BaseAPI {
     /**
-     * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Activate a wallet in a vault account
      * @param {VaultsApiActivateAssetForVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3069,6 +3309,18 @@ export class VaultsApi extends BaseAPI {
      */
     public activateAssetForVaultAccount(requestParameters: VaultsApiActivateAssetForVaultAccountRequest) {
         return VaultsApiFp(this.configuration).activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Activate a Circle Gateway wallet
+     * @param {VaultsApiActivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public activateCircleGatewayWalletBeta(requestParameters: VaultsApiActivateCircleGatewayWalletBetaRequest) {
+        return VaultsApiFp(this.configuration).activateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3084,7 +3336,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Converts an existing segwit address to the legacy format. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Converts an existing segwit address to the legacy format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Convert a segwit address to legacy format
      * @param {VaultsApiCreateLegacyAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3120,7 +3372,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Create a new vault account
      * @param {VaultsApiCreateVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3132,7 +3384,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Create a new vault wallet
      * @param {VaultsApiCreateVaultAccountAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3144,7 +3396,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Create new asset deposit address
      * @param {VaultsApiCreateVaultAccountAssetAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3156,7 +3408,19 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Deactivate a Circle Gateway wallet
+     * @param {VaultsApiDeactivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public deactivateCircleGatewayWalletBeta(requestParameters: VaultsApiDeactivateCircleGatewayWalletBetaRequest) {
+        return VaultsApiFp(this.configuration).deactivateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get vault wallets (Paginated)
      * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3165,6 +3429,18 @@ export class VaultsApi extends BaseAPI {
      */
     public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}) {
         return VaultsApiFp(this.configuration).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Get Circle Gateway wallet info
+     * @param {VaultsApiGetCircleGatewayWalletInfoBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getCircleGatewayWalletInfoBeta(requestParameters: VaultsApiGetCircleGatewayWalletInfoBetaRequest) {
+        return VaultsApiFp(this.configuration).getCircleGatewayWalletInfoBeta(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3216,7 +3492,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get vault accounts (Paginated)
      * @param {VaultsApiGetPagedVaultAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3228,7 +3504,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Gets the public key information based on derivation path and signing algorithm. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Gets the public key information based on derivation path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get the public key for a derivation path
      * @param {VaultsApiGetPublicKeyInfoRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3240,7 +3516,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Get the public key information for a specific asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Get the public key information for a specific asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get an asset\'s public key
      * @param {VaultsApiGetPublicKeyInfoForAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3252,7 +3528,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Returns unspent inputs information of an UTXO asset in a vault account.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns unspent inputs information of an UTXO asset in a vault account.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get UTXO unspent inputs information
      * @param {VaultsApiGetUnspentInputsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3264,7 +3540,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Get a vault account by its unique ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get a vault account by ID
      * @param {VaultsApiGetVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3276,7 +3552,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Returns a specific vault wallet balance information for a specific asset.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
+     * Returns a specific vault wallet balance information for a specific asset.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
      * @summary Get the asset balance for a vault account
      * @param {VaultsApiGetVaultAccountAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3288,7 +3564,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Returns a paginated response of the addresses for a given vault account and asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get addresses (Paginated)
      * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3300,7 +3576,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Gets the assets amount summary for all accounts or filtered accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get asset balance for chosen assets
      * @param {VaultsApiGetVaultAssetsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3312,7 +3588,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Get the total balance of an asset across all the vault accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get the total balance of an asset across all the vault accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get vault balance by an asset
      * @param {VaultsApiGetVaultBalanceByAssetRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3324,7 +3600,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Hide a vault account in the console
      * @param {VaultsApiHideVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3336,7 +3612,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Sets an AML/KYT customer reference ID for a specific address. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Assign AML customer reference ID
      * @param {VaultsApiSetCustomerRefIdForAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3348,7 +3624,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Set auto fueling to on or off
      * @param {VaultsApiSetVaultAccountAutoFuelRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3360,7 +3636,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Set an AML/KYT ID for a vault account
      * @param {VaultsApiSetVaultAccountCustomerRefIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3372,7 +3648,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Makes a hidden vault account visible in web console view. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Makes a hidden vault account visible in web console view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Unhide a vault account in the console
      * @param {VaultsApiUnhideVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3384,7 +3660,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Renames the requested vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Rename a vault account
      * @param {VaultsApiUpdateVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3396,7 +3672,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Updates the description of an existing address of an asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Updates the description of an existing address of an asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Update address description
      * @param {VaultsApiUpdateVaultAccountAssetAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3408,7 +3684,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Refresh asset balance data
      * @param {VaultsApiUpdateVaultAccountAssetBalanceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

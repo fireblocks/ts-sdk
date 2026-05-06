@@ -79,7 +79,7 @@ No authorization required
 # **getFiatAccount**
 > FiatAccount getFiatAccount()
 
-Returns a fiat account by ID. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Returns a fiat account by ID. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -139,7 +139,7 @@ No authorization required
 # **getFiatAccounts**
 > GetFiatAccountsResponse getFiatAccounts()
 
-Returns all fiat accounts. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Returns all fiat accounts. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

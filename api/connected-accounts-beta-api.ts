@@ -51,7 +51,7 @@ import { RenameConnectedAccountResponse } from '../models';
 export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Disconnect a connected account by ID. </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+         * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
          * @summary Disconnect connected account
          * @param {string} accountId The ID of the account to disconnect.
          * @param {*} [options] Override http request option.
@@ -346,7 +346,7 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
     const localVarAxiosParamCreator = ConnectedAccountsBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Disconnect a connected account by ID. </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+         * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
          * @summary Disconnect connected account
          * @param {string} accountId The ID of the account to disconnect.
          * @param {*} [options] Override http request option.
@@ -457,7 +457,7 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
     const localVarFp = ConnectedAccountsBetaApiFp(configuration)
     return {
         /**
-         * Disconnect a connected account by ID. </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+         * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
          * @summary Disconnect connected account
          * @param {ConnectedAccountsBetaApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -705,7 +705,7 @@ export interface ConnectedAccountsBetaApiRenameConnectedAccountRequest {
  */
 export class ConnectedAccountsBetaApi extends BaseAPI {
     /**
-     * Disconnect a connected account by ID. </br> **Note**: - This endpoint is currently in beta and might be subject to changes. 
+     * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
      * @summary Disconnect connected account
      * @param {ConnectedAccountsBetaApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

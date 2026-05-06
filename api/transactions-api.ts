@@ -63,7 +63,7 @@ import { ValidateAddressResponse } from '../models';
 export const TransactionsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Cancel a transaction
          * @param {string} txId The ID of the transaction to cancel
          * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -150,7 +150,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Drop ETH (EVM) transaction by ID
          * @param {string} txId The ID of the transaction
          * @param {DropTransactionRequest} [dropTransactionRequest] 
@@ -197,7 +197,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Estimate the required fee for an asset
          * @param {string} assetId The asset for which to estimate the fee
          * @param {*} [options] Override http request option.
@@ -233,7 +233,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Signer, Approver, Editor.
+         * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available. Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Signer, Approver, Editor.
          * @summary Estimate transaction fee
          * @param {TransactionRequest} [transactionRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -272,7 +272,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Freeze a transaction
          * @param {string} txId The ID of the transaction to freeze
          * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -315,7 +315,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Get a specific transaction data by Fireblocks Transaction ID </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a specific transaction by Fireblocks transaction ID
          * @param {string} txId The ID of the transaction to return
          * @param {*} [options] Override http request option.
@@ -348,7 +348,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Returns transaction by external transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a specific transaction by external transaction ID
          * @param {string} externalTxId The external ID of the transaction to return
          * @param {*} [options] Override http request option.
@@ -491,7 +491,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Overrides the required number of confirmations for transaction completion by transaction hash. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Overrides the required number of confirmations for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set confirmation threshold by transaction hash
          * @param {string} txHash The TxHash
          * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
@@ -533,7 +533,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set confirmation threshold by Fireblocks Transaction ID
          * @param {string} txId The ID of the transaction
          * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
@@ -575,7 +575,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Unfreeze a transaction
          * @param {string} txId The ID of the transaction to unfreeze
          * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -618,7 +618,7 @@ export const TransactionsApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Validate destination address
          * @param {string} assetId The asset of the address
          * @param {string} address The address to validate
@@ -664,7 +664,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TransactionsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Cancel a transaction
          * @param {string} txId The ID of the transaction to cancel
          * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -694,7 +694,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Drop ETH (EVM) transaction by ID
          * @param {string} txId The ID of the transaction
          * @param {DropTransactionRequest} [dropTransactionRequest] 
@@ -710,7 +710,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Estimate the required fee for an asset
          * @param {string} assetId The asset for which to estimate the fee
          * @param {*} [options] Override http request option.
@@ -723,7 +723,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Signer, Approver, Editor.
+         * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available. Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Signer, Approver, Editor.
          * @summary Estimate transaction fee
          * @param {TransactionRequest} [transactionRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -737,7 +737,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Freeze a transaction
          * @param {string} txId The ID of the transaction to freeze
          * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -752,7 +752,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get a specific transaction data by Fireblocks Transaction ID </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a specific transaction by Fireblocks transaction ID
          * @param {string} txId The ID of the transaction to return
          * @param {*} [options] Override http request option.
@@ -765,7 +765,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns transaction by external transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a specific transaction by external transaction ID
          * @param {string} externalTxId The external ID of the transaction to return
          * @param {*} [options] Override http request option.
@@ -806,7 +806,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Overrides the required number of confirmations for transaction completion by transaction hash. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Overrides the required number of confirmations for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set confirmation threshold by transaction hash
          * @param {string} txHash The TxHash
          * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
@@ -821,7 +821,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set confirmation threshold by Fireblocks Transaction ID
          * @param {string} txId The ID of the transaction
          * @param {SetConfirmationsThresholdRequest} [setConfirmationsThresholdRequest] 
@@ -836,7 +836,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Unfreeze a transaction
          * @param {string} txId The ID of the transaction to unfreeze
          * @param {string} [xEndUserWalletId] Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -851,7 +851,7 @@ export const TransactionsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Validate destination address
          * @param {string} assetId The asset of the address
          * @param {string} address The address to validate
@@ -875,7 +875,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
     const localVarFp = TransactionsApiFp(configuration)
     return {
         /**
-         * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Cancel a transaction
          * @param {TransactionsApiCancelTransactionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -895,7 +895,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.createTransaction(requestParameters.transactionRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Drop ETH (EVM) transaction by ID
          * @param {TransactionsApiDropTransactionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -905,7 +905,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.dropTransaction(requestParameters.txId, requestParameters.dropTransactionRequest, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Estimate the required fee for an asset
          * @param {TransactionsApiEstimateNetworkFeeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -915,7 +915,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.estimateNetworkFee(requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Signer, Approver, Editor.
+         * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available. Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Signer, Approver, Editor.
          * @summary Estimate transaction fee
          * @param {TransactionsApiEstimateTransactionFeeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -925,7 +925,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.estimateTransactionFee(requestParameters.transactionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Freeze a transaction
          * @param {TransactionsApiFreezeTransactionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -935,7 +935,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.freezeTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a specific transaction data by Fireblocks Transaction ID </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a specific transaction by Fireblocks transaction ID
          * @param {TransactionsApiGetTransactionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -945,7 +945,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.getTransaction(requestParameters.txId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns transaction by external transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a specific transaction by external transaction ID
          * @param {TransactionsApiGetTransactionByExternalIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -965,7 +965,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.getTransactions(requestParameters.next, requestParameters.prev, requestParameters.before, requestParameters.after, requestParameters.status, requestParameters.orderBy, requestParameters.sort, requestParameters.limit, requestParameters.sourceType, requestParameters.sourceId, requestParameters.destType, requestParameters.destId, requestParameters.assets, requestParameters.txHash, requestParameters.sourceWalletId, requestParameters.destWalletId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Overrides the required number of confirmations for transaction completion by transaction hash. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Overrides the required number of confirmations for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set confirmation threshold by transaction hash
          * @param {TransactionsApiSetConfirmationThresholdByTransactionHashRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -975,7 +975,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.setConfirmationThresholdByTransactionHash(requestParameters.txHash, requestParameters.setConfirmationsThresholdRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set confirmation threshold by Fireblocks Transaction ID
          * @param {TransactionsApiSetTransactionConfirmationThresholdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -985,7 +985,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.setTransactionConfirmationThreshold(requestParameters.txId, requestParameters.setConfirmationsThresholdRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Unfreeze a transaction
          * @param {TransactionsApiUnfreezeTransactionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -995,7 +995,7 @@ export const TransactionsApiFactory = function (configuration?: Configuration, b
             return localVarFp.unfreezeTransaction(requestParameters.txId, requestParameters.xEndUserWalletId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Validate destination address
          * @param {TransactionsApiValidateAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1421,7 +1421,7 @@ export interface TransactionsApiValidateAddressRequest {
  */
 export class TransactionsApi extends BaseAPI {
     /**
-     * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Cancels a transaction by Fireblocks Transaction ID.  Can be used only for transactions that did not get to the BROADCASTING state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Cancel a transaction
      * @param {TransactionsApiCancelTransactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1445,7 +1445,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Drops a stuck ETH (EVM) transaction and creates a replacement transaction with 0 amount. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Drop ETH (EVM) transaction by ID
      * @param {TransactionsApiDropTransactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1457,7 +1457,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Gets the estimated required fee for an asset. Fireblocks fetches, calculates and caches the result every 30 seconds. Customers should query this API while taking the caching interval into consideration. Notes: - The `networkFee` parameter is the `gasPrice` with a given delta added, multiplied by the gasLimit plus the delta. - The estimation provided depends on the asset type.     - For UTXO-based assets, the response contains the `feePerByte` parameter     - For ETH-based and all EVM based assets, the response will contain `gasPrice` parameter. This is calculated by adding the `baseFee` to the `actualPriority` based on the latest 12 blocks. The response for ETH-based  contains the `baseFee`, `gasPrice`, and `priorityFee` parameters.     - For ADA-based assets, the response will contain the parameter `networkFee` and `feePerByte` parameters.     - For XRP and XLM, the response will contain the transaction fee.     - For other assets, the response will contain the `networkFee` parameter.  Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Estimate the required fee for an asset
      * @param {TransactionsApiEstimateNetworkFeeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1469,7 +1469,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet.   **Note**: Supports all Fireblocks assets except ZCash (ZEC). Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). </br>Endpoint Permission: Admin, Signer, Approver, Editor.
+     * Estimates the transaction fee for a specific transaction request. This endpoint simulates a transaction which means that the system will expect to have the requested asset and balance in the specified wallet. **Note**: Supports all Fireblocks assets except ZCash (ZEC). The PROGRAM_CALL operation is not supported by this endpoint — fee estimation for Solana program calls is not available. Learn more about Fireblocks Fee Management in the following [guide](https://developers.fireblocks.com/reference/estimate-transaction-fee). Endpoint Permission: Admin, Signer, Approver, Editor.
      * @summary Estimate transaction fee
      * @param {TransactionsApiEstimateTransactionFeeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1481,7 +1481,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Freezes a transaction by ID.  Usually used for AML integrations when the incoming funds should be quarantined. For account based assets - the entire amount of the transaction is frozen  For UTXO based assets - all UTXOs of the specified transaction are frozen Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Freeze a transaction
      * @param {TransactionsApiFreezeTransactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1493,7 +1493,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Get a specific transaction data by Fireblocks Transaction ID </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Get a specific transaction data by Fireblocks Transaction ID Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get a specific transaction by Fireblocks transaction ID
      * @param {TransactionsApiGetTransactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1505,7 +1505,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Returns transaction by external transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns transaction by external transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get a specific transaction by external transaction ID
      * @param {TransactionsApiGetTransactionByExternalIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1529,7 +1529,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Overrides the required number of confirmations for transaction completion by transaction hash. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Overrides the required number of confirmations for transaction completion by transaction hash. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Set confirmation threshold by transaction hash
      * @param {TransactionsApiSetConfirmationThresholdByTransactionHashRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1541,7 +1541,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Overrides the required number of confirmations for transaction completion Fireblocks Transaction ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Set confirmation threshold by Fireblocks Transaction ID
      * @param {TransactionsApiSetTransactionConfirmationThresholdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1553,7 +1553,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Unfreezes a transaction by Fireblocks Transaction ID and makes the transaction available again. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Unfreeze a transaction
      * @param {TransactionsApiUnfreezeTransactionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1565,7 +1565,7 @@ export class TransactionsApi extends BaseAPI {
     }
 
     /**
-     * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Checks if an address is valid and active (for XRP, DOT, XLM, and EOS). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Validate destination address
      * @param {TransactionsApiValidateAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

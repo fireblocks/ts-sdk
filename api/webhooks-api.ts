@@ -84,7 +84,7 @@ export const WebhooksApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Resend failed webhooks
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -144,7 +144,7 @@ export const WebhooksApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Resend failed webhooks
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -177,7 +177,7 @@ export const WebhooksApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.resendTransactionWebhooks(requestParameters.resendTransactionWebhooksRequest, requestParameters.txId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Resend failed webhooks
          * @param {WebhooksApiResendWebhooksRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -251,7 +251,7 @@ export class WebhooksApi extends BaseAPI {
     }
 
     /**
-     * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Resends all failed webhook notifications.  Learn more about Fireblocks Webhooks in the following [guide](https://developers.fireblocks.com/docs/configure-webhooks).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Resend failed webhooks
      * @param {WebhooksApiResendWebhooksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -140,19 +140,23 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**activateByorkConfig**](docs/apis/ComplianceApi.md#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light
 *ComplianceApi* | [**addAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list
 *ComplianceApi* | [**assignVaultsToLegalEntity**](docs/apis/ComplianceApi.md#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity
+*ComplianceApi* | [**createCounterpartyGroup**](docs/apis/ComplianceApi.md#createCounterpartyGroup) | **POST** /counterparty_groups | Create a counterparty group
 *ComplianceApi* | [**deactivateByorkConfig**](docs/apis/ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
+*ComplianceApi* | [**deleteCounterpartyGroup**](docs/apis/ComplianceApi.md#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group
 *ComplianceApi* | [**getAddressRegistryTenantParticipationStatus**](docs/apis/ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
 *ComplianceApi* | [**getAddressRegistryVaultOptOut**](docs/apis/ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 *ComplianceApi* | [**getAmlScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 *ComplianceApi* | [**getByorkConfig**](docs/apis/ComplianceApi.md#getByorkConfig) | **GET** /screening/byork/config | Get BYORK Light configuration
 *ComplianceApi* | [**getByorkVerdict**](docs/apis/ComplianceApi.md#getByorkVerdict) | **GET** /screening/byork/verdict | Get BYORK Light verdict
+*ComplianceApi* | [**getCounterpartyGroup**](docs/apis/ComplianceApi.md#getCounterpartyGroup) | **GET** /counterparty_groups/{groupId} | Get a counterparty group
 *ComplianceApi* | [**getLegalEntity**](docs/apis/ComplianceApi.md#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity
 *ComplianceApi* | [**getLegalEntityForAddress**](docs/apis/ComplianceApi.md#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address
 *ComplianceApi* | [**getPostScreeningPolicy**](docs/apis/ComplianceApi.md#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
 *ComplianceApi* | [**getScreeningFullDetails**](docs/apis/ComplianceApi.md#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
 *ComplianceApi* | [**getScreeningPolicy**](docs/apis/ComplianceApi.md#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
 *ComplianceApi* | [**listAddressRegistryVaultOptOuts**](docs/apis/ComplianceApi.md#listAddressRegistryVaultOptOuts) | **GET** /address_registry/vaults | List vault-level address registry opt-outs (paginated)
+*ComplianceApi* | [**listCounterpartyGroups**](docs/apis/ComplianceApi.md#listCounterpartyGroups) | **GET** /counterparty_groups | List counterparty groups
 *ComplianceApi* | [**listLegalEntities**](docs/apis/ComplianceApi.md#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated)
 *ComplianceApi* | [**listVaultsForLegalEntity**](docs/apis/ComplianceApi.md#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated)
 *ComplianceApi* | [**optInAddressRegistryTenant**](docs/apis/ComplianceApi.md#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry
@@ -165,6 +169,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**setByorkTimeouts**](docs/apis/ComplianceApi.md#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts
 *ComplianceApi* | [**setByorkVerdict**](docs/apis/ComplianceApi.md#setByorkVerdict) | **POST** /screening/byork/verdict | Set BYORK Light verdict
 *ComplianceApi* | [**updateAmlScreeningConfiguration**](docs/apis/ComplianceApi.md#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
+*ComplianceApi* | [**updateCounterpartyGroup**](docs/apis/ComplianceApi.md#updateCounterpartyGroup) | **PATCH** /counterparty_groups/{groupId} | Update a counterparty group
 *ComplianceApi* | [**updateLegalEntity**](docs/apis/ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 *ComplianceApi* | [**updateScreeningConfiguration**](docs/apis/ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/apis/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
@@ -380,6 +385,7 @@ Class | Method | HTTP request | Description
 *TRLinkApi* | [**connectTRLinkIntegration**](docs/apis/TRLinkApi.md#connectTRLinkIntegration) | **PUT** /screening/trlink/customers/integration/{customerIntegrationId} | Connect customer integration
 *TRLinkApi* | [**createTRLinkCustomer**](docs/apis/TRLinkApi.md#createTRLinkCustomer) | **POST** /screening/trlink/customers | Create customer
 *TRLinkApi* | [**createTRLinkIntegration**](docs/apis/TRLinkApi.md#createTRLinkIntegration) | **POST** /screening/trlink/customers/integration | Create customer integration
+*TRLinkApi* | [**createTRLinkManualDecision**](docs/apis/TRLinkApi.md#createTRLinkManualDecision) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision | Manual decision for missing TRM
 *TRLinkApi* | [**createTRLinkTrm**](docs/apis/TRLinkApi.md#createTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm | Create Travel Rule Message
 *TRLinkApi* | [**deleteTRLinkCustomer**](docs/apis/TRLinkApi.md#deleteTRLinkCustomer) | **DELETE** /screening/trlink/customers/{customerId} | Delete customer
 *TRLinkApi* | [**disconnectTRLinkIntegration**](docs/apis/TRLinkApi.md#disconnectTRLinkIntegration) | **DELETE** /screening/trlink/customers/integration/{customerIntegrationId} | Disconnect customer integration
@@ -392,10 +398,12 @@ Class | Method | HTTP request | Description
 *TRLinkApi* | [**getTRLinkPolicy**](docs/apis/TRLinkApi.md#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy
 *TRLinkApi* | [**getTRLinkSupportedAsset**](docs/apis/TRLinkApi.md#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID
 *TRLinkApi* | [**getTRLinkTrmById**](docs/apis/TRLinkApi.md#getTRLinkTrmById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId} | Get TRM by ID
+*TRLinkApi* | [**getTRLinkTrmRequiredActions**](docs/apis/TRLinkApi.md#getTRLinkTrmRequiredActions) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/required_actions | Get required actions for a TRM
 *TRLinkApi* | [**getTRLinkVaspById**](docs/apis/TRLinkApi.md#getTRLinkVaspById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps/{vaspId} | Get VASP by ID
 *TRLinkApi* | [**listTRLinkSupportedAssets**](docs/apis/TRLinkApi.md#listTRLinkSupportedAssets) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets | List supported assets
 *TRLinkApi* | [**listTRLinkVasps**](docs/apis/TRLinkApi.md#listTRLinkVasps) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps | List VASPs
 *TRLinkApi* | [**redirectTRLinkTrm**](docs/apis/TRLinkApi.md#redirectTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/redirect | Redirect Travel Rule Message
+*TRLinkApi* | [**resolveActionTRLinkTrm**](docs/apis/TRLinkApi.md#resolveActionTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/resolve_action | Resolve action for a TRM
 *TRLinkApi* | [**setTRLinkDestinationTravelRuleMessageId**](docs/apis/TRLinkApi.md#setTRLinkDestinationTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/destination/travel_rule_message_id | Set destination travel rule message ID
 *TRLinkApi* | [**setTRLinkTransactionTravelRuleMessageId**](docs/apis/TRLinkApi.md#setTRLinkTransactionTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/travel_rule_message_id | Set transaction travel rule message ID
 *TRLinkApi* | [**testTRLinkIntegrationConnection**](docs/apis/TRLinkApi.md#testTRLinkIntegrationConnection) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/test_connection | Test connection
@@ -467,6 +475,7 @@ Class | Method | HTTP request | Description
 *UserGroupsBetaApi* | [**updateUserGroup**](docs/apis/UserGroupsBetaApi.md#updateUserGroup) | **PUT** /management/user_groups/{groupId} | Update user group
 *UsersApi* | [**getUsers**](docs/apis/UsersApi.md#getUsers) | **GET** /users | List users
 *VaultsApi* | [**activateAssetForVaultAccount**](docs/apis/VaultsApi.md#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
+*VaultsApi* | [**activateCircleGatewayWalletBeta**](docs/apis/VaultsApi.md#activateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/activate | Activate a Circle Gateway wallet
 *VaultsApi* | [**attachOrDetachTagsFromVaultAccounts**](docs/apis/VaultsApi.md#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts
 *VaultsApi* | [**createLegacyAddress**](docs/apis/VaultsApi.md#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 *VaultsApi* | [**createMultipleAccounts**](docs/apis/VaultsApi.md#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
@@ -474,7 +483,9 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**createVaultAccount**](docs/apis/VaultsApi.md#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 *VaultsApi* | [**createVaultAccountAsset**](docs/apis/VaultsApi.md#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 *VaultsApi* | [**createVaultAccountAssetAddress**](docs/apis/VaultsApi.md#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
+*VaultsApi* | [**deactivateCircleGatewayWalletBeta**](docs/apis/VaultsApi.md#deactivateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/deactivate | Deactivate a Circle Gateway wallet
 *VaultsApi* | [**getAssetWallets**](docs/apis/VaultsApi.md#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
+*VaultsApi* | [**getCircleGatewayWalletInfoBeta**](docs/apis/VaultsApi.md#getCircleGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/circle_gateway | Get Circle Gateway wallet info
 *VaultsApi* | [**getCreateMultipleDepositAddressesJobStatus**](docs/apis/VaultsApi.md#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 *VaultsApi* | [**getCreateMultipleVaultAccountsJobStatus**](docs/apis/VaultsApi.md#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
 *VaultsApi* | [**getMaxBipIndexUsed**](docs/apis/VaultsApi.md#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used
@@ -678,6 +689,8 @@ Class | Method | HTTP request | Description
  - [ChapsAddress](docs/models/ChapsAddress.md)
  - [ChapsDestination](docs/models/ChapsDestination.md)
  - [ChapsPaymentInfo](docs/models/ChapsPaymentInfo.md)
+ - [CircleGatewayWalletInfoResponse](docs/models/CircleGatewayWalletInfoResponse.md)
+ - [CircleGatewayWalletStatusResponse](docs/models/CircleGatewayWalletStatusResponse.md)
  - [ClaimRewardsRequest](docs/models/ClaimRewardsRequest.md)
  - [CollectionBurnRequestDto](docs/models/CollectionBurnRequestDto.md)
  - [CollectionBurnResponseDto](docs/models/CollectionBurnResponseDto.md)
@@ -757,6 +770,8 @@ Class | Method | HTTP request | Description
  - [ConvertAssetsResponse](docs/models/ConvertAssetsResponse.md)
  - [Cosigner](docs/models/Cosigner.md)
  - [CosignersPaginatedResponse](docs/models/CosignersPaginatedResponse.md)
+ - [CounterpartyGroup](docs/models/CounterpartyGroup.md)
+ - [CounterpartyGroupsPaginatedResponse](docs/models/CounterpartyGroupsPaginatedResponse.md)
  - [CreateAPIUser](docs/models/CreateAPIUser.md)
  - [CreateAddressRequest](docs/models/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/models/CreateAddressResponse.md)
@@ -767,6 +782,7 @@ Class | Method | HTTP request | Description
  - [CreateConsoleUser](docs/models/CreateConsoleUser.md)
  - [CreateContractRequest](docs/models/CreateContractRequest.md)
  - [CreateConversionConfigOperationRequest](docs/models/CreateConversionConfigOperationRequest.md)
+ - [CreateCounterpartyGroupRequest](docs/models/CreateCounterpartyGroupRequest.md)
  - [CreateDisbursementConfigOperationRequest](docs/models/CreateDisbursementConfigOperationRequest.md)
  - [CreateEarnActionRequest](docs/models/CreateEarnActionRequest.md)
  - [CreateEarnActionResponse](docs/models/CreateEarnActionResponse.md)
@@ -1372,6 +1388,7 @@ Class | Method | HTTP request | Description
  - [TRLinkAssetData](docs/models/TRLinkAssetData.md)
  - [TRLinkAssetFormat](docs/models/TRLinkAssetFormat.md)
  - [TRLinkAssetsListPagedResponse](docs/models/TRLinkAssetsListPagedResponse.md)
+ - [TRLinkBeneficiaryPii](docs/models/TRLinkBeneficiaryPii.md)
  - [TRLinkCancelTrmRequest](docs/models/TRLinkCancelTrmRequest.md)
  - [TRLinkConnectIntegrationRequest](docs/models/TRLinkConnectIntegrationRequest.md)
  - [TRLinkCreateCustomerRequest](docs/models/TRLinkCreateCustomerRequest.md)
@@ -1385,10 +1402,16 @@ Class | Method | HTTP request | Description
  - [TRLinkDiscoverableStatus](docs/models/TRLinkDiscoverableStatus.md)
  - [TRLinkFiatValue](docs/models/TRLinkFiatValue.md)
  - [TRLinkGeographicAddressRequest](docs/models/TRLinkGeographicAddressRequest.md)
+ - [TRLinkGetRequiredActionsResponse](docs/models/TRLinkGetRequiredActionsResponse.md)
  - [TRLinkGetSupportedAssetResponse](docs/models/TRLinkGetSupportedAssetResponse.md)
  - [TRLinkIvms](docs/models/TRLinkIvms.md)
  - [TRLinkIvmsResponse](docs/models/TRLinkIvmsResponse.md)
  - [TRLinkJwkPublicKey](docs/models/TRLinkJwkPublicKey.md)
+ - [TRLinkManualDecisionAction](docs/models/TRLinkManualDecisionAction.md)
+ - [TRLinkManualDecisionDestinationDetail](docs/models/TRLinkManualDecisionDestinationDetail.md)
+ - [TRLinkManualDecisionRequest](docs/models/TRLinkManualDecisionRequest.md)
+ - [TRLinkManualDecisionResponse](docs/models/TRLinkManualDecisionResponse.md)
+ - [TRLinkManualDecisionSource](docs/models/TRLinkManualDecisionSource.md)
  - [TRLinkMissingTrmAction](docs/models/TRLinkMissingTrmAction.md)
  - [TRLinkMissingTrmAction2](docs/models/TRLinkMissingTrmAction2.md)
  - [TRLinkMissingTrmActionEnum](docs/models/TRLinkMissingTrmActionEnum.md)
@@ -1419,6 +1442,11 @@ Class | Method | HTTP request | Description
  - [TRLinkRegistrationResultFullPayload](docs/models/TRLinkRegistrationResultFullPayload.md)
  - [TRLinkRegistrationStatus](docs/models/TRLinkRegistrationStatus.md)
  - [TRLinkRegistrationStatusEnum](docs/models/TRLinkRegistrationStatusEnum.md)
+ - [TRLinkRequiredAction](docs/models/TRLinkRequiredAction.md)
+ - [TRLinkRequiredActionData](docs/models/TRLinkRequiredActionData.md)
+ - [TRLinkRequiredField](docs/models/TRLinkRequiredField.md)
+ - [TRLinkResolveActionData](docs/models/TRLinkResolveActionData.md)
+ - [TRLinkResolveActionRequest](docs/models/TRLinkResolveActionRequest.md)
  - [TRLinkResult](docs/models/TRLinkResult.md)
  - [TRLinkResultFullPayload](docs/models/TRLinkResultFullPayload.md)
  - [TRLinkRuleBase](docs/models/TRLinkRuleBase.md)
@@ -1566,6 +1594,7 @@ Class | Method | HTTP request | Description
  - [UpdateAssetUserMetadataRequest](docs/models/UpdateAssetUserMetadataRequest.md)
  - [UpdateCallbackHandlerRequest](docs/models/UpdateCallbackHandlerRequest.md)
  - [UpdateCallbackHandlerResponse](docs/models/UpdateCallbackHandlerResponse.md)
+ - [UpdateCounterpartyGroupRequest](docs/models/UpdateCounterpartyGroupRequest.md)
  - [UpdateDraftRequest](docs/models/UpdateDraftRequest.md)
  - [UpdateLegalEntityRequest](docs/models/UpdateLegalEntityRequest.md)
  - [UpdateTagRequest](docs/models/UpdateTagRequest.md)

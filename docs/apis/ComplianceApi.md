@@ -7,19 +7,23 @@ Method | HTTP request | Description
 [**activateByorkConfig**](#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light
 [**addAddressRegistryVaultOptOuts**](#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list
 [**assignVaultsToLegalEntity**](#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity
+[**createCounterpartyGroup**](#createCounterpartyGroup) | **POST** /counterparty_groups | Create a counterparty group
 [**deactivateByorkConfig**](#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
+[**deleteCounterpartyGroup**](#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group
 [**getAddressRegistryTenantParticipationStatus**](#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
 [**getAddressRegistryVaultOptOut**](#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 [**getAmlPostScreeningPolicy**](#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 [**getAmlScreeningPolicy**](#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
 [**getByorkConfig**](#getByorkConfig) | **GET** /screening/byork/config | Get BYORK Light configuration
 [**getByorkVerdict**](#getByorkVerdict) | **GET** /screening/byork/verdict | Get BYORK Light verdict
+[**getCounterpartyGroup**](#getCounterpartyGroup) | **GET** /counterparty_groups/{groupId} | Get a counterparty group
 [**getLegalEntity**](#getLegalEntity) | **GET** /legal_entities/{legalEntityId} | Get a legal entity
 [**getLegalEntityForAddress**](#getLegalEntityForAddress) | **GET** /address_registry/legal_entities/{address} | Look up legal entity by blockchain address
 [**getPostScreeningPolicy**](#getPostScreeningPolicy) | **GET** /screening/travel_rule/post_screening_policy | Travel Rule - View Post-Screening Policy
 [**getScreeningFullDetails**](#getScreeningFullDetails) | **GET** /screening/transaction/{txId} | Provides all the compliance details for the given screened transaction.
 [**getScreeningPolicy**](#getScreeningPolicy) | **GET** /screening/travel_rule/screening_policy | Travel Rule - View Screening Policy
 [**listAddressRegistryVaultOptOuts**](#listAddressRegistryVaultOptOuts) | **GET** /address_registry/vaults | List vault-level address registry opt-outs (paginated)
+[**listCounterpartyGroups**](#listCounterpartyGroups) | **GET** /counterparty_groups | List counterparty groups
 [**listLegalEntities**](#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated)
 [**listVaultsForLegalEntity**](#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated)
 [**optInAddressRegistryTenant**](#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry
@@ -32,6 +36,7 @@ Method | HTTP request | Description
 [**setByorkTimeouts**](#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts
 [**setByorkVerdict**](#setByorkVerdict) | **POST** /screening/byork/verdict | Set BYORK Light verdict
 [**updateAmlScreeningConfiguration**](#updateAmlScreeningConfiguration) | **PUT** /screening/aml/policy_configuration | Update AML Configuration
+[**updateCounterpartyGroup**](#updateCounterpartyGroup) | **PATCH** /counterparty_groups/{groupId} | Update a counterparty group
 [**updateLegalEntity**](#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 [**updateScreeningConfiguration**](#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 [**updateTravelRuleConfig**](#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
@@ -165,7 +170,7 @@ No authorization required
 # **assignVaultsToLegalEntity**
 > AssignVaultsToLegalEntityResponse assignVaultsToLegalEntity(assignVaultsToLegalEntityRequest, )
 
-Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Assigns one or more vault accounts to a specific legal entity registration. Explicitly mapped vault accounts take precedence over the workspace default legal entity. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -229,6 +234,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **createCounterpartyGroup**
+> CounterpartyGroup createCounterpartyGroup(createCounterpartyGroupRequest)
+
+Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiCreateCounterpartyGroupRequest, CounterpartyGroup } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiCreateCounterpartyGroupRequest = {
+  // CreateCounterpartyGroupRequest
+  createCounterpartyGroupRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.createCounterpartyGroup(body).then((res: FireblocksResponse<CounterpartyGroup>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createCounterpartyGroupRequest** | **[CreateCounterpartyGroupRequest](../models/CreateCounterpartyGroupRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CounterpartyGroup](../models/CounterpartyGroup.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Counterparty group created successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **deactivateByorkConfig**
 > ByorkConfigResponse deactivateByorkConfig()
 
@@ -286,6 +354,67 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | BYORK configuration deactivated. |  * X-Request-ID -  <br>  |
 **400** | BYORK Light not enabled for tenant. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteCounterpartyGroup**
+> deleteCounterpartyGroup()
+
+Permanently deletes a counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiDeleteCounterpartyGroupRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiDeleteCounterpartyGroupRequest = {
+  // string | The unique identifier of the counterparty group
+  groupId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+};
+
+fireblocks.compliance.deleteCounterpartyGroup(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | [**string**] | The unique identifier of the counterparty group | defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Counterparty group deleted successfully |  * X-Request-ID -  <br>  |
+**404** | Counterparty group not found |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -629,10 +758,71 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getCounterpartyGroup**
+> CounterpartyGroup getCounterpartyGroup()
+
+Returns the details of a specific counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiGetCounterpartyGroupRequest, CounterpartyGroup } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiGetCounterpartyGroupRequest = {
+  // string | The unique identifier of the counterparty group
+  groupId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+};
+
+fireblocks.compliance.getCounterpartyGroup(body).then((res: FireblocksResponse<CounterpartyGroup>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupId** | [**string**] | The unique identifier of the counterparty group | defaults to undefined
+
+
+### Return type
+
+**[CounterpartyGroup](../models/CounterpartyGroup.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A counterparty group object |  * X-Request-ID -  <br>  |
+**404** | Counterparty group not found |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getLegalEntity**
 > LegalEntityRegistration getLegalEntity()
 
-Returns details of a specific legal entity registration, including GLEIF data when available. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns details of a specific legal entity registration, including GLEIF data when available. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -985,10 +1175,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **listCounterpartyGroups**
+> CounterpartyGroupsPaginatedResponse listCounterpartyGroups()
+
+Returns a paginated list of counterparty groups.  **Endpoint Permissions:** Admin, Non-Signing Admin, Viewer. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiListCounterpartyGroupsRequest, CounterpartyGroupsPaginatedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiListCounterpartyGroupsRequest = {
+  // string | Cursor of the required page (optional)
+  pageCursor: pageCursor_example,
+  // number | Maximum number of items in the page (optional)
+  pageSize: 56,
+};
+
+fireblocks.compliance.listCounterpartyGroups(body).then((res: FireblocksResponse<CounterpartyGroupsPaginatedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageCursor** | [**string**] | Cursor of the required page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Maximum number of items in the page | (optional) defaults to 50
+
+
+### Return type
+
+**[CounterpartyGroupsPaginatedResponse](../models/CounterpartyGroupsPaginatedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A paginated list of counterparty groups |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **listLegalEntities**
 > ListLegalEntitiesResponse listLegalEntities()
 
-Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns legal entity registrations for the workspace with cursor-based pagination. If query parameter vaultAccountId is used it returns the legal entity registration associated with a specific vault account. If no explicit mapping exists for the vault, the workspace default legal entity is returned. Returns an empty response if neither a vault mapping nor a default legal entity is configured. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1054,7 +1307,7 @@ No authorization required
 # **listVaultsForLegalEntity**
 > ListVaultsForRegistrationResponse listVaultsForLegalEntity()
 
-Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns vault account IDs explicitly assigned to a specific legal entity registration, with cursor-based pagination. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1235,7 +1488,7 @@ No authorization required
 # **registerLegalEntity**
 > LegalEntityRegistration registerLegalEntity(registerLegalEntityRequest)
 
-Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Registers a new legal entity for the workspace using its LEI (Legal Entity Identifier) code. The LEI is validated against the GLEIF registry. Each workspace can register multiple legal entities. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1733,10 +1986,77 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **updateCounterpartyGroup**
+> CounterpartyGroup updateCounterpartyGroup(updateCounterpartyGroupRequest, )
+
+Updates an existing counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiUpdateCounterpartyGroupRequest, CounterpartyGroup } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiUpdateCounterpartyGroupRequest = {
+  // UpdateCounterpartyGroupRequest
+  updateCounterpartyGroupRequest: param_value,
+  // string | The unique identifier of the counterparty group
+  groupId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.updateCounterpartyGroup(body).then((res: FireblocksResponse<CounterpartyGroup>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateCounterpartyGroupRequest** | **[UpdateCounterpartyGroupRequest](../models/UpdateCounterpartyGroupRequest.md)**|  |
+ **groupId** | [**string**] | The unique identifier of the counterparty group | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CounterpartyGroup](../models/CounterpartyGroup.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Counterparty group updated successfully |  * X-Request-ID -  <br>  |
+**404** | Counterparty group not found |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **updateLegalEntity**
 > LegalEntityRegistration updateLegalEntity(updateLegalEntityRequest, )
 
-Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Updates the status of a legal entity registration. Setting isDefault to true marks the registration as the workspace default, which is applied to vault accounts that have no explicit legal entity mapping. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

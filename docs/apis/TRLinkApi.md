@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**connectTRLinkIntegration**](#connectTRLinkIntegration) | **PUT** /screening/trlink/customers/integration/{customerIntegrationId} | Connect customer integration
 [**createTRLinkCustomer**](#createTRLinkCustomer) | **POST** /screening/trlink/customers | Create customer
 [**createTRLinkIntegration**](#createTRLinkIntegration) | **POST** /screening/trlink/customers/integration | Create customer integration
+[**createTRLinkManualDecision**](#createTRLinkManualDecision) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision | Manual decision for missing TRM
 [**createTRLinkTrm**](#createTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm | Create Travel Rule Message
 [**deleteTRLinkCustomer**](#deleteTRLinkCustomer) | **DELETE** /screening/trlink/customers/{customerId} | Delete customer
 [**disconnectTRLinkIntegration**](#disconnectTRLinkIntegration) | **DELETE** /screening/trlink/customers/integration/{customerIntegrationId} | Disconnect customer integration
@@ -21,10 +22,12 @@ Method | HTTP request | Description
 [**getTRLinkPolicy**](#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy
 [**getTRLinkSupportedAsset**](#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID
 [**getTRLinkTrmById**](#getTRLinkTrmById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId} | Get TRM by ID
+[**getTRLinkTrmRequiredActions**](#getTRLinkTrmRequiredActions) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/required_actions | Get required actions for a TRM
 [**getTRLinkVaspById**](#getTRLinkVaspById) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps/{vaspId} | Get VASP by ID
 [**listTRLinkSupportedAssets**](#listTRLinkSupportedAssets) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets | List supported assets
 [**listTRLinkVasps**](#listTRLinkVasps) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/vasps | List VASPs
 [**redirectTRLinkTrm**](#redirectTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/redirect | Redirect Travel Rule Message
+[**resolveActionTRLinkTrm**](#resolveActionTRLinkTrm) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/trm/{trmId}/resolve_action | Resolve action for a TRM
 [**setTRLinkDestinationTravelRuleMessageId**](#setTRLinkDestinationTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/destination/travel_rule_message_id | Set destination travel rule message ID
 [**setTRLinkTransactionTravelRuleMessageId**](#setTRLinkTransactionTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/travel_rule_message_id | Set transaction travel rule message ID
 [**testTRLinkIntegrationConnection**](#testTRLinkIntegrationConnection) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/test_connection | Test connection
@@ -354,6 +357,75 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | Customer integration created successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createTRLinkManualDecision**
+> TRLinkManualDecisionResponse createTRLinkManualDecision(tRLinkManualDecisionRequest, )
+
+Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TRLinkApiCreateTRLinkManualDecisionRequest, TRLinkManualDecisionResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TRLinkApiCreateTRLinkManualDecisionRequest = {
+  // TRLinkManualDecisionRequest
+  tRLinkManualDecisionRequest: param_value,
+  // string | Customer integration unique identifier
+  customerIntegrationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6,
+  // string | Fireblocks transaction unique identifier
+  txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.trLink.createTRLinkManualDecision(body).then((res: FireblocksResponse<TRLinkManualDecisionResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tRLinkManualDecisionRequest** | **[TRLinkManualDecisionRequest](../models/TRLinkManualDecisionRequest.md)**|  |
+ **customerIntegrationId** | [**string**] | Customer integration unique identifier | defaults to undefined
+ **txId** | [**string**] | Fireblocks transaction unique identifier | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[TRLinkManualDecisionResponse](../models/TRLinkManualDecisionResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Decision applied successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1075,6 +1147,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getTRLinkTrmRequiredActions**
+> TRLinkGetRequiredActionsResponse getTRLinkTrmRequiredActions()
+
+Retrieves the list of required actions (e.g., PII fields) needed to process the Travel Rule Message.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TRLinkApiGetTRLinkTrmRequiredActionsRequest, TRLinkGetRequiredActionsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TRLinkApiGetTRLinkTrmRequiredActionsRequest = {
+  // string | Customer integration unique identifier
+  customerIntegrationId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  // string | Travel Rule Message unique identifier
+  trmId: trmId_example,
+};
+
+fireblocks.trLink.getTRLinkTrmRequiredActions(body).then((res: FireblocksResponse<TRLinkGetRequiredActionsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customerIntegrationId** | [**string**] | Customer integration unique identifier | defaults to undefined
+ **trmId** | [**string**] | Travel Rule Message unique identifier | defaults to undefined
+
+
+### Return type
+
+**[TRLinkGetRequiredActionsResponse](../models/TRLinkGetRequiredActionsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Required actions retrieved successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getTRLinkVaspById**
 > TRLinkVaspDto getTRLinkVaspById()
 
@@ -1335,6 +1470,75 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Transaction redirect request accepted |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **resolveActionTRLinkTrm**
+> TRLinkTrmInfoResponse resolveActionTRLinkTrm(tRLinkResolveActionRequest, )
+
+Submits required data (e.g., beneficiary PII) to resolve a pending Travel Rule Message action.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TRLinkApiResolveActionTRLinkTrmRequest, TRLinkTrmInfoResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TRLinkApiResolveActionTRLinkTrmRequest = {
+  // TRLinkResolveActionRequest
+  tRLinkResolveActionRequest: param_value,
+  // string | Customer integration unique identifier
+  customerIntegrationId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  // string | Travel Rule Message unique identifier
+  trmId: trmId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.trLink.resolveActionTRLinkTrm(body).then((res: FireblocksResponse<TRLinkTrmInfoResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **tRLinkResolveActionRequest** | **[TRLinkResolveActionRequest](../models/TRLinkResolveActionRequest.md)**|  |
+ **customerIntegrationId** | [**string**] | Customer integration unique identifier | defaults to undefined
+ **trmId** | [**string**] | Travel Rule Message unique identifier | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[TRLinkTrmInfoResponse](../models/TRLinkTrmInfoResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Action resolved successfully |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -49,7 +49,7 @@ import { SettlementResponse } from '../models';
 export const OffExchangesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add Collateral
          * @param {AddCollateralRequestBody} [addCollateralRequestBody] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -88,7 +88,7 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a specific collateral exchange account
          * @param {string} mainExchangeAccountId The id of the main exchange account for which the requested collateral account is associated with
          * @param {*} [options] Override http request option.
@@ -121,7 +121,7 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Get Settlements Transactions
          * @param {string} mainExchangeAccountId 
          * @param {*} [options] Override http request option.
@@ -157,7 +157,7 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Remove Collateral
          * @param {RemoveCollateralRequestBody} [removeCollateralRequestBody] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -196,7 +196,7 @@ export const OffExchangesApiAxiosParamCreator = function (configuration?: Config
             };
         },
         /**
-         * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create Settlement for a Trader
          * @param {SettlementRequestBody} [settlementRequestBody] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -245,7 +245,7 @@ export const OffExchangesApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = OffExchangesApiAxiosParamCreator(configuration)
     return {
         /**
-         * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add Collateral
          * @param {AddCollateralRequestBody} [addCollateralRequestBody] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -259,7 +259,7 @@ export const OffExchangesApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a specific collateral exchange account
          * @param {string} mainExchangeAccountId The id of the main exchange account for which the requested collateral account is associated with
          * @param {*} [options] Override http request option.
@@ -272,7 +272,7 @@ export const OffExchangesApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Get Settlements Transactions
          * @param {string} mainExchangeAccountId 
          * @param {*} [options] Override http request option.
@@ -285,7 +285,7 @@ export const OffExchangesApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Remove Collateral
          * @param {RemoveCollateralRequestBody} [removeCollateralRequestBody] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -299,7 +299,7 @@ export const OffExchangesApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create Settlement for a Trader
          * @param {SettlementRequestBody} [settlementRequestBody] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -323,7 +323,7 @@ export const OffExchangesApiFactory = function (configuration?: Configuration, b
     const localVarFp = OffExchangesApiFp(configuration)
     return {
         /**
-         * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Add Collateral
          * @param {OffExchangesApiAddOffExchangeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -333,7 +333,7 @@ export const OffExchangesApiFactory = function (configuration?: Configuration, b
             return localVarFp.addOffExchange(requestParameters.addCollateralRequestBody, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Find a specific collateral exchange account
          * @param {OffExchangesApiGetOffExchangeCollateralAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -343,7 +343,7 @@ export const OffExchangesApiFactory = function (configuration?: Configuration, b
             return localVarFp.getOffExchangeCollateralAccounts(requestParameters.mainExchangeAccountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Get Settlements Transactions
          * @param {OffExchangesApiGetOffExchangeSettlementTransactionsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -353,7 +353,7 @@ export const OffExchangesApiFactory = function (configuration?: Configuration, b
             return localVarFp.getOffExchangeSettlementTransactions(requestParameters.mainExchangeAccountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Remove Collateral
          * @param {OffExchangesApiRemoveOffExchangeRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -363,7 +363,7 @@ export const OffExchangesApiFactory = function (configuration?: Configuration, b
             return localVarFp.removeOffExchange(requestParameters.removeCollateralRequestBody, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Create Settlement for a Trader
          * @param {OffExchangesApiSettleOffExchangeTradesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -474,7 +474,7 @@ export interface OffExchangesApiSettleOffExchangeTradesRequest {
  */
 export class OffExchangesApi extends BaseAPI {
     /**
-     * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Add Collateral
      * @param {OffExchangesApiAddOffExchangeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -486,7 +486,7 @@ export class OffExchangesApi extends BaseAPI {
     }
 
     /**
-     * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Find a specific collateral exchange account
      * @param {OffExchangesApiGetOffExchangeCollateralAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -498,7 +498,7 @@ export class OffExchangesApi extends BaseAPI {
     }
 
     /**
-     * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Get Settlements Transactions
      * @param {OffExchangesApiGetOffExchangeSettlementTransactionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -510,7 +510,7 @@ export class OffExchangesApi extends BaseAPI {
     }
 
     /**
-     * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Remove Collateral
      * @param {OffExchangesApiRemoveOffExchangeRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -522,7 +522,7 @@ export class OffExchangesApi extends BaseAPI {
     }
 
     /**
-     * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Create Settlement for a Trader
      * @param {OffExchangesApiSettleOffExchangeTradesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 # **addOffExchange**
 > CreateTransactionResponse addOffExchange()
 
-Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Add collateral and create deposit request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -77,7 +77,7 @@ No authorization required
 # **getOffExchangeCollateralAccounts**
 > ExchangeAccount getOffExchangeCollateralAccounts()
 
-Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns a collateral account by mainExchangeAccountId. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -137,7 +137,7 @@ No authorization required
 # **getOffExchangeSettlementTransactions**
 > ExchangeSettlementTransactionsResponse getOffExchangeSettlementTransactions()
 
-Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Get settlements transactions from exchange. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -197,7 +197,7 @@ No authorization required
 # **removeOffExchange**
 > CreateTransactionResponse removeOffExchange()
 
-Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Remove collateral, create withdraw request. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -260,7 +260,7 @@ No authorization required
 # **settleOffExchangeTrades**
 > SettlementResponse settleOffExchangeTrades()
 
-Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Create settlement for a trader. Learn more about Fireblocks Off Exchange in the following [guide](https://developers.fireblocks.com/docs/off-exchange). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

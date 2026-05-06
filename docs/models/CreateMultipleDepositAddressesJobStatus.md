@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**status** | **string** |  | [default to undefined]|
+|**status** | **string** | Status of the job. Possible values - Success, In Progress, Failed | [default to undefined]|
 |**addresses** | [**Array&lt;NewAddress&gt;**](NewAddress.md) |  | [optional] [default to undefined]|
 |**errorMessage** | **string** |  | [optional] [default to undefined]|
 

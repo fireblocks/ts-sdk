@@ -11,7 +11,7 @@ Method | HTTP request | Description
 # **getUtxos**
 > ListUtxosResponse getUtxos()
 
-Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -113,7 +113,7 @@ No authorization required
 # **updateUtxoLabels**
 > AttachDetachUtxoLabelsResponse updateUtxoLabels(attachDetachUtxoLabelsRequest, )
 
-Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

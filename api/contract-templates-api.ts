@@ -198,7 +198,7 @@ export const ContractTemplatesApiAxiosParamCreator = function (configuration?: C
             };
         },
         /**
-         * Return minimal representation of all the contract templates available for the workspace. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Return minimal representation of all the contract templates available for the workspace. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List all contract templates
          * @param {number} [limit] Items per page (max 100)
          * @param {number} [offset] Paging offset
@@ -435,7 +435,7 @@ export const ContractTemplatesApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Return minimal representation of all the contract templates available for the workspace. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Return minimal representation of all the contract templates available for the workspace. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List all contract templates
          * @param {number} [limit] Items per page (max 100)
          * @param {number} [offset] Paging offset
@@ -544,7 +544,7 @@ export const ContractTemplatesApiFactory = function (configuration?: Configurati
             return localVarFp.getContractTemplateById(requestParameters.contractTemplateId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Return minimal representation of all the contract templates available for the workspace. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Return minimal representation of all the contract templates available for the workspace. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List all contract templates
          * @param {ContractTemplatesApiGetContractTemplatesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -824,7 +824,7 @@ export class ContractTemplatesApi extends BaseAPI {
     }
 
     /**
-     * Return minimal representation of all the contract templates available for the workspace. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Return minimal representation of all the contract templates available for the workspace. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List all contract templates
      * @param {ContractTemplatesApiGetContractTemplatesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -11,6 +11,7 @@
 |**country** | **string** | The country for the transfer (ISO 3166-1 alpha-2 code) | [default to undefined]|
 |**mobilePhoneNumber** | **string** | The mobile phone number associated with the mobile money account | [default to undefined]|
 |**provider** | **string** | The mobile money service provider | [default to undefined]|
+|**email** | **string** | The email address of the account holder | [default to undefined]|
 |**beneficiaryDocumentId** | **string** | The document ID of the beneficiary | [optional] [default to undefined]|
 |**beneficiaryRelationship** | **string** | The relationship between sender and beneficiary | [optional] [default to undefined]|
 
@@ -39,6 +40,8 @@
 * `Mtn` (value: `'MTN'`)
 
 * `Tigo` (value: `'TIGO'`)
+
+* `Wave` (value: `'WAVE'`)
 
 
 

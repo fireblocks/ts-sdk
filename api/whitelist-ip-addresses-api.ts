@@ -39,7 +39,7 @@ import { GetWhitelistIpAddressesResponse } from '../models';
 export const WhitelistIpAddressesApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get whitelisted ip addresses for an API Key
          * @param {string} userId The ID of the api user
          * @param {*} [options] Override http request option.
@@ -82,7 +82,7 @@ export const WhitelistIpAddressesApiFp = function(configuration?: Configuration)
     const localVarAxiosParamCreator = WhitelistIpAddressesApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get whitelisted ip addresses for an API Key
          * @param {string} userId The ID of the api user
          * @param {*} [options] Override http request option.
@@ -105,7 +105,7 @@ export const WhitelistIpAddressesApiFactory = function (configuration?: Configur
     const localVarFp = WhitelistIpAddressesApiFp(configuration)
     return {
         /**
-         * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Get whitelisted ip addresses for an API Key
          * @param {WhitelistIpAddressesApiGetWhitelistIpAddressesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -139,7 +139,7 @@ export interface WhitelistIpAddressesApiGetWhitelistIpAddressesRequest {
  */
 export class WhitelistIpAddressesApi extends BaseAPI {
     /**
-     * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Get a list of the whitelisted IP addresses for a specific API Key - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Get whitelisted ip addresses for an API Key
      * @param {WhitelistIpAddressesApiGetWhitelistIpAddressesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

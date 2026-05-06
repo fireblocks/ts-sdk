@@ -35,7 +35,7 @@ import { GetWorkspaceStatusResponse } from '../models';
 export const WorkspaceStatusBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Returns current workspace status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -75,7 +75,7 @@ export const WorkspaceStatusBetaApiFp = function(configuration?: Configuration) 
     const localVarAxiosParamCreator = WorkspaceStatusBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Returns current workspace status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -97,7 +97,7 @@ export const WorkspaceStatusBetaApiFactory = function (configuration?: Configura
     const localVarFp = WorkspaceStatusBetaApiFp(configuration)
     return {
         /**
-         * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Returns current workspace status
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -116,7 +116,7 @@ export const WorkspaceStatusBetaApiFactory = function (configuration?: Configura
  */
 export class WorkspaceStatusBetaApi extends BaseAPI {
     /**
-     * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Returns current workspace status (Beta). **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions.  Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Returns current workspace status
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

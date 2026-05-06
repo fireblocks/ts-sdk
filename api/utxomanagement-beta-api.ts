@@ -41,7 +41,7 @@ import { ListUtxosResponse } from '../models';
 export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List unspent outputs (UTXOs)
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -142,7 +142,7 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Attach or detach labels to/from UTXOs
          * @param {AttachDetachUtxoLabelsRequest} attachDetachUtxoLabelsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -198,7 +198,7 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UTXOManagementBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List unspent outputs (UTXOs)
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -225,7 +225,7 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Attach or detach labels to/from UTXOs
          * @param {AttachDetachUtxoLabelsRequest} attachDetachUtxoLabelsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -251,7 +251,7 @@ export const UTXOManagementBetaApiFactory = function (configuration?: Configurat
     const localVarFp = UTXOManagementBetaApiFp(configuration)
     return {
         /**
-         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List unspent outputs (UTXOs)
          * @param {UTXOManagementBetaApiGetUtxosRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -261,7 +261,7 @@ export const UTXOManagementBetaApiFactory = function (configuration?: Configurat
             return localVarFp.getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, requestParameters.useChange, requestParameters.useCoinbase, options).then((request) => request(axios, basePath));
         },
         /**
-         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Attach or detach labels to/from UTXOs
          * @param {UTXOManagementBetaApiUpdateUtxoLabelsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -428,7 +428,7 @@ export interface UTXOManagementBetaApiUpdateUtxoLabelsRequest {
  */
 export class UTXOManagementBetaApi extends BaseAPI {
     /**
-     * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List unspent outputs (UTXOs)
      * @param {UTXOManagementBetaApiGetUtxosRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -440,7 +440,7 @@ export class UTXOManagementBetaApi extends BaseAPI {
     }
 
     /**
-     * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Attach or detach labels to/from UTXOs
      * @param {UTXOManagementBetaApiUpdateUtxoLabelsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -5,6 +5,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**activateAssetForVaultAccount**](#activateAssetForVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/activate | Activate a wallet in a vault account
+[**activateCircleGatewayWalletBeta**](#activateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/activate | Activate a Circle Gateway wallet
 [**attachOrDetachTagsFromVaultAccounts**](#attachOrDetachTagsFromVaultAccounts) | **POST** /vault/accounts/attached_tags | Attach or detach tags from vault accounts
 [**createLegacyAddress**](#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 [**createMultipleAccounts**](#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
@@ -12,7 +13,9 @@ Method | HTTP request | Description
 [**createVaultAccount**](#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 [**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
+[**deactivateCircleGatewayWalletBeta**](#deactivateCircleGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/circle_gateway/deactivate | Deactivate a Circle Gateway wallet
 [**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
+[**getCircleGatewayWalletInfoBeta**](#getCircleGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/circle_gateway | Get Circle Gateway wallet info
 [**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 [**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
 [**getMaxBipIndexUsed**](#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used
@@ -39,7 +42,7 @@ Method | HTTP request | Description
 # **activateAssetForVaultAccount**
 > CreateVaultAssetResponse activateAssetForVaultAccount()
 
-Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -101,6 +104,69 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | OK |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **activateCircleGatewayWalletBeta**
+> CircleGatewayWalletStatusResponse activateCircleGatewayWalletBeta()
+
+Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiActivateCircleGatewayWalletBetaRequest, CircleGatewayWalletStatusResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiActivateCircleGatewayWalletBetaRequest = {
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.activateCircleGatewayWalletBeta(body).then((res: FireblocksResponse<CircleGatewayWalletStatusResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CircleGatewayWalletStatusResponse](../models/CircleGatewayWalletStatusResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Circle Gateway wallet activated successfully |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -172,7 +238,7 @@ No authorization required
 # **createLegacyAddress**
 > CreateAddressResponse createLegacyAddress()
 
-Converts an existing segwit address to the legacy format. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Converts an existing segwit address to the legacy format. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -367,7 +433,7 @@ No authorization required
 # **createVaultAccount**
 > VaultAccount createVaultAccount(createVaultAccountRequest)
 
-Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -430,7 +496,7 @@ No authorization required
 # **createVaultAccountAsset**
 > CreateVaultAssetResponse createVaultAccountAsset()
 
-Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Creates a wallet for a specific asset in a vault account. Learn more about Fireblocks Vault Wallets in the following [guide](https://developers.fireblocks.com/reference/create-vault-wallet). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -502,7 +568,7 @@ No authorization required
 # **createVaultAccountAssetAddress**
 > CreateAddressResponse createVaultAccountAssetAddress()
 
-Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  </br>Endpoint Permission: Admin, Non-Signing Admin.
+Creates a new deposit address for an asset of a vault account. Should be used for UTXO or Tag/Memo based assets ONLY.  Requests with account based assets will fail.  Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -568,10 +634,73 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **deactivateCircleGatewayWalletBeta**
+> CircleGatewayWalletStatusResponse deactivateCircleGatewayWalletBeta()
+
+Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiDeactivateCircleGatewayWalletBetaRequest, CircleGatewayWalletStatusResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiDeactivateCircleGatewayWalletBetaRequest = {
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.deactivateCircleGatewayWalletBeta(body).then((res: FireblocksResponse<CircleGatewayWalletStatusResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CircleGatewayWalletStatusResponse](../models/CircleGatewayWalletStatusResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Circle Gateway wallet deactivated successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getAssetWallets**
 > PaginatedAssetWalletResponse getAssetWallets()
 
-Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -639,6 +768,66 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A PaginatedAssetWalletResponse object |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getCircleGatewayWalletInfoBeta**
+> CircleGatewayWalletInfoResponse getCircleGatewayWalletInfoBeta()
+
+Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetCircleGatewayWalletInfoBetaRequest, CircleGatewayWalletInfoResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetCircleGatewayWalletInfoBetaRequest = {
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+};
+
+fireblocks.vaults.getCircleGatewayWalletInfoBeta(body).then((res: FireblocksResponse<CircleGatewayWalletInfoResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+
+
+### Return type
+
+**[CircleGatewayWalletInfoResponse](../models/CircleGatewayWalletInfoResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Circle Gateway wallet information |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
@@ -894,7 +1083,7 @@ No authorization required
 # **getPagedVaultAccounts**
 > VaultAccountsPagedResponse getPagedVaultAccounts()
 
-Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -983,7 +1172,7 @@ No authorization required
 # **getPublicKeyInfo**
 > PublicKeyInformation getPublicKeyInfo()
 
-Gets the public key information based on derivation path and signing algorithm. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Gets the public key information based on derivation path and signing algorithm. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1049,7 +1238,7 @@ No authorization required
 # **getPublicKeyInfoForAddress**
 > PublicKeyInformation getPublicKeyInfoForAddress()
 
-Get the public key information for a specific asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Get the public key information for a specific asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1121,7 +1310,7 @@ No authorization required
 # **getUnspentInputs**
 > GetUnspentInputsResponse getUnspentInputs()
 
-Returns unspent inputs information of an UTXO asset in a vault account.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns unspent inputs information of an UTXO asset in a vault account.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1184,7 +1373,7 @@ No authorization required
 # **getVaultAccount**
 > VaultAccount getVaultAccount()
 
-Get a vault account by its unique ID. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1244,7 +1433,7 @@ No authorization required
 # **getVaultAccountAsset**
 > VaultAsset getVaultAccountAsset()
 
-Returns a specific vault wallet balance information for a specific asset.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
+Returns a specific vault wallet balance information for a specific asset.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor,   Viewer.
 
 ### Example
 
@@ -1307,7 +1496,7 @@ No authorization required
 # **getVaultAccountAssetAddressesPaginated**
 > PaginatedAddressResponse getVaultAccountAssetAddressesPaginated()
 
-Returns a paginated response of the addresses for a given vault account and asset. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1379,7 +1568,7 @@ No authorization required
 # **getVaultAssets**
 > GetVaultAssetsResponse getVaultAssets()
 
-Gets the assets amount summary for all accounts or filtered accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1442,7 +1631,7 @@ No authorization required
 # **getVaultBalanceByAsset**
 > VaultAsset getVaultBalanceByAsset()
 
-Get the total balance of an asset across all the vault accounts.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Get the total balance of an asset across all the vault accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1502,7 +1691,7 @@ No authorization required
 # **hideVaultAccount**
 > VaultActionStatus hideVaultAccount()
 
-Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Hides the requested vault account from the web console view. This operation is required when creating thousands of vault accounts to serve your end-users. Used for preventing the web console to be swamped with too much vault accounts. Learn more in the following [guide](https://developers.fireblocks.com/docs/create-direct-custody-wallets#hiding-vault-accounts). NOTE: Hiding the vault account from the web console will also hide all the related transactions to/from this vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1565,7 +1754,7 @@ No authorization required
 # **setCustomerRefIdForAddress**
 > VaultActionStatus setCustomerRefIdForAddress(setCustomerRefIdForAddressRequest, )
 
-Sets an AML/KYT customer reference ID for a specific address. </br>Endpoint Permission: Admin, Non-Signing Admin.
+Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1637,7 +1826,7 @@ No authorization required
 # **setVaultAccountAutoFuel**
 > VaultActionStatus setVaultAccountAutoFuel(setAutoFuelRequest, )
 
-Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1703,7 +1892,7 @@ No authorization required
 # **setVaultAccountCustomerRefId**
 > VaultActionStatus setVaultAccountCustomerRefId(setCustomerRefIdRequest, )
 
-Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). </br>Endpoint Permission: Admin, Non-Signing Admin.
+Assigns an AML/KYT customer reference ID for the vault account. Learn more about Fireblocks AML management in the following [guide](https://developers.fireblocks.com/docs/define-aml-policies). Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -1769,7 +1958,7 @@ No authorization required
 # **unhideVaultAccount**
 > VaultActionStatus unhideVaultAccount()
 
-Makes a hidden vault account visible in web console view. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Makes a hidden vault account visible in web console view. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1832,7 +2021,7 @@ No authorization required
 # **updateVaultAccount**
 > RenameVaultAccountResponse updateVaultAccount(updateVaultAccountRequest, )
 
-Renames the requested vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -1898,7 +2087,7 @@ No authorization required
 # **updateVaultAccountAssetAddress**
 > VaultActionStatus updateVaultAccountAssetAddress()
 
-Updates the description of an existing address of an asset in a vault account. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Updates the description of an existing address of an asset in a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -1970,7 +2159,7 @@ No authorization required
 # **updateVaultAccountAssetBalance**
 > VaultAsset updateVaultAccountAssetBalance()
 
-Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Updates the balance of a specific asset in a vault account.  This API endpoint is subject to a strict rate limit. Should be used by clients in very specific scenarios.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

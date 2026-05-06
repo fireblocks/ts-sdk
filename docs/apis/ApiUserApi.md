@@ -11,7 +11,7 @@ Method | HTTP request | Description
 # **createApiUser**
 > createApiUser()
 
-Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). </br>Endpoint Permission: Admin, Non-Signing Admin.
+Create a new API key in your workspace. Learn more about Fireblocks API Keys management in the following [guide](https://developers.fireblocks.com/docs/manage-api-keys). Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -78,7 +78,7 @@ No authorization required
 # **getApiUsers**
 > GetAPIUsersResponse getApiUsers()
 
-List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+List all API keys in your workspace. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 

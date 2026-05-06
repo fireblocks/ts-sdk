@@ -47,7 +47,7 @@ import { UserGroupsResponse } from '../models';
 export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create a new user group. Users with the Viewer role cannot be added to groups. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create user group
          * @param {UserGroupCreateRequest} userGroupCreateRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -87,7 +87,7 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Delete a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Delete a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Delete user group
          * @param {string} groupId The ID of the user group
          * @param {*} [options] Override http request option.
@@ -120,7 +120,7 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Get a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Get a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Get user group
          * @param {string} groupId The ID of the user group
          * @param {*} [options] Override http request option.
@@ -153,7 +153,7 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List user groups
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -183,7 +183,7 @@ export const UserGroupsBetaApiAxiosParamCreator = function (configuration?: Conf
             };
         },
         /**
-         * Update a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Update a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Update user group
          * @param {UserGroupUpdateRequest} userGroupUpdateRequest 
          * @param {string} groupId The ID of the user group
@@ -236,7 +236,7 @@ export const UserGroupsBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserGroupsBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create a new user group. Users with the Viewer role cannot be added to groups. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create user group
          * @param {UserGroupCreateRequest} userGroupCreateRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -250,7 +250,7 @@ export const UserGroupsBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Delete a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Delete a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Delete user group
          * @param {string} groupId The ID of the user group
          * @param {*} [options] Override http request option.
@@ -263,7 +263,7 @@ export const UserGroupsBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Get a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Get user group
          * @param {string} groupId The ID of the user group
          * @param {*} [options] Override http request option.
@@ -276,7 +276,7 @@ export const UserGroupsBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List user groups
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -288,7 +288,7 @@ export const UserGroupsBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Update a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Update a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Update user group
          * @param {UserGroupUpdateRequest} userGroupUpdateRequest 
          * @param {string} groupId The ID of the user group
@@ -313,7 +313,7 @@ export const UserGroupsBetaApiFactory = function (configuration?: Configuration,
     const localVarFp = UserGroupsBetaApiFp(configuration)
     return {
         /**
-         * Create a new user group. Users with the Viewer role cannot be added to groups. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Create user group
          * @param {UserGroupsBetaApiCreateUserGroupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -323,7 +323,7 @@ export const UserGroupsBetaApiFactory = function (configuration?: Configuration,
             return localVarFp.createUserGroup(requestParameters.userGroupCreateRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Delete a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Delete user group
          * @param {UserGroupsBetaApiDeleteUserGroupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -333,7 +333,7 @@ export const UserGroupsBetaApiFactory = function (configuration?: Configuration,
             return localVarFp.deleteUserGroup(requestParameters.groupId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Get a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Get user group
          * @param {UserGroupsBetaApiGetUserGroupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -343,7 +343,7 @@ export const UserGroupsBetaApiFactory = function (configuration?: Configuration,
             return localVarFp.getUserGroup(requestParameters.groupId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+         * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary List user groups
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -352,7 +352,7 @@ export const UserGroupsBetaApiFactory = function (configuration?: Configuration,
             return localVarFp.getUserGroups(options).then((request) => request(axios, basePath));
         },
         /**
-         * Update a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+         * Update a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
          * @summary Update user group
          * @param {UserGroupsBetaApiUpdateUserGroupRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -449,7 +449,7 @@ export interface UserGroupsBetaApiUpdateUserGroupRequest {
  */
 export class UserGroupsBetaApi extends BaseAPI {
     /**
-     * Create a new user group. Users with the Viewer role cannot be added to groups. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Create a new user group. Users with the Viewer role cannot be added to groups. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Create user group
      * @param {UserGroupsBetaApiCreateUserGroupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -461,7 +461,7 @@ export class UserGroupsBetaApi extends BaseAPI {
     }
 
     /**
-     * Delete a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * Delete a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
      * @summary Delete user group
      * @param {UserGroupsBetaApiDeleteUserGroupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -473,7 +473,7 @@ export class UserGroupsBetaApi extends BaseAPI {
     }
 
     /**
-     * Get a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * Get a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
      * @summary Get user group
      * @param {UserGroupsBetaApiGetUserGroupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -485,7 +485,7 @@ export class UserGroupsBetaApi extends BaseAPI {
     }
 
     /**
-     * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. </br>Endpoint Permission: Admin, Non-Signing Admin.
+     * Get all user groups in your workspace  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary List user groups
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -496,7 +496,7 @@ export class UserGroupsBetaApi extends BaseAPI {
     }
 
     /**
-     * Update a user group by ID.</br>  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
+     * Update a user group by ID.  **Note**: - This endpoint is now in Beta, disabled for general availability at this time. - Please note that this endpoint is available only for API keys with Admin permissions. 
      * @summary Update user group
      * @param {UserGroupsBetaApiUpdateUserGroupRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

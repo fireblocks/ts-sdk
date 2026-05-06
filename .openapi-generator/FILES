@@ -158,6 +158,8 @@ ChannelDvnConfigWithConfirmationsSendConfig.md
 ChapsAddress.md
 ChapsDestination.md
 ChapsPaymentInfo.md
+CircleGatewayWalletInfoResponse.md
+CircleGatewayWalletStatusResponse.md
 ClaimRewardsRequest.md
 CollectionBurnRequestDto.md
 CollectionBurnResponseDto.md
@@ -245,6 +247,8 @@ ConvertAssetsResponse.md
 Cosigner.md
 CosignersBetaApi.md
 CosignersPaginatedResponse.md
+CounterpartyGroup.md
+CounterpartyGroupsPaginatedResponse.md
 CreateAPIUser.md
 CreateAddressRequest.md
 CreateAddressResponse.md
@@ -255,6 +259,7 @@ CreateConnectionResponse.md
 CreateConsoleUser.md
 CreateContractRequest.md
 CreateConversionConfigOperationRequest.md
+CreateCounterpartyGroupRequest.md
 CreateDisbursementConfigOperationRequest.md
 CreateEarnActionRequest.md
 CreateEarnActionResponse.md
@@ -884,6 +889,7 @@ TRLinkAsset.md
 TRLinkAssetData.md
 TRLinkAssetFormat.md
 TRLinkAssetsListPagedResponse.md
+TRLinkBeneficiaryPii.md
 TRLinkCancelTrmRequest.md
 TRLinkConnectIntegrationRequest.md
 TRLinkCreateCustomerRequest.md
@@ -897,10 +903,16 @@ TRLinkDestinationTransferPeerPath.md
 TRLinkDiscoverableStatus.md
 TRLinkFiatValue.md
 TRLinkGeographicAddressRequest.md
+TRLinkGetRequiredActionsResponse.md
 TRLinkGetSupportedAssetResponse.md
 TRLinkIvms.md
 TRLinkIvmsResponse.md
 TRLinkJwkPublicKey.md
+TRLinkManualDecisionAction.md
+TRLinkManualDecisionDestinationDetail.md
+TRLinkManualDecisionRequest.md
+TRLinkManualDecisionResponse.md
+TRLinkManualDecisionSource.md
 TRLinkMissingTrmAction.md
 TRLinkMissingTrmAction2.md
 TRLinkMissingTrmActionEnum.md
@@ -931,6 +943,11 @@ TRLinkRegistrationResult.md
 TRLinkRegistrationResultFullPayload.md
 TRLinkRegistrationStatus.md
 TRLinkRegistrationStatusEnum.md
+TRLinkRequiredAction.md
+TRLinkRequiredActionData.md
+TRLinkRequiredField.md
+TRLinkResolveActionData.md
+TRLinkResolveActionRequest.md
 TRLinkResult.md
 TRLinkResultFullPayload.md
 TRLinkRuleBase.md
@@ -1084,6 +1101,7 @@ UnstakeRequest.md
 UpdateAssetUserMetadataRequest.md
 UpdateCallbackHandlerRequest.md
 UpdateCallbackHandlerResponse.md
+UpdateCounterpartyGroupRequest.md
 UpdateDraftRequest.md
 UpdateLegalEntityRequest.md
 UpdateTagRequest.md
@@ -1363,6 +1381,8 @@ models/channel-dvn-config-with-confirmations.ts
 models/chaps-address.ts
 models/chaps-destination.ts
 models/chaps-payment-info.ts
+models/circle-gateway-wallet-info-response.ts
+models/circle-gateway-wallet-status-response.ts
 models/claim-rewards-request.ts
 models/collection-burn-request-dto.ts
 models/collection-burn-response-dto.ts
@@ -1442,6 +1462,8 @@ models/convert-assets-request.ts
 models/convert-assets-response.ts
 models/cosigner.ts
 models/cosigners-paginated-response.ts
+models/counterparty-group.ts
+models/counterparty-groups-paginated-response.ts
 models/create-address-request.ts
 models/create-address-response.ts
 models/create-apiuser.ts
@@ -1452,6 +1474,7 @@ models/create-connection-response.ts
 models/create-console-user.ts
 models/create-contract-request.ts
 models/create-conversion-config-operation-request.ts
+models/create-counterparty-group-request.ts
 models/create-disbursement-config-operation-request.ts
 models/create-earn-action-request.ts
 models/create-earn-action-response.ts
@@ -2165,6 +2188,7 @@ models/trlink-asset-data.ts
 models/trlink-asset-format.ts
 models/trlink-asset.ts
 models/trlink-assets-list-paged-response.ts
+models/trlink-beneficiary-pii.ts
 models/trlink-cancel-trm-request.ts
 models/trlink-connect-integration-request.ts
 models/trlink-create-customer-request.ts
@@ -2178,10 +2202,16 @@ models/trlink-destination-transfer-peer-path.ts
 models/trlink-discoverable-status.ts
 models/trlink-fiat-value.ts
 models/trlink-geographic-address-request.ts
+models/trlink-get-required-actions-response.ts
 models/trlink-get-supported-asset-response.ts
 models/trlink-ivms-response.ts
 models/trlink-ivms.ts
 models/trlink-jwk-public-key.ts
+models/trlink-manual-decision-action.ts
+models/trlink-manual-decision-destination-detail.ts
+models/trlink-manual-decision-request.ts
+models/trlink-manual-decision-response.ts
+models/trlink-manual-decision-source.ts
 models/trlink-missing-trm-action-enum.ts
 models/trlink-missing-trm-action.ts
 models/trlink-missing-trm-action2.ts
@@ -2212,6 +2242,11 @@ models/trlink-registration-result-full-payload.ts
 models/trlink-registration-result.ts
 models/trlink-registration-status-enum.ts
 models/trlink-registration-status.ts
+models/trlink-required-action-data.ts
+models/trlink-required-action.ts
+models/trlink-required-field.ts
+models/trlink-resolve-action-data.ts
+models/trlink-resolve-action-request.ts
 models/trlink-result-full-payload.ts
 models/trlink-result.ts
 models/trlink-rule-base.ts
@@ -2250,6 +2285,7 @@ models/unstake-request.ts
 models/update-asset-user-metadata-request.ts
 models/update-callback-handler-request.ts
 models/update-callback-handler-response.ts
+models/update-counterparty-group-request.ts
 models/update-draft-request.ts
 models/update-legal-entity-request.ts
 models/update-tag-request.ts

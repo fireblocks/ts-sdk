@@ -13,6 +13,7 @@
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**slippageBps** | **number** | Slippage tolerance in basis points (bps) for defi quotes - 1 is 0.01% and 10000 is 100% | [optional] [default to 50]|
 |**settlement** | [**DVPSettlement**](DVPSettlement.md) |  | [optional] [default to undefined]|
+|**participantsIdentification** | [**ParticipantsIdentification**](ParticipantsIdentification.md) |  | [optional] [default to undefined]|
 
 
 

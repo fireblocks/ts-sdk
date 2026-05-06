@@ -151,7 +151,7 @@ No authorization required
 # **getDeployedContractAbi**
 > ContractAbiResponseDto getDeployedContractAbi()
 
-Return deployed contract\'s ABI by blockchain native asset id and contract address. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+Return deployed contract\'s ABI by blockchain native asset id and contract address. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
 
 ### Example
 
@@ -217,7 +217,7 @@ No authorization required
 # **getTransactionReceipt**
 > TransactionReceiptResponse getTransactionReceipt()
 
-Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
+Retrieve the transaction receipt by blockchain native asset ID and transaction hash > **Note** > This functionality is exclusively available for EVM (Ethereum Virtual Machine) compatible chains.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer.
 
 ### Example
 

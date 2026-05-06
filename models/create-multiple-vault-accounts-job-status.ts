@@ -21,7 +21,7 @@
  */
 export interface CreateMultipleVaultAccountsJobStatus {
     /**
-     * 
+     * Status of the job. Possible values - Success, In Progress, Failed, Pending Approval, Cancelled
      * @type {string}
      * @memberof CreateMultipleVaultAccountsJobStatus
      */
@@ -33,10 +33,22 @@ export interface CreateMultipleVaultAccountsJobStatus {
      */
     'vaultAccounts'?: { [key: string]: { [key: string]: string; }; };
     /**
+     * List of tag IDs successfully attached to each of the created vault accounts
+     * @type {Array<string>}
+     * @memberof CreateMultipleVaultAccountsJobStatus
+     */
+    'tagIds'?: Array<string>;
+    /**
      * 
      * @type {string}
      * @memberof CreateMultipleVaultAccountsJobStatus
      */
     'errorMessage'?: string;
+    /**
+     * Approval request ID if the job has protected tags to attach to the vault accounts
+     * @type {string}
+     * @memberof CreateMultipleVaultAccountsJobStatus
+     */
+    'approvalRequestId'?: string;
 }
 
