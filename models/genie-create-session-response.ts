@@ -15,16 +15,28 @@
 
 
 /**
- * Indicates this is an indicative quote
+ * 
  * @export
- * @enum {string}
+ * @interface GenieCreateSessionResponse
  */
-
-export const IndicativeQuoteEnum = {
-    Indicative: 'INDICATIVE'
-} as const;
-
-export type IndicativeQuoteEnum = typeof IndicativeQuoteEnum[keyof typeof IndicativeQuoteEnum];
-
-
+export interface GenieCreateSessionResponse {
+    /**
+     * The unique identifier of the newly created Genie session. Use this when sending messages in the conversation.
+     * @type {string}
+     * @memberof GenieCreateSessionResponse
+     */
+    'id': string;
+    /**
+     * Session creation timestamp in epoch milliseconds.
+     * @type {number}
+     * @memberof GenieCreateSessionResponse
+     */
+    'createdAt'?: number;
+    /**
+     * Session title. May be empty until the first message has been processed.
+     * @type {string}
+     * @memberof GenieCreateSessionResponse
+     */
+    'title'?: string;
+}
 

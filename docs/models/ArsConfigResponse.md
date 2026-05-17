@@ -1,10 +1,11 @@
-# CommittedQuoteType
+# ArsConfigResponse
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**CommittedQuoteEnum**](CommittedQuoteEnum.md) |  | [default to undefined]|
+|**active** | **boolean** | Whether ARS is active for the tenant | [optional] [default to undefined]|
+|**lastUpdate** | **string** | Last update timestamp of the configuration | [optional] [default to undefined]|
 
 
 

@@ -15,30 +15,22 @@
 
 
 /**
- * 
+ * ARS (Address Registry Screening) configuration for the tenant: active flag and last update time.
  * @export
- * @interface CircleGatewayWalletStatusResponse
+ * @interface ArsConfigResponse
  */
-export interface CircleGatewayWalletStatusResponse {
+export interface ArsConfigResponse {
     /**
-     * The Circle Gateway wallet identifier
-     * @type {string}
-     * @memberof CircleGatewayWalletStatusResponse
+     * Whether ARS is active for the tenant
+     * @type {boolean}
+     * @memberof ArsConfigResponse
      */
-    'walletId': string;
+    'active'?: boolean;
     /**
-     * Current activation status of the Circle Gateway wallet
+     * Last update timestamp of the configuration
      * @type {string}
-     * @memberof CircleGatewayWalletStatusResponse
+     * @memberof ArsConfigResponse
      */
-    'status': CircleGatewayWalletStatusResponseStatusEnum;
+    'lastUpdate'?: string;
 }
-
-export const CircleGatewayWalletStatusResponseStatusEnum = {
-    Activated: 'ACTIVATED',
-    Deactivated: 'DEACTIVATED'
-} as const;
-
-export type CircleGatewayWalletStatusResponseStatusEnum = typeof CircleGatewayWalletStatusResponseStatusEnum[keyof typeof CircleGatewayWalletStatusResponseStatusEnum];
-
 

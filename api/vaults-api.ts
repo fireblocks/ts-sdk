@@ -27,9 +27,7 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { CircleGatewayWalletInfoResponse } from '../models';
-// @ts-ignore
-import { CircleGatewayWalletStatusResponse } from '../models';
+import { AddressReverseLookupResponse } from '../models';
 // @ts-ignore
 import { CreateAddressRequest } from '../models';
 // @ts-ignore
@@ -78,6 +76,10 @@ import { SetCustomerRefIdRequest } from '../models';
 import { UpdateVaultAccountAssetAddressRequest } from '../models';
 // @ts-ignore
 import { UpdateVaultAccountRequest } from '../models';
+// @ts-ignore
+import { UsdcGatewayWalletInfoResponse } from '../models';
+// @ts-ignore
+import { UsdcGatewayWalletStatusResponse } from '../models';
 // @ts-ignore
 import { VaultAccount } from '../models';
 // @ts-ignore
@@ -143,16 +145,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-         * @summary Activate a Circle Gateway wallet
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Activate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activateCircleGatewayWalletBeta: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('activateCircleGatewayWalletBeta', 'vaultAccountId', vaultAccountId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/circle_gateway/activate`
+        activateUsdcGatewayWalletBeta: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('activateUsdcGatewayWalletBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/usdc_gateway/activate`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -480,16 +482,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-         * @summary Deactivate a Circle Gateway wallet
+         * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Deactivate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deactivateCircleGatewayWalletBeta: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('deactivateCircleGatewayWalletBeta', 'vaultAccountId', vaultAccountId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/circle_gateway/deactivate`
+        deactivateUsdcGatewayWalletBeta: async (vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deactivateUsdcGatewayWalletBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/usdc_gateway/deactivate`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -565,39 +567,6 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             if (limit !== undefined) {
                 localVarQueryParameter['limit'] = limit;
             }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary Get Circle Gateway wallet info
-         * @param {string} vaultAccountId The ID of the vault account
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCircleGatewayWalletInfoBeta: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getCircleGatewayWalletInfoBeta', 'vaultAccountId', vaultAccountId)
-            const localVarPath = `/vault/accounts/{vaultAccountId}/circle_gateway`
-                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
 
 
     
@@ -969,6 +938,39 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get USDC Gateway wallet info
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsdcGatewayWalletInfoBeta: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getUsdcGatewayWalletInfoBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/usdc_gateway`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a vault account by ID
          * @param {string} vaultAccountId The ID of the vault account
@@ -1186,6 +1188,42 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (idempotencyKey != null) {
                 localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Look up a vault account by blockchain address
+         * @param {string} address The blockchain address to resolve.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        lookupVaultByAddress: async (address: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('lookupVaultByAddress', 'address', address)
+            const localVarPath = `/vault/lookup_by_address`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (address !== undefined) {
+                localVarQueryParameter['address'] = address;
             }
 
 
@@ -1531,17 +1569,17 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-         * @summary Activate a Circle Gateway wallet
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Activate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async activateCircleGatewayWalletBeta(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CircleGatewayWalletStatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.activateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey, options);
+        async activateUsdcGatewayWalletBeta(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsdcGatewayWalletStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.activateCircleGatewayWalletBeta']?.[index]?.url;
+            const operationBasePath = operationServerMap['VaultsApi.activateUsdcGatewayWalletBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1650,17 +1688,17 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-         * @summary Deactivate a Circle Gateway wallet
+         * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Deactivate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deactivateCircleGatewayWalletBeta(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CircleGatewayWalletStatusResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateCircleGatewayWalletBeta(vaultAccountId, idempotencyKey, options);
+        async deactivateUsdcGatewayWalletBeta(vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsdcGatewayWalletStatusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateUsdcGatewayWalletBeta(vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.deactivateCircleGatewayWalletBeta']?.[index]?.url;
+            const operationBasePath = operationServerMap['VaultsApi.deactivateUsdcGatewayWalletBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1679,19 +1717,6 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAssetWallets(totalAmountLargerThan, assetId, orderBy, before, after, limit, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getAssetWallets']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary Get Circle Gateway wallet info
-         * @param {string} vaultAccountId The ID of the vault account
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCircleGatewayWalletInfoBeta(vaultAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CircleGatewayWalletInfoResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCircleGatewayWalletInfoBeta(vaultAccountId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['VaultsApi.getCircleGatewayWalletInfoBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1819,6 +1844,19 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get USDC Gateway wallet info
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUsdcGatewayWalletInfoBeta(vaultAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UsdcGatewayWalletInfoResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUsdcGatewayWalletInfoBeta(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getUsdcGatewayWalletInfoBeta']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a vault account by ID
          * @param {string} vaultAccountId The ID of the vault account
@@ -1901,6 +1939,19 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.hideVaultAccount(vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.hideVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Look up a vault account by blockchain address
+         * @param {string} address The blockchain address to resolve.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async lookupVaultByAddress(address: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressReverseLookupResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.lookupVaultByAddress(address, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.lookupVaultByAddress']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -2032,14 +2083,14 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-         * @summary Activate a Circle Gateway wallet
-         * @param {VaultsApiActivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Activate a USDC Gateway wallet
+         * @param {VaultsApiActivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        activateCircleGatewayWalletBeta(requestParameters: VaultsApiActivateCircleGatewayWalletBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<CircleGatewayWalletStatusResponse> {
-            return localVarFp.activateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        activateUsdcGatewayWalletBeta(requestParameters: VaultsApiActivateUsdcGatewayWalletBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<UsdcGatewayWalletStatusResponse> {
+            return localVarFp.activateUsdcGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Attach or detach one or more tags from the requested vault accounts. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
@@ -2112,14 +2163,14 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-         * @summary Deactivate a Circle Gateway wallet
-         * @param {VaultsApiDeactivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+         * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Deactivate a USDC Gateway wallet
+         * @param {VaultsApiDeactivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deactivateCircleGatewayWalletBeta(requestParameters: VaultsApiDeactivateCircleGatewayWalletBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<CircleGatewayWalletStatusResponse> {
-            return localVarFp.deactivateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        deactivateUsdcGatewayWalletBeta(requestParameters: VaultsApiDeactivateUsdcGatewayWalletBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<UsdcGatewayWalletStatusResponse> {
+            return localVarFp.deactivateUsdcGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
@@ -2130,16 +2181,6 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAssetWalletResponse> {
             return localVarFp.getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-         * @summary Get Circle Gateway wallet info
-         * @param {VaultsApiGetCircleGatewayWalletInfoBetaRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCircleGatewayWalletInfoBeta(requestParameters: VaultsApiGetCircleGatewayWalletInfoBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<CircleGatewayWalletInfoResponse> {
-            return localVarFp.getCircleGatewayWalletInfoBeta(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the current status of (or an error for) the specified deposit addresss bulk creation job.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, and Viewer. 
@@ -2222,6 +2263,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get USDC Gateway wallet info
+         * @param {VaultsApiGetUsdcGatewayWalletInfoBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsdcGatewayWalletInfoBeta(requestParameters: VaultsApiGetUsdcGatewayWalletInfoBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<UsdcGatewayWalletInfoResponse> {
+            return localVarFp.getUsdcGatewayWalletInfoBeta(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get a vault account by ID
          * @param {VaultsApiGetVaultAccountRequest} requestParameters Request parameters.
@@ -2280,6 +2331,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Look up a vault account by blockchain address
+         * @param {VaultsApiLookupVaultByAddressRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        lookupVaultByAddress(requestParameters: VaultsApiLookupVaultByAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressReverseLookupResponse> {
+            return localVarFp.lookupVaultByAddress(requestParameters.address, options).then((request) => request(axios, basePath));
         },
         /**
          * Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
@@ -2390,22 +2451,22 @@ export interface VaultsApiActivateAssetForVaultAccountRequest {
 }
 
 /**
- * Request parameters for activateCircleGatewayWalletBeta operation in VaultsApi.
+ * Request parameters for activateUsdcGatewayWalletBeta operation in VaultsApi.
  * @export
- * @interface VaultsApiActivateCircleGatewayWalletBetaRequest
+ * @interface VaultsApiActivateUsdcGatewayWalletBetaRequest
  */
-export interface VaultsApiActivateCircleGatewayWalletBetaRequest {
+export interface VaultsApiActivateUsdcGatewayWalletBetaRequest {
     /**
      * The ID of the vault account
      * @type {string}
-     * @memberof VaultsApiActivateCircleGatewayWalletBeta
+     * @memberof VaultsApiActivateUsdcGatewayWalletBeta
      */
     readonly vaultAccountId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof VaultsApiActivateCircleGatewayWalletBeta
+     * @memberof VaultsApiActivateUsdcGatewayWalletBeta
      */
     readonly idempotencyKey?: string
 }
@@ -2607,22 +2668,22 @@ export interface VaultsApiCreateVaultAccountAssetAddressRequest {
 }
 
 /**
- * Request parameters for deactivateCircleGatewayWalletBeta operation in VaultsApi.
+ * Request parameters for deactivateUsdcGatewayWalletBeta operation in VaultsApi.
  * @export
- * @interface VaultsApiDeactivateCircleGatewayWalletBetaRequest
+ * @interface VaultsApiDeactivateUsdcGatewayWalletBetaRequest
  */
-export interface VaultsApiDeactivateCircleGatewayWalletBetaRequest {
+export interface VaultsApiDeactivateUsdcGatewayWalletBetaRequest {
     /**
      * The ID of the vault account
      * @type {string}
-     * @memberof VaultsApiDeactivateCircleGatewayWalletBeta
+     * @memberof VaultsApiDeactivateUsdcGatewayWalletBeta
      */
     readonly vaultAccountId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof VaultsApiDeactivateCircleGatewayWalletBeta
+     * @memberof VaultsApiDeactivateUsdcGatewayWalletBeta
      */
     readonly idempotencyKey?: string
 }
@@ -2674,20 +2735,6 @@ export interface VaultsApiGetAssetWalletsRequest {
      * @memberof VaultsApiGetAssetWallets
      */
     readonly limit?: number
-}
-
-/**
- * Request parameters for getCircleGatewayWalletInfoBeta operation in VaultsApi.
- * @export
- * @interface VaultsApiGetCircleGatewayWalletInfoBetaRequest
- */
-export interface VaultsApiGetCircleGatewayWalletInfoBetaRequest {
-    /**
-     * The ID of the vault account
-     * @type {string}
-     * @memberof VaultsApiGetCircleGatewayWalletInfoBeta
-     */
-    readonly vaultAccountId: string
 }
 
 /**
@@ -2943,6 +2990,20 @@ export interface VaultsApiGetUnspentInputsRequest {
 }
 
 /**
+ * Request parameters for getUsdcGatewayWalletInfoBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetUsdcGatewayWalletInfoBetaRequest
+ */
+export interface VaultsApiGetUsdcGatewayWalletInfoBetaRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiGetUsdcGatewayWalletInfoBeta
+     */
+    readonly vaultAccountId: string
+}
+
+/**
  * Request parameters for getVaultAccount operation in VaultsApi.
  * @export
  * @interface VaultsApiGetVaultAccountRequest
@@ -3073,6 +3134,20 @@ export interface VaultsApiHideVaultAccountRequest {
      * @memberof VaultsApiHideVaultAccount
      */
     readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for lookupVaultByAddress operation in VaultsApi.
+ * @export
+ * @interface VaultsApiLookupVaultByAddressRequest
+ */
+export interface VaultsApiLookupVaultByAddressRequest {
+    /**
+     * The blockchain address to resolve.
+     * @type {string}
+     * @memberof VaultsApiLookupVaultByAddress
+     */
+    readonly address: string
 }
 
 /**
@@ -3312,15 +3387,15 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Activates the Circle Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-     * @summary Activate a Circle Gateway wallet
-     * @param {VaultsApiActivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+     * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Activate a USDC Gateway wallet
+     * @param {VaultsApiActivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public activateCircleGatewayWalletBeta(requestParameters: VaultsApiActivateCircleGatewayWalletBetaRequest) {
-        return VaultsApiFp(this.configuration).activateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public activateUsdcGatewayWalletBeta(requestParameters: VaultsApiActivateUsdcGatewayWalletBetaRequest) {
+        return VaultsApiFp(this.configuration).activateUsdcGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3408,15 +3483,15 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Deactivates the Circle Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
-     * @summary Deactivate a Circle Gateway wallet
-     * @param {VaultsApiDeactivateCircleGatewayWalletBetaRequest} requestParameters Request parameters.
+     * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Deactivate a USDC Gateway wallet
+     * @param {VaultsApiDeactivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof VaultsApi
      */
-    public deactivateCircleGatewayWalletBeta(requestParameters: VaultsApiDeactivateCircleGatewayWalletBetaRequest) {
-        return VaultsApiFp(this.configuration).deactivateCircleGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public deactivateUsdcGatewayWalletBeta(requestParameters: VaultsApiDeactivateUsdcGatewayWalletBetaRequest) {
+        return VaultsApiFp(this.configuration).deactivateUsdcGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3429,18 +3504,6 @@ export class VaultsApi extends BaseAPI {
      */
     public getAssetWallets(requestParameters: VaultsApiGetAssetWalletsRequest = {}) {
         return VaultsApiFp(this.configuration).getAssetWallets(requestParameters.totalAmountLargerThan, requestParameters.assetId, requestParameters.orderBy, requestParameters.before, requestParameters.after, requestParameters.limit).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Returns the Circle Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
-     * @summary Get Circle Gateway wallet info
-     * @param {VaultsApiGetCircleGatewayWalletInfoBetaRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof VaultsApi
-     */
-    public getCircleGatewayWalletInfoBeta(requestParameters: VaultsApiGetCircleGatewayWalletInfoBetaRequest) {
-        return VaultsApiFp(this.configuration).getCircleGatewayWalletInfoBeta(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3540,6 +3603,18 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
+     * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Get USDC Gateway wallet info
+     * @param {VaultsApiGetUsdcGatewayWalletInfoBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getUsdcGatewayWalletInfoBeta(requestParameters: VaultsApiGetUsdcGatewayWalletInfoBetaRequest) {
+        return VaultsApiFp(this.configuration).getUsdcGatewayWalletInfoBeta(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get a vault account by its unique ID. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get a vault account by ID
      * @param {VaultsApiGetVaultAccountRequest} requestParameters Request parameters.
@@ -3609,6 +3684,18 @@ export class VaultsApi extends BaseAPI {
      */
     public hideVaultAccount(requestParameters: VaultsApiHideVaultAccountRequest) {
         return VaultsApiFp(this.configuration).hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * @summary Look up a vault account by blockchain address
+     * @param {VaultsApiLookupVaultByAddressRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public lookupVaultByAddress(requestParameters: VaultsApiLookupVaultByAddressRequest) {
+        return VaultsApiFp(this.configuration).lookupVaultByAddress(requestParameters.address).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

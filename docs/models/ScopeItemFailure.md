@@ -1,12 +1,12 @@
-# QuoteFailure
+# ScopeItemFailure
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**providerId** | **string** | Identifier of the provider for which the quote request failed. | [default to undefined]|
+|**providerId** | **string** | Identifier of the provider for which the request failed. | [default to undefined]|
 |**error** | [**TradingErrorSchema**](TradingErrorSchema.md) |  | [default to undefined]|
-|**accountId** | **string** | Identifier of the account for which the quote request failed (optional). | [optional] [default to undefined]|
+|**accountId** | **string** | Identifier of the account for which the request failed (optional). | [optional] [default to undefined]|
 
 
 

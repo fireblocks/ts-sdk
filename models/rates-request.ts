@@ -13,18 +13,33 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScopeItem } from './scope-item';
 
 /**
- * Order type for quote orders
+ * 
  * @export
- * @enum {string}
+ * @interface RatesRequest
  */
-
-export const QuoteTypeEnum = {
-    Quote: 'QUOTE'
-} as const;
-
-export type QuoteTypeEnum = typeof QuoteTypeEnum[keyof typeof QuoteTypeEnum];
-
-
+export interface RatesRequest {
+    /**
+     * One or more providers/accounts to request rates from. At least one scope item is required.
+     * @type {Array<ScopeItem>}
+     * @memberof RatesRequest
+     */
+    'scope': Array<ScopeItem>;
+    /**
+     * The source asset identifier.
+     * @type {string}
+     * @memberof RatesRequest
+     */
+    'baseAssetId': string;
+    /**
+     * The target asset identifier.
+     * @type {string}
+     * @memberof RatesRequest
+     */
+    'quoteAssetId': string;
+}
 

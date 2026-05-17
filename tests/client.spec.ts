@@ -29,6 +29,7 @@ ExchangeAccountsApi,
 ExternalWalletsApi, 
 FiatAccountsApi, 
 GasStationsApi, 
+GenieBetaApi, 
 InternalWalletsApi, 
 KeyLinkBetaApi, 
 KeysBetaApi, 
@@ -82,6 +83,7 @@ let mockExchangeAccountsApi: jest.Mock;
 let mockExternalWalletsApi: jest.Mock;
 let mockFiatAccountsApi: jest.Mock;
 let mockGasStationsApi: jest.Mock;
+let mockGenieBetaApi: jest.Mock;
 let mockInternalWalletsApi: jest.Mock;
 let mockKeyLinkBetaApi: jest.Mock;
 let mockKeysBetaApi: jest.Mock;
@@ -132,6 +134,7 @@ jest.mock('../api', () => {
     mockExternalWalletsApi = jest.fn();
     mockFiatAccountsApi = jest.fn();
     mockGasStationsApi = jest.fn();
+    mockGenieBetaApi = jest.fn();
     mockInternalWalletsApi = jest.fn();
     mockKeyLinkBetaApi = jest.fn();
     mockKeysBetaApi = jest.fn();
@@ -183,6 +186,7 @@ jest.mock('../api', () => {
         ExternalWalletsApi: mockExternalWalletsApi,
         FiatAccountsApi: mockFiatAccountsApi,
         GasStationsApi: mockGasStationsApi,
+        GenieBetaApi: mockGenieBetaApi,
         InternalWalletsApi: mockInternalWalletsApi,
         KeyLinkBetaApi: mockKeyLinkBetaApi,
         KeysBetaApi: mockKeysBetaApi,
@@ -363,6 +367,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return GasStationsApi', async () => {
             expect(fireblocks.gasStations).toBeInstanceOf(GasStationsApi);
             expect(mockGasStationsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return GenieBetaApi', async () => {
+            expect(fireblocks.genieBeta).toBeInstanceOf(GenieBetaApi);
+            expect(mockGenieBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return InternalWalletsApi', async () => {
             expect(fireblocks.internalWallets).toBeInstanceOf(InternalWalletsApi);

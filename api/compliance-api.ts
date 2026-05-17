@@ -51,6 +51,8 @@ import { AmlVerdictManualRequest } from '../models';
 // @ts-ignore
 import { AmlVerdictManualResponse } from '../models';
 // @ts-ignore
+import { ArsConfigResponse } from '../models';
+// @ts-ignore
 import { AssignVaultsToLegalEntityRequest } from '../models';
 // @ts-ignore
 import { AssignVaultsToLegalEntityResponse } from '../models';
@@ -102,6 +104,41 @@ import { UpdateLegalEntityRequest } from '../models';
  */
 export const ComplianceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Activates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to true). Once activated, ARS screening applies to matching transactions.
+         * @summary Activate ARS (Address Registry Screening)
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateArsConfig: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/screening/ars/config/activate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
          * @summary Activate BYORK Light
@@ -254,6 +291,41 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createCounterpartyGroupRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deactivates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to false). Once deactivated, ARS screening no longer applies until activated again.
+         * @summary Deactivate ARS (Address Registry Screening)
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateArsConfig: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/screening/ars/config/deactivate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1051,8 +1123,8 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+         * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+         * @summary Bypass Screening Policy
          * @param {string} txId The transaction id that was rejected by screening checks
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -1415,6 +1487,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ComplianceApiAxiosParamCreator(configuration)
     return {
         /**
+         * Activates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to true). Once activated, ARS screening applies to matching transactions.
+         * @summary Activate ARS (Address Registry Screening)
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async activateArsConfig(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArsConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.activateArsConfig(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.activateArsConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
          * @summary Activate BYORK Light
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1468,6 +1553,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createCounterpartyGroup(createCounterpartyGroupRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.createCounterpartyGroup']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Deactivates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to false). Once deactivated, ARS screening no longer applies until activated again.
+         * @summary Deactivate ARS (Address Registry Screening)
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deactivateArsConfig(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ArsConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deactivateArsConfig(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.deactivateArsConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1770,8 +1868,8 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+         * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+         * @summary Bypass Screening Policy
          * @param {string} txId The transaction id that was rejected by screening checks
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -1906,6 +2004,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
     const localVarFp = ComplianceApiFp(configuration)
     return {
         /**
+         * Activates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to true). Once activated, ARS screening applies to matching transactions.
+         * @summary Activate ARS (Address Registry Screening)
+         * @param {ComplianceApiActivateArsConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        activateArsConfig(requestParameters: ComplianceApiActivateArsConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ArsConfigResponse> {
+            return localVarFp.activateArsConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
          * @summary Activate BYORK Light
          * @param {ComplianceApiActivateByorkConfigRequest} requestParameters Request parameters.
@@ -1944,6 +2052,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         createCounterpartyGroup(requestParameters: ComplianceApiCreateCounterpartyGroupRequest, options?: RawAxiosRequestConfig): AxiosPromise<CounterpartyGroup> {
             return localVarFp.createCounterpartyGroup(requestParameters.createCounterpartyGroupRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deactivates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to false). Once deactivated, ARS screening no longer applies until activated again.
+         * @summary Deactivate ARS (Address Registry Screening)
+         * @param {ComplianceApiDeactivateArsConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deactivateArsConfig(requestParameters: ComplianceApiDeactivateArsConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ArsConfigResponse> {
+            return localVarFp.deactivateArsConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Deactivates BYORK Light for the authenticated tenant (sets config.active to false). Once deactivated, BYORK screening no longer applies until activated again. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
@@ -2168,8 +2286,8 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.removeAllAddressRegistryVaultOptOuts(options).then((request) => request(axios, basePath));
         },
         /**
-         * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-         * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+         * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+         * @summary Bypass Screening Policy
          * @param {ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2261,6 +2379,20 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
 };
 
 /**
+ * Request parameters for activateArsConfig operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiActivateArsConfigRequest
+ */
+export interface ComplianceApiActivateArsConfigRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiActivateArsConfig
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for activateByorkConfig operation in ComplianceApi.
  * @export
  * @interface ComplianceApiActivateByorkConfigRequest
@@ -2340,6 +2472,20 @@ export interface ComplianceApiCreateCounterpartyGroupRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof ComplianceApiCreateCounterpartyGroup
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for deactivateArsConfig operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiDeactivateArsConfigRequest
+ */
+export interface ComplianceApiDeactivateArsConfigRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiDeactivateArsConfig
      */
     readonly idempotencyKey?: string
 }
@@ -2807,6 +2953,18 @@ export interface ComplianceApiUpdateTravelRuleConfigRequest {
  */
 export class ComplianceApi extends BaseAPI {
     /**
+     * Activates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to true). Once activated, ARS screening applies to matching transactions.
+     * @summary Activate ARS (Address Registry Screening)
+     * @param {ComplianceApiActivateArsConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public activateArsConfig(requestParameters: ComplianceApiActivateArsConfigRequest = {}) {
+        return ComplianceApiFp(this.configuration).activateArsConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Activates BYORK Light for the authenticated tenant (sets config.active to true). Once activated, BYORK screening applies to matching transactions. Requires BYORK Light to be enabled for the tenant (contact your CSM to enable).
      * @summary Activate BYORK Light
      * @param {ComplianceApiActivateByorkConfigRequest} requestParameters Request parameters.
@@ -2852,6 +3010,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public createCounterpartyGroup(requestParameters: ComplianceApiCreateCounterpartyGroupRequest) {
         return ComplianceApiFp(this.configuration).createCounterpartyGroup(requestParameters.createCounterpartyGroupRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Deactivates ARS (Address Registry Screening) for the authenticated tenant (sets config.active to false). Once deactivated, ARS screening no longer applies until activated again.
+     * @summary Deactivate ARS (Address Registry Screening)
+     * @param {ComplianceApiDeactivateArsConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public deactivateArsConfig(requestParameters: ComplianceApiDeactivateArsConfigRequest = {}) {
+        return ComplianceApiFp(this.configuration).deactivateArsConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3123,8 +3293,8 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
-     * @summary Calling the \"Bypass Screening Policy\" API endpoint triggers a new transaction, with the API user as the initiator, bypassing the screening policy check
+     * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
+     * @summary Bypass Screening Policy
      * @param {ComplianceApiRetryRejectedTransactionBypassScreeningChecksRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

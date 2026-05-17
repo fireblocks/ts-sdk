@@ -33,12 +33,6 @@ export interface TRLinkCustomerResponse {
      */
     'id': string;
     /**
-     * Fireblocks tenant ID
-     * @type {string}
-     * @memberof TRLinkCustomerResponse
-     */
-    'tenantId': string;
-    /**
      * 
      * @type {TRLinkDiscoverableStatus}
      * @memberof TRLinkCustomerResponse
@@ -63,6 +57,12 @@ export interface TRLinkCustomerResponse {
      */
     'countryOfRegistration': string;
     /**
+     * Primary Travel Rule role for this customer; determines how the customer\'s Travel Rule messages are routed. Valid values: `notabene`, `trlink`.
+     * @type {string}
+     * @memberof TRLinkCustomerResponse
+     */
+    'trPrimaryPurpose': string;
+    /**
      * Timestamp when the customer was created (ISO 8601 format)
      * @type {string}
      * @memberof TRLinkCustomerResponse
@@ -81,7 +81,7 @@ export interface TRLinkCustomerResponse {
      */
     'geographicAddress'?: TRLinkGeographicAddressRequest | null;
     /**
-     * National identification (serialized as string)
+     * National identification, returned exactly as stored: a compact, whitespace-free JSON-encoded string with these optional keys (in this order): `nationalIdentifier`, `nationalIdentifierType` (e.g. `LEIX` for an LEI), `countryOfIssue` (ISO 3166-1 alpha-2), `registrationAuthority`. Maximum length is 240 characters.
      * @type {string}
      * @memberof TRLinkCustomerResponse
      */
@@ -98,12 +98,6 @@ export interface TRLinkCustomerResponse {
      * @memberof TRLinkCustomerResponse
      */
     'vaults'?: Array<number> | null;
-    /**
-     * Primary purpose for Travel Rule compliance
-     * @type {string}
-     * @memberof TRLinkCustomerResponse
-     */
-    'trPrimaryPurpose'?: string | null;
 }
 
 

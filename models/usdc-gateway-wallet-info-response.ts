@@ -17,46 +17,46 @@
 /**
  * 
  * @export
- * @interface CircleGatewayWalletInfoResponse
+ * @interface UsdcGatewayWalletInfoResponse
  */
-export interface CircleGatewayWalletInfoResponse {
+export interface UsdcGatewayWalletInfoResponse {
     /**
-     * The Circle Gateway wallet identifier
+     * The USDC Gateway wallet identifier
      * @type {string}
-     * @memberof CircleGatewayWalletInfoResponse
+     * @memberof UsdcGatewayWalletInfoResponse
      */
     'walletId': string;
     /**
-     * The Circle Gateway provider identifier
+     * The USDC Gateway provider identifier
      * @type {string}
-     * @memberof CircleGatewayWalletInfoResponse
+     * @memberof UsdcGatewayWalletInfoResponse
      */
     'type': string;
     /**
-     * Current activation status of the Circle Gateway wallet
+     * Current activation status of the USDC Gateway wallet
      * @type {string}
-     * @memberof CircleGatewayWalletInfoResponse
+     * @memberof UsdcGatewayWalletInfoResponse
      */
-    'status': CircleGatewayWalletInfoResponseStatusEnum;
+    'status': UsdcGatewayWalletInfoResponseStatusEnum;
     /**
      * The token symbol supported by this wallet (e.g. USDC)
      * @type {string}
-     * @memberof CircleGatewayWalletInfoResponse
+     * @memberof UsdcGatewayWalletInfoResponse
      */
     'symbol': string;
     /**
      * Fireblocks asset IDs available for this wallet
      * @type {Array<string>}
-     * @memberof CircleGatewayWalletInfoResponse
+     * @memberof UsdcGatewayWalletInfoResponse
      */
     'assetIds': Array<string>;
 }
 
-export const CircleGatewayWalletInfoResponseStatusEnum = {
+export const UsdcGatewayWalletInfoResponseStatusEnum = {
     Activated: 'ACTIVATED',
     Deactivated: 'DEACTIVATED'
 } as const;
 
-export type CircleGatewayWalletInfoResponseStatusEnum = typeof CircleGatewayWalletInfoResponseStatusEnum[keyof typeof CircleGatewayWalletInfoResponseStatusEnum];
+export type UsdcGatewayWalletInfoResponseStatusEnum = typeof UsdcGatewayWalletInfoResponseStatusEnum[keyof typeof UsdcGatewayWalletInfoResponseStatusEnum];
 
 

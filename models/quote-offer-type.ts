@@ -13,33 +13,25 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { TradingErrorSchema } from './trading-error-schema';
 
 /**
  * 
  * @export
- * @interface QuoteFailure
+ * @interface QuoteOfferType
  */
-export interface QuoteFailure {
+export interface QuoteOfferType {
     /**
-     * Identifier of the provider for which the quote request failed.
+     * The type of offer — QUOTE for executable committed quotes.
      * @type {string}
-     * @memberof QuoteFailure
+     * @memberof QuoteOfferType
      */
-    'providerId': string;
-    /**
-     * 
-     * @type {TradingErrorSchema}
-     * @memberof QuoteFailure
-     */
-    'error': TradingErrorSchema;
-    /**
-     * Identifier of the account for which the quote request failed (optional).
-     * @type {string}
-     * @memberof QuoteFailure
-     */
-    'accountId'?: string;
+    'offerType': QuoteOfferTypeOfferTypeEnum;
 }
+
+export const QuoteOfferTypeOfferTypeEnum = {
+    Quote: 'QUOTE'
+} as const;
+
+export type QuoteOfferTypeOfferTypeEnum = typeof QuoteOfferTypeOfferTypeEnum[keyof typeof QuoteOfferTypeOfferTypeEnum];
+
 

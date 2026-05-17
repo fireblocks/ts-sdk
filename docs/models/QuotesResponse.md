@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**quotes** | [**Array&lt;Quote&gt;**](Quote.md) |  | [default to undefined]|
-|**quoteFailures** | [**Array&lt;QuoteFailure&gt;**](QuoteFailure.md) | List of partial failures encountered while requesting quotes. Empty when all quote attempts succeed. | [default to undefined]|
+|**quoteFailures** | [**Array&lt;ScopeItemFailure&gt;**](ScopeItemFailure.md) | List of partial failures encountered while requesting quotes. Empty when all quote attempts succeed. | [default to undefined]|
 
 
 

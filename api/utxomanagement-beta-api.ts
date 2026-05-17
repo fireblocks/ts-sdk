@@ -56,12 +56,10 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
          * @param {string} [address] Filter by address
          * @param {string} [minAmount] Minimum amount filter
          * @param {string} [maxAmount] Maximum amount filter
-         * @param {boolean} [useChange] Include change outputs
-         * @param {boolean} [useCoinbase] Include coinbase outputs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUtxos: async (vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, useChange?: boolean, useCoinbase?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUtxos: async (vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getUtxos', 'vaultAccountId', vaultAccountId)
             assertParamExistsAndNotEmpty('getUtxos', 'assetId', assetId)
             const localVarPath = `/utxo_management/{vaultAccountId}/{assetId}/unspent_outputs`
@@ -120,14 +118,6 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
 
             if (maxAmount !== undefined) {
                 localVarQueryParameter['maxAmount'] = maxAmount;
-            }
-
-            if (useChange !== undefined) {
-                localVarQueryParameter['useChange'] = useChange;
-            }
-
-            if (useCoinbase !== undefined) {
-                localVarQueryParameter['useCoinbase'] = useCoinbase;
             }
 
 
@@ -213,13 +203,11 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
          * @param {string} [address] Filter by address
          * @param {string} [minAmount] Minimum amount filter
          * @param {string} [maxAmount] Maximum amount filter
-         * @param {boolean} [useChange] Include change outputs
-         * @param {boolean} [useCoinbase] Include coinbase outputs
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUtxos(vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, useChange?: boolean, useCoinbase?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListUtxosResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, useChange, useCoinbase, options);
+        async getUtxos(vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListUtxosResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['UTXOManagementBetaApi.getUtxos']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -258,7 +246,7 @@ export const UTXOManagementBetaApiFactory = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         getUtxos(requestParameters: UTXOManagementBetaApiGetUtxosRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListUtxosResponse> {
-            return localVarFp.getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, requestParameters.useChange, requestParameters.useCoinbase, options).then((request) => request(axios, basePath));
+            return localVarFp.getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, options).then((request) => request(axios, basePath));
         },
         /**
          * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
@@ -369,20 +357,6 @@ export interface UTXOManagementBetaApiGetUtxosRequest {
      * @memberof UTXOManagementBetaApiGetUtxos
      */
     readonly maxAmount?: string
-
-    /**
-     * Include change outputs
-     * @type {boolean}
-     * @memberof UTXOManagementBetaApiGetUtxos
-     */
-    readonly useChange?: boolean
-
-    /**
-     * Include coinbase outputs
-     * @type {boolean}
-     * @memberof UTXOManagementBetaApiGetUtxos
-     */
-    readonly useCoinbase?: boolean
 }
 
 /**
@@ -436,7 +410,7 @@ export class UTXOManagementBetaApi extends BaseAPI {
      * @memberof UTXOManagementBetaApi
      */
     public getUtxos(requestParameters: UTXOManagementBetaApiGetUtxosRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, requestParameters.useChange, requestParameters.useCoinbase).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return UTXOManagementBetaApiFp(this.configuration).getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

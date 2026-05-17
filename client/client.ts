@@ -30,6 +30,7 @@ import { ApiUserApi,
          ExternalWalletsApi, 
          FiatAccountsApi, 
          GasStationsApi, 
+         GenieBetaApi, 
          InternalWalletsApi, 
          KeyLinkBetaApi, 
          KeysBetaApi, 
@@ -85,6 +86,7 @@ export class Fireblocks {
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
     private _gasStations?: GasStationsApi;
+    private _genieBeta?: GenieBetaApi;
     private _internalWallets?: InternalWalletsApi;
     private _keyLinkBeta?: KeyLinkBetaApi;
     private _keysBeta?: KeysBetaApi;
@@ -189,6 +191,9 @@ export class Fireblocks {
     }
     get gasStations(): GasStationsApi {
         return this._gasStations ?? new GasStationsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get genieBeta(): GenieBetaApi {
+        return this._genieBeta ?? new GenieBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get internalWallets(): InternalWalletsApi {
         return this._internalWallets ?? new InternalWalletsApi(this.config, undefined, this.axiosManager.axios);

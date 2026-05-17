@@ -1,10 +1,10 @@
-# IndicativeQuoteType
+# GenieSendMessageRequest
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**IndicativeQuoteEnum**](IndicativeQuoteEnum.md) |  | [default to undefined]|
+|**content** | **string** | The natural-language question or instruction to send to Genie. | [default to undefined]|
 
 
 

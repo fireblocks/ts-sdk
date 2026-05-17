@@ -27,17 +27,17 @@ import { TRLinkGeographicAddressRequest } from './trlink-geographic-address-requ
  */
 export interface TRLinkUpdateCustomerRequest {
     /**
+     * Short display name (required)
+     * @type {string}
+     * @memberof TRLinkUpdateCustomerRequest
+     */
+    'shortName': string;
+    /**
      * 
      * @type {TRLinkDiscoverableStatus}
      * @memberof TRLinkUpdateCustomerRequest
      */
     'discoverable'?: TRLinkDiscoverableStatus | null;
-    /**
-     * Short display name
-     * @type {string}
-     * @memberof TRLinkUpdateCustomerRequest
-     */
-    'shortName'?: string | null;
     /**
      * Full legal entity name
      * @type {string}
@@ -57,7 +57,7 @@ export interface TRLinkUpdateCustomerRequest {
      */
     'countryOfRegistration'?: string | null;
     /**
-     * National identification as JSON string
+     * National identification, sent as a JSON-encoded string. The server normalizes input into a compact JSON with these optional keys: `nationalIdentifier`, `nationalIdentifierType` (e.g. `LEIX` for an LEI), `countryOfIssue` (ISO 3166-1 alpha-2), `registrationAuthority`. If the input is not a JSON object, it is wrapped as `{\"nationalIdentifier\":\"<value>\"}`; if the value matches the LEI format, `nationalIdentifierType` is set to `LEIX` automatically and `countryOfIssue` defaults to this request\'s `countryOfRegistration` if not provided. The compacted JSON must be 240 characters or fewer. Omitting this field leaves the stored value unchanged; setting it to `null` clears it. On read, the value is returned exactly as stored.
      * @type {string}
      * @memberof TRLinkUpdateCustomerRequest
      */
@@ -75,11 +75,11 @@ export interface TRLinkUpdateCustomerRequest {
      */
     'vaults'?: Array<number> | null;
     /**
-     * Primary purpose for Travel Rule compliance
+     * Primary Travel Rule role for this customer; determines how the customer\'s Travel Rule messages are routed. Valid values: `notabene`, `trlink`. Omit the field to leave the stored value unchanged.
      * @type {string}
      * @memberof TRLinkUpdateCustomerRequest
      */
-    'trPrimaryPurpose'?: string | null;
+    'trPrimaryPurpose'?: string;
 }
 
 

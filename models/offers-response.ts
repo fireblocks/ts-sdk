@@ -15,21 +15,28 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CommittedQuoteEnum } from './committed-quote-enum';
+import { Offer } from './offer';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScopeItemFailure } from './scope-item-failure';
 
 /**
  * 
  * @export
- * @interface CommittedQuoteType
+ * @interface OffersResponse
  */
-export interface CommittedQuoteType {
+export interface OffersResponse {
     /**
-     * 
-     * @type {CommittedQuoteEnum}
-     * @memberof CommittedQuoteType
+     * List of offers returned for the requested asset pair.
+     * @type {Array<Offer>}
+     * @memberof OffersResponse
      */
-    'type': CommittedQuoteEnum;
+    'offers': Array<Offer>;
+    /**
+     * Partial failures encountered while requesting offers. Empty when all offer requests succeed.
+     * @type {Array<ScopeItemFailure>}
+     * @memberof OffersResponse
+     */
+    'errors': Array<ScopeItemFailure>;
 }
-
-
 

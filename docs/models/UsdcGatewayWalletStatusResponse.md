@@ -1,14 +1,14 @@
-# CircleGatewayWalletStatusResponse
+# UsdcGatewayWalletStatusResponse
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**walletId** | **string** | The Circle Gateway wallet identifier | [default to undefined]|
-|**status** | **string** | Current activation status of the Circle Gateway wallet | [default to undefined]|
+|**walletId** | **string** | The USDC Gateway wallet identifier | [default to undefined]|
+|**status** | **string** | Current activation status of the USDC Gateway wallet | [default to undefined]|
 
 
-## Enum: CircleGatewayWalletStatusResponseStatusEnum
+## Enum: UsdcGatewayWalletStatusResponseStatusEnum
 
 
 * `Activated` (value: `'ACTIVATED'`)

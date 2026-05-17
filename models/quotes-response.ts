@@ -18,7 +18,7 @@
 import { Quote } from './quote';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteFailure } from './quote-failure';
+import { ScopeItemFailure } from './scope-item-failure';
 
 /**
  * 
@@ -34,9 +34,9 @@ export interface QuotesResponse {
     'quotes': Array<Quote>;
     /**
      * List of partial failures encountered while requesting quotes. Empty when all quote attempts succeed.
-     * @type {Array<QuoteFailure>}
+     * @type {Array<ScopeItemFailure>}
      * @memberof QuotesResponse
      */
-    'quoteFailures': Array<QuoteFailure>;
+    'quoteFailures': Array<ScopeItemFailure>;
 }
 

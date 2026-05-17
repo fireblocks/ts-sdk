@@ -27,6 +27,12 @@ import { UtxoSelectionFilters } from './utxo-selection-filters';
  */
 export interface UtxoSelectionParams {
     /**
+     * Optional override for the UTXO selection strategy configured at the vault/tenant level. 
+     * @type {string}
+     * @memberof UtxoSelectionParams
+     */
+    'selectionStrategy'?: UtxoSelectionParamsSelectionStrategyEnum;
+    /**
      * 
      * @type {UtxoSelectionFilters}
      * @memberof UtxoSelectionParams
@@ -39,4 +45,12 @@ export interface UtxoSelectionParams {
      */
     'inputSelection'?: UtxoInputSelection;
 }
+
+export const UtxoSelectionParamsSelectionStrategyEnum = {
+    Asc: 'AMOUNT_ASC',
+    Desc: 'AMOUNT_DESC'
+} as const;
+
+export type UtxoSelectionParamsSelectionStrategyEnum = typeof UtxoSelectionParamsSelectionStrategyEnum[keyof typeof UtxoSelectionParamsSelectionStrategyEnum];
+
 

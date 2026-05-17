@@ -18,10 +18,10 @@
 import { MarketExecutionRequestDetails } from './market-execution-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteExecutionWithRequoteRequestDetails } from './quote-execution-with-requote-request-details';
+import { QuoteExecutionTypeEnum } from './quote-execution-type-enum';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteTypeEnum } from './quote-type-enum';
+import { QuoteExecutionWithRequoteRequestDetails } from './quote-execution-with-requote-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ReQuoteDetailsReQuote } from './re-quote-details-re-quote';

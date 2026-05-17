@@ -54,6 +54,7 @@ AddressRegistryTenantRegistryResponse.md
 AddressRegistryTravelRuleProvider.md
 AddressRegistryVaultListOrder.md
 AddressRegistryVaultOptOutItem.md
+AddressReverseLookupResponse.md
 AlertExposureTypeEnum.md
 AlertLevelEnum.md
 AmlAlert.md
@@ -80,6 +81,7 @@ ApprovalRequest.md
 ApproversConfig.md
 ApproversConfigApprovalGroupsInner.md
 Apy.md
+ArsConfigResponse.md
 Asset.md
 AssetAlreadyExistHttpError.md
 AssetAmount.md
@@ -158,8 +160,6 @@ ChannelDvnConfigWithConfirmationsSendConfig.md
 ChapsAddress.md
 ChapsDestination.md
 ChapsPaymentInfo.md
-CircleGatewayWalletInfoResponse.md
-CircleGatewayWalletStatusResponse.md
 ClaimRewardsRequest.md
 CollectionBurnRequestDto.md
 CollectionBurnResponseDto.md
@@ -172,8 +172,6 @@ CollectionOwnershipResponse.md
 CollectionTokenMetadataAttributeDto.md
 CollectionTokenMetadataDto.md
 CollectionType.md
-CommittedQuoteEnum.md
-CommittedQuoteType.md
 ComplianceApi.md
 ComplianceResultFullPayload.md
 ComplianceResultStatusesEnum.md
@@ -273,6 +271,7 @@ CreateMultipleDepositAddressesRequest.md
 CreateMultipleVaultAccountsJobStatus.md
 CreateNcwConnectionRequest.md
 CreateNetworkIdRequest.md
+CreateOffersRequest.md
 CreateOrderRequest.md
 CreatePayoutRequest.md
 CreateQuote.md
@@ -439,6 +438,10 @@ GasStationPropertiesResponse.md
 GasStationsApi.md
 GasslessStandardConfigurations.md
 GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
+GenieBetaApi.md
+GenieChatMessage.md
+GenieCreateSessionResponse.md
+GenieSendMessageRequest.md
 GetAPIUsersResponse.md
 GetActionResponse.md
 GetActionsResponse.md
@@ -493,8 +496,6 @@ IbanPaymentInfo.md
 Identification.md
 IdentificationPolicyOverride.md
 IdlType.md
-IndicativeQuoteEnum.md
-IndicativeQuoteType.md
 InitiatorConfig.md
 InitiatorConfigPattern.md
 InstructionAmount.md
@@ -606,6 +607,8 @@ NotificationStatus.md
 NotificationWithData.md
 OTABetaApi.md
 OffExchangesApi.md
+Offer.md
+OffersResponse.md
 OnchainDataApi.md
 OnchainTransaction.md
 OnchainTransactionsPagedResponse.md
@@ -702,18 +705,24 @@ Quote.md
 QuoteExecutionRequestDetails.md
 QuoteExecutionStep.md
 QuoteExecutionTypeDetails.md
+QuoteExecutionTypeEnum.md
 QuoteExecutionWithRequoteRequestDetails.md
 QuoteExecutionWithRequoteResponseDetails.md
-QuoteFailure.md
-QuotePropertiesDetails.md
-QuoteTypeEnum.md
+QuoteOffer.md
+QuoteOfferType.md
 QuotesResponse.md
 README.md
+Rate.md
+RateOffer.md
+RateOfferType.md
+RatesRequest.md
+RatesResponse.md
 ReQuoteDetails.md
 ReQuoteDetailsReQuote.md
 ReadAbiFunction.md
 ReadCallFunctionDto.md
 ReadCallFunctionDtoAbiFunction.md
+ReasonForPaymentEnum.md
 RecipientHandle.md
 RedeemFundsToLinkedDDAResponse.md
 RegisterLegalEntityRequest.md
@@ -753,6 +762,7 @@ SEPADestination.md
 SOLAccount.md
 SOLAccountWithValue.md
 ScopeItem.md
+ScopeItemFailure.md
 ScreeningAlertExposureTypeEnum.md
 ScreeningAmlAlert.md
 ScreeningAmlMatchedRule.md
@@ -852,6 +862,7 @@ SolanaInstruction.md
 SolanaInstructionWithValue.md
 SolanaSimpleCreateParams.md
 SourceConfig.md
+SourceOfFunds.md
 SourceTransferPeerPath.md
 SourceTransferPeerPathResponse.md
 SpamOwnershipResponse.md
@@ -1112,6 +1123,8 @@ UpdateVaultAccountAssetAddressRequest.md
 UpdateVaultAccountRequest.md
 UpdateWebhookRequest.md
 UsWirePaymentInfo.md
+UsdcGatewayWalletInfoResponse.md
+UsdcGatewayWalletStatusResponse.md
 UserGroupCreateRequest.md
 UserGroupCreateResponse.md
 UserGroupResponse.md
@@ -1189,6 +1202,7 @@ api/exchange-accounts-api.ts
 api/external-wallets-api.ts
 api/fiat-accounts-api.ts
 api/gas-stations-api.ts
+api/genie-beta-api.ts
 api/internal-wallets-api.ts
 api/key-link-beta-api.ts
 api/keys-beta-api.ts
@@ -1278,6 +1292,7 @@ models/address-registry-tenant-registry-response.ts
 models/address-registry-travel-rule-provider.ts
 models/address-registry-vault-list-order.ts
 models/address-registry-vault-opt-out-item.ts
+models/address-reverse-lookup-response.ts
 models/alert-exposure-type-enum.ts
 models/alert-level-enum.ts
 models/aml-alert.ts
@@ -1305,6 +1320,7 @@ models/approval-request.ts
 models/approvers-config-approval-groups-inner.ts
 models/approvers-config.ts
 models/apy.ts
+models/ars-config-response.ts
 models/asset-already-exist-http-error.ts
 models/asset-amount.ts
 models/asset-bad-request-error-response.ts
@@ -1381,8 +1397,6 @@ models/channel-dvn-config-with-confirmations.ts
 models/chaps-address.ts
 models/chaps-destination.ts
 models/chaps-payment-info.ts
-models/circle-gateway-wallet-info-response.ts
-models/circle-gateway-wallet-status-response.ts
 models/claim-rewards-request.ts
 models/collection-burn-request-dto.ts
 models/collection-burn-response-dto.ts
@@ -1395,8 +1409,6 @@ models/collection-ownership-response.ts
 models/collection-token-metadata-attribute-dto.ts
 models/collection-token-metadata-dto.ts
 models/collection-type.ts
-models/committed-quote-enum.ts
-models/committed-quote-type.ts
 models/compliance-result-full-payload.ts
 models/compliance-result-statuses-enum.ts
 models/compliance-results.ts
@@ -1488,6 +1500,7 @@ models/create-multiple-deposit-addresses-request.ts
 models/create-multiple-vault-accounts-job-status.ts
 models/create-ncw-connection-request.ts
 models/create-network-id-request.ts
+models/create-offers-request.ts
 models/create-order-request.ts
 models/create-payout-request.ts
 models/create-quote-scope-inner.ts
@@ -1647,6 +1660,9 @@ models/gas-station-configuration.ts
 models/gas-station-properties-response.ts
 models/gassless-standard-configurations-gasless-standard-configurations-value.ts
 models/gassless-standard-configurations.ts
+models/genie-chat-message.ts
+models/genie-create-session-response.ts
+models/genie-send-message-request.ts
 models/get-action-response.ts
 models/get-actions-response.ts
 models/get-apiusers-response.ts
@@ -1702,8 +1718,6 @@ models/identification-policy-override.ts
 models/identification.ts
 models/idl-type.ts
 models/index.ts
-models/indicative-quote-enum.ts
-models/indicative-quote-type.ts
 models/initiator-config-pattern.ts
 models/initiator-config.ts
 models/instruction-amount.ts
@@ -1807,6 +1821,8 @@ models/notification-paginated-response.ts
 models/notification-status.ts
 models/notification-with-data.ts
 models/notification.ts
+models/offer.ts
+models/offers-response.ts
 models/onchain-transaction.ts
 models/onchain-transactions-paged-response.ts
 models/one-time-address-account.ts
@@ -1898,18 +1914,24 @@ models/publish-result.ts
 models/quote-execution-request-details.ts
 models/quote-execution-step.ts
 models/quote-execution-type-details.ts
+models/quote-execution-type-enum.ts
 models/quote-execution-with-requote-request-details.ts
 models/quote-execution-with-requote-response-details.ts
-models/quote-failure.ts
-models/quote-properties-details.ts
-models/quote-type-enum.ts
+models/quote-offer-type.ts
+models/quote-offer.ts
 models/quote.ts
 models/quotes-response.ts
+models/rate-offer-type.ts
+models/rate-offer.ts
+models/rate.ts
+models/rates-request.ts
+models/rates-response.ts
 models/re-quote-details-re-quote.ts
 models/re-quote-details.ts
 models/read-abi-function.ts
 models/read-call-function-dto-abi-function.ts
 models/read-call-function-dto.ts
+models/reason-for-payment-enum.ts
 models/recipient-handle.ts
 models/redeem-funds-to-linked-ddaresponse.ts
 models/register-legal-entity-request.ts
@@ -1943,6 +1965,7 @@ models/reward-info.ts
 models/rewards-info.ts
 models/role-details.ts
 models/role-grantee.ts
+models/scope-item-failure.ts
 models/scope-item.ts
 models/screening-alert-exposure-type-enum.ts
 models/screening-aml-alert.ts
@@ -2046,6 +2069,7 @@ models/solana-instruction-with-value.ts
 models/solana-instruction.ts
 models/solana-simple-create-params.ts
 models/source-config.ts
+models/source-of-funds.ts
 models/source-transfer-peer-path-response.ts
 models/source-transfer-peer-path.ts
 models/spam-ownership-response.ts
@@ -2296,6 +2320,8 @@ models/update-vault-account-asset-address-request.ts
 models/update-vault-account-request.ts
 models/update-webhook-request.ts
 models/us-wire-payment-info.ts
+models/usdc-gateway-wallet-info-response.ts
+models/usdc-gateway-wallet-status-response.ts
 models/user-group-create-request.ts
 models/user-group-create-response.ts
 models/user-group-response.ts
