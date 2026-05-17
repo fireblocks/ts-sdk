@@ -32,6 +32,7 @@ export * from './api/exchange-accounts-api';
 export * from './api/external-wallets-api';
 export * from './api/fiat-accounts-api';
 export * from './api/gas-stations-api';
+export * from './api/genie-beta-api';
 export * from './api/internal-wallets-api';
 export * from './api/key-link-beta-api';
 export * from './api/keys-beta-api';

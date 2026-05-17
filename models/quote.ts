@@ -21,21 +21,129 @@ import { AccessType } from './access-type';
 import { Fee } from './fee';
 // May contain unused imports in some cases
 // @ts-ignore
-import { IndicativeQuoteEnum } from './indicative-quote-enum';
-// May contain unused imports in some cases
-// @ts-ignore
 import { QuoteExecutionStep } from './quote-execution-step';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuotePropertiesDetails } from './quote-properties-details';
+import { Side } from './side';
 // May contain unused imports in some cases
 // @ts-ignore
-import { Side } from './side';
+import { TransferRail } from './transfer-rail';
 
 /**
- * @type Quote
+ * A committed executable quote for a trading pair.
  * @export
+ * @interface Quote
  */
-export type Quote = QuotePropertiesDetails;
+export interface Quote {
+    /**
+     * 
+     * @type {AccessType}
+     * @memberof Quote
+     */
+    'via': AccessType;
+    /**
+     * The unique identifier of the quote.
+     * @type {string}
+     * @memberof Quote
+     */
+    'id': string;
+    /**
+     * The target asset identifier.
+     * @type {string}
+     * @memberof Quote
+     */
+    'quoteAssetId': string;
+    /**
+     * The source asset identifier.
+     * @type {string}
+     * @memberof Quote
+     */
+    'baseAssetId': string;
+    /**
+     * The amount of the base asset.
+     * @type {string}
+     * @memberof Quote
+     */
+    'baseAmount': string;
+    /**
+     * The amount of the quote asset.
+     * @type {string}
+     * @memberof Quote
+     */
+    'quoteAmount': string;
+    /**
+     * 
+     * @type {Side}
+     * @memberof Quote
+     */
+    'side': Side;
+    /**
+     * The expiration time of the quote in ISO 8601 format.
+     * @type {string}
+     * @memberof Quote
+     */
+    'expiresAt': string;
+    /**
+     * The type of the quote.
+     * @type {string}
+     * @memberof Quote
+     */
+    'type': QuoteTypeEnum;
+    /**
+     * 
+     * @type {TransferRail}
+     * @memberof Quote
+     */
+    'quoteAssetRail'?: TransferRail;
+    /**
+     * 
+     * @type {TransferRail}
+     * @memberof Quote
+     */
+    'baseAssetRail'?: TransferRail;
+    /**
+     * The estimated price impact as a decimal fraction.
+     * @type {number}
+     * @memberof Quote
+     */
+    'priceImpact'?: number;
+    /**
+     * The minimum guaranteed amount of the quote asset.
+     * @type {string}
+     * @memberof Quote
+     */
+    'quoteMinAmount'?: string;
+    /**
+     * Indicates if slippage was applied to the quote.
+     * @type {boolean}
+     * @memberof Quote
+     */
+    'isSlippageApplied'?: boolean;
+    /**
+     * Ordered list of execution steps for the quote.
+     * @type {Array<QuoteExecutionStep>}
+     * @memberof Quote
+     */
+    'executionSteps'?: Array<QuoteExecutionStep>;
+    /**
+     * General fees associated with the quote.
+     * @type {Array<Fee>}
+     * @memberof Quote
+     */
+    'generalFees'?: Array<Fee>;
+    /**
+     * A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending. 
+     * @type {string}
+     * @memberof Quote
+     */
+    'orderCreationRequirements'?: string;
+}
+
+export const QuoteTypeEnum = {
+    Committed: 'COMMITTED',
+    Indicative: 'INDICATIVE'
+} as const;
+
+export type QuoteTypeEnum = typeof QuoteTypeEnum[keyof typeof QuoteTypeEnum];
 
 

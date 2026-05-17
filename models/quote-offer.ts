@@ -15,21 +15,30 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { IndicativeQuoteEnum } from './indicative-quote-enum';
+import { AccessType } from './access-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { Fee } from './fee';
+// May contain unused imports in some cases
+// @ts-ignore
+import { Quote } from './quote';
+// May contain unused imports in some cases
+// @ts-ignore
+import { QuoteExecutionStep } from './quote-execution-step';
+// May contain unused imports in some cases
+// @ts-ignore
+import { QuoteOfferType } from './quote-offer-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { Side } from './side';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TransferRail } from './transfer-rail';
 
 /**
- * 
+ * @type QuoteOffer
  * @export
- * @interface IndicativeQuoteType
  */
-export interface IndicativeQuoteType {
-    /**
-     * 
-     * @type {IndicativeQuoteEnum}
-     * @memberof IndicativeQuoteType
-     */
-    'type': IndicativeQuoteEnum;
-}
-
+export type QuoteOffer = Quote & QuoteOfferType;
 
 

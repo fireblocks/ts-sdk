@@ -57,7 +57,7 @@ export interface TRLinkCreateCustomerRequest {
      */
     'countryOfRegistration'?: string | null;
     /**
-     * National identification as JSON string
+     * National identification, sent as a JSON-encoded string. The server normalizes input into a compact JSON with these optional keys: `nationalIdentifier`, `nationalIdentifierType` (e.g. `LEIX` for an LEI), `countryOfIssue` (ISO 3166-1 alpha-2), `registrationAuthority`. If the input is not a JSON object, it is wrapped as `{\"nationalIdentifier\":\"<value>\"}`; if the value matches the LEI format, `nationalIdentifierType` is set to `LEIX` automatically and `countryOfIssue` defaults to this request\'s `countryOfRegistration` if not provided. The compacted JSON must be 240 characters or fewer. On read, the value is returned exactly as stored.
      * @type {string}
      * @memberof TRLinkCreateCustomerRequest
      */
@@ -75,11 +75,11 @@ export interface TRLinkCreateCustomerRequest {
      */
     'vaults'?: Array<number> | null;
     /**
-     * Primary purpose for Travel Rule compliance (enum value)
+     * Primary Travel Rule role for this customer; determines how the customer\'s Travel Rule messages are routed. Valid values: `notabene`, `trlink`.
      * @type {string}
      * @memberof TRLinkCreateCustomerRequest
      */
-    'trPrimaryPurpose'?: string | null;
+    'trPrimaryPurpose'?: string;
 }
 
 

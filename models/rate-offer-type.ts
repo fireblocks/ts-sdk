@@ -15,16 +15,23 @@
 
 
 /**
- * Indicates this is a committed quote
+ * 
  * @export
- * @enum {string}
+ * @interface RateOfferType
  */
+export interface RateOfferType {
+    /**
+     * The type of offer — RATE for indicative pricing.
+     * @type {string}
+     * @memberof RateOfferType
+     */
+    'offerType': RateOfferTypeOfferTypeEnum;
+}
 
-export const CommittedQuoteEnum = {
-    Committed: 'COMMITTED'
+export const RateOfferTypeOfferTypeEnum = {
+    Rate: 'RATE'
 } as const;
 
-export type CommittedQuoteEnum = typeof CommittedQuoteEnum[keyof typeof CommittedQuoteEnum];
-
+export type RateOfferTypeOfferTypeEnum = typeof RateOfferTypeOfferTypeEnum[keyof typeof RateOfferTypeOfferTypeEnum];
 
 

@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**QuoteTypeEnum**](QuoteTypeEnum.md) |  | [default to undefined]|
+|**type** | [**QuoteExecutionTypeEnum**](QuoteExecutionTypeEnum.md) |  | [default to undefined]|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** | Amount in baseAssetId. BUY &#x3D; base amount to receive; SELL &#x3D; base amount to sell. | [default to undefined]|
 |**baseAssetId** | **string** | The asset you receive on BUY / give on SELL. | [default to undefined]|

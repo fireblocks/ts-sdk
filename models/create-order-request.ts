@@ -25,6 +25,9 @@ import { ParticipantsIdentification } from './participants-identification';
 // May contain unused imports in some cases
 // @ts-ignore
 import { Settlement } from './settlement';
+// May contain unused imports in some cases
+// @ts-ignore
+import { SourceOfFunds } from './source-of-funds';
 
 /**
  * 
@@ -56,6 +59,12 @@ export interface CreateOrderRequest {
      * @memberof CreateOrderRequest
      */
     'participantsIdentification'?: ParticipantsIdentification;
+    /**
+     * 
+     * @type {SourceOfFunds}
+     * @memberof CreateOrderRequest
+     */
+    'sourceOfFunds'?: SourceOfFunds;
     /**
      * Internal reference ID for the customer
      * @type {string}

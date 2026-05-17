@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**QuoteTypeEnum**](QuoteTypeEnum.md) |  | [default to undefined]|
+|**type** | [**QuoteExecutionTypeEnum**](QuoteExecutionTypeEnum.md) |  | [default to undefined]|
 |**quoteId** | **string** | Quote ID for quote orders | [default to undefined]|
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  | [optional] [default to undefined]|
 

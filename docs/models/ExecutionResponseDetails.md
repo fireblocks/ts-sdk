@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**QuoteTypeEnum**](QuoteTypeEnum.md) |  | [default to undefined]|
+|**type** | [**QuoteExecutionTypeEnum**](QuoteExecutionTypeEnum.md) |  | [default to undefined]|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** | Amount to convert | [default to undefined]|
 |**baseAssetId** | **string** | Source asset identifier | [default to undefined]|

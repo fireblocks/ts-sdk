@@ -56,17 +56,5 @@ export interface UtxoSelectionFilters {
      * @memberof UtxoSelectionFilters
      */
     'maxAmount'?: string;
-    /**
-     * Set to false to exclude change UTXOs. Default is true.
-     * @type {boolean}
-     * @memberof UtxoSelectionFilters
-     */
-    'useChange'?: boolean;
-    /**
-     * Set to false to exclude coinbase UTXOs. Default is true.
-     * @type {boolean}
-     * @memberof UtxoSelectionFilters
-     */
-    'useCoinbase'?: boolean;
 }
 

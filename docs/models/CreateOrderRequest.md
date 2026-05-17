@@ -8,6 +8,7 @@
 |**executionRequestDetails** | [**ExecutionRequestDetails**](ExecutionRequestDetails.md) |  | [default to undefined]|
 |**settlement** | [**Settlement**](Settlement.md) |  | [default to undefined]|
 |**participantsIdentification** | [**ParticipantsIdentification**](ParticipantsIdentification.md) |  | [optional] [default to undefined]|
+|**sourceOfFunds** | [**SourceOfFunds**](SourceOfFunds.md) |  | [optional] [default to undefined]|
 |**customerInternalReferenceId** | **string** | Internal reference ID for the customer | [optional] [default to undefined]|
 |**note** | **string** | Optional note for the order | [optional] [default to undefined]|
 

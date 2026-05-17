@@ -18,7 +18,7 @@
 import { QuoteExecutionRequestDetails } from './quote-execution-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteTypeEnum } from './quote-type-enum';
+import { QuoteExecutionTypeEnum } from './quote-execution-type-enum';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ReQuoteDetails } from './re-quote-details';

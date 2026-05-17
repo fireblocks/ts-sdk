@@ -1,9 +1,9 @@
-# CommittedQuoteEnum
+# QuoteExecutionTypeEnum
 
 ## Enum
 
 
-* `Committed` (value: `'COMMITTED'`)
+* `Quote` (value: `'QUOTE'`)
 
 
 

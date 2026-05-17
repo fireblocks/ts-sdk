@@ -55,10 +55,6 @@ let body: UTXOManagementBetaApiGetUtxosRequest = {
   minAmount: 0.001,
   // string | Maximum amount filter (optional)
   maxAmount: 1.0,
-  // boolean | Include change outputs (optional)
-  useChange: true,
-  // boolean | Include coinbase outputs (optional)
-  useCoinbase: true,
 };
 
 fireblocks.utxoManagementBeta.getUtxos(body).then((res: FireblocksResponse<ListUtxosResponse>) => {
@@ -84,8 +80,6 @@ Name | Type | Description  | Notes
  **address** | [**string**] | Filter by address | (optional) defaults to undefined
  **minAmount** | [**string**] | Minimum amount filter | (optional) defaults to undefined
  **maxAmount** | [**string**] | Maximum amount filter | (optional) defaults to undefined
- **useChange** | [**boolean**] | Include change outputs | (optional) defaults to undefined
- **useCoinbase** | [**boolean**] | Include coinbase outputs | (optional) defaults to undefined
 
 
 ### Return type
