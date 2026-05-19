@@ -70,7 +70,10 @@ jobs:
         with:
           node-version: '20'
           registry-url: ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
-
+          
+      - name: Install dependencies
+        run: npm install
+        
       - name: Publish package to private registry
         run: npm publish
         env:
