@@ -70,9 +70,15 @@ jobs:
         with:
           node-version: '20'
           registry-url: ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
-        
+
+      - name: Install dependencies
+        run: npm install --registry ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PRIVATE_NPM_REGISTRY_TOKEN }}
+          NPM_CONFIG_REGISTRY: ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
+
       - name: Publish package to private registry
-        run: npm publish --ignore-scripts
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PRIVATE_NPM_REGISTRY_TOKEN }}
           SKIP_POSTVERSION: true
