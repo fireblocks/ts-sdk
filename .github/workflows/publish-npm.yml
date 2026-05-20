@@ -58,18 +58,14 @@ jobs:
   publish-to-private-registry:
     needs: publish
     runs-on: [self-hosted, dx]
+    container:
+      image: node:20-alpine
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
           ref: master
           fetch-depth: 0
-
-      - name: Set up Node for private registry publishing
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          registry-url: ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
 
       - name: Install dependencies
         run: npm install --registry ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
@@ -81,4 +77,5 @@ jobs:
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.PRIVATE_NPM_REGISTRY_TOKEN }}
+          NPM_CONFIG_REGISTRY: ${{ secrets.PRIVATE_NPM_REGISTRY_URL }}
           SKIP_POSTVERSION: true
