@@ -14,8 +14,6 @@
 
 * `EcdsaSecp256K1` (value: `'MPC_ECDSA_SECP256K1'`)
 
-* `EcdsaSecp256R1` (value: `'MPC_ECDSA_SECP256R1'`)
-
 * `EddsaEd25519` (value: `'MPC_EDDSA_ED25519'`)
 
 

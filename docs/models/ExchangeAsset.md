@@ -4,16 +4,16 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**id** | **string** |  | [optional] [default to undefined]|
+|**id** | **string** | Deprecated. Use assetId or assetLegacyId instead. | [optional] [default to undefined]|
 |**balance** | **string** |  | [optional] [default to undefined]|
 |**lockedAmount** | **string** |  | [optional] [default to undefined]|
 |**total** | **string** |  | [optional] [default to undefined]|
 |**available** | **string** |  | [optional] [default to undefined]|
 |**credit** | **string** |  | [optional] [default to undefined]|
-|**assetId** | **string** | The id of the asset | [optional] [default to undefined]|
-|**providerSymbol** | **string** | The provider symbol of the asset | [optional] [default to undefined]|
-|**assetSymbol** | **string** | The asset symbol of the asset | [optional] [default to undefined]|
-|**assetLegacyId** | **string** | The asset legacy id of the asset | [optional] [default to undefined]|
+|**assetId** | **string** | The Fireblocks asset id. Present only when Fireblocks can identify the exchange asset. | [optional] [default to undefined]|
+|**providerSymbol** | **string** | The symbol used by the exchange provider to identify the asset. | [optional] [default to undefined]|
+|**assetSymbol** | **string** | The Fireblocks asset symbol. Present only when Fireblocks can identify the exchange asset. | [optional] [default to undefined]|
+|**assetLegacyId** | **string** | The Fireblocks legacy asset id. Present only when Fireblocks can identify the exchange asset. | [optional] [default to undefined]|
 
 
 

@@ -1,12 +1,13 @@
-# UpdateTagRequest
+# UsdcGatewayWalletAsset
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**label** | **string** | The tag label | [optional] [default to undefined]|
-|**description** | **string** | Description for the tag | [optional] [default to undefined]|
-|**color** | **string** | The tag color in hex format | [optional] [default to undefined]|
+|**id** | **string** | Fireblocks asset ID | [default to undefined]|
+|**balance** | **string** | Asset balance | [default to undefined]|
+|**chain** | **string** | Blockchain name | [default to undefined]|
+|**network** | **string** | Network name | [default to undefined]|
 
 
 

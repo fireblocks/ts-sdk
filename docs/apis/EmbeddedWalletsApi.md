@@ -1256,7 +1256,7 @@ let body: EmbeddedWalletsApiGetPublicKeyInfoNcwRequest = {
   walletId: 550e8400-e29b-41d4-a716-446655440000,
   // string | An array of integers (passed as JSON stringified array) representing the full BIP44 derivation path of the requested public key.  The first element must always be 44. 
   derivationPath: [44,0,0,0,0],
-  // 'MPC_ECDSA_SECP256K1' | 'MPC_ECDSA_SECP256R1' | 'MPC_EDDSA_ED25519' | Elliptic Curve
+  // 'MPC_ECDSA_SECP256K1' | 'MPC_EDDSA_ED25519' | Elliptic Curve
   algorithm: MPC_EDDSA_ED25519,
   // boolean | Compressed/Uncompressed public key format (optional)
   compressed: true,
@@ -1275,7 +1275,7 @@ Name | Type | Description  | Notes
  **xEndUserWalletId** | [**string**] | Unique ID of the End-User wallet to the API request. Required for end-user wallet operations. | defaults to undefined
  **walletId** | [**string**] | The ID of the Non-Custodial wallet | defaults to undefined
  **derivationPath** | [**string**] | An array of integers (passed as JSON stringified array) representing the full BIP44 derivation path of the requested public key.  The first element must always be 44.  | defaults to undefined
- **algorithm** | [**&#39;MPC_ECDSA_SECP256K1&#39; | &#39;MPC_ECDSA_SECP256R1&#39; | &#39;MPC_EDDSA_ED25519&#39;**]**Array<&#39;MPC_ECDSA_SECP256K1&#39; &#124; &#39;MPC_ECDSA_SECP256R1&#39; &#124; &#39;MPC_EDDSA_ED25519&#39;>** | Elliptic Curve | defaults to undefined
+ **algorithm** | [**&#39;MPC_ECDSA_SECP256K1&#39; | &#39;MPC_EDDSA_ED25519&#39;**]**Array<&#39;MPC_ECDSA_SECP256K1&#39; &#124; &#39;MPC_EDDSA_ED25519&#39;>** | Elliptic Curve | defaults to undefined
  **compressed** | [**boolean**] | Compressed/Uncompressed public key format | (optional) defaults to undefined
 
 

@@ -57,6 +57,12 @@ export interface AuditLogData {
      */
     'event'?: string;
     /**
+     * The category of the audit event
+     * @type {string}
+     * @memberof AuditLogData
+     */
+    'category'?: string;
+    /**
      * The tenant ID of the audit log
      * @type {string}
      * @memberof AuditLogData

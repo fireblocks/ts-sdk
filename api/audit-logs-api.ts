@@ -37,14 +37,24 @@ import { GetAuditLogsResponse } from '../models';
 export const AuditLogsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
+         * Retrieve audit log events for the workspace with optional filtering, date range, sorting, and cursor-based pagination.  Filters within the same field are combined as OR (e.g. category=Administration&category=Security returns events in either category). Filters across different fields are combined as AND.  **Deprecated parameters:** `timePeriod` and `cursor` remain functional for backward compatibility but new integrations should use `startTime`/`endTime` and `pageCursor` instead.  Endpoint Permission: Admin, Non-Signing Admin, Auditor, Security Admin, Security Auditor.
          * @summary Get audit logs
-         * @param {GetAuditLogsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
-         * @param {string} [cursor] The next id to start fetch audit logs from
+         * @param {number} [startTime] Start of date range as epoch time in milliseconds. Takes precedence over timePeriod when provided. Must be no more than 1 year before the current time.
+         * @param {number} [endTime] End of date range as epoch time in milliseconds. Must be after startTime. Defaults to now when omitted.
+         * @param {GetAuditLogsTimePeriodEnum} [timePeriod] Deprecated. Use startTime/endTime instead. Ignored when startTime is provided. Defaults to DAY when neither timePeriod nor startTime is supplied.
+         * @param {Array<string>} [category] Filter by event category. Repeat the parameter for multiple values (OR logic within field).
+         * @param {Array<string>} [subject] Filter by event subject. Repeat the parameter for multiple values.
+         * @param {Array<string>} [event] Filter by event type. Repeat the parameter for multiple values.
+         * @param {Array<string>} [user] Filter by user name. Repeat the parameter for multiple values.
+         * @param {Array<string>} [userId] Filter by user ID. Repeat the parameter for multiple values.
+         * @param {GetAuditLogsOrderEnum} [order] Sort direction. Defaults to DESC.
+         * @param {number} [pageSize] Number of results per page. Maximum 500. Defaults to 200.
+         * @param {string} [pageCursor] Cursor returned from the previous response to fetch the next page.
+         * @param {string} [cursor] Deprecated. Use pageCursor instead.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAuditLogs: async (timePeriod?: GetAuditLogsTimePeriodEnum, cursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getAuditLogs: async (startTime?: number, endTime?: number, timePeriod?: GetAuditLogsTimePeriodEnum, category?: Array<string>, subject?: Array<string>, event?: Array<string>, user?: Array<string>, userId?: Array<string>, order?: GetAuditLogsOrderEnum, pageSize?: number, pageCursor?: string, cursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/management/audit_logs`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -57,8 +67,48 @@ export const AuditLogsApiAxiosParamCreator = function (configuration?: Configura
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
+            if (startTime !== undefined) {
+                localVarQueryParameter['startTime'] = startTime;
+            }
+
+            if (endTime !== undefined) {
+                localVarQueryParameter['endTime'] = endTime;
+            }
+
             if (timePeriod !== undefined) {
                 localVarQueryParameter['timePeriod'] = timePeriod;
+            }
+
+            if (category) {
+                localVarQueryParameter['category'] = category;
+            }
+
+            if (subject) {
+                localVarQueryParameter['subject'] = subject;
+            }
+
+            if (event) {
+                localVarQueryParameter['event'] = event;
+            }
+
+            if (user) {
+                localVarQueryParameter['user'] = user;
+            }
+
+            if (userId) {
+                localVarQueryParameter['userId'] = userId;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
             }
 
             if (cursor !== undefined) {
@@ -87,15 +137,25 @@ export const AuditLogsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = AuditLogsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
+         * Retrieve audit log events for the workspace with optional filtering, date range, sorting, and cursor-based pagination.  Filters within the same field are combined as OR (e.g. category=Administration&category=Security returns events in either category). Filters across different fields are combined as AND.  **Deprecated parameters:** `timePeriod` and `cursor` remain functional for backward compatibility but new integrations should use `startTime`/`endTime` and `pageCursor` instead.  Endpoint Permission: Admin, Non-Signing Admin, Auditor, Security Admin, Security Auditor.
          * @summary Get audit logs
-         * @param {GetAuditLogsTimePeriodEnum} [timePeriod] The last time period to fetch audit logs
-         * @param {string} [cursor] The next id to start fetch audit logs from
+         * @param {number} [startTime] Start of date range as epoch time in milliseconds. Takes precedence over timePeriod when provided. Must be no more than 1 year before the current time.
+         * @param {number} [endTime] End of date range as epoch time in milliseconds. Must be after startTime. Defaults to now when omitted.
+         * @param {GetAuditLogsTimePeriodEnum} [timePeriod] Deprecated. Use startTime/endTime instead. Ignored when startTime is provided. Defaults to DAY when neither timePeriod nor startTime is supplied.
+         * @param {Array<string>} [category] Filter by event category. Repeat the parameter for multiple values (OR logic within field).
+         * @param {Array<string>} [subject] Filter by event subject. Repeat the parameter for multiple values.
+         * @param {Array<string>} [event] Filter by event type. Repeat the parameter for multiple values.
+         * @param {Array<string>} [user] Filter by user name. Repeat the parameter for multiple values.
+         * @param {Array<string>} [userId] Filter by user ID. Repeat the parameter for multiple values.
+         * @param {GetAuditLogsOrderEnum} [order] Sort direction. Defaults to DESC.
+         * @param {number} [pageSize] Number of results per page. Maximum 500. Defaults to 200.
+         * @param {string} [pageCursor] Cursor returned from the previous response to fetch the next page.
+         * @param {string} [cursor] Deprecated. Use pageCursor instead.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAuditLogs(timePeriod?: GetAuditLogsTimePeriodEnum, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAuditLogsResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAuditLogs(timePeriod, cursor, options);
+        async getAuditLogs(startTime?: number, endTime?: number, timePeriod?: GetAuditLogsTimePeriodEnum, category?: Array<string>, subject?: Array<string>, event?: Array<string>, user?: Array<string>, userId?: Array<string>, order?: GetAuditLogsOrderEnum, pageSize?: number, pageCursor?: string, cursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAuditLogsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAuditLogs(startTime, endTime, timePeriod, category, subject, event, user, userId, order, pageSize, pageCursor, cursor, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['AuditLogsApi.getAuditLogs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -111,14 +171,14 @@ export const AuditLogsApiFactory = function (configuration?: Configuration, base
     const localVarFp = AuditLogsApiFp(configuration)
     return {
         /**
-         * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
+         * Retrieve audit log events for the workspace with optional filtering, date range, sorting, and cursor-based pagination.  Filters within the same field are combined as OR (e.g. category=Administration&category=Security returns events in either category). Filters across different fields are combined as AND.  **Deprecated parameters:** `timePeriod` and `cursor` remain functional for backward compatibility but new integrations should use `startTime`/`endTime` and `pageCursor` instead.  Endpoint Permission: Admin, Non-Signing Admin, Auditor, Security Admin, Security Auditor.
          * @summary Get audit logs
          * @param {AuditLogsApiGetAuditLogsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetAuditLogsResponse> {
-            return localVarFp.getAuditLogs(requestParameters.timePeriod, requestParameters.cursor, options).then((request) => request(axios, basePath));
+            return localVarFp.getAuditLogs(requestParameters.startTime, requestParameters.endTime, requestParameters.timePeriod, requestParameters.category, requestParameters.subject, requestParameters.event, requestParameters.user, requestParameters.userId, requestParameters.order, requestParameters.pageSize, requestParameters.pageCursor, requestParameters.cursor, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -130,14 +190,84 @@ export const AuditLogsApiFactory = function (configuration?: Configuration, base
  */
 export interface AuditLogsApiGetAuditLogsRequest {
     /**
-     * The last time period to fetch audit logs
+     * Start of date range as epoch time in milliseconds. Takes precedence over timePeriod when provided. Must be no more than 1 year before the current time.
+     * @type {number}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly startTime?: number
+
+    /**
+     * End of date range as epoch time in milliseconds. Must be after startTime. Defaults to now when omitted.
+     * @type {number}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly endTime?: number
+
+    /**
+     * Deprecated. Use startTime/endTime instead. Ignored when startTime is provided. Defaults to DAY when neither timePeriod nor startTime is supplied.
      * @type {'DAY' | 'WEEK'}
      * @memberof AuditLogsApiGetAuditLogs
      */
     readonly timePeriod?: GetAuditLogsTimePeriodEnum
 
     /**
-     * The next id to start fetch audit logs from
+     * Filter by event category. Repeat the parameter for multiple values (OR logic within field).
+     * @type {Array<string>}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly category?: Array<string>
+
+    /**
+     * Filter by event subject. Repeat the parameter for multiple values.
+     * @type {Array<string>}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly subject?: Array<string>
+
+    /**
+     * Filter by event type. Repeat the parameter for multiple values.
+     * @type {Array<string>}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly event?: Array<string>
+
+    /**
+     * Filter by user name. Repeat the parameter for multiple values.
+     * @type {Array<string>}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly user?: Array<string>
+
+    /**
+     * Filter by user ID. Repeat the parameter for multiple values.
+     * @type {Array<string>}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly userId?: Array<string>
+
+    /**
+     * Sort direction. Defaults to DESC.
+     * @type {'ASC' | 'DESC'}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly order?: GetAuditLogsOrderEnum
+
+    /**
+     * Number of results per page. Maximum 500. Defaults to 200.
+     * @type {number}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly pageSize?: number
+
+    /**
+     * Cursor returned from the previous response to fetch the next page.
+     * @type {string}
+     * @memberof AuditLogsApiGetAuditLogs
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Deprecated. Use pageCursor instead.
      * @type {string}
      * @memberof AuditLogsApiGetAuditLogs
      */
@@ -152,7 +282,7 @@ export interface AuditLogsApiGetAuditLogsRequest {
  */
 export class AuditLogsApi extends BaseAPI {
     /**
-     * Get Audit logs for the last Day/Week.  - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin permissions. Endpoint Permission: Admin, Non-Signing Admin.
+     * Retrieve audit log events for the workspace with optional filtering, date range, sorting, and cursor-based pagination.  Filters within the same field are combined as OR (e.g. category=Administration&category=Security returns events in either category). Filters across different fields are combined as AND.  **Deprecated parameters:** `timePeriod` and `cursor` remain functional for backward compatibility but new integrations should use `startTime`/`endTime` and `pageCursor` instead.  Endpoint Permission: Admin, Non-Signing Admin, Auditor, Security Admin, Security Auditor.
      * @summary Get audit logs
      * @param {AuditLogsApiGetAuditLogsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -160,7 +290,7 @@ export class AuditLogsApi extends BaseAPI {
      * @memberof AuditLogsApi
      */
     public getAuditLogs(requestParameters: AuditLogsApiGetAuditLogsRequest = {}) {
-        return AuditLogsApiFp(this.configuration).getAuditLogs(requestParameters.timePeriod, requestParameters.cursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return AuditLogsApiFp(this.configuration).getAuditLogs(requestParameters.startTime, requestParameters.endTime, requestParameters.timePeriod, requestParameters.category, requestParameters.subject, requestParameters.event, requestParameters.user, requestParameters.userId, requestParameters.order, requestParameters.pageSize, requestParameters.pageCursor, requestParameters.cursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
@@ -172,3 +302,11 @@ export const GetAuditLogsTimePeriodEnum = {
     Week: 'WEEK'
 } as const;
 export type GetAuditLogsTimePeriodEnum = typeof GetAuditLogsTimePeriodEnum[keyof typeof GetAuditLogsTimePeriodEnum];
+/**
+ * @export
+ */
+export const GetAuditLogsOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetAuditLogsOrderEnum = typeof GetAuditLogsOrderEnum[keyof typeof GetAuditLogsOrderEnum];

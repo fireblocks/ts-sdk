@@ -13,34 +13,36 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { AuditLogsData } from './audit-logs-data';
 
 /**
  * 
  * @export
- * @interface GetAuditLogsResponse
+ * @interface UsdcGatewayWalletAsset
  */
-export interface GetAuditLogsResponse {
+export interface UsdcGatewayWalletAsset {
     /**
-     * 
-     * @type {AuditLogsData}
-     * @memberof GetAuditLogsResponse
-     */
-    'data'?: AuditLogsData;
-    /**
-     * Cursor to pass as pageCursor in the next request. Null when no further pages exist.
+     * Fireblocks asset ID
      * @type {string}
-     * @memberof GetAuditLogsResponse
+     * @memberof UsdcGatewayWalletAsset
      */
-    'next'?: string | null;
+    'id': string;
     /**
-     * Deprecated. Use next instead.
+     * Asset balance
      * @type {string}
-     * @memberof GetAuditLogsResponse
-     * @deprecated
+     * @memberof UsdcGatewayWalletAsset
      */
-    'cursor'?: string | null;
+    'balance': string;
+    /**
+     * Blockchain name
+     * @type {string}
+     * @memberof UsdcGatewayWalletAsset
+     */
+    'chain': string;
+    /**
+     * Network name
+     * @type {string}
+     * @memberof UsdcGatewayWalletAsset
+     */
+    'network': string;
 }
 

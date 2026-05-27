@@ -13,34 +13,18 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { AuditLogsData } from './audit-logs-data';
 
 /**
- * 
+ * The tag type, indicating the domain that owns the tag
  * @export
- * @interface GetAuditLogsResponse
+ * @enum {string}
  */
-export interface GetAuditLogsResponse {
-    /**
-     * 
-     * @type {AuditLogsData}
-     * @memberof GetAuditLogsResponse
-     */
-    'data'?: AuditLogsData;
-    /**
-     * Cursor to pass as pageCursor in the next request. Null when no further pages exist.
-     * @type {string}
-     * @memberof GetAuditLogsResponse
-     */
-    'next'?: string | null;
-    /**
-     * Deprecated. Use next instead.
-     * @type {string}
-     * @memberof GetAuditLogsResponse
-     * @deprecated
-     */
-    'cursor'?: string | null;
-}
+
+export const TagType = {
+    WalletPool: 'WALLET_POOL'
+} as const;
+
+export type TagType = typeof TagType[keyof typeof TagType];
+
+
 

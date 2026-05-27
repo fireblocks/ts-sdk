@@ -51,6 +51,8 @@ import { StakeRequest } from '../models';
 // @ts-ignore
 import { StakeResponse } from '../models';
 // @ts-ignore
+import { StakingErrorSchema } from '../models';
+// @ts-ignore
 import { StakingGetAllDelegationsResponse } from '../models';
 // @ts-ignore
 import { StakingGetChainsResponse } from '../models';

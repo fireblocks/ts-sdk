@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TagType } from './tag-type';
 
 /**
  * 
@@ -44,5 +47,13 @@ export interface CreateTagRequest {
      * @memberof CreateTagRequest
      */
     'isProtected'?: boolean;
+    /**
+     * 
+     * @type {TagType}
+     * @memberof CreateTagRequest
+     */
+    'type'?: TagType;
 }
+
+
 

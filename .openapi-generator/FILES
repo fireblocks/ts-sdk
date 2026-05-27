@@ -877,6 +877,7 @@ StEthBlockchainData.md
 StakeRequest.md
 StakeResponse.md
 StakingApi.md
+StakingErrorSchema.md
 StakingGetAllDelegationsResponse.md
 StakingGetChainsResponse.md
 StakingGetProvidersResponse.md
@@ -986,6 +987,7 @@ TRLinkVerdict.md
 TRLinkVerdictEnum.md
 Tag.md
 TagAttachmentOperationAction.md
+TagType.md
 TagsApi.md
 TagsPagedResponse.md
 TemplatesPaginatedResponse.md
@@ -1123,6 +1125,7 @@ UpdateVaultAccountAssetAddressRequest.md
 UpdateVaultAccountRequest.md
 UpdateWebhookRequest.md
 UsWirePaymentInfo.md
+UsdcGatewayWalletAsset.md
 UsdcGatewayWalletInfoResponse.md
 UsdcGatewayWalletStatusResponse.md
 UserGroupCreateRequest.md
@@ -2083,6 +2086,7 @@ models/split-response.ts
 models/st-eth-blockchain-data.ts
 models/stake-request.ts
 models/stake-response.ts
+models/staking-error-schema.ts
 models/staking-get-all-delegations-response.ts
 models/staking-get-chains-response.ts
 models/staking-get-providers-response.ts
@@ -2097,6 +2101,7 @@ models/swift-address.ts
 models/swift-destination.ts
 models/system-message-info.ts
 models/tag-attachment-operation-action.ts
+models/tag-type.ts
 models/tag.ts
 models/tags-paged-response.ts
 models/templates-paginated-response.ts
@@ -2320,6 +2325,7 @@ models/update-vault-account-asset-address-request.ts
 models/update-vault-account-request.ts
 models/update-webhook-request.ts
 models/us-wire-payment-info.ts
+models/usdc-gateway-wallet-asset.ts
 models/usdc-gateway-wallet-info-response.ts
 models/usdc-gateway-wallet-status-response.ts
 models/user-group-create-request.ts

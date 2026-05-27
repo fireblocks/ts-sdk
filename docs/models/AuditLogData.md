@@ -10,6 +10,7 @@
 |**user** | **string** | The user who performed the action | [optional] [default to undefined]|
 |**subject** | **string** | The subject of the action | [optional] [default to undefined]|
 |**event** | **string** | The event that was performed | [optional] [default to undefined]|
+|**category** | **string** | The category of the audit event | [optional] [default to undefined]|
 |**tenantId** | **string** | The tenant ID of the audit log | [optional] [default to undefined]|
 |**userId** | **string** | The user ID of the audit log | [optional] [default to undefined]|
 

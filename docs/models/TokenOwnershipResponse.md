@@ -83,6 +83,8 @@
 
 * `RobinhoodChainTestnetTest` (value: `'ROBINHOOD_CHAIN_TESTNET_TEST'`)
 
+* `Arb` (value: `'ARB'`)
+
 
 
 ## Enum: TokenOwnershipResponseStatusEnum

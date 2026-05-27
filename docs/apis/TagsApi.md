@@ -354,6 +354,8 @@ let body: TagsApiGetTagsRequest = {
   includePendingApprovalsInfo: true,
   // boolean (optional)
   isProtected: true,
+  // Array<TagType> | Filter by tag type (optional)
+  type: param_value,
 };
 
 fireblocks.tags.getTags(body).then((res: FireblocksResponse<TagsPagedResponse>) => {
@@ -372,6 +374,7 @@ Name | Type | Description  | Notes
  **tagIds** | **Array&lt;string&gt;** | List of tag IDs to filter by. | (optional) defaults to undefined
  **includePendingApprovalsInfo** | [**boolean**] | Whether to include pending approval requests info. | (optional) defaults to false
  **isProtected** | [**boolean**] |  | (optional) defaults to undefined
+ **type** | **Array&lt;TagType&gt;** | Filter by tag type | (optional) defaults to undefined
 
 
 ### Return type

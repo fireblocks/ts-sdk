@@ -42,7 +42,6 @@ export interface PublicKeyInformation {
 
 export const PublicKeyInformationAlgorithmEnum = {
     EcdsaSecp256K1: 'MPC_ECDSA_SECP256K1',
-    EcdsaSecp256R1: 'MPC_ECDSA_SECP256R1',
     EddsaEd25519: 'MPC_EDDSA_ED25519'
 } as const;
 

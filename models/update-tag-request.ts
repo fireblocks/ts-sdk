@@ -32,5 +32,11 @@ export interface UpdateTagRequest {
      * @memberof UpdateTagRequest
      */
     'description'?: string;
+    /**
+     * The tag color in hex format
+     * @type {string}
+     * @memberof UpdateTagRequest
+     */
+    'color'?: string;
 }
 
