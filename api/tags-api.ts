@@ -37,6 +37,8 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { Tag } from '../models';
 // @ts-ignore
+import { TagType } from '../models';
+// @ts-ignore
 import { TagsPagedResponse } from '../models';
 // @ts-ignore
 import { UpdateTagRequest } from '../models';
@@ -232,10 +234,11 @@ export const TagsApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {Array<string>} [tagIds] List of tag IDs to filter by.
          * @param {boolean} [includePendingApprovalsInfo] Whether to include pending approval requests info.
          * @param {boolean} [isProtected] 
+         * @param {Array<TagType>} [type] Filter by tag type
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTags: async (pageCursor?: string, pageSize?: number, label?: string, tagIds?: Array<string>, includePendingApprovalsInfo?: boolean, isProtected?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getTags: async (pageCursor?: string, pageSize?: number, label?: string, tagIds?: Array<string>, includePendingApprovalsInfo?: boolean, isProtected?: boolean, type?: Array<TagType>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/tags`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -270,6 +273,10 @@ export const TagsApiAxiosParamCreator = function (configuration?: Configuration)
 
             if (isProtected !== undefined) {
                 localVarQueryParameter['isProtected'] = isProtected;
+            }
+
+            if (type) {
+                localVarQueryParameter['type'] = type;
             }
 
 
@@ -412,11 +419,12 @@ export const TagsApiFp = function(configuration?: Configuration) {
          * @param {Array<string>} [tagIds] List of tag IDs to filter by.
          * @param {boolean} [includePendingApprovalsInfo] Whether to include pending approval requests info.
          * @param {boolean} [isProtected] 
+         * @param {Array<TagType>} [type] Filter by tag type
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getTags(pageCursor?: string, pageSize?: number, label?: string, tagIds?: Array<string>, includePendingApprovalsInfo?: boolean, isProtected?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TagsPagedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, options);
+        async getTags(pageCursor?: string, pageSize?: number, label?: string, tagIds?: Array<string>, includePendingApprovalsInfo?: boolean, isProtected?: boolean, type?: Array<TagType>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TagsPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTags(pageCursor, pageSize, label, tagIds, includePendingApprovalsInfo, isProtected, type, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TagsApi.getTags']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -504,7 +512,7 @@ export const TagsApiFactory = function (configuration?: Configuration, basePath?
          * @throws {RequiredError}
          */
         getTags(requestParameters: TagsApiGetTagsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<TagsPagedResponse> {
-            return localVarFp.getTags(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.label, requestParameters.tagIds, requestParameters.includePendingApprovalsInfo, requestParameters.isProtected, options).then((request) => request(axios, basePath));
+            return localVarFp.getTags(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.label, requestParameters.tagIds, requestParameters.includePendingApprovalsInfo, requestParameters.isProtected, requestParameters.type, options).then((request) => request(axios, basePath));
         },
         /**
          * Update an existing specified tag. Endpoint Permission: For protected tags: Owner, Admin, Non-Signing Admin. For non protected tags: Owner, Admin, Non-Signing Admin, Signer, Editor, Approver.
@@ -650,6 +658,13 @@ export interface TagsApiGetTagsRequest {
      * @memberof TagsApiGetTags
      */
     readonly isProtected?: boolean
+
+    /**
+     * Filter by tag type
+     * @type {Array<TagType>}
+     * @memberof TagsApiGetTags
+     */
+    readonly type?: Array<TagType>
 }
 
 /**
@@ -756,7 +771,7 @@ export class TagsApi extends BaseAPI {
      * @memberof TagsApi
      */
     public getTags(requestParameters: TagsApiGetTagsRequest = {}) {
-        return TagsApiFp(this.configuration).getTags(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.label, requestParameters.tagIds, requestParameters.includePendingApprovalsInfo, requestParameters.isProtected).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return TagsApiFp(this.configuration).getTags(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.label, requestParameters.tagIds, requestParameters.includePendingApprovalsInfo, requestParameters.isProtected, requestParameters.type).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

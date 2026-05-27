@@ -10,6 +10,7 @@
 |**updatedAt** | **number** | The date and time the tag was last updated | [default to undefined]|
 |**description** | **string** | Description for the tag | [optional] [default to undefined]|
 |**color** | **string** | The tag color in hex format | [optional] [default to undefined]|
+|**type** | [**TagType**](TagType.md) |  | [optional] [default to undefined]|
 |**pendingApprovalRequest** | [**ApprovalRequest**](ApprovalRequest.md) |  | [optional] [default to undefined]|
 
 

@@ -13,34 +13,30 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { AuditLogsData } from './audit-logs-data';
 
 /**
  * 
  * @export
- * @interface GetAuditLogsResponse
+ * @interface StakingErrorSchema
  */
-export interface GetAuditLogsResponse {
+export interface StakingErrorSchema {
     /**
-     * 
-     * @type {AuditLogsData}
-     * @memberof GetAuditLogsResponse
-     */
-    'data'?: AuditLogsData;
-    /**
-     * Cursor to pass as pageCursor in the next request. Null when no further pages exist.
+     * Human-readable error message.
      * @type {string}
-     * @memberof GetAuditLogsResponse
+     * @memberof StakingErrorSchema
      */
-    'next'?: string | null;
+    'message': string;
     /**
-     * Deprecated. Use next instead.
-     * @type {string}
-     * @memberof GetAuditLogsResponse
-     * @deprecated
+     * Numeric error code identifying the type of error.
+     * @type {number}
+     * @memberof StakingErrorSchema
      */
-    'cursor'?: string | null;
+    'code': number;
+    /**
+     * Additional structured context about the error.
+     * @type {string}
+     * @memberof StakingErrorSchema
+     */
+    'descriptor'?: string;
 }
 

@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { ApprovalRequest } from './approval-request';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TagType } from './tag-type';
 
 /**
  * 
@@ -61,9 +64,17 @@ export interface Tag {
     'color'?: string;
     /**
      * 
+     * @type {TagType}
+     * @memberof Tag
+     */
+    'type'?: TagType;
+    /**
+     * 
      * @type {ApprovalRequest}
      * @memberof Tag
      */
     'pendingApprovalRequest'?: ApprovalRequest;
 }
+
+
 

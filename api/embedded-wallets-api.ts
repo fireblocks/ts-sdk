@@ -2166,7 +2166,7 @@ export interface EmbeddedWalletsApiGetPublicKeyInfoNcwRequest {
 
     /**
      * Elliptic Curve
-     * @type {'MPC_ECDSA_SECP256K1' | 'MPC_ECDSA_SECP256R1' | 'MPC_EDDSA_ED25519'}
+     * @type {'MPC_ECDSA_SECP256K1' | 'MPC_EDDSA_ED25519'}
      * @memberof EmbeddedWalletsApiGetPublicKeyInfoNcw
      */
     readonly algorithm: GetPublicKeyInfoNcwAlgorithmEnum
@@ -2616,7 +2616,6 @@ export type GetEmbeddedWalletsOrderEnum = typeof GetEmbeddedWalletsOrderEnum[key
  */
 export const GetPublicKeyInfoNcwAlgorithmEnum = {
     EcdsaSecp256K1: 'MPC_ECDSA_SECP256K1',
-    EcdsaSecp256R1: 'MPC_ECDSA_SECP256R1',
     EddsaEd25519: 'MPC_EDDSA_ED25519'
 } as const;
 export type GetPublicKeyInfoNcwAlgorithmEnum = typeof GetPublicKeyInfoNcwAlgorithmEnum[keyof typeof GetPublicKeyInfoNcwAlgorithmEnum];

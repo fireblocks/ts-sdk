@@ -5,8 +5,8 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**data** | [**AuditLogsData**](AuditLogsData.md) |  | [optional] [default to undefined]|
-|**cursor** | **string** | The next id to start fetch audit logs from | [optional] [default to undefined]|
-|**total** | **number** | The total number of audit logs | [optional] [default to undefined]|
+|**next** | **string** | Cursor to pass as pageCursor in the next request. Null when no further pages exist. | [optional] [default to undefined]|
+|**cursor** | **string** | Deprecated. Use next instead. | [optional] [default to undefined]|
 
 
 

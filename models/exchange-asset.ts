@@ -21,9 +21,10 @@
  */
 export interface ExchangeAsset {
     /**
-     * 
+     * Deprecated. Use assetId or assetLegacyId instead.
      * @type {string}
      * @memberof ExchangeAsset
+     * @deprecated
      */
     'id'?: string;
     /**
@@ -57,25 +58,25 @@ export interface ExchangeAsset {
      */
     'credit'?: string;
     /**
-     * The id of the asset
+     * The Fireblocks asset id. Present only when Fireblocks can identify the exchange asset.
      * @type {string}
      * @memberof ExchangeAsset
      */
     'assetId'?: string;
     /**
-     * The provider symbol of the asset
+     * The symbol used by the exchange provider to identify the asset.
      * @type {string}
      * @memberof ExchangeAsset
      */
     'providerSymbol'?: string;
     /**
-     * The asset symbol of the asset
+     * The Fireblocks asset symbol. Present only when Fireblocks can identify the exchange asset.
      * @type {string}
      * @memberof ExchangeAsset
      */
     'assetSymbol'?: string;
     /**
-     * The asset legacy id of the asset
+     * The Fireblocks legacy asset id. Present only when Fireblocks can identify the exchange asset.
      * @type {string}
      * @memberof ExchangeAsset
      */

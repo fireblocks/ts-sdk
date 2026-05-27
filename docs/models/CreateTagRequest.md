@@ -8,6 +8,7 @@
 |**description** | **string** | Description for the tag | [optional] [default to undefined]|
 |**color** | **string** | The tag color in hex format | [optional] [default to undefined]|
 |**isProtected** | **boolean** | Indication if the tag is protected tag | [optional] [default to false]|
+|**type** | [**TagType**](TagType.md) |  | [optional] [default to undefined]|
 
 
 

@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { UsdcGatewayWalletAsset } from './usdc-gateway-wallet-asset';
 
 /**
  * 
@@ -45,11 +48,23 @@ export interface UsdcGatewayWalletInfoResponse {
      */
     'symbol': string;
     /**
-     * Fireblocks asset IDs available for this wallet
-     * @type {Array<string>}
+     * Aggregate USDC balance across all assets
+     * @type {string}
      * @memberof UsdcGatewayWalletInfoResponse
      */
-    'assetIds': Array<string>;
+    'totalBalance': string;
+    /**
+     * Per-chain USDC asset balances
+     * @type {Array<UsdcGatewayWalletAsset>}
+     * @memberof UsdcGatewayWalletInfoResponse
+     */
+    'assets': Array<UsdcGatewayWalletAsset>;
+    /**
+     * The id of the virtual asset
+     * @type {string}
+     * @memberof UsdcGatewayWalletInfoResponse
+     */
+    'virtualAssetId': string;
 }
 
 export const UsdcGatewayWalletInfoResponseStatusEnum = {
