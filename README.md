@@ -222,7 +222,7 @@ Class | Method | HTTP request | Description
 *DeployedContractsApi* | [**getDeployedContractByAddress**](docs/apis/DeployedContractsApi.md#getDeployedContractByAddress) | **GET** /tokenization/contracts/{assetId}/{contractAddress} | Return deployed contract data
 *DeployedContractsApi* | [**getDeployedContractById**](docs/apis/DeployedContractsApi.md#getDeployedContractById) | **GET** /tokenization/contracts/{id} | Return deployed contract data by id
 *DeployedContractsApi* | [**getDeployedContracts**](docs/apis/DeployedContractsApi.md#getDeployedContracts) | **GET** /tokenization/contracts | List deployed contracts data
-*EarnBetaApi* | [**approveTermsOfService**](docs/apis/EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/{providerId}/approve_terms_of_service | Approve earn provider terms of service
+*EarnBetaApi* | [**approveTermsOfService**](docs/apis/EarnBetaApi.md#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service
 *EarnBetaApi* | [**createEarnAction**](docs/apis/EarnBetaApi.md#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw)
 *EarnBetaApi* | [**getEarnAction**](docs/apis/EarnBetaApi.md#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action
 *EarnBetaApi* | [**getEarnActions**](docs/apis/EarnBetaApi.md#getEarnActions) | **GET** /earn/actions | List earn lending actions
