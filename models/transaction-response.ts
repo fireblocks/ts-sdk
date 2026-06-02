@@ -222,6 +222,12 @@ export interface TransactionResponse {
      */
     'lastUpdated'?: number;
     /**
+     * The transaction’s expiration date and time, in unix timestamp. Only returned for transactions that have an expiration set.
+     * @type {number}
+     * @memberof TransactionResponse
+     */
+    'expiresAt'?: number;
+    /**
      * User ID of the initiator of the transaction.
      * @type {string}
      * @memberof TransactionResponse

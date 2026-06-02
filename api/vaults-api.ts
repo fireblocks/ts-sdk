@@ -145,7 +145,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Activate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -482,7 +482,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Deactivate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -938,7 +938,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get USDC Gateway wallet info
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -1569,7 +1569,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Activate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1688,7 +1688,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Deactivate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1844,7 +1844,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get USDC Gateway wallet info
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -2083,7 +2083,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Activate a USDC Gateway wallet
          * @param {VaultsApiActivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2163,7 +2163,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Deactivate a USDC Gateway wallet
          * @param {VaultsApiDeactivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2263,7 +2263,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get USDC Gateway wallet info
          * @param {VaultsApiGetUsdcGatewayWalletInfoBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -3387,7 +3387,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Activate a USDC Gateway wallet
      * @param {VaultsApiActivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3483,7 +3483,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Deactivates the USDC Gateway wallet associated with the given vault account.   **Note:** This endpoint is currently in beta and might be subject to changes.  </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Deactivate a USDC Gateway wallet
      * @param {VaultsApiDeactivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -3603,7 +3603,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. </br>Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get USDC Gateway wallet info
      * @param {VaultsApiGetUsdcGatewayWalletInfoBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

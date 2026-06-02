@@ -29,6 +29,7 @@
 |**networkRecords** | [**Array&lt;NetworkRecord&gt;**](NetworkRecord.md) | In case a single transaction resulted with multiple transfers, for example a result of a contract call, then this parameter specifies each transfer that took place on the blockchain. In case of a single transfer transaction, this parameter is empty. | [optional] [default to undefined]|
 |**createdAt** | **number** | The transaction’s creation date and time, in unix timestamp. | [optional] [default to undefined]|
 |**lastUpdated** | **number** | The transaction’s last update date and time, in unix timestamp. | [optional] [default to undefined]|
+|**expiresAt** | **number** | The transaction’s expiration date and time, in unix timestamp. Only returned for transactions that have an expiration set. | [optional] [default to undefined]|
 |**createdBy** | **string** | User ID of the initiator of the transaction. | [optional] [default to undefined]|
 |**signedBy** | **Array&lt;string&gt;** | User ID’s of the signers of the transaction. | [optional] [default to undefined]|
 |**rejectedBy** | **string** | User ID of the user that rejected the transaction (in case it was rejected). | [optional] [default to undefined]|

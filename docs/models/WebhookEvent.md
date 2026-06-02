@@ -29,6 +29,8 @@
 
 * `VaultAccountAssetBalanceUpdated` (value: `'vault_account.asset.balance_updated'`)
 
+* `VaultAccountNftBalanceUpdated` (value: `'vault_account.nft.balance_updated'`)
+
 * `EmbeddedWalletStatusUpdated` (value: `'embedded_wallet.status.updated'`)
 
 * `EmbeddedWalletCreated` (value: `'embedded_wallet.created'`)
@@ -50,6 +52,56 @@
 * `ConnectionRequestWaitingPeerApproval` (value: `'connection.request.waiting_peer_approval'`)
 
 * `ConnectionRequestRejectedByPeer` (value: `'connection.request.rejected_by_peer'`)
+
+* `ExchangeAccountConnected` (value: `'exchange_account.connected'`)
+
+* `FiatAccountConnected` (value: `'fiat_account.connected'`)
+
+* `ConnectedAccountConnected` (value: `'connected_account.connected'`)
+
+* `TicketCreated` (value: `'ticket.created'`)
+
+* `TicketSubmitted` (value: `'ticket.submitted'`)
+
+* `TicketExpired` (value: `'ticket.expired'`)
+
+* `TicketCanceled` (value: `'ticket.canceled'`)
+
+* `TicketFulfilled` (value: `'ticket.fulfilled'`)
+
+* `TicketCounterpartyAdded` (value: `'ticket.counterparty.added'`)
+
+* `TicketCounterpartyExternalIdSet` (value: `'ticket.counterparty_external_id.set'`)
+
+* `TicketNoteAdded` (value: `'ticket.note.added'`)
+
+* `TicketExpiresAtSet` (value: `'ticket.expires_at.set'`)
+
+* `TicketExpiresInSet` (value: `'ticket.expires_in.set'`)
+
+* `TicketTermAdded` (value: `'ticket.term.added'`)
+
+* `TicketTermUpdated` (value: `'ticket.term.updated'`)
+
+* `TicketTermDeleted` (value: `'ticket.term.deleted'`)
+
+* `TicketTermFunded` (value: `'ticket.term.funded'`)
+
+* `TicketTermManuallyFunded` (value: `'ticket.term.manually_funded'`)
+
+* `TicketTermFundingCanceled` (value: `'ticket.term.funding_canceled'`)
+
+* `TicketTermFundingFailed` (value: `'ticket.term.funding_failed'`)
+
+* `TicketTermFundingCompleted` (value: `'ticket.term.funding_completed'`)
+
+* `TicketTermTransactionStatusChanged` (value: `'ticket.term.transaction_status_changed'`)
+
+* `SettlementCreated` (value: `'settlement.created'`)
+
+* `OrderUpdated` (value: `'order.updated'`)
+
+* `AutomationExecutionUpdate` (value: `'automation_execution.update'`)
 
 
 

@@ -49,17 +49,14 @@ import { GetProvidersResponse } from '../models';
 export const EarnBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Approves the lending provider\'s terms of service for this workspace. When `isTermsApprovalRequired` is true on the provider (see list providers), call this once before creating or executing earn actions with that provider. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Approve earn provider terms of service
-         * @param {ApproveTermsOfServiceProviderIdEnum} providerId Stable protocol identifier for the earn provider (&#x60;MORPHO&#x60; or &#x60;AAVE&#x60;).
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        approveTermsOfService: async (providerId: ApproveTermsOfServiceProviderIdEnum, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('approveTermsOfService', 'providerId', providerId)
-            const localVarPath = `/earn/providers/{providerId}/approve_terms_of_service`
-                .replace(`{${"providerId"}}`, encodeURIComponent(String(providerId)));
+        approveTermsOfService: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/earn/providers/approve_terms_of_service`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -380,15 +377,14 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = EarnBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Approves the lending provider\'s terms of service for this workspace. When `isTermsApprovalRequired` is true on the provider (see list providers), call this once before creating or executing earn actions with that provider. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Approve earn provider terms of service
-         * @param {ApproveTermsOfServiceProviderIdEnum} providerId Stable protocol identifier for the earn provider (&#x60;MORPHO&#x60; or &#x60;AAVE&#x60;).
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async approveTermsOfService(providerId: ApproveTermsOfServiceProviderIdEnum, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.approveTermsOfService(providerId, idempotencyKey, options);
+        async approveTermsOfService(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.approveTermsOfService(idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['EarnBetaApi.approveTermsOfService']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -497,14 +493,14 @@ export const EarnBetaApiFactory = function (configuration?: Configuration, baseP
     const localVarFp = EarnBetaApiFp(configuration)
     return {
         /**
-         * Approves the lending provider\'s terms of service for this workspace. When `isTermsApprovalRequired` is true on the provider (see list providers), call this once before creating or executing earn actions with that provider. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Approve earn provider terms of service
          * @param {EarnBetaApiApproveTermsOfServiceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        approveTermsOfService(requestParameters: EarnBetaApiApproveTermsOfServiceRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.approveTermsOfService(requestParameters.providerId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        approveTermsOfService(requestParameters: EarnBetaApiApproveTermsOfServiceRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.approveTermsOfService(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
@@ -575,13 +571,6 @@ export const EarnBetaApiFactory = function (configuration?: Configuration, baseP
  * @interface EarnBetaApiApproveTermsOfServiceRequest
  */
 export interface EarnBetaApiApproveTermsOfServiceRequest {
-    /**
-     * Stable protocol identifier for the earn provider (&#x60;MORPHO&#x60; or &#x60;AAVE&#x60;).
-     * @type {'MORPHO' | 'AAVE'}
-     * @memberof EarnBetaApiApproveTermsOfService
-     */
-    readonly providerId: ApproveTermsOfServiceProviderIdEnum
-
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
@@ -787,15 +776,15 @@ export interface EarnBetaApiGetEarnProvidersRequest {
  */
 export class EarnBetaApi extends BaseAPI {
     /**
-     * Approves the lending provider\'s terms of service for this workspace. When `isTermsApprovalRequired` is true on the provider (see list providers), call this once before creating or executing earn actions with that provider. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
      * @summary Approve earn provider terms of service
      * @param {EarnBetaApiApproveTermsOfServiceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof EarnBetaApi
      */
-    public approveTermsOfService(requestParameters: EarnBetaApiApproveTermsOfServiceRequest) {
-        return EarnBetaApiFp(this.configuration).approveTermsOfService(requestParameters.providerId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public approveTermsOfService(requestParameters: EarnBetaApiApproveTermsOfServiceRequest = {}) {
+        return EarnBetaApiFp(this.configuration).approveTermsOfService(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -871,14 +860,6 @@ export class EarnBetaApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const ApproveTermsOfServiceProviderIdEnum = {
-    Morpho: 'MORPHO',
-    Aave: 'AAVE'
-} as const;
-export type ApproveTermsOfServiceProviderIdEnum = typeof ApproveTermsOfServiceProviderIdEnum[keyof typeof ApproveTermsOfServiceProviderIdEnum];
 /**
  * @export
  */

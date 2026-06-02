@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**approveTermsOfService**](#approveTermsOfService) | **POST** /earn/providers/{providerId}/approve_terms_of_service | Approve earn provider terms of service
+[**approveTermsOfService**](#approveTermsOfService) | **POST** /earn/providers/approve_terms_of_service | Approve earn provider terms of service
 [**createEarnAction**](#createEarnAction) | **POST** /earn/actions | Create and execute a lending action (deposit or withdraw)
 [**getEarnAction**](#getEarnAction) | **GET** /earn/actions/{id} | Get a single earn lending action
 [**getEarnActions**](#getEarnActions) | **GET** /earn/actions | List earn lending actions
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 # **approveTermsOfService**
 > approveTermsOfService()
 
-Approves the lending provider\'s terms of service for this workspace. When `isTermsApprovalRequired` is true on the provider (see list providers), call this once before creating or executing earn actions with that provider. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
 ### Example
 
@@ -34,8 +34,6 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: EarnBetaApiApproveTermsOfServiceRequest = {
-  // 'MORPHO' | 'AAVE' | Stable protocol identifier for the earn provider (`MORPHO` or `AAVE`).
-  providerId: providerId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
@@ -50,7 +48,6 @@ fireblocks.earnBeta.approveTermsOfService(body).then((res: FireblocksResponse<an
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **providerId** | [**&#39;MORPHO&#39; | &#39;AAVE&#39;**]**Array<&#39;MORPHO&#39; &#124; &#39;AAVE&#39;>** | Stable protocol identifier for the earn provider (&#x60;MORPHO&#x60; or &#x60;AAVE&#x60;). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
