@@ -36,7 +36,8 @@ export const TransferPeerPathType = {
     EndUserWallet: 'END_USER_WALLET',
     ProgramCall: 'PROGRAM_CALL',
     MultiDestination: 'MULTI_DESTINATION',
-    OecPartner: 'OEC_PARTNER'
+    OecPartner: 'OEC_PARTNER',
+    WalletPool: 'WALLET_POOL'
 } as const;
 
 export type TransferPeerPathType = typeof TransferPeerPathType[keyof typeof TransferPeerPathType];

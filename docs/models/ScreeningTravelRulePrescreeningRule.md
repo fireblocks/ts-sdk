@@ -5,11 +5,11 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**bypassReason** | **string** | Reason for bypass if prescreening rule triggered a bypass | [optional] [default to undefined]|
-|**sourceType** | [**TransferPeerTypeEnum**](TransferPeerTypeEnum.md) |  | [optional] [default to undefined]|
+|**sourceType** | [**TransferPeerTypeEnum2**](TransferPeerTypeEnum2.md) |  | [optional] [default to undefined]|
 |**sourceSubType** | [**TransferPeerSubTypeEnum**](TransferPeerSubTypeEnum.md) |  | [optional] [default to undefined]|
-|**destType** | [**TransferPeerTypeEnum**](TransferPeerTypeEnum.md) |  | [optional] [default to undefined]|
+|**destType** | [**TransferPeerTypeEnum2**](TransferPeerTypeEnum2.md) |  | [optional] [default to undefined]|
 |**destSubType** | [**TransferPeerSubTypeEnum**](TransferPeerSubTypeEnum.md) |  | [optional] [default to undefined]|
-|**transferPeerType** | [**TransferPeerTypeEnum**](TransferPeerTypeEnum.md) |  | [optional] [default to undefined]|
+|**transferPeerType** | [**TransferPeerTypeEnum2**](TransferPeerTypeEnum2.md) |  | [optional] [default to undefined]|
 |**transferPeerSubType** | [**TransferPeerSubTypeEnum**](TransferPeerSubTypeEnum.md) |  | [optional] [default to undefined]|
 |**destAddress** | **string** | Destination address | [optional] [default to undefined]|
 |**sourceId** | **string** | Source ID | [optional] [default to undefined]|

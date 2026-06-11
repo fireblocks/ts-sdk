@@ -7,6 +7,8 @@
 
 * `AwaitingPayment` (value: `'AWAITING_PAYMENT'`)
 
+* `AwaitingInformation` (value: `'AWAITING_INFORMATION'`)
+
 * `PendingUserAction` (value: `'PENDING_USER_ACTION'`)
 
 * `Processing` (value: `'PROCESSING'`)

@@ -59,6 +59,8 @@ import { WebhookEvent } from '../models';
 // @ts-ignore
 import { WebhookMetric } from '../models';
 // @ts-ignore
+import { WebhookMtlsCsrResponse } from '../models';
+// @ts-ignore
 import { WebhookPaginatedResponse } from '../models';
 /**
  * WebhooksV2Api - axios parameter creator
@@ -153,6 +155,36 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             const localVarPath = `/webhooks/{webhookId}/metrics/{metricName}`
                 .replace(`{${"webhookId"}}`, encodeURIComponent(String(webhookId)))
                 .replace(`{${"metricName"}}`, encodeURIComponent(String(metricName)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+         * @summary Get mTLS CSR
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMtlsCsr: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks/mtls/csr`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -750,6 +782,18 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+         * @summary Get mTLS CSR
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMtlsCsr(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsCsrResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMtlsCsr(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getMtlsCsr']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get notification by id 
          * @summary Get notification by id
          * @param {string} webhookId The ID of the webhook to fetch
@@ -971,6 +1015,15 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          */
         getMetrics(requestParameters: WebhooksV2ApiGetMetricsRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMetric> {
             return localVarFp.getMetrics(requestParameters.webhookId, requestParameters.metricName, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+         * @summary Get mTLS CSR
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMtlsCsr(options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsCsrResponse> {
+            return localVarFp.getMtlsCsr(options).then((request) => request(axios, basePath));
         },
         /**
          * Get notification by id 
@@ -1549,6 +1602,17 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public getMetrics(requestParameters: WebhooksV2ApiGetMetricsRequest) {
         return WebhooksV2ApiFp(this.configuration).getMetrics(requestParameters.webhookId, requestParameters.metricName).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+     * @summary Get mTLS CSR
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getMtlsCsr() {
+        return WebhooksV2ApiFp(this.configuration).getMtlsCsr().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

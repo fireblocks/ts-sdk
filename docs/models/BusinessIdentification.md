@@ -12,6 +12,8 @@
 |**postalAddress** | [**PostalAddress**](PostalAddress.md) |  | [default to undefined]|
 |**email** | **string** |  | [optional] [default to undefined]|
 |**phone** | **string** | Mobile phone number in E.164 format | [optional] [default to undefined]|
+|**dateOfRegistration** | **string** | The date the business was registered. | [optional] [default to undefined]|
+|**countryOfRegistration** | **string** | The ISO-3166 Alpha-2 country code where the business is registered. | [optional] [default to undefined]|
 
 
 

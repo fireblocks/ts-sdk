@@ -10,7 +10,10 @@
 |**status** | [**ConnectedAccountApprovalStatus**](ConnectedAccountApprovalStatus.md) |  | [default to undefined]|
 |**totalBalance** | [**ConnectedAccountTotalBalance**](ConnectedAccountTotalBalance.md) |  | [default to undefined]|
 |**manifest** | [**ConnectedAccountManifest**](ConnectedAccountManifest.md) |  | [default to undefined]|
+|**accountType** | [**ConnectedAccountType**](ConnectedAccountType.md) |  | [default to undefined]|
 |**parentId** | **string** | The ID of the parent main account, if this is a sub account. | [optional] [default to undefined]|
+|**apiKey** | **string** | The API key identifier used to connect this account. | [optional] [default to undefined]|
+|**providerAccountName** | **string** | The account name provided by the provider. | [optional] [default to undefined]|
 
 
 

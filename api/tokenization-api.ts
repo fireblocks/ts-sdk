@@ -27,9 +27,21 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AccessRegistryCurrentStateResponse } from '../models';
+// @ts-ignore
+import { AccessRegistrySummaryResponse } from '../models';
+// @ts-ignore
+import { ActiveRolesResponse } from '../models';
+// @ts-ignore
+import { AddressBalanceItemDto } from '../models';
+// @ts-ignore
+import { AddressBalancePagedResponse } from '../models';
+// @ts-ignore
 import { AddressNotAvailableError } from '../models';
 // @ts-ignore
 import { AssetAlreadyExistHttpError } from '../models';
+// @ts-ignore
+import { BalanceHistoryPagedResponse } from '../models';
 // @ts-ignore
 import { CollectionBurnRequestDto } from '../models';
 // @ts-ignore
@@ -75,6 +87,10 @@ import { LinkedTokensCount } from '../models';
 // @ts-ignore
 import { NotFoundException } from '../models';
 // @ts-ignore
+import { OnchainTransactionsPagedResponse } from '../models';
+// @ts-ignore
+import { OnchainTransfersPagedResponse } from '../models';
+// @ts-ignore
 import { ReissueMultichainTokenRequest } from '../models';
 // @ts-ignore
 import { RemoveLayerZeroAdaptersRequest } from '../models';
@@ -93,6 +109,8 @@ import { SetLayerZeroPeersRequest } from '../models';
 // @ts-ignore
 import { SetLayerZeroPeersResponse } from '../models';
 // @ts-ignore
+import { TokenContractSummaryResponse } from '../models';
+// @ts-ignore
 import { TokenLinkDto } from '../models';
 // @ts-ignore
 import { TokenLinkExistsHttpError } from '../models';
@@ -102,6 +120,8 @@ import { TokenLinkNotMultichainCompatibleHttpError } from '../models';
 import { TokenLinkRequestDto } from '../models';
 // @ts-ignore
 import { TokensPaginatedResponse } from '../models';
+// @ts-ignore
+import { TotalSupplyPagedResponse } from '../models';
 // @ts-ignore
 import { ValidateLayerZeroChannelResponse } from '../models';
 /**
@@ -598,6 +618,538 @@ export const TokenizationApiAxiosParamCreator = function (configuration?: Config
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the currently active addresses in the access registry (added but not removed).
+         * @summary Get current state of addresses in an access registry
+         * @param {string} id The token link id
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenAccessRegistryAddressesSortByEnum} [sortBy] Sorting field (enum).
+         * @param {GetTokenAccessRegistryAddressesOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenAccessRegistryAddresses: async (id: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenAccessRegistryAddressesSortByEnum, order?: GetTokenAccessRegistryAddressesOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenAccessRegistryAddresses', 'id', id)
+            const localVarPath = `/tokenization/access_registries/{id}/addresses`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a summary of the current state of the access registry.
+         * @summary Get summary of an access registry
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenAccessRegistrySummary: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenAccessRegistrySummary', 'id', id)
+            const localVarPath = `/tokenization/access_registries/{id}/summary`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the latest token balance for the specified account address.
+         * @summary Get the latest balance for a specific account
+         * @param {string} id The token link id
+         * @param {string} accountAddress The account address to get balance history for
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenBalanceForAccount: async (id: string, accountAddress: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenBalanceForAccount', 'id', id)
+            assertParamExistsAndNotEmpty('getTokenBalanceForAccount', 'accountAddress', accountAddress)
+            const localVarPath = `/tokenization/tokens/{id}/balances/{accountAddress}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"accountAddress"}}`, encodeURIComponent(String(accountAddress)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns paginated balance history for the specified account address with optional time-range filtering.
+         * @summary Get balance history for a specific account
+         * @param {string} id The token link id
+         * @param {string} accountAddress The account address to get balance history for
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {GetTokenBalanceHistoryIntervalEnum} [interval] Time interval for grouping data
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenBalanceHistorySortByEnum} [sortBy] Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39;
+         * @param {GetTokenBalanceHistoryOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenBalanceHistory: async (id: string, accountAddress: string, startDate?: string, endDate?: string, interval?: GetTokenBalanceHistoryIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetTokenBalanceHistorySortByEnum, order?: GetTokenBalanceHistoryOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenBalanceHistory', 'id', id)
+            assertParamExistsAndNotEmpty('getTokenBalanceHistory', 'accountAddress', accountAddress)
+            const localVarPath = `/tokenization/tokens/{id}/balances/{accountAddress}/history`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)))
+                .replace(`{${"accountAddress"}}`, encodeURIComponent(String(accountAddress)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (startDate !== undefined) {
+                localVarQueryParameter['startDate'] = (startDate as any instanceof Date) ?
+                    (startDate as any).toISOString() :
+                    startDate;
+            }
+
+            if (endDate !== undefined) {
+                localVarQueryParameter['endDate'] = (endDate as any instanceof Date) ?
+                    (endDate as any).toISOString() :
+                    endDate;
+            }
+
+            if (interval !== undefined) {
+                localVarQueryParameter['interval'] = interval;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the latest balance for each unique address holding this token.
+         * @summary Get latest balances for all holders of a token
+         * @param {string} id The token link id
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenBalancesSortByEnum} [sortBy] Sorting field for balances
+         * @param {GetTokenBalancesOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenBalances: async (id: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenBalancesSortByEnum, order?: GetTokenBalancesOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenBalances', 'id', id)
+            const localVarPath = `/tokenization/tokens/{id}/balances`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the total number of unique holders and the total supply for the token contract.
+         * @summary Get onchain summary for a token
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenContractSummary: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenContractSummary', 'id', id)
+            const localVarPath = `/tokenization/tokens/{id}/summary`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a list of currently active roles for the token contract.
+         * @summary Get active RBAC roles for a token
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenRbac: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenRbac', 'id', id)
+            const localVarPath = `/tokenization/tokens/{id}/rbac`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns paginated total supply history for the token contract with optional time-range filtering and binning.
+         * @summary Get historical total supply for a token
+         * @param {string} id The token link id
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {GetTokenTotalSupplyIntervalEnum} [interval] Time interval for grouping data
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenTotalSupplySortByEnum} [sortBy] Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39;
+         * @param {GetTokenTotalSupplyOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenTotalSupply: async (id: string, startDate?: string, endDate?: string, interval?: GetTokenTotalSupplyIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetTokenTotalSupplySortByEnum, order?: GetTokenTotalSupplyOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenTotalSupply', 'id', id)
+            const localVarPath = `/tokenization/tokens/{id}/total_supply`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (startDate !== undefined) {
+                localVarQueryParameter['startDate'] = (startDate as any instanceof Date) ?
+                    (startDate as any).toISOString() :
+                    startDate;
+            }
+
+            if (endDate !== undefined) {
+                localVarQueryParameter['endDate'] = (endDate as any instanceof Date) ?
+                    (endDate as any).toISOString() :
+                    endDate;
+            }
+
+            if (interval !== undefined) {
+                localVarQueryParameter['interval'] = interval;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a paginated list of onchain transactions for the token contract, optionally filtered by date range.
+         * @summary Get onchain transactions for a token
+         * @param {string} id The token link id
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenTransactionsSortByEnum} [sortBy] Sorting field (enum).
+         * @param {GetTokenTransactionsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenTransactions: async (id: string, startDate?: string, endDate?: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenTransactionsSortByEnum, order?: GetTokenTransactionsOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenTransactions', 'id', id)
+            const localVarPath = `/tokenization/tokens/{id}/transactions`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (startDate !== undefined) {
+                localVarQueryParameter['startDate'] = (startDate as any instanceof Date) ?
+                    (startDate as any).toISOString() :
+                    startDate;
+            }
+
+            if (endDate !== undefined) {
+                localVarQueryParameter['endDate'] = (endDate as any instanceof Date) ?
+                    (endDate as any).toISOString() :
+                    endDate;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a paginated list of ERC20 transfer events for the token contract, optionally filtered by date range.
+         * @summary Get onchain transfers for a token
+         * @param {string} id The token link id
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenTransfersSortByEnum} [sortBy] Sorting field for transfers
+         * @param {GetTokenTransfersOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {string} [sender] Filter transfers by sender address
+         * @param {string} [receiver] Filter transfers by receiver address
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenTransfers: async (id: string, startDate?: string, endDate?: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenTransfersSortByEnum, order?: GetTokenTransfersOrderEnum, sender?: string, receiver?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTokenTransfers', 'id', id)
+            const localVarPath = `/tokenization/tokens/{id}/transfers`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (startDate !== undefined) {
+                localVarQueryParameter['startDate'] = (startDate as any instanceof Date) ?
+                    (startDate as any).toISOString() :
+                    startDate;
+            }
+
+            if (endDate !== undefined) {
+                localVarQueryParameter['endDate'] = (endDate as any instanceof Date) ?
+                    (endDate as any).toISOString() :
+                    endDate;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (sender !== undefined) {
+                localVarQueryParameter['sender'] = sender;
+            }
+
+            if (receiver !== undefined) {
+                localVarQueryParameter['receiver'] = receiver;
+            }
 
 
     
@@ -1235,6 +1787,174 @@ export const TokenizationApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns the currently active addresses in the access registry (added but not removed).
+         * @summary Get current state of addresses in an access registry
+         * @param {string} id The token link id
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenAccessRegistryAddressesSortByEnum} [sortBy] Sorting field (enum).
+         * @param {GetTokenAccessRegistryAddressesOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenAccessRegistryAddresses(id: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenAccessRegistryAddressesSortByEnum, order?: GetTokenAccessRegistryAddressesOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessRegistryCurrentStateResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenAccessRegistryAddresses(id, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenAccessRegistryAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a summary of the current state of the access registry.
+         * @summary Get summary of an access registry
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenAccessRegistrySummary(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessRegistrySummaryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenAccessRegistrySummary(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenAccessRegistrySummary']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the latest token balance for the specified account address.
+         * @summary Get the latest balance for a specific account
+         * @param {string} id The token link id
+         * @param {string} accountAddress The account address to get balance history for
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenBalanceForAccount(id: string, accountAddress: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressBalanceItemDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenBalanceForAccount(id, accountAddress, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenBalanceForAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns paginated balance history for the specified account address with optional time-range filtering.
+         * @summary Get balance history for a specific account
+         * @param {string} id The token link id
+         * @param {string} accountAddress The account address to get balance history for
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {GetTokenBalanceHistoryIntervalEnum} [interval] Time interval for grouping data
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenBalanceHistorySortByEnum} [sortBy] Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39;
+         * @param {GetTokenBalanceHistoryOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenBalanceHistory(id: string, accountAddress: string, startDate?: string, endDate?: string, interval?: GetTokenBalanceHistoryIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetTokenBalanceHistorySortByEnum, order?: GetTokenBalanceHistoryOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BalanceHistoryPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenBalanceHistory(id, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenBalanceHistory']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the latest balance for each unique address holding this token.
+         * @summary Get latest balances for all holders of a token
+         * @param {string} id The token link id
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenBalancesSortByEnum} [sortBy] Sorting field for balances
+         * @param {GetTokenBalancesOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenBalances(id: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenBalancesSortByEnum, order?: GetTokenBalancesOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressBalancePagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenBalances(id, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenBalances']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the total number of unique holders and the total supply for the token contract.
+         * @summary Get onchain summary for a token
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenContractSummary(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TokenContractSummaryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenContractSummary(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenContractSummary']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a list of currently active roles for the token contract.
+         * @summary Get active RBAC roles for a token
+         * @param {string} id The token link id
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenRbac(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ActiveRolesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenRbac(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenRbac']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns paginated total supply history for the token contract with optional time-range filtering and binning.
+         * @summary Get historical total supply for a token
+         * @param {string} id The token link id
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {GetTokenTotalSupplyIntervalEnum} [interval] Time interval for grouping data
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenTotalSupplySortByEnum} [sortBy] Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39;
+         * @param {GetTokenTotalSupplyOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenTotalSupply(id: string, startDate?: string, endDate?: string, interval?: GetTokenTotalSupplyIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetTokenTotalSupplySortByEnum, order?: GetTokenTotalSupplyOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TotalSupplyPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenTotalSupply(id, startDate, endDate, interval, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenTotalSupply']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a paginated list of onchain transactions for the token contract, optionally filtered by date range.
+         * @summary Get onchain transactions for a token
+         * @param {string} id The token link id
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenTransactionsSortByEnum} [sortBy] Sorting field (enum).
+         * @param {GetTokenTransactionsOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenTransactions(id: string, startDate?: string, endDate?: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenTransactionsSortByEnum, order?: GetTokenTransactionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnchainTransactionsPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenTransactions(id, startDate, endDate, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenTransactions']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a paginated list of ERC20 transfer events for the token contract, optionally filtered by date range.
+         * @summary Get onchain transfers for a token
+         * @param {string} id The token link id
+         * @param {string} [startDate] Start date of the time range in ISO 8601 format
+         * @param {string} [endDate] End date of the time range in ISO 8601 format
+         * @param {string} [pageCursor] Page cursor to get the next page
+         * @param {number} [pageSize] Number of items per page (max 100), requesting more than 100 will return 100 items
+         * @param {GetTokenTransfersSortByEnum} [sortBy] Sorting field for transfers
+         * @param {GetTokenTransfersOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {string} [sender] Filter transfers by sender address
+         * @param {string} [receiver] Filter transfers by receiver address
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTokenTransfers(id: string, startDate?: string, endDate?: string, pageCursor?: string, pageSize?: number, sortBy?: GetTokenTransfersSortByEnum, order?: GetTokenTransfersOrderEnum, sender?: string, receiver?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnchainTransfersPagedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTokenTransfers(id, startDate, endDate, pageCursor, pageSize, sortBy, order, sender, receiver, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TokenizationApi.getTokenTransfers']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
          * @summary Issue a new token
          * @param {CreateTokenRequestDto} createTokenRequestDto 
@@ -1526,6 +2246,106 @@ export const TokenizationApiFactory = function (configuration?: Configuration, b
          */
         getLinkedTokensCount(options?: RawAxiosRequestConfig): AxiosPromise<LinkedTokensCount> {
             return localVarFp.getLinkedTokensCount(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the currently active addresses in the access registry (added but not removed).
+         * @summary Get current state of addresses in an access registry
+         * @param {TokenizationApiGetTokenAccessRegistryAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenAccessRegistryAddresses(requestParameters: TokenizationApiGetTokenAccessRegistryAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<AccessRegistryCurrentStateResponse> {
+            return localVarFp.getTokenAccessRegistryAddresses(requestParameters.id, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a summary of the current state of the access registry.
+         * @summary Get summary of an access registry
+         * @param {TokenizationApiGetTokenAccessRegistrySummaryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenAccessRegistrySummary(requestParameters: TokenizationApiGetTokenAccessRegistrySummaryRequest, options?: RawAxiosRequestConfig): AxiosPromise<AccessRegistrySummaryResponse> {
+            return localVarFp.getTokenAccessRegistrySummary(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the latest token balance for the specified account address.
+         * @summary Get the latest balance for a specific account
+         * @param {TokenizationApiGetTokenBalanceForAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenBalanceForAccount(requestParameters: TokenizationApiGetTokenBalanceForAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressBalanceItemDto> {
+            return localVarFp.getTokenBalanceForAccount(requestParameters.id, requestParameters.accountAddress, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns paginated balance history for the specified account address with optional time-range filtering.
+         * @summary Get balance history for a specific account
+         * @param {TokenizationApiGetTokenBalanceHistoryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenBalanceHistory(requestParameters: TokenizationApiGetTokenBalanceHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<BalanceHistoryPagedResponse> {
+            return localVarFp.getTokenBalanceHistory(requestParameters.id, requestParameters.accountAddress, requestParameters.startDate, requestParameters.endDate, requestParameters.interval, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the latest balance for each unique address holding this token.
+         * @summary Get latest balances for all holders of a token
+         * @param {TokenizationApiGetTokenBalancesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenBalances(requestParameters: TokenizationApiGetTokenBalancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressBalancePagedResponse> {
+            return localVarFp.getTokenBalances(requestParameters.id, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the total number of unique holders and the total supply for the token contract.
+         * @summary Get onchain summary for a token
+         * @param {TokenizationApiGetTokenContractSummaryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenContractSummary(requestParameters: TokenizationApiGetTokenContractSummaryRequest, options?: RawAxiosRequestConfig): AxiosPromise<TokenContractSummaryResponse> {
+            return localVarFp.getTokenContractSummary(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a list of currently active roles for the token contract.
+         * @summary Get active RBAC roles for a token
+         * @param {TokenizationApiGetTokenRbacRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenRbac(requestParameters: TokenizationApiGetTokenRbacRequest, options?: RawAxiosRequestConfig): AxiosPromise<ActiveRolesResponse> {
+            return localVarFp.getTokenRbac(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns paginated total supply history for the token contract with optional time-range filtering and binning.
+         * @summary Get historical total supply for a token
+         * @param {TokenizationApiGetTokenTotalSupplyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenTotalSupply(requestParameters: TokenizationApiGetTokenTotalSupplyRequest, options?: RawAxiosRequestConfig): AxiosPromise<TotalSupplyPagedResponse> {
+            return localVarFp.getTokenTotalSupply(requestParameters.id, requestParameters.startDate, requestParameters.endDate, requestParameters.interval, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a paginated list of onchain transactions for the token contract, optionally filtered by date range.
+         * @summary Get onchain transactions for a token
+         * @param {TokenizationApiGetTokenTransactionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenTransactions(requestParameters: TokenizationApiGetTokenTransactionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<OnchainTransactionsPagedResponse> {
+            return localVarFp.getTokenTransactions(requestParameters.id, requestParameters.startDate, requestParameters.endDate, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a paginated list of ERC20 transfer events for the token contract, optionally filtered by date range.
+         * @summary Get onchain transfers for a token
+         * @param {TokenizationApiGetTokenTransfersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTokenTransfers(requestParameters: TokenizationApiGetTokenTransfersRequest, options?: RawAxiosRequestConfig): AxiosPromise<OnchainTransfersPagedResponse> {
+            return localVarFp.getTokenTransfers(requestParameters.id, requestParameters.startDate, requestParameters.endDate, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.sender, requestParameters.receiver, options).then((request) => request(axios, basePath));
         },
         /**
          * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
@@ -1890,6 +2710,412 @@ export interface TokenizationApiGetLinkedTokensRequest {
      * @memberof TokenizationApiGetLinkedTokens
      */
     readonly status?: any
+}
+
+/**
+ * Request parameters for getTokenAccessRegistryAddresses operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenAccessRegistryAddressesRequest
+ */
+export interface TokenizationApiGetTokenAccessRegistryAddressesRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenAccessRegistryAddresses
+     */
+    readonly id: string
+
+    /**
+     * Page cursor to get the next page
+     * @type {string}
+     * @memberof TokenizationApiGetTokenAccessRegistryAddresses
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more than 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetTokenAccessRegistryAddresses
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sorting field (enum).
+     * @type {'dateAdded' | 'address'}
+     * @memberof TokenizationApiGetTokenAccessRegistryAddresses
+     */
+    readonly sortBy?: GetTokenAccessRegistryAddressesSortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof TokenizationApiGetTokenAccessRegistryAddresses
+     */
+    readonly order?: GetTokenAccessRegistryAddressesOrderEnum
+}
+
+/**
+ * Request parameters for getTokenAccessRegistrySummary operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenAccessRegistrySummaryRequest
+ */
+export interface TokenizationApiGetTokenAccessRegistrySummaryRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenAccessRegistrySummary
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getTokenBalanceForAccount operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenBalanceForAccountRequest
+ */
+export interface TokenizationApiGetTokenBalanceForAccountRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceForAccount
+     */
+    readonly id: string
+
+    /**
+     * The account address to get balance history for
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceForAccount
+     */
+    readonly accountAddress: string
+}
+
+/**
+ * Request parameters for getTokenBalanceHistory operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenBalanceHistoryRequest
+ */
+export interface TokenizationApiGetTokenBalanceHistoryRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly id: string
+
+    /**
+     * The account address to get balance history for
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly accountAddress: string
+
+    /**
+     * Start date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly startDate?: string
+
+    /**
+     * End date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly endDate?: string
+
+    /**
+     * Time interval for grouping data
+     * @type {'HOUR' | 'DAY' | 'WEEK' | 'MONTH'}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly interval?: GetTokenBalanceHistoryIntervalEnum
+
+    /**
+     * Page cursor to get the next page
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more than 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39;
+     * @type {'blockTimestamp'}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly sortBy?: GetTokenBalanceHistorySortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof TokenizationApiGetTokenBalanceHistory
+     */
+    readonly order?: GetTokenBalanceHistoryOrderEnum
+}
+
+/**
+ * Request parameters for getTokenBalances operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenBalancesRequest
+ */
+export interface TokenizationApiGetTokenBalancesRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalances
+     */
+    readonly id: string
+
+    /**
+     * Page cursor to get the next page
+     * @type {string}
+     * @memberof TokenizationApiGetTokenBalances
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more than 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetTokenBalances
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sorting field for balances
+     * @type {'accountAddress' | 'blockTimestamp'}
+     * @memberof TokenizationApiGetTokenBalances
+     */
+    readonly sortBy?: GetTokenBalancesSortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof TokenizationApiGetTokenBalances
+     */
+    readonly order?: GetTokenBalancesOrderEnum
+}
+
+/**
+ * Request parameters for getTokenContractSummary operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenContractSummaryRequest
+ */
+export interface TokenizationApiGetTokenContractSummaryRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenContractSummary
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getTokenRbac operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenRbacRequest
+ */
+export interface TokenizationApiGetTokenRbacRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenRbac
+     */
+    readonly id: string
+}
+
+/**
+ * Request parameters for getTokenTotalSupply operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenTotalSupplyRequest
+ */
+export interface TokenizationApiGetTokenTotalSupplyRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly id: string
+
+    /**
+     * Start date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly startDate?: string
+
+    /**
+     * End date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly endDate?: string
+
+    /**
+     * Time interval for grouping data
+     * @type {'HOUR' | 'DAY' | 'WEEK' | 'MONTH'}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly interval?: GetTokenTotalSupplyIntervalEnum
+
+    /**
+     * Page cursor to get the next page
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more than 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39;
+     * @type {'blockTimestamp'}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly sortBy?: GetTokenTotalSupplySortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof TokenizationApiGetTokenTotalSupply
+     */
+    readonly order?: GetTokenTotalSupplyOrderEnum
+}
+
+/**
+ * Request parameters for getTokenTransactions operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenTransactionsRequest
+ */
+export interface TokenizationApiGetTokenTransactionsRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly id: string
+
+    /**
+     * Start date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly startDate?: string
+
+    /**
+     * End date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly endDate?: string
+
+    /**
+     * Page cursor to get the next page
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more than 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sorting field (enum).
+     * @type {'blockTimestamp' | 'blockNumber' | 'transactionHash'}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly sortBy?: GetTokenTransactionsSortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof TokenizationApiGetTokenTransactions
+     */
+    readonly order?: GetTokenTransactionsOrderEnum
+}
+
+/**
+ * Request parameters for getTokenTransfers operation in TokenizationApi.
+ * @export
+ * @interface TokenizationApiGetTokenTransfersRequest
+ */
+export interface TokenizationApiGetTokenTransfersRequest {
+    /**
+     * The token link id
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly id: string
+
+    /**
+     * Start date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly startDate?: string
+
+    /**
+     * End date of the time range in ISO 8601 format
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly endDate?: string
+
+    /**
+     * Page cursor to get the next page
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Number of items per page (max 100), requesting more than 100 will return 100 items
+     * @type {number}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly pageSize?: number
+
+    /**
+     * Sorting field for transfers
+     * @type {'blockTimeStamp'}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly sortBy?: GetTokenTransfersSortByEnum
+
+    /**
+     * ASC / DESC ordering (default DESC)
+     * @type {'ASC' | 'DESC'}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly order?: GetTokenTransfersOrderEnum
+
+    /**
+     * Filter transfers by sender address
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly sender?: string
+
+    /**
+     * Filter transfers by receiver address
+     * @type {string}
+     * @memberof TokenizationApiGetTokenTransfers
+     */
+    readonly receiver?: string
 }
 
 /**
@@ -2286,6 +3512,126 @@ export class TokenizationApi extends BaseAPI {
     }
 
     /**
+     * Returns the currently active addresses in the access registry (added but not removed).
+     * @summary Get current state of addresses in an access registry
+     * @param {TokenizationApiGetTokenAccessRegistryAddressesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenAccessRegistryAddresses(requestParameters: TokenizationApiGetTokenAccessRegistryAddressesRequest) {
+        return TokenizationApiFp(this.configuration).getTokenAccessRegistryAddresses(requestParameters.id, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a summary of the current state of the access registry.
+     * @summary Get summary of an access registry
+     * @param {TokenizationApiGetTokenAccessRegistrySummaryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenAccessRegistrySummary(requestParameters: TokenizationApiGetTokenAccessRegistrySummaryRequest) {
+        return TokenizationApiFp(this.configuration).getTokenAccessRegistrySummary(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the latest token balance for the specified account address.
+     * @summary Get the latest balance for a specific account
+     * @param {TokenizationApiGetTokenBalanceForAccountRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenBalanceForAccount(requestParameters: TokenizationApiGetTokenBalanceForAccountRequest) {
+        return TokenizationApiFp(this.configuration).getTokenBalanceForAccount(requestParameters.id, requestParameters.accountAddress).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns paginated balance history for the specified account address with optional time-range filtering.
+     * @summary Get balance history for a specific account
+     * @param {TokenizationApiGetTokenBalanceHistoryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenBalanceHistory(requestParameters: TokenizationApiGetTokenBalanceHistoryRequest) {
+        return TokenizationApiFp(this.configuration).getTokenBalanceHistory(requestParameters.id, requestParameters.accountAddress, requestParameters.startDate, requestParameters.endDate, requestParameters.interval, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the latest balance for each unique address holding this token.
+     * @summary Get latest balances for all holders of a token
+     * @param {TokenizationApiGetTokenBalancesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenBalances(requestParameters: TokenizationApiGetTokenBalancesRequest) {
+        return TokenizationApiFp(this.configuration).getTokenBalances(requestParameters.id, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the total number of unique holders and the total supply for the token contract.
+     * @summary Get onchain summary for a token
+     * @param {TokenizationApiGetTokenContractSummaryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenContractSummary(requestParameters: TokenizationApiGetTokenContractSummaryRequest) {
+        return TokenizationApiFp(this.configuration).getTokenContractSummary(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a list of currently active roles for the token contract.
+     * @summary Get active RBAC roles for a token
+     * @param {TokenizationApiGetTokenRbacRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenRbac(requestParameters: TokenizationApiGetTokenRbacRequest) {
+        return TokenizationApiFp(this.configuration).getTokenRbac(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns paginated total supply history for the token contract with optional time-range filtering and binning.
+     * @summary Get historical total supply for a token
+     * @param {TokenizationApiGetTokenTotalSupplyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenTotalSupply(requestParameters: TokenizationApiGetTokenTotalSupplyRequest) {
+        return TokenizationApiFp(this.configuration).getTokenTotalSupply(requestParameters.id, requestParameters.startDate, requestParameters.endDate, requestParameters.interval, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a paginated list of onchain transactions for the token contract, optionally filtered by date range.
+     * @summary Get onchain transactions for a token
+     * @param {TokenizationApiGetTokenTransactionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenTransactions(requestParameters: TokenizationApiGetTokenTransactionsRequest) {
+        return TokenizationApiFp(this.configuration).getTokenTransactions(requestParameters.id, requestParameters.startDate, requestParameters.endDate, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a paginated list of ERC20 transfer events for the token contract, optionally filtered by date range.
+     * @summary Get onchain transfers for a token
+     * @param {TokenizationApiGetTokenTransfersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TokenizationApi
+     */
+    public getTokenTransfers(requestParameters: TokenizationApiGetTokenTransfersRequest) {
+        return TokenizationApiFp(this.configuration).getTokenTransfers(requestParameters.id, requestParameters.startDate, requestParameters.endDate, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.sender, requestParameters.receiver).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Facilitates the creation of a new token, supporting both EVM-based and Stellar/Ripple platforms. For EVM, it deploys the corresponding contract template to the blockchain and links the token to the workspace. For Stellar/Ripple, it links a newly created token directly to the workspace without deploying a contract. Returns the token link with status \"PENDING\" until the token is deployed or \"SUCCESS\" if no deployment is needed. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, and Editor.
      * @summary Issue a new token
      * @param {TokenizationApiIssueNewTokenRequest} requestParameters Request parameters.
@@ -2418,3 +3764,117 @@ export class TokenizationApi extends BaseAPI {
     }
 }
 
+/**
+ * @export
+ */
+export const GetTokenAccessRegistryAddressesSortByEnum = {
+    DateAdded: 'dateAdded',
+    Address: 'address'
+} as const;
+export type GetTokenAccessRegistryAddressesSortByEnum = typeof GetTokenAccessRegistryAddressesSortByEnum[keyof typeof GetTokenAccessRegistryAddressesSortByEnum];
+/**
+ * @export
+ */
+export const GetTokenAccessRegistryAddressesOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTokenAccessRegistryAddressesOrderEnum = typeof GetTokenAccessRegistryAddressesOrderEnum[keyof typeof GetTokenAccessRegistryAddressesOrderEnum];
+/**
+ * @export
+ */
+export const GetTokenBalanceHistoryIntervalEnum = {
+    Hour: 'HOUR',
+    Day: 'DAY',
+    Week: 'WEEK',
+    Month: 'MONTH'
+} as const;
+export type GetTokenBalanceHistoryIntervalEnum = typeof GetTokenBalanceHistoryIntervalEnum[keyof typeof GetTokenBalanceHistoryIntervalEnum];
+/**
+ * @export
+ */
+export const GetTokenBalanceHistorySortByEnum = {
+    BlockTimestamp: 'blockTimestamp'
+} as const;
+export type GetTokenBalanceHistorySortByEnum = typeof GetTokenBalanceHistorySortByEnum[keyof typeof GetTokenBalanceHistorySortByEnum];
+/**
+ * @export
+ */
+export const GetTokenBalanceHistoryOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTokenBalanceHistoryOrderEnum = typeof GetTokenBalanceHistoryOrderEnum[keyof typeof GetTokenBalanceHistoryOrderEnum];
+/**
+ * @export
+ */
+export const GetTokenBalancesSortByEnum = {
+    AccountAddress: 'accountAddress',
+    BlockTimestamp: 'blockTimestamp'
+} as const;
+export type GetTokenBalancesSortByEnum = typeof GetTokenBalancesSortByEnum[keyof typeof GetTokenBalancesSortByEnum];
+/**
+ * @export
+ */
+export const GetTokenBalancesOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTokenBalancesOrderEnum = typeof GetTokenBalancesOrderEnum[keyof typeof GetTokenBalancesOrderEnum];
+/**
+ * @export
+ */
+export const GetTokenTotalSupplyIntervalEnum = {
+    Hour: 'HOUR',
+    Day: 'DAY',
+    Week: 'WEEK',
+    Month: 'MONTH'
+} as const;
+export type GetTokenTotalSupplyIntervalEnum = typeof GetTokenTotalSupplyIntervalEnum[keyof typeof GetTokenTotalSupplyIntervalEnum];
+/**
+ * @export
+ */
+export const GetTokenTotalSupplySortByEnum = {
+    BlockTimestamp: 'blockTimestamp'
+} as const;
+export type GetTokenTotalSupplySortByEnum = typeof GetTokenTotalSupplySortByEnum[keyof typeof GetTokenTotalSupplySortByEnum];
+/**
+ * @export
+ */
+export const GetTokenTotalSupplyOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTokenTotalSupplyOrderEnum = typeof GetTokenTotalSupplyOrderEnum[keyof typeof GetTokenTotalSupplyOrderEnum];
+/**
+ * @export
+ */
+export const GetTokenTransactionsSortByEnum = {
+    BlockTimestamp: 'blockTimestamp',
+    BlockNumber: 'blockNumber',
+    TransactionHash: 'transactionHash'
+} as const;
+export type GetTokenTransactionsSortByEnum = typeof GetTokenTransactionsSortByEnum[keyof typeof GetTokenTransactionsSortByEnum];
+/**
+ * @export
+ */
+export const GetTokenTransactionsOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTokenTransactionsOrderEnum = typeof GetTokenTransactionsOrderEnum[keyof typeof GetTokenTransactionsOrderEnum];
+/**
+ * @export
+ */
+export const GetTokenTransfersSortByEnum = {
+    BlockTimeStamp: 'blockTimeStamp'
+} as const;
+export type GetTokenTransfersSortByEnum = typeof GetTokenTransfersSortByEnum[keyof typeof GetTokenTransfersSortByEnum];
+/**
+ * @export
+ */
+export const GetTokenTransfersOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetTokenTransfersOrderEnum = typeof GetTokenTransfersOrderEnum[keyof typeof GetTokenTransfersOrderEnum];

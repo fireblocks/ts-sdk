@@ -136,7 +136,7 @@ export interface Quote {
      * @type {string}
      * @memberof Quote
      */
-    'orderCreationRequirements'?: string;
+    'requiredParticipantsIdentificationOnOrder'?: string;
 }
 
 export const QuoteTypeEnum = {

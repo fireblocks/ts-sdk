@@ -21,6 +21,9 @@ import { ParticipantRelationshipType } from './participant-relationship-type';
 import { PersonalEntityTypeEnum } from './personal-entity-type-enum';
 // May contain unused imports in some cases
 // @ts-ignore
+import { PersonalIdentificationDocument } from './personal-identification-document';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PersonalIdentificationFullName } from './personal-identification-full-name';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -84,29 +87,45 @@ export interface PersonalIdentification {
      */
     'phone'?: string;
     /**
-     * The identification number corresponding to the primary identification document type specified in idType
+     * Deprecated. Use identificationDocuments instead.
      * @type {string}
      * @memberof PersonalIdentification
+     * @deprecated
      */
     'idNumber'?: string;
     /**
-     * 
+     * Deprecated. Use identificationDocuments instead.
      * @type {PersonalIdentificationType}
      * @memberof PersonalIdentification
+     * @deprecated
      */
     'idType'?: PersonalIdentificationType;
     /**
-     * The identification number corresponding to the additional identification document type specified in additionalIdType
+     * Deprecated. Use identificationDocuments instead.
      * @type {string}
      * @memberof PersonalIdentification
+     * @deprecated
      */
     'additionalIdNumber'?: string;
     /**
-     * 
+     * Deprecated. Use identificationDocuments instead.
      * @type {PersonalIdentificationType}
      * @memberof PersonalIdentification
+     * @deprecated
      */
     'additionalIdType'?: PersonalIdentificationType;
+    /**
+     * The ISO-3166 Alpha-2 country code representing the individual\'s nationality.
+     * @type {string}
+     * @memberof PersonalIdentification
+     */
+    'nationality'?: string;
+    /**
+     * List of identification documents for the individual.
+     * @type {Array<PersonalIdentificationDocument>}
+     * @memberof PersonalIdentification
+     */
+    'identificationDocuments'?: Array<PersonalIdentificationDocument>;
 }
 
 

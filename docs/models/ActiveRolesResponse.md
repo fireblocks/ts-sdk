@@ -4,6 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
+|**activeRoles** | [**ActiveRolesMap**](ActiveRolesMap.md) |  | [default to undefined]|
 
 
 

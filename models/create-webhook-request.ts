@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookEvent } from './webhook-event';
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookMtls } from './webhook-mtls';
 
 /**
  * 
@@ -47,5 +50,11 @@ export interface CreateWebhookRequest {
      * @memberof CreateWebhookRequest
      */
     'enabled'?: boolean;
+    /**
+     * 
+     * @type {WebhookMtls}
+     * @memberof CreateWebhookRequest
+     */
+    'mtls'?: WebhookMtls | null;
 }
 
