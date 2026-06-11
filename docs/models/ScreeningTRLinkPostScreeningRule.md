@@ -7,10 +7,10 @@
 |**action** | [**TRLinkVerdictEnum**](TRLinkVerdictEnum.md) |  | [default to undefined]|
 |**customerId** | **string** | Reference to TRLinkCustomer.id | [optional] [default to undefined]|
 |**direction** | [**TravelRuleDirectionEnum**](TravelRuleDirectionEnum.md) |  | [optional] [default to undefined]|
-|**sourceType** | [**TransferPeerTypeEnum**](TransferPeerTypeEnum.md) |  | [optional] [default to undefined]|
+|**sourceType** | [**TransferPeerTypeEnum2**](TransferPeerTypeEnum2.md) |  | [optional] [default to undefined]|
 |**sourceSubType** | [**TransferPeerSubTypeEnum**](TransferPeerSubTypeEnum.md) |  | [optional] [default to undefined]|
 |**sourceAddress** | **string** | Source address | [optional] [default to undefined]|
-|**destType** | [**TransferPeerTypeEnum**](TransferPeerTypeEnum.md) |  | [optional] [default to undefined]|
+|**destType** | [**TransferPeerTypeEnum2**](TransferPeerTypeEnum2.md) |  | [optional] [default to undefined]|
 |**destSubType** | [**TransferPeerSubTypeEnum**](TransferPeerSubTypeEnum.md) |  | [optional] [default to undefined]|
 |**destAddress** | **string** | Destination address | [optional] [default to undefined]|
 |**sourceId** | **string** | Source ID | [optional] [default to undefined]|

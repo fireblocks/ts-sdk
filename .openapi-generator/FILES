@@ -7,6 +7,7 @@ AbaPaymentInfo.md
 AbiFunction.md
 AccessRegistryAddressItem.md
 AccessRegistryCurrentStateResponse.md
+AccessRegistryCurrentStateResponse2.md
 AccessRegistrySummaryResponse.md
 AccessType.md
 Account.md
@@ -25,7 +26,9 @@ AchAddress.md
 AchDestination.md
 AchPaymentInfo.md
 ActionRecord.md
+ActiveRolesMap.md
 ActiveRolesResponse.md
+ActiveRolesResponse2.md
 AdapterProcessingResult.md
 AddAbiRequestDto.md
 AddAssetToExternalWalletRequest.md
@@ -40,6 +43,7 @@ AdditionalInfoRequest.md
 AdditionalInfoRequestAdditionalInfo.md
 AddressBalanceItemDto.md
 AddressBalancePagedResponse.md
+AddressBalancePagedResponse2.md
 AddressNotAvailableError.md
 AddressRegistryAddVaultOptOutsRequest.md
 AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner.md
@@ -57,6 +61,11 @@ AddressRegistryVaultOptOutItem.md
 AddressReverseLookupResponse.md
 AlertExposureTypeEnum.md
 AlertLevelEnum.md
+AllowlistEntry.md
+AllowlistEntryProviderMetadata.md
+AllowlistEntryStatus.md
+AllowlistMetadata.md
+AllowlistResponse.md
 AmlAlert.md
 AmlMatchedRule.md
 AmlRegistrationResult.md
@@ -124,6 +133,7 @@ AuthorizationGroups.md
 AuthorizationInfo.md
 BalanceHistoryItemDto.md
 BalanceHistoryPagedResponse.md
+BalanceHistoryPagedResponse2.md
 BankAddress.md
 BaseProvider.md
 BasicAddressRequest.md
@@ -199,6 +209,7 @@ ConnectedAccountTotalBalance.md
 ConnectedAccountTradingPair.md
 ConnectedAccountTradingPairSupportedType.md
 ConnectedAccountTradingPairsResponse.md
+ConnectedAccountType.md
 ConnectedAccountsBetaApi.md
 ConnectedAccountsResponse.md
 ConnectedSingleAccount.md
@@ -612,6 +623,9 @@ OffersResponse.md
 OnchainDataApi.md
 OnchainTransaction.md
 OnchainTransactionsPagedResponse.md
+OnchainTransactionsPagedResponse2.md
+OnchainTransferEvent.md
+OnchainTransfersPagedResponse.md
 OneTimeAddress.md
 OneTimeAddressAccount.md
 OneTimeAddressPeerType.md
@@ -620,6 +634,9 @@ OperationExecutionFailure.md
 Opportunity.md
 OrderDetails.md
 OrderExecutionStep.md
+OrderRequirementAllowedFileType.md
+OrderRequirementDetails.md
+OrderRequirementFile.md
 OrderSide.md
 OrderStatus.md
 OrderSummary.md
@@ -662,6 +679,7 @@ PeerAdapterInfo.md
 PeerType.md
 PersonalEntityTypeEnum.md
 PersonalIdentification.md
+PersonalIdentificationDocument.md
 PersonalIdentificationFullName.md
 PersonalIdentificationType.md
 PixAddress.md
@@ -691,6 +709,7 @@ PolicyVerdictActionEnum.md
 PolicyVerdictActionEnum2.md
 Position.md
 Position2.md
+PositionRelatedTransaction.md
 PostalAddress.md
 PreScreening.md
 PrefundedSettlement.md
@@ -756,6 +775,7 @@ RetryRequoteTypeEnum.md
 RewardInfo.md
 RewardsInfo.md
 RoleDetails.md
+RoleDetails2.md
 RoleGrantee.md
 SEPAAddress.md
 SEPADestination.md
@@ -882,10 +902,12 @@ StakingGetAllDelegationsResponse.md
 StakingGetChainsResponse.md
 StakingGetProvidersResponse.md
 StakingGetSummaryByVaultResponse.md
+StakingPositionRelatedTransactionsPaginatedResponse.md
 StakingPositionsPaginatedResponse.md
 StakingProvider.md
 Status.md
 StellarRippleCreateParamsDto.md
+SubmitOrderRequirementRequest.md
 SupportedBlockChainsResponse.md
 SupportedBlockchain.md
 SwiftAddress.md
@@ -1012,11 +1034,13 @@ TokenizationApi.md
 TokensPaginatedResponse.md
 TotalSupplyItemDto.md
 TotalSupplyPagedResponse.md
+TotalSupplyPagedResponse2.md
 TradingAccountType.md
 TradingBetaApi.md
 TradingErrorSchema.md
 TradingProvider.md
 Transaction.md
+TransactionConfigurations.md
 TransactionDirection.md
 TransactionFee.md
 TransactionOperation.md
@@ -1050,6 +1074,7 @@ TransferPeerPathSubType.md
 TransferPeerPathType.md
 TransferPeerSubTypeEnum.md
 TransferPeerTypeEnum.md
+TransferPeerTypeEnum2.md
 TransferRail.md
 TransferReceipt.md
 TransferValidationFailure.md
@@ -1171,6 +1196,8 @@ Web3ConnectionsApi.md
 Webhook.md
 WebhookEvent.md
 WebhookMetric.md
+WebhookMtls.md
+WebhookMtlsCsrResponse.md
 WebhookPaginatedResponse.md
 WebhooksApi.md
 WebhooksV2Api.md
@@ -1248,6 +1275,7 @@ models/aba-payment-info.ts
 models/abi-function.ts
 models/access-registry-address-item.ts
 models/access-registry-current-state-response.ts
+models/access-registry-current-state-response2.ts
 models/access-registry-summary-response.ts
 models/access-type.ts
 models/account-access.ts
@@ -1266,7 +1294,9 @@ models/ach-address.ts
 models/ach-destination.ts
 models/ach-payment-info.ts
 models/action-record.ts
+models/active-roles-map.ts
 models/active-roles-response.ts
+models/active-roles-response2.ts
 models/adapter-processing-result.ts
 models/add-abi-request-dto.ts
 models/add-asset-to-external-wallet-request.ts
@@ -1281,6 +1311,7 @@ models/additional-info-request.ts
 models/additional-info.ts
 models/address-balance-item-dto.ts
 models/address-balance-paged-response.ts
+models/address-balance-paged-response2.ts
 models/address-not-available-error.ts
 models/address-registry-add-vault-opt-outs-request-vault-account-ids-inner.ts
 models/address-registry-add-vault-opt-outs-request.ts
@@ -1298,6 +1329,11 @@ models/address-registry-vault-opt-out-item.ts
 models/address-reverse-lookup-response.ts
 models/alert-exposure-type-enum.ts
 models/alert-level-enum.ts
+models/allowlist-entry-provider-metadata.ts
+models/allowlist-entry-status.ts
+models/allowlist-entry.ts
+models/allowlist-metadata.ts
+models/allowlist-response.ts
 models/aml-alert.ts
 models/aml-matched-rule.ts
 models/aml-registration-result-full-payload.ts
@@ -1365,6 +1401,7 @@ models/authorization-groups.ts
 models/authorization-info.ts
 models/balance-history-item-dto.ts
 models/balance-history-paged-response.ts
+models/balance-history-paged-response2.ts
 models/bank-address.ts
 models/base-provider.ts
 models/basic-address-request.ts
@@ -1436,6 +1473,7 @@ models/connected-account-total-balance.ts
 models/connected-account-trading-pair-supported-type.ts
 models/connected-account-trading-pair.ts
 models/connected-account-trading-pairs-response.ts
+models/connected-account-type.ts
 models/connected-account.ts
 models/connected-accounts-response.ts
 models/connected-single-account-response.ts
@@ -1828,6 +1866,9 @@ models/offer.ts
 models/offers-response.ts
 models/onchain-transaction.ts
 models/onchain-transactions-paged-response.ts
+models/onchain-transactions-paged-response2.ts
+models/onchain-transfer-event.ts
+models/onchain-transfers-paged-response.ts
 models/one-time-address-account.ts
 models/one-time-address-peer-type.ts
 models/one-time-address-reference.ts
@@ -1836,6 +1877,9 @@ models/operation-execution-failure.ts
 models/opportunity.ts
 models/order-details.ts
 models/order-execution-step.ts
+models/order-requirement-allowed-file-type.ts
+models/order-requirement-details.ts
+models/order-requirement-file.ts
 models/order-side.ts
 models/order-status.ts
 models/order-summary.ts
@@ -1876,6 +1920,7 @@ models/payout-status.ts
 models/peer-adapter-info.ts
 models/peer-type.ts
 models/personal-entity-type-enum.ts
+models/personal-identification-document.ts
 models/personal-identification-full-name.ts
 models/personal-identification-type.ts
 models/personal-identification.ts
@@ -1902,6 +1947,7 @@ models/policy-user-ids.ts
 models/policy-validation.ts
 models/policy-verdict-action-enum.ts
 models/policy-verdict-action-enum2.ts
+models/position-related-transaction.ts
 models/position.ts
 models/position2.ts
 models/postal-address.ts
@@ -1967,6 +2013,7 @@ models/retry-requote-type-enum.ts
 models/reward-info.ts
 models/rewards-info.ts
 models/role-details.ts
+models/role-details2.ts
 models/role-grantee.ts
 models/scope-item-failure.ts
 models/scope-item.ts
@@ -2091,10 +2138,12 @@ models/staking-get-all-delegations-response.ts
 models/staking-get-chains-response.ts
 models/staking-get-providers-response.ts
 models/staking-get-summary-by-vault-response.ts
+models/staking-position-related-transactions-paginated-response.ts
 models/staking-positions-paginated-response.ts
 models/staking-provider.ts
 models/status.ts
 models/stellar-ripple-create-params-dto.ts
+models/submit-order-requirement-request.ts
 models/supported-block-chains-response.ts
 models/supported-blockchain.ts
 models/swift-address.ts
@@ -2125,9 +2174,11 @@ models/token-response.ts
 models/tokens-paginated-response.ts
 models/total-supply-item-dto.ts
 models/total-supply-paged-response.ts
+models/total-supply-paged-response2.ts
 models/trading-account-type.ts
 models/trading-error-schema.ts
 models/trading-provider.ts
+models/transaction-configurations.ts
 models/transaction-direction.ts
 models/transaction-fee.ts
 models/transaction-operation-enum.ts
@@ -2161,6 +2212,7 @@ models/transfer-peer-path-sub-type.ts
 models/transfer-peer-path-type.ts
 models/transfer-peer-sub-type-enum.ts
 models/transfer-peer-type-enum.ts
+models/transfer-peer-type-enum2.ts
 models/transfer-rail.ts
 models/transfer-receipt.ts
 models/transfer-validation-failure.ts
@@ -2368,6 +2420,8 @@ models/wallet-asset-additional-info.ts
 models/wallet-asset.ts
 models/webhook-event.ts
 models/webhook-metric.ts
+models/webhook-mtls-csr-response.ts
+models/webhook-mtls.ts
 models/webhook-paginated-response.ts
 models/webhook.ts
 models/withdraw-request.ts

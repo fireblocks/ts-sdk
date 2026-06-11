@@ -34,7 +34,8 @@ export const TransferPeerTypeEnum = {
     Unknown: 'UNKNOWN',
     EndUserWallet: 'END_USER_WALLET',
     ProgramCall: 'PROGRAM_CALL',
-    MultiDestination: 'MULTI_DESTINATION'
+    MultiDestination: 'MULTI_DESTINATION',
+    WalletPool: 'WALLET_POOL'
 } as const;
 
 export type TransferPeerTypeEnum = typeof TransferPeerTypeEnum[keyof typeof TransferPeerTypeEnum];

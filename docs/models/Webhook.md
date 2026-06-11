@@ -11,6 +11,7 @@
 |**createdAt** | **number** | The date and time the webhook was created in milliseconds | [default to undefined]|
 |**updatedAt** | **number** | The date and time the webhook was last updated in milliseconds | [default to undefined]|
 |**description** | **string** | description of the webhook of what it is used for | [optional] [default to undefined]|
+|**mtls** | [**WebhookMtls**](WebhookMtls.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: WebhookStatusEnum

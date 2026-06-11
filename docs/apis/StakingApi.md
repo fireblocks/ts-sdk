@@ -11,6 +11,7 @@ Method | HTTP request | Description
 [**getChainInfo**](#getChainInfo) | **GET** /staking/chains/{chainDescriptor}/chainInfo | Get chain-level staking parameters
 [**getChains**](#getChains) | **GET** /staking/chains | List supported staking chains
 [**getDelegationById**](#getDelegationById) | **GET** /staking/positions/{id} | Get position details
+[**getPositionRelatedTransactions**](#getPositionRelatedTransactions) | **GET** /staking/positions/{id}/related_transactions | List related transactions for a position
 [**getPositions**](#getPositions) | **GET** /staking/positions_paginated | List staking positions (Paginated)
 [**getProviders**](#getProviders) | **GET** /staking/providers | List staking providers
 [**getSummary**](#getSummary) | **GET** /staking/positions/summary | Get positions summary
@@ -479,6 +480,80 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Position retrieved successfully. |  * X-Request-ID -  <br>  |
+**400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
+**404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**500** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getPositionRelatedTransactions**
+> StakingPositionRelatedTransactionsPaginatedResponse getPositionRelatedTransactions()
+
+Returns enriched transaction history for a staking position with cursor-based pagination. Includes in-flight transactions with status pending. The in-flight transaction is always returned first; completed and failed history is ordered by the order parameter.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, StakingApiGetPositionRelatedTransactionsRequest, StakingPositionRelatedTransactionsPaginatedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: StakingApiGetPositionRelatedTransactionsRequest = {
+  // string | Unique identifier of the staking position.
+  id: id_example,
+  // number | Number of results per page (minimum: 1, maximum: 100).
+  pageSize: 10,
+  // string | Cursor for the next page of results. Use the value from the \'next\' field in the previous response. (optional)
+  pageCursor: eJ0eXAiOiJKV1QiLCJhbGcOiJIUzI1NiJ9,
+  // 'ASC' | 'DESC' | ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first. (optional)
+  order: ASC,
+};
+
+fireblocks.staking.getPositionRelatedTransactions(body).then((res: FireblocksResponse<StakingPositionRelatedTransactionsPaginatedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | Unique identifier of the staking position. | defaults to undefined
+ **pageSize** | [**number**] | Number of results per page (minimum: 1, maximum: 100). | defaults to undefined
+ **pageCursor** | [**string**] | Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response. | (optional) defaults to undefined
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first. | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[StakingPositionRelatedTransactionsPaginatedResponse](../models/StakingPositionRelatedTransactionsPaginatedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Paginated list of related transactions for the position returned successfully. |  * X-Request-ID -  <br>  |
 **400** | Bad request: missing/invalid fields, unsupported amount, or malformed payload. |  * X-Request-ID -  <br>  |
 **403** | Forbidden: insufficient permissions, disabled feature, or restricted provider/validator. |  * X-Request-ID -  <br>  |
 **404** | Not found: requested resource does not exist (e.g., position, validator, provider, or wallet). |  * X-Request-ID -  <br>  |

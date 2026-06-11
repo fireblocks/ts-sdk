@@ -33,7 +33,7 @@
 |**networkStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  | [optional] [default to undefined]|
 |**cpuStaking** | [**TransactionRequestNetworkStaking**](TransactionRequestNetworkStaking.md) |  | [optional] [default to undefined]|
 |**useGasless** | **boolean** | - Override the default gasless configuration by sending true\\false | [optional] [default to undefined]|
-|**expiresAfterSeconds** | **number** | The number of seconds the transaction is valid for before it expires. After the specified duration, the transaction will expire if it has not been broadcasted. | [optional] [default to undefined]|
+|**configurations** | [**TransactionConfigurations**](TransactionConfigurations.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: TransactionRequestFeeLevelEnum

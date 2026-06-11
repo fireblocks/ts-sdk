@@ -27,6 +27,9 @@ import { ParticipantRelationshipType } from './participant-relationship-type';
 import { PersonalIdentification } from './personal-identification';
 // May contain unused imports in some cases
 // @ts-ignore
+import { PersonalIdentificationDocument } from './personal-identification-document';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PersonalIdentificationFullName } from './personal-identification-full-name';
 // May contain unused imports in some cases
 // @ts-ignore

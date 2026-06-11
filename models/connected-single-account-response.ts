@@ -27,6 +27,9 @@ import { ConnectedAccountManifest } from './connected-account-manifest';
 import { ConnectedAccountTotalBalance } from './connected-account-total-balance';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ConnectedAccountType } from './connected-account-type';
+// May contain unused imports in some cases
+// @ts-ignore
 import { ConnectedSingleAccount } from './connected-single-account';
 
 /**

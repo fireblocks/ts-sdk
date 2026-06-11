@@ -15,15 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { RoleDetails } from './role-details';
+import { ActiveRolesMap } from './active-roles-map';
 
 /**
- * A map of role names to their details
+ * 
  * @export
  * @interface ActiveRolesResponse
  */
 export interface ActiveRolesResponse {
-    [key: string]: RoleDetails;
-
+    /**
+     * 
+     * @type {ActiveRolesMap}
+     * @memberof ActiveRolesResponse
+     */
+    'activeRoles': ActiveRolesMap;
 }
 

@@ -17,6 +17,16 @@ Method | HTTP request | Description
 [**getLinkedToken**](#getLinkedToken) | **GET** /tokenization/tokens/{id} | Return a linked token
 [**getLinkedTokens**](#getLinkedTokens) | **GET** /tokenization/tokens | List all linked tokens
 [**getLinkedTokensCount**](#getLinkedTokensCount) | **GET** /tokenization/tokens/count | Get the total count of linked tokens
+[**getTokenAccessRegistryAddresses**](#getTokenAccessRegistryAddresses) | **GET** /tokenization/access_registries/{id}/addresses | Get current state of addresses in an access registry
+[**getTokenAccessRegistrySummary**](#getTokenAccessRegistrySummary) | **GET** /tokenization/access_registries/{id}/summary | Get summary of an access registry
+[**getTokenBalanceForAccount**](#getTokenBalanceForAccount) | **GET** /tokenization/tokens/{id}/balances/{accountAddress} | Get the latest balance for a specific account
+[**getTokenBalanceHistory**](#getTokenBalanceHistory) | **GET** /tokenization/tokens/{id}/balances/{accountAddress}/history | Get balance history for a specific account
+[**getTokenBalances**](#getTokenBalances) | **GET** /tokenization/tokens/{id}/balances | Get latest balances for all holders of a token
+[**getTokenContractSummary**](#getTokenContractSummary) | **GET** /tokenization/tokens/{id}/summary | Get onchain summary for a token
+[**getTokenRbac**](#getTokenRbac) | **GET** /tokenization/tokens/{id}/rbac | Get active RBAC roles for a token
+[**getTokenTotalSupply**](#getTokenTotalSupply) | **GET** /tokenization/tokens/{id}/total_supply | Get historical total supply for a token
+[**getTokenTransactions**](#getTokenTransactions) | **GET** /tokenization/tokens/{id}/transactions | Get onchain transactions for a token
+[**getTokenTransfers**](#getTokenTransfers) | **GET** /tokenization/tokens/{id}/transfers | Get onchain transfers for a token
 [**issueNewToken**](#issueNewToken) | **POST** /tokenization/tokens | Issue a new token
 [**issueTokenMultiChain**](#issueTokenMultiChain) | **POST** /tokenization/multichain/tokens | Issue a token on one or more blockchains
 [**link**](#link) | **POST** /tokenization/tokens/link | Link a contract
@@ -849,6 +859,728 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Count fetched successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenAccessRegistryAddresses**
+> AccessRegistryCurrentStateResponse getTokenAccessRegistryAddresses()
+
+Returns the currently active addresses in the access registry (added but not removed).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenAccessRegistryAddressesRequest, AccessRegistryCurrentStateResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenAccessRegistryAddressesRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | Page cursor to get the next page (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Number of items per page (max 100), requesting more than 100 will return 100 items (optional)
+  pageSize: 10,
+  // 'dateAdded' | 'address' | Sorting field (enum). (optional)
+  sortBy: sortBy_example,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: order_example,
+};
+
+fireblocks.tokenization.getTokenAccessRegistryAddresses(body).then((res: FireblocksResponse<AccessRegistryCurrentStateResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more than 100 will return 100 items | (optional) defaults to undefined
+ **sortBy** | [**&#39;dateAdded&#39; | &#39;address&#39;**]**Array<&#39;dateAdded&#39; &#124; &#39;address&#39;>** | Sorting field (enum). | (optional) defaults to 'dateAdded'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[AccessRegistryCurrentStateResponse](../models/AccessRegistryCurrentStateResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Access registry addresses retrieved successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenAccessRegistrySummary**
+> AccessRegistrySummaryResponse getTokenAccessRegistrySummary()
+
+Returns a summary of the current state of the access registry.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenAccessRegistrySummaryRequest, AccessRegistrySummaryResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenAccessRegistrySummaryRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+};
+
+fireblocks.tokenization.getTokenAccessRegistrySummary(body).then((res: FireblocksResponse<AccessRegistrySummaryResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+
+
+### Return type
+
+**[AccessRegistrySummaryResponse](../models/AccessRegistrySummaryResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Access registry summary retrieved successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenBalanceForAccount**
+> AddressBalanceItemDto getTokenBalanceForAccount()
+
+Returns the latest token balance for the specified account address.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenBalanceForAccountRequest, AddressBalanceItemDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenBalanceForAccountRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | The account address to get balance history for
+  accountAddress: 0x1234567890abcdef1234567890abcdef12345678,
+};
+
+fireblocks.tokenization.getTokenBalanceForAccount(body).then((res: FireblocksResponse<AddressBalanceItemDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **accountAddress** | [**string**] | The account address to get balance history for | defaults to undefined
+
+
+### Return type
+
+**[AddressBalanceItemDto](../models/AddressBalanceItemDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the balance for the account |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenBalanceHistory**
+> BalanceHistoryPagedResponse getTokenBalanceHistory()
+
+Returns paginated balance history for the specified account address with optional time-range filtering.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenBalanceHistoryRequest, BalanceHistoryPagedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenBalanceHistoryRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | The account address to get balance history for
+  accountAddress: 0x1234567890abcdef1234567890abcdef12345678,
+  // string | Start date of the time range in ISO 8601 format (optional)
+  startDate: 2025-01-16T15:45:00Z,
+  // string | End date of the time range in ISO 8601 format (optional)
+  endDate: 2025-01-16T15:45:00Z,
+  // 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | Time interval for grouping data (optional)
+  interval: DAY,
+  // string | Page cursor to get the next page (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Number of items per page (max 100), requesting more than 100 will return 100 items (optional)
+  pageSize: 10,
+  // 'blockTimestamp' | Sorting field (enum). Sorting only supported by \'blockTimestamp\' (optional)
+  sortBy: sortBy_example,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: order_example,
+};
+
+fireblocks.tokenization.getTokenBalanceHistory(body).then((res: FireblocksResponse<BalanceHistoryPagedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **accountAddress** | [**string**] | The account address to get balance history for | defaults to undefined
+ **startDate** | [**string**] | Start date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **endDate** | [**string**] | End date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **interval** | [**&#39;HOUR&#39; | &#39;DAY&#39; | &#39;WEEK&#39; | &#39;MONTH&#39;**]**Array<&#39;HOUR&#39; &#124; &#39;DAY&#39; &#124; &#39;WEEK&#39; &#124; &#39;MONTH&#39;>** | Time interval for grouping data | (optional) defaults to 'DAY'
+ **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more than 100 will return 100 items | (optional) defaults to undefined
+ **sortBy** | [**&#39;blockTimestamp&#39;**]**Array<&#39;blockTimestamp&#39;>** | Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39; | (optional) defaults to 'blockTimestamp'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[BalanceHistoryPagedResponse](../models/BalanceHistoryPagedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the balance history |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenBalances**
+> AddressBalancePagedResponse getTokenBalances()
+
+Returns the latest balance for each unique address holding this token.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenBalancesRequest, AddressBalancePagedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenBalancesRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | Page cursor to get the next page (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Number of items per page (max 100), requesting more than 100 will return 100 items (optional)
+  pageSize: 10,
+  // 'accountAddress' | 'blockTimestamp' | Sorting field for balances (optional)
+  sortBy: sortBy_example,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: order_example,
+};
+
+fireblocks.tokenization.getTokenBalances(body).then((res: FireblocksResponse<AddressBalancePagedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more than 100 will return 100 items | (optional) defaults to undefined
+ **sortBy** | [**&#39;accountAddress&#39; | &#39;blockTimestamp&#39;**]**Array<&#39;accountAddress&#39; &#124; &#39;blockTimestamp&#39;>** | Sorting field for balances | (optional) defaults to 'blockTimestamp'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[AddressBalancePagedResponse](../models/AddressBalancePagedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the latest balances for the token |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenContractSummary**
+> TokenContractSummaryResponse getTokenContractSummary()
+
+Returns the total number of unique holders and the total supply for the token contract.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenContractSummaryRequest, TokenContractSummaryResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenContractSummaryRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+};
+
+fireblocks.tokenization.getTokenContractSummary(body).then((res: FireblocksResponse<TokenContractSummaryResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+
+
+### Return type
+
+**[TokenContractSummaryResponse](../models/TokenContractSummaryResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the summary for the token contract |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenRbac**
+> ActiveRolesResponse getTokenRbac()
+
+Returns a list of currently active roles for the token contract.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenRbacRequest, ActiveRolesResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenRbacRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+};
+
+fireblocks.tokenization.getTokenRbac(body).then((res: FireblocksResponse<ActiveRolesResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+
+
+### Return type
+
+**[ActiveRolesResponse](../models/ActiveRolesResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the list of active roles |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenTotalSupply**
+> TotalSupplyPagedResponse getTokenTotalSupply()
+
+Returns paginated total supply history for the token contract with optional time-range filtering and binning.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenTotalSupplyRequest, TotalSupplyPagedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenTotalSupplyRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | Start date of the time range in ISO 8601 format (optional)
+  startDate: 2025-01-16T15:45:00Z,
+  // string | End date of the time range in ISO 8601 format (optional)
+  endDate: 2025-01-16T15:45:00Z,
+  // 'HOUR' | 'DAY' | 'WEEK' | 'MONTH' | Time interval for grouping data (optional)
+  interval: DAY,
+  // string | Page cursor to get the next page (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Number of items per page (max 100), requesting more than 100 will return 100 items (optional)
+  pageSize: 10,
+  // 'blockTimestamp' | Sorting field (enum). Sorting only supported by \'blockTimestamp\' (optional)
+  sortBy: sortBy_example,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: order_example,
+};
+
+fireblocks.tokenization.getTokenTotalSupply(body).then((res: FireblocksResponse<TotalSupplyPagedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **startDate** | [**string**] | Start date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **endDate** | [**string**] | End date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **interval** | [**&#39;HOUR&#39; | &#39;DAY&#39; | &#39;WEEK&#39; | &#39;MONTH&#39;**]**Array<&#39;HOUR&#39; &#124; &#39;DAY&#39; &#124; &#39;WEEK&#39; &#124; &#39;MONTH&#39;>** | Time interval for grouping data | (optional) defaults to 'DAY'
+ **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more than 100 will return 100 items | (optional) defaults to undefined
+ **sortBy** | [**&#39;blockTimestamp&#39;**]**Array<&#39;blockTimestamp&#39;>** | Sorting field (enum). Sorting only supported by \&#39;blockTimestamp\&#39; | (optional) defaults to 'blockTimestamp'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[TotalSupplyPagedResponse](../models/TotalSupplyPagedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successfully retrieved the token total supply history |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenTransactions**
+> OnchainTransactionsPagedResponse getTokenTransactions()
+
+Returns a paginated list of onchain transactions for the token contract, optionally filtered by date range.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenTransactionsRequest, OnchainTransactionsPagedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenTransactionsRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | Start date of the time range in ISO 8601 format (optional)
+  startDate: 2025-01-16T15:45:00Z,
+  // string | End date of the time range in ISO 8601 format (optional)
+  endDate: 2025-01-16T15:45:00Z,
+  // string | Page cursor to get the next page (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Number of items per page (max 100), requesting more than 100 will return 100 items (optional)
+  pageSize: 10,
+  // 'blockTimestamp' | 'blockNumber' | 'transactionHash' | Sorting field (enum). (optional)
+  sortBy: sortBy_example,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: order_example,
+};
+
+fireblocks.tokenization.getTokenTransactions(body).then((res: FireblocksResponse<OnchainTransactionsPagedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **startDate** | [**string**] | Start date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **endDate** | [**string**] | End date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more than 100 will return 100 items | (optional) defaults to undefined
+ **sortBy** | [**&#39;blockTimestamp&#39; | &#39;blockNumber&#39; | &#39;transactionHash&#39;**]**Array<&#39;blockTimestamp&#39; &#124; &#39;blockNumber&#39; &#124; &#39;transactionHash&#39;>** | Sorting field (enum). | (optional) defaults to 'blockTimestamp'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+
+
+### Return type
+
+**[OnchainTransactionsPagedResponse](../models/OnchainTransactionsPagedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Onchain transactions fetched successfully |  -  |
+**404** | Token not found |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTokenTransfers**
+> OnchainTransfersPagedResponse getTokenTransfers()
+
+Returns a paginated list of ERC20 transfer events for the token contract, optionally filtered by date range.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TokenizationApiGetTokenTransfersRequest, OnchainTransfersPagedResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TokenizationApiGetTokenTransfersRequest = {
+  // string | The token link id
+  id: fbfbfbfb-fbfb-fbfb-fbfb-fbfbfbfbfbfb,
+  // string | Start date of the time range in ISO 8601 format (optional)
+  startDate: 2025-01-16T15:45:00Z,
+  // string | End date of the time range in ISO 8601 format (optional)
+  endDate: 2025-01-16T15:45:00Z,
+  // string | Page cursor to get the next page (optional)
+  pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
+  // number | Number of items per page (max 100), requesting more than 100 will return 100 items (optional)
+  pageSize: 10,
+  // 'blockTimeStamp' | Sorting field for transfers (optional)
+  sortBy: sortBy_example,
+  // 'ASC' | 'DESC' | ASC / DESC ordering (default DESC) (optional)
+  order: order_example,
+  // string | Filter transfers by sender address (optional)
+  sender: 0xabcdef1234567890abcdef1234567890abcdef12,
+  // string | Filter transfers by receiver address (optional)
+  receiver: 0x1234567890abcdef1234567890abcdef12345678,
+};
+
+fireblocks.tokenization.getTokenTransfers(body).then((res: FireblocksResponse<OnchainTransfersPagedResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**string**] | The token link id | defaults to undefined
+ **startDate** | [**string**] | Start date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **endDate** | [**string**] | End date of the time range in ISO 8601 format | (optional) defaults to undefined
+ **pageCursor** | [**string**] | Page cursor to get the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Number of items per page (max 100), requesting more than 100 will return 100 items | (optional) defaults to undefined
+ **sortBy** | [**&#39;blockTimeStamp&#39;**]**Array<&#39;blockTimeStamp&#39;>** | Sorting field for transfers | (optional) defaults to 'blockTimeStamp'
+ **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | ASC / DESC ordering (default DESC) | (optional) defaults to 'DESC'
+ **sender** | [**string**] | Filter transfers by sender address | (optional) defaults to undefined
+ **receiver** | [**string**] | Filter transfers by receiver address | (optional) defaults to undefined
+
+
+### Return type
+
+**[OnchainTransfersPagedResponse](../models/OnchainTransfersPagedResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Onchain transfers fetched successfully |  -  |
+**404** | Token not found |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

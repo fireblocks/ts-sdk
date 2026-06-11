@@ -1253,7 +1253,7 @@ export interface TransactionsApiGetTransactionsRequest {
 
     /**
      * The source type of the transaction
-     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'CONTRACT' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET'}
+     * @type {'VAULT_ACCOUNT' | 'EXCHANGE_ACCOUNT' | 'INTERNAL_WALLET' | 'EXTERNAL_WALLET' | 'CONTRACT' | 'FIAT_ACCOUNT' | 'NETWORK_CONNECTION' | 'COMPOUND' | 'UNKNOWN' | 'GAS_STATION' | 'END_USER_WALLET' | 'WALLET_POOL'}
      * @memberof TransactionsApiGetTransactions
      */
     readonly sourceType?: GetTransactionsSourceTypeEnum
@@ -1607,7 +1607,8 @@ export const GetTransactionsSourceTypeEnum = {
     Compound: 'COMPOUND',
     Unknown: 'UNKNOWN',
     GasStation: 'GAS_STATION',
-    EndUserWallet: 'END_USER_WALLET'
+    EndUserWallet: 'END_USER_WALLET',
+    WalletPool: 'WALLET_POOL'
 } as const;
 export type GetTransactionsSourceTypeEnum = typeof GetTransactionsSourceTypeEnum[keyof typeof GetTransactionsSourceTypeEnum];
 /**

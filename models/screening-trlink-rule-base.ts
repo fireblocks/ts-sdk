@@ -24,7 +24,7 @@ import { TransactionOperationEnum } from './transaction-operation-enum';
 import { TransferPeerSubTypeEnum } from './transfer-peer-sub-type-enum';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TransferPeerTypeEnum } from './transfer-peer-type-enum';
+import { TransferPeerTypeEnum2 } from './transfer-peer-type-enum2';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TravelRuleDirectionEnum } from './travel-rule-direction-enum';
@@ -49,10 +49,10 @@ export interface ScreeningTRLinkRuleBase {
     'direction'?: TravelRuleDirectionEnum;
     /**
      * 
-     * @type {TransferPeerTypeEnum}
+     * @type {TransferPeerTypeEnum2}
      * @memberof ScreeningTRLinkRuleBase
      */
-    'sourceType'?: TransferPeerTypeEnum;
+    'sourceType'?: TransferPeerTypeEnum2;
     /**
      * 
      * @type {TransferPeerSubTypeEnum}
@@ -67,10 +67,10 @@ export interface ScreeningTRLinkRuleBase {
     'sourceAddress'?: string;
     /**
      * 
-     * @type {TransferPeerTypeEnum}
+     * @type {TransferPeerTypeEnum2}
      * @memberof ScreeningTRLinkRuleBase
      */
-    'destType'?: TransferPeerTypeEnum;
+    'destType'?: TransferPeerTypeEnum2;
     /**
      * 
      * @type {TransferPeerSubTypeEnum}

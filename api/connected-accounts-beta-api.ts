@@ -27,6 +27,12 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AllowlistEntry } from '../models';
+// @ts-ignore
+import { AllowlistEntryStatus } from '../models';
+// @ts-ignore
+import { AllowlistResponse } from '../models';
+// @ts-ignore
 import { ConnectedAccountBalancesResponse } from '../models';
 // @ts-ignore
 import { ConnectedAccountErrorResponse } from '../models';
@@ -94,6 +100,115 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             assertParamExistsAndNotEmpty('getConnectedAccount', 'accountId', accountId)
             const localVarPath = `/connected_accounts/{accountId}`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Get allowlist for connected account
+         * @param {string} accountId The connected account identifier
+         * @param {AllowlistEntryStatus} [status] Filter by allowlist entry status
+         * @param {string} [assetId] Filter by Fireblocks asset ID.  See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs. 
+         * @param {string} [networkId] Filter by Fireblocks network ID.  See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers. 
+         * @param {string} [address] Filter by specific address
+         * @param {string} [pageCursor] Pagination cursor for next page
+         * @param {number} [pageSize] Maximum number of entries to return
+         * @param {GetConnectedAccountAllowlistSortByEnum} [sortBy] Field to sort results by.
+         * @param {GetConnectedAccountAllowlistOrderEnum} [order] Sort order (ASC or DESC).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectedAccountAllowlist: async (accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, sortBy?: GetConnectedAccountAllowlistSortByEnum, order?: GetConnectedAccountAllowlistOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getConnectedAccountAllowlist', 'accountId', accountId)
+            const localVarPath = `/connected_accounts/{accountId}/allowlist`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (status !== undefined) {
+                localVarQueryParameter['status'] = status;
+            }
+
+            if (assetId !== undefined) {
+                localVarQueryParameter['assetId'] = assetId;
+            }
+
+            if (networkId !== undefined) {
+                localVarQueryParameter['networkId'] = networkId;
+            }
+
+            if (address !== undefined) {
+                localVarQueryParameter['address'] = address;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (sortBy !== undefined) {
+                localVarQueryParameter['sortBy'] = sortBy;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Get a single allowlist entry for a connected account
+         * @param {string} accountId The connected account identifier
+         * @param {string} allowlistId The Fireblocks allowlist entry identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectedAccountAllowlistEntry: async (accountId: string, allowlistId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getConnectedAccountAllowlistEntry', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getConnectedAccountAllowlistEntry', 'allowlistId', allowlistId)
+            const localVarPath = `/connected_accounts/{accountId}/allowlist/{allowlistId}`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"allowlistId"}}`, encodeURIComponent(String(allowlistId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -335,6 +450,44 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Sync allowlist for connected account
+         * @param {string} accountId The connected account identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        syncConnectedAccountAllowlist: async (accountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('syncConnectedAccountAllowlist', 'accountId', accountId)
+            const localVarPath = `/connected_accounts/{accountId}/allowlist/sync`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -369,6 +522,41 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccount(accountId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Get allowlist for connected account
+         * @param {string} accountId The connected account identifier
+         * @param {AllowlistEntryStatus} [status] Filter by allowlist entry status
+         * @param {string} [assetId] Filter by Fireblocks asset ID.  See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs. 
+         * @param {string} [networkId] Filter by Fireblocks network ID.  See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers. 
+         * @param {string} [address] Filter by specific address
+         * @param {string} [pageCursor] Pagination cursor for next page
+         * @param {number} [pageSize] Maximum number of entries to return
+         * @param {GetConnectedAccountAllowlistSortByEnum} [sortBy] Field to sort results by.
+         * @param {GetConnectedAccountAllowlistOrderEnum} [order] Sort order (ASC or DESC).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getConnectedAccountAllowlist(accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, sortBy?: GetConnectedAccountAllowlistSortByEnum, order?: GetConnectedAccountAllowlistOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, sortBy, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountAllowlist']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Get a single allowlist entry for a connected account
+         * @param {string} accountId The connected account identifier
+         * @param {string} allowlistId The Fireblocks allowlist entry identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getConnectedAccountAllowlistEntry(accountId: string, allowlistId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistEntry>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlistEntry(accountId, allowlistId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountAllowlistEntry']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -446,6 +634,20 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.renameConnectedAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Sync allowlist for connected account
+         * @param {string} accountId The connected account identifier
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async syncConnectedAccountAllowlist(accountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.syncConnectedAccountAllowlist(accountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.syncConnectedAccountAllowlist']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -475,6 +677,26 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
          */
         getConnectedAccount(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedSingleAccountResponse> {
             return localVarFp.getConnectedAccount(requestParameters.accountId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Get allowlist for connected account
+         * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistResponse> {
+            return localVarFp.getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Get a single allowlist entry for a connected account
+         * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistEntry> {
+            return localVarFp.getConnectedAccountAllowlistEntry(requestParameters.accountId, requestParameters.allowlistId, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
@@ -526,6 +748,16 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
         renameConnectedAccount(requestParameters: ConnectedAccountsBetaApiRenameConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<RenameConnectedAccountResponse> {
             return localVarFp.renameConnectedAccount(requestParameters.renameConnectedAccountRequest, requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * @summary Sync allowlist for connected account
+         * @param {ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -555,6 +787,97 @@ export interface ConnectedAccountsBetaApiGetConnectedAccountRequest {
      * @memberof ConnectedAccountsBetaApiGetConnectedAccount
      */
     readonly accountId: string
+}
+
+/**
+ * Request parameters for getConnectedAccountAllowlist operation in ConnectedAccountsBetaApi.
+ * @export
+ * @interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest
+ */
+export interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest {
+    /**
+     * The connected account identifier
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly accountId: string
+
+    /**
+     * Filter by allowlist entry status
+     * @type {AllowlistEntryStatus}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly status?: AllowlistEntryStatus
+
+    /**
+     * Filter by Fireblocks asset ID.  See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs. 
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly assetId?: string
+
+    /**
+     * Filter by Fireblocks network ID.  See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers. 
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly networkId?: string
+
+    /**
+     * Filter by specific address
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly address?: string
+
+    /**
+     * Pagination cursor for next page
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Maximum number of entries to return
+     * @type {number}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly pageSize?: number
+
+    /**
+     * Field to sort results by.
+     * @type {'addedAt' | 'lastSyncedAt'}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly sortBy?: GetConnectedAccountAllowlistSortByEnum
+
+    /**
+     * Sort order (ASC or DESC).
+     * @type {'ASC' | 'DESC'}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     */
+    readonly order?: GetConnectedAccountAllowlistOrderEnum
+}
+
+/**
+ * Request parameters for getConnectedAccountAllowlistEntry operation in ConnectedAccountsBetaApi.
+ * @export
+ * @interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest
+ */
+export interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest {
+    /**
+     * The connected account identifier
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntry
+     */
+    readonly accountId: string
+
+    /**
+     * The Fireblocks allowlist entry identifier
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntry
+     */
+    readonly allowlistId: string
 }
 
 /**
@@ -698,6 +1021,27 @@ export interface ConnectedAccountsBetaApiRenameConnectedAccountRequest {
 }
 
 /**
+ * Request parameters for syncConnectedAccountAllowlist operation in ConnectedAccountsBetaApi.
+ * @export
+ * @interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest
+ */
+export interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest {
+    /**
+     * The connected account identifier
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiSyncConnectedAccountAllowlist
+     */
+    readonly accountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiSyncConnectedAccountAllowlist
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * ConnectedAccountsBetaApi - object-oriented interface
  * @export
  * @class ConnectedAccountsBetaApi
@@ -726,6 +1070,30 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
      */
     public getConnectedAccount(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountRequest) {
         return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccount(requestParameters.accountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+     * @summary Get allowlist for connected account
+     * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConnectedAccountsBetaApi
+     */
+    public getConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest) {
+        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+     * @summary Get a single allowlist entry for a connected account
+     * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConnectedAccountsBetaApi
+     */
+    public getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest) {
+        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountAllowlistEntry(requestParameters.accountId, requestParameters.allowlistId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -787,5 +1155,33 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
     public renameConnectedAccount(requestParameters: ConnectedAccountsBetaApiRenameConnectedAccountRequest) {
         return ConnectedAccountsBetaApiFp(this.configuration).renameConnectedAccount(requestParameters.renameConnectedAccountRequest, requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
+
+    /**
+     * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+     * @summary Sync allowlist for connected account
+     * @param {ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConnectedAccountsBetaApi
+     */
+    public syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest) {
+        return ConnectedAccountsBetaApiFp(this.configuration).syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
 }
 
+/**
+ * @export
+ */
+export const GetConnectedAccountAllowlistSortByEnum = {
+    AddedAt: 'addedAt',
+    LastSyncedAt: 'lastSyncedAt'
+} as const;
+export type GetConnectedAccountAllowlistSortByEnum = typeof GetConnectedAccountAllowlistSortByEnum[keyof typeof GetConnectedAccountAllowlistSortByEnum];
+/**
+ * @export
+ */
+export const GetConnectedAccountAllowlistOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetConnectedAccountAllowlistOrderEnum = typeof GetConnectedAccountAllowlistOrderEnum[keyof typeof GetConnectedAccountAllowlistOrderEnum];

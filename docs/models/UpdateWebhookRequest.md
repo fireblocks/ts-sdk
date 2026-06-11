@@ -8,6 +8,7 @@
 |**description** | **string** | description of the webhook of what it is used for.should not contain special characters. | [optional] [default to undefined]|
 |**events** | [**Array&lt;WebhookEvent&gt;**](WebhookEvent.md) | The events that the webhook will be subscribed to | [optional] [default to undefined]|
 |**enabled** | **boolean** | The status of the webhook | [optional] [default to undefined]|
+|**mtls** | [**WebhookMtls**](WebhookMtls.md) |  | [optional] [default to undefined]|
 
 
 

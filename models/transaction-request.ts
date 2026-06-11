@@ -24,6 +24,9 @@ import { ExtraParameters } from './extra-parameters';
 import { SourceTransferPeerPath } from './source-transfer-peer-path';
 // May contain unused imports in some cases
 // @ts-ignore
+import { TransactionConfigurations } from './transaction-configurations';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransactionOperation } from './transaction-operation';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -240,11 +243,11 @@ export interface TransactionRequest {
      */
     'useGasless'?: boolean;
     /**
-     * The number of seconds the transaction is valid for before it expires. After the specified duration, the transaction will expire if it has not been broadcasted.
-     * @type {number}
+     * 
+     * @type {TransactionConfigurations}
      * @memberof TransactionRequest
      */
-    'expiresAfterSeconds'?: number;
+    'configurations'?: TransactionConfigurations;
 }
 
 export const TransactionRequestFeeLevelEnum = {

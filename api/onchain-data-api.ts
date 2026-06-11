@@ -27,23 +27,23 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { AccessRegistryCurrentStateResponse } from '../models';
+import { AccessRegistryCurrentStateResponse2 } from '../models';
 // @ts-ignore
 import { AccessRegistrySummaryResponse } from '../models';
 // @ts-ignore
-import { ActiveRolesResponse } from '../models';
+import { ActiveRolesResponse2 } from '../models';
 // @ts-ignore
-import { AddressBalancePagedResponse } from '../models';
+import { AddressBalancePagedResponse2 } from '../models';
 // @ts-ignore
-import { BalanceHistoryPagedResponse } from '../models';
+import { BalanceHistoryPagedResponse2 } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
-import { OnchainTransactionsPagedResponse } from '../models';
+import { OnchainTransactionsPagedResponse2 } from '../models';
 // @ts-ignore
 import { TokenContractSummaryResponse } from '../models';
 // @ts-ignore
-import { TotalSupplyPagedResponse } from '../models';
+import { TotalSupplyPagedResponse2 } from '../models';
 /**
  * OnchainDataApi - axios parameter creator
  * @export
@@ -520,7 +520,7 @@ export const OnchainDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAccessRegistryCurrentState(baseAssetId: string, accessRegistryAddress: string, pageCursor?: string, pageSize?: number, sortBy?: GetAccessRegistryCurrentStateSortByEnum, order?: GetAccessRegistryCurrentStateOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessRegistryCurrentStateResponse>> {
+        async getAccessRegistryCurrentState(baseAssetId: string, accessRegistryAddress: string, pageCursor?: string, pageSize?: number, sortBy?: GetAccessRegistryCurrentStateSortByEnum, order?: GetAccessRegistryCurrentStateOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AccessRegistryCurrentStateResponse2>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getAccessRegistryCurrentState(baseAssetId, accessRegistryAddress, pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OnchainDataApi.getAccessRegistryCurrentState']?.[index]?.url;
@@ -548,7 +548,7 @@ export const OnchainDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getActiveRolesForContract(baseAssetId: string, contractAddress: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ActiveRolesResponse>> {
+        async getActiveRolesForContract(baseAssetId: string, contractAddress: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ActiveRolesResponse2>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getActiveRolesForContract(baseAssetId, contractAddress, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OnchainDataApi.getActiveRolesForContract']?.[index]?.url;
@@ -570,7 +570,7 @@ export const OnchainDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getContractBalanceHistory(baseAssetId: string, contractAddress: string, accountAddress: string, startDate?: string, endDate?: string, interval?: GetContractBalanceHistoryIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetContractBalanceHistorySortByEnum, order?: GetContractBalanceHistoryOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BalanceHistoryPagedResponse>> {
+        async getContractBalanceHistory(baseAssetId: string, contractAddress: string, accountAddress: string, startDate?: string, endDate?: string, interval?: GetContractBalanceHistoryIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetContractBalanceHistorySortByEnum, order?: GetContractBalanceHistoryOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BalanceHistoryPagedResponse2>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getContractBalanceHistory(baseAssetId, contractAddress, accountAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OnchainDataApi.getContractBalanceHistory']?.[index]?.url;
@@ -605,7 +605,7 @@ export const OnchainDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getContractTotalSupply(baseAssetId: string, contractAddress: string, startDate?: string, endDate?: string, interval?: GetContractTotalSupplyIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetContractTotalSupplySortByEnum, order?: GetContractTotalSupplyOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TotalSupplyPagedResponse>> {
+        async getContractTotalSupply(baseAssetId: string, contractAddress: string, startDate?: string, endDate?: string, interval?: GetContractTotalSupplyIntervalEnum, pageCursor?: string, pageSize?: number, sortBy?: GetContractTotalSupplySortByEnum, order?: GetContractTotalSupplyOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TotalSupplyPagedResponse2>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getContractTotalSupply(baseAssetId, contractAddress, startDate, endDate, interval, pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OnchainDataApi.getContractTotalSupply']?.[index]?.url;
@@ -624,7 +624,7 @@ export const OnchainDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getLatestBalancesForContract(baseAssetId: string, contractAddress: string, accountAddress?: string, pageCursor?: string, pageSize?: number, sortBy?: GetLatestBalancesForContractSortByEnum, order?: GetLatestBalancesForContractOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressBalancePagedResponse>> {
+        async getLatestBalancesForContract(baseAssetId: string, contractAddress: string, accountAddress?: string, pageCursor?: string, pageSize?: number, sortBy?: GetLatestBalancesForContractSortByEnum, order?: GetLatestBalancesForContractOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressBalancePagedResponse2>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getLatestBalancesForContract(baseAssetId, contractAddress, accountAddress, pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OnchainDataApi.getLatestBalancesForContract']?.[index]?.url;
@@ -644,7 +644,7 @@ export const OnchainDataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getOnchainTransactions(baseAssetId: string, contractAddress: string, startDate?: string, endDate?: string, pageCursor?: string, pageSize?: number, sortBy?: GetOnchainTransactionsSortByEnum, order?: GetOnchainTransactionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnchainTransactionsPagedResponse>> {
+        async getOnchainTransactions(baseAssetId: string, contractAddress: string, startDate?: string, endDate?: string, pageCursor?: string, pageSize?: number, sortBy?: GetOnchainTransactionsSortByEnum, order?: GetOnchainTransactionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OnchainTransactionsPagedResponse2>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOnchainTransactions(baseAssetId, contractAddress, startDate, endDate, pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['OnchainDataApi.getOnchainTransactions']?.[index]?.url;
@@ -667,7 +667,7 @@ export const OnchainDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAccessRegistryCurrentState(requestParameters: OnchainDataApiGetAccessRegistryCurrentStateRequest, options?: RawAxiosRequestConfig): AxiosPromise<AccessRegistryCurrentStateResponse> {
+        getAccessRegistryCurrentState(requestParameters: OnchainDataApiGetAccessRegistryCurrentStateRequest, options?: RawAxiosRequestConfig): AxiosPromise<AccessRegistryCurrentStateResponse2> {
             return localVarFp.getAccessRegistryCurrentState(requestParameters.baseAssetId, requestParameters.accessRegistryAddress, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -687,7 +687,7 @@ export const OnchainDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getActiveRolesForContract(requestParameters: OnchainDataApiGetActiveRolesForContractRequest, options?: RawAxiosRequestConfig): AxiosPromise<ActiveRolesResponse> {
+        getActiveRolesForContract(requestParameters: OnchainDataApiGetActiveRolesForContractRequest, options?: RawAxiosRequestConfig): AxiosPromise<ActiveRolesResponse2> {
             return localVarFp.getActiveRolesForContract(requestParameters.baseAssetId, requestParameters.contractAddress, options).then((request) => request(axios, basePath));
         },
         /**
@@ -697,7 +697,7 @@ export const OnchainDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getContractBalanceHistory(requestParameters: OnchainDataApiGetContractBalanceHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<BalanceHistoryPagedResponse> {
+        getContractBalanceHistory(requestParameters: OnchainDataApiGetContractBalanceHistoryRequest, options?: RawAxiosRequestConfig): AxiosPromise<BalanceHistoryPagedResponse2> {
             return localVarFp.getContractBalanceHistory(requestParameters.baseAssetId, requestParameters.contractAddress, requestParameters.accountAddress, requestParameters.startDate, requestParameters.endDate, requestParameters.interval, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -717,7 +717,7 @@ export const OnchainDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getContractTotalSupply(requestParameters: OnchainDataApiGetContractTotalSupplyRequest, options?: RawAxiosRequestConfig): AxiosPromise<TotalSupplyPagedResponse> {
+        getContractTotalSupply(requestParameters: OnchainDataApiGetContractTotalSupplyRequest, options?: RawAxiosRequestConfig): AxiosPromise<TotalSupplyPagedResponse2> {
             return localVarFp.getContractTotalSupply(requestParameters.baseAssetId, requestParameters.contractAddress, requestParameters.startDate, requestParameters.endDate, requestParameters.interval, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -727,7 +727,7 @@ export const OnchainDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getLatestBalancesForContract(requestParameters: OnchainDataApiGetLatestBalancesForContractRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressBalancePagedResponse> {
+        getLatestBalancesForContract(requestParameters: OnchainDataApiGetLatestBalancesForContractRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressBalancePagedResponse2> {
             return localVarFp.getLatestBalancesForContract(requestParameters.baseAssetId, requestParameters.contractAddress, requestParameters.accountAddress, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
@@ -737,7 +737,7 @@ export const OnchainDataApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOnchainTransactions(requestParameters: OnchainDataApiGetOnchainTransactionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<OnchainTransactionsPagedResponse> {
+        getOnchainTransactions(requestParameters: OnchainDataApiGetOnchainTransactionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<OnchainTransactionsPagedResponse2> {
             return localVarFp.getOnchainTransactions(requestParameters.baseAssetId, requestParameters.contractAddress, requestParameters.startDate, requestParameters.endDate, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
     };

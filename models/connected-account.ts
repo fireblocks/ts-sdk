@@ -22,6 +22,9 @@ import { ConnectedAccountManifest } from './connected-account-manifest';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ConnectedAccountTotalBalance } from './connected-account-total-balance';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ConnectedAccountType } from './connected-account-type';
 
 /**
  * 
@@ -66,11 +69,29 @@ export interface ConnectedAccount {
      */
     'manifest': ConnectedAccountManifest;
     /**
+     * 
+     * @type {ConnectedAccountType}
+     * @memberof ConnectedAccount
+     */
+    'accountType': ConnectedAccountType;
+    /**
      * The ID of the parent main account, if this is a sub account.
      * @type {string}
      * @memberof ConnectedAccount
      */
     'parentId'?: string;
+    /**
+     * The API key identifier used to connect this account.
+     * @type {string}
+     * @memberof ConnectedAccount
+     */
+    'apiKey'?: string;
+    /**
+     * The account name provided by the provider.
+     * @type {string}
+     * @memberof ConnectedAccount
+     */
+    'providerAccountName'?: string;
 }
 
 

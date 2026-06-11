@@ -77,6 +77,18 @@ export interface BusinessIdentification {
      * @memberof BusinessIdentification
      */
     'phone'?: string;
+    /**
+     * The date the business was registered.
+     * @type {string}
+     * @memberof BusinessIdentification
+     */
+    'dateOfRegistration'?: string;
+    /**
+     * The ISO-3166 Alpha-2 country code where the business is registered.
+     * @type {string}
+     * @memberof BusinessIdentification
+     */
+    'countryOfRegistration'?: string;
 }
 
 

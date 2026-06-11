@@ -12,10 +12,12 @@
 |**postalAddress** | [**PostalAddress**](PostalAddress.md) |  | [default to undefined]|
 |**email** | **string** |  | [optional] [default to undefined]|
 |**phone** | **string** | Mobile phone number in E.164 format | [optional] [default to undefined]|
-|**idNumber** | **string** | The identification number corresponding to the primary identification document type specified in idType | [optional] [default to undefined]|
-|**idType** | [**PersonalIdentificationType**](PersonalIdentificationType.md) |  | [optional] [default to undefined]|
-|**additionalIdNumber** | **string** | The identification number corresponding to the additional identification document type specified in additionalIdType | [optional] [default to undefined]|
-|**additionalIdType** | [**PersonalIdentificationType**](PersonalIdentificationType.md) |  | [optional] [default to undefined]|
+|**idNumber** | **string** | Deprecated. Use identificationDocuments instead. | [optional] [default to undefined]|
+|**idType** | [**PersonalIdentificationType**](PersonalIdentificationType.md) | Deprecated. Use identificationDocuments instead. | [optional] [default to undefined]|
+|**additionalIdNumber** | **string** | Deprecated. Use identificationDocuments instead. | [optional] [default to undefined]|
+|**additionalIdType** | [**PersonalIdentificationType**](PersonalIdentificationType.md) | Deprecated. Use identificationDocuments instead. | [optional] [default to undefined]|
+|**nationality** | **string** | The ISO-3166 Alpha-2 country code representing the individual\&#39;s nationality. | [optional] [default to undefined]|
+|**identificationDocuments** | [**Array&lt;PersonalIdentificationDocument&gt;**](PersonalIdentificationDocument.md) | List of identification documents for the individual. | [optional] [default to undefined]|
 
 
 

@@ -20,7 +20,7 @@
 |**isSlippageApplied** | **boolean** | Indicates if slippage was applied to the quote. | [optional] [default to false]|
 |**executionSteps** | [**Array&lt;QuoteExecutionStep&gt;**](QuoteExecutionStep.md) | Ordered list of execution steps for the quote. | [optional] [default to undefined]|
 |**generalFees** | [**Array&lt;Fee&gt;**](Fee.md) | General fees associated with the quote. | [optional] [default to undefined]|
-|**orderCreationRequirements** | **string** | A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending.  | [optional] [default to undefined]|
+|**requiredParticipantsIdentificationOnOrder** | **string** | A JSON Schema Draft-7 document in string format describing the fields required when creating an order so clients can validate their order payload before sending.  | [optional] [default to undefined]|
 
 
 ## Enum: QuoteTypeEnum

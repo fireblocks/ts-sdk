@@ -61,6 +61,8 @@ import { StakingGetProvidersResponse } from '../models';
 // @ts-ignore
 import { StakingGetSummaryByVaultResponse } from '../models';
 // @ts-ignore
+import { StakingPositionRelatedTransactionsPaginatedResponse } from '../models';
+// @ts-ignore
 import { StakingPositionsPaginatedResponse } from '../models';
 // @ts-ignore
 import { StakingProvider } from '../models';
@@ -322,6 +324,55 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns enriched transaction history for a staking position with cursor-based pagination. Includes in-flight transactions with status pending. The in-flight transaction is always returned first; completed and failed history is ordered by the order parameter.
+         * @summary List related transactions for a position
+         * @param {string} id Unique identifier of the staking position.
+         * @param {number} pageSize Number of results per page (minimum: 1, maximum: 100).
+         * @param {string} [pageCursor] Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
+         * @param {GetPositionRelatedTransactionsOrderEnum} [order] ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPositionRelatedTransactions: async (id: string, pageSize: number, pageCursor?: string, order?: GetPositionRelatedTransactionsOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getPositionRelatedTransactions', 'id', id)
+            assertParamExists('getPositionRelatedTransactions', 'pageSize', pageSize)
+            const localVarPath = `/staking/positions/{id}/related_transactions`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
 
 
     
@@ -802,6 +853,22 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns enriched transaction history for a staking position with cursor-based pagination. Includes in-flight transactions with status pending. The in-flight transaction is always returned first; completed and failed history is ordered by the order parameter.
+         * @summary List related transactions for a position
+         * @param {string} id Unique identifier of the staking position.
+         * @param {number} pageSize Number of results per page (minimum: 1, maximum: 100).
+         * @param {string} [pageCursor] Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
+         * @param {GetPositionRelatedTransactionsOrderEnum} [order] ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPositionRelatedTransactions(id: string, pageSize: number, pageCursor?: string, order?: GetPositionRelatedTransactionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<StakingPositionRelatedTransactionsPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPositionRelatedTransactions(id, pageSize, pageCursor, order, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['StakingApi.getPositionRelatedTransactions']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary List staking positions (Paginated)
          * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
@@ -1007,6 +1074,16 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
          */
         getDelegationById(requestParameters: StakingApiGetDelegationByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<Delegation> {
             return localVarFp.getDelegationById(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns enriched transaction history for a staking position with cursor-based pagination. Includes in-flight transactions with status pending. The in-flight transaction is always returned first; completed and failed history is ordered by the order parameter.
+         * @summary List related transactions for a position
+         * @param {StakingApiGetPositionRelatedTransactionsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPositionRelatedTransactions(requestParameters: StakingApiGetPositionRelatedTransactionsRequest, options?: RawAxiosRequestConfig): AxiosPromise<StakingPositionRelatedTransactionsPaginatedResponse> {
+            return localVarFp.getPositionRelatedTransactions(requestParameters.id, requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
@@ -1222,6 +1299,41 @@ export interface StakingApiGetDelegationByIdRequest {
      * @memberof StakingApiGetDelegationById
      */
     readonly id: string
+}
+
+/**
+ * Request parameters for getPositionRelatedTransactions operation in StakingApi.
+ * @export
+ * @interface StakingApiGetPositionRelatedTransactionsRequest
+ */
+export interface StakingApiGetPositionRelatedTransactionsRequest {
+    /**
+     * Unique identifier of the staking position.
+     * @type {string}
+     * @memberof StakingApiGetPositionRelatedTransactions
+     */
+    readonly id: string
+
+    /**
+     * Number of results per page (minimum: 1, maximum: 100).
+     * @type {number}
+     * @memberof StakingApiGetPositionRelatedTransactions
+     */
+    readonly pageSize: number
+
+    /**
+     * Cursor for the next page of results. Use the value from the \&#39;next\&#39; field in the previous response.
+     * @type {string}
+     * @memberof StakingApiGetPositionRelatedTransactions
+     */
+    readonly pageCursor?: string
+
+    /**
+     * ASC / DESC ordering for completed/failed history (default DESC). The in-flight transaction is always returned first.
+     * @type {'ASC' | 'DESC'}
+     * @memberof StakingApiGetPositionRelatedTransactions
+     */
+    readonly order?: GetPositionRelatedTransactionsOrderEnum
 }
 
 /**
@@ -1497,6 +1609,18 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
+     * Returns enriched transaction history for a staking position with cursor-based pagination. Includes in-flight transactions with status pending. The in-flight transaction is always returned first; completed and failed history is ordered by the order parameter.
+     * @summary List related transactions for a position
+     * @param {StakingApiGetPositionRelatedTransactionsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof StakingApi
+     */
+    public getPositionRelatedTransactions(requestParameters: StakingApiGetPositionRelatedTransactionsRequest) {
+        return StakingApiFp(this.configuration).getPositionRelatedTransactions(requestParameters.id, requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary List staking positions (Paginated)
      * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
@@ -1622,6 +1746,14 @@ export const ConsolidateChainDescriptorEnum = {
     EthTestHoodi: 'ETH_TEST_HOODI'
 } as const;
 export type ConsolidateChainDescriptorEnum = typeof ConsolidateChainDescriptorEnum[keyof typeof ConsolidateChainDescriptorEnum];
+/**
+ * @export
+ */
+export const GetPositionRelatedTransactionsOrderEnum = {
+    Asc: 'ASC',
+    Desc: 'DESC'
+} as const;
+export type GetPositionRelatedTransactionsOrderEnum = typeof GetPositionRelatedTransactionsOrderEnum[keyof typeof GetPositionRelatedTransactionsOrderEnum];
 /**
  * @export
  */

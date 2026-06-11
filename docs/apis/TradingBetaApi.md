@@ -9,9 +9,12 @@ Method | HTTP request | Description
 [**fetchAllOffers**](#fetchAllOffers) | **POST** /trading/offers | Get all offers
 [**fetchRates**](#fetchRates) | **POST** /trading/rates | Get rates
 [**getOrder**](#getOrder) | **GET** /trading/orders/{orderId} | Get order details
+[**getOrderRequirements**](#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order
 [**getOrders**](#getOrders) | **GET** /trading/orders | Get orders
 [**getTradingProviderById**](#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
 [**getTradingProviders**](#getTradingProviders) | **GET** /trading/providers | Get providers
+[**submitOrderRequirements**](#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement
+[**uploadOrderRequirementFile**](#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement
 
 
 # **createOrder**
@@ -351,6 +354,72 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getOrderRequirements**
+> OrderRequirementDetails getOrderRequirements()
+
+Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingBetaApiGetOrderRequirementsRequest, OrderRequirementDetails } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TradingBetaApiGetOrderRequirementsRequest = {
+  // string | The ID of the order for which the order requirement is issued.
+  orderId: orderId_example,
+};
+
+fireblocks.tradingBeta.getOrderRequirements(body).then((res: FireblocksResponse<OrderRequirementDetails>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **orderId** | [**string**] | The ID of the order for which the order requirement is issued. | defaults to undefined
+
+
+### Return type
+
+**[OrderRequirementDetails](../models/OrderRequirementDetails.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Order requirement details |  * X-Request-ID -  <br>  |
+**401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+**404** | Not found: the order does not exist. |  * X-Request-ID -  <br>  |
+**409** | Conflict: the order exists but does not have an active order requirement (e.g., the order is not in &#x60;AWAITING_INFORMATION&#x60;). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getOrders**
 > GetOrdersResponse getOrders()
 
@@ -565,6 +634,155 @@ No authorization required
 **200** | Providers response |  * X-Request-ID -  <br>  |
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **submitOrderRequirements**
+> submitOrderRequirements(submitOrderRequirementRequest, )
+
+Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingBetaApiSubmitOrderRequirementsRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TradingBetaApiSubmitOrderRequirementsRequest = {
+  // SubmitOrderRequirementRequest
+  submitOrderRequirementRequest: param_value,
+  // string | The ID of the order to submit the order requirement response for.
+  orderId: orderId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tradingBeta.submitOrderRequirements(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **submitOrderRequirementRequest** | **[SubmitOrderRequirementRequest](../models/SubmitOrderRequirementRequest.md)**|  |
+ **orderId** | [**string**] | The ID of the order to submit the order requirement response for. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Order requirement submission accepted for processing. |  * X-Request-ID -  <br>  |
+**400** | Bad request: invalid input parameters, malformed request body, or validation failure. |  * X-Request-ID -  <br>  |
+**401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+**404** | Not found: the order does not exist. |  * X-Request-ID -  <br>  |
+**409** | Conflict: the order exists but does not have an active order requirement (e.g., the order is not in &#x60;AWAITING_INFORMATION&#x60;). |  * X-Request-ID -  <br>  |
+**429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
+**5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **uploadOrderRequirementFile**
+> uploadOrderRequirementFile()
+
+Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingBetaApiUploadOrderRequirementFileRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TradingBetaApiUploadOrderRequirementFileRequest = {
+  // string | Identifier of the required file this upload satisfies. Must match a `fileKey` from `requiredFiles` on the GET response.
+  fileKey: fileKey_example,
+  // File | The binary file content. The file\\\'s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part.
+  file: BINARY_DATA_HERE,
+  // string | The ID of the order to upload the order requirement file for.
+  orderId: orderId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.tradingBeta.uploadOrderRequirementFile(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **fileKey** | [**string**] | Identifier of the required file this upload satisfies. Must match a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response. | defaults to undefined
+ **file** | [**File**] | The binary file content. The file\\\&#39;s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part. | defaults to undefined
+ **orderId** | [**string**] | The ID of the order to upload the order requirement file for. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | File accepted for processing. |  * X-Request-ID -  <br>  |
+**400** | Bad request: unsupported file type, missing fileKey, malformed request, or validation failure. |  * X-Request-ID -  <br>  |
+**401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
+**403** | Forbidden: insufficient permissions, disabled feature, or restricted access. |  * X-Request-ID -  <br>  |
+**404** | Not found: the order does not exist. |  * X-Request-ID -  <br>  |
+**409** | Conflict: the order exists but does not have an active order requirement (e.g., the order is not in &#x60;AWAITING_INFORMATION&#x60;). |  * X-Request-ID -  <br>  |
 **429** | Rate limit exceeded: slow down and retry later. |  * X-Request-ID -  <br>  |
 **5XX** | Internal error while processing the request. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |

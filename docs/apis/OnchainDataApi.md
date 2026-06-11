@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **getAccessRegistryCurrentState**
-> AccessRegistryCurrentStateResponse getAccessRegistryCurrentState()
+> AccessRegistryCurrentStateResponse2 getAccessRegistryCurrentState()
 
 Returns the current state of addresses in the specified access registry. Only addresses that are currently active (added but not removed) are included.
 
@@ -25,7 +25,7 @@ Returns the current state of addresses in the specified access registry. Only ad
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, OnchainDataApiGetAccessRegistryCurrentStateRequest, AccessRegistryCurrentStateResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, OnchainDataApiGetAccessRegistryCurrentStateRequest, AccessRegistryCurrentStateResponse2 } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -49,7 +49,7 @@ let body: OnchainDataApiGetAccessRegistryCurrentStateRequest = {
   order: order_example,
 };
 
-fireblocks.onchainData.getAccessRegistryCurrentState(body).then((res: FireblocksResponse<AccessRegistryCurrentStateResponse>) => {
+fireblocks.onchainData.getAccessRegistryCurrentState(body).then((res: FireblocksResponse<AccessRegistryCurrentStateResponse2>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -69,7 +69,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[AccessRegistryCurrentStateResponse](../models/AccessRegistryCurrentStateResponse.md)**
+**[AccessRegistryCurrentStateResponse2](../models/AccessRegistryCurrentStateResponse2.md)**
 
 ### Authorization
 
@@ -153,7 +153,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getActiveRolesForContract**
-> ActiveRolesResponse getActiveRolesForContract()
+> ActiveRolesResponse2 getActiveRolesForContract()
 
 Returns a list of currently active roles for the specified baseAssetId and contractAddress.
 
@@ -163,7 +163,7 @@ Returns a list of currently active roles for the specified baseAssetId and contr
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, OnchainDataApiGetActiveRolesForContractRequest, ActiveRolesResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, OnchainDataApiGetActiveRolesForContractRequest, ActiveRolesResponse2 } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -179,7 +179,7 @@ let body: OnchainDataApiGetActiveRolesForContractRequest = {
   contractAddress: 0xC2c4e1Db41F0bB97996D0eD0542D2170d146FB66,
 };
 
-fireblocks.onchainData.getActiveRolesForContract(body).then((res: FireblocksResponse<ActiveRolesResponse>) => {
+fireblocks.onchainData.getActiveRolesForContract(body).then((res: FireblocksResponse<ActiveRolesResponse2>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[ActiveRolesResponse](../models/ActiveRolesResponse.md)**
+**[ActiveRolesResponse2](../models/ActiveRolesResponse2.md)**
 
 ### Authorization
 
@@ -216,7 +216,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContractBalanceHistory**
-> BalanceHistoryPagedResponse getContractBalanceHistory()
+> BalanceHistoryPagedResponse2 getContractBalanceHistory()
 
 Returns the paginated balance history of the specified account in a contract with optional date range and interval filtering.
 
@@ -226,7 +226,7 @@ Returns the paginated balance history of the specified account in a contract wit
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, OnchainDataApiGetContractBalanceHistoryRequest, BalanceHistoryPagedResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, OnchainDataApiGetContractBalanceHistoryRequest, BalanceHistoryPagedResponse2 } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -258,7 +258,7 @@ let body: OnchainDataApiGetContractBalanceHistoryRequest = {
   order: order_example,
 };
 
-fireblocks.onchainData.getContractBalanceHistory(body).then((res: FireblocksResponse<BalanceHistoryPagedResponse>) => {
+fireblocks.onchainData.getContractBalanceHistory(body).then((res: FireblocksResponse<BalanceHistoryPagedResponse2>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -282,7 +282,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[BalanceHistoryPagedResponse](../models/BalanceHistoryPagedResponse.md)**
+**[BalanceHistoryPagedResponse2](../models/BalanceHistoryPagedResponse2.md)**
 
 ### Authorization
 
@@ -366,7 +366,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getContractTotalSupply**
-> TotalSupplyPagedResponse getContractTotalSupply()
+> TotalSupplyPagedResponse2 getContractTotalSupply()
 
 Returns the paginated total supply history of the specified contract with optional date range and interval filtering.
 
@@ -376,7 +376,7 @@ Returns the paginated total supply history of the specified contract with option
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, OnchainDataApiGetContractTotalSupplyRequest, TotalSupplyPagedResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, OnchainDataApiGetContractTotalSupplyRequest, TotalSupplyPagedResponse2 } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -406,7 +406,7 @@ let body: OnchainDataApiGetContractTotalSupplyRequest = {
   order: order_example,
 };
 
-fireblocks.onchainData.getContractTotalSupply(body).then((res: FireblocksResponse<TotalSupplyPagedResponse>) => {
+fireblocks.onchainData.getContractTotalSupply(body).then((res: FireblocksResponse<TotalSupplyPagedResponse2>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[TotalSupplyPagedResponse](../models/TotalSupplyPagedResponse.md)**
+**[TotalSupplyPagedResponse2](../models/TotalSupplyPagedResponse2.md)**
 
 ### Authorization
 
@@ -450,7 +450,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getLatestBalancesForContract**
-> AddressBalancePagedResponse getLatestBalancesForContract()
+> AddressBalancePagedResponse2 getLatestBalancesForContract()
 
 Returns the latest balance for each unique address with support for numeric balance sorting. The `prev` cursor is reserved for future support.
 
@@ -460,7 +460,7 @@ Returns the latest balance for each unique address with support for numeric bala
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, OnchainDataApiGetLatestBalancesForContractRequest, AddressBalancePagedResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, OnchainDataApiGetLatestBalancesForContractRequest, AddressBalancePagedResponse2 } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -486,7 +486,7 @@ let body: OnchainDataApiGetLatestBalancesForContractRequest = {
   order: order_example,
 };
 
-fireblocks.onchainData.getLatestBalancesForContract(body).then((res: FireblocksResponse<AddressBalancePagedResponse>) => {
+fireblocks.onchainData.getLatestBalancesForContract(body).then((res: FireblocksResponse<AddressBalancePagedResponse2>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -507,7 +507,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[AddressBalancePagedResponse](../models/AddressBalancePagedResponse.md)**
+**[AddressBalancePagedResponse2](../models/AddressBalancePagedResponse2.md)**
 
 ### Authorization
 
@@ -528,7 +528,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getOnchainTransactions**
-> OnchainTransactionsPagedResponse getOnchainTransactions()
+> OnchainTransactionsPagedResponse2 getOnchainTransactions()
 
 Returns a paginated list of onchain transactions for the specified contract address and base asset ID, optionally filtered by date range.
 
@@ -538,7 +538,7 @@ Returns a paginated list of onchain transactions for the specified contract addr
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, OnchainDataApiGetOnchainTransactionsRequest, OnchainTransactionsPagedResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, OnchainDataApiGetOnchainTransactionsRequest, OnchainTransactionsPagedResponse2 } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -566,7 +566,7 @@ let body: OnchainDataApiGetOnchainTransactionsRequest = {
   order: order_example,
 };
 
-fireblocks.onchainData.getOnchainTransactions(body).then((res: FireblocksResponse<OnchainTransactionsPagedResponse>) => {
+fireblocks.onchainData.getOnchainTransactions(body).then((res: FireblocksResponse<OnchainTransactionsPagedResponse2>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -588,7 +588,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[OnchainTransactionsPagedResponse](../models/OnchainTransactionsPagedResponse.md)**
+**[OnchainTransactionsPagedResponse2](../models/OnchainTransactionsPagedResponse2.md)**
 
 ### Authorization
 
