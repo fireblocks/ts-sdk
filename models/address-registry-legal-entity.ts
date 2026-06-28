@@ -24,11 +24,11 @@ import { AddressRegistryTravelRuleProvider } from './address-registry-travel-rul
  */
 export interface AddressRegistryLegalEntity {
     /**
-     * Whether the entity was resolved from verified public registry data (e.g. LEI sources).
+     * Indicates whether LEI (Legal Entity Identifier) data is available for this address from a verified public registry. A value of `false` means no LEI record was found.
      * @type {boolean}
      * @memberof AddressRegistryLegalEntity
      */
-    'verified': boolean;
+    'leiData': boolean;
     /**
      * Legal entity display name.
      * @type {string}
@@ -42,7 +42,7 @@ export interface AddressRegistryLegalEntity {
      */
     'jurisdiction': string;
     /**
-     * Legal Entity Identifier when available; may be empty when unverified.
+     * Legal Entity Identifier when available. Empty when `leiData` is `false`.
      * @type {string}
      * @memberof AddressRegistryLegalEntity
      */

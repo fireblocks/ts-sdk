@@ -24,7 +24,7 @@ import { UtxoInput } from './utxo-input';
  */
 export interface UtxoInputSelection {
     /**
-     * Force-include specific UTXOs by txHash and vout.
+     * Force-include specific UTXOs by txHash and index.
      * @type {Array<UtxoInput>}
      * @memberof UtxoInputSelection
      */

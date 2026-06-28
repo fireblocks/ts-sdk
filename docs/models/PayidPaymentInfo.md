@@ -11,8 +11,8 @@
 |**country** | **string** | The country for the transfer (ISO 3166-1 alpha-2 code) | [default to undefined]|
 |**value** | **string** | The PayID identifier (email, phone, ABN, or organization ID) | [default to undefined]|
 |**type** | **string** | The type of PayID being used | [default to undefined]|
+|**bsb** | **string** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) | [default to undefined]|
 |**accountNumber** | **string** | Australian bank account number | [default to undefined]|
-|**bsb** | **string** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) | [optional] [default to undefined]|
 
 
 ## Enum: PayidPaymentInfoRailEnum

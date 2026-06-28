@@ -34,6 +34,8 @@ import { ErrorResponse } from '../models';
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetAPIUsersResponse } from '../models';
+// @ts-ignore
+import { IssueApiUserPairingTokenResponse } from '../models';
 /**
  * ApiUserApi - axios parameter creator
  * @export
@@ -109,6 +111,44 @@ export const ApiUserApiAxiosParamCreator = function (configuration?: Configurati
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+         * @summary Issue API user pairing token
+         * @param {string} userId The ID of the api user
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        issueApiUserPairingToken: async (userId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('issueApiUserPairingToken', 'userId', userId)
+            const localVarPath = `/management/api_users/{userId}/pairing_token`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -145,6 +185,20 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['ApiUserApi.getApiUsers']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+         * @summary Issue API user pairing token
+         * @param {string} userId The ID of the api user
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async issueApiUserPairingToken(userId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueApiUserPairingTokenResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.issueApiUserPairingToken(userId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ApiUserApi.issueApiUserPairingToken']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -174,6 +228,16 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
         getApiUsers(options?: RawAxiosRequestConfig): AxiosPromise<GetAPIUsersResponse> {
             return localVarFp.getApiUsers(options).then((request) => request(axios, basePath));
         },
+        /**
+         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+         * @summary Issue API user pairing token
+         * @param {ApiUserApiIssueApiUserPairingTokenRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        issueApiUserPairingToken(requestParameters: ApiUserApiIssueApiUserPairingTokenRequest, options?: RawAxiosRequestConfig): AxiosPromise<IssueApiUserPairingTokenResponse> {
+            return localVarFp.issueApiUserPairingToken(requestParameters.userId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -194,6 +258,27 @@ export interface ApiUserApiCreateApiUserRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof ApiUserApiCreateApiUser
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for issueApiUserPairingToken operation in ApiUserApi.
+ * @export
+ * @interface ApiUserApiIssueApiUserPairingTokenRequest
+ */
+export interface ApiUserApiIssueApiUserPairingTokenRequest {
+    /**
+     * The ID of the api user
+     * @type {string}
+     * @memberof ApiUserApiIssueApiUserPairingToken
+     */
+    readonly userId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ApiUserApiIssueApiUserPairingToken
      */
     readonly idempotencyKey?: string
 }
@@ -226,6 +311,18 @@ export class ApiUserApi extends BaseAPI {
      */
     public getApiUsers() {
         return ApiUserApiFp(this.configuration).getApiUsers().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     * @summary Issue API user pairing token
+     * @param {ApiUserApiIssueApiUserPairingTokenRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApiUserApi
+     */
+    public issueApiUserPairingToken(requestParameters: ApiUserApiIssueApiUserPairingTokenRequest) {
+        return ApiUserApiFp(this.configuration).issueApiUserPairingToken(requestParameters.userId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

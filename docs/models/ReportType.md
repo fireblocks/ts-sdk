@@ -1,13 +1,9 @@
-# ParticipantsIdentificationSupportedEndpoint
+# ReportType
 
 ## Enum
 
 
-* `Order` (value: `'ORDER'`)
-
-* `Quote` (value: `'QUOTE'`)
-
-* `Rate` (value: `'RATE'`)
+* `Addresses` (value: `'ADDRESSES'`)
 
 
 

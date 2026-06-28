@@ -41,6 +41,7 @@
 |**message** | **string** | The message to be sent to the recipient | [default to undefined]|
 |**value** | **string** | The PayID identifier (email, phone, ABN, or organization ID) | [default to undefined]|
 |**type** | **string** | The type of PayID being used | [default to undefined]|
+|**bsb** | **string** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) | [default to undefined]|
 |**sortCode** | **string** | UK bank sort code (format XX-XX-XX) | [default to undefined]|
 |**bankAccountCountry** | **string** | CHAPS bank account holder name | [default to undefined]|
 |**bankAccountHolderName** | **string** | CHAPS bank account holder name | [default to undefined]|
@@ -59,7 +60,6 @@
 |**branchNumber** | **string** | The branch number of the bank | [optional] [default to undefined]|
 |**beneficiaryDocumentId** | **string** | The document ID of the beneficiary | [optional] [default to undefined]|
 |**beneficiaryRelationship** | **string** | The relationship between sender and beneficiary | [optional] [default to undefined]|
-|**bsb** | **string** | Bank State Branch (BSB) number (6 digits, format XXX-XXX) | [optional] [default to undefined]|
 
 
 ## Enum: AdditionalInfoRequestAdditionalInfoRailEnum

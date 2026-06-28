@@ -15,18 +15,16 @@
 
 
 /**
- * Trading API endpoint category where `participantsIdentification` may be required when this policy is present. Corresponds to manifest `order`, `quote`, and `rate`: ORDER, QUOTE, and RATE respectively. 
+ * Returned when a report job is successfully created. Use the `id` to poll for status via `GET /v1/reports/{reportId}`.
  * @export
- * @enum {string}
+ * @interface CreateReportResponse
  */
-
-export const ParticipantsIdentificationSupportedEndpoint = {
-    Order: 'ORDER',
-    Quote: 'QUOTE',
-    Rate: 'RATE'
-} as const;
-
-export type ParticipantsIdentificationSupportedEndpoint = typeof ParticipantsIdentificationSupportedEndpoint[keyof typeof ParticipantsIdentificationSupportedEndpoint];
-
-
+export interface CreateReportResponse {
+    /**
+     * Unique identifier of the report job
+     * @type {string}
+     * @memberof CreateReportResponse
+     */
+    'id': string;
+}
 

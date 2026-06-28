@@ -7,7 +7,6 @@
 |**order** | [**ManifestOrder**](ManifestOrder.md) |  | [default to undefined]|
 |**quote** | [**ManifestQuote**](ManifestQuote.md) |  | [default to undefined]|
 |**rate** | [**ManifestBase**](ManifestBase.md) |  | [default to undefined]|
-|**participantsIdentificationPolicy** | [**ParticipantsIdentificationPolicy**](ParticipantsIdentificationPolicy.md) |  | [optional] [default to undefined]|
 
 
 

@@ -49,44 +49,6 @@ import { UpdateTagRequest } from '../models';
 export const TagsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202 Accepted when the cancellation is processed.
-         * @summary Cancel an approval request by id
-         * @param {string} id 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cancelApprovalRequest: async (id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('cancelApprovalRequest', 'id', id)
-            const localVarPath = `/tags/approval_requests/{id}/cancel`
-                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (idempotencyKey != null) {
-                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
          * Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER. For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
          * @summary Create a new tag
          * @param {CreateTagRequest} createTagRequest 
@@ -344,20 +306,6 @@ export const TagsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = TagsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202 Accepted when the cancellation is processed.
-         * @summary Cancel an approval request by id
-         * @param {string} id 
-         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async cancelApprovalRequest(id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.cancelApprovalRequest(id, idempotencyKey, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TagsApi.cancelApprovalRequest']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
          * Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER. For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
          * @summary Create a new tag
          * @param {CreateTagRequest} createTagRequest 
@@ -455,16 +403,6 @@ export const TagsApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = TagsApiFp(configuration)
     return {
         /**
-         * Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202 Accepted when the cancellation is processed.
-         * @summary Cancel an approval request by id
-         * @param {TagsApiCancelApprovalRequestRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        cancelApprovalRequest(requestParameters: TagsApiCancelApprovalRequestRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
-            return localVarFp.cancelApprovalRequest(requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
-        },
-        /**
          * Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER. For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
          * @summary Create a new tag
          * @param {TagsApiCreateTagRequest} requestParameters Request parameters.
@@ -526,27 +464,6 @@ export const TagsApiFactory = function (configuration?: Configuration, basePath?
         },
     };
 };
-
-/**
- * Request parameters for cancelApprovalRequest operation in TagsApi.
- * @export
- * @interface TagsApiCancelApprovalRequestRequest
- */
-export interface TagsApiCancelApprovalRequestRequest {
-    /**
-     * 
-     * @type {string}
-     * @memberof TagsApiCancelApprovalRequest
-     */
-    readonly id: string
-
-    /**
-     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
-     * @type {string}
-     * @memberof TagsApiCancelApprovalRequest
-     */
-    readonly idempotencyKey?: string
-}
 
 /**
  * Request parameters for createTag operation in TagsApi.
@@ -702,18 +619,6 @@ export interface TagsApiUpdateTagRequest {
  * @extends {BaseAPI}
  */
 export class TagsApi extends BaseAPI {
-    /**
-     * Cancel an approval request by id. Can only cancel requests in PENDING status. Returns 202 Accepted when the cancellation is processed.
-     * @summary Cancel an approval request by id
-     * @param {TagsApiCancelApprovalRequestRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof TagsApi
-     */
-    public cancelApprovalRequest(requestParameters: TagsApiCancelApprovalRequestRequest) {
-        return TagsApiFp(this.configuration).cancelApprovalRequest(requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
     /**
      * Create a new tag. Endpoint Permissions: For protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER. For non protected tags: ADMIN,NON_SIGNING_ADMIN,OWNER,SIGNER,EDITOR,APPROVER.
      * @summary Create a new tag

@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**txHash** | **string** |  | [default to undefined]|
-|**vout** | **number** |  | [default to undefined]|
+|**index** | **number** | The output index (vout) | [default to undefined]|
 
 
 

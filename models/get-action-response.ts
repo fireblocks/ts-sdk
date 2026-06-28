@@ -30,6 +30,18 @@ export interface GetActionResponse {
      */
     'id': string;
     /**
+     * Fireblocks vault account that executed the action.
+     * @type {string}
+     * @memberof GetActionResponse
+     */
+    'vaultAccountId': string;
+    /**
+     * User who initiated the action.
+     * @type {string}
+     * @memberof GetActionResponse
+     */
+    'userId': string;
+    /**
      * Intent status (e.g. CREATED, IN_PROGRESS, COMPLETED).
      * @type {string}
      * @memberof GetActionResponse

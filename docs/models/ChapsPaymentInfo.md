@@ -13,6 +13,9 @@
 |**accountNumber** | **string** | UK bank account number | [default to undefined]|
 |**bankAccountCountry** | **string** | CHAPS bank account holder name | [default to undefined]|
 |**bankAccountHolderName** | **string** | CHAPS bank account holder name | [default to undefined]|
+|**accountHolderCity** | **string** | The city where the account holder resides | [optional] [default to undefined]|
+|**accountHolderCountry** | **string** | The country where the account holder resides (ISO 3166-1 alpha-2 code) | [optional] [default to undefined]|
+|**accountHolderPostalCode** | **string** | The postal code of the account holder\&#39;s address | [optional] [default to undefined]|
 |**bankName** | **string** | The name of the bank | [optional] [default to undefined]|
 
 

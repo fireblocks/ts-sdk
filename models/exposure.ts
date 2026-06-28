@@ -15,28 +15,46 @@
 
 
 /**
- * 
+ * Vault allocation exposure item (Morpho MetaMorpho allocation slice).
  * @export
  * @interface Exposure
  */
 export interface Exposure {
     /**
-     * On-chain address of the exposure asset.
+     * Contract address of the exposure token on-chain.
      * @type {string}
      * @memberof Exposure
      */
-    'assetAddress'?: string;
+    'address': string;
     /**
-     * Ticker for the exposure asset.
+     * Human-readable token amount (raw on-chain value scaled by 10^decimals).
+     * @type {string}
+     * @memberof Exposure
+     */
+    'amount': string;
+    /**
+     * Human-readable ticker (e.g. USDC).
      * @type {string}
      * @memberof Exposure
      */
     'symbol'?: string;
     /**
-     * Human-readable decimal string (raw on-chain value scaled by 10^decimals).
+     * Token decimals used when interpreting on-chain amounts.
+     * @type {number}
+     * @memberof Exposure
+     */
+    'decimals'?: number;
+    /**
+     * Fireblocks legacy asset identifier (e.g. USDC_ETH, PYUSD); only present when resolved via asset-service.
      * @type {string}
      * @memberof Exposure
      */
-    'amount'?: string;
+    'assetId'?: string;
+    /**
+     * USD notional value of the exposure amount.
+     * @type {string}
+     * @memberof Exposure
+     */
+    'amountUsd'?: string;
 }
 

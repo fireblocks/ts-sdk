@@ -4,8 +4,10 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**errorMessage** | **string** | Error message describing what went wrong | [default to undefined]|
-|**errorCode** | **string** | Error code identifying the type of error | [default to undefined]|
+|**message** | **string** | Error message describing what went wrong. | [default to undefined]|
+|**code** | **number** | Numeric error code identifying the type of error. | [default to undefined]|
+|**errorMessage** | **string** | Error message describing what went wrong | [optional] [default to undefined]|
+|**errorCode** | **string** | Error code identifying the type of error | [optional] [default to undefined]|
 
 
 

@@ -10,6 +10,7 @@
 |**name** | **string** | The name of the peer. | [optional] [default to undefined]|
 |**walletId** | **string** |  | [optional] [default to undefined]|
 |**tradingAccount** | **string** | If this transaction is an exchange internal transfer, this field will be populated with the type of that trading account. | [optional] [default to undefined]|
+|**tags** | [**Array&lt;TransactionTag&gt;**](TransactionTag.md) | Tags associated with the transaction\&#39;s destination. | [optional] [default to undefined]|
 
 
 

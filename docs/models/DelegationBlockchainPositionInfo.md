@@ -9,6 +9,7 @@
 |**isCompoundingValidator** | **boolean** | Is the validator compounding (i.e it was created with compounding validator type). | [default to undefined]|
 |**totalWithdrawableAmount** | **string** | The total amount available for withdrawal. | [default to undefined]|
 |**totalInactiveAmount** | **string** | The total inactive amount. | [default to undefined]|
+|**rewardsBreakdown** | [**SolanaRewardsBreakdown**](SolanaRewardsBreakdown.md) |  | [optional] [default to undefined]|
 
 
 

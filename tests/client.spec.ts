@@ -40,7 +40,8 @@ OffExchangesApi,
 OnchainDataApi, 
 PaymentsPayoutApi, 
 PolicyEditorBetaApi, 
-PolicyEditorV2BetaApi, 
+PolicyEditorV2Api, 
+ReportsBetaApi, 
 ResetDeviceApi, 
 SmartTransferApi, 
 StakingApi, 
@@ -94,7 +95,8 @@ let mockOffExchangesApi: jest.Mock;
 let mockOnchainDataApi: jest.Mock;
 let mockPaymentsPayoutApi: jest.Mock;
 let mockPolicyEditorBetaApi: jest.Mock;
-let mockPolicyEditorV2BetaApi: jest.Mock;
+let mockPolicyEditorV2Api: jest.Mock;
+let mockReportsBetaApi: jest.Mock;
 let mockResetDeviceApi: jest.Mock;
 let mockSmartTransferApi: jest.Mock;
 let mockStakingApi: jest.Mock;
@@ -145,7 +147,8 @@ jest.mock('../api', () => {
     mockOnchainDataApi = jest.fn();
     mockPaymentsPayoutApi = jest.fn();
     mockPolicyEditorBetaApi = jest.fn();
-    mockPolicyEditorV2BetaApi = jest.fn();
+    mockPolicyEditorV2Api = jest.fn();
+    mockReportsBetaApi = jest.fn();
     mockResetDeviceApi = jest.fn();
     mockSmartTransferApi = jest.fn();
     mockStakingApi = jest.fn();
@@ -197,7 +200,8 @@ jest.mock('../api', () => {
         OnchainDataApi: mockOnchainDataApi,
         PaymentsPayoutApi: mockPaymentsPayoutApi,
         PolicyEditorBetaApi: mockPolicyEditorBetaApi,
-        PolicyEditorV2BetaApi: mockPolicyEditorV2BetaApi,
+        PolicyEditorV2Api: mockPolicyEditorV2Api,
+        ReportsBetaApi: mockReportsBetaApi,
         ResetDeviceApi: mockResetDeviceApi,
         SmartTransferApi: mockSmartTransferApi,
         StakingApi: mockStakingApi,
@@ -412,9 +416,13 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.policyEditorBeta).toBeInstanceOf(PolicyEditorBetaApi);
             expect(mockPolicyEditorBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return PolicyEditorV2BetaApi', async () => {
-            expect(fireblocks.policyEditorV2Beta).toBeInstanceOf(PolicyEditorV2BetaApi);
-            expect(mockPolicyEditorV2BetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return PolicyEditorV2Api', async () => {
+            expect(fireblocks.policyEditorV2).toBeInstanceOf(PolicyEditorV2Api);
+            expect(mockPolicyEditorV2Api).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return ReportsBetaApi', async () => {
+            expect(fireblocks.reportsBeta).toBeInstanceOf(ReportsBetaApi);
+            expect(mockReportsBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ResetDeviceApi', async () => {
             expect(fireblocks.resetDevice).toBeInstanceOf(ResetDeviceApi);

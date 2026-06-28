@@ -63,17 +63,17 @@ export interface PayidPaymentInfo {
      */
     'type': PayidPaymentInfoTypeEnum;
     /**
+     * Bank State Branch (BSB) number (6 digits, format XXX-XXX)
+     * @type {string}
+     * @memberof PayidPaymentInfo
+     */
+    'bsb': string;
+    /**
      * Australian bank account number
      * @type {string}
      * @memberof PayidPaymentInfo
      */
     'accountNumber': string;
-    /**
-     * Bank State Branch (BSB) number (6 digits, format XXX-XXX)
-     * @type {string}
-     * @memberof PayidPaymentInfo
-     */
-    'bsb'?: string;
 }
 
 export const PayidPaymentInfoRailEnum = {

@@ -18,7 +18,7 @@
 import { ReasonForPaymentEnum } from './reason-for-payment-enum';
 
 /**
- * Information about the source and purpose of the funds being transacted. Used by providers that require additional context for compliance and reporting (e.g. CPN cross-border payments). 
+ * Information about the source and purpose of the funds being transacted. Used by providers that require additional context for compliance and reporting. Provide this field when the provider manifest indicates it is required. 
  * @export
  * @interface SourceOfFunds
  */

@@ -22,6 +22,12 @@ import { ManifestBase } from './manifest-base';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ManifestQuoteInfo } from './manifest-quote-info';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParticipantRelationshipType } from './participant-relationship-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParticipantsIdentificationPolicy } from './participants-identification-policy';
 
 /**
  * @type ManifestQuote
