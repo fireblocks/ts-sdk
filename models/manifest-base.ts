@@ -13,6 +13,12 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParticipantRelationshipType } from './participant-relationship-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParticipantsIdentificationPolicy } from './participants-identification-policy';
 
 /**
  * Base manifest schema with common properties
@@ -26,5 +32,17 @@ export interface ManifestBase {
      * @memberof ManifestBase
      */
     'supported': boolean;
+    /**
+     * 
+     * @type {ParticipantsIdentificationPolicy}
+     * @memberof ManifestBase
+     */
+    'participantsIdentificationPolicy'?: ParticipantsIdentificationPolicy;
+    /**
+     * The participant party types the provider supports for this endpoint. 
+     * @type {Array<ParticipantRelationshipType>}
+     * @memberof ManifestBase
+     */
+    'supportedParties'?: Array<ParticipantRelationshipType>;
 }
 

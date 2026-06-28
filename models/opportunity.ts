@@ -114,7 +114,13 @@ export interface Opportunity {
      */
     'managementFee'?: string;
     /**
-     * Optional per-asset exposure breakdown.
+     * What the `exposure` rows represent; `UNSPECIFIED` when there is no exposure.
+     * @type {string}
+     * @memberof Opportunity
+     */
+    'exposureType'?: OpportunityExposureTypeEnum;
+    /**
+     * Per-asset exposure breakdown (vault allocation slices, top 20 by USD notional). Empty when not applicable.
      * @type {Array<Exposure>}
      * @memberof Opportunity
      */
@@ -133,5 +139,12 @@ export const OpportunityTypeEnum = {
 } as const;
 
 export type OpportunityTypeEnum = typeof OpportunityTypeEnum[keyof typeof OpportunityTypeEnum];
+export const OpportunityExposureTypeEnum = {
+    Unspecified: 'UNSPECIFIED',
+    VaultAllocation: 'VAULT_ALLOCATION',
+    MarketCollateral: 'MARKET_COLLATERAL'
+} as const;
+
+export type OpportunityExposureTypeEnum = typeof OpportunityExposureTypeEnum[keyof typeof OpportunityExposureTypeEnum];
 
 

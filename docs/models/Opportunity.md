@@ -18,7 +18,8 @@
 |**apy** | [**Apy**](Apy.md) | APY breakdown; values are percentages (e.g. 4.25 means 4.25%). | [optional] [default to undefined]|
 |**performanceFee** | **string** | Performance fee as a human-readable decimal string. | [optional] [default to undefined]|
 |**managementFee** | **string** | Management fee as a human-readable decimal string. | [optional] [default to undefined]|
-|**exposure** | [**Array&lt;Exposure&gt;**](Exposure.md) | Optional per-asset exposure breakdown. | [optional] [default to undefined]|
+|**exposureType** | **string** | What the &#x60;exposure&#x60; rows represent; &#x60;UNSPECIFIED&#x60; when there is no exposure. | [optional] [default to undefined]|
+|**exposure** | [**Array&lt;Exposure&gt;**](Exposure.md) | Per-asset exposure breakdown (vault allocation slices, top 20 by USD notional). Empty when not applicable. | [optional] [default to undefined]|
 
 
 ## Enum: OpportunityProviderIdEnum
@@ -36,6 +37,17 @@
 * `Vault` (value: `'VAULT'`)
 
 * `Market` (value: `'MARKET'`)
+
+
+
+## Enum: OpportunityExposureTypeEnum
+
+
+* `Unspecified` (value: `'UNSPECIFIED'`)
+
+* `VaultAllocation` (value: `'VAULT_ALLOCATION'`)
+
+* `MarketCollateral` (value: `'MARKET_COLLATERAL'`)
 
 
 

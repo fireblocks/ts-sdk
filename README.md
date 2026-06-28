@@ -128,6 +128,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *ApiUserApi* | [**createApiUser**](docs/apis/ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys
+*ApiUserApi* | [**issueApiUserPairingToken**](docs/apis/ApiUserApi.md#issueApiUserPairingToken) | **POST** /management/api_users/{userId}/pairing_token | Issue API user pairing token
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
 *BlockchainsAssetsApi* | [**getAsset**](docs/apis/BlockchainsAssetsApi.md#getAsset) | **GET** /assets/{id} | Get an asset
 *BlockchainsAssetsApi* | [**getBlockchain**](docs/apis/BlockchainsAssetsApi.md#getBlockchain) | **GET** /blockchains/{id} | Get a Blockchain by ID
@@ -145,6 +146,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**deactivateArsConfig**](docs/apis/ComplianceApi.md#deactivateArsConfig) | **POST** /screening/ars/config/deactivate | Deactivate ARS (Address Registry Screening)
 *ComplianceApi* | [**deactivateByorkConfig**](docs/apis/ComplianceApi.md#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
 *ComplianceApi* | [**deleteCounterpartyGroup**](docs/apis/ComplianceApi.md#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group
+*ComplianceApi* | [**deleteLegalEntity**](docs/apis/ComplianceApi.md#deleteLegalEntity) | **DELETE** /legal_entities/{legalEntityId} | Delete a legal entity
 *ComplianceApi* | [**getAddressRegistryTenantParticipationStatus**](docs/apis/ComplianceApi.md#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
 *ComplianceApi* | [**getAddressRegistryVaultOptOut**](docs/apis/ComplianceApi.md#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 *ComplianceApi* | [**getAmlPostScreeningPolicy**](docs/apis/ComplianceApi.md#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
@@ -177,6 +179,7 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/apis/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
 *ComplianceScreeningConfigurationApi* | [**getAmlScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getAmlScreeningConfiguration) | **GET** /screening/aml/policy_configuration | Get AML Screening Policy Configuration
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
+*ConnectedAccountsBetaApi* | [**createConnectedAccount**](docs/apis/ConnectedAccountsBetaApi.md#createConnectedAccount) | **POST** /connected_accounts | Create a connected account
 *ConnectedAccountsBetaApi* | [**disconnectConnectedAccount**](docs/apis/ConnectedAccountsBetaApi.md#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccount**](docs/apis/ConnectedAccountsBetaApi.md#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
 *ConnectedAccountsBetaApi* | [**getConnectedAccountAllowlist**](docs/apis/ConnectedAccountsBetaApi.md#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account
@@ -347,10 +350,13 @@ Class | Method | HTTP request | Description
 *PolicyEditorBetaApi* | [**publishDraftLegacy**](docs/apis/PolicyEditorBetaApi.md#publishDraftLegacy) | **POST** /tap/draft | Send publish request for a certain draft id
 *PolicyEditorBetaApi* | [**publishPolicyRules**](docs/apis/PolicyEditorBetaApi.md#publishPolicyRules) | **POST** /tap/publish | Send publish request for a set of policy rules
 *PolicyEditorBetaApi* | [**updateDraftLegacy**](docs/apis/PolicyEditorBetaApi.md#updateDraftLegacy) | **PUT** /tap/draft | Update the draft with a new set of rules
-*PolicyEditorV2BetaApi* | [**getActivePolicy**](docs/apis/PolicyEditorV2BetaApi.md#getActivePolicy) | **GET** /policy/active_policy | Get the active policy and its validation by policy type
-*PolicyEditorV2BetaApi* | [**getDraft**](docs/apis/PolicyEditorV2BetaApi.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type
-*PolicyEditorV2BetaApi* | [**publishDraft**](docs/apis/PolicyEditorV2BetaApi.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
-*PolicyEditorV2BetaApi* | [**updateDraft**](docs/apis/PolicyEditorV2BetaApi.md#updateDraft) | **PUT** /policy/draft | Update the draft with a new set of rules by policy types
+*PolicyEditorV2Api* | [**getActivePolicy**](docs/apis/PolicyEditorV2Api.md#getActivePolicy) | **GET** /policy/active_policy | Get the active policy and its validation by policy type
+*PolicyEditorV2Api* | [**getDraft**](docs/apis/PolicyEditorV2Api.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type
+*PolicyEditorV2Api* | [**publishDraft**](docs/apis/PolicyEditorV2Api.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
+*PolicyEditorV2Api* | [**updateDraft**](docs/apis/PolicyEditorV2Api.md#updateDraft) | **PUT** /policy/draft | Update the draft with a new set of rules by policy types
+*ReportsBetaApi* | [**createReport**](docs/apis/ReportsBetaApi.md#createReport) | **POST** /reports | Create a report
+*ReportsBetaApi* | [**getReport**](docs/apis/ReportsBetaApi.md#getReport) | **GET** /reports/{reportId} | Get report status
+*ReportsBetaApi* | [**listReports**](docs/apis/ReportsBetaApi.md#listReports) | **GET** /reports | List reports
 *ResetDeviceApi* | [**resetDevice**](docs/apis/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
 *SmartTransferApi* | [**approveDvPTicketTerm**](docs/apis/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 *SmartTransferApi* | [**cancelTicket**](docs/apis/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
@@ -416,7 +422,6 @@ Class | Method | HTTP request | Description
 *TRLinkApi* | [**setTRLinkTransactionTravelRuleMessageId**](docs/apis/TRLinkApi.md#setTRLinkTransactionTravelRuleMessageId) | **POST** /screening/trlink/transaction/{txId}/travel_rule_message_id | Set transaction travel rule message ID
 *TRLinkApi* | [**testTRLinkIntegrationConnection**](docs/apis/TRLinkApi.md#testTRLinkIntegrationConnection) | **POST** /screening/trlink/customers/integration/{customerIntegrationId}/test_connection | Test connection
 *TRLinkApi* | [**updateTRLinkCustomer**](docs/apis/TRLinkApi.md#updateTRLinkCustomer) | **PUT** /screening/trlink/customers/{customerId} | Update customer
-*TagsApi* | [**cancelApprovalRequest**](docs/apis/TagsApi.md#cancelApprovalRequest) | **POST** /tags/approval_requests/{id}/cancel | Cancel an approval request by id
 *TagsApi* | [**createTag**](docs/apis/TagsApi.md#createTag) | **POST** /tags | Create a new tag
 *TagsApi* | [**deleteTag**](docs/apis/TagsApi.md#deleteTag) | **DELETE** /tags/{tagId} | Delete a tag
 *TagsApi* | [**getApprovalRequest**](docs/apis/TagsApi.md#getApprovalRequest) | **GET** /tags/approval_requests/{id} | Get an approval request by id
@@ -618,10 +623,12 @@ Class | Method | HTTP request | Description
  - [AddressRegistryVaultListOrder](docs/models/AddressRegistryVaultListOrder.md)
  - [AddressRegistryVaultOptOutItem](docs/models/AddressRegistryVaultOptOutItem.md)
  - [AddressReverseLookupResponse](docs/models/AddressReverseLookupResponse.md)
+ - [AddressesFilters](docs/models/AddressesFilters.md)
  - [AlertExposureTypeEnum](docs/models/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/models/AlertLevelEnum.md)
  - [AllowlistEntry](docs/models/AllowlistEntry.md)
  - [AllowlistEntryProviderMetadata](docs/models/AllowlistEntryProviderMetadata.md)
+ - [AllowlistEntryResponse](docs/models/AllowlistEntryResponse.md)
  - [AllowlistEntryStatus](docs/models/AllowlistEntryStatus.md)
  - [AllowlistMetadata](docs/models/AllowlistMetadata.md)
  - [AllowlistResponse](docs/models/AllowlistResponse.md)
@@ -809,8 +816,11 @@ Class | Method | HTTP request | Description
  - [CreateAPIUser](docs/models/CreateAPIUser.md)
  - [CreateAddressRequest](docs/models/CreateAddressRequest.md)
  - [CreateAddressResponse](docs/models/CreateAddressResponse.md)
+ - [CreateAddressesReportRequest](docs/models/CreateAddressesReportRequest.md)
  - [CreateAssetsRequest](docs/models/CreateAssetsRequest.md)
  - [CreateConfigOperationRequest](docs/models/CreateConfigOperationRequest.md)
+ - [CreateConnectedAccountRequest](docs/models/CreateConnectedAccountRequest.md)
+ - [CreateConnectedAccountResponse](docs/models/CreateConnectedAccountResponse.md)
  - [CreateConnectionRequest](docs/models/CreateConnectionRequest.md)
  - [CreateConnectionResponse](docs/models/CreateConnectionResponse.md)
  - [CreateConsoleUser](docs/models/CreateConsoleUser.md)
@@ -835,6 +845,8 @@ Class | Method | HTTP request | Description
  - [CreatePayoutRequest](docs/models/CreatePayoutRequest.md)
  - [CreateQuote](docs/models/CreateQuote.md)
  - [CreateQuoteScopeInner](docs/models/CreateQuoteScopeInner.md)
+ - [CreateReportRequest](docs/models/CreateReportRequest.md)
+ - [CreateReportResponse](docs/models/CreateReportResponse.md)
  - [CreateSigningKeyDto](docs/models/CreateSigningKeyDto.md)
  - [CreateSigningKeyDtoProofOfOwnership](docs/models/CreateSigningKeyDtoProofOfOwnership.md)
  - [CreateTagRequest](docs/models/CreateTagRequest.md)
@@ -851,6 +863,7 @@ Class | Method | HTTP request | Description
  - [CreateWalletRequest](docs/models/CreateWalletRequest.md)
  - [CreateWebhookRequest](docs/models/CreateWebhookRequest.md)
  - [CreateWorkflowExecutionRequestParamsInner](docs/models/CreateWorkflowExecutionRequestParamsInner.md)
+ - [CreatedConnectedAccountItem](docs/models/CreatedConnectedAccountItem.md)
  - [CustomRoutingDest](docs/models/CustomRoutingDest.md)
  - [DAppAddressConfig](docs/models/DAppAddressConfig.md)
  - [DVPSettlement](docs/models/DVPSettlement.md)
@@ -1058,6 +1071,7 @@ Class | Method | HTTP request | Description
  - [InternalTransferDestination](docs/models/InternalTransferDestination.md)
  - [InternalTransferResponse](docs/models/InternalTransferResponse.md)
  - [InvalidParamaterValueError](docs/models/InvalidParamaterValueError.md)
+ - [IssueApiUserPairingTokenResponse](docs/models/IssueApiUserPairingTokenResponse.md)
  - [IssueTokenMultichainResponse](docs/models/IssueTokenMultichainResponse.md)
  - [JobCreated](docs/models/JobCreated.md)
  - [LayerZeroAdapterCreateParams](docs/models/LayerZeroAdapterCreateParams.md)
@@ -1185,7 +1199,6 @@ Class | Method | HTTP request | Description
  - [ParticipantRelationshipType](docs/models/ParticipantRelationshipType.md)
  - [ParticipantsIdentification](docs/models/ParticipantsIdentification.md)
  - [ParticipantsIdentificationPolicy](docs/models/ParticipantsIdentificationPolicy.md)
- - [ParticipantsIdentificationSupportedEndpoint](docs/models/ParticipantsIdentificationSupportedEndpoint.md)
  - [PayeeAccount](docs/models/PayeeAccount.md)
  - [PayeeAccountResponse](docs/models/PayeeAccountResponse.md)
  - [PayeeAccountType](docs/models/PayeeAccountType.md)
@@ -1223,6 +1236,7 @@ Class | Method | HTTP request | Description
  - [PolicyCurrency](docs/models/PolicyCurrency.md)
  - [PolicyGroupIds](docs/models/PolicyGroupIds.md)
  - [PolicyMetadata](docs/models/PolicyMetadata.md)
+ - [PolicyMetadataEntry](docs/models/PolicyMetadataEntry.md)
  - [PolicyOperator](docs/models/PolicyOperator.md)
  - [PolicyResponse](docs/models/PolicyResponse.md)
  - [PolicyRule](docs/models/PolicyRule.md)
@@ -1286,6 +1300,14 @@ Class | Method | HTTP request | Description
  - [RenameConnectedAccountResponse](docs/models/RenameConnectedAccountResponse.md)
  - [RenameCosigner](docs/models/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
+ - [ReportConflictResponse](docs/models/ReportConflictResponse.md)
+ - [ReportJob](docs/models/ReportJob.md)
+ - [ReportJobLinks](docs/models/ReportJobLinks.md)
+ - [ReportJobResponse](docs/models/ReportJobResponse.md)
+ - [ReportListResponse](docs/models/ReportListResponse.md)
+ - [ReportOutputFormat](docs/models/ReportOutputFormat.md)
+ - [ReportStatus](docs/models/ReportStatus.md)
+ - [ReportType](docs/models/ReportType.md)
  - [ResendByQueryRequest](docs/models/ResendByQueryRequest.md)
  - [ResendByQueryResponse](docs/models/ResendByQueryResponse.md)
  - [ResendFailedNotificationsJobStatusResponse](docs/models/ResendFailedNotificationsJobStatusResponse.md)
@@ -1405,6 +1427,7 @@ Class | Method | HTTP request | Description
  - [SolanaConfig](docs/models/SolanaConfig.md)
  - [SolanaInstruction](docs/models/SolanaInstruction.md)
  - [SolanaInstructionWithValue](docs/models/SolanaInstructionWithValue.md)
+ - [SolanaRewardsBreakdown](docs/models/SolanaRewardsBreakdown.md)
  - [SolanaSimpleCreateParams](docs/models/SolanaSimpleCreateParams.md)
  - [SourceConfig](docs/models/SourceConfig.md)
  - [SourceOfFunds](docs/models/SourceOfFunds.md)
@@ -1578,6 +1601,7 @@ Class | Method | HTTP request | Description
  - [TransactionResponse](docs/models/TransactionResponse.md)
  - [TransactionResponseContractCallDecodedData](docs/models/TransactionResponseContractCallDecodedData.md)
  - [TransactionResponseDestination](docs/models/TransactionResponseDestination.md)
+ - [TransactionTag](docs/models/TransactionTag.md)
  - [TransferConfigOperation](docs/models/TransferConfigOperation.md)
  - [TransferOperationConfigParams](docs/models/TransferOperationConfigParams.md)
  - [TransferOperationExecution](docs/models/TransferOperationExecution.md)

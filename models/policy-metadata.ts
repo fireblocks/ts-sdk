@@ -15,45 +15,15 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { PolicyType } from './policy-type';
+import { PolicyMetadataEntry } from './policy-metadata-entry';
 
 /**
- * Policy metadata
+ * Policy metadata keyed by policy type
  * @export
  * @interface PolicyMetadata
  */
 export interface PolicyMetadata {
-    /**
-     * 
-     * @type {PolicyType}
-     * @memberof PolicyMetadata
-     */
-    'policyType': PolicyType;
-    /**
-     * The user ID of the user who last edited the policy
-     * @type {string}
-     * @memberof PolicyMetadata
-     */
-    'editedBy'?: string;
-    /**
-     * The timestamp of the last edit of the policy
-     * @type {string}
-     * @memberof PolicyMetadata
-     */
-    'editedAt'?: string;
-    /**
-     * The user ID of the user who last published the policy
-     * @type {string}
-     * @memberof PolicyMetadata
-     */
-    'publishedBy'?: string;
-    /**
-     * The timestamp of the last publish of the policy
-     * @type {string}
-     * @memberof PolicyMetadata
-     */
-    'publishedAt'?: string;
+    [key: string]: PolicyMetadataEntry;
+
 }
-
-
 

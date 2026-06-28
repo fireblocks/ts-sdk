@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**txId** | **string** | Fireblocks transaction ID | [optional] [default to undefined]|
 |**txHash** | **string** | On-chain transaction hash | [optional] [default to undefined]|
-|**vout** | **number** | Output index | [optional] [default to undefined]|
+|**index** | **number** | Output index (vout) | [optional] [default to undefined]|
 
 
 

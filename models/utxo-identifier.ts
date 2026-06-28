@@ -15,7 +15,7 @@
 
 
 /**
- * Identifies a UTXO by either a Fireblocks transaction ID (targets all outputs of that transaction) or a specific on-chain UTXO (txHash + vout). Exactly one of these two forms must be provided.
+ * Identifies a UTXO by either a Fireblocks transaction ID (targets all outputs of that transaction) or a specific on-chain UTXO (txHash + index). Exactly one of these two forms must be provided.
  * @export
  * @interface UtxoIdentifier
  */
@@ -33,10 +33,10 @@ export interface UtxoIdentifier {
      */
     'txHash'?: string;
     /**
-     * Output index
+     * Output index (vout)
      * @type {number}
      * @memberof UtxoIdentifier
      */
-    'vout'?: number;
+    'index'?: number;
 }
 

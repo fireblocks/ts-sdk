@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**deactivateArsConfig**](#deactivateArsConfig) | **POST** /screening/ars/config/deactivate | Deactivate ARS (Address Registry Screening)
 [**deactivateByorkConfig**](#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
 [**deleteCounterpartyGroup**](#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group
+[**deleteLegalEntity**](#deleteLegalEntity) | **DELETE** /legal_entities/{legalEntityId} | Delete a legal entity
 [**getAddressRegistryTenantParticipationStatus**](#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
 [**getAddressRegistryVaultOptOut**](#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 [**getAmlPostScreeningPolicy**](#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
@@ -543,6 +544,68 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **deleteLegalEntity**
+> deleteLegalEntity()
+
+Delete a legal entity will change the status of a legal entity registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiDeleteLegalEntityRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiDeleteLegalEntityRequest = {
+  // string | The unique ID of the legal entity registration to delete
+  legalEntityId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+};
+
+fireblocks.compliance.deleteLegalEntity(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **legalEntityId** | [**string**] | The unique ID of the legal entity registration to delete | defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Legal entity deleted successfully |  * X-Request-ID -  <br>  |
+**400** | Legal entity registration is not in deletable status (PENDING or APPROVED) |  * X-Request-ID -  <br>  |
+**404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getAddressRegistryTenantParticipationStatus**
 > AddressRegistryTenantRegistryResponse getAddressRegistryTenantParticipationStatus()
 
@@ -1007,7 +1070,7 @@ No authorization required
 # **getLegalEntityForAddress**
 > AddressRegistryLegalEntity getLegalEntityForAddress()
 
-Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
+Returns legal entity information for the given blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
 
 ### Example
 

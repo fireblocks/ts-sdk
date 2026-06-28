@@ -21,6 +21,9 @@ import { EthereumBlockchainData } from './ethereum-blockchain-data';
 import { SolanaBlockchainData } from './solana-blockchain-data';
 // May contain unused imports in some cases
 // @ts-ignore
+import { SolanaRewardsBreakdown } from './solana-rewards-breakdown';
+// May contain unused imports in some cases
+// @ts-ignore
 import { StEthBlockchainData } from './st-eth-blockchain-data';
 
 /**

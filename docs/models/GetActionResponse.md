@@ -5,6 +5,8 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** | Action sequence id (UUID). | [default to undefined]|
+|**vaultAccountId** | **string** | Fireblocks vault account that executed the action. | [default to undefined]|
+|**userId** | **string** | User who initiated the action. | [default to undefined]|
 |**status** | **string** | Intent status (e.g. CREATED, IN_PROGRESS, COMPLETED). | [default to undefined]|
 |**providerId** | **string** | Lending protocol identifier. | [default to undefined]|
 |**actionType** | **string** | Whether this action is a deposit or withdraw flow. | [default to undefined]|

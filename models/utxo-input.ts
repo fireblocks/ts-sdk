@@ -27,10 +27,10 @@ export interface UtxoInput {
      */
     'txHash': string;
     /**
-     * 
+     * The output index (vout)
      * @type {number}
      * @memberof UtxoInput
      */
-    'vout': number;
+    'index': number;
 }
 

@@ -6,6 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**stakeAccountAddress** | **string** | The stake account address matching the stakeAccountId. | [default to undefined]|
 |**stakeAccountDerivationChangeValue** | **number** | The value of the change level in the BIP32 path which was used to derive the stake account address. | [default to undefined]|
+|**rewardsBreakdown** | [**SolanaRewardsBreakdown**](SolanaRewardsBreakdown.md) |  | [optional] [default to undefined]|
 
 
 

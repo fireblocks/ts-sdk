@@ -24,6 +24,12 @@ import { ManifestBase } from './manifest-base';
 import { ManifestOrderInfo } from './manifest-order-info';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ParticipantRelationshipType } from './participant-relationship-type';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ParticipantsIdentificationPolicy } from './participants-identification-policy';
+// May contain unused imports in some cases
+// @ts-ignore
 import { SettlementTypeEnum } from './settlement-type-enum';
 
 /**

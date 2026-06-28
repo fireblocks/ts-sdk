@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { TransactionTag } from './transaction-tag';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransferPeerPathType } from './transfer-peer-path-type';
 
 /**
@@ -59,6 +62,12 @@ export interface DestinationTransferPeerPathResponse {
      * @memberof DestinationTransferPeerPathResponse
      */
     'tradingAccount'?: string | null;
+    /**
+     * Tags associated with the transaction\'s destination.
+     * @type {Array<TransactionTag>}
+     * @memberof DestinationTransferPeerPathResponse
+     */
+    'tags'?: Array<TransactionTag>;
 }
 
 

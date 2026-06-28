@@ -25,91 +25,97 @@ export interface Position2 {
      * @type {string}
      * @memberof Position2
      */
-    'id'?: string;
+    'id': string;
     /**
      * Lifecycle status of the position.
      * @type {string}
      * @memberof Position2
      */
-    'status'?: Position2StatusEnum;
+    'status': Position2StatusEnum;
     /**
      * True while an action is in progress for this position.
      * @type {boolean}
      * @memberof Position2
      */
-    'inFlight'?: boolean;
+    'inFlight': boolean;
     /**
      * Whether the position is lend- or borrow-side.
      * @type {string}
      * @memberof Position2
      */
-    'positionType'?: Position2PositionTypeEnum;
+    'positionType': Position2PositionTypeEnum;
     /**
      * Fireblocks vault account holding the position.
      * @type {string}
      * @memberof Position2
      */
-    'vaultAccountId'?: string;
+    'vaultAccountId': string;
     /**
      * Opportunity / vault or market identifier.
      * @type {string}
      * @memberof Position2
      */
-    'opportunityId'?: string;
+    'opportunityId': string;
     /**
      * Chain identifier as a string (e.g. \"1\").
      * @type {string}
      * @memberof Position2
      */
-    'chainId'?: string;
+    'chainId': string;
     /**
      * Lending protocol.
      * @type {string}
      * @memberof Position2
      */
-    'providerId'?: Position2ProviderIdEnum;
+    'providerId': Position2ProviderIdEnum;
     /**
      * Whether the position was opened natively in Fireblocks or imported externally.
      * @type {string}
      * @memberof Position2
      */
-    'origin'?: Position2OriginEnum;
+    'origin': Position2OriginEnum;
     /**
      * Fireblocks asset id for the principal (underlying) asset.
      * @type {string}
      * @memberof Position2
      */
-    'principalAssetId'?: string;
+    'principalAssetId': string;
     /**
      * Fireblocks asset id for the position / share token.
      * @type {string}
      * @memberof Position2
      */
-    'positionAssetId'?: string;
+    'positionAssetId': string;
     /**
      * Human-readable principal balance.
      * @type {string}
      * @memberof Position2
      */
-    'principalBalance'?: string;
+    'principalBalance': string;
     /**
      * Human-readable position token balance.
      * @type {string}
      * @memberof Position2
      */
-    'positionBalance'?: string;
+    'positionBalance': string;
     /**
      * Creation time (ISO-8601).
      * @type {string}
      * @memberof Position2
      */
-    'createdAt'?: string;
+    'createdAt': string;
     /**
      * Last update time (ISO-8601).
      * @type {string}
      * @memberof Position2
      */
-    'updatedAt'?: string;
+    'updatedAt': string;
+    /**
+     * Actions the API allows next for this position.
+     * @type {Array<string>}
+     * @memberof Position2
+     */
+    'availableActions': Array<Position2AvailableActionsEnum>;
     /**
      * Last successful on-chain sync time (ISO-8601).
      * @type {string}
@@ -117,11 +123,11 @@ export interface Position2 {
      */
     'lastSyncedAt'?: string;
     /**
-     * Actions the API allows next for this position.
-     * @type {Array<string>}
+     * Accrued yield in principal token units (decimal string). Only present for Morpho positions.
+     * @type {string}
      * @memberof Position2
      */
-    'availableActions'?: Array<Position2AvailableActionsEnum>;
+    'yield'?: string;
 }
 
 export const Position2StatusEnum = {

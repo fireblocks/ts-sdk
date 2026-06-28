@@ -4,23 +4,24 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**id** | **string** | Position UUID. | [optional] [default to undefined]|
-|**status** | **string** | Lifecycle status of the position. | [optional] [default to undefined]|
-|**inFlight** | **boolean** | True while an action is in progress for this position. | [optional] [default to undefined]|
-|**positionType** | **string** | Whether the position is lend- or borrow-side. | [optional] [default to undefined]|
-|**vaultAccountId** | **string** | Fireblocks vault account holding the position. | [optional] [default to undefined]|
-|**opportunityId** | **string** | Opportunity / vault or market identifier. | [optional] [default to undefined]|
-|**chainId** | **string** | Chain identifier as a string (e.g. \&quot;1\&quot;). | [optional] [default to undefined]|
-|**providerId** | **string** | Lending protocol. | [optional] [default to undefined]|
-|**origin** | **string** | Whether the position was opened natively in Fireblocks or imported externally. | [optional] [default to undefined]|
-|**principalAssetId** | **string** | Fireblocks asset id for the principal (underlying) asset. | [optional] [default to undefined]|
-|**positionAssetId** | **string** | Fireblocks asset id for the position / share token. | [optional] [default to undefined]|
-|**principalBalance** | **string** | Human-readable principal balance. | [optional] [default to undefined]|
-|**positionBalance** | **string** | Human-readable position token balance. | [optional] [default to undefined]|
-|**createdAt** | **string** | Creation time (ISO-8601). | [optional] [default to undefined]|
-|**updatedAt** | **string** | Last update time (ISO-8601). | [optional] [default to undefined]|
+|**id** | **string** | Position UUID. | [default to undefined]|
+|**status** | **string** | Lifecycle status of the position. | [default to undefined]|
+|**inFlight** | **boolean** | True while an action is in progress for this position. | [default to undefined]|
+|**positionType** | **string** | Whether the position is lend- or borrow-side. | [default to undefined]|
+|**vaultAccountId** | **string** | Fireblocks vault account holding the position. | [default to undefined]|
+|**opportunityId** | **string** | Opportunity / vault or market identifier. | [default to undefined]|
+|**chainId** | **string** | Chain identifier as a string (e.g. \&quot;1\&quot;). | [default to undefined]|
+|**providerId** | **string** | Lending protocol. | [default to undefined]|
+|**origin** | **string** | Whether the position was opened natively in Fireblocks or imported externally. | [default to undefined]|
+|**principalAssetId** | **string** | Fireblocks asset id for the principal (underlying) asset. | [default to undefined]|
+|**positionAssetId** | **string** | Fireblocks asset id for the position / share token. | [default to undefined]|
+|**principalBalance** | **string** | Human-readable principal balance. | [default to undefined]|
+|**positionBalance** | **string** | Human-readable position token balance. | [default to undefined]|
+|**createdAt** | **string** | Creation time (ISO-8601). | [default to undefined]|
+|**updatedAt** | **string** | Last update time (ISO-8601). | [default to undefined]|
+|**availableActions** | **Array&lt;string&gt;** | Actions the API allows next for this position. | [default to undefined]|
 |**lastSyncedAt** | **string** | Last successful on-chain sync time (ISO-8601). | [optional] [default to undefined]|
-|**availableActions** | **Array&lt;string&gt;** | Actions the API allows next for this position. | [optional] [default to undefined]|
+|**_yield** | **string** | Accrued yield in principal token units (decimal string). Only present for Morpho positions. | [optional] [default to undefined]|
 
 
 ## Enum: Position2StatusEnum
