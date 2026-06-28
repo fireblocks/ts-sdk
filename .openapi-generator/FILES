@@ -59,10 +59,12 @@ AddressRegistryTravelRuleProvider.md
 AddressRegistryVaultListOrder.md
 AddressRegistryVaultOptOutItem.md
 AddressReverseLookupResponse.md
+AddressesFilters.md
 AlertExposureTypeEnum.md
 AlertLevelEnum.md
 AllowlistEntry.md
 AllowlistEntryProviderMetadata.md
+AllowlistEntryResponse.md
 AllowlistEntryStatus.md
 AllowlistMetadata.md
 AllowlistResponse.md
@@ -261,8 +263,11 @@ CounterpartyGroupsPaginatedResponse.md
 CreateAPIUser.md
 CreateAddressRequest.md
 CreateAddressResponse.md
+CreateAddressesReportRequest.md
 CreateAssetsRequest.md
 CreateConfigOperationRequest.md
+CreateConnectedAccountRequest.md
+CreateConnectedAccountResponse.md
 CreateConnectionRequest.md
 CreateConnectionResponse.md
 CreateConsoleUser.md
@@ -287,6 +292,8 @@ CreateOrderRequest.md
 CreatePayoutRequest.md
 CreateQuote.md
 CreateQuoteScopeInner.md
+CreateReportRequest.md
+CreateReportResponse.md
 CreateSigningKeyDto.md
 CreateSigningKeyDtoProofOfOwnership.md
 CreateTagRequest.md
@@ -303,6 +310,7 @@ CreateVaultAssetResponse.md
 CreateWalletRequest.md
 CreateWebhookRequest.md
 CreateWorkflowExecutionRequestParamsInner.md
+CreatedConnectedAccountItem.md
 CustomRoutingDest.md
 DAppAddressConfig.md
 DVPSettlement.md
@@ -519,6 +527,7 @@ InternalTransferDestination.md
 InternalTransferResponse.md
 InternalWalletsApi.md
 InvalidParamaterValueError.md
+IssueApiUserPairingTokenResponse.md
 IssueTokenMultichainResponse.md
 JobCreated.md
 KeyLinkBetaApi.md
@@ -654,7 +663,6 @@ ParameterWithValueList.md
 ParticipantRelationshipType.md
 ParticipantsIdentification.md
 ParticipantsIdentificationPolicy.md
-ParticipantsIdentificationSupportedEndpoint.md
 PayeeAccount.md
 PayeeAccountResponse.md
 PayeeAccountType.md
@@ -692,9 +700,10 @@ PolicyAndValidationResponse.md
 PolicyCheckResult.md
 PolicyCurrency.md
 PolicyEditorBetaApi.md
-PolicyEditorV2BetaApi.md
+PolicyEditorV2Api.md
 PolicyGroupIds.md
 PolicyMetadata.md
+PolicyMetadataEntry.md
 PolicyOperator.md
 PolicyResponse.md
 PolicyRule.md
@@ -759,6 +768,15 @@ RenameConnectedAccountRequest.md
 RenameConnectedAccountResponse.md
 RenameCosigner.md
 RenameVaultAccountResponse.md
+ReportConflictResponse.md
+ReportJob.md
+ReportJobLinks.md
+ReportJobResponse.md
+ReportListResponse.md
+ReportOutputFormat.md
+ReportStatus.md
+ReportType.md
+ReportsBetaApi.md
 ResendByQueryRequest.md
 ResendByQueryResponse.md
 ResendFailedNotificationsJobStatusResponse.md
@@ -880,6 +898,7 @@ SolanaBlockchainData.md
 SolanaConfig.md
 SolanaInstruction.md
 SolanaInstructionWithValue.md
+SolanaRewardsBreakdown.md
 SolanaSimpleCreateParams.md
 SourceConfig.md
 SourceOfFunds.md
@@ -1058,6 +1077,7 @@ TransactionRequestPriorityFee.md
 TransactionResponse.md
 TransactionResponseContractCallDecodedData.md
 TransactionResponseDestination.md
+TransactionTag.md
 TransactionsApi.md
 TransferConfigOperation.md
 TransferOperationConfigParams.md
@@ -1243,7 +1263,8 @@ api/onchain-data-api.ts
 api/otabeta-api.ts
 api/payments-payout-api.ts
 api/policy-editor-beta-api.ts
-api/policy-editor-v2-beta-api.ts
+api/policy-editor-v2-api.ts
+api/reports-beta-api.ts
 api/reset-device-api.ts
 api/smart-transfer-api.ts
 api/staking-api.ts
@@ -1327,9 +1348,11 @@ models/address-registry-travel-rule-provider.ts
 models/address-registry-vault-list-order.ts
 models/address-registry-vault-opt-out-item.ts
 models/address-reverse-lookup-response.ts
+models/addresses-filters.ts
 models/alert-exposure-type-enum.ts
 models/alert-level-enum.ts
 models/allowlist-entry-provider-metadata.ts
+models/allowlist-entry-response.ts
 models/allowlist-entry-status.ts
 models/allowlist-entry.ts
 models/allowlist-metadata.ts
@@ -1519,9 +1542,12 @@ models/counterparty-group.ts
 models/counterparty-groups-paginated-response.ts
 models/create-address-request.ts
 models/create-address-response.ts
+models/create-addresses-report-request.ts
 models/create-apiuser.ts
 models/create-assets-request.ts
 models/create-config-operation-request.ts
+models/create-connected-account-request.ts
+models/create-connected-account-response.ts
 models/create-connection-request.ts
 models/create-connection-response.ts
 models/create-console-user.ts
@@ -1546,6 +1572,8 @@ models/create-order-request.ts
 models/create-payout-request.ts
 models/create-quote-scope-inner.ts
 models/create-quote.ts
+models/create-report-request.ts
+models/create-report-response.ts
 models/create-signing-key-dto-proof-of-ownership.ts
 models/create-signing-key-dto.ts
 models/create-tag-request.ts
@@ -1562,6 +1590,7 @@ models/create-vault-asset-response.ts
 models/create-wallet-request.ts
 models/create-webhook-request.ts
 models/create-workflow-execution-request-params-inner.ts
+models/created-connected-account-item.ts
 models/custom-routing-dest.ts
 models/dapp-address-config.ts
 models/decoded-log.ts
@@ -1770,6 +1799,7 @@ models/internal-transfer-address.ts
 models/internal-transfer-destination.ts
 models/internal-transfer-response.ts
 models/invalid-paramater-value-error.ts
+models/issue-api-user-pairing-token-response.ts
 models/issue-token-multichain-response.ts
 models/job-created.ts
 models/layer-zero-adapter-create-params.ts
@@ -1896,7 +1926,6 @@ models/parameter-with-value.ts
 models/parameter.ts
 models/participant-relationship-type.ts
 models/participants-identification-policy.ts
-models/participants-identification-supported-endpoint.ts
 models/participants-identification.ts
 models/payee-account-response.ts
 models/payee-account-type.ts
@@ -1934,6 +1963,7 @@ models/policy-and-validation-response.ts
 models/policy-check-result.ts
 models/policy-currency.ts
 models/policy-group-ids.ts
+models/policy-metadata-entry.ts
 models/policy-metadata.ts
 models/policy-operator.ts
 models/policy-response.ts
@@ -1998,6 +2028,14 @@ models/rename-connected-account-request.ts
 models/rename-connected-account-response.ts
 models/rename-cosigner.ts
 models/rename-vault-account-response.ts
+models/report-conflict-response.ts
+models/report-job-links.ts
+models/report-job-response.ts
+models/report-job.ts
+models/report-list-response.ts
+models/report-output-format.ts
+models/report-status.ts
+models/report-type.ts
 models/resend-by-query-request.ts
 models/resend-by-query-response.ts
 models/resend-failed-notifications-job-status-response.ts
@@ -2117,6 +2155,7 @@ models/solana-blockchain-data.ts
 models/solana-config.ts
 models/solana-instruction-with-value.ts
 models/solana-instruction.ts
+models/solana-rewards-breakdown.ts
 models/solana-simple-create-params.ts
 models/source-config.ts
 models/source-of-funds.ts
@@ -2196,6 +2235,7 @@ models/transaction-request.ts
 models/transaction-response-contract-call-decoded-data.ts
 models/transaction-response-destination.ts
 models/transaction-response.ts
+models/transaction-tag.ts
 models/transaction.ts
 models/transfer-config-operation.ts
 models/transfer-operation-config-params.ts

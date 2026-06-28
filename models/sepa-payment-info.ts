@@ -63,6 +63,18 @@ export interface SepaPaymentInfo {
      */
     'accountHolderCountry'?: string;
     /**
+     * The postal code of the account holder\'s address
+     * @type {string}
+     * @memberof SepaPaymentInfo
+     */
+    'accountHolderPostalCode'?: string;
+    /**
+     * The city where the account holder resides
+     * @type {string}
+     * @memberof SepaPaymentInfo
+     */
+    'accountHolderCity'?: string;
+    /**
      * The address of the account holder
      * @type {string}
      * @memberof SepaPaymentInfo

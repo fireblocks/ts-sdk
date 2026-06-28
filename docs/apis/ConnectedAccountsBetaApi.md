@@ -4,6 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createConnectedAccount**](#createConnectedAccount) | **POST** /connected_accounts | Create a connected account
 [**disconnectConnectedAccount**](#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 [**getConnectedAccount**](#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
 [**getConnectedAccountAllowlist**](#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account
@@ -15,6 +16,74 @@ Method | HTTP request | Description
 [**renameConnectedAccount**](#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
 [**syncConnectedAccountAllowlist**](#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
 
+
+# **createConnectedAccount**
+> CreateConnectedAccountResponse createConnectedAccount(createConnectedAccountRequest)
+
+Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsBetaApiCreateConnectedAccountRequest, CreateConnectedAccountResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ConnectedAccountsBetaApiCreateConnectedAccountRequest = {
+  // CreateConnectedAccountRequest
+  createConnectedAccountRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.connectedAccountsBeta.createConnectedAccount(body).then((res: FireblocksResponse<CreateConnectedAccountResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createConnectedAccountRequest** | **[CreateConnectedAccountRequest](../models/CreateConnectedAccountRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CreateConnectedAccountResponse](../models/CreateConnectedAccountResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Account created (or pending approval). |  * X-Request-ID -  <br>  |
+**400** | Bad request — invalid field or provider constraints violated. |  * X-Request-ID -  <br>  |
+**401** | Unauthorized. Missing / invalid JWT token, or insufficient role (Editor or higher required). |  * X-Request-ID -  <br>  |
+**403** | Feature not enabled for this tenant. |  * X-Request-ID -  <br>  |
+**404** | mainAccountId not found. |  * X-Request-ID -  <br>  |
+**422** | Invalid credentials. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **disconnectConnectedAccount**
 > disconnectConnectedAccount()
@@ -139,7 +208,7 @@ No authorization required
 # **getConnectedAccountAllowlist**
 > AllowlistResponse getConnectedAccountAllowlist()
 
-Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
 
 ### Example
 
@@ -222,9 +291,9 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getConnectedAccountAllowlistEntry**
-> AllowlistEntry getConnectedAccountAllowlistEntry()
+> AllowlistEntryResponse getConnectedAccountAllowlistEntry()
 
-Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
 
 ### Example
 
@@ -232,7 +301,7 @@ Retrieves a single allowlist entry by its Fireblocks identifier for a specified 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, AllowlistEntry } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, AllowlistEntryResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -248,7 +317,7 @@ let body: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest = {
   allowlistId: allowlistId_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(body).then((res: FireblocksResponse<AllowlistEntry>) => {
+fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(body).then((res: FireblocksResponse<AllowlistEntryResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -264,7 +333,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**[AllowlistEntry](../models/AllowlistEntry.md)**
+**[AllowlistEntryResponse](../models/AllowlistEntryResponse.md)**
 
 ### Authorization
 
@@ -623,7 +692,7 @@ No authorization required
 # **syncConnectedAccountAllowlist**
 > syncConnectedAccountAllowlist()
 
-Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
 
 ### Example
 

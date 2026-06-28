@@ -75,6 +75,24 @@ export interface ChapsPaymentInfo {
      */
     'bankAccountHolderName': string;
     /**
+     * The city where the account holder resides
+     * @type {string}
+     * @memberof ChapsPaymentInfo
+     */
+    'accountHolderCity'?: string;
+    /**
+     * The country where the account holder resides (ISO 3166-1 alpha-2 code)
+     * @type {string}
+     * @memberof ChapsPaymentInfo
+     */
+    'accountHolderCountry'?: string;
+    /**
+     * The postal code of the account holder\'s address
+     * @type {string}
+     * @memberof ChapsPaymentInfo
+     */
+    'accountHolderPostalCode'?: string;
+    /**
      * The name of the bank
      * @type {string}
      * @memberof ChapsPaymentInfo

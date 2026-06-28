@@ -27,7 +27,7 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
-import { AllowlistEntry } from '../models';
+import { AllowlistEntryResponse } from '../models';
 // @ts-ignore
 import { AllowlistEntryStatus } from '../models';
 // @ts-ignore
@@ -45,6 +45,10 @@ import { ConnectedAccountsResponse } from '../models';
 // @ts-ignore
 import { ConnectedSingleAccountResponse } from '../models';
 // @ts-ignore
+import { CreateConnectedAccountRequest } from '../models';
+// @ts-ignore
+import { CreateConnectedAccountResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { RenameConnectedAccountRequest } from '../models';
@@ -56,6 +60,46 @@ import { RenameConnectedAccountResponse } from '../models';
  */
 export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Create a connected account
+         * @param {CreateConnectedAccountRequest} createConnectedAccountRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createConnectedAccount: async (createConnectedAccountRequest: CreateConnectedAccountRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createConnectedAccount', 'createConnectedAccountRequest', createConnectedAccountRequest)
+            const localVarPath = `/connected_accounts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createConnectedAccountRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
          * @summary Disconnect connected account
@@ -123,7 +167,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {AllowlistEntryStatus} [status] Filter by allowlist entry status
@@ -196,7 +240,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get a single allowlist entry for a connected account
          * @param {string} accountId The connected account identifier
          * @param {string} allowlistId The Fireblocks allowlist entry identifier
@@ -451,7 +495,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Sync allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -499,6 +543,20 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
     const localVarAxiosParamCreator = ConnectedAccountsBetaApiAxiosParamCreator(configuration)
     return {
         /**
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Create a connected account
+         * @param {CreateConnectedAccountRequest} createConnectedAccountRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createConnectedAccount(createConnectedAccountRequest: CreateConnectedAccountRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectedAccountResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createConnectedAccount(createConnectedAccountRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.createConnectedAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
          * @summary Disconnect connected account
          * @param {string} accountId The ID of the account to disconnect.
@@ -525,7 +583,7 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {AllowlistEntryStatus} [status] Filter by allowlist entry status
@@ -546,14 +604,14 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get a single allowlist entry for a connected account
          * @param {string} accountId The connected account identifier
          * @param {string} allowlistId The Fireblocks allowlist entry identifier
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConnectedAccountAllowlistEntry(accountId: string, allowlistId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistEntry>> {
+        async getConnectedAccountAllowlistEntry(accountId: string, allowlistId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistEntryResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlistEntry(accountId, allowlistId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountAllowlistEntry']?.[index]?.url;
@@ -635,7 +693,7 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Sync allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -659,6 +717,16 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
     const localVarFp = ConnectedAccountsBetaApiFp(configuration)
     return {
         /**
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Create a connected account
+         * @param {ConnectedAccountsBetaApiCreateConnectedAccountRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createConnectedAccount(requestParameters: ConnectedAccountsBetaApiCreateConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateConnectedAccountResponse> {
+            return localVarFp.createConnectedAccount(requestParameters.createConnectedAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
          * @summary Disconnect connected account
          * @param {ConnectedAccountsBetaApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
@@ -679,7 +747,7 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
             return localVarFp.getConnectedAccount(requestParameters.accountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get allowlist for connected account
          * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -689,13 +757,13 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
             return localVarFp.getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get a single allowlist entry for a connected account
          * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistEntry> {
+        getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistEntryResponse> {
             return localVarFp.getConnectedAccountAllowlistEntry(requestParameters.accountId, requestParameters.allowlistId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -749,7 +817,7 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
             return localVarFp.renameConnectedAccount(requestParameters.renameConnectedAccountRequest, requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Sync allowlist for connected account
          * @param {ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -760,6 +828,27 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
         },
     };
 };
+
+/**
+ * Request parameters for createConnectedAccount operation in ConnectedAccountsBetaApi.
+ * @export
+ * @interface ConnectedAccountsBetaApiCreateConnectedAccountRequest
+ */
+export interface ConnectedAccountsBetaApiCreateConnectedAccountRequest {
+    /**
+     * 
+     * @type {CreateConnectedAccountRequest}
+     * @memberof ConnectedAccountsBetaApiCreateConnectedAccount
+     */
+    readonly createConnectedAccountRequest: CreateConnectedAccountRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiCreateConnectedAccount
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * Request parameters for disconnectConnectedAccount operation in ConnectedAccountsBetaApi.
@@ -1049,6 +1138,18 @@ export interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest {
  */
 export class ConnectedAccountsBetaApi extends BaseAPI {
     /**
+     * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * @summary Create a connected account
+     * @param {ConnectedAccountsBetaApiCreateConnectedAccountRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConnectedAccountsBetaApi
+     */
+    public createConnectedAccount(requestParameters: ConnectedAccountsBetaApiCreateConnectedAccountRequest) {
+        return ConnectedAccountsBetaApiFp(this.configuration).createConnectedAccount(requestParameters.createConnectedAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
      * @summary Disconnect connected account
      * @param {ConnectedAccountsBetaApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
@@ -1073,7 +1174,7 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
     }
 
     /**
-     * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+     * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
      * @summary Get allowlist for connected account
      * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1085,7 +1186,7 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
     }
 
     /**
-     * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+     * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
      * @summary Get a single allowlist entry for a connected account
      * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1157,7 +1258,7 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
     }
 
     /**
-     * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange accounts only. 
+     * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
      * @summary Sync allowlist for connected account
      * @param {ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -16,24 +16,15 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { IdentificationPolicyOverride } from './identification-policy-override';
-// May contain unused imports in some cases
-// @ts-ignore
-import { ParticipantsIdentificationSupportedEndpoint } from './participants-identification-supported-endpoint';
 
 /**
- * When present on a provider manifest, specifies KYC/AML identification requirements as JSON Schemas and which flows in `supportedEndpoints` may require `participantsIdentification`.  Only endpoints listed in `supportedEndpoints` are in scope for this policy. `defaultSchema` is the baseline; `overrides` refine it by `asset`, `rail`, and/or `flowDirection` (see priority below). The most specific matching override applies its `schema` for that request context: it may fully replace `defaultSchema`, or partially override it—when the override `schema` is not provided as a complete standalone definition, fields and rules omitted there continue to follow `defaultSchema`. If this object is omitted from the manifest, the provider imposes no PII requirements through this policy. FirstParty participants are always exempt.  Resolution: from overrides that match the request context, choose the most specific (most dimensions matched); break ties by earlier position in the `overrides` array; if none match, use `defaultSchema`.  Priority (highest precedence first): 1. asset + rail + flowDirection 2. Any two dimensions: asset+rail, asset+flowDirection, rail+flowDirection 3. Any single dimension: asset, rail, or flowDirection 4. defaultSchema (no override matches) 
+ * When present on a provider manifest, specifies KYC/AML identification requirements as JSON Schemas.  `defaultSchema` is the baseline; `overrides` refine it by `asset`, `rail`, and/or `flowDirection` (see priority below). The most specific matching override applies its `schema` for that request context: it may fully replace `defaultSchema`, or partially override it—when the override `schema` is not provided as a complete standalone definition, fields and rules omitted there continue to follow `defaultSchema`. If this object is omitted from the manifest, the provider imposes no PII requirements through this policy. FirstParty participants are always exempt.  Resolution: from overrides that match the request context, choose the most specific (most dimensions matched); break ties by earlier position in the `overrides` array; if none match, use `defaultSchema`.  Priority (highest precedence first): 1. asset + rail + flowDirection 2. Any two dimensions: asset+rail, asset+flowDirection, rail+flowDirection 3. Any single dimension: asset, rail, or flowDirection 4. defaultSchema (no override matches) 
  * @export
  * @interface ParticipantsIdentificationPolicy
  */
 export interface ParticipantsIdentificationPolicy {
     /**
-     * API endpoints in scope for this participants identification policy. Values `ORDER`, `QUOTE`, and `RATE` correspond to manifest `order`, `quote`, and `rate` flows. Client requests to those endpoints may need to include `participantsIdentification` when the resolved schema requires it. 
-     * @type {Set<ParticipantsIdentificationSupportedEndpoint>}
-     * @memberof ParticipantsIdentificationPolicy
-     */
-    'supportedEndpoints': Set<ParticipantsIdentificationSupportedEndpoint>;
-    /**
-     * A JSON Schema (draft-07) in string format that validates the ParticipantsIdentification object on requests where the provider manifest lists that endpoint in `participantsIdentificationPolicy.supportedEndpoints` (e.g. POST /orders). Defines which fields from originator and/or beneficiary are required.  The schema uses oneOf to discriminate between INDIVIDUAL (PersonalIdentification)  and BUSINESS (BusinessIdentification) entity types for each participant.  For INDIVIDUAL: fullName, dateOfBirth, postalAddress, email, phone, idNumber, idType, etc. For BUSINESS: businessName, registrationNumber, postalAddress, email, phone, etc.  If you constrain `idType` or `additionalIdType` with a JSON Schema `enum`, use the same values as `PersonalIdentificationType` (authoritative list in that schema). The example below mirrors that enum.  The string content is expected to be valid JSON (application/json). 
+     * A JSON Schema (draft-07) in string format that validates the ParticipantsIdentification object on requests where the provider manifest declares a `participantsIdentificationPolicy` for that endpoint (e.g. POST /orders). Defines which fields from originator and/or beneficiary are required.  The schema uses oneOf to discriminate between INDIVIDUAL (PersonalIdentification)  and BUSINESS (BusinessIdentification) entity types for each participant.  For INDIVIDUAL: fullName, dateOfBirth, postalAddress, email, phone, idNumber, idType, etc. For BUSINESS: businessName, registrationNumber, postalAddress, email, phone, etc.  If you constrain `idType` or `additionalIdType` with a JSON Schema `enum`, use the same values as `PersonalIdentificationType` (authoritative list in that schema). The example below mirrors that enum.  The string content is expected to be valid JSON (application/json). 
      * @type {string}
      * @memberof ParticipantsIdentificationPolicy
      */

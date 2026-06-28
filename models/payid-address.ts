@@ -42,17 +42,17 @@ export interface PayidAddress {
      */
     'type': PayidAddressTypeEnum;
     /**
-     * Australian bank account number
-     * @type {string}
-     * @memberof PayidAddress
-     */
-    'accountNumber': string;
-    /**
      * Bank State Branch (BSB) number (6 digits, format XXX-XXX)
      * @type {string}
      * @memberof PayidAddress
      */
     'bsb'?: string;
+    /**
+     * Australian bank account number
+     * @type {string}
+     * @memberof PayidAddress
+     */
+    'accountNumber'?: string;
 }
 
 export const PayidAddressTypeEnum = {

@@ -21,16 +21,28 @@
  */
 export interface ConnectedAccountErrorResponse {
     /**
+     * Error message describing what went wrong.
+     * @type {string}
+     * @memberof ConnectedAccountErrorResponse
+     */
+    'message': string;
+    /**
+     * Numeric error code identifying the type of error.
+     * @type {number}
+     * @memberof ConnectedAccountErrorResponse
+     */
+    'code': number;
+    /**
      * Error message describing what went wrong
      * @type {string}
      * @memberof ConnectedAccountErrorResponse
      */
-    'errorMessage': string;
+    'errorMessage'?: string;
     /**
      * Error code identifying the type of error
      * @type {string}
      * @memberof ConnectedAccountErrorResponse
      */
-    'errorCode': string;
+    'errorCode'?: string;
 }
 

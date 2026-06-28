@@ -1,4 +1,4 @@
-# PolicyEditorV2BetaApi
+# PolicyEditorV2Api
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -13,7 +13,7 @@ Method | HTTP request | Description
 # **getActivePolicy**
 > PolicyAndValidationResponse getActivePolicy()
 
-Returns the active policy and its validation for a specific policy type.  **Note:** This endpoint is currently in beta and subject to change. If you want to participate in the Policies beta, contact your Fireblocks Customer Success Manager or send an email to csm@fireblocks.com.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
+Returns the active policy and its validation for a specific policy type.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -21,7 +21,7 @@ Returns the active policy and its validation for a specific policy type.  **Note
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, PolicyEditorV2BetaApiGetActivePolicyRequest, PolicyAndValidationResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, PolicyEditorV2ApiGetActivePolicyRequest, PolicyAndValidationResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -30,12 +30,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: PolicyEditorV2BetaApiGetActivePolicyRequest = {
+let body: PolicyEditorV2ApiGetActivePolicyRequest = {
   // PolicyType | The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType=TRANSFER&policyType=MINT).
   policyType: param_value,
 };
 
-fireblocks.policyEditorV2Beta.getActivePolicy(body).then((res: FireblocksResponse<PolicyAndValidationResponse>) => {
+fireblocks.policyEditorV2.getActivePolicy(body).then((res: FireblocksResponse<PolicyAndValidationResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -73,7 +73,7 @@ No authorization required
 # **getDraft**
 > DraftReviewAndValidationResponse getDraft()
 
-Returns the active draft and its validation for a specific policy type.  **Note:** These endpoints are currently in beta and might be subject to changes. 
+Returns the active draft and its validation for a specific policy type.
 
 ### Example
 
@@ -81,7 +81,7 @@ Returns the active draft and its validation for a specific policy type.  **Note:
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, PolicyEditorV2BetaApiGetDraftRequest, DraftReviewAndValidationResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, PolicyEditorV2ApiGetDraftRequest, DraftReviewAndValidationResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -90,12 +90,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: PolicyEditorV2BetaApiGetDraftRequest = {
+let body: PolicyEditorV2ApiGetDraftRequest = {
   // PolicyType | The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType=TRANSFER&policyType=MINT).
   policyType: param_value,
 };
 
-fireblocks.policyEditorV2Beta.getDraft(body).then((res: FireblocksResponse<DraftReviewAndValidationResponse>) => {
+fireblocks.policyEditorV2.getDraft(body).then((res: FireblocksResponse<DraftReviewAndValidationResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -133,7 +133,7 @@ No authorization required
 # **publishDraft**
 > PublishResult publishDraft(publishDraftRequest)
 
-Send publish request of certain draft id and returns the response.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
+Send publish request of certain draft id and returns the response.  **⚠️ IMPORTANT SECURITY NOTICE:**  The Fireblocks Policy is a critical security guardrail. Programmatically modifying your policy via the API introduces significant security risks. As an industry best practice, Fireblocks strongly recommends manual editing accompanied by strict human oversight and approval workflows for all policy changes. Programmatic updates should only be implemented by advanced users with comprehensive, multi-layer security controls in place.  If you want to learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
 
 ### Example
 
@@ -141,7 +141,7 @@ Send publish request of certain draft id and returns the response.  **Note:** Th
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, PolicyEditorV2BetaApiPublishDraftRequest, PublishResult } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, PolicyEditorV2ApiPublishDraftRequest, PublishResult } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -150,14 +150,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: PolicyEditorV2BetaApiPublishDraftRequest = {
+let body: PolicyEditorV2ApiPublishDraftRequest = {
   // PublishDraftRequest
   publishDraftRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.policyEditorV2Beta.publishDraft(body).then((res: FireblocksResponse<PublishResult>) => {
+fireblocks.policyEditorV2.publishDraft(body).then((res: FireblocksResponse<PublishResult>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -196,7 +196,7 @@ No authorization required
 # **updateDraft**
 > DraftReviewAndValidationResponse updateDraft(updateDraftRequest)
 
-Update the draft and return its validation for specific policy types.  **Note:** These endpoints are currently in beta and might be subject to changes. 
+Update the draft and return its validation for specific policy types.  **⚠️ IMPORTANT SECURITY NOTICE:**  The Fireblocks Policy is a critical security guardrail. Programmatically modifying your policy via the API introduces significant security risks. As an industry best practice, Fireblocks strongly recommends manual editing accompanied by strict human oversight and approval workflows for all policy changes. Programmatic updates should only be implemented by advanced users with comprehensive, multi-layer security controls in place. 
 
 ### Example
 
@@ -204,7 +204,7 @@ Update the draft and return its validation for specific policy types.  **Note:**
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, PolicyEditorV2BetaApiUpdateDraftRequest, DraftReviewAndValidationResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, PolicyEditorV2ApiUpdateDraftRequest, DraftReviewAndValidationResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -213,14 +213,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: PolicyEditorV2BetaApiUpdateDraftRequest = {
+let body: PolicyEditorV2ApiUpdateDraftRequest = {
   // UpdateDraftRequest
   updateDraftRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.policyEditorV2Beta.updateDraft(body).then((res: FireblocksResponse<DraftReviewAndValidationResponse>) => {
+fireblocks.policyEditorV2.updateDraft(body).then((res: FireblocksResponse<DraftReviewAndValidationResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

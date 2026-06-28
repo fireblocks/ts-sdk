@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { SolanaRewardsBreakdown } from './solana-rewards-breakdown';
 
 /**
  * Additional fields per blockchain - can be empty or missing if not initialized or no additional info exists. The type depends on the chainDescriptor value. For Solana (SOL), stake account address. For Ethereum (ETH), an empty object is returned as no specific data is available.
@@ -32,5 +35,11 @@ export interface SolanaBlockchainData {
      * @memberof SolanaBlockchainData
      */
     'stakeAccountDerivationChangeValue': number;
+    /**
+     * 
+     * @type {SolanaRewardsBreakdown}
+     * @memberof SolanaBlockchainData
+     */
+    'rewardsBreakdown'?: SolanaRewardsBreakdown;
 }
 

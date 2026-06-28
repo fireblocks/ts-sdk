@@ -401,6 +401,39 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Delete a legal entity will change the status of a legal entity registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Delete a legal entity
+         * @param {string} legalEntityId The unique ID of the legal entity registration to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteLegalEntity: async (legalEntityId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteLegalEntity', 'legalEntityId', legalEntityId)
+            const localVarPath = `/legal_entities/{legalEntityId}`
+                .replace(`{${"legalEntityId"}}`, encodeURIComponent(String(legalEntityId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
          * @summary Get address registry participation status for the authenticated workspace
          * @param {*} [options] Override http request option.
@@ -656,7 +689,7 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
+         * Returns legal entity information for the given blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
          * @summary Look up legal entity by blockchain address
          * @param {string} address Blockchain address to look up
          * @param {*} [options] Override http request option.
@@ -1595,6 +1628,19 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Delete a legal entity will change the status of a legal entity registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Delete a legal entity
+         * @param {string} legalEntityId The unique ID of the legal entity registration to delete
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteLegalEntity(legalEntityId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteLegalEntity(legalEntityId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.deleteLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
          * @summary Get address registry participation status for the authenticated workspace
          * @param {*} [options] Override http request option.
@@ -1695,7 +1741,7 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
+         * Returns legal entity information for the given blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
          * @summary Look up legal entity by blockchain address
          * @param {string} address Blockchain address to look up
          * @param {*} [options] Override http request option.
@@ -2084,6 +2130,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.deleteCounterpartyGroup(requestParameters.groupId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Delete a legal entity will change the status of a legal entity registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Delete a legal entity
+         * @param {ComplianceApiDeleteLegalEntityRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteLegalEntity(requestParameters: ComplianceApiDeleteLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteLegalEntity(requestParameters.legalEntityId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
          * @summary Get address registry participation status for the authenticated workspace
          * @param {*} [options] Override http request option.
@@ -2160,7 +2216,7 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getLegalEntity(requestParameters.legalEntityId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
+         * Returns legal entity information for the given blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
          * @summary Look up legal entity by blockchain address
          * @param {ComplianceApiGetLegalEntityForAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2516,6 +2572,20 @@ export interface ComplianceApiDeleteCounterpartyGroupRequest {
      * @memberof ComplianceApiDeleteCounterpartyGroup
      */
     readonly groupId: string
+}
+
+/**
+ * Request parameters for deleteLegalEntity operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiDeleteLegalEntityRequest
+ */
+export interface ComplianceApiDeleteLegalEntityRequest {
+    /**
+     * The unique ID of the legal entity registration to delete
+     * @type {string}
+     * @memberof ComplianceApiDeleteLegalEntity
+     */
+    readonly legalEntityId: string
 }
 
 /**
@@ -3049,6 +3119,18 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
+     * Delete a legal entity will change the status of a legal entity registration to REVOKED. Endpoint Permission: Admin, Non-Signing Admin.
+     * @summary Delete a legal entity
+     * @param {ComplianceApiDeleteLegalEntityRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public deleteLegalEntity(requestParameters: ComplianceApiDeleteLegalEntityRequest) {
+        return ComplianceApiFp(this.configuration).deleteLegalEntity(requestParameters.legalEntityId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
      * @summary Get address registry participation status for the authenticated workspace
      * @param {*} [options] Override http request option.
@@ -3141,7 +3223,7 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Returns legal entity information for the given blockchain address (verification status, LEI, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
+     * Returns legal entity information for the given blockchain address (LEI data availability, LEI identifier, Travel Rule providers, contact email, and related fields — see response schema). URL-encode `{address}` when required.
      * @summary Look up legal entity by blockchain address
      * @param {ComplianceApiGetLegalEntityForAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

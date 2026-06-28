@@ -11,6 +11,8 @@
 |**iban** | **string** | The International Bank Account Number (IBAN) | [default to undefined]|
 |**country** | **string** | The country for the transfer (ISO 3166-1 alpha-2 code) | [default to undefined]|
 |**accountHolderCountry** | **string** | The country where the account holder resides (ISO 3166-1 alpha-2 code) | [optional] [default to undefined]|
+|**accountHolderPostalCode** | **string** | The postal code of the account holder\&#39;s address | [optional] [default to undefined]|
+|**accountHolderCity** | **string** | The city where the account holder resides | [optional] [default to undefined]|
 |**accountHolderAddress** | **string** | The address of the account holder | [optional] [default to undefined]|
 |**bic** | **string** | The Bank Identifier Code (BIC/SWIFT code) | [optional] [default to undefined]|
 |**bankName** | **string** | The name of the bank | [optional] [default to undefined]|
