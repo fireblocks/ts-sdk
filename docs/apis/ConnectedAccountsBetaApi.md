@@ -4,7 +4,7 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createConnectedAccount**](#createConnectedAccount) | **POST** /connected_accounts | Create a connected account
+[**addConnectedAccount**](#addConnectedAccount) | **POST** /connected_accounts | Add a connected account
 [**disconnectConnectedAccount**](#disconnectConnectedAccount) | **DELETE** /connected_accounts/{accountId} | Disconnect connected account
 [**getConnectedAccount**](#getConnectedAccount) | **GET** /connected_accounts/{accountId} | Get connected account
 [**getConnectedAccountAllowlist**](#getConnectedAccountAllowlist) | **GET** /connected_accounts/{accountId}/allowlist | Get allowlist for connected account
@@ -17,8 +17,8 @@ Method | HTTP request | Description
 [**syncConnectedAccountAllowlist**](#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
 
 
-# **createConnectedAccount**
-> CreateConnectedAccountResponse createConnectedAccount(createConnectedAccountRequest)
+# **addConnectedAccount**
+> AddConnectedAccountResponse addConnectedAccount(addConnectedAccountRequest)
 
 Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
 
@@ -28,7 +28,7 @@ Creates a new connected account for the authenticated tenant.  The `creds` field
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiCreateConnectedAccountRequest, CreateConnectedAccountResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsBetaApiAddConnectedAccountRequest, AddConnectedAccountResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -37,14 +37,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiCreateConnectedAccountRequest = {
-  // CreateConnectedAccountRequest
-  createConnectedAccountRequest: param_value,
+let body: ConnectedAccountsBetaApiAddConnectedAccountRequest = {
+  // AddConnectedAccountRequest
+  addConnectedAccountRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.connectedAccountsBeta.createConnectedAccount(body).then((res: FireblocksResponse<CreateConnectedAccountResponse>) => {
+fireblocks.connectedAccountsBeta.addConnectedAccount(body).then((res: FireblocksResponse<AddConnectedAccountResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -54,13 +54,13 @@ fireblocks.connectedAccountsBeta.createConnectedAccount(body).then((res: Fireblo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **createConnectedAccountRequest** | **[CreateConnectedAccountRequest](../models/CreateConnectedAccountRequest.md)**|  |
+ **addConnectedAccountRequest** | **[AddConnectedAccountRequest](../models/AddConnectedAccountRequest.md)**|  |
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
 ### Return type
 
-**[CreateConnectedAccountResponse](../models/CreateConnectedAccountResponse.md)**
+**[AddConnectedAccountResponse](../models/AddConnectedAccountResponse.md)**
 
 ### Authorization
 

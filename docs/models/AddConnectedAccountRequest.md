@@ -1,4 +1,4 @@
-# CreateConnectedAccountRequest
+# AddConnectedAccountRequest
 
 ## Properties
 

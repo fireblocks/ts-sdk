@@ -17,49 +17,49 @@
 /**
  * 
  * @export
- * @interface CreateConnectedAccountRequest
+ * @interface AddConnectedAccountRequest
  */
-export interface CreateConnectedAccountRequest {
+export interface AddConnectedAccountRequest {
     /**
      * Integration key identifying the provider (e.g. BINANCE, KINGDOM_BANK, GEMINI_NLV2).
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'providerId': string;
     /**
      * Base64-encoded RSA-encrypted credential blob. Encrypt using the public key from GET /exchange_accounts/credentials_public_key.
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'creds': string;
     /**
      * Account-level API key.
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'apiKey': string;
     /**
      * Human-readable account name. Required for non-NLV2 providers.
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'displayName'?: string;
     /**
      * Parent main account ID for sub-account creation. Not allowed for NLV2 providers.
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'mainAccountId'?: string;
     /**
      * Optional provider-side account ID to associate with the created account.
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'accountId'?: string;
     /**
      * On-premise server ID for self-hosted integrations.
      * @type {string}
-     * @memberof CreateConnectedAccountRequest
+     * @memberof AddConnectedAccountRequest
      */
     'onPremiseServerId'?: string;
 }

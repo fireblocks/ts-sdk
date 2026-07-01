@@ -1,10 +1,10 @@
-# CreateConnectedAccountResponse
+# AddConnectedAccountResponse
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**accounts** | [**Array&lt;CreatedConnectedAccountItem&gt;**](CreatedConnectedAccountItem.md) | Created accounts — main account first, sub-accounts after (NLV2 hierarchy). | [default to undefined]|
+|**accounts** | [**Array&lt;AddedConnectedAccountItem&gt;**](AddedConnectedAccountItem.md) | Created accounts — main account first, sub-accounts after (NLV2 hierarchy). | [default to undefined]|
 
 
 

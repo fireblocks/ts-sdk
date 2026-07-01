@@ -27,6 +27,10 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { AddConnectedAccountRequest } from '../models';
+// @ts-ignore
+import { AddConnectedAccountResponse } from '../models';
+// @ts-ignore
 import { AllowlistEntryResponse } from '../models';
 // @ts-ignore
 import { AllowlistEntryStatus } from '../models';
@@ -45,10 +49,6 @@ import { ConnectedAccountsResponse } from '../models';
 // @ts-ignore
 import { ConnectedSingleAccountResponse } from '../models';
 // @ts-ignore
-import { CreateConnectedAccountRequest } from '../models';
-// @ts-ignore
-import { CreateConnectedAccountResponse } from '../models';
-// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { RenameConnectedAccountRequest } from '../models';
@@ -62,14 +62,14 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
     return {
         /**
          * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
-         * @summary Create a connected account
-         * @param {CreateConnectedAccountRequest} createConnectedAccountRequest 
+         * @summary Add a connected account
+         * @param {AddConnectedAccountRequest} addConnectedAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createConnectedAccount: async (createConnectedAccountRequest: CreateConnectedAccountRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('createConnectedAccount', 'createConnectedAccountRequest', createConnectedAccountRequest)
+        addConnectedAccount: async (addConnectedAccountRequest: AddConnectedAccountRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('addConnectedAccount', 'addConnectedAccountRequest', addConnectedAccountRequest)
             const localVarPath = `/connected_accounts`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -93,7 +93,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(createConnectedAccountRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(addConnectedAccountRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -544,16 +544,16 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
     return {
         /**
          * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
-         * @summary Create a connected account
-         * @param {CreateConnectedAccountRequest} createConnectedAccountRequest 
+         * @summary Add a connected account
+         * @param {AddConnectedAccountRequest} addConnectedAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createConnectedAccount(createConnectedAccountRequest: CreateConnectedAccountRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateConnectedAccountResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createConnectedAccount(createConnectedAccountRequest, idempotencyKey, options);
+        async addConnectedAccount(addConnectedAccountRequest: AddConnectedAccountRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddConnectedAccountResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.addConnectedAccount(addConnectedAccountRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.createConnectedAccount']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.addConnectedAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -718,13 +718,13 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
     return {
         /**
          * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
-         * @summary Create a connected account
-         * @param {ConnectedAccountsBetaApiCreateConnectedAccountRequest} requestParameters Request parameters.
+         * @summary Add a connected account
+         * @param {ConnectedAccountsBetaApiAddConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createConnectedAccount(requestParameters: ConnectedAccountsBetaApiCreateConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateConnectedAccountResponse> {
-            return localVarFp.createConnectedAccount(requestParameters.createConnectedAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        addConnectedAccount(requestParameters: ConnectedAccountsBetaApiAddConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddConnectedAccountResponse> {
+            return localVarFp.addConnectedAccount(requestParameters.addConnectedAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
@@ -830,22 +830,22 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
 };
 
 /**
- * Request parameters for createConnectedAccount operation in ConnectedAccountsBetaApi.
+ * Request parameters for addConnectedAccount operation in ConnectedAccountsBetaApi.
  * @export
- * @interface ConnectedAccountsBetaApiCreateConnectedAccountRequest
+ * @interface ConnectedAccountsBetaApiAddConnectedAccountRequest
  */
-export interface ConnectedAccountsBetaApiCreateConnectedAccountRequest {
+export interface ConnectedAccountsBetaApiAddConnectedAccountRequest {
     /**
      * 
-     * @type {CreateConnectedAccountRequest}
-     * @memberof ConnectedAccountsBetaApiCreateConnectedAccount
+     * @type {AddConnectedAccountRequest}
+     * @memberof ConnectedAccountsBetaApiAddConnectedAccount
      */
-    readonly createConnectedAccountRequest: CreateConnectedAccountRequest
+    readonly addConnectedAccountRequest: AddConnectedAccountRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiCreateConnectedAccount
+     * @memberof ConnectedAccountsBetaApiAddConnectedAccount
      */
     readonly idempotencyKey?: string
 }
@@ -1139,14 +1139,14 @@ export interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest {
 export class ConnectedAccountsBetaApi extends BaseAPI {
     /**
      * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
-     * @summary Create a connected account
-     * @param {ConnectedAccountsBetaApiCreateConnectedAccountRequest} requestParameters Request parameters.
+     * @summary Add a connected account
+     * @param {ConnectedAccountsBetaApiAddConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ConnectedAccountsBetaApi
      */
-    public createConnectedAccount(requestParameters: ConnectedAccountsBetaApiCreateConnectedAccountRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).createConnectedAccount(requestParameters.createConnectedAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public addConnectedAccount(requestParameters: ConnectedAccountsBetaApiAddConnectedAccountRequest) {
+        return ConnectedAccountsBetaApiFp(this.configuration).addConnectedAccount(requestParameters.addConnectedAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
