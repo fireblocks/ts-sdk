@@ -33,11 +33,14 @@ AdapterProcessingResult.md
 AddAbiRequestDto.md
 AddAssetToExternalWalletRequest.md
 AddCollateralRequestBody.md
+AddConnectedAccountRequest.md
+AddConnectedAccountResponse.md
 AddContractAssetRequest.md
 AddCosignerRequest.md
 AddCosignerResponse.md
 AddExchangeAccountRequest.md
 AddExchangeAccountResponse.md
+AddedConnectedAccountItem.md
 AdditionalInfo.md
 AdditionalInfoRequest.md
 AdditionalInfoRequestAdditionalInfo.md
@@ -266,8 +269,6 @@ CreateAddressResponse.md
 CreateAddressesReportRequest.md
 CreateAssetsRequest.md
 CreateConfigOperationRequest.md
-CreateConnectedAccountRequest.md
-CreateConnectedAccountResponse.md
 CreateConnectionRequest.md
 CreateConnectionResponse.md
 CreateConsoleUser.md
@@ -310,7 +311,6 @@ CreateVaultAssetResponse.md
 CreateWalletRequest.md
 CreateWebhookRequest.md
 CreateWorkflowExecutionRequestParamsInner.md
-CreatedConnectedAccountItem.md
 CustomRoutingDest.md
 DAppAddressConfig.md
 DVPSettlement.md
@@ -1322,11 +1322,14 @@ models/adapter-processing-result.ts
 models/add-abi-request-dto.ts
 models/add-asset-to-external-wallet-request.ts
 models/add-collateral-request-body.ts
+models/add-connected-account-request.ts
+models/add-connected-account-response.ts
 models/add-contract-asset-request.ts
 models/add-cosigner-request.ts
 models/add-cosigner-response.ts
 models/add-exchange-account-request.ts
 models/add-exchange-account-response.ts
+models/added-connected-account-item.ts
 models/additional-info-request-additional-info.ts
 models/additional-info-request.ts
 models/additional-info.ts
@@ -1546,8 +1549,6 @@ models/create-addresses-report-request.ts
 models/create-apiuser.ts
 models/create-assets-request.ts
 models/create-config-operation-request.ts
-models/create-connected-account-request.ts
-models/create-connected-account-response.ts
 models/create-connection-request.ts
 models/create-connection-response.ts
 models/create-console-user.ts
@@ -1590,7 +1591,6 @@ models/create-vault-asset-response.ts
 models/create-wallet-request.ts
 models/create-webhook-request.ts
 models/create-workflow-execution-request-params-inner.ts
-models/created-connected-account-item.ts
 models/custom-routing-dest.ts
 models/dapp-address-config.ts
 models/decoded-log.ts

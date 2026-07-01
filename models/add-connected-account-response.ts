@@ -15,19 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CreatedConnectedAccountItem } from './created-connected-account-item';
+import { AddedConnectedAccountItem } from './added-connected-account-item';
 
 /**
  * 
  * @export
- * @interface CreateConnectedAccountResponse
+ * @interface AddConnectedAccountResponse
  */
-export interface CreateConnectedAccountResponse {
+export interface AddConnectedAccountResponse {
     /**
      * Created accounts — main account first, sub-accounts after (NLV2 hierarchy).
-     * @type {Array<CreatedConnectedAccountItem>}
-     * @memberof CreateConnectedAccountResponse
+     * @type {Array<AddedConnectedAccountItem>}
+     * @memberof AddConnectedAccountResponse
      */
-    'accounts': Array<CreatedConnectedAccountItem>;
+    'accounts': Array<AddedConnectedAccountItem>;
 }
 

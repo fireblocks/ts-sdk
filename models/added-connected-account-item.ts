@@ -20,31 +20,31 @@ import { ConnectedAccountApprovalStatus } from './connected-account-approval-sta
 /**
  * 
  * @export
- * @interface CreatedConnectedAccountItem
+ * @interface AddedConnectedAccountItem
  */
-export interface CreatedConnectedAccountItem {
+export interface AddedConnectedAccountItem {
     /**
      * ID of the created account.
      * @type {string}
-     * @memberof CreatedConnectedAccountItem
+     * @memberof AddedConnectedAccountItem
      */
     'accountId': string;
     /**
      * Human-readable account name.
      * @type {string}
-     * @memberof CreatedConnectedAccountItem
+     * @memberof AddedConnectedAccountItem
      */
     'name': string;
     /**
      * 
      * @type {ConnectedAccountApprovalStatus}
-     * @memberof CreatedConnectedAccountItem
+     * @memberof AddedConnectedAccountItem
      */
     'status': ConnectedAccountApprovalStatus;
     /**
      * Parent account ID — present only for sub-accounts in an NLV2 hierarchy.
      * @type {string}
-     * @memberof CreatedConnectedAccountItem
+     * @memberof AddedConnectedAccountItem
      */
     'parentAccountId'?: string;
 }

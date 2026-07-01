@@ -1,4 +1,4 @@
-# CreatedConnectedAccountItem
+# AddedConnectedAccountItem
 
 ## Properties
 
