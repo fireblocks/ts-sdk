@@ -1,4 +1,4 @@
-# EarnBetaApi
+# EarnApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -16,7 +16,7 @@ Method | HTTP request | Description
 # **approveTermsOfService**
 > approveTermsOfService()
 
-Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`. 
 
 ### Example
 
@@ -24,7 +24,7 @@ Approves earn provider terms of service for this workspace (one-time per tenant)
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiApproveTermsOfServiceRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiApproveTermsOfServiceRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -33,12 +33,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiApproveTermsOfServiceRequest = {
+let body: EarnApiApproveTermsOfServiceRequest = {
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.earnBeta.approveTermsOfService(body).then((res: FireblocksResponse<any>) => {
+fireblocks.earn.approveTermsOfService(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -81,7 +81,7 @@ No authorization required
 # **createEarnAction**
 > CreateEarnActionResponse createEarnAction(createEarnActionRequest)
 
-Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`). 
 
 ### Example
 
@@ -89,7 +89,7 @@ Creates and runs a sequence of on-chain steps for either a deposit into or a wit
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiCreateEarnActionRequest, CreateEarnActionResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiCreateEarnActionRequest, CreateEarnActionResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -98,14 +98,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiCreateEarnActionRequest = {
+let body: EarnApiCreateEarnActionRequest = {
   // CreateEarnActionRequest
   createEarnActionRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.earnBeta.createEarnAction(body).then((res: FireblocksResponse<CreateEarnActionResponse>) => {
+fireblocks.earn.createEarnAction(body).then((res: FireblocksResponse<CreateEarnActionResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -149,7 +149,7 @@ No authorization required
 # **getEarnAction**
 > GetActionResponse getEarnAction()
 
-Returns one lending action by its action sequence id (tenant-scoped).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Returns one lending action by its action sequence id (tenant-scoped). 
 
 ### Example
 
@@ -157,7 +157,7 @@ Returns one lending action by its action sequence id (tenant-scoped).  **Note:**
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiGetEarnActionRequest, GetActionResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiGetEarnActionRequest, GetActionResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -166,12 +166,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiGetEarnActionRequest = {
+let body: EarnApiGetEarnActionRequest = {
   // string | Action sequence id (UUID).
   id: id_example,
 };
 
-fireblocks.earnBeta.getEarnAction(body).then((res: FireblocksResponse<GetActionResponse>) => {
+fireblocks.earn.getEarnAction(body).then((res: FireblocksResponse<GetActionResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -213,7 +213,7 @@ No authorization required
 # **getEarnActions**
 > GetActionsResponse getEarnActions()
 
-Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant. 
 
 ### Example
 
@@ -221,7 +221,7 @@ Returns a paginated list of lending actions (deposits and withdrawals) for the a
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiGetEarnActionsRequest, GetActionsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiGetEarnActionsRequest, GetActionsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -230,7 +230,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiGetEarnActionsRequest = {
+let body: EarnApiGetEarnActionsRequest = {
   // string | Cursor for the next or previous page of results. (optional)
   pageCursor: pageCursor_example,
   // number | Number of items per page (default 100, max 100). (optional)
@@ -241,7 +241,7 @@ let body: EarnBetaApiGetEarnActionsRequest = {
   order: ASC,
 };
 
-fireblocks.earnBeta.getEarnActions(body).then((res: FireblocksResponse<GetActionsResponse>) => {
+fireblocks.earn.getEarnActions(body).then((res: FireblocksResponse<GetActionsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -286,7 +286,7 @@ No authorization required
 # **getEarnOpportunities**
 > GetOpportunitiesResponse getEarnOpportunities()
 
-Get list of earn opportunities (vaults).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Get list of earn opportunities (vaults). 
 
 ### Example
 
@@ -294,7 +294,7 @@ Get list of earn opportunities (vaults).  **Note:** This endpoint is currently i
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiGetEarnOpportunitiesRequest, GetOpportunitiesResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiGetEarnOpportunitiesRequest, GetOpportunitiesResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -303,7 +303,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiGetEarnOpportunitiesRequest = {
+let body: EarnApiGetEarnOpportunitiesRequest = {
   // string | Cursor for the next or previous page of results. (optional)
   pageCursor: pageCursor_example,
   // number | Number of items per page. (optional)
@@ -314,7 +314,7 @@ let body: EarnBetaApiGetEarnOpportunitiesRequest = {
   order: ASC,
 };
 
-fireblocks.earnBeta.getEarnOpportunities(body).then((res: FireblocksResponse<GetOpportunitiesResponse>) => {
+fireblocks.earn.getEarnOpportunities(body).then((res: FireblocksResponse<GetOpportunitiesResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -359,7 +359,7 @@ No authorization required
 # **getEarnPositions**
 > GetPositionsResponse getEarnPositions()
 
-Get list of earn positions for accounts tracked for this workspace.  Optional query parameters filter by chain, provider, and pagination.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Get list of earn positions for accounts tracked for this workspace. Optional query parameters filter by chain, provider, and pagination. 
 
 ### Example
 
@@ -367,7 +367,7 @@ Get list of earn positions for accounts tracked for this workspace.  Optional qu
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiGetEarnPositionsRequest, GetPositionsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiGetEarnPositionsRequest, GetPositionsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -376,7 +376,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiGetEarnPositionsRequest = {
+let body: EarnApiGetEarnPositionsRequest = {
   // number (optional)
   chainId: 56,
   // 'MORPHO' | 'AAVE' (optional)
@@ -391,7 +391,7 @@ let body: EarnBetaApiGetEarnPositionsRequest = {
   order: ASC,
 };
 
-fireblocks.earnBeta.getEarnPositions(body).then((res: FireblocksResponse<GetPositionsResponse>) => {
+fireblocks.earn.getEarnPositions(body).then((res: FireblocksResponse<GetPositionsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -438,7 +438,7 @@ No authorization required
 # **getEarnProviders**
 > GetProvidersResponse getEarnProviders()
 
-Get list of earn providers.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Get list of earn providers. 
 
 ### Example
 
@@ -446,7 +446,7 @@ Get list of earn providers.  **Note:** This endpoint is currently in beta and mi
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, EarnBetaApiGetEarnProvidersRequest, GetProvidersResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, EarnApiGetEarnProvidersRequest, GetProvidersResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -455,7 +455,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: EarnBetaApiGetEarnProvidersRequest = {
+let body: EarnApiGetEarnProvidersRequest = {
   // string | Cursor for the next or previous page of results. (optional)
   pageCursor: pageCursor_example,
   // number | Number of items per page. (optional)
@@ -466,7 +466,7 @@ let body: EarnBetaApiGetEarnProvidersRequest = {
   order: ASC,
 };
 
-fireblocks.earnBeta.getEarnProviders(body).then((res: FireblocksResponse<GetProvidersResponse>) => {
+fireblocks.earn.getEarnProviders(body).then((res: FireblocksResponse<GetProvidersResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

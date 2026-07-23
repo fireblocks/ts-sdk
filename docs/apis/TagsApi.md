@@ -289,6 +289,8 @@ let body: TagsApiGetTagsRequest = {
   isProtected: true,
   // Array<TagType> | Filter by tag type (optional)
   type: param_value,
+  // string | Filter tags whose allow-list contains this entity type. Known values: vault_account, contact. (optional)
+  allowedEntityType: contact,
 };
 
 fireblocks.tags.getTags(body).then((res: FireblocksResponse<TagsPagedResponse>) => {
@@ -308,6 +310,7 @@ Name | Type | Description  | Notes
  **includePendingApprovalsInfo** | [**boolean**] | Whether to include pending approval requests info. | (optional) defaults to false
  **isProtected** | [**boolean**] |  | (optional) defaults to undefined
  **type** | **Array&lt;TagType&gt;** | Filter by tag type | (optional) defaults to undefined
+ **allowedEntityType** | [**string**] | Filter tags whose allow-list contains this entity type. Known values: vault_account, contact. | (optional) defaults to undefined
 
 
 ### Return type

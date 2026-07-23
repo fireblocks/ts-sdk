@@ -28,10 +28,10 @@ export interface TransactionFee {
     'feePerByte'?: string;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof TransactionFee
      */
-    'gasPrice'?: number;
+    'gasPrice'?: string;
     /**
      * 
      * @type {string}
@@ -46,16 +46,16 @@ export interface TransactionFee {
     'networkFee'?: string;
     /**
      * (optional) Base Fee according to EIP-1559 (ETH assets)
-     * @type {number}
+     * @type {string}
      * @memberof TransactionFee
      */
-    'baseFee'?: number;
+    'baseFee'?: string;
     /**
      * (optional) Priority Fee according to EIP-1559 (ETH assets)
-     * @type {number}
+     * @type {string}
      * @memberof TransactionFee
      */
-    'priorityFee'?: number;
+    'priorityFee'?: string;
     /**
      * Max Fee Per Gas Delta added only for EIP-1559 (ETH assets)
      * @type {string}

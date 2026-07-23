@@ -123,6 +123,12 @@ export interface Position2 {
      */
     'lastSyncedAt'?: string;
     /**
+     * Timestamp of the last user-triggered action on this position (ISO-8601). Empty if the user has never interacted with it.
+     * @type {string}
+     * @memberof Position2
+     */
+    'lastModifiedAt'?: string;
+    /**
      * Accrued yield in principal token units (decimal string). Only present for Morpho positions.
      * @type {string}
      * @memberof Position2

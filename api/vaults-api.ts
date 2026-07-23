@@ -29,6 +29,10 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { AddressReverseLookupResponse } from '../models';
 // @ts-ignore
+import { AutomationSettingsRequest } from '../models';
+// @ts-ignore
+import { AutomationSettingsResponse } from '../models';
+// @ts-ignore
 import { CreateAddressRequest } from '../models';
 // @ts-ignore
 import { CreateAddressResponse } from '../models';
@@ -49,6 +53,8 @@ import { CreateVaultAssetResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { GetAutomationSettingsResponse } from '../models';
+// @ts-ignore
 import { GetMaxBipIndexUsedResponse } from '../models';
 // @ts-ignore
 import { GetMaxSpendableAmountResponse } from '../models';
@@ -67,11 +73,15 @@ import { PublicKeyInformation } from '../models';
 // @ts-ignore
 import { RenameVaultAccountResponse } from '../models';
 // @ts-ignore
+import { SaveAutomationSettingsResponse } from '../models';
+// @ts-ignore
 import { SetAutoFuelRequest } from '../models';
 // @ts-ignore
 import { SetCustomerRefIdForAddressRequest } from '../models';
 // @ts-ignore
 import { SetCustomerRefIdRequest } from '../models';
+// @ts-ignore
+import { UpdateAutomationSettingsRequest } from '../models';
 // @ts-ignore
 import { UpdateVaultAccountAssetAddressRequest } from '../models';
 // @ts-ignore
@@ -520,6 +530,42 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Stop a USDC Gateway deposit automation\'s schedule
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} automationId The ID of the deposit automation, returned when it was created or read
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        disableUsdcGatewayDepositAutomationScheduleBeta: async (vaultAccountId: string, automationId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('disableUsdcGatewayDepositAutomationScheduleBeta', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('disableUsdcGatewayDepositAutomationScheduleBeta', 'automationId', automationId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId}`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"automationId"}}`, encodeURIComponent(String(automationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only vault wallets with total balance greater than this amount are returned.
@@ -687,10 +733,16 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
          * @param {boolean} [manualSignging] False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
+         * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {Array<string>} [includeAnyLabels] Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {string} [address] Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {string} [minAmount] Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {string} [maxAmount] Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getMaxSpendableAmount: async (vaultAccountId: string, assetId: string, manualSignging?: boolean, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getMaxSpendableAmount', 'vaultAccountId', vaultAccountId)
             assertParamExistsAndNotEmpty('getMaxSpendableAmount', 'assetId', assetId)
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount`
@@ -709,6 +761,30 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (manualSignging !== undefined) {
                 localVarQueryParameter['manualSignging'] = manualSignging;
+            }
+
+            if (includeAllLabels) {
+                localVarQueryParameter['includeAllLabels'] = includeAllLabels;
+            }
+
+            if (includeAnyLabels) {
+                localVarQueryParameter['includeAnyLabels'] = includeAnyLabels;
+            }
+
+            if (excludeAnyLabels) {
+                localVarQueryParameter['excludeAnyLabels'] = excludeAnyLabels;
+            }
+
+            if (address !== undefined) {
+                localVarQueryParameter['address'] = address;
+            }
+
+            if (minAmount !== undefined) {
+                localVarQueryParameter['minAmount'] = minAmount;
+            }
+
+            if (maxAmount !== undefined) {
+                localVarQueryParameter['maxAmount'] = maxAmount;
             }
 
 
@@ -915,6 +991,39 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs`
                 .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
                 .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Read the USDC Gateway deposit automations for a vault account
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsdcGatewayDepositAutomationBeta: async (vaultAccountId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getUsdcGatewayDepositAutomationBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1287,6 +1396,49 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Set up a USDC Gateway deposit automation for a vault account
+         * @param {AutomationSettingsRequest} automationSettingsRequest 
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setUsdcGatewayDepositAutomationBeta: async (automationSettingsRequest: AutomationSettingsRequest, vaultAccountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('setUsdcGatewayDepositAutomationBeta', 'automationSettingsRequest', automationSettingsRequest)
+            assertParamExistsAndNotEmpty('setUsdcGatewayDepositAutomationBeta', 'vaultAccountId', vaultAccountId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(automationSettingsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set auto fueling to on or off
          * @param {SetAutoFuelRequest} setAutoFuelRequest 
@@ -1404,6 +1556,52 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Change a USDC Gateway deposit automation
+         * @param {UpdateAutomationSettingsRequest} updateAutomationSettingsRequest 
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} automationId The ID of the deposit automation, returned when it was created or read
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUsdcGatewayDepositAutomationBeta: async (updateAutomationSettingsRequest: UpdateAutomationSettingsRequest, vaultAccountId: string, automationId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateUsdcGatewayDepositAutomationBeta', 'updateAutomationSettingsRequest', updateAutomationSettingsRequest)
+            assertParamExistsAndNotEmpty('updateUsdcGatewayDepositAutomationBeta', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('updateUsdcGatewayDepositAutomationBeta', 'automationId', automationId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId}`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"automationId"}}`, encodeURIComponent(String(automationId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateAutomationSettingsRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1702,6 +1900,20 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Stop a USDC Gateway deposit automation\'s schedule
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} automationId The ID of the deposit automation, returned when it was created or read
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId: string, automationId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.disableUsdcGatewayDepositAutomationScheduleBeta(vaultAccountId, automationId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.disableUsdcGatewayDepositAutomationScheduleBeta']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault wallets (Paginated)
          * @param {number} [totalAmountLargerThan] When specified, only vault wallets with total balance greater than this amount are returned.
@@ -1765,11 +1977,17 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {string} vaultAccountId The ID of the vault account, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
          * @param {boolean} [manualSignging] False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
+         * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {Array<string>} [includeAnyLabels] Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {string} [address] Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {string} [minAmount] Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {string} [maxAmount] Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMaxSpendableAmountResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, options);
+        async getMaxSpendableAmount(vaultAccountId: string, assetId: string, manualSignging?: boolean, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMaxSpendableAmountResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMaxSpendableAmount(vaultAccountId, assetId, manualSignging, includeAllLabels, includeAnyLabels, excludeAnyLabels, address, minAmount, maxAmount, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getMaxSpendableAmount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1841,6 +2059,19 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUnspentInputs(vaultAccountId, assetId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getUnspentInputs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Read the USDC Gateway deposit automations for a vault account
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUsdcGatewayDepositAutomationBeta(vaultAccountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetAutomationSettingsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUsdcGatewayDepositAutomationBeta(vaultAccountId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getUsdcGatewayDepositAutomationBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1972,6 +2203,21 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Set up a USDC Gateway deposit automation for a vault account
+         * @param {AutomationSettingsRequest} automationSettingsRequest 
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async setUsdcGatewayDepositAutomationBeta(automationSettingsRequest: AutomationSettingsRequest, vaultAccountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SaveAutomationSettingsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.setUsdcGatewayDepositAutomationBeta(automationSettingsRequest, vaultAccountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.setUsdcGatewayDepositAutomationBeta']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set auto fueling to on or off
          * @param {SetAutoFuelRequest} setAutoFuelRequest 
@@ -2013,6 +2259,22 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.unhideVaultAccount(vaultAccountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.unhideVaultAccount']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Change a USDC Gateway deposit automation
+         * @param {UpdateAutomationSettingsRequest} updateAutomationSettingsRequest 
+         * @param {string} vaultAccountId The ID of the vault account
+         * @param {string} automationId The ID of the deposit automation, returned when it was created or read
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest: UpdateAutomationSettingsRequest, vaultAccountId: string, automationId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AutomationSettingsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest, vaultAccountId, automationId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.updateUsdcGatewayDepositAutomationBeta']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -2173,6 +2435,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.deactivateUsdcGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Stop a USDC Gateway deposit automation\'s schedule
+         * @param {VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        disableUsdcGatewayDepositAutomationScheduleBeta(requestParameters: VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.disableUsdcGatewayDepositAutomationScheduleBeta(requestParameters.vaultAccountId, requestParameters.automationId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault wallets (Paginated)
          * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
@@ -2220,7 +2492,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          * @throws {RequiredError}
          */
         getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMaxSpendableAmountResponse> {
-            return localVarFp.getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, options).then((request) => request(axios, basePath));
+            return localVarFp.getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
@@ -2261,6 +2533,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getUnspentInputs(requestParameters: VaultsApiGetUnspentInputsRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetUnspentInputsResponse> {
             return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Read the USDC Gateway deposit automations for a vault account
+         * @param {VaultsApiGetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsdcGatewayDepositAutomationBeta(requestParameters: VaultsApiGetUsdcGatewayDepositAutomationBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetAutomationSettingsResponse> {
+            return localVarFp.getUsdcGatewayDepositAutomationBeta(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
@@ -2353,6 +2635,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForAddressRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Set up a USDC Gateway deposit automation for a vault account
+         * @param {VaultsApiSetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        setUsdcGatewayDepositAutomationBeta(requestParameters: VaultsApiSetUsdcGatewayDepositAutomationBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<SaveAutomationSettingsResponse> {
+            return localVarFp.setUsdcGatewayDepositAutomationBeta(requestParameters.automationSettingsRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Set auto fueling to on or off
          * @param {VaultsApiSetVaultAccountAutoFuelRequest} requestParameters Request parameters.
@@ -2381,6 +2673,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<VaultActionStatus> {
             return localVarFp.unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * @summary Change a USDC Gateway deposit automation
+         * @param {VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateUsdcGatewayDepositAutomationBeta(requestParameters: VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest, options?: RawAxiosRequestConfig): AxiosPromise<AutomationSettingsResponse> {
+            return localVarFp.updateUsdcGatewayDepositAutomationBeta(requestParameters.updateAutomationSettingsRequest, requestParameters.vaultAccountId, requestParameters.automationId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Renames the requested vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
@@ -2689,6 +2991,27 @@ export interface VaultsApiDeactivateUsdcGatewayWalletBetaRequest {
 }
 
 /**
+ * Request parameters for disableUsdcGatewayDepositAutomationScheduleBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest
+ */
+export interface VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiDisableUsdcGatewayDepositAutomationScheduleBeta
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The ID of the deposit automation, returned when it was created or read
+     * @type {string}
+     * @memberof VaultsApiDisableUsdcGatewayDepositAutomationScheduleBeta
+     */
+    readonly automationId: string
+}
+
+/**
  * Request parameters for getAssetWallets operation in VaultsApi.
  * @export
  * @interface VaultsApiGetAssetWalletsRequest
@@ -2812,6 +3135,48 @@ export interface VaultsApiGetMaxSpendableAmountRequest {
      * @memberof VaultsApiGetMaxSpendableAmount
      */
     readonly manualSignging?: boolean
+
+    /**
+     * Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * @type {Array<string>}
+     * @memberof VaultsApiGetMaxSpendableAmount
+     */
+    readonly includeAllLabels?: Array<string>
+
+    /**
+     * Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * @type {Array<string>}
+     * @memberof VaultsApiGetMaxSpendableAmount
+     */
+    readonly includeAnyLabels?: Array<string>
+
+    /**
+     * Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * @type {Array<string>}
+     * @memberof VaultsApiGetMaxSpendableAmount
+     */
+    readonly excludeAnyLabels?: Array<string>
+
+    /**
+     * Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * @type {string}
+     * @memberof VaultsApiGetMaxSpendableAmount
+     */
+    readonly address?: string
+
+    /**
+     * Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * @type {string}
+     * @memberof VaultsApiGetMaxSpendableAmount
+     */
+    readonly minAmount?: string
+
+    /**
+     * Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * @type {string}
+     * @memberof VaultsApiGetMaxSpendableAmount
+     */
+    readonly maxAmount?: string
 }
 
 /**
@@ -2987,6 +3352,20 @@ export interface VaultsApiGetUnspentInputsRequest {
      * @memberof VaultsApiGetUnspentInputs
      */
     readonly assetId: string
+}
+
+/**
+ * Request parameters for getUsdcGatewayDepositAutomationBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetUsdcGatewayDepositAutomationBetaRequest
+ */
+export interface VaultsApiGetUsdcGatewayDepositAutomationBetaRequest {
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiGetUsdcGatewayDepositAutomationBeta
+     */
+    readonly vaultAccountId: string
 }
 
 /**
@@ -3193,6 +3572,34 @@ export interface VaultsApiSetCustomerRefIdForAddressRequest {
 }
 
 /**
+ * Request parameters for setUsdcGatewayDepositAutomationBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiSetUsdcGatewayDepositAutomationBetaRequest
+ */
+export interface VaultsApiSetUsdcGatewayDepositAutomationBetaRequest {
+    /**
+     * 
+     * @type {AutomationSettingsRequest}
+     * @memberof VaultsApiSetUsdcGatewayDepositAutomationBeta
+     */
+    readonly automationSettingsRequest: AutomationSettingsRequest
+
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiSetUsdcGatewayDepositAutomationBeta
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiSetUsdcGatewayDepositAutomationBeta
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for setVaultAccountAutoFuel operation in VaultsApi.
  * @export
  * @interface VaultsApiSetVaultAccountAutoFuelRequest
@@ -3265,6 +3672,41 @@ export interface VaultsApiUnhideVaultAccountRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof VaultsApiUnhideVaultAccount
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for updateUsdcGatewayDepositAutomationBeta operation in VaultsApi.
+ * @export
+ * @interface VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest
+ */
+export interface VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest {
+    /**
+     * 
+     * @type {UpdateAutomationSettingsRequest}
+     * @memberof VaultsApiUpdateUsdcGatewayDepositAutomationBeta
+     */
+    readonly updateAutomationSettingsRequest: UpdateAutomationSettingsRequest
+
+    /**
+     * The ID of the vault account
+     * @type {string}
+     * @memberof VaultsApiUpdateUsdcGatewayDepositAutomationBeta
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The ID of the deposit automation, returned when it was created or read
+     * @type {string}
+     * @memberof VaultsApiUpdateUsdcGatewayDepositAutomationBeta
+     */
+    readonly automationId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiUpdateUsdcGatewayDepositAutomationBeta
      */
     readonly idempotencyKey?: string
 }
@@ -3495,6 +3937,18 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
+     * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Stop a USDC Gateway deposit automation\'s schedule
+     * @param {VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public disableUsdcGatewayDepositAutomationScheduleBeta(requestParameters: VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest) {
+        return VaultsApiFp(this.configuration).disableUsdcGatewayDepositAutomationScheduleBeta(requestParameters.vaultAccountId, requestParameters.automationId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get all vault wallets of the vault accounts in your workspace.  A vault wallet is an asset in a vault account.   This method allows fast traversal of all account balances. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get vault wallets (Paginated)
      * @param {VaultsApiGetAssetWalletsRequest} requestParameters Request parameters.
@@ -3551,7 +4005,7 @@ export class VaultsApi extends BaseAPI {
      * @memberof VaultsApi
      */
     public getMaxSpendableAmount(requestParameters: VaultsApiGetMaxSpendableAmountRequest) {
-        return VaultsApiFp(this.configuration).getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return VaultsApiFp(this.configuration).getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3600,6 +4054,18 @@ export class VaultsApi extends BaseAPI {
      */
     public getUnspentInputs(requestParameters: VaultsApiGetUnspentInputsRequest) {
         return VaultsApiFp(this.configuration).getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Read the USDC Gateway deposit automations for a vault account
+     * @param {VaultsApiGetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getUsdcGatewayDepositAutomationBeta(requestParameters: VaultsApiGetUsdcGatewayDepositAutomationBetaRequest) {
+        return VaultsApiFp(this.configuration).getUsdcGatewayDepositAutomationBeta(requestParameters.vaultAccountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3711,6 +4177,18 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
+     * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Set up a USDC Gateway deposit automation for a vault account
+     * @param {VaultsApiSetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public setUsdcGatewayDepositAutomationBeta(requestParameters: VaultsApiSetUsdcGatewayDepositAutomationBetaRequest) {
+        return VaultsApiFp(this.configuration).setUsdcGatewayDepositAutomationBeta(requestParameters.automationSettingsRequest, requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Toggles the auto fueling property of the vault account to enabled or disabled. Vault Accounts with \'autoFuel=true\' are monitored and auto fueled by the Fireblocks Gas Station. Learn more about the Fireblocks Gas Station in the following [guide](https://developers.fireblocks.com/docs/work-with-gas-station). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Set auto fueling to on or off
      * @param {VaultsApiSetVaultAccountAutoFuelRequest} requestParameters Request parameters.
@@ -3744,6 +4222,18 @@ export class VaultsApi extends BaseAPI {
      */
     public unhideVaultAccount(requestParameters: VaultsApiUnhideVaultAccountRequest) {
         return VaultsApiFp(this.configuration).unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * @summary Change a USDC Gateway deposit automation
+     * @param {VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public updateUsdcGatewayDepositAutomationBeta(requestParameters: VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest) {
+        return VaultsApiFp(this.configuration).updateUsdcGatewayDepositAutomationBeta(requestParameters.updateAutomationSettingsRequest, requestParameters.vaultAccountId, requestParameters.automationId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

@@ -53,6 +53,12 @@ export interface CreateTagRequest {
      * @memberof CreateTagRequest
      */
     'type'?: TagType;
+    /**
+     * Allow-list of entity types this tag may be attached to. Soft-defaults to [\'vault_account\'] when omitted, and is immutable after creation. Known values: vault_account (default), contact.
+     * @type {Array<string>}
+     * @memberof CreateTagRequest
+     */
+    'allowedEntityTypes'?: Array<string>;
 }
 
 

@@ -97,7 +97,8 @@ export const MomoPaymentInfoProviderEnum = {
     Airtel: 'AIRTEL',
     Mtn: 'MTN',
     Tigo: 'TIGO',
-    Wave: 'WAVE'
+    Wave: 'WAVE',
+    Orange: 'ORANGE'
 } as const;
 
 export type MomoPaymentInfoProviderEnum = typeof MomoPaymentInfoProviderEnum[keyof typeof MomoPaymentInfoProviderEnum];

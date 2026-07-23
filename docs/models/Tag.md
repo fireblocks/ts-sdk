@@ -11,6 +11,7 @@
 |**description** | **string** | Description for the tag | [optional] [default to undefined]|
 |**color** | **string** | The tag color in hex format | [optional] [default to undefined]|
 |**type** | [**TagType**](TagType.md) |  | [optional] [default to undefined]|
+|**allowedEntityTypes** | **Array&lt;string&gt;** | The entity types this tag may be attached to. Tags created before this field was introduced read back as [\&#39;vault_account\&#39;]. Known values: vault_account (default), contact. | [optional] [default to undefined]|
 |**pendingApprovalRequest** | [**ApprovalRequest**](ApprovalRequest.md) |  | [optional] [default to undefined]|
 
 

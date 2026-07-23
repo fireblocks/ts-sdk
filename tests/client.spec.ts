@@ -13,6 +13,7 @@
 import { Fireblocks  } from '../client/client';
 import { ApiUserApi, 
 AuditLogsApi, 
+BlockchainLinkBetaApi, 
 BlockchainsAssetsApi, 
 ComplianceApi, 
 ComplianceScreeningConfigurationApi, 
@@ -23,7 +24,7 @@ ContractTemplatesApi,
 ContractsApi, 
 CosignersBetaApi, 
 DeployedContractsApi, 
-EarnBetaApi, 
+EarnApi, 
 EmbeddedWalletsApi, 
 ExchangeAccountsApi, 
 ExternalWalletsApi, 
@@ -41,6 +42,7 @@ OnchainDataApi,
 PaymentsPayoutApi, 
 PolicyEditorBetaApi, 
 PolicyEditorV2Api, 
+PolicyEditorV2BetaApi, 
 ReportsBetaApi, 
 ResetDeviceApi, 
 SmartTransferApi, 
@@ -68,6 +70,7 @@ import { Configuration } from "../configuration";
 
 let mockApiUserApi: jest.Mock;
 let mockAuditLogsApi: jest.Mock;
+let mockBlockchainLinkBetaApi: jest.Mock;
 let mockBlockchainsAssetsApi: jest.Mock;
 let mockComplianceApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
@@ -78,7 +81,7 @@ let mockContractTemplatesApi: jest.Mock;
 let mockContractsApi: jest.Mock;
 let mockCosignersBetaApi: jest.Mock;
 let mockDeployedContractsApi: jest.Mock;
-let mockEarnBetaApi: jest.Mock;
+let mockEarnApi: jest.Mock;
 let mockEmbeddedWalletsApi: jest.Mock;
 let mockExchangeAccountsApi: jest.Mock;
 let mockExternalWalletsApi: jest.Mock;
@@ -96,6 +99,7 @@ let mockOnchainDataApi: jest.Mock;
 let mockPaymentsPayoutApi: jest.Mock;
 let mockPolicyEditorBetaApi: jest.Mock;
 let mockPolicyEditorV2Api: jest.Mock;
+let mockPolicyEditorV2BetaApi: jest.Mock;
 let mockReportsBetaApi: jest.Mock;
 let mockResetDeviceApi: jest.Mock;
 let mockSmartTransferApi: jest.Mock;
@@ -120,6 +124,7 @@ let mockWorkspaceStatusBetaApi: jest.Mock;
 jest.mock('../api', () => {
     mockApiUserApi = jest.fn();
     mockAuditLogsApi = jest.fn();
+    mockBlockchainLinkBetaApi = jest.fn();
     mockBlockchainsAssetsApi = jest.fn();
     mockComplianceApi = jest.fn();
     mockComplianceScreeningConfigurationApi = jest.fn();
@@ -130,7 +135,7 @@ jest.mock('../api', () => {
     mockContractsApi = jest.fn();
     mockCosignersBetaApi = jest.fn();
     mockDeployedContractsApi = jest.fn();
-    mockEarnBetaApi = jest.fn();
+    mockEarnApi = jest.fn();
     mockEmbeddedWalletsApi = jest.fn();
     mockExchangeAccountsApi = jest.fn();
     mockExternalWalletsApi = jest.fn();
@@ -148,6 +153,7 @@ jest.mock('../api', () => {
     mockPaymentsPayoutApi = jest.fn();
     mockPolicyEditorBetaApi = jest.fn();
     mockPolicyEditorV2Api = jest.fn();
+    mockPolicyEditorV2BetaApi = jest.fn();
     mockReportsBetaApi = jest.fn();
     mockResetDeviceApi = jest.fn();
     mockSmartTransferApi = jest.fn();
@@ -173,6 +179,7 @@ jest.mock('../api', () => {
         ...actual,
         ApiUserApi: mockApiUserApi,
         AuditLogsApi: mockAuditLogsApi,
+        BlockchainLinkBetaApi: mockBlockchainLinkBetaApi,
         BlockchainsAssetsApi: mockBlockchainsAssetsApi,
         ComplianceApi: mockComplianceApi,
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
@@ -183,7 +190,7 @@ jest.mock('../api', () => {
         ContractsApi: mockContractsApi,
         CosignersBetaApi: mockCosignersBetaApi,
         DeployedContractsApi: mockDeployedContractsApi,
-        EarnBetaApi: mockEarnBetaApi,
+        EarnApi: mockEarnApi,
         EmbeddedWalletsApi: mockEmbeddedWalletsApi,
         ExchangeAccountsApi: mockExchangeAccountsApi,
         ExternalWalletsApi: mockExternalWalletsApi,
@@ -201,6 +208,7 @@ jest.mock('../api', () => {
         PaymentsPayoutApi: mockPaymentsPayoutApi,
         PolicyEditorBetaApi: mockPolicyEditorBetaApi,
         PolicyEditorV2Api: mockPolicyEditorV2Api,
+        PolicyEditorV2BetaApi: mockPolicyEditorV2BetaApi,
         ReportsBetaApi: mockReportsBetaApi,
         ResetDeviceApi: mockResetDeviceApi,
         SmartTransferApi: mockSmartTransferApi,
@@ -308,6 +316,10 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.auditLogs).toBeInstanceOf(AuditLogsApi);
             expect(mockAuditLogsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
+        it('Should return BlockchainLinkBetaApi', async () => {
+            expect(fireblocks.blockchainLinkBeta).toBeInstanceOf(BlockchainLinkBetaApi);
+            expect(mockBlockchainLinkBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
         it('Should return BlockchainsAssetsApi', async () => {
             expect(fireblocks.blockchainsAssets).toBeInstanceOf(BlockchainsAssetsApi);
             expect(mockBlockchainsAssetsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
@@ -348,9 +360,9 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.deployedContracts).toBeInstanceOf(DeployedContractsApi);
             expect(mockDeployedContractsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return EarnBetaApi', async () => {
-            expect(fireblocks.earnBeta).toBeInstanceOf(EarnBetaApi);
-            expect(mockEarnBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return EarnApi', async () => {
+            expect(fireblocks.earn).toBeInstanceOf(EarnApi);
+            expect(mockEarnApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return EmbeddedWalletsApi', async () => {
             expect(fireblocks.embeddedWallets).toBeInstanceOf(EmbeddedWalletsApi);
@@ -419,6 +431,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return PolicyEditorV2Api', async () => {
             expect(fireblocks.policyEditorV2).toBeInstanceOf(PolicyEditorV2Api);
             expect(mockPolicyEditorV2Api).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return PolicyEditorV2BetaApi', async () => {
+            expect(fireblocks.policyEditorV2Beta).toBeInstanceOf(PolicyEditorV2BetaApi);
+            expect(mockPolicyEditorV2BetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ReportsBetaApi', async () => {
             expect(fireblocks.reportsBeta).toBeInstanceOf(ReportsBetaApi);

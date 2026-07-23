@@ -51,6 +51,8 @@ import { ConnectedSingleAccountResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { GetConnectedAccountsCredentialsPublicKeyResponse } from '../models';
+// @ts-ignore
 import { RenameConnectedAccountRequest } from '../models';
 // @ts-ignore
 import { RenameConnectedAccountResponse } from '../models';
@@ -61,7 +63,7 @@ import { RenameConnectedAccountResponse } from '../models';
 export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Add a connected account
          * @param {AddConnectedAccountRequest} addConnectedAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -176,12 +178,11 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
          * @param {string} [address] Filter by specific address
          * @param {string} [pageCursor] Pagination cursor for next page
          * @param {number} [pageSize] Maximum number of entries to return
-         * @param {GetConnectedAccountAllowlistSortByEnum} [sortBy] Field to sort results by.
          * @param {GetConnectedAccountAllowlistOrderEnum} [order] Sort order (ASC or DESC).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountAllowlist: async (accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, sortBy?: GetConnectedAccountAllowlistSortByEnum, order?: GetConnectedAccountAllowlistOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getConnectedAccountAllowlist: async (accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, order?: GetConnectedAccountAllowlistOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getConnectedAccountAllowlist', 'accountId', accountId)
             const localVarPath = `/connected_accounts/{accountId}/allowlist`
                 .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
@@ -218,10 +219,6 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
 
             if (pageSize !== undefined) {
                 localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-            if (sortBy !== undefined) {
-                localVarQueryParameter['sortBy'] = sortBy;
             }
 
             if (order !== undefined) {
@@ -452,6 +449,36 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
+         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Get public key to encrypt connected account credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectedAccountsCredentialsPublicKey: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/connected_accounts/credentials/public_key`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Rename Connected Account
          * @param {RenameConnectedAccountRequest} renameConnectedAccountRequest 
@@ -543,7 +570,7 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
     const localVarAxiosParamCreator = ConnectedAccountsBetaApiAxiosParamCreator(configuration)
     return {
         /**
-         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Add a connected account
          * @param {AddConnectedAccountRequest} addConnectedAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -592,13 +619,12 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
          * @param {string} [address] Filter by specific address
          * @param {string} [pageCursor] Pagination cursor for next page
          * @param {number} [pageSize] Maximum number of entries to return
-         * @param {GetConnectedAccountAllowlistSortByEnum} [sortBy] Field to sort results by.
          * @param {GetConnectedAccountAllowlistOrderEnum} [order] Sort order (ASC or DESC).
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getConnectedAccountAllowlist(accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, sortBy?: GetConnectedAccountAllowlistSortByEnum, order?: GetConnectedAccountAllowlistOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, sortBy, order, options);
+        async getConnectedAccountAllowlist(accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, order?: GetConnectedAccountAllowlistOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, order, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountAllowlist']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -678,6 +704,18 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Get public key to encrypt connected account credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getConnectedAccountsCredentialsPublicKey(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectedAccountsCredentialsPublicKeyResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountsCredentialsPublicKey(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountsCredentialsPublicKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Rename Connected Account
          * @param {RenameConnectedAccountRequest} renameConnectedAccountRequest 
@@ -717,7 +755,7 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
     const localVarFp = ConnectedAccountsBetaApiFp(configuration)
     return {
         /**
-         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
          * @summary Add a connected account
          * @param {ConnectedAccountsBetaApiAddConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -754,7 +792,7 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
          * @throws {RequiredError}
          */
         getConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistResponse> {
-            return localVarFp.getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+            return localVarFp.getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
@@ -805,6 +843,15 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
          */
         getConnectedAccounts(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountsResponse> {
             return localVarFp.getConnectedAccounts(requestParameters.mainAccounts, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Get public key to encrypt connected account credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getConnectedAccountsCredentialsPublicKey(options?: RawAxiosRequestConfig): AxiosPromise<GetConnectedAccountsCredentialsPublicKeyResponse> {
+            return localVarFp.getConnectedAccountsCredentialsPublicKey(options).then((request) => request(axios, basePath));
         },
         /**
          * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
@@ -932,13 +979,6 @@ export interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest {
      * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
      */
     readonly pageSize?: number
-
-    /**
-     * Field to sort results by.
-     * @type {'addedAt' | 'lastSyncedAt'}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
-     */
-    readonly sortBy?: GetConnectedAccountAllowlistSortByEnum
 
     /**
      * Sort order (ASC or DESC).
@@ -1138,7 +1178,7 @@ export interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest {
  */
 export class ConnectedAccountsBetaApi extends BaseAPI {
     /**
-     * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /exchange_accounts/credentials_public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
      * @summary Add a connected account
      * @param {ConnectedAccountsBetaApiAddConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1182,7 +1222,7 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
      * @memberof ConnectedAccountsBetaApi
      */
     public getConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1246,6 +1286,17 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
     }
 
     /**
+     * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * @summary Get public key to encrypt connected account credentials
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConnectedAccountsBetaApi
+     */
+    public getConnectedAccountsCredentialsPublicKey() {
+        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountsCredentialsPublicKey().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
      * @summary Rename Connected Account
      * @param {ConnectedAccountsBetaApiRenameConnectedAccountRequest} requestParameters Request parameters.
@@ -1270,14 +1321,6 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
     }
 }
 
-/**
- * @export
- */
-export const GetConnectedAccountAllowlistSortByEnum = {
-    AddedAt: 'addedAt',
-    LastSyncedAt: 'lastSyncedAt'
-} as const;
-export type GetConnectedAccountAllowlistSortByEnum = typeof GetConnectedAccountAllowlistSortByEnum[keyof typeof GetConnectedAccountAllowlistSortByEnum];
 /**
  * @export
  */

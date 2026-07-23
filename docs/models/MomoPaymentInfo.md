@@ -43,6 +43,8 @@
 
 * `Wave` (value: `'WAVE'`)
 
+* `Orange` (value: `'ORANGE'`)
+
 
 
 

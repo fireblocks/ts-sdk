@@ -27,7 +27,7 @@ export interface AddConnectedAccountRequest {
      */
     'providerId': string;
     /**
-     * Base64-encoded RSA-encrypted credential blob. Encrypt using the public key from GET /exchange_accounts/credentials_public_key.
+     * Base64-encoded RSA-encrypted credential blob. Encrypt using the public key from GET /connected_accounts/credentials/public_key.
      * @type {string}
      * @memberof AddConnectedAccountRequest
      */
