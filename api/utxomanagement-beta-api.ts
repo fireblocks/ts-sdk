@@ -54,12 +54,14 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
          * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels.
          * @param {Array<string>} [includeStatuses] Filter by UTXO statuses to include.
          * @param {string} [address] Filter by address
+         * @param {string} [txHash] Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction.
+         * @param {string} [txId] Filter by the Fireblocks transaction ID that created the UTXOs.
          * @param {string} [minAmount] Minimum amount filter
          * @param {string} [maxAmount] Maximum amount filter
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUtxos: async (vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getUtxos: async (vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, txHash?: string, txId?: string, minAmount?: string, maxAmount?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             assertParamExistsAndNotEmpty('getUtxos', 'vaultAccountId', vaultAccountId)
             assertParamExistsAndNotEmpty('getUtxos', 'assetId', assetId)
             const localVarPath = `/utxo_management/{vaultAccountId}/{assetId}/unspent_outputs`
@@ -110,6 +112,14 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
 
             if (address !== undefined) {
                 localVarQueryParameter['address'] = address;
+            }
+
+            if (txHash !== undefined) {
+                localVarQueryParameter['txHash'] = txHash;
+            }
+
+            if (txId !== undefined) {
+                localVarQueryParameter['txId'] = txId;
             }
 
             if (minAmount !== undefined) {
@@ -201,13 +211,15 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
          * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels.
          * @param {Array<string>} [includeStatuses] Filter by UTXO statuses to include.
          * @param {string} [address] Filter by address
+         * @param {string} [txHash] Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction.
+         * @param {string} [txId] Filter by the Fireblocks transaction ID that created the UTXOs.
          * @param {string} [minAmount] Minimum amount filter
          * @param {string} [maxAmount] Maximum amount filter
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUtxos(vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, minAmount?: string, maxAmount?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListUtxosResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, minAmount, maxAmount, options);
+        async getUtxos(vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, txHash?: string, txId?: string, minAmount?: string, maxAmount?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListUtxosResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount, maxAmount, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['UTXOManagementBetaApi.getUtxos']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -246,7 +258,7 @@ export const UTXOManagementBetaApiFactory = function (configuration?: Configurat
          * @throws {RequiredError}
          */
         getUtxos(requestParameters: UTXOManagementBetaApiGetUtxosRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListUtxosResponse> {
-            return localVarFp.getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, options).then((request) => request(axios, basePath));
+            return localVarFp.getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.txHash, requestParameters.txId, requestParameters.minAmount, requestParameters.maxAmount, options).then((request) => request(axios, basePath));
         },
         /**
          * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs. Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
@@ -345,6 +357,20 @@ export interface UTXOManagementBetaApiGetUtxosRequest {
     readonly address?: string
 
     /**
+     * Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction.
+     * @type {string}
+     * @memberof UTXOManagementBetaApiGetUtxos
+     */
+    readonly txHash?: string
+
+    /**
+     * Filter by the Fireblocks transaction ID that created the UTXOs.
+     * @type {string}
+     * @memberof UTXOManagementBetaApiGetUtxos
+     */
+    readonly txId?: string
+
+    /**
      * Minimum amount filter
      * @type {string}
      * @memberof UTXOManagementBetaApiGetUtxos
@@ -410,7 +436,7 @@ export class UTXOManagementBetaApi extends BaseAPI {
      * @memberof UTXOManagementBetaApi
      */
     public getUtxos(requestParameters: UTXOManagementBetaApiGetUtxosRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return UTXOManagementBetaApiFp(this.configuration).getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.txHash, requestParameters.txId, requestParameters.minAmount, requestParameters.maxAmount).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

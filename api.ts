@@ -16,6 +16,7 @@
 
 export * from './api/api-user-api';
 export * from './api/audit-logs-api';
+export * from './api/blockchain-link-beta-api';
 export * from './api/blockchains-assets-api';
 export * from './api/compliance-api';
 export * from './api/compliance-screening-configuration-api';
@@ -26,7 +27,7 @@ export * from './api/contract-templates-api';
 export * from './api/contracts-api';
 export * from './api/cosigners-beta-api';
 export * from './api/deployed-contracts-api';
-export * from './api/earn-beta-api';
+export * from './api/earn-api';
 export * from './api/embedded-wallets-api';
 export * from './api/exchange-accounts-api';
 export * from './api/external-wallets-api';
@@ -44,6 +45,7 @@ export * from './api/onchain-data-api';
 export * from './api/payments-payout-api';
 export * from './api/policy-editor-beta-api';
 export * from './api/policy-editor-v2-api';
+export * from './api/policy-editor-v2-beta-api';
 export * from './api/reports-beta-api';
 export * from './api/reset-device-api';
 export * from './api/smart-transfer-api';

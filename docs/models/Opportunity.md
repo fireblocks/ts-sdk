@@ -14,12 +14,16 @@
 |**principalAsset** | [**EarnAsset**](EarnAsset.md) | Underlying token the user deposits (principal). | [optional] [default to undefined]|
 |**positionAsset** | [**EarnAsset**](EarnAsset.md) | Token representing the user’s position in the protocol (e.g. vault share). | [optional] [default to undefined]|
 |**totalAssets** | **string** | Human-readable total value locked / assets in the opportunity. | [optional] [default to undefined]|
+|**totalAssetsUsd** | **string** | USD-denominated total assets / TVL. | [optional] [default to undefined]|
 |**liquidity** | **string** | Human-readable available liquidity. | [optional] [default to undefined]|
+|**liquidityUsd** | **string** | USD-denominated available liquidity. | [optional] [default to undefined]|
 |**apy** | [**Apy**](Apy.md) | APY breakdown; values are percentages (e.g. 4.25 means 4.25%). | [optional] [default to undefined]|
 |**performanceFee** | **string** | Performance fee as a human-readable decimal string. | [optional] [default to undefined]|
 |**managementFee** | **string** | Management fee as a human-readable decimal string. | [optional] [default to undefined]|
 |**exposureType** | **string** | What the &#x60;exposure&#x60; rows represent; &#x60;UNSPECIFIED&#x60; when there is no exposure. | [optional] [default to undefined]|
 |**exposure** | [**Array&lt;Exposure&gt;**](Exposure.md) | Per-asset exposure breakdown (vault allocation slices, top 20 by USD notional). Empty when not applicable. | [optional] [default to undefined]|
+|**curator** | [**EarnCurator**](EarnCurator.md) | Curator information for Morpho vaults. | [optional] [default to undefined]|
+|**metadata** | [**EarnMetadata**](EarnMetadata.md) | Protocol-level metadata (display name and logo). | [optional] [default to undefined]|
 
 
 ## Enum: OpportunityProviderIdEnum

@@ -14,6 +14,7 @@ import type { ConfigurationOptions  } from './clientConfiguration';
 import { Configuration } from '../configuration';
 import { ApiUserApi, 
          AuditLogsApi, 
+         BlockchainLinkBetaApi, 
          BlockchainsAssetsApi, 
          ComplianceApi, 
          ComplianceScreeningConfigurationApi, 
@@ -24,7 +25,7 @@ import { ApiUserApi,
          ContractsApi, 
          CosignersBetaApi, 
          DeployedContractsApi, 
-         EarnBetaApi, 
+         EarnApi, 
          EmbeddedWalletsApi, 
          ExchangeAccountsApi, 
          ExternalWalletsApi, 
@@ -42,6 +43,7 @@ import { ApiUserApi,
          PaymentsPayoutApi, 
          PolicyEditorBetaApi, 
          PolicyEditorV2Api, 
+         PolicyEditorV2BetaApi, 
          ReportsBetaApi, 
          ResetDeviceApi, 
          SmartTransferApi, 
@@ -71,6 +73,7 @@ export class Fireblocks {
     private readonly axiosManager: AxiosManager
     private _apiUser?: ApiUserApi;
     private _auditLogs?: AuditLogsApi;
+    private _blockchainLinkBeta?: BlockchainLinkBetaApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
     private _compliance?: ComplianceApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
@@ -81,7 +84,7 @@ export class Fireblocks {
     private _contracts?: ContractsApi;
     private _cosignersBeta?: CosignersBetaApi;
     private _deployedContracts?: DeployedContractsApi;
-    private _earnBeta?: EarnBetaApi;
+    private _earn?: EarnApi;
     private _embeddedWallets?: EmbeddedWalletsApi;
     private _exchangeAccounts?: ExchangeAccountsApi;
     private _externalWallets?: ExternalWalletsApi;
@@ -99,6 +102,7 @@ export class Fireblocks {
     private _paymentsPayout?: PaymentsPayoutApi;
     private _policyEditorBeta?: PolicyEditorBetaApi;
     private _policyEditorV2?: PolicyEditorV2Api;
+    private _policyEditorV2Beta?: PolicyEditorV2BetaApi;
     private _reportsBeta?: ReportsBetaApi;
     private _resetDevice?: ResetDeviceApi;
     private _smartTransfer?: SmartTransferApi;
@@ -146,6 +150,9 @@ export class Fireblocks {
     get auditLogs(): AuditLogsApi {
         return this._auditLogs ?? new AuditLogsApi(this.config, undefined, this.axiosManager.axios);
     }
+    get blockchainLinkBeta(): BlockchainLinkBetaApi {
+        return this._blockchainLinkBeta ?? new BlockchainLinkBetaApi(this.config, undefined, this.axiosManager.axios);
+    }
     get blockchainsAssets(): BlockchainsAssetsApi {
         return this._blockchainsAssets ?? new BlockchainsAssetsApi(this.config, undefined, this.axiosManager.axios);
     }
@@ -176,8 +183,8 @@ export class Fireblocks {
     get deployedContracts(): DeployedContractsApi {
         return this._deployedContracts ?? new DeployedContractsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get earnBeta(): EarnBetaApi {
-        return this._earnBeta ?? new EarnBetaApi(this.config, undefined, this.axiosManager.axios);
+    get earn(): EarnApi {
+        return this._earn ?? new EarnApi(this.config, undefined, this.axiosManager.axios);
     }
     get embeddedWallets(): EmbeddedWalletsApi {
         return this._embeddedWallets ?? new EmbeddedWalletsApi(this.config, undefined, this.axiosManager.axios);
@@ -229,6 +236,9 @@ export class Fireblocks {
     }
     get policyEditorV2(): PolicyEditorV2Api {
         return this._policyEditorV2 ?? new PolicyEditorV2Api(this.config, undefined, this.axiosManager.axios);
+    }
+    get policyEditorV2Beta(): PolicyEditorV2BetaApi {
+        return this._policyEditorV2Beta ?? new PolicyEditorV2BetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get reportsBeta(): ReportsBetaApi {
         return this._reportsBeta ?? new ReportsBetaApi(this.config, undefined, this.axiosManager.axios);

@@ -15,7 +15,7 @@
 
 
 /**
- * The final verdict of the screening (unified for AML, Travel Rule, and TRLink). Different providers may return different verdict values: - AML: PASS, FAIL, ALERT - Travel Rule: PASS, FAIL, TRAVEL_RULE_REQUIRED - TRLink: PASS, REJECT, WARN 
+ * The final verdict of the screening (unified for AML, Travel Rule, and TRLink). Different providers may return different verdict values: - AML: ACCEPT, REJECT, ALERT - Travel Rule: PASS, FAIL, TRAVEL_RULE_REQUIRED - TRLink: PASS, REJECT, WARN 
  * @export
  * @enum {string}
  */
@@ -28,7 +28,8 @@ export const ScreeningVerdictEnum = {
     Warn: 'WARN',
     TravelRuleRequired: 'TRAVEL_RULE_REQUIRED',
     Accept: 'ACCEPT',
-    Review: 'REVIEW'
+    Review: 'REVIEW',
+    Wait: 'WAIT'
 } as const;
 
 export type ScreeningVerdictEnum = typeof ScreeningVerdictEnum[keyof typeof ScreeningVerdictEnum];

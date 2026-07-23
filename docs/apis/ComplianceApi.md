@@ -34,6 +34,7 @@ Method | HTTP request | Description
 [**registerLegalEntity**](#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity
 [**removeAddressRegistryVaultOptOut**](#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
 [**removeAllAddressRegistryVaultOptOuts**](#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
+[**rescreenRejectedTransaction**](#rescreenRejectedTransaction) | **POST** /screening/transaction/{txId}/rescreen | Rescreen a rejected transaction
 [**retryRejectedTransactionBypassScreeningChecks**](#retryRejectedTransactionBypassScreeningChecks) | **POST** /screening/transaction/{txId}/bypass_screening_policy | Bypass Screening Policy
 [**setAmlVerdict**](#setAmlVerdict) | **POST** /screening/aml/verdict/manual | Set AML Verdict (BYORK Super Light)
 [**setByorkTimeouts**](#setByorkTimeouts) | **PUT** /screening/byork/config/timeouts | Set BYORK Light timeouts
@@ -1850,6 +1851,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | All opt-outs cleared; response body includes &#x60;removedCount&#x60;. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **rescreenRejectedTransaction**
+> RescreenTransactionResponse rescreenRejectedTransaction()
+
+Re-runs compliance screening on an incoming transaction that was rejected or failed by screening checks, moving it back to pending screening. This endpoint is only applicable to incoming transactions with a rejected/failed AML screening status.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiRescreenRejectedTransactionRequest, RescreenTransactionResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiRescreenRejectedTransactionRequest = {
+  // string | The transaction id that was rejected by screening checks
+  txId: 550e8400-e29b-41d4-a716-446655440000,
+  // RescreenTransactionRequest (optional)
+  rescreenTransactionRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.rescreenRejectedTransaction(body).then((res: FireblocksResponse<RescreenTransactionResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **rescreenTransactionRequest** | **[RescreenTransactionRequest](../models/RescreenTransactionRequest.md)**|  |
+ **txId** | [**string**] | The transaction id that was rejected by screening checks | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RescreenTransactionResponse](../models/RescreenTransactionResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Rescreen result |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

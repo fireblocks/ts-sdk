@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
 [**deactivateUsdcGatewayWalletBeta**](#deactivateUsdcGatewayWalletBeta) | **POST** /vault/accounts/{vaultAccountId}/usdc_gateway/deactivate | Deactivate a USDC Gateway wallet
+[**disableUsdcGatewayDepositAutomationScheduleBeta**](#disableUsdcGatewayDepositAutomationScheduleBeta) | **DELETE** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId} | Stop a USDC Gateway deposit automation\&#39;s schedule
 [**getAssetWallets**](#getAssetWallets) | **GET** /vault/asset_wallets | Get vault wallets (Paginated)
 [**getCreateMultipleDepositAddressesJobStatus**](#getCreateMultipleDepositAddressesJobStatus) | **GET** /vault/accounts/addresses/bulk/{jobId} | Get the job status of the bulk deposit address creation
 [**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
@@ -23,6 +24,7 @@ Method | HTTP request | Description
 [**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
 [**getPublicKeyInfoForAddress**](#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset\&#39;s public key
 [**getUnspentInputs**](#getUnspentInputs) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/unspent_inputs | Get UTXO unspent inputs information
+[**getUsdcGatewayDepositAutomationBeta**](#getUsdcGatewayDepositAutomationBeta) | **GET** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Read the USDC Gateway deposit automations for a vault account
 [**getUsdcGatewayWalletInfoBeta**](#getUsdcGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/usdc_gateway | Get USDC Gateway wallet info
 [**getVaultAccount**](#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID
 [**getVaultAccountAsset**](#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
@@ -32,9 +34,11 @@ Method | HTTP request | Description
 [**hideVaultAccount**](#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 [**lookupVaultByAddress**](#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address
 [**setCustomerRefIdForAddress**](#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
+[**setUsdcGatewayDepositAutomationBeta**](#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account
 [**setVaultAccountAutoFuel**](#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
 [**setVaultAccountCustomerRefId**](#setVaultAccountCustomerRefId) | **POST** /vault/accounts/{vaultAccountId}/set_customer_ref_id | Set an AML/KYT ID for a vault account
 [**unhideVaultAccount**](#unhideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/unhide | Unhide a vault account in the console
+[**updateUsdcGatewayDepositAutomationBeta**](#updateUsdcGatewayDepositAutomationBeta) | **PATCH** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation/{automationId} | Change a USDC Gateway deposit automation
 [**updateVaultAccount**](#updateVaultAccount) | **PUT** /vault/accounts/{vaultAccountId} | Rename a vault account
 [**updateVaultAccountAssetAddress**](#updateVaultAccountAssetAddress) | **PUT** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId} | Update address description
 [**updateVaultAccountAssetBalance**](#updateVaultAccountAssetBalance) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/balance | Refresh asset balance data
@@ -698,6 +702,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **disableUsdcGatewayDepositAutomationScheduleBeta**
+> disableUsdcGatewayDepositAutomationScheduleBeta()
+
+Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest = {
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | The ID of the deposit automation, returned when it was created or read
+  automationId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+};
+
+fireblocks.vaults.disableUsdcGatewayDepositAutomationScheduleBeta(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+ **automationId** | [**string**] | The ID of the deposit automation, returned when it was created or read | defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Deposit automation schedule disabled |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getAssetWallets**
 > PaginatedAssetWalletResponse getAssetWallets()
 
@@ -982,6 +1049,18 @@ let body: VaultsApiGetMaxSpendableAmountRequest = {
   assetId: assetId_example,
   // boolean | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. (optional)
   manualSignging: true,
+  // Array<string> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  includeAllLabels: param_value,
+  // Array<string> | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  includeAnyLabels: param_value,
+  // Array<string> | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  excludeAnyLabels: param_value,
+  // string | Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  address: address_example,
+  // string | Minimum UTXO amount in the asset\'s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  minAmount: minAmount_example,
+  // string | Maximum UTXO amount in the asset\'s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  maxAmount: maxAmount_example,
 };
 
 fireblocks.vaults.getMaxSpendableAmount(body).then((res: FireblocksResponse<GetMaxSpendableAmountResponse>) => {
@@ -997,6 +1076,12 @@ Name | Type | Description  | Notes
  **vaultAccountId** | [**string**] | The ID of the vault account, or \&#39;default\&#39; for the default vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **manualSignging** | [**boolean**] | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. | (optional) defaults to undefined
+ **includeAllLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
+ **includeAnyLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
+ **excludeAnyLabels** | **Array&lt;string&gt;** | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
+ **address** | [**string**] | Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
+ **minAmount** | [**string**] | Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
+ **maxAmount** | [**string**] | Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
 
 
 ### Return type
@@ -1307,6 +1392,66 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | List of Unspent information per input |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getUsdcGatewayDepositAutomationBeta**
+> GetAutomationSettingsResponse getUsdcGatewayDepositAutomationBeta()
+
+Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetUsdcGatewayDepositAutomationBetaRequest, GetAutomationSettingsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetUsdcGatewayDepositAutomationBetaRequest = {
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+};
+
+fireblocks.vaults.getUsdcGatewayDepositAutomationBeta(body).then((res: FireblocksResponse<GetAutomationSettingsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+
+
+### Return type
+
+**[GetAutomationSettingsResponse](../models/GetAutomationSettingsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | USDC Gateway deposit automations |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1887,6 +2032,72 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **setUsdcGatewayDepositAutomationBeta**
+> SaveAutomationSettingsResponse setUsdcGatewayDepositAutomationBeta(automationSettingsRequest, )
+
+Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiSetUsdcGatewayDepositAutomationBetaRequest, SaveAutomationSettingsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiSetUsdcGatewayDepositAutomationBetaRequest = {
+  // AutomationSettingsRequest
+  automationSettingsRequest: param_value,
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.setUsdcGatewayDepositAutomationBeta(body).then((res: FireblocksResponse<SaveAutomationSettingsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **automationSettingsRequest** | **[AutomationSettingsRequest](../models/AutomationSettingsRequest.md)**|  |
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[SaveAutomationSettingsResponse](../models/SaveAutomationSettingsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Deposit automation created |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **setVaultAccountAutoFuel**
 > VaultActionStatus setVaultAccountAutoFuel(setAutoFuelRequest, )
 
@@ -2078,6 +2289,75 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | OK |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateUsdcGatewayDepositAutomationBeta**
+> AutomationSettingsResponse updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest, )
+
+Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest, AutomationSettingsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest = {
+  // UpdateAutomationSettingsRequest
+  updateAutomationSettingsRequest: param_value,
+  // string | The ID of the vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | The ID of the deposit automation, returned when it was created or read
+  automationId: 38400000-8cf0-11bd-b23e-10b96e4ef00d,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.updateUsdcGatewayDepositAutomationBeta(body).then((res: FireblocksResponse<AutomationSettingsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateAutomationSettingsRequest** | **[UpdateAutomationSettingsRequest](../models/UpdateAutomationSettingsRequest.md)**|  |
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
+ **automationId** | [**string**] | The ID of the deposit automation, returned when it was created or read | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[AutomationSettingsResponse](../models/AutomationSettingsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Deposit automation updated |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

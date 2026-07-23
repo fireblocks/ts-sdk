@@ -13,24 +13,119 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmlAlert } from './aml-alert';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmlBypassReasonEnum } from './aml-bypass-reason-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { AmlMatchedRule } from './aml-matched-rule';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningStatusEnum } from './screening-status-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { ScreeningVerdictEnum } from './screening-verdict-enum';
 
 /**
- * The result of the AML screening.
+ * The result of the AML screening. Mirrors the output of the developer-api transaction formatter (IFormattedAmlResult). Not all fields are present in every response — the set depends on the AML provider and screening flow. 
  * @export
  * @interface AmlScreeningResult
  */
 export interface AmlScreeningResult {
     /**
-     * 
+     * The AML provider name. Known values: CHAINALYSIS, ELLIPTIC, CHAINALYSIS_V2, ELLIPTIC_HOLISTIC, BYORK_SLITE, BYORK_LITE, NONE. 
      * @type {string}
      * @memberof AmlScreeningResult
      */
     'provider'?: string;
     /**
-     * 
-     * @type {object}
+     * The raw, unmodified screening response from the provider. Structure varies per provider. 
+     * @type {{ [key: string]: any; }}
      * @memberof AmlScreeningResult
      */
-    'payload'?: object;
+    'payload'?: { [key: string]: any; };
+    /**
+     * 
+     * @type {ScreeningVerdictEnum}
+     * @memberof AmlScreeningResult
+     */
+    'verdict'?: ScreeningVerdictEnum;
+    /**
+     * 
+     * @type {ScreeningStatusEnum}
+     * @memberof AmlScreeningResult
+     */
+    'screeningStatus'?: ScreeningStatusEnum;
+    /**
+     * 
+     * @type {AmlBypassReasonEnum}
+     * @memberof AmlScreeningResult
+     */
+    'bypassReason'?: AmlBypassReasonEnum;
+    /**
+     * Unix timestamp in milliseconds when the screening result was generated.
+     * @type {number}
+     * @memberof AmlScreeningResult
+     */
+    'timestamp'?: number;
+    /**
+     * Customer-provided reference identifier for tracking.
+     * @type {string}
+     * @memberof AmlScreeningResult
+     */
+    'customerRefId'?: string;
+    /**
+     * External identifier for the screening (provider-specific).
+     * @type {string}
+     * @memberof AmlScreeningResult
+     */
+    'externalId'?: string;
+    /**
+     * Risk category classification. The available categories are subject to change depending on the provider. 
+     * @type {string}
+     * @memberof AmlScreeningResult
+     */
+    'category'?: string;
+    /**
+     * Numeric identifier for the risk category.
+     * @type {number}
+     * @memberof AmlScreeningResult
+     */
+    'categoryId'?: number;
+    /**
+     * Provider-specific risk level. Values vary by provider.
+     * @type {string}
+     * @memberof AmlScreeningResult
+     */
+    'risk'?: string;
+    /**
+     * The destination blockchain address associated with the screening.
+     * @type {string}
+     * @memberof AmlScreeningResult
+     */
+    'destAddress'?: string;
+    /**
+     * 
+     * @type {AmlMatchedRule}
+     * @memberof AmlScreeningResult
+     */
+    'matchedRule'?: AmlMatchedRule;
+    /**
+     * 
+     * @type {AmlMatchedRule}
+     * @memberof AmlScreeningResult
+     */
+    'matchedPrescreeningRule'?: AmlMatchedRule;
+    /**
+     * 
+     * @type {AmlAlert}
+     * @memberof AmlScreeningResult
+     */
+    'matchedAlert'?: AmlAlert;
 }
+
+
 

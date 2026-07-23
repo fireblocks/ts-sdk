@@ -51,6 +51,10 @@ let body: UTXOManagementBetaApiGetUtxosRequest = {
   includeStatuses: ["AVAILABLE","PENDING"],
   // string | Filter by address (optional)
   address: 1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa,
+  // string | Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction. (optional)
+  txHash: 0000000000000000000a1b2c3d4e5f60718293a4b5c6d7e8f900112233445566,
+  // string | Filter by the Fireblocks transaction ID that created the UTXOs. (optional)
+  txId: f47ac10b-58cc-4372-a567-0e02b2c3d479,
   // string | Minimum amount filter (optional)
   minAmount: 0.001,
   // string | Maximum amount filter (optional)
@@ -78,6 +82,8 @@ Name | Type | Description  | Notes
  **excludeAnyLabels** | **Array&lt;string&gt;** | Exclude UTXOs that have ANY of these labels. | (optional) defaults to undefined
  **includeStatuses** | **Array&lt;string&gt;** | Filter by UTXO statuses to include. | (optional) defaults to undefined
  **address** | [**string**] | Filter by address | (optional) defaults to undefined
+ **txHash** | [**string**] | Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction. | (optional) defaults to undefined
+ **txId** | [**string**] | Filter by the Fireblocks transaction ID that created the UTXOs. | (optional) defaults to undefined
  **minAmount** | [**string**] | Minimum amount filter | (optional) defaults to undefined
  **maxAmount** | [**string**] | Maximum amount filter | (optional) defaults to undefined
 

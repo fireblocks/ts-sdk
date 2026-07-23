@@ -38,5 +38,11 @@ export interface Apy {
      * @memberof Apy
      */
     'net'?: number;
+    /**
+     * Additional incentive APY from reward programs (e.g. Merkl rewards on Aave), as a percentage. Only present when the opportunity has active incentives.
+     * @type {number}
+     * @memberof Apy
+     */
+    'supplyIncentiveApy'?: number;
 }
 

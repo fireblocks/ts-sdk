@@ -21,6 +21,7 @@
 |**updatedAt** | **string** | Last update time (ISO-8601). | [default to undefined]|
 |**availableActions** | **Array&lt;string&gt;** | Actions the API allows next for this position. | [default to undefined]|
 |**lastSyncedAt** | **string** | Last successful on-chain sync time (ISO-8601). | [optional] [default to undefined]|
+|**lastModifiedAt** | **string** | Timestamp of the last user-triggered action on this position (ISO-8601). Empty if the user has never interacted with it. | [optional] [default to undefined]|
 |**_yield** | **string** | Accrued yield in principal token units (decimal string). Only present for Morpho positions. | [optional] [default to undefined]|
 
 

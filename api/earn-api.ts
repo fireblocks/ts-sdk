@@ -43,13 +43,13 @@ import { GetPositionsResponse } from '../models';
 // @ts-ignore
 import { GetProvidersResponse } from '../models';
 /**
- * EarnBetaApi - axios parameter creator
+ * EarnApi - axios parameter creator
  * @export
  */
-export const EarnBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const EarnApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`. 
          * @summary Approve earn provider terms of service
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -84,7 +84,7 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`). 
          * @summary Create and execute a lending action (deposit or withdraw)
          * @param {CreateEarnActionRequest} createEarnActionRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -124,7 +124,7 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Returns one lending action by its action sequence id (tenant-scoped).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns one lending action by its action sequence id (tenant-scoped). 
          * @summary Get a single earn lending action
          * @param {string} id Action sequence id (UUID).
          * @param {*} [options] Override http request option.
@@ -157,7 +157,7 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant. 
          * @summary List earn lending actions
          * @param {string} [pageCursor] Cursor for the next or previous page of results.
          * @param {number} [pageSize] Number of items per page (default 100, max 100).
@@ -207,7 +207,7 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get list of earn opportunities (vaults).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn opportunities (vaults). 
          * @summary Get list of earn opportunities
          * @param {string} [pageCursor] Cursor for the next or previous page of results.
          * @param {number} [pageSize] Number of items per page.
@@ -257,7 +257,7 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get list of earn positions for accounts tracked for this workspace.  Optional query parameters filter by chain, provider, and pagination.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn positions for accounts tracked for this workspace. Optional query parameters filter by chain, provider, and pagination. 
          * @summary Get list of earn positions
          * @param {number} [chainId] 
          * @param {GetEarnPositionsProviderIdEnum} [providerId] 
@@ -317,7 +317,7 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get list of earn providers.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn providers. 
          * @summary Get list of earn providers
          * @param {string} [pageCursor] Cursor for the next or previous page of results.
          * @param {number} [pageSize] Number of items per page.
@@ -370,14 +370,14 @@ export const EarnBetaApiAxiosParamCreator = function (configuration?: Configurat
 };
 
 /**
- * EarnBetaApi - functional programming interface
+ * EarnApi - functional programming interface
  * @export
  */
-export const EarnBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = EarnBetaApiAxiosParamCreator(configuration)
+export const EarnApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = EarnApiAxiosParamCreator(configuration)
     return {
         /**
-         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`. 
          * @summary Approve earn provider terms of service
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
@@ -386,11 +386,11 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async approveTermsOfService(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.approveTermsOfService(idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.approveTermsOfService']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.approveTermsOfService']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`). 
          * @summary Create and execute a lending action (deposit or withdraw)
          * @param {CreateEarnActionRequest} createEarnActionRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -400,11 +400,11 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async createEarnAction(createEarnActionRequest: CreateEarnActionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateEarnActionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createEarnAction(createEarnActionRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.createEarnAction']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.createEarnAction']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns one lending action by its action sequence id (tenant-scoped).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns one lending action by its action sequence id (tenant-scoped). 
          * @summary Get a single earn lending action
          * @param {string} id Action sequence id (UUID).
          * @param {*} [options] Override http request option.
@@ -413,11 +413,11 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async getEarnAction(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetActionResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEarnAction(id, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.getEarnAction']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.getEarnAction']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant. 
          * @summary List earn lending actions
          * @param {string} [pageCursor] Cursor for the next or previous page of results.
          * @param {number} [pageSize] Number of items per page (default 100, max 100).
@@ -429,11 +429,11 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async getEarnActions(pageCursor?: string, pageSize?: number, sortBy?: GetEarnActionsSortByEnum, order?: GetEarnActionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetActionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEarnActions(pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.getEarnActions']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.getEarnActions']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get list of earn opportunities (vaults).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn opportunities (vaults). 
          * @summary Get list of earn opportunities
          * @param {string} [pageCursor] Cursor for the next or previous page of results.
          * @param {number} [pageSize] Number of items per page.
@@ -445,11 +445,11 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async getEarnOpportunities(pageCursor?: string, pageSize?: number, sortBy?: string, order?: GetEarnOpportunitiesOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOpportunitiesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEarnOpportunities(pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.getEarnOpportunities']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.getEarnOpportunities']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get list of earn positions for accounts tracked for this workspace.  Optional query parameters filter by chain, provider, and pagination.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn positions for accounts tracked for this workspace. Optional query parameters filter by chain, provider, and pagination. 
          * @summary Get list of earn positions
          * @param {number} [chainId] 
          * @param {GetEarnPositionsProviderIdEnum} [providerId] 
@@ -463,11 +463,11 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async getEarnPositions(chainId?: number, providerId?: GetEarnPositionsProviderIdEnum, pageCursor?: string, pageSize?: number, sortBy?: string, order?: GetEarnPositionsOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetPositionsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEarnPositions(chainId, providerId, pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.getEarnPositions']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.getEarnPositions']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get list of earn providers.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn providers. 
          * @summary Get list of earn providers
          * @param {string} [pageCursor] Cursor for the next or previous page of results.
          * @param {number} [pageSize] Number of items per page.
@@ -479,384 +479,384 @@ export const EarnBetaApiFp = function(configuration?: Configuration) {
         async getEarnProviders(pageCursor?: string, pageSize?: number, sortBy?: string, order?: GetEarnProvidersOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetProvidersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getEarnProviders(pageCursor, pageSize, sortBy, order, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['EarnBetaApi.getEarnProviders']?.[index]?.url;
+            const operationBasePath = operationServerMap['EarnApi.getEarnProviders']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * EarnBetaApi - factory interface
+ * EarnApi - factory interface
  * @export
  */
-export const EarnBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = EarnBetaApiFp(configuration)
+export const EarnApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = EarnApiFp(configuration)
     return {
         /**
-         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`. 
          * @summary Approve earn provider terms of service
-         * @param {EarnBetaApiApproveTermsOfServiceRequest} requestParameters Request parameters.
+         * @param {EarnApiApproveTermsOfServiceRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        approveTermsOfService(requestParameters: EarnBetaApiApproveTermsOfServiceRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        approveTermsOfService(requestParameters: EarnApiApproveTermsOfServiceRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.approveTermsOfService(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`). 
          * @summary Create and execute a lending action (deposit or withdraw)
-         * @param {EarnBetaApiCreateEarnActionRequest} requestParameters Request parameters.
+         * @param {EarnApiCreateEarnActionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createEarnAction(requestParameters: EarnBetaApiCreateEarnActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateEarnActionResponse> {
+        createEarnAction(requestParameters: EarnApiCreateEarnActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateEarnActionResponse> {
             return localVarFp.createEarnAction(requestParameters.createEarnActionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns one lending action by its action sequence id (tenant-scoped).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns one lending action by its action sequence id (tenant-scoped). 
          * @summary Get a single earn lending action
-         * @param {EarnBetaApiGetEarnActionRequest} requestParameters Request parameters.
+         * @param {EarnApiGetEarnActionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEarnAction(requestParameters: EarnBetaApiGetEarnActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetActionResponse> {
+        getEarnAction(requestParameters: EarnApiGetEarnActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetActionResponse> {
             return localVarFp.getEarnAction(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant. 
          * @summary List earn lending actions
-         * @param {EarnBetaApiGetEarnActionsRequest} requestParameters Request parameters.
+         * @param {EarnApiGetEarnActionsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEarnActions(requestParameters: EarnBetaApiGetEarnActionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetActionsResponse> {
+        getEarnActions(requestParameters: EarnApiGetEarnActionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetActionsResponse> {
             return localVarFp.getEarnActions(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get list of earn opportunities (vaults).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn opportunities (vaults). 
          * @summary Get list of earn opportunities
-         * @param {EarnBetaApiGetEarnOpportunitiesRequest} requestParameters Request parameters.
+         * @param {EarnApiGetEarnOpportunitiesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEarnOpportunities(requestParameters: EarnBetaApiGetEarnOpportunitiesRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetOpportunitiesResponse> {
+        getEarnOpportunities(requestParameters: EarnApiGetEarnOpportunitiesRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetOpportunitiesResponse> {
             return localVarFp.getEarnOpportunities(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get list of earn positions for accounts tracked for this workspace.  Optional query parameters filter by chain, provider, and pagination.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn positions for accounts tracked for this workspace. Optional query parameters filter by chain, provider, and pagination. 
          * @summary Get list of earn positions
-         * @param {EarnBetaApiGetEarnPositionsRequest} requestParameters Request parameters.
+         * @param {EarnApiGetEarnPositionsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEarnPositions(requestParameters: EarnBetaApiGetEarnPositionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetPositionsResponse> {
+        getEarnPositions(requestParameters: EarnApiGetEarnPositionsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetPositionsResponse> {
             return localVarFp.getEarnPositions(requestParameters.chainId, requestParameters.providerId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get list of earn providers.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Get list of earn providers. 
          * @summary Get list of earn providers
-         * @param {EarnBetaApiGetEarnProvidersRequest} requestParameters Request parameters.
+         * @param {EarnApiGetEarnProvidersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getEarnProviders(requestParameters: EarnBetaApiGetEarnProvidersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetProvidersResponse> {
+        getEarnProviders(requestParameters: EarnApiGetEarnProvidersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetProvidersResponse> {
             return localVarFp.getEarnProviders(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for approveTermsOfService operation in EarnBetaApi.
+ * Request parameters for approveTermsOfService operation in EarnApi.
  * @export
- * @interface EarnBetaApiApproveTermsOfServiceRequest
+ * @interface EarnApiApproveTermsOfServiceRequest
  */
-export interface EarnBetaApiApproveTermsOfServiceRequest {
+export interface EarnApiApproveTermsOfServiceRequest {
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof EarnBetaApiApproveTermsOfService
+     * @memberof EarnApiApproveTermsOfService
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for createEarnAction operation in EarnBetaApi.
+ * Request parameters for createEarnAction operation in EarnApi.
  * @export
- * @interface EarnBetaApiCreateEarnActionRequest
+ * @interface EarnApiCreateEarnActionRequest
  */
-export interface EarnBetaApiCreateEarnActionRequest {
+export interface EarnApiCreateEarnActionRequest {
     /**
      * 
      * @type {CreateEarnActionRequest}
-     * @memberof EarnBetaApiCreateEarnAction
+     * @memberof EarnApiCreateEarnAction
      */
     readonly createEarnActionRequest: CreateEarnActionRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof EarnBetaApiCreateEarnAction
+     * @memberof EarnApiCreateEarnAction
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for getEarnAction operation in EarnBetaApi.
+ * Request parameters for getEarnAction operation in EarnApi.
  * @export
- * @interface EarnBetaApiGetEarnActionRequest
+ * @interface EarnApiGetEarnActionRequest
  */
-export interface EarnBetaApiGetEarnActionRequest {
+export interface EarnApiGetEarnActionRequest {
     /**
      * Action sequence id (UUID).
      * @type {string}
-     * @memberof EarnBetaApiGetEarnAction
+     * @memberof EarnApiGetEarnAction
      */
     readonly id: string
 }
 
 /**
- * Request parameters for getEarnActions operation in EarnBetaApi.
+ * Request parameters for getEarnActions operation in EarnApi.
  * @export
- * @interface EarnBetaApiGetEarnActionsRequest
+ * @interface EarnApiGetEarnActionsRequest
  */
-export interface EarnBetaApiGetEarnActionsRequest {
+export interface EarnApiGetEarnActionsRequest {
     /**
      * Cursor for the next or previous page of results.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnActions
+     * @memberof EarnApiGetEarnActions
      */
     readonly pageCursor?: string
 
     /**
      * Number of items per page (default 100, max 100).
      * @type {number}
-     * @memberof EarnBetaApiGetEarnActions
+     * @memberof EarnApiGetEarnActions
      */
     readonly pageSize?: number
 
     /**
      * Field to sort results by.
      * @type {'createdAt' | 'updatedAt'}
-     * @memberof EarnBetaApiGetEarnActions
+     * @memberof EarnApiGetEarnActions
      */
     readonly sortBy?: GetEarnActionsSortByEnum
 
     /**
      * Sort order (ASC or DESC).
      * @type {'ASC' | 'DESC'}
-     * @memberof EarnBetaApiGetEarnActions
+     * @memberof EarnApiGetEarnActions
      */
     readonly order?: GetEarnActionsOrderEnum
 }
 
 /**
- * Request parameters for getEarnOpportunities operation in EarnBetaApi.
+ * Request parameters for getEarnOpportunities operation in EarnApi.
  * @export
- * @interface EarnBetaApiGetEarnOpportunitiesRequest
+ * @interface EarnApiGetEarnOpportunitiesRequest
  */
-export interface EarnBetaApiGetEarnOpportunitiesRequest {
+export interface EarnApiGetEarnOpportunitiesRequest {
     /**
      * Cursor for the next or previous page of results.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnOpportunities
+     * @memberof EarnApiGetEarnOpportunities
      */
     readonly pageCursor?: string
 
     /**
      * Number of items per page.
      * @type {number}
-     * @memberof EarnBetaApiGetEarnOpportunities
+     * @memberof EarnApiGetEarnOpportunities
      */
     readonly pageSize?: number
 
     /**
      * Field to sort results by.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnOpportunities
+     * @memberof EarnApiGetEarnOpportunities
      */
     readonly sortBy?: string
 
     /**
      * Sort order (ASC or DESC).
      * @type {'ASC' | 'DESC'}
-     * @memberof EarnBetaApiGetEarnOpportunities
+     * @memberof EarnApiGetEarnOpportunities
      */
     readonly order?: GetEarnOpportunitiesOrderEnum
 }
 
 /**
- * Request parameters for getEarnPositions operation in EarnBetaApi.
+ * Request parameters for getEarnPositions operation in EarnApi.
  * @export
- * @interface EarnBetaApiGetEarnPositionsRequest
+ * @interface EarnApiGetEarnPositionsRequest
  */
-export interface EarnBetaApiGetEarnPositionsRequest {
+export interface EarnApiGetEarnPositionsRequest {
     /**
      * 
      * @type {number}
-     * @memberof EarnBetaApiGetEarnPositions
+     * @memberof EarnApiGetEarnPositions
      */
     readonly chainId?: number
 
     /**
      * 
      * @type {'MORPHO' | 'AAVE'}
-     * @memberof EarnBetaApiGetEarnPositions
+     * @memberof EarnApiGetEarnPositions
      */
     readonly providerId?: GetEarnPositionsProviderIdEnum
 
     /**
      * Cursor for the next or previous page of results.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnPositions
+     * @memberof EarnApiGetEarnPositions
      */
     readonly pageCursor?: string
 
     /**
      * Number of items per page.
      * @type {number}
-     * @memberof EarnBetaApiGetEarnPositions
+     * @memberof EarnApiGetEarnPositions
      */
     readonly pageSize?: number
 
     /**
      * Field to sort results by.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnPositions
+     * @memberof EarnApiGetEarnPositions
      */
     readonly sortBy?: string
 
     /**
      * Sort order (ASC or DESC).
      * @type {'ASC' | 'DESC'}
-     * @memberof EarnBetaApiGetEarnPositions
+     * @memberof EarnApiGetEarnPositions
      */
     readonly order?: GetEarnPositionsOrderEnum
 }
 
 /**
- * Request parameters for getEarnProviders operation in EarnBetaApi.
+ * Request parameters for getEarnProviders operation in EarnApi.
  * @export
- * @interface EarnBetaApiGetEarnProvidersRequest
+ * @interface EarnApiGetEarnProvidersRequest
  */
-export interface EarnBetaApiGetEarnProvidersRequest {
+export interface EarnApiGetEarnProvidersRequest {
     /**
      * Cursor for the next or previous page of results.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnProviders
+     * @memberof EarnApiGetEarnProviders
      */
     readonly pageCursor?: string
 
     /**
      * Number of items per page.
      * @type {number}
-     * @memberof EarnBetaApiGetEarnProviders
+     * @memberof EarnApiGetEarnProviders
      */
     readonly pageSize?: number
 
     /**
      * Field to sort results by.
      * @type {string}
-     * @memberof EarnBetaApiGetEarnProviders
+     * @memberof EarnApiGetEarnProviders
      */
     readonly sortBy?: string
 
     /**
      * Sort order (ASC or DESC).
      * @type {'ASC' | 'DESC'}
-     * @memberof EarnBetaApiGetEarnProviders
+     * @memberof EarnApiGetEarnProviders
      */
     readonly order?: GetEarnProvidersOrderEnum
 }
 
 /**
- * EarnBetaApi - object-oriented interface
+ * EarnApi - object-oriented interface
  * @export
- * @class EarnBetaApi
+ * @class EarnApi
  * @extends {BaseAPI}
  */
-export class EarnBetaApi extends BaseAPI {
+export class EarnApi extends BaseAPI {
     /**
-     * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Approves earn provider terms of service for this workspace (one-time per tenant). When `isTermsApprovalRequired` is true on a provider (see list providers), call this once before creating or executing earn actions with providers that require it. After success, `GET /earn/providers` reflects `isTermsOfServiceApproved`. 
      * @summary Approve earn provider terms of service
-     * @param {EarnBetaApiApproveTermsOfServiceRequest} requestParameters Request parameters.
+     * @param {EarnApiApproveTermsOfServiceRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public approveTermsOfService(requestParameters: EarnBetaApiApproveTermsOfServiceRequest = {}) {
-        return EarnBetaApiFp(this.configuration).approveTermsOfService(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public approveTermsOfService(requestParameters: EarnApiApproveTermsOfServiceRequest = {}) {
+        return EarnApiFp(this.configuration).approveTermsOfService(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Creates and runs a sequence of on-chain steps for either a deposit into or a withdrawal from an earn vault/market. Specify the operation with `action` in the request body (`DEPOSIT` or `WITHDRAW`). 
      * @summary Create and execute a lending action (deposit or withdraw)
-     * @param {EarnBetaApiCreateEarnActionRequest} requestParameters Request parameters.
+     * @param {EarnApiCreateEarnActionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public createEarnAction(requestParameters: EarnBetaApiCreateEarnActionRequest) {
-        return EarnBetaApiFp(this.configuration).createEarnAction(requestParameters.createEarnActionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createEarnAction(requestParameters: EarnApiCreateEarnActionRequest) {
+        return EarnApiFp(this.configuration).createEarnAction(requestParameters.createEarnActionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns one lending action by its action sequence id (tenant-scoped).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Returns one lending action by its action sequence id (tenant-scoped). 
      * @summary Get a single earn lending action
-     * @param {EarnBetaApiGetEarnActionRequest} requestParameters Request parameters.
+     * @param {EarnApiGetEarnActionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public getEarnAction(requestParameters: EarnBetaApiGetEarnActionRequest) {
-        return EarnBetaApiFp(this.configuration).getEarnAction(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getEarnAction(requestParameters: EarnApiGetEarnActionRequest) {
+        return EarnApiFp(this.configuration).getEarnAction(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Returns a paginated list of lending actions (deposits and withdrawals) for the authenticated tenant. 
      * @summary List earn lending actions
-     * @param {EarnBetaApiGetEarnActionsRequest} requestParameters Request parameters.
+     * @param {EarnApiGetEarnActionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public getEarnActions(requestParameters: EarnBetaApiGetEarnActionsRequest = {}) {
-        return EarnBetaApiFp(this.configuration).getEarnActions(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getEarnActions(requestParameters: EarnApiGetEarnActionsRequest = {}) {
+        return EarnApiFp(this.configuration).getEarnActions(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get list of earn opportunities (vaults).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Get list of earn opportunities (vaults). 
      * @summary Get list of earn opportunities
-     * @param {EarnBetaApiGetEarnOpportunitiesRequest} requestParameters Request parameters.
+     * @param {EarnApiGetEarnOpportunitiesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public getEarnOpportunities(requestParameters: EarnBetaApiGetEarnOpportunitiesRequest = {}) {
-        return EarnBetaApiFp(this.configuration).getEarnOpportunities(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getEarnOpportunities(requestParameters: EarnApiGetEarnOpportunitiesRequest = {}) {
+        return EarnApiFp(this.configuration).getEarnOpportunities(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get list of earn positions for accounts tracked for this workspace.  Optional query parameters filter by chain, provider, and pagination.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Get list of earn positions for accounts tracked for this workspace. Optional query parameters filter by chain, provider, and pagination. 
      * @summary Get list of earn positions
-     * @param {EarnBetaApiGetEarnPositionsRequest} requestParameters Request parameters.
+     * @param {EarnApiGetEarnPositionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public getEarnPositions(requestParameters: EarnBetaApiGetEarnPositionsRequest = {}) {
-        return EarnBetaApiFp(this.configuration).getEarnPositions(requestParameters.chainId, requestParameters.providerId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getEarnPositions(requestParameters: EarnApiGetEarnPositionsRequest = {}) {
+        return EarnApiFp(this.configuration).getEarnPositions(requestParameters.chainId, requestParameters.providerId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get list of earn providers.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Get list of earn providers. 
      * @summary Get list of earn providers
-     * @param {EarnBetaApiGetEarnProvidersRequest} requestParameters Request parameters.
+     * @param {EarnApiGetEarnProvidersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof EarnBetaApi
+     * @memberof EarnApi
      */
-    public getEarnProviders(requestParameters: EarnBetaApiGetEarnProvidersRequest = {}) {
-        return EarnBetaApiFp(this.configuration).getEarnProviders(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getEarnProviders(requestParameters: EarnApiGetEarnProvidersRequest = {}) {
+        return EarnApiFp(this.configuration).getEarnProviders(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

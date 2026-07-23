@@ -48,6 +48,9 @@ import { GetTransactionOperation } from './get-transaction-operation';
 import { NetworkRecord } from './network-record';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ProgramCallDecodedDataItem } from './program-call-decoded-data-item';
+// May contain unused imports in some cases
+// @ts-ignore
 import { RewardInfo } from './reward-info';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -179,6 +182,12 @@ export interface TransactionResponse {
      * @memberof TransactionResponse
      */
     'contractCallDecodedData'?: TransactionResponseContractCallDecodedData;
+    /**
+     * Decoded instruction list for `PROGRAM_CALL` (Solana) operations. Each entry represents one instruction in the transaction, in execution order. Fireblocks-injected instructions (e.g. `AdvanceNonceAccount`, `ComputeBudget`) appear first, followed by the original dApp instructions.
+     * @type {Array<ProgramCallDecodedDataItem>}
+     * @memberof TransactionResponse
+     */
+    'programCallDecodedData'?: Array<ProgramCallDecodedDataItem>;
     /**
      * 
      * @type {AmountInfo}

@@ -87,6 +87,10 @@ import { ListVaultsForRegistrationResponse } from '../models';
 // @ts-ignore
 import { RegisterLegalEntityRequest } from '../models';
 // @ts-ignore
+import { RescreenTransactionRequest } from '../models';
+// @ts-ignore
+import { RescreenTransactionResponse } from '../models';
+// @ts-ignore
 import { ScreeningConfigurationsRequest } from '../models';
 // @ts-ignore
 import { ScreeningPolicyResponse } from '../models';
@@ -1156,6 +1160,48 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Re-runs compliance screening on an incoming transaction that was rejected or failed by screening checks, moving it back to pending screening. This endpoint is only applicable to incoming transactions with a rejected/failed AML screening status.
+         * @summary Rescreen a rejected transaction
+         * @param {string} txId The transaction id that was rejected by screening checks
+         * @param {RescreenTransactionRequest} [rescreenTransactionRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rescreenRejectedTransaction: async (txId: string, rescreenTransactionRequest?: RescreenTransactionRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('rescreenRejectedTransaction', 'txId', txId)
+            const localVarPath = `/screening/transaction/{txId}/rescreen`
+                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(rescreenTransactionRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
          * @summary Bypass Screening Policy
          * @param {string} txId The transaction id that was rejected by screening checks
@@ -1914,6 +1960,21 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Re-runs compliance screening on an incoming transaction that was rejected or failed by screening checks, moving it back to pending screening. This endpoint is only applicable to incoming transactions with a rejected/failed AML screening status.
+         * @summary Rescreen a rejected transaction
+         * @param {string} txId The transaction id that was rejected by screening checks
+         * @param {RescreenTransactionRequest} [rescreenTransactionRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rescreenRejectedTransaction(txId: string, rescreenTransactionRequest?: RescreenTransactionRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RescreenTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rescreenRejectedTransaction(txId, rescreenTransactionRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.rescreenRejectedTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
          * @summary Bypass Screening Policy
          * @param {string} txId The transaction id that was rejected by screening checks
@@ -2340,6 +2401,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         removeAllAddressRegistryVaultOptOuts(options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryRemoveAllVaultOptOutsResponse> {
             return localVarFp.removeAllAddressRegistryVaultOptOuts(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Re-runs compliance screening on an incoming transaction that was rejected or failed by screening checks, moving it back to pending screening. This endpoint is only applicable to incoming transactions with a rejected/failed AML screening status.
+         * @summary Rescreen a rejected transaction
+         * @param {ComplianceApiRescreenRejectedTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rescreenRejectedTransaction(requestParameters: ComplianceApiRescreenRejectedTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<RescreenTransactionResponse> {
+            return localVarFp.rescreenRejectedTransaction(requestParameters.txId, requestParameters.rescreenTransactionRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Triggers a new transaction, with the API user as the initiator, bypassing the screening policy checks. This endpoint is restricted to Admin API users and is only applicable to outgoing transactions.
@@ -2824,6 +2895,34 @@ export interface ComplianceApiRemoveAddressRegistryVaultOptOutRequest {
      * @memberof ComplianceApiRemoveAddressRegistryVaultOptOut
      */
     readonly vaultAccountId: number
+}
+
+/**
+ * Request parameters for rescreenRejectedTransaction operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiRescreenRejectedTransactionRequest
+ */
+export interface ComplianceApiRescreenRejectedTransactionRequest {
+    /**
+     * The transaction id that was rejected by screening checks
+     * @type {string}
+     * @memberof ComplianceApiRescreenRejectedTransaction
+     */
+    readonly txId: string
+
+    /**
+     * 
+     * @type {RescreenTransactionRequest}
+     * @memberof ComplianceApiRescreenRejectedTransaction
+     */
+    readonly rescreenTransactionRequest?: RescreenTransactionRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiRescreenRejectedTransaction
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -3372,6 +3471,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public removeAllAddressRegistryVaultOptOuts() {
         return ComplianceApiFp(this.configuration).removeAllAddressRegistryVaultOptOuts().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Re-runs compliance screening on an incoming transaction that was rejected or failed by screening checks, moving it back to pending screening. This endpoint is only applicable to incoming transactions with a rejected/failed AML screening status.
+     * @summary Rescreen a rejected transaction
+     * @param {ComplianceApiRescreenRejectedTransactionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public rescreenRejectedTransaction(requestParameters: ComplianceApiRescreenRejectedTransactionRequest) {
+        return ComplianceApiFp(this.configuration).rescreenRejectedTransaction(requestParameters.txId, requestParameters.rescreenTransactionRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

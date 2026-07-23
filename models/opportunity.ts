@@ -21,6 +21,12 @@ import { Apy } from './apy';
 import { EarnAsset } from './earn-asset';
 // May contain unused imports in some cases
 // @ts-ignore
+import { EarnCurator } from './earn-curator';
+// May contain unused imports in some cases
+// @ts-ignore
+import { EarnMetadata } from './earn-metadata';
+// May contain unused imports in some cases
+// @ts-ignore
 import { Exposure } from './exposure';
 
 /**
@@ -90,11 +96,23 @@ export interface Opportunity {
      */
     'totalAssets'?: string;
     /**
+     * USD-denominated total assets / TVL.
+     * @type {string}
+     * @memberof Opportunity
+     */
+    'totalAssetsUsd'?: string;
+    /**
      * Human-readable available liquidity.
      * @type {string}
      * @memberof Opportunity
      */
     'liquidity'?: string;
+    /**
+     * USD-denominated available liquidity.
+     * @type {string}
+     * @memberof Opportunity
+     */
+    'liquidityUsd'?: string;
     /**
      * APY breakdown; values are percentages (e.g. 4.25 means 4.25%).
      * @type {Apy}
@@ -125,6 +143,18 @@ export interface Opportunity {
      * @memberof Opportunity
      */
     'exposure'?: Array<Exposure>;
+    /**
+     * Curator information for Morpho vaults.
+     * @type {EarnCurator}
+     * @memberof Opportunity
+     */
+    'curator'?: EarnCurator;
+    /**
+     * Protocol-level metadata (display name and logo).
+     * @type {EarnMetadata}
+     * @memberof Opportunity
+     */
+    'metadata'?: EarnMetadata;
 }
 
 export const OpportunityProviderIdEnum = {

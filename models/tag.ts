@@ -69,6 +69,12 @@ export interface Tag {
      */
     'type'?: TagType;
     /**
+     * The entity types this tag may be attached to. Tags created before this field was introduced read back as [\'vault_account\']. Known values: vault_account (default), contact.
+     * @type {Array<string>}
+     * @memberof Tag
+     */
+    'allowedEntityTypes'?: Array<string>;
+    /**
      * 
      * @type {ApprovalRequest}
      * @memberof Tag
