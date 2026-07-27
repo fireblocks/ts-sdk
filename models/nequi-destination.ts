@@ -15,18 +15,32 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
+import { NequiAddress } from './nequi-address';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface NequiDestination
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface NequiDestination {
+    /**
+     * The transfer rail type for the destination
+     * @type {string}
+     * @memberof NequiDestination
+     */
+    'type': NequiDestinationTypeEnum;
+    /**
+     * 
+     * @type {NequiAddress}
+     * @memberof NequiDestination
+     */
+    'address': NequiAddress;
+}
+
+export const NequiDestinationTypeEnum = {
+    Nequi: 'NEQUI'
+} as const;
+
+export type NequiDestinationTypeEnum = typeof NequiDestinationTypeEnum[keyof typeof NequiDestinationTypeEnum];
 
 

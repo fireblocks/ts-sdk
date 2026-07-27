@@ -15,18 +15,32 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
+import { FpsUkAddress } from './fps-uk-address';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface FpsUkDestination
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface FpsUkDestination {
+    /**
+     * The transfer rail type for the destination
+     * @type {string}
+     * @memberof FpsUkDestination
+     */
+    'type': FpsUkDestinationTypeEnum;
+    /**
+     * 
+     * @type {FpsUkAddress}
+     * @memberof FpsUkDestination
+     */
+    'address': FpsUkAddress;
+}
+
+export const FpsUkDestinationTypeEnum = {
+    FpsUk: 'FPS_UK'
+} as const;
+
+export type FpsUkDestinationTypeEnum = typeof FpsUkDestinationTypeEnum[keyof typeof FpsUkDestinationTypeEnum];
 
 

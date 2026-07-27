@@ -15,18 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
+import { AccountHolderDetails } from './account-holder-details';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface PesonetAddress
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
-
+export interface PesonetAddress {
+    /**
+     * 
+     * @type {AccountHolderDetails}
+     * @memberof PesonetAddress
+     */
+    'accountHolder': AccountHolderDetails;
+    /**
+     * Name of the recipient\'s bank
+     * @type {string}
+     * @memberof PesonetAddress
+     */
+    'bankName': string;
+    /**
+     * Recipient bank account number
+     * @type {string}
+     * @memberof PesonetAddress
+     */
+    'accountNumber': string;
+}
 

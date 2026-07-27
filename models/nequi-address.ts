@@ -13,20 +13,18 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface NequiAddress
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
-
+export interface NequiAddress {
+    /**
+     * Recipient phone number in E.164 format
+     * @type {string}
+     * @memberof NequiAddress
+     */
+    'phone': string;
+}
 

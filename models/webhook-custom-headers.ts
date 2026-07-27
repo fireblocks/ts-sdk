@@ -13,20 +13,14 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
 
 /**
- * @type PaymentInstructions
+ * Custom HTTP headers attached to every notification delivered by this webhook (max 10). Header names must be valid RFC 7230 tokens (printable ASCII, no separators), are treated case-insensitively (duplicate names differing only in case are rejected), and may not exceed 128 characters. The following names are reserved and cannot be used: Host, Content-Type, Content-Length, Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding, Fireblocks-Signature, Fireblocks-Webhook-Signature. Header values are write-only — never returned in responses.
  * @export
+ * @interface WebhookCustomHeaders
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface WebhookCustomHeaders {
+    [key: string]: string;
 
+}
 

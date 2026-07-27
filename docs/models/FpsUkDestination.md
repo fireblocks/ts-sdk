@@ -1,18 +1,17 @@
-# PaymentInstructionsOneOf
+# FpsUkDestination
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | The transfer rail type for the destination | [default to undefined]|
-|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [optional] [default to undefined]|
+|**address** | [**FpsUkAddress**](FpsUkAddress.md) |  | [default to undefined]|
 
 
-## Enum: PaymentInstructionsOneOfTypeEnum
+## Enum: FpsUkDestinationTypeEnum
 
 
-* `Pesonet` (value: `'PESONET'`)
+* `FpsUk` (value: `'FPS_UK'`)
 
 
 

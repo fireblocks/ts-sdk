@@ -13,30 +13,45 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { AccountHolderDetails } from './account-holder-details';
 
 /**
- * A breakdown of the staking rewards earned by the position.
+ * 
  * @export
- * @interface SolanaRewardsBreakdown
+ * @interface CipsAddress
  */
-export interface SolanaRewardsBreakdown {
+export interface CipsAddress {
     /**
-     * The inflation reward amount earned by the position, measured in the staked asset unit.
-     * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * 
+     * @type {AccountHolderDetails}
+     * @memberof CipsAddress
      */
-    'inflation': string;
+    'accountHolder': AccountHolderDetails;
     /**
-     * The MEV reward amount earned by the position, measured in the staked asset unit.
+     * Name of the recipient\'s bank
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof CipsAddress
      */
-    'mev': string;
+    'bankName': string;
     /**
-     * The last time the rewards were synced (ISO Date).
+     * ISO 3166-1 alpha-2 country code of the bank
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof CipsAddress
      */
-    'lastRewardSyncedAt': string;
+    'bankCountry': string;
+    /**
+     * SWIFT/BIC code of the recipient bank
+     * @type {string}
+     * @memberof CipsAddress
+     */
+    'swiftCode': string;
+    /**
+     * Recipient bank account number
+     * @type {string}
+     * @memberof CipsAddress
+     */
+    'accountNumber': string;
 }
 

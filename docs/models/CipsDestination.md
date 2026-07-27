@@ -1,18 +1,18 @@
-# PaymentInstructionsOneOf
+# CipsDestination
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | The transfer rail type for the destination | [default to undefined]|
-|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [optional] [default to undefined]|
+|**address** | [**CipsAddress**](CipsAddress.md) |  | [default to undefined]|
+|**referenceId** | **string** | Optional payment reference | [optional] [default to undefined]|
 
 
-## Enum: PaymentInstructionsOneOfTypeEnum
+## Enum: CipsDestinationTypeEnum
 
 
-* `Pesonet` (value: `'PESONET'`)
+* `Cips` (value: `'CIPS'`)
 
 
 

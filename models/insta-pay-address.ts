@@ -15,18 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
+import { AccountHolderDetails } from './account-holder-details';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface InstaPayAddress
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
-
+export interface InstaPayAddress {
+    /**
+     * 
+     * @type {AccountHolderDetails}
+     * @memberof InstaPayAddress
+     */
+    'accountHolder': AccountHolderDetails;
+    /**
+     * Name of the recipient\'s bank or wallet (e.g. BDO, BPI, GCash, Maya)
+     * @type {string}
+     * @memberof InstaPayAddress
+     */
+    'bankName': string;
+    /**
+     * Recipient bank account or wallet number
+     * @type {string}
+     * @memberof InstaPayAddress
+     */
+    'accountNumber': string;
+}
 

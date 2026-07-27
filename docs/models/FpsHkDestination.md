@@ -1,18 +1,17 @@
-# PaymentInstructionsOneOf
+# FpsHkDestination
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | The transfer rail type for the destination | [default to undefined]|
-|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [optional] [default to undefined]|
+|**address** | [**FpsHkAddress**](FpsHkAddress.md) |  | [default to undefined]|
 
 
-## Enum: PaymentInstructionsOneOfTypeEnum
+## Enum: FpsHkDestinationTypeEnum
 
 
-* `Pesonet` (value: `'PESONET'`)
+* `FpsHk` (value: `'FPS_HK'`)
 
 
 

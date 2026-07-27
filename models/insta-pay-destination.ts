@@ -15,18 +15,32 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
+import { InstaPayAddress } from './insta-pay-address';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface InstaPayDestination
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface InstaPayDestination {
+    /**
+     * The transfer rail type for the destination
+     * @type {string}
+     * @memberof InstaPayDestination
+     */
+    'type': InstaPayDestinationTypeEnum;
+    /**
+     * 
+     * @type {InstaPayAddress}
+     * @memberof InstaPayDestination
+     */
+    'address': InstaPayAddress;
+}
+
+export const InstaPayDestinationTypeEnum = {
+    InstaPay: 'INSTA_PAY'
+} as const;
+
+export type InstaPayDestinationTypeEnum = typeof InstaPayDestinationTypeEnum[keyof typeof InstaPayDestinationTypeEnum];
 
 

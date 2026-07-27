@@ -1,18 +1,15 @@
-# PaymentInstructions
+# PesonetDestination
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** | The type of destination. Use \&quot;BLOCKCHAIN\&quot; for blockchain address destinations. | [default to undefined]|
+|**type** | **string** | The transfer rail type for the destination | [default to undefined]|
 |**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [optional] [default to undefined]|
 
 
-## Enum: PaymentInstructionsTypeEnum
+## Enum: PesonetDestinationTypeEnum
 
-
-* `Blockchain` (value: `'BLOCKCHAIN'`)
 
 * `Pesonet` (value: `'PESONET'`)
 

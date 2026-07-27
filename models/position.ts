@@ -63,11 +63,11 @@ export interface Position {
      */
     'amount': string;
     /**
-     * The amount staked in the position, measured in the staked asset unit.
+     * The amount staked in the position, measured in the staked asset unit. Returned as null for chains where reward tracking is not supported (Cosmos-family chains), instead of a numeric value.
      * @type {string}
      * @memberof Position
      */
-    'rewardsAmount': string;
+    'rewardsAmount': string | null;
     /**
      * When was the request made (ISO Date).
      * @type {string}

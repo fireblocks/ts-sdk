@@ -13,20 +13,14 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
 
 /**
- * @type PaymentInstructions
+ * Custom headers delta: entries with a string value are added or updated, entries with a `null` value delete that header (no-op if absent), and header names omitted from the payload are left untouched. The resulting set is limited to 10 headers. Header names are case-insensitive, up to 128 characters, and limited to valid HTTP header name characters. Some system header names are reserved and cannot be used. Values are write-only — never returned in responses.
  * @export
+ * @interface WebhookCustomHeadersUpdate
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface WebhookCustomHeadersUpdate {
+    [key: string]: string;
 
+}
 

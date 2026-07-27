@@ -15,28 +15,28 @@
 
 
 /**
- * A breakdown of the staking rewards earned by the position.
+ * OAuth 2.0 client credentials configuration for the webhook. Present only when OAuth is configured. The `clientSecret` is write-only and is never returned.
  * @export
- * @interface SolanaRewardsBreakdown
+ * @interface WebhookOAuthResponse
  */
-export interface SolanaRewardsBreakdown {
+export interface WebhookOAuthResponse {
     /**
-     * The inflation reward amount earned by the position, measured in the staked asset unit.
+     * OAuth client ID used to authenticate with the token endpoint.
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof WebhookOAuthResponse
      */
-    'inflation': string;
+    'clientId': string;
     /**
-     * The MEV reward amount earned by the position, measured in the staked asset unit.
+     * Token endpoint URL.
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof WebhookOAuthResponse
      */
-    'mev': string;
+    'url': string;
     /**
-     * The last time the rewards were synced (ISO Date).
+     * Signed client certificate PEM used for mTLS when connecting to the token endpoint.
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof WebhookOAuthResponse
      */
-    'lastRewardSyncedAt': string;
+    'mtlsClientSignedCert'?: string | null;
 }
 

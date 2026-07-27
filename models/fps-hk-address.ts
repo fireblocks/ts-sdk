@@ -15,28 +15,46 @@
 
 
 /**
- * A breakdown of the staking rewards earned by the position.
+ * 
  * @export
- * @interface SolanaRewardsBreakdown
+ * @interface FpsHkAddress
  */
-export interface SolanaRewardsBreakdown {
+export interface FpsHkAddress {
     /**
-     * The inflation reward amount earned by the position, measured in the staked asset unit.
+     * Full legal name of the recipient
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof FpsHkAddress
      */
-    'inflation': string;
+    'recipientLegalName'?: string;
     /**
-     * The MEV reward amount earned by the position, measured in the staked asset unit.
+     * Recipient bank account number
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof FpsHkAddress
      */
-    'mev': string;
+    'accountNumber'?: string;
     /**
-     * The last time the rewards were synced (ISO Date).
+     * Hong Kong bank code
      * @type {string}
-     * @memberof SolanaRewardsBreakdown
+     * @memberof FpsHkAddress
      */
-    'lastRewardSyncedAt': string;
+    'bankCode'?: string;
+    /**
+     * Recipient phone number in E.164 format
+     * @type {string}
+     * @memberof FpsHkAddress
+     */
+    'phone'?: string;
+    /**
+     * Recipient email address
+     * @type {string}
+     * @memberof FpsHkAddress
+     */
+    'email'?: string;
+    /**
+     * Hong Kong FPS identifier
+     * @type {string}
+     * @memberof FpsHkAddress
+     */
+    'fpsId'?: string;
 }
 

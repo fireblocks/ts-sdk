@@ -1,18 +1,17 @@
-# PaymentInstructionsOneOf
+# InstaPayDestination
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | The transfer rail type for the destination | [default to undefined]|
-|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [optional] [default to undefined]|
+|**address** | [**InstaPayAddress**](InstaPayAddress.md) |  | [default to undefined]|
 
 
-## Enum: PaymentInstructionsOneOfTypeEnum
+## Enum: InstaPayDestinationTypeEnum
 
 
-* `Pesonet` (value: `'PESONET'`)
+* `InstaPay` (value: `'INSTA_PAY'`)
 
 
 

@@ -1,18 +1,17 @@
-# PaymentInstructionsOneOf
+# NequiDestination
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | The transfer rail type for the destination | [default to undefined]|
-|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
-|**referenceId** | **string** |  | [optional] [default to undefined]|
+|**address** | [**NequiAddress**](NequiAddress.md) |  | [default to undefined]|
 
 
-## Enum: PaymentInstructionsOneOfTypeEnum
+## Enum: NequiDestinationTypeEnum
 
 
-* `Pesonet` (value: `'PESONET'`)
+* `Nequi` (value: `'NEQUI'`)
 
 
 

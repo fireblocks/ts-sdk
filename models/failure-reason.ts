@@ -46,7 +46,9 @@ export const FailureReason = {
     PiiMissing: 'PII_MISSING',
     ExternalSourceNotSupported: 'EXTERNAL_SOURCE_NOT_SUPPORTED',
     UnsupportedRegion: 'UNSUPPORTED_REGION',
-    DestinationNotWhitelisted: 'DESTINATION_NOT_WHITELISTED'
+    DestinationNotWhitelisted: 'DESTINATION_NOT_WHITELISTED',
+    MissingDestinationDetails: 'MISSING_DESTINATION_DETAILS',
+    MissingWorkspaceDetails: 'MISSING_WORKSPACE_DETAILS'
 } as const;
 
 export type FailureReason = typeof FailureReason[keyof typeof FailureReason];

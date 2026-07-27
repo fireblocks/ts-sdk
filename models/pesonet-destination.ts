@@ -15,18 +15,32 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
 import { PesonetAddress } from './pesonet-address';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface PesonetDestination
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface PesonetDestination {
+    /**
+     * The transfer rail type for the destination
+     * @type {string}
+     * @memberof PesonetDestination
+     */
+    'type': PesonetDestinationTypeEnum;
+    /**
+     * 
+     * @type {PesonetAddress}
+     * @memberof PesonetDestination
+     */
+    'address': PesonetAddress;
+}
+
+export const PesonetDestinationTypeEnum = {
+    Pesonet: 'PESONET'
+} as const;
+
+export type PesonetDestinationTypeEnum = typeof PesonetDestinationTypeEnum[keyof typeof PesonetDestinationTypeEnum];
 
 

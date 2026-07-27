@@ -13,20 +13,12 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
 
 /**
- * @type PaymentInstructions
+ * Names of the custom headers configured for this webhook. Header values are never returned.
  * @export
+ * @interface WebhookCustomHeadersResponse
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
-
+export interface WebhookCustomHeadersResponse extends Array<string> {
+}
 

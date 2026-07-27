@@ -15,18 +15,38 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { BlockchainDestination } from './blockchain-destination';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
-// May contain unused imports in some cases
-// @ts-ignore
-import { PesonetAddress } from './pesonet-address';
+import { CipsAddress } from './cips-address';
 
 /**
- * @type PaymentInstructions
+ * 
  * @export
+ * @interface CipsDestination
  */
-export type PaymentInstructions = BlockchainDestination | PaymentInstructionsOneOf;
+export interface CipsDestination {
+    /**
+     * The transfer rail type for the destination
+     * @type {string}
+     * @memberof CipsDestination
+     */
+    'type': CipsDestinationTypeEnum;
+    /**
+     * 
+     * @type {CipsAddress}
+     * @memberof CipsDestination
+     */
+    'address': CipsAddress;
+    /**
+     * Optional payment reference
+     * @type {string}
+     * @memberof CipsDestination
+     */
+    'referenceId'?: string;
+}
+
+export const CipsDestinationTypeEnum = {
+    Cips: 'CIPS'
+} as const;
+
+export type CipsDestinationTypeEnum = typeof CipsDestinationTypeEnum[keyof typeof CipsDestinationTypeEnum];
 
 
