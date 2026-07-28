@@ -5,7 +5,8 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** |  | [default to undefined]|
-|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  | [default to undefined]|
+|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
+|**referenceId** | **string** | Optional payment reference | [optional] [default to undefined]|
 
 
 ## Enum: FiatDestinationTypeEnum
@@ -38,6 +39,18 @@
 * `Payid` (value: `'PAYID'`)
 
 * `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
+
+* `Cips` (value: `'CIPS'`)
+
+* `Nequi` (value: `'NEQUI'`)
+
+* `FpsUk` (value: `'FPS_UK'`)
+
+* `FpsHk` (value: `'FPS_HK'`)
+
+* `InstaPay` (value: `'INSTA_PAY'`)
+
+* `Pesonet` (value: `'PESONET'`)
 
 
 

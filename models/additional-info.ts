@@ -21,13 +21,6 @@
  */
 export interface AdditionalInfo {
     /**
-     * The estimated annual reward rate for the blockchain, represented as a decimal percentage value.
-     * @type {number}
-     * @memberof AdditionalInfo
-     * @deprecated
-     */
-    'estimatedAnnualReward': number;
-    /**
      * The duration of the lockup period for certain actions on the blockchain, measured in milliseconds.
      * @type {number}
      * @memberof AdditionalInfo
