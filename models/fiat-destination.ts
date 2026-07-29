@@ -21,16 +21,25 @@ import { AchDestination } from './ach-destination';
 import { ChapsDestination } from './chaps-destination';
 // May contain unused imports in some cases
 // @ts-ignore
+import { CipsDestination } from './cips-destination';
+// May contain unused imports in some cases
+// @ts-ignore
 import { EuropeanSEPADestination } from './european-sepadestination';
+// May contain unused imports in some cases
+// @ts-ignore
+import { FpsHkDestination } from './fps-hk-destination';
+// May contain unused imports in some cases
+// @ts-ignore
+import { FpsUkDestination } from './fps-uk-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { IbanDestination } from './iban-destination';
 // May contain unused imports in some cases
 // @ts-ignore
-import { InteracDestination } from './interac-destination';
+import { InstaPayDestination } from './insta-pay-destination';
 // May contain unused imports in some cases
 // @ts-ignore
-import { InternalTransferAddress } from './internal-transfer-address';
+import { InteracDestination } from './interac-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { InternalTransferDestination } from './internal-transfer-destination';
@@ -42,7 +51,16 @@ import { LocalBankTransferAfricaDestination } from './local-bank-transfer-africa
 import { MobileMoneyDestination } from './mobile-money-destination';
 // May contain unused imports in some cases
 // @ts-ignore
+import { NequiDestination } from './nequi-destination';
+// May contain unused imports in some cases
+// @ts-ignore
 import { PayidDestination } from './payid-destination';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PesonetAddress } from './pesonet-address';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PesonetDestination } from './pesonet-destination';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PixDestination } from './pix-destination';
@@ -63,6 +81,6 @@ import { USWireDestination } from './uswire-destination';
  * @type FiatDestination
  * @export
  */
-export type FiatDestination = AchDestination | ChapsDestination | EuropeanSEPADestination | IbanDestination | InteracDestination | InternalTransferDestination | LocalBankTransferAfricaDestination | MobileMoneyDestination | PayidDestination | PixDestination | SEPADestination | SpeiDestination | SwiftDestination | USWireDestination;
+export type FiatDestination = AchDestination | ChapsDestination | CipsDestination | EuropeanSEPADestination | FpsHkDestination | FpsUkDestination | IbanDestination | InstaPayDestination | InteracDestination | InternalTransferDestination | LocalBankTransferAfricaDestination | MobileMoneyDestination | NequiDestination | PayidDestination | PesonetDestination | PixDestination | SEPADestination | SpeiDestination | SwiftDestination | USWireDestination;
 
 

@@ -21,7 +21,7 @@ import { FiatDestination } from './fiat-destination';
 import { FiatPaymentMetadata } from './fiat-payment-metadata';
 // May contain unused imports in some cases
 // @ts-ignore
-import { InternalTransferAddress } from './internal-transfer-address';
+import { PesonetAddress } from './pesonet-address';
 
 /**
  * @type PaymentInstructionsOneOf
