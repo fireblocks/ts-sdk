@@ -26,5 +26,11 @@ export interface EthereumBlockchainData {
      * @memberof EthereumBlockchainData
      */
     'isCompoundingValidator': boolean;
+    /**
+     * Estimated time the staked ETH will activate, derived from the beacon-chain deposit queue. Present only while the position is pending/activating; omitted once active.
+     * @type {string}
+     * @memberof EthereumBlockchainData
+     */
+    'estimatedActivationTime'?: string;
 }
 

@@ -18,10 +18,10 @@
 import { BlockchainDestination } from './blockchain-destination';
 // May contain unused imports in some cases
 // @ts-ignore
-import { InternalTransferAddress } from './internal-transfer-address';
+import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
 // May contain unused imports in some cases
 // @ts-ignore
-import { PaymentInstructionsOneOf } from './payment-instructions-one-of';
+import { PesonetAddress } from './pesonet-address';
 
 /**
  * @type PaymentInstructions

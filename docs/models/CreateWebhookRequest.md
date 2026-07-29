@@ -9,6 +9,8 @@
 |**description** | **string** | description of the webhook. should not contain special characters. | [optional] [default to undefined]|
 |**enabled** | **boolean** | The status of the webhook. If false, the webhook will not receive notifications. | [optional] [default to true]|
 |**mtls** | [**WebhookMtls**](WebhookMtls.md) |  | [optional] [default to undefined]|
+|**oauth** | [**WebhookOAuth**](WebhookOAuth.md) |  | [optional] [default to undefined]|
+|**customHeaders** | [**WebhookCustomHeaders**](WebhookCustomHeaders.md) |  | [optional] [default to undefined]|
 
 
 

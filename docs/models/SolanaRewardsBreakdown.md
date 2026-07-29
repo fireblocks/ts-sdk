@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**issuance** | **string** | The issuance reward amount earned by the position, measured in the staked asset unit. | [default to undefined]|
+|**inflation** | **string** | The inflation reward amount earned by the position, measured in the staked asset unit. | [default to undefined]|
 |**mev** | **string** | The MEV reward amount earned by the position, measured in the staked asset unit. | [default to undefined]|
 |**lastRewardSyncedAt** | **string** | The last time the rewards were synced (ISO Date). | [default to undefined]|
 

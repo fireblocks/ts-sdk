@@ -15,10 +15,16 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { WebhookCustomHeaders } from './webhook-custom-headers';
+// May contain unused imports in some cases
+// @ts-ignore
 import { WebhookEvent } from './webhook-event';
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookMtls } from './webhook-mtls';
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookOAuth } from './webhook-oauth';
 
 /**
  * 
@@ -56,5 +62,17 @@ export interface CreateWebhookRequest {
      * @memberof CreateWebhookRequest
      */
     'mtls'?: WebhookMtls | null;
+    /**
+     * 
+     * @type {WebhookOAuth}
+     * @memberof CreateWebhookRequest
+     */
+    'oauth'?: WebhookOAuth | null;
+    /**
+     * 
+     * @type {WebhookCustomHeaders}
+     * @memberof CreateWebhookRequest
+     */
+    'customHeaders'?: WebhookCustomHeaders;
 }
 

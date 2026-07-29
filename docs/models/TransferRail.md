@@ -33,6 +33,18 @@
 
 * `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
 
+* `Cips` (value: `'CIPS'`)
+
+* `Nequi` (value: `'NEQUI'`)
+
+* `FpsUk` (value: `'FPS_UK'`)
+
+* `FpsHk` (value: `'FPS_HK'`)
+
+* `InstaPay` (value: `'INSTA_PAY'`)
+
+* `Pesonet` (value: `'PESONET'`)
+
 
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
