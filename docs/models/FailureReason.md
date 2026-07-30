@@ -55,6 +55,10 @@
 
 * `DestinationNotWhitelisted` (value: `'DESTINATION_NOT_WHITELISTED'`)
 
+* `MissingDestinationDetails` (value: `'MISSING_DESTINATION_DETAILS'`)
+
+* `MissingWorkspaceDetails` (value: `'MISSING_WORKSPACE_DETAILS'`)
+
 
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
