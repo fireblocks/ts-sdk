@@ -10,6 +10,7 @@
 |**totalWithdrawableAmount** | **string** | The total amount available for withdrawal. | [default to undefined]|
 |**totalInactiveAmount** | **string** | The total inactive amount. | [default to undefined]|
 |**rewardsBreakdown** | [**SolanaRewardsBreakdown**](SolanaRewardsBreakdown.md) |  | [optional] [default to undefined]|
+|**estimatedActivationTime** | **string** | Estimated time the staked ETH will activate, derived from the beacon-chain deposit queue. Present only while the position is pending/activating; omitted once active. | [optional] [default to undefined]|
 
 
 

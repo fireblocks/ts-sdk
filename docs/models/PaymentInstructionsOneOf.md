@@ -4,15 +4,15 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | **string** |  | [default to undefined]|
-|**address** | [**InternalTransferAddress**](InternalTransferAddress.md) |  | [default to undefined]|
+|**type** | **string** | The transfer rail type for the destination | [default to undefined]|
+|**address** | [**PesonetAddress**](PesonetAddress.md) |  | [default to undefined]|
 |**referenceId** | **string** |  | [optional] [default to undefined]|
 
 
 ## Enum: PaymentInstructionsOneOfTypeEnum
 
 
-* `InternalTransfer` (value: `'INTERNAL_TRANSFER'`)
+* `Pesonet` (value: `'PESONET'`)
 
 
 

@@ -15,10 +15,16 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { WebhookCustomHeadersResponse } from './webhook-custom-headers-response';
+// May contain unused imports in some cases
+// @ts-ignore
 import { WebhookEvent } from './webhook-event';
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookMtls } from './webhook-mtls';
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookOAuthResponse } from './webhook-oauth-response';
 
 /**
  * 
@@ -74,6 +80,18 @@ export interface Webhook {
      * @memberof Webhook
      */
     'mtls'?: WebhookMtls | null;
+    /**
+     * 
+     * @type {WebhookOAuthResponse}
+     * @memberof Webhook
+     */
+    'oauth'?: WebhookOAuthResponse;
+    /**
+     * 
+     * @type {WebhookCustomHeadersResponse}
+     * @memberof Webhook
+     */
+    'customHeaders'?: WebhookCustomHeadersResponse;
 }
 
 export const WebhookStatusEnum = {

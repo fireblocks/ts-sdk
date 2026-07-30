@@ -21,11 +21,11 @@
  */
 export interface SolanaRewardsBreakdown {
     /**
-     * The issuance reward amount earned by the position, measured in the staked asset unit.
+     * The inflation reward amount earned by the position, measured in the staked asset unit.
      * @type {string}
      * @memberof SolanaRewardsBreakdown
      */
-    'issuance': string;
+    'inflation': string;
     /**
      * The MEV reward amount earned by the position, measured in the staked asset unit.
      * @type {string}
