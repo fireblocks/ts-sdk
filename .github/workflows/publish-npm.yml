@@ -2,12 +2,6 @@ name: Publish to NPM
 on:
   release:
     types: [ published ]
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version to use for this test run (no commit/push/tag/publish will actually happen)'
-        required: false
-        default: '0.0.0-test'
 
 jobs:
   bump-version:
@@ -37,11 +31,9 @@ jobs:
 
       - name: Bump version and add changelog
         env:
-          INITIAL_TAG: ${{ github.event.release.tag_name || inputs.version }}
-          # TEMPORARY DRY-RUN OVERRIDE - forces test mode even for real releases.
-          # Original: ${{ github.event_name == 'workflow_dispatch' }}
-          # Revert this commit before running a real release.
-          IS_TEST_RUN: 'true'
+          # Passed via env, never interpolated into the script: a git tag name may legally contain
+          # ; $ ` & | ( ), so inlining it in the script would let a crafted release tag run commands.
+          INITIAL_TAG: ${{ github.event.release.tag_name }}
         run: |
           tag="${INITIAL_TAG//[v]/}"
           echo "$tag"
@@ -54,15 +46,9 @@ jobs:
           auto-changelog
           git add .
           git commit -m "release $tag"
-          if [ "$IS_TEST_RUN" = "true" ]; then
-            echo "Test run: skipping git push"
-          else
-            git push
-          fi
+          git push
 
       - name: Move tag
-        # TEMPORARY DRY-RUN OVERRIDE - original: github.event_name == 'release'
-        if: false
         env:
           TAG_NAME: ${{ github.event.release.tag_name }}
         run: |
@@ -96,13 +82,5 @@ jobs:
         run: npm install
 
       - name: Publish package
-        env:
-          # TEMPORARY DRY-RUN OVERRIDE - original: ${{ github.event_name == 'workflow_dispatch' }}
-          IS_TEST_RUN: 'true'
-        run: |
-          if [ "$IS_TEST_RUN" = "true" ]; then
-            npm publish --dry-run
-          else
-            npm publish
-          fi
+        run: npm publish
         # No NODE_AUTH_TOKEN needed - OIDC handles authentication
