@@ -15,10 +15,12 @@
 
 
 /**
- * The VASP fields to return. Pass `all` for the complete record.  Behaviour differs between the two endpoints when this parameter is omitted: Get VASP details returns the complete record, while Get All VASPs returns a six-field subset per VASP. Passing `all` returns the complete record from both.  Combining `all` with specific field names is not defined; pass either `all` alone or a list of specific names.  This list is not exhaustive. Some field names the API accepts are intentionally undocumented, and an unrecognised name causes an error.
+ * The VASP\'s progress through the Travel Rule compliance onboarding milestones, as a map keyed by milestone code.  Each value indicates whether that milestone has been completed. The set of milestone codes is defined by the Travel Rule provider and may change over time, so clients must not assume any particular key is present. Examples of milestone codes include `TX_SENT`, `TX_NOTIFY_API`, `TF_VASP_VERIFIED`, `RULES_CUSTOM_INCOMING` and `INTEGRATIONS_WIDGET`.
  * @export
- * @interface TravelRuleFieldsEnum
+ * @interface TravelRuleVASPCompliancePhaseData
  */
-export interface TravelRuleFieldsEnum extends Array<string> {
+export interface TravelRuleVASPCompliancePhaseData {
+    [key: string]: boolean;
+
 }
 

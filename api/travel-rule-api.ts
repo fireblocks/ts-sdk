@@ -126,10 +126,10 @@ export const TravelRuleApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Get VASP Details.  Returns information about a VASP that has the specified DID.
+         * Get VASP Details.  Returns information about a VASP that has the specified DID.  The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
          * @summary Get VASP details
-         * @param {string} did 
-         * @param {Array<GetVASPByDIDFieldsEnum>} [fields] A CSV of fields to return. Choose from the following options:
+         * @param {string} did The Decentralized Identifier (DID) of the VASP.
+         * @param {Array<GetVASPByDIDFieldsEnum>} [fields] The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing &#x60;all&#x60;.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -164,11 +164,11 @@ export const TravelRuleApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.
+         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.  Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
          * @summary Get All VASPs
          * @param {GetVASPsOrderEnum} [order] Field to order by
          * @param {number} [pageSize] Records per page
-         * @param {Array<GetVASPsFieldsEnum>} [fields] CSV of fields to return (all, \&quot;blank\&quot; or see list of all field names below)
+         * @param {Array<GetVASPsFieldsEnum>} [fields] The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: &#x60;did&#x60;, &#x60;name&#x60;, &#x60;website&#x60;, &#x60;logo&#x60;, &#x60;incorporationCountry&#x60; and &#x60;jurisdictions&#x60;. Pass &#x60;all&#x60; to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error.
          * @param {string} [search] Search query
          * @param {GetVASPsReviewValueEnum} [reviewValue] Filter by the VASP\&#39;s review status. Possible values include: \&quot;TRUSTED\&quot;, \&quot;BLOCKED\&quot;, \&quot;MANUAL\&quot;, or \&quot;NULL\&quot;. When provided, only VASPs that match the specified reviewValue will be returned (i.e., VASPs that have already been reviewed to this status).
          * @param {string} [pageCursor] Cursor for pagination. When provided, the response will include the next page of results.
@@ -422,10 +422,10 @@ export const TravelRuleApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get VASP Details.  Returns information about a VASP that has the specified DID.
+         * Get VASP Details.  Returns information about a VASP that has the specified DID.  The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
          * @summary Get VASP details
-         * @param {string} did 
-         * @param {Array<GetVASPByDIDFieldsEnum>} [fields] A CSV of fields to return. Choose from the following options:
+         * @param {string} did The Decentralized Identifier (DID) of the VASP.
+         * @param {Array<GetVASPByDIDFieldsEnum>} [fields] The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing &#x60;all&#x60;.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -436,11 +436,11 @@ export const TravelRuleApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.
+         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.  Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
          * @summary Get All VASPs
          * @param {GetVASPsOrderEnum} [order] Field to order by
          * @param {number} [pageSize] Records per page
-         * @param {Array<GetVASPsFieldsEnum>} [fields] CSV of fields to return (all, \&quot;blank\&quot; or see list of all field names below)
+         * @param {Array<GetVASPsFieldsEnum>} [fields] The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: &#x60;did&#x60;, &#x60;name&#x60;, &#x60;website&#x60;, &#x60;logo&#x60;, &#x60;incorporationCountry&#x60; and &#x60;jurisdictions&#x60;. Pass &#x60;all&#x60; to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error.
          * @param {string} [search] Search query
          * @param {GetVASPsReviewValueEnum} [reviewValue] Filter by the VASP\&#39;s review status. Possible values include: \&quot;TRUSTED\&quot;, \&quot;BLOCKED\&quot;, \&quot;MANUAL\&quot;, or \&quot;NULL\&quot;. When provided, only VASPs that match the specified reviewValue will be returned (i.e., VASPs that have already been reviewed to this status).
          * @param {string} [pageCursor] Cursor for pagination. When provided, the response will include the next page of results.
@@ -541,7 +541,7 @@ export const TravelRuleApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getTrustProofOfAddress(requestParameters.transactionId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get VASP Details.  Returns information about a VASP that has the specified DID.
+         * Get VASP Details.  Returns information about a VASP that has the specified DID.  The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
          * @summary Get VASP details
          * @param {TravelRuleApiGetVASPByDIDRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -551,7 +551,7 @@ export const TravelRuleApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getVASPByDID(requestParameters.did, requestParameters.fields, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.
+         * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.  Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
          * @summary Get All VASPs
          * @param {TravelRuleApiGetVASPsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -645,14 +645,14 @@ export interface TravelRuleApiGetTrustProofOfAddressRequest {
  */
 export interface TravelRuleApiGetVASPByDIDRequest {
     /**
-     * 
+     * The Decentralized Identifier (DID) of the VASP.
      * @type {string}
      * @memberof TravelRuleApiGetVASPByDID
      */
     readonly did: string
 
     /**
-     * A CSV of fields to return. Choose from the following options:
+     * The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing &#x60;all&#x60;.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error.
      * @type {TravelRuleFieldsEnum}
      * @memberof TravelRuleApiGetVASPByDID
      */
@@ -680,7 +680,7 @@ export interface TravelRuleApiGetVASPsRequest {
     readonly pageSize?: number
 
     /**
-     * CSV of fields to return (all, \&quot;blank\&quot; or see list of all field names below)
+     * The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: &#x60;did&#x60;, &#x60;name&#x60;, &#x60;website&#x60;, &#x60;logo&#x60;, &#x60;incorporationCountry&#x60; and &#x60;jurisdictions&#x60;. Pass &#x60;all&#x60; to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error.
      * @type {TravelRuleFieldsEnum}
      * @memberof TravelRuleApiGetVASPs
      */
@@ -831,7 +831,7 @@ export class TravelRuleApi extends BaseAPI {
     }
 
     /**
-     * Get VASP Details.  Returns information about a VASP that has the specified DID.
+     * Get VASP Details.  Returns information about a VASP that has the specified DID.  The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
      * @summary Get VASP details
      * @param {TravelRuleApiGetVASPByDIDRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -843,7 +843,7 @@ export class TravelRuleApi extends BaseAPI {
     }
 
     /**
-     * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.
+     * Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.  Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
      * @summary Get All VASPs
      * @param {TravelRuleApiGetVASPsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -907,6 +907,7 @@ export class TravelRuleApi extends BaseAPI {
  * @export
  */
 export const GetVASPByDIDFieldsEnum = {
+    All: 'all',
     Did: 'did',
     Name: 'name',
     VerificationStatus: 'verificationStatus',
@@ -928,11 +929,25 @@ export const GetVASPByDIDFieldsEnum = {
     BusinessNumber: 'businessNumber',
     RegulatoryAuthorities: 'regulatoryAuthorities',
     Jurisdictions: 'jurisdictions',
+    Division: 'division',
     Street: 'street',
     Number: 'number',
     Unit: 'unit',
     PostCode: 'postCode',
     State: 'state',
+    OtherLegalName: 'otherLegalName',
+    GleifUpdatedAt: 'gleifUpdatedAt',
+    LeiNumber: 'leiNumber',
+    LegalForm: 'legalForm',
+    EntityCategory: 'entityCategory',
+    EntityStatus: 'entityStatus',
+    ExternalEntityConfig: 'externalEntityConfig',
+    HqStreet: 'hqStreet',
+    HqNumber: 'hqNumber',
+    HqPostcode: 'hqPostcode',
+    HqRegion: 'hqRegion',
+    HqCity: 'hqCity',
+    HqCountry: 'hqCountry',
     Certificates: 'certificates',
     Description: 'description',
     TravelRuleOpenvasp: 'travelRule_OPENVASP',
@@ -952,7 +967,28 @@ export const GetVASPByDIDFieldsEnum = {
     Documents: 'documents',
     HasAdmin: 'hasAdmin',
     IsNotifiable: 'isNotifiable',
-    Issuers: 'issuers'
+    Issuers: 'issuers',
+    RegulatoryStatus: 'regulatoryStatus',
+    SupervisoryAuthority: 'supervisoryAuthority',
+    RegistrationLicenseId: 'registrationLicenseId',
+    StatusStartDate: 'statusStartDate',
+    StatusExpirationDate: 'statusExpirationDate',
+    LastChecked: 'lastChecked',
+    AdditionalInformation: 'additionalInformation',
+    SubsidiaryOf: 'subsidiaryOf',
+    PiiDidkey: 'pii_didkey',
+    CompliancePhase: 'compliancePhase',
+    CompliancePhaseData: 'compliancePhaseData',
+    VaspnetId: 'vaspnetId',
+    VaspnetUpdatedAt: 'vaspnetUpdatedAt',
+    VaspnetImmutableFields: 'vaspnetImmutableFields',
+    NodeDidkey: 'node_didkey',
+    Ddq: 'ddq',
+    TargetProtocol: 'targetProtocol',
+    ParentGateway: 'parentGateway',
+    IsActiveSender: 'isActiveSender',
+    IsActiveReceiver: 'isActiveReceiver',
+    Subsidiaries: 'subsidiaries'
 } as const;
 export type GetVASPByDIDFieldsEnum = typeof GetVASPByDIDFieldsEnum[keyof typeof GetVASPByDIDFieldsEnum];
 /**
@@ -967,6 +1003,7 @@ export type GetVASPsOrderEnum = typeof GetVASPsOrderEnum[keyof typeof GetVASPsOr
  * @export
  */
 export const GetVASPsFieldsEnum = {
+    All: 'all',
     Did: 'did',
     Name: 'name',
     VerificationStatus: 'verificationStatus',
@@ -988,11 +1025,25 @@ export const GetVASPsFieldsEnum = {
     BusinessNumber: 'businessNumber',
     RegulatoryAuthorities: 'regulatoryAuthorities',
     Jurisdictions: 'jurisdictions',
+    Division: 'division',
     Street: 'street',
     Number: 'number',
     Unit: 'unit',
     PostCode: 'postCode',
     State: 'state',
+    OtherLegalName: 'otherLegalName',
+    GleifUpdatedAt: 'gleifUpdatedAt',
+    LeiNumber: 'leiNumber',
+    LegalForm: 'legalForm',
+    EntityCategory: 'entityCategory',
+    EntityStatus: 'entityStatus',
+    ExternalEntityConfig: 'externalEntityConfig',
+    HqStreet: 'hqStreet',
+    HqNumber: 'hqNumber',
+    HqPostcode: 'hqPostcode',
+    HqRegion: 'hqRegion',
+    HqCity: 'hqCity',
+    HqCountry: 'hqCountry',
     Certificates: 'certificates',
     Description: 'description',
     TravelRuleOpenvasp: 'travelRule_OPENVASP',
@@ -1012,7 +1063,28 @@ export const GetVASPsFieldsEnum = {
     Documents: 'documents',
     HasAdmin: 'hasAdmin',
     IsNotifiable: 'isNotifiable',
-    Issuers: 'issuers'
+    Issuers: 'issuers',
+    RegulatoryStatus: 'regulatoryStatus',
+    SupervisoryAuthority: 'supervisoryAuthority',
+    RegistrationLicenseId: 'registrationLicenseId',
+    StatusStartDate: 'statusStartDate',
+    StatusExpirationDate: 'statusExpirationDate',
+    LastChecked: 'lastChecked',
+    AdditionalInformation: 'additionalInformation',
+    SubsidiaryOf: 'subsidiaryOf',
+    PiiDidkey: 'pii_didkey',
+    CompliancePhase: 'compliancePhase',
+    CompliancePhaseData: 'compliancePhaseData',
+    VaspnetId: 'vaspnetId',
+    VaspnetUpdatedAt: 'vaspnetUpdatedAt',
+    VaspnetImmutableFields: 'vaspnetImmutableFields',
+    NodeDidkey: 'node_didkey',
+    Ddq: 'ddq',
+    TargetProtocol: 'targetProtocol',
+    ParentGateway: 'parentGateway',
+    IsActiveSender: 'isActiveSender',
+    IsActiveReceiver: 'isActiveReceiver',
+    Subsidiaries: 'subsidiaries'
 } as const;
 export type GetVASPsFieldsEnum = typeof GetVASPsFieldsEnum[keyof typeof GetVASPsFieldsEnum];
 /**
