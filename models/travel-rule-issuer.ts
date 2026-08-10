@@ -15,16 +15,28 @@
 
 
 /**
- * 
+ * An attestation of a single VASP attribute by an issuing party.
  * @export
  * @interface TravelRuleIssuer
  */
 export interface TravelRuleIssuer {
     /**
-     * 
+     * The Decentralized Identifier (DID) of the party that issued the attestation.
      * @type {string}
      * @memberof TravelRuleIssuer
      */
     'issuerDid': string;
+    /**
+     * Timestamp when the attestation was issued. Present on every attestation observed to date, but not guaranteed, so treat it as optional.
+     * @type {string}
+     * @memberof TravelRuleIssuer
+     */
+    'issuedDate'?: string;
+    /**
+     * The human-readable name of the issuing party. Returned only for issuers that publish a name, such as GLEIF; absent for others, including in the same response.
+     * @type {string}
+     * @memberof TravelRuleIssuer
+     */
+    'issuerName'?: string;
 }
 

@@ -16,9 +16,15 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { TravelRuleIssuers } from './travel-rule-issuers';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRuleVASPCompliancePhaseData } from './travel-rule-vaspcompliance-phase-data';
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRuleVASPExternalEntityConfig } from './travel-rule-vaspexternal-entity-config';
 
 /**
- * 
+ * A VASP record from the Travel Rule trust framework directory.  The set of keys returned depends on the `fields` query parameter. When `fields` is omitted, or supplied with an empty value, this endpoint returns the complete record.  Additional fields may be present in the response beyond those documented here. Clients must ignore unrecognised fields rather than failing to deserialize.
  * @export
  * @interface TravelRuleVASP
  */
@@ -60,7 +66,7 @@ export interface TravelRuleVASP {
      */
     'country': string;
     /**
-     * Comma-separated list of email domains associated with the VASP.
+     * The email domains associated with the VASP. The field\'s type is string; its content is a JSON-encoded array of domains. Clients must parse this value to obtain the array.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -84,7 +90,7 @@ export interface TravelRuleVASP {
      */
     'legalName': string;
     /**
-     * The year the VASP was founded.
+     * The year the VASP was founded. Returned as a string, not an integer.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -138,19 +144,19 @@ export interface TravelRuleVASP {
      */
     'issuers': TravelRuleIssuers;
     /**
-     * The second line of the VASP\'s address (if applicable).
+     * The second line of the VASP\'s address (if applicable). May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'addressLine2'?: string;
     /**
-     * URL to the logo of the VASP.
+     * URL to the logo of the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'logo'?: string;
     /**
-     * Other names the VASP is known by.
+     * Other names the VASP is known by. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -162,7 +168,7 @@ export interface TravelRuleVASP {
      */
     'identificationType'?: string;
     /**
-     * The country of identification for the VASP (ISO-3166 Alpha-2 code).
+     * The country of identification for the VASP (ISO-3166 Alpha-2 code). May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -174,25 +180,31 @@ export interface TravelRuleVASP {
      */
     'businessNumber'?: string;
     /**
-     * The regulatory authorities overseeing the VASP.
+     * The regulatory authorities overseeing the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'regulatoryAuthorities'?: string;
     /**
-     * The street name where the VASP is located.
+     * The division of the VASP\'s registered address, where applicable.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'division'?: string | null;
+    /**
+     * The street name where the VASP is located. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'street'?: string;
     /**
-     * The building number of the VASP\'s address.
+     * The building number of the VASP\'s address. May be returned as an empty string when not supplied.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'number'?: string;
     /**
-     * The unit or suite number of the VASP\'s address.
+     * The unit or suite number of the VASP\'s address. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -210,61 +222,139 @@ export interface TravelRuleVASP {
      */
     'state'?: string;
     /**
-     * Certificates or licenses held by the VASP.
+     * Alternative legal names of the VASP, as a comma-separated list. Resolved from an external registry, so it is only populated for VASPs with a resolved entity record.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'otherLegalName'?: string | null;
+    /**
+     * Timestamp of the last synchronization with the GLEIF registry. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'gleifUpdatedAt'?: string | null;
+    /**
+     * The VASP\'s Legal Entity Identifier (LEI), a 20-character alphanumeric code. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'leiNumber'?: string | null;
+    /**
+     * The GLEIF Entity Legal Form (ELF) code of the VASP. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'legalForm'?: string | null;
+    /**
+     * The GLEIF entity category of the VASP. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'entityCategory'?: string | null;
+    /**
+     * The GLEIF entity status of the VASP. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'entityStatus'?: string | null;
+    /**
+     * Entity records resolved from external registries, such as GLEIF. Only populated for VASPs that have been resolved against at least one external registry.
+     * @type {Array<TravelRuleVASPExternalEntityConfig>}
+     * @memberof TravelRuleVASP
+     */
+    'externalEntityConfig'?: Array<TravelRuleVASPExternalEntityConfig> | null;
+    /**
+     * The street of the VASP\'s headquarters address. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'hqStreet'?: string | null;
+    /**
+     * The building number of the VASP\'s headquarters address. May be returned as an empty string as well as `null` when not supplied.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'hqNumber'?: string | null;
+    /**
+     * The postal code of the VASP\'s headquarters address. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'hqPostcode'?: string | null;
+    /**
+     * The region of the VASP\'s headquarters address, as an ISO-3166-2 subdivision code. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'hqRegion'?: string | null;
+    /**
+     * The city of the VASP\'s headquarters address. Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'hqCity'?: string | null;
+    /**
+     * The country of the VASP\'s headquarters address (ISO-3166 Alpha-2 code). Only populated for VASPs with a GLEIF-resolved LEI.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'hqCountry'?: string | null;
+    /**
+     * Certificates or licenses held by the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'certificates'?: string;
     /**
-     * A brief description of the VASP.
+     * A brief description of the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'description'?: string;
     /**
-     * Travel rule compliance status for OpenVASP.
+     * Travel rule compliance status for OpenVASP. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_OPENVASP'?: string;
     /**
-     * Travel rule compliance status for Sygna.
+     * Travel rule compliance status for Sygna. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_SYGNA'?: string;
     /**
-     * Travel rule compliance status for TRISA.
+     * Travel rule compliance status for TRISA. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_TRISA'?: string;
     /**
-     * Travel rule compliance status for EMAIL.
+     * Travel rule compliance status for EMAIL. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_EMAIL'?: string;
     /**
-     * Travel rule compliance status for TRP.
+     * Travel rule compliance status for TRP. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_TRP'?: string;
     /**
-     * Travel rule compliance status for Shyft.
+     * Travel rule compliance status for Shyft. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_SHYFT'?: string;
     /**
-     * Travel rule compliance status for US Travel Rule WG.
+     * Travel rule compliance status for US Travel Rule WG. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'travelRule_USTRAVELRULEWG'?: string;
     /**
-     * User or system that created the VASP record.
+     * The DID of the party that created the VASP record. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -276,7 +366,7 @@ export interface TravelRuleVASP {
      */
     'updatedAt'?: string;
     /**
-     * User or system that last updated the VASP record.
+     * The DID of the party that last updated the VASP record.
      * @type {string}
      * @memberof TravelRuleVASP
      */
@@ -294,10 +384,136 @@ export interface TravelRuleVASP {
      */
     'lastReceivedDate'?: string;
     /**
-     * Documents associated with the VASP.
+     * Documents associated with the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
     'documents'?: string;
+    /**
+     * The regulatory status of the VASP, as free text.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'regulatoryStatus'?: string | null;
+    /**
+     * The supervisory authority responsible for the VASP.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'supervisoryAuthority'?: string | null;
+    /**
+     * The identifier of the VASP\'s registration or operating license.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'registrationLicenseId'?: string | null;
+    /**
+     * The date the VASP\'s current regulatory status took effect.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'statusStartDate'?: string | null;
+    /**
+     * The date the VASP\'s current regulatory status expires.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'statusExpirationDate'?: string | null;
+    /**
+     * Timestamp of the last verification of the VASP\'s regulatory status.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'lastChecked'?: string | null;
+    /**
+     * Additional free-text information about the VASP.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'additionalInformation'?: string | null;
+    /**
+     * The DID of the parent VASP, when this VASP is a subsidiary of another.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'subsidiaryOf'?: string | null;
+    /**
+     * The VASP\'s public PII encryption key, published in the trust framework directory. Use it to encrypt IVMS101 personally identifiable information addressed to this VASP.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'pii_didkey'?: string | null;
+    /**
+     * The VASP\'s current compliance onboarding phase.
+     * @type {number}
+     * @memberof TravelRuleVASP
+     */
+    'compliancePhase'?: number | null;
+    /**
+     * 
+     * @type {TravelRuleVASPCompliancePhaseData}
+     * @memberof TravelRuleVASP
+     */
+    'compliancePhaseData'?: TravelRuleVASPCompliancePhaseData | null;
+    /**
+     * The VASP\'s VASPnet identifier.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'vaspnetId'?: string | null;
+    /**
+     * Timestamp of the last synchronization with VASPnet.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'vaspnetUpdatedAt'?: string | null;
+    /**
+     * Names of the fields that are managed by VASPnet and cannot be modified locally. Empty when no fields are locked.
+     * @type {Array<string>}
+     * @memberof TravelRuleVASP
+     */
+    'vaspnetImmutableFields'?: Array<string> | null;
+    /**
+     * The public key of the Travel Rule node serving this VASP record. The format has not been confirmed against a live response; every observed value has been null.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'node_didkey'?: string | null;
+    /**
+     * The VASP\'s Due Diligence Questionnaire, as a JSON-encoded string containing a `data` object and an `updatedAt` timestamp. Clients must parse this value.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'ddq'?: string | null;
+    /**
+     * The Travel Rule protocol used to reach this VASP, when a specific one is configured.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'targetProtocol'?: string | null;
+    /**
+     * The DID of the gateway VASP that routes messages on this VASP\'s behalf.
+     * @type {string}
+     * @memberof TravelRuleVASP
+     */
+    'parentGateway'?: string | null;
+    /**
+     * Indicates if the VASP actively sends Travel Rule transfers.
+     * @type {boolean}
+     * @memberof TravelRuleVASP
+     */
+    'isActiveSender'?: boolean | null;
+    /**
+     * Indicates if the VASP actively receives Travel Rule transfers.
+     * @type {boolean}
+     * @memberof TravelRuleVASP
+     */
+    'isActiveReceiver'?: boolean | null;
+    /**
+     * The VASP\'s subsidiary entities. The element schema is not yet documented, as no response containing a populated value has been observed; do not assume a particular element type.
+     * @type {Array<any>}
+     * @memberof TravelRuleVASP
+     */
+    'subsidiaries'?: Array<any> | null;
 }
 

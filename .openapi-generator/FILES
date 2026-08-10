@@ -1178,6 +1178,10 @@ TravelRuleStatusEnum.md
 TravelRuleTransactionBlockchainInfo.md
 TravelRuleUpdateVASPDetails.md
 TravelRuleVASP.md
+TravelRuleVASPCompliancePhaseData.md
+TravelRuleVASPExternalEntity.md
+TravelRuleVASPExternalEntityConfig.md
+TravelRuleVASPExternalEntityRegistration.md
 TravelRuleValidateDateAndPlaceOfBirth.md
 TravelRuleValidateFullTransactionRequest.md
 TravelRuleValidateGeographicAddress.md
@@ -2407,6 +2411,10 @@ models/travel-rule-validate-transaction-request.ts
 models/travel-rule-validate-transaction-response.ts
 models/travel-rule-vasp-for-vault.ts
 models/travel-rule-vasp.ts
+models/travel-rule-vaspcompliance-phase-data.ts
+models/travel-rule-vaspexternal-entity-config.ts
+models/travel-rule-vaspexternal-entity-registration.ts
+models/travel-rule-vaspexternal-entity.ts
 models/travel-rule-verdict-enum.ts
 models/trigger-validation-flow-response.ts
 models/trlink-amount.ts

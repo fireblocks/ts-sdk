@@ -140,7 +140,7 @@ No authorization required
 # **getVASPByDID**
 > TravelRuleVASP getVASPByDID()
 
-Get VASP Details.  Returns information about a VASP that has the specified DID.
+Get VASP Details.  Returns information about a VASP that has the specified DID.  The response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
 
 ### Example
 
@@ -158,9 +158,9 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: TravelRuleApiGetVASPByDIDRequest = {
-  // string
-  did: did_example,
-  // TravelRuleFieldsEnum | A CSV of fields to return. Choose from the following options: (optional)
+  // string | The Decentralized Identifier (DID) of the VASP.
+  did: did:ethr:0x17fe2dd11a2daa7f6c1fdf22532a4763f963aea6,
+  // TravelRuleFieldsEnum | The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing `all`.  Most field names return exactly the requested field. A few behave differently: `documents` and `ddq` return a small default set of identifying fields instead of the requested one, and `travelRule_EMAIL` returns an empty object. An unrecognised field name causes an error. (optional)
   fields: param_value,
 };
 
@@ -174,8 +174,8 @@ fireblocks.travelRule.getVASPByDID(body).then((res: FireblocksResponse<TravelRul
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **did** | [**string**] |  | defaults to undefined
- **fields** | **Array<&#39;did&#39; &#124; &#39;name&#39; &#124; &#39;verificationStatus&#39; &#124; &#39;addressLine1&#39; &#124; &#39;addressLine2&#39; &#124; &#39;city&#39; &#124; &#39;country&#39; &#124; &#39;emailDomains&#39; &#124; &#39;website&#39; &#124; &#39;logo&#39; &#124; &#39;legalStructure&#39; &#124; &#39;legalName&#39; &#124; &#39;yearFounded&#39; &#124; &#39;incorporationCountry&#39; &#124; &#39;isRegulated&#39; &#124; &#39;otherNames&#39; &#124; &#39;identificationType&#39; &#124; &#39;identificationCountry&#39; &#124; &#39;businessNumber&#39; &#124; &#39;regulatoryAuthorities&#39; &#124; &#39;jurisdictions&#39; &#124; &#39;street&#39; &#124; &#39;number&#39; &#124; &#39;unit&#39; &#124; &#39;postCode&#39; &#124; &#39;state&#39; &#124; &#39;certificates&#39; &#124; &#39;description&#39; &#124; &#39;travelRule_OPENVASP&#39; &#124; &#39;travelRule_SYGNA&#39; &#124; &#39;travelRule_TRISA&#39; &#124; &#39;travelRule_TRLIGHT&#39; &#124; &#39;travelRule_EMAIL&#39; &#124; &#39;travelRule_TRP&#39; &#124; &#39;travelRule_SHYFT&#39; &#124; &#39;travelRule_USTRAVELRULEWG&#39; &#124; &#39;createdAt&#39; &#124; &#39;createdBy&#39; &#124; &#39;updatedAt&#39; &#124; &#39;updatedBy&#39; &#124; &#39;lastSentDate&#39; &#124; &#39;lastReceivedDate&#39; &#124; &#39;documents&#39; &#124; &#39;hasAdmin&#39; &#124; &#39;isNotifiable&#39; &#124; &#39;issuers&#39;>** | A CSV of fields to return. Choose from the following options: | (optional) defaults to undefined
+ **did** | [**string**] | The Decentralized Identifier (DID) of the VASP. | defaults to undefined
+ **fields** | **Array<&#39;all&#39; &#124; &#39;did&#39; &#124; &#39;name&#39; &#124; &#39;verificationStatus&#39; &#124; &#39;addressLine1&#39; &#124; &#39;addressLine2&#39; &#124; &#39;city&#39; &#124; &#39;country&#39; &#124; &#39;emailDomains&#39; &#124; &#39;website&#39; &#124; &#39;logo&#39; &#124; &#39;legalStructure&#39; &#124; &#39;legalName&#39; &#124; &#39;yearFounded&#39; &#124; &#39;incorporationCountry&#39; &#124; &#39;isRegulated&#39; &#124; &#39;otherNames&#39; &#124; &#39;identificationType&#39; &#124; &#39;identificationCountry&#39; &#124; &#39;businessNumber&#39; &#124; &#39;regulatoryAuthorities&#39; &#124; &#39;jurisdictions&#39; &#124; &#39;division&#39; &#124; &#39;street&#39; &#124; &#39;number&#39; &#124; &#39;unit&#39; &#124; &#39;postCode&#39; &#124; &#39;state&#39; &#124; &#39;otherLegalName&#39; &#124; &#39;gleifUpdatedAt&#39; &#124; &#39;leiNumber&#39; &#124; &#39;legalForm&#39; &#124; &#39;entityCategory&#39; &#124; &#39;entityStatus&#39; &#124; &#39;externalEntityConfig&#39; &#124; &#39;hqStreet&#39; &#124; &#39;hqNumber&#39; &#124; &#39;hqPostcode&#39; &#124; &#39;hqRegion&#39; &#124; &#39;hqCity&#39; &#124; &#39;hqCountry&#39; &#124; &#39;certificates&#39; &#124; &#39;description&#39; &#124; &#39;travelRule_OPENVASP&#39; &#124; &#39;travelRule_SYGNA&#39; &#124; &#39;travelRule_TRISA&#39; &#124; &#39;travelRule_TRLIGHT&#39; &#124; &#39;travelRule_EMAIL&#39; &#124; &#39;travelRule_TRP&#39; &#124; &#39;travelRule_SHYFT&#39; &#124; &#39;travelRule_USTRAVELRULEWG&#39; &#124; &#39;createdAt&#39; &#124; &#39;createdBy&#39; &#124; &#39;updatedAt&#39; &#124; &#39;updatedBy&#39; &#124; &#39;lastSentDate&#39; &#124; &#39;lastReceivedDate&#39; &#124; &#39;documents&#39; &#124; &#39;hasAdmin&#39; &#124; &#39;isNotifiable&#39; &#124; &#39;issuers&#39; &#124; &#39;regulatoryStatus&#39; &#124; &#39;supervisoryAuthority&#39; &#124; &#39;registrationLicenseId&#39; &#124; &#39;statusStartDate&#39; &#124; &#39;statusExpirationDate&#39; &#124; &#39;lastChecked&#39; &#124; &#39;additionalInformation&#39; &#124; &#39;subsidiaryOf&#39; &#124; &#39;pii_didkey&#39; &#124; &#39;compliancePhase&#39; &#124; &#39;compliancePhaseData&#39; &#124; &#39;vaspnetId&#39; &#124; &#39;vaspnetUpdatedAt&#39; &#124; &#39;vaspnetImmutableFields&#39; &#124; &#39;node_didkey&#39; &#124; &#39;ddq&#39; &#124; &#39;targetProtocol&#39; &#124; &#39;parentGateway&#39; &#124; &#39;isActiveSender&#39; &#124; &#39;isActiveReceiver&#39; &#124; &#39;subsidiaries&#39;>** | The VASP fields to return.  Optional. If omitted, or supplied with an empty value, the complete VASP record is returned, which is the same as passing &#x60;all&#x60;.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error. | (optional) defaults to undefined
 
 
 ### Return type
@@ -195,7 +195,7 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Transaction validated successfully |  -  |
+**200** | VASP details |  -  |
 **400** | Invalid request body |  -  |
 **500** | Internal server error |  -  |
 
@@ -204,7 +204,7 @@ No authorization required
 # **getVASPs**
 > TravelRuleGetAllVASPsResponse getVASPs()
 
-Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.
+Get All VASPs.  Returns a list of VASPs. VASPs can be searched and sorted.  Each VASP in the response may contain fields that are not documented in the schema below. Clients must ignore unrecognised fields rather than failing to deserialize.
 
 ### Example
 
@@ -226,7 +226,7 @@ let body: TravelRuleApiGetVASPsRequest = {
   order: ASC,
   // number | Records per page (optional)
   pageSize: 10,
-  // TravelRuleFieldsEnum | CSV of fields to return (all, \"blank\" or see list of all field names below) (optional)
+  // TravelRuleFieldsEnum | The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: `did`, `name`, `website`, `logo`, `incorporationCountry` and `jurisdictions`. Pass `all` to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: `documents` and `ddq` return a small default set of identifying fields instead of the requested one, and `travelRule_EMAIL` returns an empty object. An unrecognised field name causes an error. (optional)
   fields: param_value,
   // string | Search query (optional)
   search: Fireblocks,
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | Field to order by | (optional) defaults to undefined
  **pageSize** | [**number**] | Records per page | (optional) defaults to 500
- **fields** | **Array<&#39;did&#39; &#124; &#39;name&#39; &#124; &#39;verificationStatus&#39; &#124; &#39;addressLine1&#39; &#124; &#39;addressLine2&#39; &#124; &#39;city&#39; &#124; &#39;country&#39; &#124; &#39;emailDomains&#39; &#124; &#39;website&#39; &#124; &#39;logo&#39; &#124; &#39;legalStructure&#39; &#124; &#39;legalName&#39; &#124; &#39;yearFounded&#39; &#124; &#39;incorporationCountry&#39; &#124; &#39;isRegulated&#39; &#124; &#39;otherNames&#39; &#124; &#39;identificationType&#39; &#124; &#39;identificationCountry&#39; &#124; &#39;businessNumber&#39; &#124; &#39;regulatoryAuthorities&#39; &#124; &#39;jurisdictions&#39; &#124; &#39;street&#39; &#124; &#39;number&#39; &#124; &#39;unit&#39; &#124; &#39;postCode&#39; &#124; &#39;state&#39; &#124; &#39;certificates&#39; &#124; &#39;description&#39; &#124; &#39;travelRule_OPENVASP&#39; &#124; &#39;travelRule_SYGNA&#39; &#124; &#39;travelRule_TRISA&#39; &#124; &#39;travelRule_TRLIGHT&#39; &#124; &#39;travelRule_EMAIL&#39; &#124; &#39;travelRule_TRP&#39; &#124; &#39;travelRule_SHYFT&#39; &#124; &#39;travelRule_USTRAVELRULEWG&#39; &#124; &#39;createdAt&#39; &#124; &#39;createdBy&#39; &#124; &#39;updatedAt&#39; &#124; &#39;updatedBy&#39; &#124; &#39;lastSentDate&#39; &#124; &#39;lastReceivedDate&#39; &#124; &#39;documents&#39; &#124; &#39;hasAdmin&#39; &#124; &#39;isNotifiable&#39; &#124; &#39;issuers&#39;>** | CSV of fields to return (all, \&quot;blank\&quot; or see list of all field names below) | (optional) defaults to undefined
+ **fields** | **Array<&#39;all&#39; &#124; &#39;did&#39; &#124; &#39;name&#39; &#124; &#39;verificationStatus&#39; &#124; &#39;addressLine1&#39; &#124; &#39;addressLine2&#39; &#124; &#39;city&#39; &#124; &#39;country&#39; &#124; &#39;emailDomains&#39; &#124; &#39;website&#39; &#124; &#39;logo&#39; &#124; &#39;legalStructure&#39; &#124; &#39;legalName&#39; &#124; &#39;yearFounded&#39; &#124; &#39;incorporationCountry&#39; &#124; &#39;isRegulated&#39; &#124; &#39;otherNames&#39; &#124; &#39;identificationType&#39; &#124; &#39;identificationCountry&#39; &#124; &#39;businessNumber&#39; &#124; &#39;regulatoryAuthorities&#39; &#124; &#39;jurisdictions&#39; &#124; &#39;division&#39; &#124; &#39;street&#39; &#124; &#39;number&#39; &#124; &#39;unit&#39; &#124; &#39;postCode&#39; &#124; &#39;state&#39; &#124; &#39;otherLegalName&#39; &#124; &#39;gleifUpdatedAt&#39; &#124; &#39;leiNumber&#39; &#124; &#39;legalForm&#39; &#124; &#39;entityCategory&#39; &#124; &#39;entityStatus&#39; &#124; &#39;externalEntityConfig&#39; &#124; &#39;hqStreet&#39; &#124; &#39;hqNumber&#39; &#124; &#39;hqPostcode&#39; &#124; &#39;hqRegion&#39; &#124; &#39;hqCity&#39; &#124; &#39;hqCountry&#39; &#124; &#39;certificates&#39; &#124; &#39;description&#39; &#124; &#39;travelRule_OPENVASP&#39; &#124; &#39;travelRule_SYGNA&#39; &#124; &#39;travelRule_TRISA&#39; &#124; &#39;travelRule_TRLIGHT&#39; &#124; &#39;travelRule_EMAIL&#39; &#124; &#39;travelRule_TRP&#39; &#124; &#39;travelRule_SHYFT&#39; &#124; &#39;travelRule_USTRAVELRULEWG&#39; &#124; &#39;createdAt&#39; &#124; &#39;createdBy&#39; &#124; &#39;updatedAt&#39; &#124; &#39;updatedBy&#39; &#124; &#39;lastSentDate&#39; &#124; &#39;lastReceivedDate&#39; &#124; &#39;documents&#39; &#124; &#39;hasAdmin&#39; &#124; &#39;isNotifiable&#39; &#124; &#39;issuers&#39; &#124; &#39;regulatoryStatus&#39; &#124; &#39;supervisoryAuthority&#39; &#124; &#39;registrationLicenseId&#39; &#124; &#39;statusStartDate&#39; &#124; &#39;statusExpirationDate&#39; &#124; &#39;lastChecked&#39; &#124; &#39;additionalInformation&#39; &#124; &#39;subsidiaryOf&#39; &#124; &#39;pii_didkey&#39; &#124; &#39;compliancePhase&#39; &#124; &#39;compliancePhaseData&#39; &#124; &#39;vaspnetId&#39; &#124; &#39;vaspnetUpdatedAt&#39; &#124; &#39;vaspnetImmutableFields&#39; &#124; &#39;node_didkey&#39; &#124; &#39;ddq&#39; &#124; &#39;targetProtocol&#39; &#124; &#39;parentGateway&#39; &#124; &#39;isActiveSender&#39; &#124; &#39;isActiveReceiver&#39; &#124; &#39;subsidiaries&#39;>** | The VASP fields to return.  Optional. If omitted, each VASP is returned with a default subset of six fields: &#x60;did&#x60;, &#x60;name&#x60;, &#x60;website&#x60;, &#x60;logo&#x60;, &#x60;incorporationCountry&#x60; and &#x60;jurisdictions&#x60;. Pass &#x60;all&#x60; to return the complete record for each VASP.  Most field names return exactly the requested field. A few behave differently: &#x60;documents&#x60; and &#x60;ddq&#x60; return a small default set of identifying fields instead of the requested one, and &#x60;travelRule_EMAIL&#x60; returns an empty object. An unrecognised field name causes an error. | (optional) defaults to undefined
  **search** | [**string**] | Search query | (optional) defaults to undefined
  **reviewValue** | [**&#39;TRUSTED&#39; | &#39;BLOCKED&#39; | &#39;MANUAL&#39; | &#39;null&#39;**]**Array<&#39;TRUSTED&#39; &#124; &#39;BLOCKED&#39; &#124; &#39;MANUAL&#39; &#124; &#39;null&#39;>** | Filter by the VASP\&#39;s review status. Possible values include: \&quot;TRUSTED\&quot;, \&quot;BLOCKED\&quot;, \&quot;MANUAL\&quot;, or \&quot;NULL\&quot;. When provided, only VASPs that match the specified reviewValue will be returned (i.e., VASPs that have already been reviewed to this status). | (optional) defaults to undefined
  **pageCursor** | [**string**] | Cursor for pagination. When provided, the response will include the next page of results. | (optional) defaults to undefined
