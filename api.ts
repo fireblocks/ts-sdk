@@ -48,6 +48,7 @@ export * from './api/policy-editor-v2-api';
 export * from './api/policy-editor-v2-beta-api';
 export * from './api/reports-beta-api';
 export * from './api/reset-device-api';
+export * from './api/security-posture-management-api';
 export * from './api/smart-transfer-api';
 export * from './api/staking-api';
 export * from './api/trlink-api';

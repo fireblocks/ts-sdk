@@ -479,6 +479,7 @@ GasStationConfiguration.md
 GasStationConfigurationResponse.md
 GasStationPropertiesResponse.md
 GasStationsApi.md
+GaslessInfo.md
 GasslessStandardConfigurations.md
 GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
 GenieBetaApi.md
@@ -503,6 +504,7 @@ GetExchangeAccountsResponse.md
 GetExternalWalletsResponse.md
 GetFiatAccountsResponse.md
 GetFilterParameter.md
+GetFindingsExternalResponse.md
 GetInternalWalletsResponse.md
 GetLayerZeroDvnConfigResponse.md
 GetLayerZeroPeersResponse.md
@@ -881,6 +883,8 @@ ScreeningVerdict.md
 ScreeningVerdictEnum.md
 ScreeningVerdictMatchedRule.md
 SearchNetworkIdsResponse.md
+SecurityFinding.md
+SecurityPostureManagementApi.md
 SepaPaymentInfo.md
 SessionDTO.md
 SessionMetadata.md
@@ -1159,6 +1163,7 @@ TravelRuleGeographicAddress.md
 TravelRuleGetAllVASPsResponse.md
 TravelRuleIssuer.md
 TravelRuleIssuers.md
+TravelRuleLegalNameIdentifier.md
 TravelRuleLegalPerson.md
 TravelRuleLegalPersonNameIdentifier.md
 TravelRuleMatchedRule.md
@@ -1185,6 +1190,7 @@ TravelRuleVASPExternalEntityRegistration.md
 TravelRuleValidateDateAndPlaceOfBirth.md
 TravelRuleValidateFullTransactionRequest.md
 TravelRuleValidateGeographicAddress.md
+TravelRuleValidateLegalNameIdentifier.md
 TravelRuleValidateLegalPerson.md
 TravelRuleValidateLegalPersonNameIdentifier.md
 TravelRuleValidateNationalIdentification.md
@@ -1330,6 +1336,7 @@ api/policy-editor-v2-api.ts
 api/policy-editor-v2-beta-api.ts
 api/reports-beta-api.ts
 api/reset-device-api.ts
+api/security-posture-management-api.ts
 api/smart-transfer-api.ts
 api/staking-api.ts
 api/tags-api.ts
@@ -1815,6 +1822,7 @@ models/funds.ts
 models/gas-station-configuration-response.ts
 models/gas-station-configuration.ts
 models/gas-station-properties-response.ts
+models/gasless-info.ts
 models/gassless-standard-configurations-gasless-standard-configurations-value.ts
 models/gassless-standard-configurations.ts
 models/genie-chat-message.ts
@@ -1838,6 +1846,7 @@ models/get-exchange-accounts-response.ts
 models/get-external-wallets-response.ts
 models/get-fiat-accounts-response.ts
 models/get-filter-parameter.ts
+models/get-findings-external-response.ts
 models/get-internal-wallets-response.ts
 models/get-layer-zero-dvn-config-response.ts
 models/get-layer-zero-peers-response.ts
@@ -2197,6 +2206,7 @@ models/screening-verdict-enum.ts
 models/screening-verdict-matched-rule.ts
 models/screening-verdict.ts
 models/search-network-ids-response.ts
+models/security-finding.ts
 models/sepa-payment-info.ts
 models/sepaaddress.ts
 models/sepadestination.ts
@@ -2378,6 +2388,7 @@ models/travel-rule-geographic-address.ts
 models/travel-rule-get-all-vasps-response.ts
 models/travel-rule-issuer.ts
 models/travel-rule-issuers.ts
+models/travel-rule-legal-name-identifier.ts
 models/travel-rule-legal-person-name-identifier.ts
 models/travel-rule-legal-person.ts
 models/travel-rule-matched-rule.ts
@@ -2399,6 +2410,7 @@ models/travel-rule-update-vaspdetails.ts
 models/travel-rule-validate-date-and-place-of-birth.ts
 models/travel-rule-validate-full-transaction-request.ts
 models/travel-rule-validate-geographic-address.ts
+models/travel-rule-validate-legal-name-identifier.ts
 models/travel-rule-validate-legal-person-name-identifier.ts
 models/travel-rule-validate-legal-person.ts
 models/travel-rule-validate-national-identification.ts

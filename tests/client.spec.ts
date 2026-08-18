@@ -45,6 +45,7 @@ PolicyEditorV2Api,
 PolicyEditorV2BetaApi, 
 ReportsBetaApi, 
 ResetDeviceApi, 
+SecurityPostureManagementApi, 
 SmartTransferApi, 
 StakingApi, 
 TRLinkApi, 
@@ -102,6 +103,7 @@ let mockPolicyEditorV2Api: jest.Mock;
 let mockPolicyEditorV2BetaApi: jest.Mock;
 let mockReportsBetaApi: jest.Mock;
 let mockResetDeviceApi: jest.Mock;
+let mockSecurityPostureManagementApi: jest.Mock;
 let mockSmartTransferApi: jest.Mock;
 let mockStakingApi: jest.Mock;
 let mockTRLinkApi: jest.Mock;
@@ -156,6 +158,7 @@ jest.mock('../api', () => {
     mockPolicyEditorV2BetaApi = jest.fn();
     mockReportsBetaApi = jest.fn();
     mockResetDeviceApi = jest.fn();
+    mockSecurityPostureManagementApi = jest.fn();
     mockSmartTransferApi = jest.fn();
     mockStakingApi = jest.fn();
     mockTRLinkApi = jest.fn();
@@ -211,6 +214,7 @@ jest.mock('../api', () => {
         PolicyEditorV2BetaApi: mockPolicyEditorV2BetaApi,
         ReportsBetaApi: mockReportsBetaApi,
         ResetDeviceApi: mockResetDeviceApi,
+        SecurityPostureManagementApi: mockSecurityPostureManagementApi,
         SmartTransferApi: mockSmartTransferApi,
         StakingApi: mockStakingApi,
         TRLinkApi: mockTRLinkApi,
@@ -443,6 +447,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return ResetDeviceApi', async () => {
             expect(fireblocks.resetDevice).toBeInstanceOf(ResetDeviceApi);
             expect(mockResetDeviceApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return SecurityPostureManagementApi', async () => {
+            expect(fireblocks.securityPostureManagement).toBeInstanceOf(SecurityPostureManagementApi);
+            expect(mockSecurityPostureManagementApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return SmartTransferApi', async () => {
             expect(fireblocks.smartTransfer).toBeInstanceOf(SmartTransferApi);

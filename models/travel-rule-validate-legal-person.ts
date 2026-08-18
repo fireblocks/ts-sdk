@@ -34,7 +34,7 @@ export interface TravelRuleValidateLegalPerson {
      * @type {TravelRuleValidateLegalPersonNameIdentifier}
      * @memberof TravelRuleValidateLegalPerson
      */
-    'name'?: TravelRuleValidateLegalPersonNameIdentifier;
+    'name': TravelRuleValidateLegalPersonNameIdentifier;
     /**
      * The array of geographic addresses associated with the legal person.
      * @type {Array<TravelRuleValidateGeographicAddress>}

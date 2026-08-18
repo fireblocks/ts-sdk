@@ -46,6 +46,7 @@ import { ApiUserApi,
          PolicyEditorV2BetaApi, 
          ReportsBetaApi, 
          ResetDeviceApi, 
+         SecurityPostureManagementApi, 
          SmartTransferApi, 
          StakingApi, 
          TRLinkApi, 
@@ -105,6 +106,7 @@ export class Fireblocks {
     private _policyEditorV2Beta?: PolicyEditorV2BetaApi;
     private _reportsBeta?: ReportsBetaApi;
     private _resetDevice?: ResetDeviceApi;
+    private _securityPostureManagement?: SecurityPostureManagementApi;
     private _smartTransfer?: SmartTransferApi;
     private _staking?: StakingApi;
     private _trLink?: TRLinkApi;
@@ -245,6 +247,9 @@ export class Fireblocks {
     }
     get resetDevice(): ResetDeviceApi {
         return this._resetDevice ?? new ResetDeviceApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get securityPostureManagement(): SecurityPostureManagementApi {
+        return this._securityPostureManagement ?? new SecurityPostureManagementApi(this.config, undefined, this.axiosManager.axios);
     }
     get smartTransfer(): SmartTransferApi {
         return this._smartTransfer ?? new SmartTransferApi(this.config, undefined, this.axiosManager.axios);

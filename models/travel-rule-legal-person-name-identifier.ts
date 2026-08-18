@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRuleLegalNameIdentifier } from './travel-rule-legal-name-identifier';
 
 /**
  * 
@@ -21,16 +24,22 @@
  */
 export interface TravelRuleLegalPersonNameIdentifier {
     /**
-     * Name by which the legal person is known. The value must be encrypted.
-     * @type {string}
+     * An array of name identifiers of the legal person.
+     * @type {Array<TravelRuleLegalNameIdentifier>}
      * @memberof TravelRuleLegalPersonNameIdentifier
      */
-    'legalPersonName'?: string;
+    'nameIdentifier'?: Array<TravelRuleLegalNameIdentifier>;
     /**
-     * Specifies the type of name for a legal person. Acceptable values are: - \'REGISTERED\': The official registered name. - \'TRADE\': A trading name or DBA (Doing Business As) name. - \'OTHER\': Any other type of name. The value must be encrypted.
-     * @type {string}
+     * An array of local name identifiers of the legal person.
+     * @type {Array<TravelRuleLegalNameIdentifier>}
      * @memberof TravelRuleLegalPersonNameIdentifier
      */
-    'legalPersonNameIdentifierType'?: string;
+    'localNameIdentifier'?: Array<TravelRuleLegalNameIdentifier>;
+    /**
+     * An array of phonetic name identifiers of the legal person.
+     * @type {Array<TravelRuleLegalNameIdentifier>}
+     * @memberof TravelRuleLegalPersonNameIdentifier
+     */
+    'phoneticNameIdentifier'?: Array<TravelRuleLegalNameIdentifier>;
 }
 

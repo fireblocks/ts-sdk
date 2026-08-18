@@ -236,7 +236,7 @@ No authorization required
 # **getAllDelegations**
 > StakingGetAllDelegationsResponse getAllDelegations()
 
-Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -566,7 +566,7 @@ No authorization required
 # **getPositions**
 > StakingPositionsPaginatedResponse getPositions()
 
-Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -643,7 +643,7 @@ No authorization required
 # **getProviders**
 > StakingGetProvidersResponse getProviders()
 
-Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 

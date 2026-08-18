@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { TravelRuleValidateLegalNameIdentifier } from './travel-rule-validate-legal-name-identifier';
 
 /**
  * 
@@ -21,25 +24,22 @@
  */
 export interface TravelRuleValidateLegalPersonNameIdentifier {
     /**
-     * Name by which the legal person is known.
-     * @type {string}
+     * An array of name identifiers of the legal person.
+     * @type {Array<TravelRuleValidateLegalNameIdentifier>}
      * @memberof TravelRuleValidateLegalPersonNameIdentifier
      */
-    'legalPersonName'?: string;
+    'nameIdentifier': Array<TravelRuleValidateLegalNameIdentifier>;
     /**
-     * Specifies the type of name for a legal person. Acceptable values are: - \'REGISTERED\': The official registered name. - \'TRADE\': A trading name or DBA (Doing Business As) name. - \'OTHER\': Any other type of name.
-     * @type {string}
+     * An array of local name identifiers of the legal person.
+     * @type {Array<TravelRuleValidateLegalNameIdentifier>}
      * @memberof TravelRuleValidateLegalPersonNameIdentifier
      */
-    'legalPersonNameIdentifierType'?: TravelRuleValidateLegalPersonNameIdentifierLegalPersonNameIdentifierTypeEnum;
+    'localNameIdentifier'?: Array<TravelRuleValidateLegalNameIdentifier>;
+    /**
+     * An array of phonetic name identifiers of the legal person.
+     * @type {Array<TravelRuleValidateLegalNameIdentifier>}
+     * @memberof TravelRuleValidateLegalPersonNameIdentifier
+     */
+    'phoneticNameIdentifier'?: Array<TravelRuleValidateLegalNameIdentifier>;
 }
-
-export const TravelRuleValidateLegalPersonNameIdentifierLegalPersonNameIdentifierTypeEnum = {
-    Registered: 'REGISTERED',
-    Trade: 'TRADE',
-    Other: 'OTHER'
-} as const;
-
-export type TravelRuleValidateLegalPersonNameIdentifierLegalPersonNameIdentifierTypeEnum = typeof TravelRuleValidateLegalPersonNameIdentifierLegalPersonNameIdentifierTypeEnum[keyof typeof TravelRuleValidateLegalPersonNameIdentifierLegalPersonNameIdentifierTypeEnum];
-
 
