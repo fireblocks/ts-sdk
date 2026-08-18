@@ -201,7 +201,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking positions
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
          * @param {string} [vaultAccountId] Filter positions by vault account ID.
@@ -386,7 +386,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking positions (Paginated)
          * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
@@ -442,7 +442,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking providers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -801,7 +801,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking positions
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
          * @param {string} [vaultAccountId] Filter positions by vault account ID.
@@ -869,7 +869,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking positions (Paginated)
          * @param {number} pageSize Number of results per page. When provided, the response returns a paginated object with {data, next}. If omitted, all results are returned as an array.
          * @param {ChainDescriptor} [chainDescriptor] Protocol identifier to filter positions (e.g., ATOM_COS/AXL/CELESTIA). If omitted, positions across all supported chains are returned.
@@ -886,7 +886,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking providers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1037,7 +1037,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.consolidate(requestParameters.mergeStakeAccountsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking positions
          * @param {StakingApiGetAllDelegationsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1086,7 +1086,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getPositionRelatedTransactions(requestParameters.id, requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking positions (Paginated)
          * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1096,7 +1096,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getPositions(requestParameters.pageSize, requestParameters.chainDescriptor, requestParameters.vaultAccountId, requestParameters.pageCursor, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List staking providers
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1562,7 +1562,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns all staking positions with core details: amounts, rewards, status, chain, and vault. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List staking positions
      * @param {StakingApiGetAllDelegationsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1621,7 +1621,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns staking positions with core details: amounts, rewards, status, chain, and vault. It supports cursor-based pagination for efficient data retrieval. This endpoint always returns a paginated response with {data, next} structure. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List staking positions (Paginated)
      * @param {StakingApiGetPositionsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1633,7 +1633,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Returns all available staking providers with metadata such as name, ID, and supported chains. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List staking providers
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

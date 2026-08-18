@@ -370,6 +370,7 @@ Class | Method | HTTP request | Description
 *ReportsBetaApi* | [**getReport**](docs/apis/ReportsBetaApi.md#getReport) | **GET** /reports/{reportId} | Get report status
 *ReportsBetaApi* | [**listReports**](docs/apis/ReportsBetaApi.md#listReports) | **GET** /reports | List reports
 *ResetDeviceApi* | [**resetDevice**](docs/apis/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
+*SecurityPostureManagementApi* | [**getSecurityFindings**](docs/apis/SecurityPostureManagementApi.md#getSecurityFindings) | **GET** /security/fspm/findings | Get FSPM security findings
 *SmartTransferApi* | [**approveDvPTicketTerm**](docs/apis/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 *SmartTransferApi* | [**cancelTicket**](docs/apis/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 *SmartTransferApi* | [**createTicket**](docs/apis/SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket
@@ -1040,6 +1041,7 @@ Class | Method | HTTP request | Description
  - [GasStationConfiguration](docs/models/GasStationConfiguration.md)
  - [GasStationConfigurationResponse](docs/models/GasStationConfigurationResponse.md)
  - [GasStationPropertiesResponse](docs/models/GasStationPropertiesResponse.md)
+ - [GaslessInfo](docs/models/GaslessInfo.md)
  - [GasslessStandardConfigurations](docs/models/GasslessStandardConfigurations.md)
  - [GasslessStandardConfigurationsGaslessStandardConfigurationsValue](docs/models/GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md)
  - [GenieChatMessage](docs/models/GenieChatMessage.md)
@@ -1063,6 +1065,7 @@ Class | Method | HTTP request | Description
  - [GetExternalWalletsResponse](docs/models/GetExternalWalletsResponse.md)
  - [GetFiatAccountsResponse](docs/models/GetFiatAccountsResponse.md)
  - [GetFilterParameter](docs/models/GetFilterParameter.md)
+ - [GetFindingsExternalResponse](docs/models/GetFindingsExternalResponse.md)
  - [GetInternalWalletsResponse](docs/models/GetInternalWalletsResponse.md)
  - [GetLayerZeroDvnConfigResponse](docs/models/GetLayerZeroDvnConfigResponse.md)
  - [GetLayerZeroPeersResponse](docs/models/GetLayerZeroPeersResponse.md)
@@ -1425,6 +1428,7 @@ Class | Method | HTTP request | Description
  - [ScreeningVerdictEnum](docs/models/ScreeningVerdictEnum.md)
  - [ScreeningVerdictMatchedRule](docs/models/ScreeningVerdictMatchedRule.md)
  - [SearchNetworkIdsResponse](docs/models/SearchNetworkIdsResponse.md)
+ - [SecurityFinding](docs/models/SecurityFinding.md)
  - [SepaPaymentInfo](docs/models/SepaPaymentInfo.md)
  - [SessionDTO](docs/models/SessionDTO.md)
  - [SessionMetadata](docs/models/SessionMetadata.md)
@@ -1695,6 +1699,7 @@ Class | Method | HTTP request | Description
  - [TravelRuleGetAllVASPsResponse](docs/models/TravelRuleGetAllVASPsResponse.md)
  - [TravelRuleIssuer](docs/models/TravelRuleIssuer.md)
  - [TravelRuleIssuers](docs/models/TravelRuleIssuers.md)
+ - [TravelRuleLegalNameIdentifier](docs/models/TravelRuleLegalNameIdentifier.md)
  - [TravelRuleLegalPerson](docs/models/TravelRuleLegalPerson.md)
  - [TravelRuleLegalPersonNameIdentifier](docs/models/TravelRuleLegalPersonNameIdentifier.md)
  - [TravelRuleMatchedRule](docs/models/TravelRuleMatchedRule.md)
@@ -1721,6 +1726,7 @@ Class | Method | HTTP request | Description
  - [TravelRuleValidateDateAndPlaceOfBirth](docs/models/TravelRuleValidateDateAndPlaceOfBirth.md)
  - [TravelRuleValidateFullTransactionRequest](docs/models/TravelRuleValidateFullTransactionRequest.md)
  - [TravelRuleValidateGeographicAddress](docs/models/TravelRuleValidateGeographicAddress.md)
+ - [TravelRuleValidateLegalNameIdentifier](docs/models/TravelRuleValidateLegalNameIdentifier.md)
  - [TravelRuleValidateLegalPerson](docs/models/TravelRuleValidateLegalPerson.md)
  - [TravelRuleValidateLegalPersonNameIdentifier](docs/models/TravelRuleValidateLegalPersonNameIdentifier.md)
  - [TravelRuleValidateNationalIdentification](docs/models/TravelRuleValidateNationalIdentification.md)

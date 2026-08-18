@@ -63,6 +63,12 @@
 
 * `RepatriationFundSettlement` (value: `'REPATRIATION_FUND_SETTLEMENT'`)
 
+* `CorporateInvestment` (value: `'CORPORATE_INVESTMENT'`)
+
+* `InterCompanyTransfer` (value: `'INTER_COMPANY_TRANSFER'`)
+
+* `OfficeOperatingExpenses` (value: `'OFFICE_OPERATING_EXPENSES'`)
+
 
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

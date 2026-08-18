@@ -50,7 +50,10 @@ export const ReasonForPaymentEnum = {
     CurrencyExchange: 'CURRENCY_EXCHANGE',
     AdvanceGoodsPayment: 'ADVANCE_GOODS_PAYMENT',
     MerchantSettlement: 'MERCHANT_SETTLEMENT',
-    RepatriationFundSettlement: 'REPATRIATION_FUND_SETTLEMENT'
+    RepatriationFundSettlement: 'REPATRIATION_FUND_SETTLEMENT',
+    CorporateInvestment: 'CORPORATE_INVESTMENT',
+    InterCompanyTransfer: 'INTER_COMPANY_TRANSFER',
+    OfficeOperatingExpenses: 'OFFICE_OPERATING_EXPENSES'
 } as const;
 
 export type ReasonForPaymentEnum = typeof ReasonForPaymentEnum[keyof typeof ReasonForPaymentEnum];

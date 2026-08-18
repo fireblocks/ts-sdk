@@ -42,6 +42,9 @@ import { FeeInfo } from './fee-info';
 import { FeePayerInfo } from './fee-payer-info';
 // May contain unused imports in some cases
 // @ts-ignore
+import { GaslessInfo } from './gasless-info';
+// May contain unused imports in some cases
+// @ts-ignore
 import { GetTransactionOperation } from './get-transaction-operation';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -362,6 +365,12 @@ export interface TransactionResponse {
      * @memberof TransactionResponse
      */
     'feePayerInfo'?: FeePayerInfo;
+    /**
+     * 
+     * @type {GaslessInfo}
+     * @memberof TransactionResponse
+     */
+    'gaslessInfo'?: GaslessInfo;
     /**
      * 
      * @type {Array<SystemMessageInfo>}

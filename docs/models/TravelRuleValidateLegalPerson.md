@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**name** | [**TravelRuleValidateLegalPersonNameIdentifier**](TravelRuleValidateLegalPersonNameIdentifier.md) |  | [optional] [default to undefined]|
+|**name** | [**TravelRuleValidateLegalPersonNameIdentifier**](TravelRuleValidateLegalPersonNameIdentifier.md) |  | [default to undefined]|
 |**geographicAddress** | [**Array&lt;TravelRuleValidateGeographicAddress&gt;**](TravelRuleValidateGeographicAddress.md) | The array of geographic addresses associated with the legal person. | [optional] [default to undefined]|
 |**nationalIdentification** | [**TravelRuleValidateNationalIdentification**](TravelRuleValidateNationalIdentification.md) |  | [optional] [default to undefined]|
 |**customerIdentification** | **string** | A unique identifier that identifies the customer in the organization\&#39;s context. | [optional] [default to undefined]|
