@@ -5,6 +5,7 @@ APIUser.md
 APIUsers.md
 AbaPaymentInfo.md
 AbiFunction.md
+AcceptFindingRequest.md
 AccessRegistryAddressItem.md
 AccessRegistryCurrentStateResponse.md
 AccessRegistryCurrentStateResponse2.md
@@ -202,6 +203,7 @@ CollectionTokenMetadataAttributeDto.md
 CollectionTokenMetadataDto.md
 CollectionType.md
 ComplianceApi.md
+ComplianceRequirement.md
 ComplianceResultFullPayload.md
 ComplianceResultStatusesEnum.md
 ComplianceResults.md
@@ -463,6 +465,7 @@ FiatAsset.md
 FiatDestination.md
 FiatPaymentMetadata.md
 FiatTransfer.md
+FindingInfo.md
 FixedAmountTypeEnum.md
 FixedFee.md
 FlowDirection.md
@@ -815,6 +818,7 @@ RenameConnectedAccountRequest.md
 RenameConnectedAccountResponse.md
 RenameCosigner.md
 RenameVaultAccountResponse.md
+ReopenFindingRequest.md
 ReportConflictResponse.md
 ReportJob.md
 ReportJobLinks.md
@@ -884,6 +888,7 @@ ScreeningVerdictEnum.md
 ScreeningVerdictMatchedRule.md
 SearchNetworkIdsResponse.md
 SecurityFinding.md
+SecurityFindingDetailed.md
 SecurityPostureManagementApi.md
 SepaPaymentInfo.md
 SessionDTO.md
@@ -1224,6 +1229,7 @@ UpdateCallbackHandlerRequest.md
 UpdateCallbackHandlerResponse.md
 UpdateCounterpartyGroupRequest.md
 UpdateDraftRequest.md
+UpdateFindingExternalRequest.md
 UpdateLegalEntityRequest.md
 UpdateTagRequest.md
 UpdateTokenOwnershipStatusDto.md
@@ -1365,6 +1371,7 @@ git_push.sh
 index.ts
 models/aba-payment-info.ts
 models/abi-function.ts
+models/accept-finding-request.ts
 models/access-registry-address-item.ts
 models/access-registry-current-state-response.ts
 models/access-registry-current-state-response2.ts
@@ -1559,6 +1566,7 @@ models/collection-ownership-response.ts
 models/collection-token-metadata-attribute-dto.ts
 models/collection-token-metadata-dto.ts
 models/collection-type.ts
+models/compliance-requirement.ts
 models/compliance-result-full-payload.ts
 models/compliance-result-statuses-enum.ts
 models/compliance-results.ts
@@ -1807,6 +1815,7 @@ models/fiat-asset.ts
 models/fiat-destination.ts
 models/fiat-payment-metadata.ts
 models/fiat-transfer.ts
+models/finding-info.ts
 models/fixed-amount-type-enum.ts
 models/fixed-fee.ts
 models/flow-direction.ts
@@ -2144,6 +2153,7 @@ models/rename-connected-account-request.ts
 models/rename-connected-account-response.ts
 models/rename-cosigner.ts
 models/rename-vault-account-response.ts
+models/reopen-finding-request.ts
 models/report-conflict-response.ts
 models/report-job-links.ts
 models/report-job-response.ts
@@ -2206,6 +2216,7 @@ models/screening-verdict-enum.ts
 models/screening-verdict-matched-rule.ts
 models/screening-verdict.ts
 models/search-network-ids-response.ts
+models/security-finding-detailed.ts
 models/security-finding.ts
 models/sepa-payment-info.ts
 models/sepaaddress.ts
@@ -2539,6 +2550,7 @@ models/update-callback-handler-request.ts
 models/update-callback-handler-response.ts
 models/update-counterparty-group-request.ts
 models/update-draft-request.ts
+models/update-finding-external-request.ts
 models/update-legal-entity-request.ts
 models/update-tag-request.ts
 models/update-token-ownership-status-dto.ts
