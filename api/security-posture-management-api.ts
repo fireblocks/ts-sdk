@@ -30,6 +30,10 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetFindingsExternalResponse } from '../models';
+// @ts-ignore
+import { SecurityFindingDetailed } from '../models';
+// @ts-ignore
+import { UpdateFindingExternalRequest } from '../models';
 /**
  * SecurityPostureManagementApi - axios parameter creator
  * @export
@@ -37,7 +41,40 @@ import { GetFindingsExternalResponse } from '../models';
 export const SecurityPostureManagementApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Permissions: Security Admin, Security Auditor. 
+         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+         * @summary Get a FSPM security finding by ID
+         * @param {string} id Unique identifier of the finding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSecurityFindingById: async (id: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getSecurityFindingById', 'id', id)
+            const localVarPath = `/security/fspm/findings/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
          * @summary Get FSPM security findings
          * @param {string} [pageCursor] Cursor indicating the page position. Omit to fetch the first page.
          * @param {number} [pageSize] Number of results per page
@@ -91,6 +128,49 @@ export const SecurityPostureManagementApiAxiosParamCreator = function (configura
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+         * @summary Update a FSPM security finding by ID
+         * @param {UpdateFindingExternalRequest} updateFindingExternalRequest 
+         * @param {string} id Unique identifier of the finding
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSecurityFindingById: async (updateFindingExternalRequest: UpdateFindingExternalRequest, id: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateSecurityFindingById', 'updateFindingExternalRequest', updateFindingExternalRequest)
+            assertParamExistsAndNotEmpty('updateSecurityFindingById', 'id', id)
+            const localVarPath = `/security/fspm/findings/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateFindingExternalRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -102,7 +182,20 @@ export const SecurityPostureManagementApiFp = function(configuration?: Configura
     const localVarAxiosParamCreator = SecurityPostureManagementApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Permissions: Security Admin, Security Auditor. 
+         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+         * @summary Get a FSPM security finding by ID
+         * @param {string} id Unique identifier of the finding
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSecurityFindingById(id: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SecurityFindingDetailed>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSecurityFindingById(id, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['SecurityPostureManagementApi.getSecurityFindingById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
          * @summary Get FSPM security findings
          * @param {string} [pageCursor] Cursor indicating the page position. Omit to fetch the first page.
          * @param {number} [pageSize] Number of results per page
@@ -118,6 +211,21 @@ export const SecurityPostureManagementApiFp = function(configuration?: Configura
             const operationBasePath = operationServerMap['SecurityPostureManagementApi.getSecurityFindings']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+         * @summary Update a FSPM security finding by ID
+         * @param {UpdateFindingExternalRequest} updateFindingExternalRequest 
+         * @param {string} id Unique identifier of the finding
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateSecurityFindingById(updateFindingExternalRequest: UpdateFindingExternalRequest, id: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SecurityFindingDetailed>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateSecurityFindingById(updateFindingExternalRequest, id, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['SecurityPostureManagementApi.updateSecurityFindingById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -129,7 +237,17 @@ export const SecurityPostureManagementApiFactory = function (configuration?: Con
     const localVarFp = SecurityPostureManagementApiFp(configuration)
     return {
         /**
-         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Permissions: Security Admin, Security Auditor. 
+         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+         * @summary Get a FSPM security finding by ID
+         * @param {SecurityPostureManagementApiGetSecurityFindingByIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSecurityFindingById(requestParameters: SecurityPostureManagementApiGetSecurityFindingByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SecurityFindingDetailed> {
+            return localVarFp.getSecurityFindingById(requestParameters.id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
          * @summary Get FSPM security findings
          * @param {SecurityPostureManagementApiGetSecurityFindingsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -138,8 +256,32 @@ export const SecurityPostureManagementApiFactory = function (configuration?: Con
         getSecurityFindings(requestParameters: SecurityPostureManagementApiGetSecurityFindingsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetFindingsExternalResponse> {
             return localVarFp.getSecurityFindings(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.severity, requestParameters.category, requestParameters.status, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+         * @summary Update a FSPM security finding by ID
+         * @param {SecurityPostureManagementApiUpdateSecurityFindingByIdRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateSecurityFindingById(requestParameters: SecurityPostureManagementApiUpdateSecurityFindingByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<SecurityFindingDetailed> {
+            return localVarFp.updateSecurityFindingById(requestParameters.updateFindingExternalRequest, requestParameters.id, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
     };
 };
+
+/**
+ * Request parameters for getSecurityFindingById operation in SecurityPostureManagementApi.
+ * @export
+ * @interface SecurityPostureManagementApiGetSecurityFindingByIdRequest
+ */
+export interface SecurityPostureManagementApiGetSecurityFindingByIdRequest {
+    /**
+     * Unique identifier of the finding
+     * @type {string}
+     * @memberof SecurityPostureManagementApiGetSecurityFindingById
+     */
+    readonly id: string
+}
 
 /**
  * Request parameters for getSecurityFindings operation in SecurityPostureManagementApi.
@@ -170,7 +312,7 @@ export interface SecurityPostureManagementApiGetSecurityFindingsRequest {
 
     /**
      * Filter by finding category
-     * @type {'USER_MANAGEMENT' | 'ACCESS_CONTROL' | 'ADMIN_MANAGEMENT' | 'SECURITY' | 'CONFIGURATION' | 'APPROVAL_GROUP_MANAGEMENT' | 'POLICY_ENGINE_UTILIZATION' | 'WORKSPACE_CONFIGURATION' | 'DEFI_ACCESS' | 'FLEET_MANAGEMENT'}
+     * @type {'USER_MANAGEMENT' | 'APPROVAL_GROUP_MANAGEMENT' | 'POLICY_ENGINE_UTILIZATION' | 'WORKSPACE_CONFIGURATION' | 'DEFI_ACCESS' | 'FLEET_MANAGEMENT'}
      * @memberof SecurityPostureManagementApiGetSecurityFindings
      */
     readonly category?: GetSecurityFindingsCategoryEnum
@@ -184,6 +326,34 @@ export interface SecurityPostureManagementApiGetSecurityFindingsRequest {
 }
 
 /**
+ * Request parameters for updateSecurityFindingById operation in SecurityPostureManagementApi.
+ * @export
+ * @interface SecurityPostureManagementApiUpdateSecurityFindingByIdRequest
+ */
+export interface SecurityPostureManagementApiUpdateSecurityFindingByIdRequest {
+    /**
+     * 
+     * @type {UpdateFindingExternalRequest}
+     * @memberof SecurityPostureManagementApiUpdateSecurityFindingById
+     */
+    readonly updateFindingExternalRequest: UpdateFindingExternalRequest
+
+    /**
+     * Unique identifier of the finding
+     * @type {string}
+     * @memberof SecurityPostureManagementApiUpdateSecurityFindingById
+     */
+    readonly id: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof SecurityPostureManagementApiUpdateSecurityFindingById
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * SecurityPostureManagementApi - object-oriented interface
  * @export
  * @class SecurityPostureManagementApi
@@ -191,7 +361,19 @@ export interface SecurityPostureManagementApiGetSecurityFindingsRequest {
  */
 export class SecurityPostureManagementApi extends BaseAPI {
     /**
-     * Returns a paginated list of FSPM security findings for the workspace. Endpoint Permissions: Security Admin, Security Auditor. 
+     * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+     * @summary Get a FSPM security finding by ID
+     * @param {SecurityPostureManagementApiGetSecurityFindingByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SecurityPostureManagementApi
+     */
+    public getSecurityFindingById(requestParameters: SecurityPostureManagementApiGetSecurityFindingByIdRequest) {
+        return SecurityPostureManagementApiFp(this.configuration).getSecurityFindingById(requestParameters.id).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
      * @summary Get FSPM security findings
      * @param {SecurityPostureManagementApiGetSecurityFindingsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -200,6 +382,18 @@ export class SecurityPostureManagementApi extends BaseAPI {
      */
     public getSecurityFindings(requestParameters: SecurityPostureManagementApiGetSecurityFindingsRequest = {}) {
         return SecurityPostureManagementApiFp(this.configuration).getSecurityFindings(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.severity, requestParameters.category, requestParameters.status).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+     * @summary Update a FSPM security finding by ID
+     * @param {SecurityPostureManagementApiUpdateSecurityFindingByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SecurityPostureManagementApi
+     */
+    public updateSecurityFindingById(requestParameters: SecurityPostureManagementApiUpdateSecurityFindingByIdRequest) {
+        return SecurityPostureManagementApiFp(this.configuration).updateSecurityFindingById(requestParameters.updateFindingExternalRequest, requestParameters.id, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
@@ -218,10 +412,6 @@ export type GetSecurityFindingsSeverityEnum = typeof GetSecurityFindingsSeverity
  */
 export const GetSecurityFindingsCategoryEnum = {
     UserManagement: 'USER_MANAGEMENT',
-    AccessControl: 'ACCESS_CONTROL',
-    AdminManagement: 'ADMIN_MANAGEMENT',
-    Security: 'SECURITY',
-    Configuration: 'CONFIGURATION',
     ApprovalGroupManagement: 'APPROVAL_GROUP_MANAGEMENT',
     PolicyEngineUtilization: 'POLICY_ENGINE_UTILIZATION',
     WorkspaceConfiguration: 'WORKSPACE_CONFIGURATION',

@@ -370,7 +370,9 @@ Class | Method | HTTP request | Description
 *ReportsBetaApi* | [**getReport**](docs/apis/ReportsBetaApi.md#getReport) | **GET** /reports/{reportId} | Get report status
 *ReportsBetaApi* | [**listReports**](docs/apis/ReportsBetaApi.md#listReports) | **GET** /reports | List reports
 *ResetDeviceApi* | [**resetDevice**](docs/apis/ResetDeviceApi.md#resetDevice) | **POST** /management/users/{id}/reset_device | Resets device
+*SecurityPostureManagementApi* | [**getSecurityFindingById**](docs/apis/SecurityPostureManagementApi.md#getSecurityFindingById) | **GET** /security/fspm/findings/{id} | Get a FSPM security finding by ID
 *SecurityPostureManagementApi* | [**getSecurityFindings**](docs/apis/SecurityPostureManagementApi.md#getSecurityFindings) | **GET** /security/fspm/findings | Get FSPM security findings
+*SecurityPostureManagementApi* | [**updateSecurityFindingById**](docs/apis/SecurityPostureManagementApi.md#updateSecurityFindingById) | **PATCH** /security/fspm/findings/{id} | Update a FSPM security finding by ID
 *SmartTransferApi* | [**approveDvPTicketTerm**](docs/apis/SmartTransferApi.md#approveDvPTicketTerm) | **PUT** /smart_transfers/{ticketId}/terms/{termId}/dvp/approve | Set funding source and approval
 *SmartTransferApi* | [**cancelTicket**](docs/apis/SmartTransferApi.md#cancelTicket) | **PUT** /smart-transfers/{ticketId}/cancel | Cancel Ticket
 *SmartTransferApi* | [**createTicket**](docs/apis/SmartTransferApi.md#createTicket) | **POST** /smart-transfers | Create Ticket
@@ -586,6 +588,7 @@ Class | Method | HTTP request | Description
  - [APIUsers](docs/models/APIUsers.md)
  - [AbaPaymentInfo](docs/models/AbaPaymentInfo.md)
  - [AbiFunction](docs/models/AbiFunction.md)
+ - [AcceptFindingRequest](docs/models/AcceptFindingRequest.md)
  - [AccessRegistryAddressItem](docs/models/AccessRegistryAddressItem.md)
  - [AccessRegistryCurrentStateResponse](docs/models/AccessRegistryCurrentStateResponse.md)
  - [AccessRegistryCurrentStateResponse2](docs/models/AccessRegistryCurrentStateResponse2.md)
@@ -778,6 +781,7 @@ Class | Method | HTTP request | Description
  - [CollectionTokenMetadataAttributeDto](docs/models/CollectionTokenMetadataAttributeDto.md)
  - [CollectionTokenMetadataDto](docs/models/CollectionTokenMetadataDto.md)
  - [CollectionType](docs/models/CollectionType.md)
+ - [ComplianceRequirement](docs/models/ComplianceRequirement.md)
  - [ComplianceResultFullPayload](docs/models/ComplianceResultFullPayload.md)
  - [ComplianceResultStatusesEnum](docs/models/ComplianceResultStatusesEnum.md)
  - [ComplianceResults](docs/models/ComplianceResults.md)
@@ -1026,6 +1030,7 @@ Class | Method | HTTP request | Description
  - [FiatDestination](docs/models/FiatDestination.md)
  - [FiatPaymentMetadata](docs/models/FiatPaymentMetadata.md)
  - [FiatTransfer](docs/models/FiatTransfer.md)
+ - [FindingInfo](docs/models/FindingInfo.md)
  - [FixedAmountTypeEnum](docs/models/FixedAmountTypeEnum.md)
  - [FixedFee](docs/models/FixedFee.md)
  - [FlowDirection](docs/models/FlowDirection.md)
@@ -1362,6 +1367,7 @@ Class | Method | HTTP request | Description
  - [RenameConnectedAccountResponse](docs/models/RenameConnectedAccountResponse.md)
  - [RenameCosigner](docs/models/RenameCosigner.md)
  - [RenameVaultAccountResponse](docs/models/RenameVaultAccountResponse.md)
+ - [ReopenFindingRequest](docs/models/ReopenFindingRequest.md)
  - [ReportConflictResponse](docs/models/ReportConflictResponse.md)
  - [ReportJob](docs/models/ReportJob.md)
  - [ReportJobLinks](docs/models/ReportJobLinks.md)
@@ -1429,6 +1435,7 @@ Class | Method | HTTP request | Description
  - [ScreeningVerdictMatchedRule](docs/models/ScreeningVerdictMatchedRule.md)
  - [SearchNetworkIdsResponse](docs/models/SearchNetworkIdsResponse.md)
  - [SecurityFinding](docs/models/SecurityFinding.md)
+ - [SecurityFindingDetailed](docs/models/SecurityFindingDetailed.md)
  - [SepaPaymentInfo](docs/models/SepaPaymentInfo.md)
  - [SessionDTO](docs/models/SessionDTO.md)
  - [SessionMetadata](docs/models/SessionMetadata.md)
@@ -1759,6 +1766,7 @@ Class | Method | HTTP request | Description
  - [UpdateCallbackHandlerResponse](docs/models/UpdateCallbackHandlerResponse.md)
  - [UpdateCounterpartyGroupRequest](docs/models/UpdateCounterpartyGroupRequest.md)
  - [UpdateDraftRequest](docs/models/UpdateDraftRequest.md)
+ - [UpdateFindingExternalRequest](docs/models/UpdateFindingExternalRequest.md)
  - [UpdateLegalEntityRequest](docs/models/UpdateLegalEntityRequest.md)
  - [UpdateTagRequest](docs/models/UpdateTagRequest.md)
  - [UpdateTokenOwnershipStatusDto](docs/models/UpdateTokenOwnershipStatusDto.md)

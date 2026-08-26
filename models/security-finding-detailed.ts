@@ -13,58 +13,106 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ComplianceRequirement } from './compliance-requirement';
+// May contain unused imports in some cases
+// @ts-ignore
+import { FindingInfo } from './finding-info';
 
 /**
- * A single FSPM finding
+ * A single FSPM finding, redacted to the public field set
  * @export
- * @interface SecurityFinding
+ * @interface SecurityFindingDetailed
  */
-export interface SecurityFinding {
+export interface SecurityFindingDetailed {
     /**
      * Unique identifier of the finding
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'id'?: string;
+    'id': string;
     /**
      * The finding type identifier
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'type'?: SecurityFindingTypeEnum;
+    'type': SecurityFindingDetailedTypeEnum;
     /**
      * Current status of the finding
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'status'?: SecurityFindingStatusEnum;
+    'status': SecurityFindingDetailedStatusEnum;
     /**
      * Severity level of the finding
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'severity'?: SecurityFindingSeverityEnum;
+    'severity': SecurityFindingDetailedSeverityEnum;
     /**
      * Category of the finding
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'category'?: SecurityFindingCategoryEnum;
+    'category': SecurityFindingDetailedCategoryEnum;
     /**
      * When the finding was first detected
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'createdAt'?: string;
+    'createdAt': string;
     /**
      * Human-readable title of the finding
      * @type {string}
-     * @memberof SecurityFinding
+     * @memberof SecurityFindingDetailed
      */
-    'title'?: string;
+    'title': string;
+    /**
+     * 
+     * @type {FindingInfo}
+     * @memberof SecurityFindingDetailed
+     */
+    'info': FindingInfo;
+    /**
+     * Compliance requirements this finding relates to
+     * @type {Array<ComplianceRequirement>}
+     * @memberof SecurityFindingDetailed
+     */
+    'complianceReqs': Array<ComplianceRequirement>;
+    /**
+     * Explanation of the risk this finding represents
+     * @type {string}
+     * @memberof SecurityFindingDetailed
+     */
+    'riskExplanation': string;
+    /**
+     * Guidance on how to mitigate this finding
+     * @type {string}
+     * @memberof SecurityFindingDetailed
+     */
+    'mitigationGuidance': string;
+    /**
+     * When the finding status was last updated, omitted if the status was never updated
+     * @type {string}
+     * @memberof SecurityFindingDetailed
+     */
+    'statusUpdatedAt'?: string;
+    /**
+     * The user who last updated the finding status, omitted if the status was never updated
+     * @type {string}
+     * @memberof SecurityFindingDetailed
+     */
+    'statusUpdatedByUserId'?: string;
+    /**
+     * The reason provided for the last status update, omitted if none was provided
+     * @type {string}
+     * @memberof SecurityFindingDetailed
+     */
+    'statusUpdatedReason'?: string;
 }
 
-export const SecurityFindingTypeEnum = {
+export const SecurityFindingDetailedTypeEnum = {
     ApiUserNotWhitelisted: 'API_USER_NOT_WHITELISTED',
     ConsoleIpAllowlistDeactivated: 'CONSOLE_IP_ALLOWLIST_DEACTIVATED',
     AdminThSetToAllAndMoreThan2Admins: 'ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS',
@@ -89,23 +137,23 @@ export const SecurityFindingTypeEnum = {
     WorkspaceUserDormantForXDays: 'WORKSPACE_USER_DORMANT_FOR_X_DAYS'
 } as const;
 
-export type SecurityFindingTypeEnum = typeof SecurityFindingTypeEnum[keyof typeof SecurityFindingTypeEnum];
-export const SecurityFindingStatusEnum = {
+export type SecurityFindingDetailedTypeEnum = typeof SecurityFindingDetailedTypeEnum[keyof typeof SecurityFindingDetailedTypeEnum];
+export const SecurityFindingDetailedStatusEnum = {
     Open: 'OPEN',
     Accepted: 'ACCEPTED',
     Resolved: 'RESOLVED'
 } as const;
 
-export type SecurityFindingStatusEnum = typeof SecurityFindingStatusEnum[keyof typeof SecurityFindingStatusEnum];
-export const SecurityFindingSeverityEnum = {
+export type SecurityFindingDetailedStatusEnum = typeof SecurityFindingDetailedStatusEnum[keyof typeof SecurityFindingDetailedStatusEnum];
+export const SecurityFindingDetailedSeverityEnum = {
     Info: 'INFO',
     Low: 'LOW',
     Medium: 'MEDIUM',
     High: 'HIGH'
 } as const;
 
-export type SecurityFindingSeverityEnum = typeof SecurityFindingSeverityEnum[keyof typeof SecurityFindingSeverityEnum];
-export const SecurityFindingCategoryEnum = {
+export type SecurityFindingDetailedSeverityEnum = typeof SecurityFindingDetailedSeverityEnum[keyof typeof SecurityFindingDetailedSeverityEnum];
+export const SecurityFindingDetailedCategoryEnum = {
     UserManagement: 'USER_MANAGEMENT',
     ApprovalGroupManagement: 'APPROVAL_GROUP_MANAGEMENT',
     PolicyEngineUtilization: 'POLICY_ENGINE_UTILIZATION',
@@ -114,6 +162,6 @@ export const SecurityFindingCategoryEnum = {
     FleetManagement: 'FLEET_MANAGEMENT'
 } as const;
 
-export type SecurityFindingCategoryEnum = typeof SecurityFindingCategoryEnum[keyof typeof SecurityFindingCategoryEnum];
+export type SecurityFindingDetailedCategoryEnum = typeof SecurityFindingDetailedCategoryEnum[keyof typeof SecurityFindingDetailedCategoryEnum];
 
 
