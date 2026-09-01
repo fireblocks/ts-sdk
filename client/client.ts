@@ -20,6 +20,7 @@ import { ApiUserApi,
          ComplianceScreeningConfigurationApi, 
          ConnectedAccountsBetaApi, 
          ConsoleUserApi, 
+         ContactsApi, 
          ContractInteractionsApi, 
          ContractTemplatesApi, 
          ContractsApi, 
@@ -80,6 +81,7 @@ export class Fireblocks {
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _connectedAccountsBeta?: ConnectedAccountsBetaApi;
     private _consoleUser?: ConsoleUserApi;
+    private _contacts?: ContactsApi;
     private _contractInteractions?: ContractInteractionsApi;
     private _contractTemplates?: ContractTemplatesApi;
     private _contracts?: ContractsApi;
@@ -169,6 +171,9 @@ export class Fireblocks {
     }
     get consoleUser(): ConsoleUserApi {
         return this._consoleUser ?? new ConsoleUserApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get contacts(): ContactsApi {
+        return this._contacts ?? new ContactsApi(this.config, undefined, this.axiosManager.axios);
     }
     get contractInteractions(): ContractInteractionsApi {
         return this._contractInteractions ?? new ContractInteractionsApi(this.config, undefined, this.axiosManager.axios);

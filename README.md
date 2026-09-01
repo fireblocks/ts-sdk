@@ -203,6 +203,7 @@ Class | Method | HTTP request | Description
 *ConnectedAccountsBetaApi* | [**syncConnectedAccountAllowlist**](docs/apis/ConnectedAccountsBetaApi.md#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
 *ConsoleUserApi* | [**createConsoleUser**](docs/apis/ConsoleUserApi.md#createConsoleUser) | **POST** /management/users | Create console user
 *ConsoleUserApi* | [**getConsoleUsers**](docs/apis/ConsoleUserApi.md#getConsoleUsers) | **GET** /management/users | Get console users
+*ContactsApi* | [**getContacts**](docs/apis/ContactsApi.md#getContacts) | **GET** /contacts | List contacts
 *ContractInteractionsApi* | [**decodeContractData**](docs/apis/ContractInteractionsApi.md#decodeContractData) | **POST** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/decode | Decode a function call data, error, or event log
 *ContractInteractionsApi* | [**getContractAddress**](docs/apis/ContractInteractionsApi.md#getContractAddress) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/tx_hash/{txHash} | Get contract address by transaction hash
 *ContractInteractionsApi* | [**getDeployedContractAbi**](docs/apis/ContractInteractionsApi.md#getDeployedContractAbi) | **GET** /contract_interactions/base_asset_id/{baseAssetId}/contract_address/{contractAddress}/functions | Return deployed contract\&#39;s ABI
@@ -813,6 +814,11 @@ Class | Method | HTTP request | Description
  - [ConnectedSingleAccountResponse](docs/models/ConnectedSingleAccountResponse.md)
  - [ConsoleUser](docs/models/ConsoleUser.md)
  - [ConsoleUsers](docs/models/ConsoleUsers.md)
+ - [Contact](docs/models/Contact.md)
+ - [ContactApprovalRequest](docs/models/ContactApprovalRequest.md)
+ - [ContactTag](docs/models/ContactTag.md)
+ - [ContactTagAttachmentPending](docs/models/ContactTagAttachmentPending.md)
+ - [ContactsPagedResponse](docs/models/ContactsPagedResponse.md)
  - [ContractAbiResponseDto](docs/models/ContractAbiResponseDto.md)
  - [ContractAbiResponseDtoAbiInner](docs/models/ContractAbiResponseDtoAbiInner.md)
  - [ContractAddressResponse](docs/models/ContractAddressResponse.md)

@@ -153,13 +153,13 @@ export interface TRLinkPostScreeningRule2 {
      */
     'trmStatus'?: TRLinkTrmStatus | null;
     /**
-     * Rule is valid before this timestamp (milliseconds)
+     * Rule expires once this many seconds have elapsed since the wait/screening step started
      * @type {number}
      * @memberof TRLinkPostScreeningRule2
      */
     'validBefore'?: number | null;
     /**
-     * Rule is valid after this timestamp (milliseconds)
+     * Rule applies only after this many seconds have elapsed since the wait/screening step started
      * @type {number}
      * @memberof TRLinkPostScreeningRule2
      */

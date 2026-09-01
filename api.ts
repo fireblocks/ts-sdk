@@ -22,6 +22,7 @@ export * from './api/compliance-api';
 export * from './api/compliance-screening-configuration-api';
 export * from './api/connected-accounts-beta-api';
 export * from './api/console-user-api';
+export * from './api/contacts-api';
 export * from './api/contract-interactions-api';
 export * from './api/contract-templates-api';
 export * from './api/contracts-api';

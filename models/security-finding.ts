@@ -27,12 +27,6 @@ export interface SecurityFinding {
      */
     'id'?: string;
     /**
-     * The finding type identifier
-     * @type {string}
-     * @memberof SecurityFinding
-     */
-    'type'?: SecurityFindingTypeEnum;
-    /**
      * Current status of the finding
      * @type {string}
      * @memberof SecurityFinding
@@ -64,32 +58,6 @@ export interface SecurityFinding {
     'title'?: string;
 }
 
-export const SecurityFindingTypeEnum = {
-    ApiUserNotWhitelisted: 'API_USER_NOT_WHITELISTED',
-    ConsoleIpAllowlistDeactivated: 'CONSOLE_IP_ALLOWLIST_DEACTIVATED',
-    AdminThSetToAllAndMoreThan2Admins: 'ADMIN_TH_SET_TO_ALL_AND_MORE_THAN_2_ADMINS',
-    ApiUsersCountPassesThAndOwnerNotMandatory: 'API_USERS_COUNT_PASSES_TH_AND_OWNER_NOT_MANDATORY',
-    ApiCosignerWithNoCallback: 'API_COSIGNER_WITH_NO_CALLBACK',
-    ApiUserDidntApproveCcrInXDays: 'API_USER_DIDNT_APPROVE_CCR_IN_X_DAYS',
-    NonViewerDidntInitiateApproveOrSignTxOrCcrLastXDays: 'NON_VIEWER_DIDNT_INITIATE_APPROVE_OR_SIGN_TX_OR_CCR_LAST_X_DAYS',
-    ThSetTo1AndMoreThan3Approvers: 'TH_SET_TO_1_AND_MORE_THAN_3_APPROVERS',
-    AdminThSetTo1AndMoreThan3Admins: 'ADMIN_TH_SET_TO_1_AND_MORE_THAN_3_ADMINS',
-    NonEvmDappConnectionsEnabledButUnused: 'NON_EVM_DAPP_CONNECTIONS_ENABLED_BUT_UNUSED',
-    OtaEnabledButUnused: 'OTA_ENABLED_BUT_UNUSED',
-    PolicyNotUpdatedRecently: 'POLICY_NOT_UPDATED_RECENTLY',
-    RawSigningEnabledButUnused: 'RAW_SIGNING_ENABLED_BUT_UNUSED',
-    ApiUserUnusedFor90Days: 'API_USER_UNUSED_FOR_90_DAYS',
-    UnusedUnlimitedTokenAllowances: 'UNUSED_UNLIMITED_TOKEN_ALLOWANCES',
-    UnusedWhitelistedAddress: 'UNUSED_WHITELISTED_ADDRESS',
-    TransactionRepetitionAttack: 'TRANSACTION_REPETITION_ATTACK',
-    UserEmailDomainNonBusiness: 'USER_EMAIL_DOMAIN_NON_BUSINESS',
-    OutdatedMobileAppVersion: 'OUTDATED_MOBILE_APP_VERSION',
-    SingleHopDrainAttack: 'SINGLE_HOP_DRAIN_ATTACK',
-    LateralMovementDrainAttack: 'LATERAL_MOVEMENT_DRAIN_ATTACK',
-    WorkspaceUserDormantForXDays: 'WORKSPACE_USER_DORMANT_FOR_X_DAYS'
-} as const;
-
-export type SecurityFindingTypeEnum = typeof SecurityFindingTypeEnum[keyof typeof SecurityFindingTypeEnum];
 export const SecurityFindingStatusEnum = {
     Open: 'OPEN',
     Accepted: 'ACCEPTED',

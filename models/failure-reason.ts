@@ -43,6 +43,7 @@ export const FailureReason = {
     UnsupportedSourceAsset: 'UNSUPPORTED_SOURCE_ASSET',
     UnsupportedDestinationAsset: 'UNSUPPORTED_DESTINATION_ASSET',
     AmountBelowMinimum: 'AMOUNT_BELOW_MINIMUM',
+    AmountAboveMaximum: 'AMOUNT_ABOVE_MAXIMUM',
     PiiMissing: 'PII_MISSING',
     ExternalSourceNotSupported: 'EXTERNAL_SOURCE_NOT_SUPPORTED',
     UnsupportedRegion: 'UNSUPPORTED_REGION',

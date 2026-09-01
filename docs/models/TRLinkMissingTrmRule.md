@@ -22,8 +22,8 @@
 |**operation** | [**TransactionOperationEnum**](TransactionOperationEnum.md) |  | [optional] [default to undefined]|
 |**description** | **string** | Rule description | [optional] [default to undefined]|
 |**isDefault** | **boolean** | Whether this is a default rule | [optional] [default to false]|
-|**validBefore** | **number** | Unix timestamp when rule expires | [optional] [default to undefined]|
-|**validAfter** | **number** | Unix timestamp when rule becomes valid | [optional] [default to undefined]|
+|**validBefore** | **number** | Rule expires once this many seconds have elapsed since the wait/screening step started | [optional] [default to undefined]|
+|**validAfter** | **number** | Rule applies only after this many seconds have elapsed since the wait/screening step started | [optional] [default to undefined]|
 
 
 
