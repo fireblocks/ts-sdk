@@ -24,8 +24,8 @@
 |**isDefault** | **boolean** | Whether this is a default rule | [optional] [default to undefined]|
 |**providerIdent** | **string** | TRP provider identifier | [optional] [default to undefined]|
 |**trmStatus** | [**TRLinkTrmStatus**](TRLinkTrmStatus.md) |  | [optional] [default to undefined]|
-|**validBefore** | **number** | Rule is valid before this timestamp (milliseconds) | [optional] [default to undefined]|
-|**validAfter** | **number** | Rule is valid after this timestamp (milliseconds) | [optional] [default to undefined]|
+|**validBefore** | **number** | Rule expires once this many seconds have elapsed since the wait/screening step started | [optional] [default to undefined]|
+|**validAfter** | **number** | Rule applies only after this many seconds have elapsed since the wait/screening step started | [optional] [default to undefined]|
 
 
 

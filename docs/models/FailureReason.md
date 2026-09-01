@@ -47,6 +47,8 @@
 
 * `AmountBelowMinimum` (value: `'AMOUNT_BELOW_MINIMUM'`)
 
+* `AmountAboveMaximum` (value: `'AMOUNT_ABOVE_MAXIMUM'`)
+
 * `PiiMissing` (value: `'PII_MISSING'`)
 
 * `ExternalSourceNotSupported` (value: `'EXTERNAL_SOURCE_NOT_SUPPORTED'`)

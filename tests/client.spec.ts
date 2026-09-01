@@ -19,6 +19,7 @@ ComplianceApi,
 ComplianceScreeningConfigurationApi, 
 ConnectedAccountsBetaApi, 
 ConsoleUserApi, 
+ContactsApi, 
 ContractInteractionsApi, 
 ContractTemplatesApi, 
 ContractsApi, 
@@ -77,6 +78,7 @@ let mockComplianceApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
 let mockConnectedAccountsBetaApi: jest.Mock;
 let mockConsoleUserApi: jest.Mock;
+let mockContactsApi: jest.Mock;
 let mockContractInteractionsApi: jest.Mock;
 let mockContractTemplatesApi: jest.Mock;
 let mockContractsApi: jest.Mock;
@@ -132,6 +134,7 @@ jest.mock('../api', () => {
     mockComplianceScreeningConfigurationApi = jest.fn();
     mockConnectedAccountsBetaApi = jest.fn();
     mockConsoleUserApi = jest.fn();
+    mockContactsApi = jest.fn();
     mockContractInteractionsApi = jest.fn();
     mockContractTemplatesApi = jest.fn();
     mockContractsApi = jest.fn();
@@ -188,6 +191,7 @@ jest.mock('../api', () => {
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
         ConnectedAccountsBetaApi: mockConnectedAccountsBetaApi,
         ConsoleUserApi: mockConsoleUserApi,
+        ContactsApi: mockContactsApi,
         ContractInteractionsApi: mockContractInteractionsApi,
         ContractTemplatesApi: mockContractTemplatesApi,
         ContractsApi: mockContractsApi,
@@ -343,6 +347,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return ConsoleUserApi', async () => {
             expect(fireblocks.consoleUser).toBeInstanceOf(ConsoleUserApi);
             expect(mockConsoleUserApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return ContactsApi', async () => {
+            expect(fireblocks.contacts).toBeInstanceOf(ContactsApi);
+            expect(mockContactsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ContractInteractionsApi', async () => {
             expect(fireblocks.contractInteractions).toBeInstanceOf(ContractInteractionsApi);

@@ -238,6 +238,12 @@ ConnectedSingleAccountResponse.md
 ConsoleUser.md
 ConsoleUserApi.md
 ConsoleUsers.md
+Contact.md
+ContactApprovalRequest.md
+ContactTag.md
+ContactTagAttachmentPending.md
+ContactsApi.md
+ContactsPagedResponse.md
 ContractAbiResponseDto.md
 ContractAbiResponseDtoAbiInner.md
 ContractAddressResponse.md
@@ -1316,6 +1322,7 @@ api/compliance-api.ts
 api/compliance-screening-configuration-api.ts
 api/connected-accounts-beta-api.ts
 api/console-user-api.ts
+api/contacts-api.ts
 api/contract-interactions-api.ts
 api/contract-templates-api.ts
 api/contracts-api.ts
@@ -1598,6 +1605,11 @@ models/connected-single-account-response.ts
 models/connected-single-account.ts
 models/console-user.ts
 models/console-users.ts
+models/contact-approval-request.ts
+models/contact-tag-attachment-pending.ts
+models/contact-tag.ts
+models/contact.ts
+models/contacts-paged-response.ts
 models/contract-abi-response-dto-abi-inner.ts
 models/contract-abi-response-dto.ts
 models/contract-address-response.ts
