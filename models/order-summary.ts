@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccessType } from './access-type';
+import { AccessTypeResponse } from './access-type-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { AccountReference } from './account-reference';
@@ -43,10 +43,10 @@ export interface OrderSummary {
     'id': string;
     /**
      * 
-     * @type {AccessType}
+     * @type {AccessTypeResponse}
      * @memberof OrderSummary
      */
-    'via': AccessType;
+    'via': AccessTypeResponse;
     /**
      * 
      * @type {Side}

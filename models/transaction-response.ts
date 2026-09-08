@@ -216,6 +216,12 @@ export interface TransactionResponse {
      */
     'feeCurrency'?: string;
     /**
+     * The fee-paying asset requested at transaction creation via the `feeCurrency` field, if any.
+     * @type {string}
+     * @memberof TransactionResponse
+     */
+    'requestedFeeCurrency'?: string;
+    /**
      * In case a single transaction resulted with multiple transfers, for example a result of a contract call, then this parameter specifies each transfer that took place on the blockchain. In case of a single transfer transaction, this parameter is empty.
      * @type {Array<NetworkRecord>}
      * @memberof TransactionResponse

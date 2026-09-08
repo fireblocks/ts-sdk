@@ -5,7 +5,9 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createWebhook**](#createWebhook) | **POST** /webhooks | Create a new webhook
+[**createWebhookOAuth**](#createWebhookOAuth) | **POST** /webhooks_settings/oauth | Create OAuth credentials
 [**deleteWebhook**](#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
+[**deleteWebhookOAuth**](#deleteWebhookOAuth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 [**getMetrics**](#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
 [**getMtlsCsr**](#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR
 [**getNotification**](#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
@@ -14,12 +16,15 @@ Method | HTTP request | Description
 [**getResendByQueryJobStatus**](#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 [**getResendJobStatus**](#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 [**getWebhook**](#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
+[**getWebhookOAuth**](#getWebhookOAuth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id
+[**getWebhookOAuths**](#getWebhookOAuths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials
 [**getWebhooks**](#getWebhooks) | **GET** /webhooks | Get all webhooks
 [**resendFailedNotifications**](#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications
 [**resendNotificationById**](#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 [**resendNotificationsByQuery**](#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 [**resendNotificationsByResourceId**](#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 [**updateWebhook**](#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
+[**updateWebhookOAuth**](#updateWebhookOAuth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials
 
 
 # **createWebhook**
@@ -85,6 +90,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **createWebhookOAuth**
+> WebhookOAuthCredentials createWebhookOAuth(createWebhookOAuthRequest)
+
+Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiCreateWebhookOAuthRequest, WebhookOAuthCredentials } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiCreateWebhookOAuthRequest = {
+  // CreateWebhookOAuthRequest
+  createWebhookOAuthRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2.createWebhookOAuth(body).then((res: FireblocksResponse<WebhookOAuthCredentials>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createWebhookOAuthRequest** | **[CreateWebhookOAuthRequest](../models/CreateWebhookOAuthRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[WebhookOAuthCredentials](../models/WebhookOAuthCredentials.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | created the OAuth credentials successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **deleteWebhook**
 > Webhook deleteWebhook()
 
@@ -141,6 +209,70 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Deleted webhook object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteWebhookOAuth**
+> DeleteWebhookOAuthResponse deleteWebhookOAuth()
+
+Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.  Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook\'s `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.  When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiDeleteWebhookOAuthRequest, DeleteWebhookOAuthResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiDeleteWebhookOAuthRequest = {
+  // string | The unique identifier of the OAuth credentials
+  webhookOauthId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+  // boolean | Delete the credentials even while webhooks still reference them, detaching those webhooks instead of refusing. Leave it unset, or `false`, to get a `409 Conflict` whenever anything still references the credentials. (optional)
+  forceDelete: true,
+};
+
+fireblocks.webhooksV2.deleteWebhookOAuth(body).then((res: FireblocksResponse<DeleteWebhookOAuthResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookOauthId** | [**string**] | The unique identifier of the OAuth credentials | defaults to undefined
+ **forceDelete** | [**boolean**] | Delete the credentials even while webhooks still reference them, detaching those webhooks instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the credentials. | (optional) defaults to false
+
+
+### Return type
+
+**[DeleteWebhookOAuthResponse](../models/DeleteWebhookOAuthResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The deleted OAuth credentials, plus the ids of any webhooks that were detached from them |  * X-Request-ID -  <br>  |
+**409** | Webhooks still reference these credentials and &#x60;forceDelete&#x60; was not set. Nothing was deleted. The error message names the reason and the ids of the referencing webhooks — detach or delete those webhooks, or retry with &#x60;forceDelete&#x3D;true&#x60;. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -670,6 +802,120 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getWebhookOAuth**
+> WebhookOAuthCredentials getWebhookOAuth()
+
+Retrieve an OAuth credential set by its id. The client secret is never returned. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiGetWebhookOAuthRequest, WebhookOAuthCredentials } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiGetWebhookOAuthRequest = {
+  // string | The unique identifier of the OAuth credentials
+  webhookOauthId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+};
+
+fireblocks.webhooksV2.getWebhookOAuth(body).then((res: FireblocksResponse<WebhookOAuthCredentials>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookOauthId** | [**string**] | The unique identifier of the OAuth credentials | defaults to undefined
+
+
+### Return type
+
+**[WebhookOAuthCredentials](../models/WebhookOAuthCredentials.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | An OAuth credentials object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getWebhookOAuths**
+> WebhookOAuthList getWebhookOAuths()
+
+Lists every OAuth credential set for the workspace. Client secrets are never returned. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhookOAuthList } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.webhooksV2.getWebhookOAuths(body).then((res: FireblocksResponse<WebhookOAuthList>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[WebhookOAuthList](../models/WebhookOAuthList.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The workspace\&#39;s OAuth credentials |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getWebhooks**
 > WebhookPaginatedResponse getWebhooks()
 
@@ -1061,6 +1307,69 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Updated webhook object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateWebhookOAuth**
+> WebhookOAuthCredentials updateWebhookOAuth(updateWebhookOAuthRequest, )
+
+Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiUpdateWebhookOAuthRequest, WebhookOAuthCredentials } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiUpdateWebhookOAuthRequest = {
+  // UpdateWebhookOAuthRequest
+  updateWebhookOAuthRequest: param_value,
+  // string | The unique identifier of the OAuth credentials
+  webhookOauthId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+};
+
+fireblocks.webhooksV2.updateWebhookOAuth(body).then((res: FireblocksResponse<WebhookOAuthCredentials>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateWebhookOAuthRequest** | **[UpdateWebhookOAuthRequest](../models/UpdateWebhookOAuthRequest.md)**|  |
+ **webhookOauthId** | [**string**] | The unique identifier of the OAuth credentials | defaults to undefined
+
+
+### Return type
+
+**[WebhookOAuthCredentials](../models/WebhookOAuthCredentials.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Updated OAuth credentials object |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

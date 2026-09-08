@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccessType } from './access-type';
+import { AccessTypeResponse } from './access-type-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransferRail } from './transfer-rail';
@@ -28,10 +28,10 @@ import { TransferRail } from './transfer-rail';
 export interface Rate {
     /**
      * 
-     * @type {AccessType}
+     * @type {AccessTypeResponse}
      * @memberof Rate
      */
-    'via': AccessType;
+    'via': AccessTypeResponse;
     /**
      * The source asset identifier
      * @type {string}

@@ -19,6 +19,7 @@
 |**createdAt** | **string** | The timestamp when this UTXO was created | [optional] [default to undefined]|
 |**updatedAt** | **string** | The timestamp when this UTXO was last updated | [optional] [default to undefined]|
 |**labels** | **Array&lt;string&gt;** | Labels attached to this UTXO | [optional] [default to undefined]|
+|**hasNativeAssets** | **boolean** | Whether this UTXO carries Cardano native assets (tokens) | [optional] [default to undefined]|
 
 
 ## Enum: UtxoOutputStatusEnum

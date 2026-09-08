@@ -12,7 +12,7 @@ Method | HTTP request | Description
 # **getSecurityFindingById**
 > SecurityFindingDetailed getSecurityFindingById()
 
-Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
 
 ### Example
 
@@ -72,7 +72,7 @@ No authorization required
 # **getSecurityFindings**
 > GetFindingsExternalResponse getSecurityFindings()
 
-Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
+Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
 
 ### Example
 
@@ -149,7 +149,7 @@ No authorization required
 # **updateSecurityFindingById**
 > SecurityFindingDetailed updateSecurityFindingById(updateFindingExternalRequest, )
 
-Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
 
 ### Example
 

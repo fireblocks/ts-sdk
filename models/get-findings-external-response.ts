@@ -18,7 +18,7 @@
 import { SecurityFinding } from './security-finding';
 
 /**
- * A paginated list of FSPM findings
+ * 
  * @export
  * @interface GetFindingsExternalResponse
  */

@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** |  | [default to undefined]|
-|**via** | [**AccessType**](AccessType.md) |  | [default to undefined]|
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  | [default to undefined]|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** |  | [default to undefined]|
 |**baseAssetId** | **string** |  | [default to undefined]|

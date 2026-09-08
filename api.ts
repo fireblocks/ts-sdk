@@ -15,6 +15,7 @@
 
 
 export * from './api/api-user-api';
+export * from './api/approvals-beta-api';
 export * from './api/audit-logs-api';
 export * from './api/blockchain-link-beta-api';
 export * from './api/blockchains-assets-api';

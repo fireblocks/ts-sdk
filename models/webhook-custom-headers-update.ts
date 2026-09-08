@@ -15,12 +15,12 @@
 
 
 /**
- * Custom headers delta: entries with a string value are added or updated, entries with a `null` value delete that header (no-op if absent), and header names omitted from the payload are left untouched. The resulting set is limited to 10 headers. Header names are case-insensitive, up to 128 characters, and limited to valid HTTP header name characters. Some system header names are reserved and cannot be used. Values are write-only — never returned in responses.
+ * A delta applied to the delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. A value replaces what is stored under that name rather than adding to it, so an array is the complete new set of lines for that header. Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another. Same rules as on create: string or non-empty array, `Cookie` string-only, 10 lines total in the resulting set, the same reserved names, and values write-only. Entries set to `null` do not count towards the limit.
  * @export
  * @interface WebhookCustomHeadersUpdate
  */
 export interface WebhookCustomHeadersUpdate {
-    [key: string]: string;
+    [key: string]: any;
 
 }
 

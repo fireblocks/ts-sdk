@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccessType } from './access-type';
+import { AccessTypeResponse } from './access-type-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { ExecutionResponseDetails } from './execution-response-details';
@@ -58,10 +58,10 @@ export interface OrderDetails {
     'id': string;
     /**
      * 
-     * @type {AccessType}
+     * @type {AccessTypeResponse}
      * @memberof OrderDetails
      */
-    'via': AccessType;
+    'via': AccessTypeResponse;
     /**
      * 
      * @type {OrderStatus}
