@@ -73,6 +73,6 @@ export interface UpdateWebhookRequest {
      * @type {WebhookCustomHeadersUpdate}
      * @memberof UpdateWebhookRequest
      */
-    'customHeaders'?: WebhookCustomHeadersUpdate;
+    'customHeaders'?: WebhookCustomHeadersUpdate | null;
 }
 

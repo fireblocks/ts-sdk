@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**id** | **string** |  | [default to undefined]|
-|**via** | [**AccessType**](AccessType.md) |  | [default to undefined]|
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  | [default to undefined]|
 |**status** | [**OrderStatus**](OrderStatus.md) |  | [default to undefined]|
 |**createdAt** | **string** |  | [default to undefined]|
 |**executionSteps** | [**Array&lt;OrderExecutionStep&gt;**](OrderExecutionStep.md) |  | [default to undefined]|

@@ -109,7 +109,7 @@ import { VaultAsset } from '../models';
 export const VaultsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Activate a wallet in a vault account
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
@@ -1751,7 +1751,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = VaultsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Activate a wallet in a vault account
          * @param {string} vaultAccountId The ID of the vault account to return, or \&#39;default\&#39; for the default vault account
          * @param {string} assetId The ID of the asset
@@ -2335,7 +2335,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
     const localVarFp = VaultsApiFp(configuration)
     return {
         /**
-         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Activate a wallet in a vault account
          * @param {VaultsApiActivateAssetForVaultAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -3817,7 +3817,7 @@ export interface VaultsApiUpdateVaultAccountAssetBalanceRequest {
  */
 export class VaultsApi extends BaseAPI {
     /**
-     * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Activate a wallet in a vault account
      * @param {VaultsApiActivateAssetForVaultAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

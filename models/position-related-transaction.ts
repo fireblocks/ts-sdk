@@ -62,6 +62,12 @@ export interface PositionRelatedTransaction {
      * @memberof PositionRelatedTransaction
      */
     'txNote'?: string;
+    /**
+     * ISO timestamp when Cosmos unbonding is scheduled to end. Absent on other chains.
+     * @type {string}
+     * @memberof PositionRelatedTransaction
+     */
+    'completionTime'?: string;
 }
 
 export const PositionRelatedTransactionStatusEnum = {

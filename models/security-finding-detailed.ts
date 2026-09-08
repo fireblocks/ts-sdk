@@ -21,7 +21,7 @@ import { ComplianceRequirement } from './compliance-requirement';
 import { FindingInfo } from './finding-info';
 
 /**
- * A single FSPM finding, redacted to the public field set
+ * 
  * @export
  * @interface SecurityFindingDetailed
  */

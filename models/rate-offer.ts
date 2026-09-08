@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccessType } from './access-type';
+import { AccessTypeResponse } from './access-type-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { Rate } from './rate';

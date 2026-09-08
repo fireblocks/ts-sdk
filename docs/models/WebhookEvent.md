@@ -11,6 +11,8 @@
 
 * `TransactionNetworkRecordsProcessingCompleted` (value: `'transaction.network_records.processing_completed'`)
 
+* `TransactionAlertStuck` (value: `'transaction.alert.stuck'`)
+
 * `ExternalWalletAssetAdded` (value: `'external_wallet.asset.added'`)
 
 * `ExternalWalletAssetRemoved` (value: `'external_wallet.asset.removed'`)
@@ -30,6 +32,14 @@
 * `VaultAccountAssetBalanceUpdated` (value: `'vault_account.asset.balance_updated'`)
 
 * `VaultAccountNftBalanceUpdated` (value: `'vault_account.nft.balance_updated'`)
+
+* `VaultAccountBulkCreateJobStarted` (value: `'vault_account.bulk_create_job_started'`)
+
+* `VaultAccountBulkCreateJobEnded` (value: `'vault_account.bulk_create_job_ended'`)
+
+* `VaultAccountAssetBulkAddJobStarted` (value: `'vault_account.asset.bulk_add_job_started'`)
+
+* `VaultAccountAssetBulkAddJobEnded` (value: `'vault_account.asset.bulk_add_job_ended'`)
 
 * `EmbeddedWalletStatusUpdated` (value: `'embedded_wallet.status.updated'`)
 

@@ -15,12 +15,12 @@
 
 
 /**
- * Custom HTTP headers attached to every notification delivered by this webhook (max 10). Header names must be valid RFC 7230 tokens (printable ASCII, no separators), are treated case-insensitively (duplicate names differing only in case are rejected), and may not exceed 128 characters. The following names are reserved and cannot be used: Host, Content-Type, Content-Length, Transfer-Encoding, Connection, User-Agent, Accept, Accept-Encoding, Fireblocks-Signature, Fireblocks-Webhook-Signature. Header values are write-only — never returned in responses.
+ * Custom HTTP headers attached to every notification delivered by this webhook. A value is a string, sent as one header line, or an array of strings, sent as one header line per element under the same name. `Cookie` accepts only a string. An empty array is rejected — leave the name out instead. At most 10 header lines in total, counted per array element rather than per name. Names must be valid HTTP header tokens, are case-insensitive, and are at most 128 characters. Values are at most 1024 characters and may be empty. Reserved names: `Host`, `Content-Type`, `Content-Length`, `Transfer-Encoding`, `Connection`, `User-Agent`, `Accept`, `Accept-Encoding`, `Fireblocks-Signature`, `Fireblocks-Webhook-Signature`, `Authorization`. `Authorization` is reserved whether or not this webhook has OAuth credentials attached, because Fireblocks sets it once it does. Values are write-only; responses return only the header names.
  * @export
  * @interface WebhookCustomHeaders
  */
 export interface WebhookCustomHeaders {
-    [key: string]: string;
+    [key: string]: any;
 
 }
 

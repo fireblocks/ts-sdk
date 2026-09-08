@@ -11,6 +11,7 @@
 |**stakingOperation** | **string** | Staking operation type. One of APPROVE, STAKE, UNSTAKE, WITHDRAW, CLAIM_REWARDS, SPLIT, CONSOLIDATE, MERGE, TRANSFER, AUTHORIZE, ADD_TO_STAKE. Absent on legacy persisted rows. | [optional] [default to undefined]|
 |**amount** | **string** | Portion of position amount this transaction moved (native units). Absent on legacy rows. | [optional] [default to undefined]|
 |**txNote** | **string** | User-provided note from the transfer request. Omitted when not set. | [optional] [default to undefined]|
+|**completionTime** | **string** | ISO timestamp when Cosmos unbonding is scheduled to end. Absent on other chains. | [optional] [default to undefined]|
 
 
 ## Enum: PositionRelatedTransactionStatusEnum

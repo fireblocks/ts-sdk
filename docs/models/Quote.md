@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**via** | [**AccessType**](AccessType.md) |  | [default to undefined]|
+|**via** | [**AccessTypeResponse**](AccessTypeResponse.md) |  | [default to undefined]|
 |**id** | **string** | The unique identifier of the quote. | [default to undefined]|
 |**quoteAssetId** | **string** | The target asset identifier. | [default to undefined]|
 |**baseAssetId** | **string** | The source asset identifier. | [default to undefined]|

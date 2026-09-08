@@ -15,7 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AccessType } from './access-type';
+import { AccessTypeResponse } from './access-type-response';
 // May contain unused imports in some cases
 // @ts-ignore
 import { Fee } from './fee';
@@ -37,10 +37,10 @@ import { TransferRail } from './transfer-rail';
 export interface Quote {
     /**
      * 
-     * @type {AccessType}
+     * @type {AccessTypeResponse}
      * @memberof Quote
      */
-    'via': AccessType;
+    'via': AccessTypeResponse;
     /**
      * The unique identifier of the quote.
      * @type {string}

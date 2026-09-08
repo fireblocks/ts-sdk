@@ -27,7 +27,11 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { CreateWebhookOAuthRequest } from '../models';
+// @ts-ignore
 import { CreateWebhookRequest } from '../models';
+// @ts-ignore
+import { DeleteWebhookOAuthResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
@@ -51,6 +55,8 @@ import { ResendFailedNotificationsResponse } from '../models';
 // @ts-ignore
 import { ResendNotificationsByResourceIdRequest } from '../models';
 // @ts-ignore
+import { UpdateWebhookOAuthRequest } from '../models';
+// @ts-ignore
 import { UpdateWebhookRequest } from '../models';
 // @ts-ignore
 import { Webhook } from '../models';
@@ -60,6 +66,10 @@ import { WebhookEvent } from '../models';
 import { WebhookMetric } from '../models';
 // @ts-ignore
 import { WebhookMtlsCsrResponse } from '../models';
+// @ts-ignore
+import { WebhookOAuthCredentials } from '../models';
+// @ts-ignore
+import { WebhookOAuthList } from '../models';
 // @ts-ignore
 import { WebhookPaginatedResponse } from '../models';
 /**
@@ -109,6 +119,46 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create OAuth credentials
+         * @param {CreateWebhookOAuthRequest} createWebhookOAuthRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWebhookOAuth: async (createWebhookOAuthRequest: CreateWebhookOAuthRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createWebhookOAuth', 'createWebhookOAuthRequest', createWebhookOAuthRequest)
+            const localVarPath = `/webhooks_settings/oauth`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createWebhookOAuthRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {string} webhookId The unique identifier of the webhook
@@ -129,6 +179,44 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.  Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook\'s `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.  When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete OAuth credentials
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {boolean} [forceDelete] Delete the credentials even while webhooks still reference them, detaching those webhooks instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the credentials.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWebhookOAuth: async (webhookOauthId: string, forceDelete?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteWebhookOAuth', 'webhookOauthId', webhookOauthId)
+            const localVarPath = `/webhooks_settings/oauth/{webhookOauthId}`
+                .replace(`{${"webhookOauthId"}}`, encodeURIComponent(String(webhookOauthId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (forceDelete !== undefined) {
+                localVarQueryParameter['forceDelete'] = forceDelete;
+            }
 
 
     
@@ -478,6 +566,69 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Retrieve an OAuth credential set by its id. The client secret is never returned. 
+         * @summary Get OAuth credentials by id
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookOAuth: async (webhookOauthId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getWebhookOAuth', 'webhookOauthId', webhookOauthId)
+            const localVarPath = `/webhooks_settings/oauth/{webhookOauthId}`
+                .replace(`{${"webhookOauthId"}}`, encodeURIComponent(String(webhookOauthId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists every OAuth credential set for the workspace. Client secrets are never returned. 
+         * @summary Get all OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookOAuths: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks_settings/oauth`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Get all webhooks (paginated). 
          * @summary Get all webhooks
          * @param {GetWebhooksOrderEnum} [order] ASC / DESC ordering (default DESC)
@@ -730,6 +881,44 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update OAuth credentials
+         * @param {UpdateWebhookOAuthRequest} updateWebhookOAuthRequest 
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWebhookOAuth: async (updateWebhookOAuthRequest: UpdateWebhookOAuthRequest, webhookOauthId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateWebhookOAuth', 'updateWebhookOAuthRequest', updateWebhookOAuthRequest)
+            assertParamExistsAndNotEmpty('updateWebhookOAuth', 'webhookOauthId', webhookOauthId)
+            const localVarPath = `/webhooks_settings/oauth/{webhookOauthId}`
+                .replace(`{${"webhookOauthId"}}`, encodeURIComponent(String(webhookOauthId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateWebhookOAuthRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -755,6 +944,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create OAuth credentials
+         * @param {CreateWebhookOAuthRequest} createWebhookOAuthRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createWebhookOAuth(createWebhookOAuthRequest: CreateWebhookOAuthRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookOAuthCredentials>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhookOAuth(createWebhookOAuthRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.createWebhookOAuth']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {string} webhookId The unique identifier of the webhook
@@ -765,6 +968,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(webhookId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhook']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.  Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook\'s `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.  When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete OAuth credentials
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {boolean} [forceDelete] Delete the credentials even while webhooks still reference them, detaching those webhooks instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the credentials.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteWebhookOAuth(webhookOauthId: string, forceDelete?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteWebhookOAuthResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhookOAuth(webhookOauthId, forceDelete, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhookOAuth']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -888,6 +1105,31 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieve an OAuth credential set by its id. The client secret is never returned. 
+         * @summary Get OAuth credentials by id
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWebhookOAuth(webhookOauthId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookOAuthCredentials>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhookOAuth(webhookOauthId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhookOAuth']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Lists every OAuth credential set for the workspace. Client secrets are never returned. 
+         * @summary Get all OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWebhookOAuths(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookOAuthList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhookOAuths(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhookOAuths']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Get all webhooks (paginated). 
          * @summary Get all webhooks
          * @param {GetWebhooksOrderEnum} [order] ASC / DESC ordering (default DESC)
@@ -976,6 +1218,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['WebhooksV2Api.updateWebhook']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update OAuth credentials
+         * @param {UpdateWebhookOAuthRequest} updateWebhookOAuthRequest 
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateWebhookOAuth(updateWebhookOAuthRequest: UpdateWebhookOAuthRequest, webhookOauthId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookOAuthCredentials>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhookOAuth(updateWebhookOAuthRequest, webhookOauthId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.updateWebhookOAuth']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -997,6 +1253,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create OAuth credentials
+         * @param {WebhooksV2ApiCreateWebhookOAuthRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWebhookOAuth(requestParameters: WebhooksV2ApiCreateWebhookOAuthRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookOAuthCredentials> {
+            return localVarFp.createWebhookOAuth(requestParameters.createWebhookOAuthRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Delete webhook
          * @param {WebhooksV2ApiDeleteWebhookRequest} requestParameters Request parameters.
@@ -1005,6 +1271,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          */
         deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.deleteWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.  Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook\'s `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.  When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete OAuth credentials
+         * @param {WebhooksV2ApiDeleteWebhookOAuthRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWebhookOAuth(requestParameters: WebhooksV2ApiDeleteWebhookOAuthRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteWebhookOAuthResponse> {
+            return localVarFp.deleteWebhookOAuth(requestParameters.webhookOauthId, requestParameters.forceDelete, options).then((request) => request(axios, basePath));
         },
         /**
          * Get webhook metrics by webhook id and metric name 
@@ -1086,6 +1362,25 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieve an OAuth credential set by its id. The client secret is never returned. 
+         * @summary Get OAuth credentials by id
+         * @param {WebhooksV2ApiGetWebhookOAuthRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookOAuth(requestParameters: WebhooksV2ApiGetWebhookOAuthRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookOAuthCredentials> {
+            return localVarFp.getWebhookOAuth(requestParameters.webhookOauthId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists every OAuth credential set for the workspace. Client secrets are never returned. 
+         * @summary Get all OAuth credentials
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookOAuths(options?: RawAxiosRequestConfig): AxiosPromise<WebhookOAuthList> {
+            return localVarFp.getWebhookOAuths(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Get all webhooks (paginated). 
          * @summary Get all webhooks
          * @param {WebhooksV2ApiGetWebhooksRequest} requestParameters Request parameters.
@@ -1145,6 +1440,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
         updateWebhook(requestParameters: WebhooksV2ApiUpdateWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update OAuth credentials
+         * @param {WebhooksV2ApiUpdateWebhookOAuthRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWebhookOAuth(requestParameters: WebhooksV2ApiUpdateWebhookOAuthRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookOAuthCredentials> {
+            return localVarFp.updateWebhookOAuth(requestParameters.updateWebhookOAuthRequest, requestParameters.webhookOauthId, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -1170,6 +1475,27 @@ export interface WebhooksV2ApiCreateWebhookRequest {
 }
 
 /**
+ * Request parameters for createWebhookOAuth operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiCreateWebhookOAuthRequest
+ */
+export interface WebhooksV2ApiCreateWebhookOAuthRequest {
+    /**
+     * 
+     * @type {CreateWebhookOAuthRequest}
+     * @memberof WebhooksV2ApiCreateWebhookOAuth
+     */
+    readonly createWebhookOAuthRequest: CreateWebhookOAuthRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiCreateWebhookOAuth
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for deleteWebhook operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiDeleteWebhookRequest
@@ -1181,6 +1507,27 @@ export interface WebhooksV2ApiDeleteWebhookRequest {
      * @memberof WebhooksV2ApiDeleteWebhook
      */
     readonly webhookId: string
+}
+
+/**
+ * Request parameters for deleteWebhookOAuth operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiDeleteWebhookOAuthRequest
+ */
+export interface WebhooksV2ApiDeleteWebhookOAuthRequest {
+    /**
+     * The unique identifier of the OAuth credentials
+     * @type {string}
+     * @memberof WebhooksV2ApiDeleteWebhookOAuth
+     */
+    readonly webhookOauthId: string
+
+    /**
+     * Delete the credentials even while webhooks still reference them, detaching those webhooks instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the credentials.
+     * @type {boolean}
+     * @memberof WebhooksV2ApiDeleteWebhookOAuth
+     */
+    readonly forceDelete?: boolean
 }
 
 /**
@@ -1401,6 +1748,20 @@ export interface WebhooksV2ApiGetWebhookRequest {
 }
 
 /**
+ * Request parameters for getWebhookOAuth operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetWebhookOAuthRequest
+ */
+export interface WebhooksV2ApiGetWebhookOAuthRequest {
+    /**
+     * The unique identifier of the OAuth credentials
+     * @type {string}
+     * @memberof WebhooksV2ApiGetWebhookOAuth
+     */
+    readonly webhookOauthId: string
+}
+
+/**
  * Request parameters for getWebhooks operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiGetWebhooksRequest
@@ -1562,6 +1923,27 @@ export interface WebhooksV2ApiUpdateWebhookRequest {
 }
 
 /**
+ * Request parameters for updateWebhookOAuth operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiUpdateWebhookOAuthRequest
+ */
+export interface WebhooksV2ApiUpdateWebhookOAuthRequest {
+    /**
+     * 
+     * @type {UpdateWebhookOAuthRequest}
+     * @memberof WebhooksV2ApiUpdateWebhookOAuth
+     */
+    readonly updateWebhookOAuthRequest: UpdateWebhookOAuthRequest
+
+    /**
+     * The unique identifier of the OAuth credentials
+     * @type {string}
+     * @memberof WebhooksV2ApiUpdateWebhookOAuth
+     */
+    readonly webhookOauthId: string
+}
+
+/**
  * WebhooksV2Api - object-oriented interface
  * @export
  * @class WebhooksV2Api
@@ -1581,6 +1963,18 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Create OAuth credentials
+     * @param {WebhooksV2ApiCreateWebhookOAuthRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public createWebhookOAuth(requestParameters: WebhooksV2ApiCreateWebhookOAuthRequest) {
+        return WebhooksV2ApiFp(this.configuration).createWebhookOAuth(requestParameters.createWebhookOAuthRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Delete a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Delete webhook
      * @param {WebhooksV2ApiDeleteWebhookRequest} requestParameters Request parameters.
@@ -1590,6 +1984,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest) {
         return WebhooksV2ApiFp(this.configuration).deleteWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.  Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook\'s `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.  When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Delete OAuth credentials
+     * @param {WebhooksV2ApiDeleteWebhookOAuthRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public deleteWebhookOAuth(requestParameters: WebhooksV2ApiDeleteWebhookOAuthRequest) {
+        return WebhooksV2ApiFp(this.configuration).deleteWebhookOAuth(requestParameters.webhookOauthId, requestParameters.forceDelete).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -1688,6 +2094,29 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Retrieve an OAuth credential set by its id. The client secret is never returned. 
+     * @summary Get OAuth credentials by id
+     * @param {WebhooksV2ApiGetWebhookOAuthRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getWebhookOAuth(requestParameters: WebhooksV2ApiGetWebhookOAuthRequest) {
+        return WebhooksV2ApiFp(this.configuration).getWebhookOAuth(requestParameters.webhookOauthId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Lists every OAuth credential set for the workspace. Client secrets are never returned. 
+     * @summary Get all OAuth credentials
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getWebhookOAuths() {
+        return WebhooksV2ApiFp(this.configuration).getWebhookOAuths().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Get all webhooks (paginated). 
      * @summary Get all webhooks
      * @param {WebhooksV2ApiGetWebhooksRequest} requestParameters Request parameters.
@@ -1757,6 +2186,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public updateWebhook(requestParameters: WebhooksV2ApiUpdateWebhookRequest) {
         return WebhooksV2ApiFp(this.configuration).updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Update OAuth credentials
+     * @param {WebhooksV2ApiUpdateWebhookOAuthRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public updateWebhookOAuth(requestParameters: WebhooksV2ApiUpdateWebhookOAuthRequest) {
+        return WebhooksV2ApiFp(this.configuration).updateWebhookOAuth(requestParameters.updateWebhookOAuthRequest, requestParameters.webhookOauthId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

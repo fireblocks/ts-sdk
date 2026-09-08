@@ -41,7 +41,7 @@ import { UpdateFindingExternalRequest } from '../models';
 export const SecurityPostureManagementApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Get a FSPM security finding by ID
          * @param {string} id Unique identifier of the finding
          * @param {*} [options] Override http request option.
@@ -74,7 +74,7 @@ export const SecurityPostureManagementApiAxiosParamCreator = function (configura
             };
         },
         /**
-         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
+         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Get FSPM security findings
          * @param {string} [pageCursor] Cursor indicating the page position. Omit to fetch the first page.
          * @param {number} [pageSize] Number of results per page
@@ -129,7 +129,7 @@ export const SecurityPostureManagementApiAxiosParamCreator = function (configura
             };
         },
         /**
-         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Update a FSPM security finding by ID
          * @param {UpdateFindingExternalRequest} updateFindingExternalRequest 
          * @param {string} id Unique identifier of the finding
@@ -182,7 +182,7 @@ export const SecurityPostureManagementApiFp = function(configuration?: Configura
     const localVarAxiosParamCreator = SecurityPostureManagementApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Get a FSPM security finding by ID
          * @param {string} id Unique identifier of the finding
          * @param {*} [options] Override http request option.
@@ -195,7 +195,7 @@ export const SecurityPostureManagementApiFp = function(configuration?: Configura
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
+         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Get FSPM security findings
          * @param {string} [pageCursor] Cursor indicating the page position. Omit to fetch the first page.
          * @param {number} [pageSize] Number of results per page
@@ -212,7 +212,7 @@ export const SecurityPostureManagementApiFp = function(configuration?: Configura
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Update a FSPM security finding by ID
          * @param {UpdateFindingExternalRequest} updateFindingExternalRequest 
          * @param {string} id Unique identifier of the finding
@@ -237,7 +237,7 @@ export const SecurityPostureManagementApiFactory = function (configuration?: Con
     const localVarFp = SecurityPostureManagementApiFp(configuration)
     return {
         /**
-         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+         * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Get a FSPM security finding by ID
          * @param {SecurityPostureManagementApiGetSecurityFindingByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -247,7 +247,7 @@ export const SecurityPostureManagementApiFactory = function (configuration?: Con
             return localVarFp.getSecurityFindingById(requestParameters.id, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
+         * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Get FSPM security findings
          * @param {SecurityPostureManagementApiGetSecurityFindingsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -257,7 +257,7 @@ export const SecurityPostureManagementApiFactory = function (configuration?: Con
             return localVarFp.getSecurityFindings(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.severity, requestParameters.category, requestParameters.status, options).then((request) => request(axios, basePath));
         },
         /**
-         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+         * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
          * @summary Update a FSPM security finding by ID
          * @param {SecurityPostureManagementApiUpdateSecurityFindingByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -361,7 +361,7 @@ export interface SecurityPostureManagementApiUpdateSecurityFindingByIdRequest {
  */
 export class SecurityPostureManagementApi extends BaseAPI {
     /**
-     * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor. 
+     * Returns a single FSPM security finding for the workspace, redacted to the public field set. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
      * @summary Get a FSPM security finding by ID
      * @param {SecurityPostureManagementApiGetSecurityFindingByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -373,7 +373,7 @@ export class SecurityPostureManagementApi extends BaseAPI {
     }
 
     /**
-     * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor. 
+     * Returns a paginated list of FSPM security findings for the workspace. Endpoint Roles: Security Admin, Security Auditor.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
      * @summary Get FSPM security findings
      * @param {SecurityPostureManagementApiGetSecurityFindingsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -385,7 +385,7 @@ export class SecurityPostureManagementApi extends BaseAPI {
     }
 
     /**
-     * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin. 
+     * Accepts or reopens a finding for the workspace. When accepting a finding (`status: \"ACCEPTED\"`), `statusUpdatedReason` is required. Endpoint Roles: Security Admin.  **Note:** This endpoint is available only for the FSPM Pro package. It is not available for FSPM Basic. 
      * @summary Update a FSPM security finding by ID
      * @param {SecurityPostureManagementApiUpdateSecurityFindingByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

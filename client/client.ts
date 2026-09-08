@@ -13,6 +13,7 @@
 import type { ConfigurationOptions  } from './clientConfiguration';
 import { Configuration } from '../configuration';
 import { ApiUserApi, 
+         ApprovalsBetaApi, 
          AuditLogsApi, 
          BlockchainLinkBetaApi, 
          BlockchainsAssetsApi, 
@@ -74,6 +75,7 @@ export class Fireblocks {
     private readonly config: Configuration;
     private readonly axiosManager: AxiosManager
     private _apiUser?: ApiUserApi;
+    private _approvalsBeta?: ApprovalsBetaApi;
     private _auditLogs?: AuditLogsApi;
     private _blockchainLinkBeta?: BlockchainLinkBetaApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
@@ -150,6 +152,9 @@ export class Fireblocks {
 
     get apiUser(): ApiUserApi {
         return this._apiUser ?? new ApiUserApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get approvalsBeta(): ApprovalsBetaApi {
+        return this._approvalsBeta ?? new ApprovalsBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get auditLogs(): AuditLogsApi {
         return this._auditLogs ?? new AuditLogsApi(this.config, undefined, this.axiosManager.axios);

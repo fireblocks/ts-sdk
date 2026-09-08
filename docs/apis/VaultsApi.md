@@ -47,7 +47,7 @@ Method | HTTP request | Description
 # **activateAssetForVaultAccount**
 > CreateVaultAssetResponse activateAssetForVaultAccount()
 
-Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation (XLM tokens, SOL tokens etc). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Initiates activation for a wallet in a vault account.  Activation is required for tokens that need an on-chain transaction for creation. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

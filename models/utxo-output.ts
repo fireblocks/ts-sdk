@@ -113,6 +113,12 @@ export interface UtxoOutput {
      * @memberof UtxoOutput
      */
     'labels'?: Array<string>;
+    /**
+     * Whether this UTXO carries Cardano native assets (tokens)
+     * @type {boolean}
+     * @memberof UtxoOutput
+     */
+    'hasNativeAssets'?: boolean;
 }
 
 export const UtxoOutputStatusEnum = {

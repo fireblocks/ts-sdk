@@ -129,6 +129,8 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**createApiUser**](docs/apis/ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys
 *ApiUserApi* | [**issueApiUserPairingToken**](docs/apis/ApiUserApi.md#issueApiUserPairingToken) | **POST** /management/api_users/{userId}/pairing_token | Issue API user pairing token
+*ApprovalsBetaApi* | [**getApprovalById**](docs/apis/ApprovalsBetaApi.md#getApprovalById) | **GET** /approvals/{requestId} | Get a single approval request
+*ApprovalsBetaApi* | [**getApprovals**](docs/apis/ApprovalsBetaApi.md#getApprovals) | **GET** /approvals | List approval requests
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
 *BlockchainLinkBetaApi* | [**activateBlockchainLinkChain**](docs/apis/BlockchainLinkBetaApi.md#activateBlockchainLinkChain) | **POST** /blockchain_link/blockchains/{blockchainId}/activate | Activate a blockchain (triggers activation workflow)
 *BlockchainLinkBetaApi* | [**createBlockchainLinkChain**](docs/apis/BlockchainLinkBetaApi.md#createBlockchainLinkChain) | **POST** /blockchain_link/blockchains | Create a new blockchain
@@ -563,7 +565,9 @@ Class | Method | HTTP request | Description
 *WebhooksApi* | [**resendTransactionWebhooks**](docs/apis/WebhooksApi.md#resendTransactionWebhooks) | **POST** /webhooks/resend/{txId} | Resend webhooks for a transaction by ID
 *WebhooksApi* | [**resendWebhooks**](docs/apis/WebhooksApi.md#resendWebhooks) | **POST** /webhooks/resend | Resend failed webhooks
 *WebhooksV2Api* | [**createWebhook**](docs/apis/WebhooksV2Api.md#createWebhook) | **POST** /webhooks | Create a new webhook
+*WebhooksV2Api* | [**createWebhookOAuth**](docs/apis/WebhooksV2Api.md#createWebhookOAuth) | **POST** /webhooks_settings/oauth | Create OAuth credentials
 *WebhooksV2Api* | [**deleteWebhook**](docs/apis/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
+*WebhooksV2Api* | [**deleteWebhookOAuth**](docs/apis/WebhooksV2Api.md#deleteWebhookOAuth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 *WebhooksV2Api* | [**getMetrics**](docs/apis/WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
 *WebhooksV2Api* | [**getMtlsCsr**](docs/apis/WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR
 *WebhooksV2Api* | [**getNotification**](docs/apis/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
@@ -572,12 +576,15 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**getResendByQueryJobStatus**](docs/apis/WebhooksV2Api.md#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 *WebhooksV2Api* | [**getResendJobStatus**](docs/apis/WebhooksV2Api.md#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 *WebhooksV2Api* | [**getWebhook**](docs/apis/WebhooksV2Api.md#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
+*WebhooksV2Api* | [**getWebhookOAuth**](docs/apis/WebhooksV2Api.md#getWebhookOAuth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id
+*WebhooksV2Api* | [**getWebhookOAuths**](docs/apis/WebhooksV2Api.md#getWebhookOAuths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials
 *WebhooksV2Api* | [**getWebhooks**](docs/apis/WebhooksV2Api.md#getWebhooks) | **GET** /webhooks | Get all webhooks
 *WebhooksV2Api* | [**resendFailedNotifications**](docs/apis/WebhooksV2Api.md#resendFailedNotifications) | **POST** /webhooks/{webhookId}/notifications/resend_failed | Resend failed notifications
 *WebhooksV2Api* | [**resendNotificationById**](docs/apis/WebhooksV2Api.md#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 *WebhooksV2Api* | [**resendNotificationsByQuery**](docs/apis/WebhooksV2Api.md#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 *WebhooksV2Api* | [**resendNotificationsByResourceId**](docs/apis/WebhooksV2Api.md#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 *WebhooksV2Api* | [**updateWebhook**](docs/apis/WebhooksV2Api.md#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
+*WebhooksV2Api* | [**updateWebhookOAuth**](docs/apis/WebhooksV2Api.md#updateWebhookOAuth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials
 *WhitelistIpAddressesApi* | [**getWhitelistIpAddresses**](docs/apis/WhitelistIpAddressesApi.md#getWhitelistIpAddresses) | **GET** /management/api_users/{userId}/whitelist_ip_addresses | Get whitelisted ip addresses for an API Key
 *WorkspaceApi* | [**getWorkspace**](docs/apis/WorkspaceApi.md#getWorkspace) | **GET** /workspace | Get workspace
 *WorkspaceStatusBetaApi* | [**getWorkspaceStatus**](docs/apis/WorkspaceStatusBetaApi.md#getWorkspaceStatus) | **GET** /management/workspace_status | Returns current workspace status
@@ -595,8 +602,10 @@ Class | Method | HTTP request | Description
  - [AccessRegistryCurrentStateResponse2](docs/models/AccessRegistryCurrentStateResponse2.md)
  - [AccessRegistrySummaryResponse](docs/models/AccessRegistrySummaryResponse.md)
  - [AccessType](docs/models/AccessType.md)
+ - [AccessTypeResponse](docs/models/AccessTypeResponse.md)
  - [Account](docs/models/Account.md)
  - [AccountAccess](docs/models/AccountAccess.md)
+ - [AccountAccessResponse](docs/models/AccountAccessResponse.md)
  - [AccountBase](docs/models/AccountBase.md)
  - [AccountBasedAccessProvider](docs/models/AccountBasedAccessProvider.md)
  - [AccountBasedAccessProviderInfo](docs/models/AccountBasedAccessProviderInfo.md)
@@ -651,6 +660,11 @@ Class | Method | HTTP request | Description
  - [AddressesFilters](docs/models/AddressesFilters.md)
  - [AlertExposureTypeEnum](docs/models/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/models/AlertLevelEnum.md)
+ - [AllocationResponse](docs/models/AllocationResponse.md)
+ - [AllocationResponseAccept](docs/models/AllocationResponseAccept.md)
+ - [AllocationResponseReject](docs/models/AllocationResponseReject.md)
+ - [AllocationWithdrawPayload](docs/models/AllocationWithdrawPayload.md)
+ - [AllowListPayload](docs/models/AllowListPayload.md)
  - [AllowlistEntry](docs/models/AllowlistEntry.md)
  - [AllowlistEntryProviderMetadata](docs/models/AllowlistEntryProviderMetadata.md)
  - [AllowlistEntryResponse](docs/models/AllowlistEntryResponse.md)
@@ -678,6 +692,7 @@ Class | Method | HTTP request | Description
  - [ApiKey](docs/models/ApiKey.md)
  - [ApiKeysPaginatedResponse](docs/models/ApiKeysPaginatedResponse.md)
  - [ApprovalRequest](docs/models/ApprovalRequest.md)
+ - [ApprovalRequestItem](docs/models/ApprovalRequestItem.md)
  - [ApproversConfig](docs/models/ApproversConfig.md)
  - [ApproversConfigApprovalGroupsInner](docs/models/ApproversConfigApprovalGroupsInner.md)
  - [Apy](docs/models/Apy.md)
@@ -756,9 +771,19 @@ Class | Method | HTTP request | Description
  - [ByorkVerdictRequest](docs/models/ByorkVerdictRequest.md)
  - [ByorkVerdictResponse](docs/models/ByorkVerdictResponse.md)
  - [ByorkVerdictResponseStatusEnum](docs/models/ByorkVerdictResponseStatusEnum.md)
+ - [CallAccepted](docs/models/CallAccepted.md)
  - [CallbackHandler](docs/models/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/models/CallbackHandlerRequest.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
+ - [CantonCall](docs/models/CantonCall.md)
+ - [CantonCallAllocationWithdraw](docs/models/CantonCallAllocationWithdraw.md)
+ - [CantonCallAllowListAdd](docs/models/CantonCallAllowListAdd.md)
+ - [CantonCallAllowListRemove](docs/models/CantonCallAllowListRemove.md)
+ - [CantonCallEndInvestorInvite](docs/models/CantonCallEndInvestorInvite.md)
+ - [CantonCallEndInvestorInviteCancel](docs/models/CantonCallEndInvestorInviteCancel.md)
+ - [CantonCallEndInvestorOffboard](docs/models/CantonCallEndInvestorOffboard.md)
+ - [CantonCallParticipantOnboarding](docs/models/CantonCallParticipantOnboarding.md)
+ - [CantonCallTransferWithdraw](docs/models/CantonCallTransferWithdraw.md)
  - [ChainDescriptor](docs/models/ChainDescriptor.md)
  - [ChainInfoResponse](docs/models/ChainInfoResponse.md)
  - [ChannelDvnConfigWithConfirmations](docs/models/ChannelDvnConfigWithConfirmations.md)
@@ -904,6 +929,7 @@ Class | Method | HTTP request | Description
  - [CreateVaultAccountRequest](docs/models/CreateVaultAccountRequest.md)
  - [CreateVaultAssetResponse](docs/models/CreateVaultAssetResponse.md)
  - [CreateWalletRequest](docs/models/CreateWalletRequest.md)
+ - [CreateWebhookOAuthRequest](docs/models/CreateWebhookOAuthRequest.md)
  - [CreateWebhookRequest](docs/models/CreateWebhookRequest.md)
  - [CreateWorkflowExecutionRequestParamsInner](docs/models/CreateWorkflowExecutionRequestParamsInner.md)
  - [CustomRoutingDest](docs/models/CustomRoutingDest.md)
@@ -917,6 +943,7 @@ Class | Method | HTTP request | Description
  - [DelegationSummary](docs/models/DelegationSummary.md)
  - [DeleteNetworkConnectionResponse](docs/models/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/models/DeleteNetworkIdResponse.md)
+ - [DeleteWebhookOAuthResponse](docs/models/DeleteWebhookOAuthResponse.md)
  - [DeployLayerZeroAdaptersRequest](docs/models/DeployLayerZeroAdaptersRequest.md)
  - [DeployLayerZeroAdaptersResponse](docs/models/DeployLayerZeroAdaptersResponse.md)
  - [DeployableAddressResponse](docs/models/DeployableAddressResponse.md)
@@ -933,6 +960,8 @@ Class | Method | HTTP request | Description
  - [DirectAccess](docs/models/DirectAccess.md)
  - [DirectAccessProvider](docs/models/DirectAccessProvider.md)
  - [DirectAccessProviderInfo](docs/models/DirectAccessProviderInfo.md)
+ - [DirectAccessResponse](docs/models/DirectAccessResponse.md)
+ - [DirectAccessResponseInfo](docs/models/DirectAccessResponseInfo.md)
  - [DisbursementAmountInstruction](docs/models/DisbursementAmountInstruction.md)
  - [DisbursementConfigOperation](docs/models/DisbursementConfigOperation.md)
  - [DisbursementInstruction](docs/models/DisbursementInstruction.md)
@@ -983,6 +1012,7 @@ Class | Method | HTTP request | Description
  - [EmbeddedWalletSetupStatusResponse](docs/models/EmbeddedWalletSetupStatusResponse.md)
  - [EnableDevice](docs/models/EnableDevice.md)
  - [EnableWallet](docs/models/EnableWallet.md)
+ - [EndInvestorPayload](docs/models/EndInvestorPayload.md)
  - [ErrorResponse](docs/models/ErrorResponse.md)
  - [ErrorResponseError](docs/models/ErrorResponseError.md)
  - [ErrorSchema](docs/models/ErrorSchema.md)
@@ -1172,6 +1202,7 @@ Class | Method | HTTP request | Description
  - [LegalEntityRegistration](docs/models/LegalEntityRegistration.md)
  - [LeiStatus](docs/models/LeiStatus.md)
  - [LinkedTokensCount](docs/models/LinkedTokensCount.md)
+ - [ListApprovalsResponse](docs/models/ListApprovalsResponse.md)
  - [ListAssetsResponse](docs/models/ListAssetsResponse.md)
  - [ListBlockchainsResponse](docs/models/ListBlockchainsResponse.md)
  - [ListBlockchainsResponse2](docs/models/ListBlockchainsResponse2.md)
@@ -1230,7 +1261,17 @@ Class | Method | HTTP request | Description
  - [NotificationStatus](docs/models/NotificationStatus.md)
  - [NotificationWithData](docs/models/NotificationWithData.md)
  - [Offer](docs/models/Offer.md)
+ - [OfferResponse](docs/models/OfferResponse.md)
+ - [OfferResponseAccepted](docs/models/OfferResponseAccepted.md)
+ - [OfferResponseAllocation](docs/models/OfferResponseAllocation.md)
+ - [OfferResponseOnboarding](docs/models/OfferResponseOnboarding.md)
+ - [OfferResponseTransfer](docs/models/OfferResponseTransfer.md)
  - [OffersResponse](docs/models/OffersResponse.md)
+ - [OnboardingResponse](docs/models/OnboardingResponse.md)
+ - [OnboardingResponseDtccAccept](docs/models/OnboardingResponseDtccAccept.md)
+ - [OnboardingResponseDtccReject](docs/models/OnboardingResponseDtccReject.md)
+ - [OnboardingResponseTradewebAccept](docs/models/OnboardingResponseTradewebAccept.md)
+ - [OnboardingResponseTradewebReject](docs/models/OnboardingResponseTradewebReject.md)
  - [OnchainTransaction](docs/models/OnchainTransaction.md)
  - [OnchainTransactionsPagedResponse](docs/models/OnchainTransactionsPagedResponse.md)
  - [OnchainTransactionsPagedResponse2](docs/models/OnchainTransactionsPagedResponse2.md)
@@ -1261,6 +1302,7 @@ Class | Method | HTTP request | Description
  - [Parameter](docs/models/Parameter.md)
  - [ParameterWithValue](docs/models/ParameterWithValue.md)
  - [ParameterWithValueList](docs/models/ParameterWithValueList.md)
+ - [ParticipantOnboardingPayload](docs/models/ParticipantOnboardingPayload.md)
  - [ParticipantRelationshipType](docs/models/ParticipantRelationshipType.md)
  - [ParticipantsIdentification](docs/models/ParticipantsIdentification.md)
  - [ParticipantsIdentificationPolicy](docs/models/ParticipantsIdentificationPolicy.md)
@@ -1335,6 +1377,13 @@ Class | Method | HTTP request | Description
  - [PublicKeyInformation](docs/models/PublicKeyInformation.md)
  - [PublishDraftRequest](docs/models/PublishDraftRequest.md)
  - [PublishResult](docs/models/PublishResult.md)
+ - [QuorumApprovalState](docs/models/QuorumApprovalState.md)
+ - [QuorumGroup](docs/models/QuorumGroup.md)
+ - [QuorumRequestState](docs/models/QuorumRequestState.md)
+ - [QuorumRuleset](docs/models/QuorumRuleset.md)
+ - [QuorumStatus](docs/models/QuorumStatus.md)
+ - [QuorumStatusQuorum](docs/models/QuorumStatusQuorum.md)
+ - [QuorumUser](docs/models/QuorumUser.md)
  - [Quote](docs/models/Quote.md)
  - [QuoteExecutionRequestDetails](docs/models/QuoteExecutionRequestDetails.md)
  - [QuoteExecutionStep](docs/models/QuoteExecutionStep.md)
@@ -1401,6 +1450,7 @@ Class | Method | HTTP request | Description
  - [RoleDetails](docs/models/RoleDetails.md)
  - [RoleDetails2](docs/models/RoleDetails2.md)
  - [RoleGrantee](docs/models/RoleGrantee.md)
+ - [RulesetQuorum](docs/models/RulesetQuorum.md)
  - [SEPAAddress](docs/models/SEPAAddress.md)
  - [SEPADestination](docs/models/SEPADestination.md)
  - [SOLAccount](docs/models/SOLAccount.md)
@@ -1476,6 +1526,7 @@ Class | Method | HTTP request | Description
  - [SignedMessageSignature](docs/models/SignedMessageSignature.md)
  - [SignedMessages](docs/models/SignedMessages.md)
  - [SigningKeyDto](docs/models/SigningKeyDto.md)
+ - [SimpleQuorum](docs/models/SimpleQuorum.md)
  - [SmartTransferApproveTerm](docs/models/SmartTransferApproveTerm.md)
  - [SmartTransferBadRequestResponse](docs/models/SmartTransferBadRequestResponse.md)
  - [SmartTransferCoinStatistic](docs/models/SmartTransferCoinStatistic.md)
@@ -1701,7 +1752,11 @@ Class | Method | HTTP request | Description
  - [TransferPeerTypeEnum2](docs/models/TransferPeerTypeEnum2.md)
  - [TransferRail](docs/models/TransferRail.md)
  - [TransferReceipt](docs/models/TransferReceipt.md)
+ - [TransferResponse](docs/models/TransferResponse.md)
+ - [TransferResponseAccept](docs/models/TransferResponseAccept.md)
+ - [TransferResponseReject](docs/models/TransferResponseReject.md)
  - [TransferValidationFailure](docs/models/TransferValidationFailure.md)
+ - [TransferWithdrawPayload](docs/models/TransferWithdrawPayload.md)
  - [TravelRuleActionEnum](docs/models/TravelRuleActionEnum.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)
@@ -1780,6 +1835,7 @@ Class | Method | HTTP request | Description
  - [UpdateTokensOwnershipStatusRequest](docs/models/UpdateTokensOwnershipStatusRequest.md)
  - [UpdateVaultAccountAssetAddressRequest](docs/models/UpdateVaultAccountAssetAddressRequest.md)
  - [UpdateVaultAccountRequest](docs/models/UpdateVaultAccountRequest.md)
+ - [UpdateWebhookOAuthRequest](docs/models/UpdateWebhookOAuthRequest.md)
  - [UpdateWebhookRequest](docs/models/UpdateWebhookRequest.md)
  - [UsWirePaymentInfo](docs/models/UsWirePaymentInfo.md)
  - [UsdcGatewayWalletAsset](docs/models/UsdcGatewayWalletAsset.md)
@@ -1830,6 +1886,14 @@ Class | Method | HTTP request | Description
  - [WebhookMtls](docs/models/WebhookMtls.md)
  - [WebhookMtlsCsrResponse](docs/models/WebhookMtlsCsrResponse.md)
  - [WebhookOAuth](docs/models/WebhookOAuth.md)
+ - [WebhookOAuthCredentials](docs/models/WebhookOAuthCredentials.md)
+ - [WebhookOAuthCustomBodyParams](docs/models/WebhookOAuthCustomBodyParams.md)
+ - [WebhookOAuthCustomBodyParamsUpdate](docs/models/WebhookOAuthCustomBodyParamsUpdate.md)
+ - [WebhookOAuthCustomHeaders](docs/models/WebhookOAuthCustomHeaders.md)
+ - [WebhookOAuthCustomHeadersUpdate](docs/models/WebhookOAuthCustomHeadersUpdate.md)
+ - [WebhookOAuthCustomJwtClaims](docs/models/WebhookOAuthCustomJwtClaims.md)
+ - [WebhookOAuthCustomJwtClaimsUpdate](docs/models/WebhookOAuthCustomJwtClaimsUpdate.md)
+ - [WebhookOAuthList](docs/models/WebhookOAuthList.md)
  - [WebhookOAuthResponse](docs/models/WebhookOAuthResponse.md)
  - [WebhookPaginatedResponse](docs/models/WebhookPaginatedResponse.md)
  - [WithdrawRequest](docs/models/WithdrawRequest.md)
