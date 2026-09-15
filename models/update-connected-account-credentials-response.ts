@@ -15,13 +15,19 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOauthCredentials } from './webhook-oauth-credentials';
+import { AddedConnectedAccountItem } from './added-connected-account-item';
 
 /**
- * @type DeleteWebhookOauthResponse
- * The deleted OAuth credential set, plus the ids of any webhooks the delete detached from it. Webhooks are only detached by `forceDelete=true`; without it a delete is refused with `409` while anything still references the credentials.
+ * 
  * @export
+ * @interface UpdateConnectedAccountCredentialsResponse
  */
-export type DeleteWebhookOauthResponse = WebhookOauthCredentials;
-
+export interface UpdateConnectedAccountCredentialsResponse {
+    /**
+     * The account whose credentials are pending update (status WAITING_FOR_APPROVAL). Old credentials stay live until the change is approved.
+     * @type {Array<AddedConnectedAccountItem>}
+     * @memberof UpdateConnectedAccountCredentialsResponse
+     */
+    'accounts': Array<AddedConnectedAccountItem>;
+}
 

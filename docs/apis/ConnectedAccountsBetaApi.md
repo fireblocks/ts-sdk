@@ -16,6 +16,7 @@ Method | HTTP request | Description
 [**getConnectedAccountsCredentialsPublicKey**](#getConnectedAccountsCredentialsPublicKey) | **GET** /connected_accounts/credentials/public_key | Get public key to encrypt connected account credentials
 [**renameConnectedAccount**](#renameConnectedAccount) | **POST** /connected_accounts/{accountId}/rename | Rename Connected Account
 [**syncConnectedAccountAllowlist**](#syncConnectedAccountAllowlist) | **POST** /connected_accounts/{accountId}/allowlist/sync | Sync allowlist for connected account
+[**updateConnectedAccountCredentials**](#updateConnectedAccountCredentials) | **POST** /connected_accounts/{accountId}/credentials | Update connected account credentials
 
 
 # **addConnectedAccount**
@@ -800,6 +801,77 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **202** | Sync request accepted and processing |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateConnectedAccountCredentials**
+> UpdateConnectedAccountCredentialsResponse updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest, )
+
+Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest, UpdateConnectedAccountCredentialsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest = {
+  // UpdateConnectedAccountCredentialsRequest
+  updateConnectedAccountCredentialsRequest: param_value,
+  // string | The unique identifier of the connected account whose API key credentials are being replaced.
+  accountId: 2c96e3aa-07ca-4524-a026-75579d25e24a,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.connectedAccountsBeta.updateConnectedAccountCredentials(body).then((res: FireblocksResponse<UpdateConnectedAccountCredentialsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateConnectedAccountCredentialsRequest** | **[UpdateConnectedAccountCredentialsRequest](../models/UpdateConnectedAccountCredentialsRequest.md)**|  |
+ **accountId** | [**string**] | The unique identifier of the connected account whose API key credentials are being replaced. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[UpdateConnectedAccountCredentialsResponse](../models/UpdateConnectedAccountCredentialsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Credential update initiated (pending approval). |  * X-Request-ID -  <br>  |
+**400** | Bad request — credentials cannot be updated on a sub-account, or missing creds / apiKey. |  -  |
+**403** | Insufficient permissions, or feature not enabled for this tenant. |  -  |
+**404** | Connected account not found. |  -  |
+**409** | Account is not in an updatable state, or the credentials belong to a different account. |  -  |
+**422** | The provided credentials were rejected by the exchange. |  -  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

@@ -15,11 +15,11 @@
 
 
 /**
- * Extra parameters for the token request body — `scope` most commonly, sometimes `audience` or `resource`. Applies to every authentication method. Values must be strings, because the token request body is form-encoded rather than JSON. An empty string is allowed. `grant_type`, `client_id`, `client_secret`, `client_assertion` and `client_assertion_type` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB. Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOAuthCustomBodyParamsUpdate`.
+ * Extra parameters for the token request body — `scope` most commonly, sometimes `audience` or `resource`. Applies to every authentication method. Values must be strings, because the token request body is form-encoded rather than JSON. An empty string is allowed. `grant_type`, `client_id`, `client_secret`, `client_assertion` and `client_assertion_type` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB. Values are write-only; responses return only the parameter names. On update this merges key by key rather than replacing — see `WebhookOauthCustomBodyParamsUpdate`.
  * @export
- * @interface WebhookOAuthCustomBodyParams
+ * @interface WebhookOauthCustomBodyParams
  */
-export interface WebhookOAuthCustomBodyParams {
+export interface WebhookOauthCustomBodyParams {
     [key: string]: string;
 
 }

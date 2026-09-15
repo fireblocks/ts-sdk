@@ -17,9 +17,9 @@
 /**
  * A delta applied to the JWT assertion claims. A claim with a value is added or replaced, a claim with `null` is deleted, and a claim you leave out is untouched. So `{ \"aud\": \"https://auth.example.com\", \"resource\": null }` sets `aud`, drops `resource`, and changes nothing else. Send `customJwtClaims: null` to clear every claim in one call. That does not collide with a `null` value on a name: one names the claim to delete, the other names the whole field. Same rules as on create: any JSON type except `null`, `iss`/`sub`/`jti`/`iat`/`exp` reserved, names case-sensitive, resulting set under 16 KB, values write-only.
  * @export
- * @interface WebhookOAuthCustomJwtClaimsUpdate
+ * @interface WebhookOauthCustomJwtClaimsUpdate
  */
-export interface WebhookOAuthCustomJwtClaimsUpdate {
+export interface WebhookOauthCustomJwtClaimsUpdate {
     [key: string]: any;
 
 }

@@ -22,9 +22,6 @@ import { WebhookEvent } from './webhook-event';
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookMtls } from './webhook-mtls';
-// May contain unused imports in some cases
-// @ts-ignore
-import { WebhookOAuthResponse } from './webhook-oauth-response';
 
 /**
  * 
@@ -81,11 +78,11 @@ export interface Webhook {
      */
     'mtls'?: WebhookMtls | null;
     /**
-     * 
-     * @type {WebhookOAuthResponse}
+     * The id of the OAuth credentials this webhook authenticates with. Absent when the webhook does not use OAuth. Read the credentials themselves from `/v1/webhooks_settings/oauth/{webhookOauthId}`.
+     * @type {string}
      * @memberof Webhook
      */
-    'oauth'?: WebhookOAuthResponse;
+    'webhookOauthId'?: string;
     /**
      * 
      * @type {WebhookCustomHeadersResponse}
