@@ -12,7 +12,7 @@
 |**updatedAt** | **number** | The date and time the webhook was last updated in milliseconds | [default to undefined]|
 |**description** | **string** | description of the webhook of what it is used for | [optional] [default to undefined]|
 |**mtls** | [**WebhookMtls**](WebhookMtls.md) |  | [optional] [default to undefined]|
-|**oauth** | [**WebhookOAuthResponse**](WebhookOAuthResponse.md) |  | [optional] [default to undefined]|
+|**webhookOauthId** | **string** | The id of the OAuth credentials this webhook authenticates with. Absent when the webhook does not use OAuth. Read the credentials themselves from &#x60;/v1/webhooks_settings/oauth/{webhookOauthId}&#x60;. | [optional] [default to undefined]|
 |**customHeaders** | [**WebhookCustomHeadersResponse**](WebhookCustomHeadersResponse.md) |  | [optional] [default to undefined]|
 
 

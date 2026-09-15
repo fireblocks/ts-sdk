@@ -15,13 +15,36 @@
 
 
 /**
- * 
+ * OTHER indicates the underlying provider isn\'t representable by this API version\'s enum (e.g. a newly onboarded provider, or one removed from this list) — it does not identify a specific provider, so it should not be used to key any client-side logic.
  * @export
  * @enum {string}
  */
 
 export const FiatAccountType = {
-    Blinc: 'BLINC'
+    Blinc: 'BLINC',
+    BlincTest: 'BLINC_TEST',
+    Crossriver: 'CROSSRIVER',
+    CrossriverTest: 'CROSSRIVER_TEST',
+    Customersbank: 'CUSTOMERSBANK',
+    CustomersbankTest: 'CUSTOMERSBANK_TEST',
+    Fifththird: 'FIFTHTHIRD',
+    FifththirdTest: 'FIFTHTHIRD_TEST',
+    KingdomBank: 'KINGDOM_BANK',
+    KingdomBankTestnet: 'KINGDOM_BANK_TESTNET',
+    Lynq: 'LYNQ',
+    LynqDev: 'LYNQ_DEV',
+    LynqQa: 'LYNQ_QA',
+    LynqUat: 'LYNQ_UAT',
+    N3Xt: 'N3XT',
+    N3XtAlpha: 'N3XT_ALPHA',
+    N3XtBeta: 'N3XT_BETA',
+    N3XtOmega: 'N3XT_OMEGA',
+    SygnumConnect: 'SYGNUM_CONNECT',
+    SygnumConnectStaging: 'SYGNUM_CONNECT_STAGING',
+    Transfero: 'TRANSFERO',
+    TransferoStaging: 'TRANSFERO_STAGING',
+    ZenusDev: 'ZENUS_DEV',
+    Other: 'OTHER'
 } as const;
 
 export type FiatAccountType = typeof FiatAccountType[keyof typeof FiatAccountType];

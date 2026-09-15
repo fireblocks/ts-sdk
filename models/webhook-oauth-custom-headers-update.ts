@@ -15,11 +15,11 @@
 
 
 /**
- * A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ \"X-Api-Key\": \"new-key\", \"X-Tenant\": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else. Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased. Same rules as on create: string values only, `Content-Type`/`Authorization`/ `Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
+ * A delta applied to the token request headers — not the webhook delivery headers. A header with a value is added or replaced, a header with `null` is deleted, and one you leave out is untouched. So `{ \"X-Api-Key\": \"new-key\", \"X-Tenant\": null }` rotates `X-Api-Key`, drops `X-Tenant`, and changes nothing else. Send `customHeaders: null` to clear every header in one call. That does not collide with a `null` value on a name: one names the header to delete, the other names the whole field. Names are case-insensitive, so a `null` under one casing deletes a header stored under another, and names are stored and returned lowercased. Same rules as on create: string values only, `Content-Type`/`Content-Length`/`Host` reserved, resulting set under 16 KB, values write-only.
  * @export
- * @interface WebhookOAuthCustomHeadersUpdate
+ * @interface WebhookOauthCustomHeadersUpdate
  */
-export interface WebhookOAuthCustomHeadersUpdate {
+export interface WebhookOauthCustomHeadersUpdate {
     [key: string]: string;
 
 }

@@ -1,4 +1,4 @@
-# WebhookOAuthCustomJwtClaimsUpdate
+# WebhookOauthCustomBodyParams
 
 ## Properties
 

@@ -1,4 +1,4 @@
-# WebhookOAuthCustomBodyParams
+# WebhookOauthCustomBodyParamsUpdate
 
 ## Properties
 

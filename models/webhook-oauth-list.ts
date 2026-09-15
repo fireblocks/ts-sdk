@@ -15,13 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCredentials } from './webhook-oauth-credentials';
+import { WebhookOauthCredentials } from './webhook-oauth-credentials';
 
 /**
  * Every OAuth credential set belonging to the workspace. Client secrets are never returned.
  * @export
- * @interface WebhookOAuthList
+ * @interface WebhookOauthList
  */
-export interface WebhookOAuthList extends Array<WebhookOAuthCredentials> {
+export interface WebhookOauthList extends Array<WebhookOauthCredentials> {
 }
 

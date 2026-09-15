@@ -141,6 +141,44 @@ export const ApprovalsBetaApiAxiosParamCreator = function (configuration?: Confi
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Reject a pending approval request as the authenticated API user. No signature is required (unlike approve). The caller must be eligible to act on the request; rejecting finalizes the request as rejected per the approval policy.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Reject an approval request
+         * @param {string} requestId The approval request ID.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rejectApproval: async (requestId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('rejectApproval', 'requestId', requestId)
+            const localVarPath = `/approvals/{requestId}/reject`
+                .replace(`{${"requestId"}}`, encodeURIComponent(String(requestId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -184,6 +222,20 @@ export const ApprovalsBetaApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['ApprovalsBetaApi.getApprovals']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Reject a pending approval request as the authenticated API user. No signature is required (unlike approve). The caller must be eligible to act on the request; rejecting finalizes the request as rejected per the approval policy.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Reject an approval request
+         * @param {string} requestId The approval request ID.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rejectApproval(requestId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rejectApproval(requestId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ApprovalsBetaApi.rejectApproval']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -213,6 +265,16 @@ export const ApprovalsBetaApiFactory = function (configuration?: Configuration, 
          */
         getApprovals(requestParameters: ApprovalsBetaApiGetApprovalsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ListApprovalsResponse> {
             return localVarFp.getApprovals(requestParameters.includeUserApproved, requestParameters.userId, requestParameters.includeAllUsers, requestParameters.quorumStatusMode, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Reject a pending approval request as the authenticated API user. No signature is required (unlike approve). The caller must be eligible to act on the request; rejecting finalizes the request as rejected per the approval policy.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Reject an approval request
+         * @param {ApprovalsBetaApiRejectApprovalRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rejectApproval(requestParameters: ApprovalsBetaApiRejectApprovalRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.rejectApproval(requestParameters.requestId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -295,6 +357,27 @@ export interface ApprovalsBetaApiGetApprovalsRequest {
 }
 
 /**
+ * Request parameters for rejectApproval operation in ApprovalsBetaApi.
+ * @export
+ * @interface ApprovalsBetaApiRejectApprovalRequest
+ */
+export interface ApprovalsBetaApiRejectApprovalRequest {
+    /**
+     * The approval request ID.
+     * @type {string}
+     * @memberof ApprovalsBetaApiRejectApproval
+     */
+    readonly requestId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ApprovalsBetaApiRejectApproval
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * ApprovalsBetaApi - object-oriented interface
  * @export
  * @class ApprovalsBetaApi
@@ -323,6 +406,18 @@ export class ApprovalsBetaApi extends BaseAPI {
      */
     public getApprovals(requestParameters: ApprovalsBetaApiGetApprovalsRequest = {}) {
         return ApprovalsBetaApiFp(this.configuration).getApprovals(requestParameters.includeUserApproved, requestParameters.userId, requestParameters.includeAllUsers, requestParameters.quorumStatusMode, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Reject a pending approval request as the authenticated API user. No signature is required (unlike approve). The caller must be eligible to act on the request; rejecting finalizes the request as rejected per the approval policy.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * @summary Reject an approval request
+     * @param {ApprovalsBetaApiRejectApprovalRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApprovalsBetaApi
+     */
+    public rejectApproval(requestParameters: ApprovalsBetaApiRejectApprovalRequest) {
+        return ApprovalsBetaApiFp(this.configuration).rejectApproval(requestParameters.requestId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

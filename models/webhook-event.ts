@@ -54,6 +54,8 @@ export const WebhookEvent = {
     ExchangeAccountConnected: 'exchange_account.connected',
     FiatAccountConnected: 'fiat_account.connected',
     ConnectedAccountConnected: 'connected_account.connected',
+    ExchangeAccountCredentialsReplaced: 'exchange_account.credentials_replaced',
+    ConnectedAccountCredentialsReplaced: 'connected_account.credentials_replaced',
     TicketCreated: 'ticket.created',
     TicketSubmitted: 'ticket.submitted',
     TicketExpired: 'ticket.expired',

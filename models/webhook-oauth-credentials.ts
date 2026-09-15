@@ -17,73 +17,73 @@
 /**
  * A stored OAuth 2.0 client credential set, referenced by webhooks through their `webhookOauthId`. When a webhook references one, the dispatcher fetches a bearer token from `url` before each delivery and attaches it as `Authorization: Bearer {token}`. Secret material is never returned: `clientSecret` is absent from this schema entirely, and the `customJwtClaims`, `customBodyParams` and `customHeaders` fields are reduced to their names, without the configured values.
  * @export
- * @interface WebhookOAuthCredentials
+ * @interface WebhookOauthCredentials
  */
-export interface WebhookOAuthCredentials {
+export interface WebhookOauthCredentials {
     /**
      * The id of the OAuth credentials. Pass this as a webhook\'s `webhookOauthId` to attach them.
      * @type {string}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'id': string;
     /**
      * The label given to this credential set.
      * @type {string}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'name': string;
     /**
      * OAuth client ID used to authenticate with the token endpoint.
      * @type {string}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'clientId': string;
     /**
      * Token endpoint URL.
      * @type {string}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'url': string;
     /**
      * How the client credentials are presented to the token endpoint: `client_secret_basic`, `client_secret_post` or `client_secret_jwt`. Credentials created without this field report `client_secret_basic`, which is what they use.
      * @type {string}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'authMethod': string;
     /**
      * The date and time the OAuth credentials were created, in milliseconds.
      * @type {number}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'createdAt': number;
     /**
      * The date and time the OAuth credentials were last updated, in milliseconds.
      * @type {number}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'updatedAt': number;
     /**
      * Names of the additional claims placed in the JWT assertion. Claim values are write-only and are never returned. Absent when no custom claims are configured.
      * @type {Array<string>}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'customJwtClaims'?: Array<string>;
     /**
      * Names of the additional parameters added to the token request body. Parameter values are write-only and are never returned. Absent when no custom parameters are configured.
      * @type {Array<string>}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'customBodyParams'?: Array<string>;
     /**
      * Names of the additional HTTP headers added to **the token request sent to the authorization server** — not to the webhook delivery, which has its own separate `customHeaders`. Header values are write-only and are never returned. Absent when no custom headers are configured.
      * @type {Array<string>}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'customHeaders'?: Array<string>;
     /**
      * PEM-encoded client certificate used for mTLS when fetching OAuth tokens.
      * @type {string}
-     * @memberof WebhookOAuthCredentials
+     * @memberof WebhookOauthCredentials
      */
     'mtlsClientSignedCert'?: string;
 }

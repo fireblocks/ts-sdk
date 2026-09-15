@@ -15,11 +15,11 @@
 
 
 /**
- * Extra claims for the JWT assertion. Used only when `authMethod` is `client_secret_jwt`. The usual one to set is `aud`, which defaults to the token endpoint URL; some authorization servers expect their own identifier instead. A value may be any JSON type except `null` — `null` is reserved for deleting a claim on update. `iss`, `sub`, `jti`, `iat` and `exp` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB. Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOAuthCustomJwtClaimsUpdate`.
+ * Extra claims for the JWT assertion. Used only when `authMethod` is `client_secret_jwt`. The usual one to set is `aud`, which defaults to the token endpoint URL; some authorization servers expect their own identifier instead. A value may be any JSON type except `null` — `null` is reserved for deleting a claim on update. `iss`, `sub`, `jti`, `iat` and `exp` are set by Fireblocks and cannot be overridden. Names are case-sensitive. The whole object must be under 16 KB. Values are write-only; responses return only the claim names. On update this merges claim by claim rather than replacing — see `WebhookOauthCustomJwtClaimsUpdate`.
  * @export
- * @interface WebhookOAuthCustomJwtClaims
+ * @interface WebhookOauthCustomJwtClaims
  */
-export interface WebhookOAuthCustomJwtClaims {
+export interface WebhookOauthCustomJwtClaims {
     [key: string]: any;
 
 }

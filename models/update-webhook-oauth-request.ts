@@ -15,72 +15,72 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCustomBodyParamsUpdate } from './webhook-oauth-custom-body-params-update';
+import { WebhookOauthCustomBodyParamsUpdate } from './webhook-oauth-custom-body-params-update';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCustomHeadersUpdate } from './webhook-oauth-custom-headers-update';
+import { WebhookOauthCustomHeadersUpdate } from './webhook-oauth-custom-headers-update';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCustomJwtClaimsUpdate } from './webhook-oauth-custom-jwt-claims-update';
+import { WebhookOauthCustomJwtClaimsUpdate } from './webhook-oauth-custom-jwt-claims-update';
 
 /**
  * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The three custom maps merge: a key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched. Because `null` inside a map means delete, none of the three is nullable as a whole — `customJwtClaims: null` and friends are rejected with a `400`. Clear a map by naming each key with a `null` value. `mtlsClientSignedCert` is a scalar, so `null` there does remove it.
  * @export
- * @interface UpdateWebhookOAuthRequest
+ * @interface UpdateWebhookOauthRequest
  */
-export interface UpdateWebhookOAuthRequest {
+export interface UpdateWebhookOauthRequest {
     /**
      * A label for this credential set. Omit to leave it unchanged.
      * @type {string}
-     * @memberof UpdateWebhookOAuthRequest
+     * @memberof UpdateWebhookOauthRequest
      */
     'name'?: string;
     /**
      * OAuth client ID. Omit to leave it unchanged.
      * @type {string}
-     * @memberof UpdateWebhookOAuthRequest
+     * @memberof UpdateWebhookOauthRequest
      */
     'clientId'?: string;
     /**
      * A new OAuth client secret. Limited to 480 bytes when UTF-8 encoded, so a secret using non-ASCII characters fits fewer than 480 of them. Write-only — never returned in any response. Send this on its own to rotate the secret without changing anything else. Omit to leave it unchanged.
      * @type {string}
-     * @memberof UpdateWebhookOAuthRequest
+     * @memberof UpdateWebhookOauthRequest
      */
     'clientSecret'?: string;
     /**
      * Token endpoint URL. HTTPS on port 443 only, and the host must resolve publicly. Omit to leave it unchanged.
      * @type {string}
-     * @memberof UpdateWebhookOAuthRequest
+     * @memberof UpdateWebhookOauthRequest
      */
     'url'?: string;
     /**
      * `client_secret_basic`, `client_secret_post` or `client_secret_jwt`. Omit to leave it unchanged — it does not revert to the default.
      * @type {string}
-     * @memberof UpdateWebhookOAuthRequest
+     * @memberof UpdateWebhookOauthRequest
      */
     'authMethod'?: string;
     /**
      * 
-     * @type {WebhookOAuthCustomJwtClaimsUpdate}
-     * @memberof UpdateWebhookOAuthRequest
+     * @type {WebhookOauthCustomJwtClaimsUpdate}
+     * @memberof UpdateWebhookOauthRequest
      */
-    'customJwtClaims'?: WebhookOAuthCustomJwtClaimsUpdate | null;
+    'customJwtClaims'?: WebhookOauthCustomJwtClaimsUpdate | null;
     /**
      * 
-     * @type {WebhookOAuthCustomBodyParamsUpdate}
-     * @memberof UpdateWebhookOAuthRequest
+     * @type {WebhookOauthCustomBodyParamsUpdate}
+     * @memberof UpdateWebhookOauthRequest
      */
-    'customBodyParams'?: WebhookOAuthCustomBodyParamsUpdate | null;
+    'customBodyParams'?: WebhookOauthCustomBodyParamsUpdate | null;
     /**
      * 
-     * @type {WebhookOAuthCustomHeadersUpdate}
-     * @memberof UpdateWebhookOAuthRequest
+     * @type {WebhookOauthCustomHeadersUpdate}
+     * @memberof UpdateWebhookOauthRequest
      */
-    'customHeaders'?: WebhookOAuthCustomHeadersUpdate | null;
+    'customHeaders'?: WebhookOauthCustomHeadersUpdate | null;
     /**
      * PEM-encoded client certificate for mTLS. Must be a valid X.509 certificate inside its validity window. Omit to leave it unchanged, or send `null` to remove it.
      * @type {string}
-     * @memberof UpdateWebhookOAuthRequest
+     * @memberof UpdateWebhookOauthRequest
      */
     'mtlsClientSignedCert'?: string | null;
 }

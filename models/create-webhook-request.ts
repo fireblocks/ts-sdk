@@ -22,9 +22,6 @@ import { WebhookEvent } from './webhook-event';
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookMtls } from './webhook-mtls';
-// May contain unused imports in some cases
-// @ts-ignore
-import { WebhookOAuth } from './webhook-oauth';
 
 /**
  * 
@@ -63,11 +60,11 @@ export interface CreateWebhookRequest {
      */
     'mtls'?: WebhookMtls | null;
     /**
-     * 
-     * @type {WebhookOAuth}
+     * The id of the OAuth credentials this webhook authenticates with, from `/v1/webhooks_settings/oauth`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send `null` to stop using OAuth for this webhook.
+     * @type {string}
      * @memberof CreateWebhookRequest
      */
-    'oauth'?: WebhookOAuth | null;
+    'webhookOauthId'?: string | null;
     /**
      * 
      * @type {WebhookCustomHeaders}

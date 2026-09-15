@@ -15,28 +15,22 @@
 
 
 /**
- * OAuth 2.0 client credentials configuration for the webhook. Present only when OAuth is configured. The `clientSecret` is write-only and is never returned.
+ * 
  * @export
- * @interface WebhookOAuthResponse
+ * @interface UpdateConnectedAccountCredentialsRequest
  */
-export interface WebhookOAuthResponse {
+export interface UpdateConnectedAccountCredentialsRequest {
     /**
-     * OAuth client ID used to authenticate with the token endpoint.
+     * Base64-encoded RSA-encrypted credential blob (the new secret). Encrypt using the public key from GET /connected_accounts/credentials/public_key.
      * @type {string}
-     * @memberof WebhookOAuthResponse
+     * @memberof UpdateConnectedAccountCredentialsRequest
      */
-    'clientId': string;
+    'creds': string;
     /**
-     * Token endpoint URL.
+     * The new account-level API key. Mandatory for credential update.
      * @type {string}
-     * @memberof WebhookOAuthResponse
+     * @memberof UpdateConnectedAccountCredentialsRequest
      */
-    'url': string;
-    /**
-     * Signed client certificate PEM used for mTLS when connecting to the token endpoint.
-     * @type {string}
-     * @memberof WebhookOAuthResponse
-     */
-    'mtlsClientSignedCert'?: string | null;
+    'apiKey': string;
 }
 

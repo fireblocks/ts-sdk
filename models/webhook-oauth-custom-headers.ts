@@ -15,11 +15,11 @@
 
 
 /**
- * Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method. Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Authorization`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. The whole object must be under 16 KB. Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOAuthCustomHeadersUpdate`.
+ * Extra HTTP headers for **the token request to your authorization server** — not for the webhook delivery, which has its own separate `customHeaders`. A gateway API key is the usual case. Applies to every authentication method. Values must be strings; an empty string is allowed. Names are matched case-insensitively, so two names differing only in case are a duplicate. Names are stored and returned lowercased, so `X-Api-Key` comes back as `x-api-key`. `Content-Type`, `Content-Length` and `Host` are set by Fireblocks and cannot be overridden. `Authorization` is not sent when `authMethod` is `client_secret_basic`. Values have no length limit of their own; the whole object must be under 16 KB when serialized as UTF-8. Values are write-only; responses return only the header names. On update this merges name by name rather than replacing — see `WebhookOauthCustomHeadersUpdate`.
  * @export
- * @interface WebhookOAuthCustomHeaders
+ * @interface WebhookOauthCustomHeaders
  */
-export interface WebhookOAuthCustomHeaders {
+export interface WebhookOauthCustomHeaders {
     [key: string]: string;
 
 }

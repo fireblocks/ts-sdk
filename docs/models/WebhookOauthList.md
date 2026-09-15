@@ -1,4 +1,4 @@
-# WebhookOAuthCustomBodyParamsUpdate
+# WebhookOauthList
 
 ## Properties
 

@@ -15,72 +15,72 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCustomBodyParams } from './webhook-oauth-custom-body-params';
+import { WebhookOauthCustomBodyParams } from './webhook-oauth-custom-body-params';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCustomHeaders } from './webhook-oauth-custom-headers';
+import { WebhookOauthCustomHeaders } from './webhook-oauth-custom-headers';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOAuthCustomJwtClaims } from './webhook-oauth-custom-jwt-claims';
+import { WebhookOauthCustomJwtClaims } from './webhook-oauth-custom-jwt-claims';
 
 /**
  * A new reusable OAuth 2.0 client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once.
  * @export
- * @interface CreateWebhookOAuthRequest
+ * @interface CreateWebhookOauthRequest
  */
-export interface CreateWebhookOAuthRequest {
+export interface CreateWebhookOauthRequest {
     /**
      * A label for this credential set, shown when listing them.
      * @type {string}
-     * @memberof CreateWebhookOAuthRequest
+     * @memberof CreateWebhookOauthRequest
      */
     'name': string;
     /**
      * OAuth client ID used to authenticate with the token endpoint.
      * @type {string}
-     * @memberof CreateWebhookOAuthRequest
+     * @memberof CreateWebhookOauthRequest
      */
     'clientId': string;
     /**
      * OAuth client secret. Write-only — never returned. Limited to 480 bytes UTF-8 encoded. With `client_secret_jwt` it signs the assertion rather than being sent.
      * @type {string}
-     * @memberof CreateWebhookOAuthRequest
+     * @memberof CreateWebhookOauthRequest
      */
     'clientSecret': string;
     /**
      * Token endpoint URL. HTTPS on port 443 only, and the host must resolve publicly — localhost and private, link-local or loopback addresses are rejected.
      * @type {string}
-     * @memberof CreateWebhookOAuthRequest
+     * @memberof CreateWebhookOauthRequest
      */
     'url': string;
     /**
      * How the client credentials reach the token endpoint. `client_secret_basic` uses an HTTP Basic header, `client_secret_post` uses form fields in the body, and `client_secret_jwt` sends a JWT assertion signed with the secret, so the secret itself is never transmitted. Defaults to `client_secret_basic`.
      * @type {string}
-     * @memberof CreateWebhookOAuthRequest
+     * @memberof CreateWebhookOauthRequest
      */
     'authMethod'?: string;
     /**
      * 
-     * @type {WebhookOAuthCustomJwtClaims}
-     * @memberof CreateWebhookOAuthRequest
+     * @type {WebhookOauthCustomJwtClaims}
+     * @memberof CreateWebhookOauthRequest
      */
-    'customJwtClaims'?: WebhookOAuthCustomJwtClaims | null;
+    'customJwtClaims'?: WebhookOauthCustomJwtClaims | null;
     /**
      * 
-     * @type {WebhookOAuthCustomBodyParams}
-     * @memberof CreateWebhookOAuthRequest
+     * @type {WebhookOauthCustomBodyParams}
+     * @memberof CreateWebhookOauthRequest
      */
-    'customBodyParams'?: WebhookOAuthCustomBodyParams | null;
+    'customBodyParams'?: WebhookOauthCustomBodyParams | null;
     /**
      * 
-     * @type {WebhookOAuthCustomHeaders}
-     * @memberof CreateWebhookOAuthRequest
+     * @type {WebhookOauthCustomHeaders}
+     * @memberof CreateWebhookOauthRequest
      */
-    'customHeaders'?: WebhookOAuthCustomHeaders | null;
+    'customHeaders'?: WebhookOauthCustomHeaders | null;
     /**
      * PEM-encoded client certificate for mTLS when fetching tokens. Must be a valid X.509 certificate inside its validity window.
      * @type {string}
-     * @memberof CreateWebhookOAuthRequest
+     * @memberof CreateWebhookOauthRequest
      */
     'mtlsClientSignedCert'?: string;
 }

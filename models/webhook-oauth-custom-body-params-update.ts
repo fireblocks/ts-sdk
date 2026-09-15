@@ -17,9 +17,9 @@
 /**
  * A delta applied to the token request body parameters. A parameter with a value is added or replaced, a parameter with `null` is deleted, and one you leave out is untouched. So `{ \"scope\": \"payments.read\", \"audience\": null }` sets `scope`, drops `audience`, and changes nothing else. Send `customBodyParams: null` to clear every parameter in one call. That does not collide with a `null` value on a name: one names the parameter to delete, the other names the whole field. Same rules as on create: string values only, `grant_type`/`client_id`/`client_secret`/ `client_assertion`/`client_assertion_type` reserved, names case-sensitive, resulting set under 16 KB, values write-only.
  * @export
- * @interface WebhookOAuthCustomBodyParamsUpdate
+ * @interface WebhookOauthCustomBodyParamsUpdate
  */
-export interface WebhookOAuthCustomBodyParamsUpdate {
+export interface WebhookOauthCustomBodyParamsUpdate {
     [key: string]: string;
 
 }

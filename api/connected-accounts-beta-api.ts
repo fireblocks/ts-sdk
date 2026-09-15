@@ -56,6 +56,10 @@ import { GetConnectedAccountsCredentialsPublicKeyResponse } from '../models';
 import { RenameConnectedAccountRequest } from '../models';
 // @ts-ignore
 import { RenameConnectedAccountResponse } from '../models';
+// @ts-ignore
+import { UpdateConnectedAccountCredentialsRequest } from '../models';
+// @ts-ignore
+import { UpdateConnectedAccountCredentialsResponse } from '../models';
 /**
  * ConnectedAccountsBetaApi - axios parameter creator
  * @export
@@ -559,6 +563,49 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Update connected account credentials
+         * @param {UpdateConnectedAccountCredentialsRequest} updateConnectedAccountCredentialsRequest 
+         * @param {string} accountId The unique identifier of the connected account whose API key credentials are being replaced.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateConnectedAccountCredentials: async (updateConnectedAccountCredentialsRequest: UpdateConnectedAccountCredentialsRequest, accountId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateConnectedAccountCredentials', 'updateConnectedAccountCredentialsRequest', updateConnectedAccountCredentialsRequest)
+            assertParamExistsAndNotEmpty('updateConnectedAccountCredentials', 'accountId', accountId)
+            const localVarPath = `/connected_accounts/{accountId}/credentials`
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateConnectedAccountCredentialsRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -744,6 +791,21 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
             const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.syncConnectedAccountAllowlist']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Update connected account credentials
+         * @param {UpdateConnectedAccountCredentialsRequest} updateConnectedAccountCredentialsRequest 
+         * @param {string} accountId The unique identifier of the connected account whose API key credentials are being replaced.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest: UpdateConnectedAccountCredentialsRequest, accountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateConnectedAccountCredentialsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest, accountId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.updateConnectedAccountCredentials']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -872,6 +934,16 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
          */
         syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * @summary Update connected account credentials
+         * @param {ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateConnectedAccountCredentials(requestParameters: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateConnectedAccountCredentialsResponse> {
+            return localVarFp.updateConnectedAccountCredentials(requestParameters.updateConnectedAccountCredentialsRequest, requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -1171,6 +1243,34 @@ export interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest {
 }
 
 /**
+ * Request parameters for updateConnectedAccountCredentials operation in ConnectedAccountsBetaApi.
+ * @export
+ * @interface ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest
+ */
+export interface ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest {
+    /**
+     * 
+     * @type {UpdateConnectedAccountCredentialsRequest}
+     * @memberof ConnectedAccountsBetaApiUpdateConnectedAccountCredentials
+     */
+    readonly updateConnectedAccountCredentialsRequest: UpdateConnectedAccountCredentialsRequest
+
+    /**
+     * The unique identifier of the connected account whose API key credentials are being replaced.
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiUpdateConnectedAccountCredentials
+     */
+    readonly accountId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ConnectedAccountsBetaApiUpdateConnectedAccountCredentials
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * ConnectedAccountsBetaApi - object-oriented interface
  * @export
  * @class ConnectedAccountsBetaApi
@@ -1318,6 +1418,18 @@ export class ConnectedAccountsBetaApi extends BaseAPI {
      */
     public syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest) {
         return ConnectedAccountsBetaApiFp(this.configuration).syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * @summary Update connected account credentials
+     * @param {ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ConnectedAccountsBetaApi
+     */
+    public updateConnectedAccountCredentials(requestParameters: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest) {
+        return ConnectedAccountsBetaApiFp(this.configuration).updateConnectedAccountCredentials(requestParameters.updateConnectedAccountCredentialsRequest, requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

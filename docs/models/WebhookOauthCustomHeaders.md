@@ -1,4 +1,4 @@
-# WebhookOAuthList
+# WebhookOauthCustomHeaders
 
 ## Properties
 

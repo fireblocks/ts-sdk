@@ -69,6 +69,10 @@
 
 * `ConnectedAccountConnected` (value: `'connected_account.connected'`)
 
+* `ExchangeAccountCredentialsReplaced` (value: `'exchange_account.credentials_replaced'`)
+
+* `ConnectedAccountCredentialsReplaced` (value: `'connected_account.credentials_replaced'`)
+
 * `TicketCreated` (value: `'ticket.created'`)
 
 * `TicketSubmitted` (value: `'ticket.submitted'`)
