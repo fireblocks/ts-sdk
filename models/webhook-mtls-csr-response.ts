@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookMtlsKeyAlgorithm } from './webhook-mtls-key-algorithm';
 
 /**
  * mTLS Certificate Signing Request response
@@ -26,5 +29,13 @@ export interface WebhookMtlsCsrResponse {
      * @memberof WebhookMtlsCsrResponse
      */
     'csr': string;
+    /**
+     * 
+     * @type {WebhookMtlsKeyAlgorithm}
+     * @memberof WebhookMtlsCsrResponse
+     */
+    'keyAlgorithm': WebhookMtlsKeyAlgorithm;
 }
+
+
 

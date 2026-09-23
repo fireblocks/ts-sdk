@@ -20,6 +20,7 @@ export * from './api/audit-logs-api';
 export * from './api/blockchain-link-beta-api';
 export * from './api/blockchains-assets-api';
 export * from './api/compliance-api';
+export * from './api/compliance-orchestrator-beta-api';
 export * from './api/compliance-screening-configuration-api';
 export * from './api/connected-accounts-beta-api';
 export * from './api/console-user-api';

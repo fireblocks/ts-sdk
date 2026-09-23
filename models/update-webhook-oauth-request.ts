@@ -24,7 +24,7 @@ import { WebhookOauthCustomHeadersUpdate } from './webhook-oauth-custom-headers-
 import { WebhookOauthCustomJwtClaimsUpdate } from './webhook-oauth-custom-jwt-claims-update';
 
 /**
- * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The three custom maps merge: a key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched. Because `null` inside a map means delete, none of the three is nullable as a whole — `customJwtClaims: null` and friends are rejected with a `400`. Clear a map by naming each key with a `null` value. `mtlsClientSignedCert` is a scalar, so `null` there does remove it.
+ * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `mtlsClientSignedCert` is a scalar, so `null` there removes it.
  * @export
  * @interface UpdateWebhookOauthRequest
  */
