@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { SystemMessageInfo } from './system-message-info';
 
 /**
  * 
@@ -32,5 +35,17 @@ export interface InternalTransferResponse {
      * @memberof InternalTransferResponse
      */
     'id'?: string | null;
+    /**
+     * The transfer status returned by the transaction manager. Only present when the transfer was processed via the transaction manager flow.
+     * @type {string}
+     * @memberof InternalTransferResponse
+     */
+    'status'?: string | null;
+    /**
+     * System messages returned by the transaction manager about the health of the transfer being performed. Only present when the transfer was processed via the transaction manager flow.
+     * @type {Array<SystemMessageInfo>}
+     * @memberof InternalTransferResponse
+     */
+    'systemMessages'?: Array<SystemMessageInfo> | null;
 }
 

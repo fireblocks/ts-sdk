@@ -5,6 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**csr** | **string** | The Fireblocks PEM-encoded Certificate Signing Request (CSR). | [default to undefined]|
+|**keyAlgorithm** | [**WebhookMtlsKeyAlgorithm**](WebhookMtlsKeyAlgorithm.md) |  | [default to undefined]|
 
 
 

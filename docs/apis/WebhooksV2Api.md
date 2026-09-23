@@ -9,7 +9,7 @@ Method | HTTP request | Description
 [**deleteWebhook**](#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 [**deleteWebhookOauth**](#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 [**getMetrics**](#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
-[**getMtlsCsr**](#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR
+[**getMtlsCsr**](#getMtlsCsr) | **GET** /webhooks_settings/mtls_csr | Get mTLS CSR
 [**getNotification**](#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
 [**getNotificationAttempts**](#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 [**getNotifications**](#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
@@ -343,7 +343,7 @@ No authorization required
 # **getMtlsCsr**
 > WebhookMtlsCsrResponse getMtlsCsr()
 
-Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
 
 ### Example
 
@@ -351,7 +351,7 @@ Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, WebhookMtlsCsrResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiGetMtlsCsrRequest, WebhookMtlsCsrResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -360,7 +360,10 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body:any = {};
+let body: WebhooksV2ApiGetMtlsCsrRequest = {
+  // 'RSA' | 'ECDSA' | Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default. (optional)
+  keyAlgorithm: RSA,
+};
 
 fireblocks.webhooksV2.getMtlsCsr(body).then((res: FireblocksResponse<WebhookMtlsCsrResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
@@ -369,7 +372,10 @@ fireblocks.webhooksV2.getMtlsCsr(body).then((res: FireblocksResponse<WebhookMtls
 
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **keyAlgorithm** | [**&#39;RSA&#39; | &#39;ECDSA&#39;**]**Array<&#39;RSA&#39; &#124; &#39;ECDSA&#39;>** | Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default. | (optional) defaults to 'RSA'
 
 
 ### Return type
@@ -1314,7 +1320,7 @@ No authorization required
 # **updateWebhookOauth**
 > WebhookOauthCredentials updateWebhookOauth(updateWebhookOauthRequest, )
 
-Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

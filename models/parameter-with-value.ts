@@ -57,11 +57,11 @@ export interface ParameterWithValue {
      */
     'components'?: Array<Parameter>;
     /**
-     * The value of the parameter. can also be ParameterWithValue
-     * @type {string}
+     * The value of the parameter. The shape follows the ABI `type`: a string for `string`/`address`/`bytes*`, a number for `uint*`/`int*`, a boolean for `bool`, an array for `T[]`, and for `tuple` an array of nested ParameterWithValue objects (one per entry in `components`, in ABI order).
+     * @type {any}
      * @memberof ParameterWithValue
      */
-    'value'?: string;
+    'value'?: any;
     /**
      * The function value of this param (if has one). If this is set, the `value` shouldn`t be. Used for proxies
      * @type {LeanAbiFunction}

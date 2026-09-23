@@ -266,13 +266,14 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
          * @summary Get mTLS CSR
+         * @param {GetMtlsCsrKeyAlgorithmEnum} [keyAlgorithm] Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMtlsCsr: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/webhooks/mtls/csr`;
+        getMtlsCsr: async (keyAlgorithm?: GetMtlsCsrKeyAlgorithmEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks_settings/mtls_csr`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -283,6 +284,10 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+            if (keyAlgorithm !== undefined) {
+                localVarQueryParameter['keyAlgorithm'] = keyAlgorithm;
+            }
 
 
     
@@ -882,7 +887,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {UpdateWebhookOauthRequest} updateWebhookOauthRequest 
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -999,13 +1004,14 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
          * @summary Get mTLS CSR
+         * @param {GetMtlsCsrKeyAlgorithmEnum} [keyAlgorithm] Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMtlsCsr(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsCsrResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMtlsCsr(options);
+        async getMtlsCsr(keyAlgorithm?: GetMtlsCsrKeyAlgorithmEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsCsrResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMtlsCsr(keyAlgorithm, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.getMtlsCsr']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
@@ -1219,7 +1225,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {UpdateWebhookOauthRequest} updateWebhookOauthRequest 
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -1293,13 +1299,14 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getMetrics(requestParameters.webhookId, requestParameters.metricName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
          * @summary Get mTLS CSR
+         * @param {WebhooksV2ApiGetMtlsCsrRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMtlsCsr(options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsCsrResponse> {
-            return localVarFp.getMtlsCsr(options).then((request) => request(axios, basePath));
+        getMtlsCsr(requestParameters: WebhooksV2ApiGetMtlsCsrRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsCsrResponse> {
+            return localVarFp.getMtlsCsr(requestParameters.keyAlgorithm, options).then((request) => request(axios, basePath));
         },
         /**
          * Get notification by id 
@@ -1441,7 +1448,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {WebhooksV2ApiUpdateWebhookOauthRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1549,6 +1556,20 @@ export interface WebhooksV2ApiGetMetricsRequest {
      * @memberof WebhooksV2ApiGetMetrics
      */
     readonly metricName: GetMetricsMetricNameEnum
+}
+
+/**
+ * Request parameters for getMtlsCsr operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetMtlsCsrRequest
+ */
+export interface WebhooksV2ApiGetMtlsCsrRequest {
+    /**
+     * Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default.
+     * @type {'RSA' | 'ECDSA'}
+     * @memberof WebhooksV2ApiGetMtlsCsr
+     */
+    readonly keyAlgorithm?: GetMtlsCsrKeyAlgorithmEnum
 }
 
 /**
@@ -2011,14 +2032,15 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Returns the Fireblocks Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate. 
+     * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
      * @summary Get mTLS CSR
+     * @param {WebhooksV2ApiGetMtlsCsrRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof WebhooksV2Api
      */
-    public getMtlsCsr() {
-        return WebhooksV2ApiFp(this.configuration).getMtlsCsr().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getMtlsCsr(requestParameters: WebhooksV2ApiGetMtlsCsrRequest = {}) {
+        return WebhooksV2ApiFp(this.configuration).getMtlsCsr(requestParameters.keyAlgorithm).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2189,7 +2211,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Since a `null` inside a map is the delete mechanism, none of the three accepts `null` for the whole field — `customJwtClaims: null`, `customBodyParams: null` or `customHeaders: null` is rejected with a `400` rather than ignored. Clear a map by listing each of its keys with a `null` value. Because `null` is spent on deletion, a claim cannot be set to JSON `null` either, on this endpoint or on create. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Update OAuth credentials
      * @param {WebhooksV2ApiUpdateWebhookOauthRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2208,6 +2230,14 @@ export const GetMetricsMetricNameEnum = {
     LastActiveHourErrorRate: 'LAST_ACTIVE_HOUR_ERROR_RATE'
 } as const;
 export type GetMetricsMetricNameEnum = typeof GetMetricsMetricNameEnum[keyof typeof GetMetricsMetricNameEnum];
+/**
+ * @export
+ */
+export const GetMtlsCsrKeyAlgorithmEnum = {
+    Rsa: 'RSA',
+    Ecdsa: 'ECDSA'
+} as const;
+export type GetMtlsCsrKeyAlgorithmEnum = typeof GetMtlsCsrKeyAlgorithmEnum[keyof typeof GetMtlsCsrKeyAlgorithmEnum];
 /**
  * @export
  */

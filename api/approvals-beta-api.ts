@@ -29,15 +29,150 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, ope
 // @ts-ignore
 import { ApprovalRequestItem } from '../models';
 // @ts-ignore
+import { ApproveApprovalRequest } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
+import { ListApprovalApiKeysResponse } from '../models';
+// @ts-ignore
 import { ListApprovalsResponse } from '../models';
+// @ts-ignore
+import { RegisterApprovalApiKeyRequest } from '../models';
+// @ts-ignore
+import { RegisterApprovalApiKeyResponse } from '../models';
 /**
  * ApprovalsBetaApi - axios parameter creator
  * @export
  */
 export const ApprovalsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
+        /**
+         * Approve a pending approval request as the authenticated API user. The caller signs the request\'s signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user\'s registered keys when the key ID is omitted — and advances the approval quorum.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Approve an approval request
+         * @param {ApproveApprovalRequest} approveApprovalRequest 
+         * @param {string} requestId The approval request ID.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        approveApproval: async (approveApprovalRequest: ApproveApprovalRequest, requestId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('approveApproval', 'approveApprovalRequest', approveApprovalRequest)
+            assertParamExistsAndNotEmpty('approveApproval', 'requestId', requestId)
+            const localVarPath = `/approvals/{requestId}/approve`
+                .replace(`{${"requestId"}}`, encodeURIComponent(String(requestId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(approveApprovalRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Register an approval key
+         * @param {RegisterApprovalApiKeyRequest} registerApprovalApiKeyRequest 
+         * @param {string} userId The ID of the API user to register the approval key for.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createApprovalKey: async (registerApprovalApiKeyRequest: RegisterApprovalApiKeyRequest, userId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createApprovalKey', 'registerApprovalApiKeyRequest', registerApprovalApiKeyRequest)
+            assertParamExistsAndNotEmpty('createApprovalKey', 'userId', userId)
+            const localVarPath = `/management/api_users/{userId}/approval_keys`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(registerApprovalApiKeyRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Delete an approval key
+         * @param {string} userId The ID of the API user whose approval key to delete.
+         * @param {string} keyId The ID of the approval key to delete.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApprovalKey: async (userId: string, keyId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteApprovalKey', 'userId', userId)
+            assertParamExistsAndNotEmpty('deleteApprovalKey', 'keyId', keyId)
+            const localVarPath = `/management/api_users/{userId}/approval_keys/{keyId}`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)))
+                .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
         /**
          * Retrieve full detail for a single approval request by ID, including the payload to sign and, when requested, the request\'s `quorumStatus`.  Because this endpoint addresses one request, it accepts `quorumStatusMode=FULL`, which adds the participating approvers and their individual approval state.  `userStatus` reflects the authenticated user by default. Pass `userId` to report it for another user instead.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
          * @summary Get a single approval request
@@ -68,6 +203,49 @@ export const ApprovalsBetaApiAxiosParamCreator = function (configuration?: Confi
 
             if (quorumStatusMode !== undefined) {
                 localVarQueryParameter['quorumStatusMode'] = quorumStatusMode;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * List the approval public keys registered for the specified API user.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+         * @summary List approval keys
+         * @param {string} userId The ID of the API user whose approval keys to list.
+         * @param {number} [pageSize] Number of results per page. Maximum 15. Defaults to 10.
+         * @param {string} [pageCursor] Cursor returned from the previous response (the &#x60;next&#x60; field) to fetch the next page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApprovalKeys: async (userId: string, pageSize?: number, pageCursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getApprovalKeys', 'userId', userId)
+            const localVarPath = `/management/api_users/{userId}/approval_keys`
+                .replace(`{${"userId"}}`, encodeURIComponent(String(userId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
             }
 
 
@@ -190,6 +368,51 @@ export const ApprovalsBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = ApprovalsBetaApiAxiosParamCreator(configuration)
     return {
         /**
+         * Approve a pending approval request as the authenticated API user. The caller signs the request\'s signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user\'s registered keys when the key ID is omitted — and advances the approval quorum.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Approve an approval request
+         * @param {ApproveApprovalRequest} approveApprovalRequest 
+         * @param {string} requestId The approval request ID.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async approveApproval(approveApprovalRequest: ApproveApprovalRequest, requestId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.approveApproval(approveApprovalRequest, requestId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ApprovalsBetaApi.approveApproval']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Register an approval key
+         * @param {RegisterApprovalApiKeyRequest} registerApprovalApiKeyRequest 
+         * @param {string} userId The ID of the API user to register the approval key for.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createApprovalKey(registerApprovalApiKeyRequest: RegisterApprovalApiKeyRequest, userId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegisterApprovalApiKeyResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createApprovalKey(registerApprovalApiKeyRequest, userId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ApprovalsBetaApi.createApprovalKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Delete an approval key
+         * @param {string} userId The ID of the API user whose approval key to delete.
+         * @param {string} keyId The ID of the approval key to delete.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteApprovalKey(userId: string, keyId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApprovalKey(userId, keyId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ApprovalsBetaApi.deleteApprovalKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Retrieve full detail for a single approval request by ID, including the payload to sign and, when requested, the request\'s `quorumStatus`.  Because this endpoint addresses one request, it accepts `quorumStatusMode=FULL`, which adds the participating approvers and their individual approval state.  `userStatus` reflects the authenticated user by default. Pass `userId` to report it for another user instead.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
          * @summary Get a single approval request
          * @param {string} requestId The approval request ID.
@@ -202,6 +425,21 @@ export const ApprovalsBetaApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getApprovalById(requestId, userId, quorumStatusMode, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ApprovalsBetaApi.getApprovalById']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * List the approval public keys registered for the specified API user.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+         * @summary List approval keys
+         * @param {string} userId The ID of the API user whose approval keys to list.
+         * @param {number} [pageSize] Number of results per page. Maximum 15. Defaults to 10.
+         * @param {string} [pageCursor] Cursor returned from the previous response (the &#x60;next&#x60; field) to fetch the next page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getApprovalKeys(userId: string, pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListApprovalApiKeysResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getApprovalKeys(userId, pageSize, pageCursor, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ApprovalsBetaApi.getApprovalKeys']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -247,6 +485,36 @@ export const ApprovalsBetaApiFactory = function (configuration?: Configuration, 
     const localVarFp = ApprovalsBetaApiFp(configuration)
     return {
         /**
+         * Approve a pending approval request as the authenticated API user. The caller signs the request\'s signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user\'s registered keys when the key ID is omitted — and advances the approval quorum.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Approve an approval request
+         * @param {ApprovalsBetaApiApproveApprovalRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        approveApproval(requestParameters: ApprovalsBetaApiApproveApprovalRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.approveApproval(requestParameters.approveApprovalRequest, requestParameters.requestId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Register an approval key
+         * @param {ApprovalsBetaApiCreateApprovalKeyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createApprovalKey(requestParameters: ApprovalsBetaApiCreateApprovalKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<RegisterApprovalApiKeyResponse> {
+            return localVarFp.createApprovalKey(requestParameters.registerApprovalApiKeyRequest, requestParameters.userId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * @summary Delete an approval key
+         * @param {ApprovalsBetaApiDeleteApprovalKeyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteApprovalKey(requestParameters: ApprovalsBetaApiDeleteApprovalKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.deleteApprovalKey(requestParameters.userId, requestParameters.keyId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve full detail for a single approval request by ID, including the payload to sign and, when requested, the request\'s `quorumStatus`.  Because this endpoint addresses one request, it accepts `quorumStatusMode=FULL`, which adds the participating approvers and their individual approval state.  `userStatus` reflects the authenticated user by default. Pass `userId` to report it for another user instead.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
          * @summary Get a single approval request
          * @param {ApprovalsBetaApiGetApprovalByIdRequest} requestParameters Request parameters.
@@ -255,6 +523,16 @@ export const ApprovalsBetaApiFactory = function (configuration?: Configuration, 
          */
         getApprovalById(requestParameters: ApprovalsBetaApiGetApprovalByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApprovalRequestItem> {
             return localVarFp.getApprovalById(requestParameters.requestId, requestParameters.userId, requestParameters.quorumStatusMode, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * List the approval public keys registered for the specified API user.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+         * @summary List approval keys
+         * @param {ApprovalsBetaApiGetApprovalKeysRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getApprovalKeys(requestParameters: ApprovalsBetaApiGetApprovalKeysRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListApprovalApiKeysResponse> {
+            return localVarFp.getApprovalKeys(requestParameters.userId, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieve the pending approval requests the authenticated API user is eligible to act on, including requests the user has already approved that are still pending overall.  The response is scoped to the authenticated user by default. Pass `userId` to read another user\'s queue, or `includeAllUsers=true` to read every pending request in the workspace. Both require an Admin, Non-Signing Admin, Security Admin or Security Auditor role and are rejected with 403 otherwise.  Set `quorumStatusMode=SUMMARY` to include each request\'s approval thresholds and counts. The per-approver breakdown is available only when fetching a single request — see `GET /approvals/{requestId}`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
@@ -278,6 +556,90 @@ export const ApprovalsBetaApiFactory = function (configuration?: Configuration, 
         },
     };
 };
+
+/**
+ * Request parameters for approveApproval operation in ApprovalsBetaApi.
+ * @export
+ * @interface ApprovalsBetaApiApproveApprovalRequest
+ */
+export interface ApprovalsBetaApiApproveApprovalRequest {
+    /**
+     * 
+     * @type {ApproveApprovalRequest}
+     * @memberof ApprovalsBetaApiApproveApproval
+     */
+    readonly approveApprovalRequest: ApproveApprovalRequest
+
+    /**
+     * The approval request ID.
+     * @type {string}
+     * @memberof ApprovalsBetaApiApproveApproval
+     */
+    readonly requestId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ApprovalsBetaApiApproveApproval
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createApprovalKey operation in ApprovalsBetaApi.
+ * @export
+ * @interface ApprovalsBetaApiCreateApprovalKeyRequest
+ */
+export interface ApprovalsBetaApiCreateApprovalKeyRequest {
+    /**
+     * 
+     * @type {RegisterApprovalApiKeyRequest}
+     * @memberof ApprovalsBetaApiCreateApprovalKey
+     */
+    readonly registerApprovalApiKeyRequest: RegisterApprovalApiKeyRequest
+
+    /**
+     * The ID of the API user to register the approval key for.
+     * @type {string}
+     * @memberof ApprovalsBetaApiCreateApprovalKey
+     */
+    readonly userId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ApprovalsBetaApiCreateApprovalKey
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for deleteApprovalKey operation in ApprovalsBetaApi.
+ * @export
+ * @interface ApprovalsBetaApiDeleteApprovalKeyRequest
+ */
+export interface ApprovalsBetaApiDeleteApprovalKeyRequest {
+    /**
+     * The ID of the API user whose approval key to delete.
+     * @type {string}
+     * @memberof ApprovalsBetaApiDeleteApprovalKey
+     */
+    readonly userId: string
+
+    /**
+     * The ID of the approval key to delete.
+     * @type {string}
+     * @memberof ApprovalsBetaApiDeleteApprovalKey
+     */
+    readonly keyId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ApprovalsBetaApiDeleteApprovalKey
+     */
+    readonly idempotencyKey?: string
+}
 
 /**
  * Request parameters for getApprovalById operation in ApprovalsBetaApi.
@@ -305,6 +667,34 @@ export interface ApprovalsBetaApiGetApprovalByIdRequest {
      * @memberof ApprovalsBetaApiGetApprovalById
      */
     readonly quorumStatusMode?: GetApprovalByIdQuorumStatusModeEnum
+}
+
+/**
+ * Request parameters for getApprovalKeys operation in ApprovalsBetaApi.
+ * @export
+ * @interface ApprovalsBetaApiGetApprovalKeysRequest
+ */
+export interface ApprovalsBetaApiGetApprovalKeysRequest {
+    /**
+     * The ID of the API user whose approval keys to list.
+     * @type {string}
+     * @memberof ApprovalsBetaApiGetApprovalKeys
+     */
+    readonly userId: string
+
+    /**
+     * Number of results per page. Maximum 15. Defaults to 10.
+     * @type {number}
+     * @memberof ApprovalsBetaApiGetApprovalKeys
+     */
+    readonly pageSize?: number
+
+    /**
+     * Cursor returned from the previous response (the &#x60;next&#x60; field) to fetch the next page.
+     * @type {string}
+     * @memberof ApprovalsBetaApiGetApprovalKeys
+     */
+    readonly pageCursor?: string
 }
 
 /**
@@ -385,6 +775,42 @@ export interface ApprovalsBetaApiRejectApprovalRequest {
  */
 export class ApprovalsBetaApi extends BaseAPI {
     /**
+     * Approve a pending approval request as the authenticated API user. The caller signs the request\'s signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user\'s registered keys when the key ID is omitted — and advances the approval quorum.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * @summary Approve an approval request
+     * @param {ApprovalsBetaApiApproveApprovalRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApprovalsBetaApi
+     */
+    public approveApproval(requestParameters: ApprovalsBetaApiApproveApprovalRequest) {
+        return ApprovalsBetaApiFp(this.configuration).approveApproval(requestParameters.approveApprovalRequest, requestParameters.requestId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * @summary Register an approval key
+     * @param {ApprovalsBetaApiCreateApprovalKeyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApprovalsBetaApi
+     */
+    public createApprovalKey(requestParameters: ApprovalsBetaApiCreateApprovalKeyRequest) {
+        return ApprovalsBetaApiFp(this.configuration).createApprovalKey(requestParameters.registerApprovalApiKeyRequest, requestParameters.userId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * @summary Delete an approval key
+     * @param {ApprovalsBetaApiDeleteApprovalKeyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApprovalsBetaApi
+     */
+    public deleteApprovalKey(requestParameters: ApprovalsBetaApiDeleteApprovalKeyRequest) {
+        return ApprovalsBetaApiFp(this.configuration).deleteApprovalKey(requestParameters.userId, requestParameters.keyId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Retrieve full detail for a single approval request by ID, including the payload to sign and, when requested, the request\'s `quorumStatus`.  Because this endpoint addresses one request, it accepts `quorumStatusMode=FULL`, which adds the participating approvers and their individual approval state.  `userStatus` reflects the authenticated user by default. Pass `userId` to report it for another user instead.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
      * @summary Get a single approval request
      * @param {ApprovalsBetaApiGetApprovalByIdRequest} requestParameters Request parameters.
@@ -394,6 +820,18 @@ export class ApprovalsBetaApi extends BaseAPI {
      */
     public getApprovalById(requestParameters: ApprovalsBetaApiGetApprovalByIdRequest) {
         return ApprovalsBetaApiFp(this.configuration).getApprovalById(requestParameters.requestId, requestParameters.userId, requestParameters.quorumStatusMode).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * List the approval public keys registered for the specified API user.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+     * @summary List approval keys
+     * @param {ApprovalsBetaApiGetApprovalKeysRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ApprovalsBetaApi
+     */
+    public getApprovalKeys(requestParameters: ApprovalsBetaApiGetApprovalKeysRequest) {
+        return ApprovalsBetaApiFp(this.configuration).getApprovalKeys(requestParameters.userId, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

@@ -129,7 +129,11 @@ Class | Method | HTTP request | Description
 *ApiUserApi* | [**createApiUser**](docs/apis/ApiUserApi.md#createApiUser) | **POST** /management/api_users | Create API Key
 *ApiUserApi* | [**getApiUsers**](docs/apis/ApiUserApi.md#getApiUsers) | **GET** /management/api_users | Get API Keys
 *ApiUserApi* | [**issueApiUserPairingToken**](docs/apis/ApiUserApi.md#issueApiUserPairingToken) | **POST** /management/api_users/{userId}/pairing_token | Issue API user pairing token
+*ApprovalsBetaApi* | [**approveApproval**](docs/apis/ApprovalsBetaApi.md#approveApproval) | **POST** /approvals/{requestId}/approve | Approve an approval request
+*ApprovalsBetaApi* | [**createApprovalKey**](docs/apis/ApprovalsBetaApi.md#createApprovalKey) | **POST** /management/api_users/{userId}/approval_keys | Register an approval key
+*ApprovalsBetaApi* | [**deleteApprovalKey**](docs/apis/ApprovalsBetaApi.md#deleteApprovalKey) | **DELETE** /management/api_users/{userId}/approval_keys/{keyId} | Delete an approval key
 *ApprovalsBetaApi* | [**getApprovalById**](docs/apis/ApprovalsBetaApi.md#getApprovalById) | **GET** /approvals/{requestId} | Get a single approval request
+*ApprovalsBetaApi* | [**getApprovalKeys**](docs/apis/ApprovalsBetaApi.md#getApprovalKeys) | **GET** /management/api_users/{userId}/approval_keys | List approval keys
 *ApprovalsBetaApi* | [**getApprovals**](docs/apis/ApprovalsBetaApi.md#getApprovals) | **GET** /approvals | List approval requests
 *ApprovalsBetaApi* | [**rejectApproval**](docs/apis/ApprovalsBetaApi.md#rejectApproval) | **POST** /approvals/{requestId}/reject | Reject an approval request
 *AuditLogsApi* | [**getAuditLogs**](docs/apis/AuditLogsApi.md#getAuditLogs) | **GET** /management/audit_logs | Get audit logs
@@ -190,6 +194,10 @@ Class | Method | HTTP request | Description
 *ComplianceApi* | [**updateLegalEntity**](docs/apis/ComplianceApi.md#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 *ComplianceApi* | [**updateScreeningConfiguration**](docs/apis/ComplianceApi.md#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 *ComplianceApi* | [**updateTravelRuleConfig**](docs/apis/ComplianceApi.md#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
+*ComplianceOrchestratorBetaApi* | [**getScreeningResult**](docs/apis/ComplianceOrchestratorBetaApi.md#getScreeningResult) | **GET** /compliance/orchestrator/screenings/{screeningId} | Get a Compliance Orchestrator screening\&#39;s result
+*ComplianceOrchestratorBetaApi* | [**getWorkflow**](docs/apis/ComplianceOrchestratorBetaApi.md#getWorkflow) | **GET** /compliance/orchestrator/workflows/{workflowId} | Get a Compliance Orchestrator workflow
+*ComplianceOrchestratorBetaApi* | [**triggerScreening**](docs/apis/ComplianceOrchestratorBetaApi.md#triggerScreening) | **POST** /compliance/orchestrator/screenings | Trigger a Compliance Orchestrator screening
+*ComplianceOrchestratorBetaApi* | [**updateWorkflowStatus**](docs/apis/ComplianceOrchestratorBetaApi.md#updateWorkflowStatus) | **PATCH** /compliance/orchestrator/workflows/{workflowId}/status | Update a Compliance Orchestrator workflow\&#39;s status
 *ComplianceScreeningConfigurationApi* | [**getAmlScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getAmlScreeningConfiguration) | **GET** /screening/aml/policy_configuration | Get AML Screening Policy Configuration
 *ComplianceScreeningConfigurationApi* | [**getScreeningConfiguration**](docs/apis/ComplianceScreeningConfigurationApi.md#getScreeningConfiguration) | **GET** /screening/travel_rule/policy_configuration | Get Travel Rule Screening Policy Configuration
 *ConnectedAccountsBetaApi* | [**addConnectedAccount**](docs/apis/ConnectedAccountsBetaApi.md#addConnectedAccount) | **POST** /connected_accounts | Add a connected account
@@ -571,7 +579,7 @@ Class | Method | HTTP request | Description
 *WebhooksV2Api* | [**deleteWebhook**](docs/apis/WebhooksV2Api.md#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
 *WebhooksV2Api* | [**deleteWebhookOauth**](docs/apis/WebhooksV2Api.md#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 *WebhooksV2Api* | [**getMetrics**](docs/apis/WebhooksV2Api.md#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
-*WebhooksV2Api* | [**getMtlsCsr**](docs/apis/WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks/mtls/csr | Get mTLS CSR
+*WebhooksV2Api* | [**getMtlsCsr**](docs/apis/WebhooksV2Api.md#getMtlsCsr) | **GET** /webhooks_settings/mtls_csr | Get mTLS CSR
 *WebhooksV2Api* | [**getNotification**](docs/apis/WebhooksV2Api.md#getNotification) | **GET** /webhooks/{webhookId}/notifications/{notificationId} | Get notification by id
 *WebhooksV2Api* | [**getNotificationAttempts**](docs/apis/WebhooksV2Api.md#getNotificationAttempts) | **GET** /webhooks/{webhookId}/notifications/{notificationId}/attempts | Get notification attempts
 *WebhooksV2Api* | [**getNotifications**](docs/apis/WebhooksV2Api.md#getNotifications) | **GET** /webhooks/{webhookId}/notifications | Get all notifications by webhook id
@@ -693,8 +701,11 @@ Class | Method | HTTP request | Description
  - [AmountRangeMinMax2](docs/models/AmountRangeMinMax2.md)
  - [ApiKey](docs/models/ApiKey.md)
  - [ApiKeysPaginatedResponse](docs/models/ApiKeysPaginatedResponse.md)
+ - [ApprovalApiKey](docs/models/ApprovalApiKey.md)
+ - [ApprovalApiPublicKey](docs/models/ApprovalApiPublicKey.md)
  - [ApprovalRequest](docs/models/ApprovalRequest.md)
  - [ApprovalRequestItem](docs/models/ApprovalRequestItem.md)
+ - [ApproveApprovalRequest](docs/models/ApproveApprovalRequest.md)
  - [ApproversConfig](docs/models/ApproversConfig.md)
  - [ApproversConfigApprovalGroupsInner](docs/models/ApproversConfigApprovalGroupsInner.md)
  - [Apy](docs/models/Apy.md)
@@ -733,7 +744,9 @@ Class | Method | HTTP request | Description
  - [AssignVaultsToLegalEntityResponse](docs/models/AssignVaultsToLegalEntityResponse.md)
  - [AttachDetachUtxoLabelsRequest](docs/models/AttachDetachUtxoLabelsRequest.md)
  - [AttachDetachUtxoLabelsResponse](docs/models/AttachDetachUtxoLabelsResponse.md)
+ - [AuditEventTypeEnum](docs/models/AuditEventTypeEnum.md)
  - [AuditLogData](docs/models/AuditLogData.md)
+ - [AuditLogEntry](docs/models/AuditLogEntry.md)
  - [AuditLogsData](docs/models/AuditLogsData.md)
  - [AuditorData](docs/models/AuditorData.md)
  - [AuthorizationGroups](docs/models/AuthorizationGroups.md)
@@ -773,6 +786,7 @@ Class | Method | HTTP request | Description
  - [ByorkVerdictRequest](docs/models/ByorkVerdictRequest.md)
  - [ByorkVerdictResponse](docs/models/ByorkVerdictResponse.md)
  - [ByorkVerdictResponseStatusEnum](docs/models/ByorkVerdictResponseStatusEnum.md)
+ - [BypassReasonEnum](docs/models/BypassReasonEnum.md)
  - [CallAccepted](docs/models/CallAccepted.md)
  - [CallbackHandler](docs/models/CallbackHandler.md)
  - [CallbackHandlerRequest](docs/models/CallbackHandlerRequest.md)
@@ -815,6 +829,7 @@ Class | Method | HTTP request | Description
  - [ComplianceResults](docs/models/ComplianceResults.md)
  - [ComplianceScreeningResult](docs/models/ComplianceScreeningResult.md)
  - [ComplianceScreeningResultFullPayload](docs/models/ComplianceScreeningResultFullPayload.md)
+ - [ComplianceScreeningStatusEnum](docs/models/ComplianceScreeningStatusEnum.md)
  - [ConfigChangeRequestStatus](docs/models/ConfigChangeRequestStatus.md)
  - [ConfigConversionOperationSnapshot](docs/models/ConfigConversionOperationSnapshot.md)
  - [ConfigDisbursementOperationSnapshot](docs/models/ConfigDisbursementOperationSnapshot.md)
@@ -839,6 +854,8 @@ Class | Method | HTTP request | Description
  - [ConnectedAccountsResponse](docs/models/ConnectedAccountsResponse.md)
  - [ConnectedSingleAccount](docs/models/ConnectedSingleAccount.md)
  - [ConnectedSingleAccountResponse](docs/models/ConnectedSingleAccountResponse.md)
+ - [ConnectorStatusEnum](docs/models/ConnectorStatusEnum.md)
+ - [ConnectorVerdictEnum](docs/models/ConnectorVerdictEnum.md)
  - [ConsoleUser](docs/models/ConsoleUser.md)
  - [ConsoleUsers](docs/models/ConsoleUsers.md)
  - [Contact](docs/models/Contact.md)
@@ -1128,6 +1145,7 @@ Class | Method | HTTP request | Description
  - [GetPositionsResponse](docs/models/GetPositionsResponse.md)
  - [GetProvidersResponse](docs/models/GetProvidersResponse.md)
  - [GetRoutingPolicyAssetGroupsResponse](docs/models/GetRoutingPolicyAssetGroupsResponse.md)
+ - [GetScreeningResultResponse](docs/models/GetScreeningResultResponse.md)
  - [GetSigningKeyResponseDto](docs/models/GetSigningKeyResponseDto.md)
  - [GetSupportedAssetsResponse](docs/models/GetSupportedAssetsResponse.md)
  - [GetTestWalletAddressResponse](docs/models/GetTestWalletAddressResponse.md)
@@ -1140,6 +1158,7 @@ Class | Method | HTTP request | Description
  - [GetVaultAccountsResponse](docs/models/GetVaultAccountsResponse.md)
  - [GetVaultAssetsResponse](docs/models/GetVaultAssetsResponse.md)
  - [GetWhitelistIpAddressesResponse](docs/models/GetWhitelistIpAddressesResponse.md)
+ - [GetWorkflowResponse](docs/models/GetWorkflowResponse.md)
  - [GetWorkspaceStatusResponse](docs/models/GetWorkspaceStatusResponse.md)
  - [GleifData](docs/models/GleifData.md)
  - [GleifOtherLegalEntityName](docs/models/GleifOtherLegalEntityName.md)
@@ -1204,6 +1223,7 @@ Class | Method | HTTP request | Description
  - [LegalEntityRegistration](docs/models/LegalEntityRegistration.md)
  - [LeiStatus](docs/models/LeiStatus.md)
  - [LinkedTokensCount](docs/models/LinkedTokensCount.md)
+ - [ListApprovalApiKeysResponse](docs/models/ListApprovalApiKeysResponse.md)
  - [ListApprovalsResponse](docs/models/ListApprovalsResponse.md)
  - [ListAssetsResponse](docs/models/ListAssetsResponse.md)
  - [ListBlockchainsResponse](docs/models/ListBlockchainsResponse.md)
@@ -1409,6 +1429,8 @@ Class | Method | HTTP request | Description
  - [ReasonForPaymentEnum](docs/models/ReasonForPaymentEnum.md)
  - [RecipientHandle](docs/models/RecipientHandle.md)
  - [RedeemFundsToLinkedDDAResponse](docs/models/RedeemFundsToLinkedDDAResponse.md)
+ - [RegisterApprovalApiKeyRequest](docs/models/RegisterApprovalApiKeyRequest.md)
+ - [RegisterApprovalApiKeyResponse](docs/models/RegisterApprovalApiKeyResponse.md)
  - [RegisterLegalEntityRequest](docs/models/RegisterLegalEntityRequest.md)
  - [RegisterNewAssetRequest](docs/models/RegisterNewAssetRequest.md)
  - [ReissueMultichainTokenRequest](docs/models/ReissueMultichainTokenRequest.md)
@@ -1449,9 +1471,15 @@ Class | Method | HTTP request | Description
  - [RetryRequoteTypeEnum](docs/models/RetryRequoteTypeEnum.md)
  - [RewardInfo](docs/models/RewardInfo.md)
  - [RewardsInfo](docs/models/RewardsInfo.md)
+ - [RiskLevelEnum](docs/models/RiskLevelEnum.md)
  - [RoleDetails](docs/models/RoleDetails.md)
  - [RoleDetails2](docs/models/RoleDetails2.md)
  - [RoleGrantee](docs/models/RoleGrantee.md)
+ - [Rule](docs/models/Rule.md)
+ - [RuleActionEnum](docs/models/RuleActionEnum.md)
+ - [RuleCondition](docs/models/RuleCondition.md)
+ - [RuleConditionOperatorEnum](docs/models/RuleConditionOperatorEnum.md)
+ - [RuleSet](docs/models/RuleSet.md)
  - [RulesetQuorum](docs/models/RulesetQuorum.md)
  - [SEPAAddress](docs/models/SEPAAddress.md)
  - [SEPADestination](docs/models/SEPADestination.md)
@@ -1465,11 +1493,15 @@ Class | Method | HTTP request | Description
  - [ScreeningAmlMatchedRule](docs/models/ScreeningAmlMatchedRule.md)
  - [ScreeningAmlResult](docs/models/ScreeningAmlResult.md)
  - [ScreeningConfigurationsRequest](docs/models/ScreeningConfigurationsRequest.md)
+ - [ScreeningInput](docs/models/ScreeningInput.md)
  - [ScreeningMetadataConfig](docs/models/ScreeningMetadataConfig.md)
+ - [ScreeningOperationEnum](docs/models/ScreeningOperationEnum.md)
  - [ScreeningOperationExecution](docs/models/ScreeningOperationExecution.md)
  - [ScreeningOperationExecutionOutput](docs/models/ScreeningOperationExecutionOutput.md)
  - [ScreeningOperationFailure](docs/models/ScreeningOperationFailure.md)
  - [ScreeningOperationType](docs/models/ScreeningOperationType.md)
+ - [ScreeningOutcomeEnum](docs/models/ScreeningOutcomeEnum.md)
+ - [ScreeningPayload](docs/models/ScreeningPayload.md)
  - [ScreeningPolicyAmount](docs/models/ScreeningPolicyAmount.md)
  - [ScreeningPolicyAmountRange](docs/models/ScreeningPolicyAmountRange.md)
  - [ScreeningPolicyCurrency](docs/models/ScreeningPolicyCurrency.md)
@@ -1587,6 +1619,10 @@ Class | Method | HTTP request | Description
  - [StakingProvider](docs/models/StakingProvider.md)
  - [Status](docs/models/Status.md)
  - [StellarRippleCreateParamsDto](docs/models/StellarRippleCreateParamsDto.md)
+ - [StepConfig](docs/models/StepConfig.md)
+ - [StepOperationConfig](docs/models/StepOperationConfig.md)
+ - [StepResult](docs/models/StepResult.md)
+ - [StepResultMetadata](docs/models/StepResultMetadata.md)
  - [SubmitOrderRequirementRequest](docs/models/SubmitOrderRequirementRequest.md)
  - [SupportedBlockChainsResponse](docs/models/SupportedBlockChainsResponse.md)
  - [SupportedBlockchain](docs/models/SupportedBlockchain.md)
@@ -1737,6 +1773,7 @@ Class | Method | HTTP request | Description
  - [TransactionResponseDestination](docs/models/TransactionResponseDestination.md)
  - [TransactionTag](docs/models/TransactionTag.md)
  - [TransferConfigOperation](docs/models/TransferConfigOperation.md)
+ - [TransferDirectionEnum](docs/models/TransferDirectionEnum.md)
  - [TransferOperationConfigParams](docs/models/TransferOperationConfigParams.md)
  - [TransferOperationExecution](docs/models/TransferOperationExecution.md)
  - [TransferOperationExecutionOutput](docs/models/TransferOperationExecutionOutput.md)
@@ -1809,6 +1846,9 @@ Class | Method | HTTP request | Description
  - [TravelRuleValidateTransactionResponse](docs/models/TravelRuleValidateTransactionResponse.md)
  - [TravelRuleVaspForVault](docs/models/TravelRuleVaspForVault.md)
  - [TravelRuleVerdictEnum](docs/models/TravelRuleVerdictEnum.md)
+ - [TriggerRuleOutcomeEnum](docs/models/TriggerRuleOutcomeEnum.md)
+ - [TriggerScreeningRequest](docs/models/TriggerScreeningRequest.md)
+ - [TriggerScreeningResponse](docs/models/TriggerScreeningResponse.md)
  - [TriggerValidationFlowResponse](docs/models/TriggerValidationFlowResponse.md)
  - [TrustProofOfAddressCreateResponse](docs/models/TrustProofOfAddressCreateResponse.md)
  - [TrustProofOfAddressRequest](docs/models/TrustProofOfAddressRequest.md)
@@ -1841,6 +1881,8 @@ Class | Method | HTTP request | Description
  - [UpdateVaultAccountRequest](docs/models/UpdateVaultAccountRequest.md)
  - [UpdateWebhookOauthRequest](docs/models/UpdateWebhookOauthRequest.md)
  - [UpdateWebhookRequest](docs/models/UpdateWebhookRequest.md)
+ - [UpdateWorkflowStatusRequest](docs/models/UpdateWorkflowStatusRequest.md)
+ - [UpdateWorkflowStatusResponse](docs/models/UpdateWorkflowStatusResponse.md)
  - [UsWirePaymentInfo](docs/models/UsWirePaymentInfo.md)
  - [UsdcGatewayWalletAsset](docs/models/UsdcGatewayWalletAsset.md)
  - [UsdcGatewayWalletInfoResponse](docs/models/UsdcGatewayWalletInfoResponse.md)
@@ -1889,6 +1931,7 @@ Class | Method | HTTP request | Description
  - [WebhookMetric](docs/models/WebhookMetric.md)
  - [WebhookMtls](docs/models/WebhookMtls.md)
  - [WebhookMtlsCsrResponse](docs/models/WebhookMtlsCsrResponse.md)
+ - [WebhookMtlsKeyAlgorithm](docs/models/WebhookMtlsKeyAlgorithm.md)
  - [WebhookOauthCredentials](docs/models/WebhookOauthCredentials.md)
  - [WebhookOauthCustomBodyParams](docs/models/WebhookOauthCustomBodyParams.md)
  - [WebhookOauthCustomBodyParamsUpdate](docs/models/WebhookOauthCustomBodyParamsUpdate.md)
@@ -1902,6 +1945,7 @@ Class | Method | HTTP request | Description
  - [WorkflowConfigStatus](docs/models/WorkflowConfigStatus.md)
  - [WorkflowConfigurationId](docs/models/WorkflowConfigurationId.md)
  - [WorkflowExecutionOperation](docs/models/WorkflowExecutionOperation.md)
+ - [WorkflowStatusEnum](docs/models/WorkflowStatusEnum.md)
  - [Workspace](docs/models/Workspace.md)
  - [WriteAbiFunction](docs/models/WriteAbiFunction.md)
  - [WriteCallFunctionDto](docs/models/WriteCallFunctionDto.md)

@@ -4,10 +4,212 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**approveApproval**](#approveApproval) | **POST** /approvals/{requestId}/approve | Approve an approval request
+[**createApprovalKey**](#createApprovalKey) | **POST** /management/api_users/{userId}/approval_keys | Register an approval key
+[**deleteApprovalKey**](#deleteApprovalKey) | **DELETE** /management/api_users/{userId}/approval_keys/{keyId} | Delete an approval key
 [**getApprovalById**](#getApprovalById) | **GET** /approvals/{requestId} | Get a single approval request
+[**getApprovalKeys**](#getApprovalKeys) | **GET** /management/api_users/{userId}/approval_keys | List approval keys
 [**getApprovals**](#getApprovals) | **GET** /approvals | List approval requests
 [**rejectApproval**](#rejectApproval) | **POST** /approvals/{requestId}/reject | Reject an approval request
 
+
+# **approveApproval**
+> approveApproval(approveApprovalRequest, )
+
+Approve a pending approval request as the authenticated API user. The caller signs the request\'s signable data with the private key of a registered approval API key and submits the base64url-encoded signature, optionally with the key ID. The server verifies the signature against the registered public key — using the given key ID, or matching against all of the user\'s registered keys when the key ID is omitted — and advances the approval quorum.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ApprovalsBetaApiApproveApprovalRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ApprovalsBetaApiApproveApprovalRequest = {
+  // ApproveApprovalRequest
+  approveApprovalRequest: param_value,
+  // string | The approval request ID.
+  requestId: 18055,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.approvalsBeta.approveApproval(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **approveApprovalRequest** | **[ApproveApprovalRequest](../models/ApproveApprovalRequest.md)**|  |
+ **requestId** | [**string**] | The approval request ID. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The approval request was approved. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createApprovalKey**
+> RegisterApprovalApiKeyResponse createApprovalKey(registerApprovalApiKeyRequest, )
+
+Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ApprovalsBetaApiCreateApprovalKeyRequest, RegisterApprovalApiKeyResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ApprovalsBetaApiCreateApprovalKeyRequest = {
+  // RegisterApprovalApiKeyRequest
+  registerApprovalApiKeyRequest: param_value,
+  // string | The ID of the API user to register the approval key for.
+  userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.approvalsBeta.createApprovalKey(body).then((res: FireblocksResponse<RegisterApprovalApiKeyResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **registerApprovalApiKeyRequest** | **[RegisterApprovalApiKeyRequest](../models/RegisterApprovalApiKeyRequest.md)**|  |
+ **userId** | [**string**] | The ID of the API user to register the approval key for. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RegisterApprovalApiKeyResponse](../models/RegisterApprovalApiKeyResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The approval key was registered. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteApprovalKey**
+> deleteApprovalKey()
+
+Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ApprovalsBetaApiDeleteApprovalKeyRequest } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ApprovalsBetaApiDeleteApprovalKeyRequest = {
+  // string | The ID of the API user whose approval key to delete.
+  userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94,
+  // string | The ID of the approval key to delete.
+  keyId: fab543c0-d6be-414c-aa05-5c6c84269d7a,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.approvalsBeta.deleteApprovalKey(body).then((res: FireblocksResponse<any>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | [**string**] | The ID of the API user whose approval key to delete. | defaults to undefined
+ **keyId** | [**string**] | The ID of the approval key to delete. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+void (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The approval key was deleted. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **getApprovalById**
 > ApprovalRequestItem getApprovalById()
@@ -71,6 +273,72 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | The requested approval request. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getApprovalKeys**
+> ListApprovalApiKeysResponse getApprovalKeys()
+
+List the approval public keys registered for the specified API user.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin, Security Auditor.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ApprovalsBetaApiGetApprovalKeysRequest, ListApprovalApiKeysResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ApprovalsBetaApiGetApprovalKeysRequest = {
+  // string | The ID of the API user whose approval keys to list.
+  userId: 8f3c1a2e-4b7d-4c91-a0e5-2d6f8b1c3a94,
+  // number | Number of results per page. Maximum 15. Defaults to 10. (optional)
+  pageSize: 56,
+  // string | Cursor returned from the previous response (the `next` field) to fetch the next page. (optional)
+  pageCursor: pageCursor_example,
+};
+
+fireblocks.approvalsBeta.getApprovalKeys(body).then((res: FireblocksResponse<ListApprovalApiKeysResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | [**string**] | The ID of the API user whose approval keys to list. | defaults to undefined
+ **pageSize** | [**number**] | Number of results per page. Maximum 15. Defaults to 10. | (optional) defaults to 10
+ **pageCursor** | [**string**] | Cursor returned from the previous response (the &#x60;next&#x60; field) to fetch the next page. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ListApprovalApiKeysResponse](../models/ListApprovalApiKeysResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The API user\&#39;s approval keys. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

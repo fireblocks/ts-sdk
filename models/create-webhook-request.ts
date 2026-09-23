@@ -60,7 +60,7 @@ export interface CreateWebhookRequest {
      */
     'mtls'?: WebhookMtls | null;
     /**
-     * The id of the OAuth credentials this webhook authenticates with, from `/v1/webhooks_settings/oauth`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send `null` to stop using OAuth for this webhook.
+     * The id of the OAuth credentials this webhook authenticates with, from `/v1/webhooks_settings/oauth`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send `null` to stop using OAuth for this webhook. Cannot be combined with an `authorization` custom header on the same webhook; a request that would leave both set is rejected.
      * @type {string}
      * @memberof CreateWebhookRequest
      */

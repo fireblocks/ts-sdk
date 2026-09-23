@@ -17,6 +17,7 @@ AuditLogsApi,
 BlockchainLinkBetaApi, 
 BlockchainsAssetsApi, 
 ComplianceApi, 
+ComplianceOrchestratorBetaApi, 
 ComplianceScreeningConfigurationApi, 
 ConnectedAccountsBetaApi, 
 ConsoleUserApi, 
@@ -77,6 +78,7 @@ let mockAuditLogsApi: jest.Mock;
 let mockBlockchainLinkBetaApi: jest.Mock;
 let mockBlockchainsAssetsApi: jest.Mock;
 let mockComplianceApi: jest.Mock;
+let mockComplianceOrchestratorBetaApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
 let mockConnectedAccountsBetaApi: jest.Mock;
 let mockConsoleUserApi: jest.Mock;
@@ -134,6 +136,7 @@ jest.mock('../api', () => {
     mockBlockchainLinkBetaApi = jest.fn();
     mockBlockchainsAssetsApi = jest.fn();
     mockComplianceApi = jest.fn();
+    mockComplianceOrchestratorBetaApi = jest.fn();
     mockComplianceScreeningConfigurationApi = jest.fn();
     mockConnectedAccountsBetaApi = jest.fn();
     mockConsoleUserApi = jest.fn();
@@ -192,6 +195,7 @@ jest.mock('../api', () => {
         BlockchainLinkBetaApi: mockBlockchainLinkBetaApi,
         BlockchainsAssetsApi: mockBlockchainsAssetsApi,
         ComplianceApi: mockComplianceApi,
+        ComplianceOrchestratorBetaApi: mockComplianceOrchestratorBetaApi,
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
         ConnectedAccountsBetaApi: mockConnectedAccountsBetaApi,
         ConsoleUserApi: mockConsoleUserApi,
@@ -343,6 +347,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return ComplianceApi', async () => {
             expect(fireblocks.compliance).toBeInstanceOf(ComplianceApi);
             expect(mockComplianceApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return ComplianceOrchestratorBetaApi', async () => {
+            expect(fireblocks.complianceOrchestratorBeta).toBeInstanceOf(ComplianceOrchestratorBetaApi);
+            expect(mockComplianceOrchestratorBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ComplianceScreeningConfigurationApi', async () => {
             expect(fireblocks.complianceScreeningConfiguration).toBeInstanceOf(ComplianceScreeningConfigurationApi);
