@@ -78,10 +78,10 @@ export interface CreateWebhookOauthRequest {
      */
     'customHeaders'?: WebhookOauthCustomHeaders | null;
     /**
-     * PEM-encoded client certificate for mTLS when fetching tokens. Must be a valid X.509 certificate inside its validity window.
+     * The id of the mTLS configuration presented to the token endpoint, from `/v1/webhooks_settings/mtls`. It can be the same configuration a webhook uses, so one certificate, signed from `GET /v1/webhooks_settings/mtls_csr`, serves both the token endpoint and the receiver. Omit, or send `null`, for a token request without mTLS. Requires the mTLS feature to be enabled for the workspace (`403` otherwise), a configuration of this workspace (`404` otherwise), and one linked to a private key (`400` otherwise).
      * @type {string}
      * @memberof CreateWebhookOauthRequest
      */
-    'mtlsClientSignedCert'?: string;
+    'webhookMtlsId'?: string | null;
 }
 

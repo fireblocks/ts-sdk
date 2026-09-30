@@ -4,12 +4,14 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**QuoteExecutionTypeEnum**](QuoteExecutionTypeEnum.md) |  | [default to undefined]|
+|**type** | [**LimitTypeEnum**](LimitTypeEnum.md) |  | [default to undefined]|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** | Amount in baseAssetId. BUY &#x3D; base amount to receive; SELL &#x3D; base amount to sell. | [default to undefined]|
 |**baseAssetId** | **string** | The asset you receive on BUY / give on SELL. | [default to undefined]|
 |**quoteAssetId** | **string** | Counter asset used to pay/receive | [default to undefined]|
 |**quoteId** | **string** | Quote ID for quote orders | [default to undefined]|
+|**price** | **string** | Limit price for the order | [default to undefined]|
+|**timeInForce** | [**TimeInForce**](TimeInForce.md) |  | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  | [optional] [default to undefined]|

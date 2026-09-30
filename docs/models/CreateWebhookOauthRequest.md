@@ -12,7 +12,7 @@
 |**customJwtClaims** | [**WebhookOauthCustomJwtClaims**](WebhookOauthCustomJwtClaims.md) |  | [optional] [default to undefined]|
 |**customBodyParams** | [**WebhookOauthCustomBodyParams**](WebhookOauthCustomBodyParams.md) |  | [optional] [default to undefined]|
 |**customHeaders** | [**WebhookOauthCustomHeaders**](WebhookOauthCustomHeaders.md) |  | [optional] [default to undefined]|
-|**mtlsClientSignedCert** | **string** | PEM-encoded client certificate for mTLS when fetching tokens. Must be a valid X.509 certificate inside its validity window. | [optional] [default to undefined]|
+|**webhookMtlsId** | **string** | The id of the mTLS configuration presented to the token endpoint, from &#x60;/v1/webhooks_settings/mtls&#x60;. It can be the same configuration a webhook uses, so one certificate, signed from &#x60;GET /v1/webhooks_settings/mtls_csr&#x60;, serves both the token endpoint and the receiver. Omit, or send &#x60;null&#x60;, for a token request without mTLS. Requires the mTLS feature to be enabled for the workspace (&#x60;403&#x60; otherwise), a configuration of this workspace (&#x60;404&#x60; otherwise), and one linked to a private key (&#x60;400&#x60; otherwise). | [optional] [default to undefined]|
 
 
 

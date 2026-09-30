@@ -81,10 +81,10 @@ export interface WebhookOauthCredentials {
      */
     'customHeaders'?: Array<string>;
     /**
-     * PEM-encoded client certificate used for mTLS when fetching OAuth tokens.
+     * The id of the mTLS configuration presented to the token endpoint. Absent when the token request does not use mTLS. Read the certificate from `/v1/webhooks_settings/mtls/{id}`.
      * @type {string}
      * @memberof WebhookOauthCredentials
      */
-    'mtlsClientSignedCert'?: string;
+    'webhookMtlsId'?: string;
 }
 

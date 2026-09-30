@@ -1,4 +1,4 @@
-# ConnectedAccountsBetaApi
+# ConnectedAccountsApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -22,7 +22,7 @@ Method | HTTP request | Description
 # **addConnectedAccount**
 > AddConnectedAccountResponse addConnectedAccount(addConnectedAccountRequest)
 
-Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -30,7 +30,7 @@ Creates a new connected account for the authenticated tenant.  The `creds` field
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiAddConnectedAccountRequest, AddConnectedAccountResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiAddConnectedAccountRequest, AddConnectedAccountResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -39,14 +39,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiAddConnectedAccountRequest = {
+let body: ConnectedAccountsApiAddConnectedAccountRequest = {
   // AddConnectedAccountRequest
   addConnectedAccountRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.connectedAccountsBeta.addConnectedAccount(body).then((res: FireblocksResponse<AddConnectedAccountResponse>) => {
+fireblocks.connectedAccounts.addConnectedAccount(body).then((res: FireblocksResponse<AddConnectedAccountResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -90,7 +90,7 @@ No authorization required
 # **disconnectConnectedAccount**
 > disconnectConnectedAccount()
 
-Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
+Disconnect a connected account by ID. 
 
 ### Example
 
@@ -98,7 +98,7 @@ Disconnect a connected account by ID.  **Note**: - This endpoint is currently in
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiDisconnectConnectedAccountRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiDisconnectConnectedAccountRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -107,12 +107,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiDisconnectConnectedAccountRequest = {
+let body: ConnectedAccountsApiDisconnectConnectedAccountRequest = {
   // string | The ID of the account to disconnect.
   accountId: accountId_example,
 };
 
-fireblocks.connectedAccountsBeta.disconnectConnectedAccount(body).then((res: FireblocksResponse<any>) => {
+fireblocks.connectedAccounts.disconnectConnectedAccount(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -150,7 +150,7 @@ No authorization required
 # **getConnectedAccount**
 > ConnectedSingleAccountResponse getConnectedAccount()
 
-Retrieve detailed information about a specific connected account by ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Retrieve detailed information about a specific connected account by ID. 
 
 ### Example
 
@@ -158,7 +158,7 @@ Retrieve detailed information about a specific connected account by ID.  **Note:
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountRequest, ConnectedSingleAccountResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountRequest, ConnectedSingleAccountResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -167,12 +167,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountRequest = {
   // string | The ID of the account to fetch.
   accountId: accountId_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccount(body).then((res: FireblocksResponse<ConnectedSingleAccountResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccount(body).then((res: FireblocksResponse<ConnectedSingleAccountResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -210,7 +210,7 @@ No authorization required
 # **getConnectedAccountAllowlist**
 > AllowlistResponse getConnectedAccountAllowlist()
 
-Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+Retrieves the address allowlist for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
 
 ### Example
 
@@ -218,7 +218,7 @@ Retrieves the address allowlist for a specified connected account.  **Note:** Th
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest, AllowlistResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountAllowlistRequest, AllowlistResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -227,7 +227,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountAllowlistRequest = {
   // string | The connected account identifier
   accountId: accountId_example,
   // AllowlistEntryStatus | Filter by allowlist entry status (optional)
@@ -246,7 +246,7 @@ let body: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest = {
   order: ASC,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccountAllowlist(body).then((res: FireblocksResponse<AllowlistResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccountAllowlist(body).then((res: FireblocksResponse<AllowlistResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -292,7 +292,7 @@ No authorization required
 # **getConnectedAccountAllowlistEntry**
 > AllowlistEntryResponse getConnectedAccountAllowlistEntry()
 
-Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
 
 ### Example
 
@@ -300,7 +300,7 @@ Retrieves a single allowlist entry by its Fireblocks identifier for a specified 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, AllowlistEntryResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest, AllowlistEntryResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -309,14 +309,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest = {
   // string | The connected account identifier
   accountId: accountId_example,
   // string | The Fireblocks allowlist entry identifier
   allowlistId: allowlistId_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccountAllowlistEntry(body).then((res: FireblocksResponse<AllowlistEntryResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccountAllowlistEntry(body).then((res: FireblocksResponse<AllowlistEntryResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -356,7 +356,7 @@ No authorization required
 # **getConnectedAccountBalances**
 > ConnectedAccountBalancesResponse getConnectedAccountBalances()
 
-Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`). 
 
 ### Example
 
@@ -364,7 +364,7 @@ Retrieve current asset balances for a specific connected account as a flat list 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest, ConnectedAccountBalancesResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountBalancesRequest, ConnectedAccountBalancesResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -373,7 +373,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountBalancesRequest = {
   // string | The ID of the account to fetch balances for.
   accountId: accountId_example,
   // number | Page size for pagination. (optional)
@@ -382,7 +382,7 @@ let body: ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest = {
   pageCursor: pageCursor_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccountBalances(body).then((res: FireblocksResponse<ConnectedAccountBalancesResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccountBalances(body).then((res: FireblocksResponse<ConnectedAccountBalancesResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -422,7 +422,7 @@ No authorization required
 # **getConnectedAccountRates**
 > ConnectedAccountRateResponse getConnectedAccountRates()
 
-Retrieve current exchange rates for converting between specific assets in a connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Retrieve current exchange rates for converting between specific assets in a connected account. 
 
 ### Example
 
@@ -430,7 +430,7 @@ Retrieve current exchange rates for converting between specific assets in a conn
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountRatesRequest, ConnectedAccountRateResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountRatesRequest, ConnectedAccountRateResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -439,7 +439,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountRatesRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountRatesRequest = {
   // string | The ID of the account to fetch rates for.
   accountId: accountId_example,
   // string | The ID of the asset to fetch rates for.
@@ -448,7 +448,7 @@ let body: ConnectedAccountsBetaApiGetConnectedAccountRatesRequest = {
   quoteAssetId: quoteAssetId_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccountRates(body).then((res: FireblocksResponse<ConnectedAccountRateResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccountRates(body).then((res: FireblocksResponse<ConnectedAccountRateResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -488,7 +488,7 @@ No authorization required
 # **getConnectedAccountTradingPairs**
 > ConnectedAccountTradingPairsResponse getConnectedAccountTradingPairs()
 
-Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`). 
 
 ### Example
 
@@ -496,7 +496,7 @@ Retrieve all asset trading pairs supported by a specific connected account, incl
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest, ConnectedAccountTradingPairsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountTradingPairsRequest, ConnectedAccountTradingPairsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -505,7 +505,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountTradingPairsRequest = {
   // string | The ID of the account to fetch supported pairs for.
   accountId: accountId_example,
   // number | Page size for pagination. (optional)
@@ -514,7 +514,7 @@ let body: ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest = {
   pageCursor: pageCursor_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccountTradingPairs(body).then((res: FireblocksResponse<ConnectedAccountTradingPairsResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccountTradingPairs(body).then((res: FireblocksResponse<ConnectedAccountTradingPairsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -554,7 +554,7 @@ No authorization required
 # **getConnectedAccounts**
 > ConnectedAccountsResponse getConnectedAccounts()
 
-Returns all connected accounts.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Returns all connected accounts. 
 
 ### Example
 
@@ -562,7 +562,7 @@ Returns all connected accounts.  **Note:** This endpoint is currently in beta an
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiGetConnectedAccountsRequest, ConnectedAccountsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiGetConnectedAccountsRequest, ConnectedAccountsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -571,7 +571,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiGetConnectedAccountsRequest = {
+let body: ConnectedAccountsApiGetConnectedAccountsRequest = {
   // boolean | Whether to include only main accounts in the response. (optional)
   mainAccounts: true,
   // number | Page size for pagination. (optional)
@@ -580,7 +580,7 @@ let body: ConnectedAccountsBetaApiGetConnectedAccountsRequest = {
   pageCursor: pageCursor_example,
 };
 
-fireblocks.connectedAccountsBeta.getConnectedAccounts(body).then((res: FireblocksResponse<ConnectedAccountsResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccounts(body).then((res: FireblocksResponse<ConnectedAccountsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -620,7 +620,7 @@ No authorization required
 # **getConnectedAccountsCredentialsPublicKey**
 > GetConnectedAccountsCredentialsPublicKeyResponse getConnectedAccountsCredentialsPublicKey()
 
-Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context. 
 
 ### Example
 
@@ -639,7 +639,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.connectedAccountsBeta.getConnectedAccountsCredentialsPublicKey(body).then((res: FireblocksResponse<GetConnectedAccountsCredentialsPublicKeyResponse>) => {
+fireblocks.connectedAccounts.getConnectedAccountsCredentialsPublicKey(body).then((res: FireblocksResponse<GetConnectedAccountsCredentialsPublicKeyResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -674,7 +674,7 @@ No authorization required
 # **renameConnectedAccount**
 > RenameConnectedAccountResponse renameConnectedAccount(renameConnectedAccountRequest, )
 
-Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Rename a connected account by account ID. 
 
 ### Example
 
@@ -682,7 +682,7 @@ Rename a connected account by account ID.  **Note:** This endpoint is currently 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiRenameConnectedAccountRequest, RenameConnectedAccountResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiRenameConnectedAccountRequest, RenameConnectedAccountResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -691,7 +691,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiRenameConnectedAccountRequest = {
+let body: ConnectedAccountsApiRenameConnectedAccountRequest = {
   // RenameConnectedAccountRequest
   renameConnectedAccountRequest: param_value,
   // string | The unique identifier of the connected account
@@ -700,7 +700,7 @@ let body: ConnectedAccountsBetaApiRenameConnectedAccountRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.connectedAccountsBeta.renameConnectedAccount(body).then((res: FireblocksResponse<RenameConnectedAccountResponse>) => {
+fireblocks.connectedAccounts.renameConnectedAccount(body).then((res: FireblocksResponse<RenameConnectedAccountResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -745,7 +745,7 @@ No authorization required
 # **syncConnectedAccountAllowlist**
 > syncConnectedAccountAllowlist()
 
-Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
 
 ### Example
 
@@ -753,7 +753,7 @@ Triggers an on-demand sync from the exchange, bypassing the cache and fetching l
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiSyncConnectedAccountAllowlistRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -762,14 +762,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest = {
+let body: ConnectedAccountsApiSyncConnectedAccountAllowlistRequest = {
   // string | The connected account identifier
   accountId: accountId_example,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.connectedAccountsBeta.syncConnectedAccountAllowlist(body).then((res: FireblocksResponse<any>) => {
+fireblocks.connectedAccounts.syncConnectedAccountAllowlist(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -808,7 +808,7 @@ No authorization required
 # **updateConnectedAccountCredentials**
 > UpdateConnectedAccountCredentialsResponse updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest, )
 
-Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -816,7 +816,7 @@ Replace the API credentials (secret + API key) of a connected account.  Credenti
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest, UpdateConnectedAccountCredentialsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest, UpdateConnectedAccountCredentialsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -825,7 +825,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest = {
+let body: ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest = {
   // UpdateConnectedAccountCredentialsRequest
   updateConnectedAccountCredentialsRequest: param_value,
   // string | The unique identifier of the connected account whose API key credentials are being replaced.
@@ -834,7 +834,7 @@ let body: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.connectedAccountsBeta.updateConnectedAccountCredentials(body).then((res: FireblocksResponse<UpdateConnectedAccountCredentialsResponse>) => {
+fireblocks.connectedAccounts.updateConnectedAccountCredentials(body).then((res: FireblocksResponse<UpdateConnectedAccountCredentialsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

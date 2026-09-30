@@ -8,7 +8,7 @@
 |**events** | [**Array&lt;WebhookEvent&gt;**](WebhookEvent.md) | event types the webhook will subscribe to | [default to undefined]|
 |**description** | **string** | description of the webhook. should not contain special characters. | [optional] [default to undefined]|
 |**enabled** | **boolean** | The status of the webhook. If false, the webhook will not receive notifications. | [optional] [default to true]|
-|**mtls** | [**WebhookMtls**](WebhookMtls.md) |  | [optional] [default to undefined]|
+|**webhookMtlsId** | **string** | The id of the mTLS configuration this webhook presents when delivering, from &#x60;/v1/webhooks_settings/mtls&#x60;. Several webhooks may share one configuration, so replacing its certificate covers all of them at once. Send &#x60;null&#x60; to stop using mTLS for this webhook. | [optional] [default to undefined]|
 |**webhookOauthId** | **string** | The id of the OAuth credentials this webhook authenticates with, from &#x60;/v1/webhooks_settings/oauth&#x60;. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send &#x60;null&#x60; to stop using OAuth for this webhook. Cannot be combined with an &#x60;authorization&#x60; custom header on the same webhook; a request that would leave both set is rejected. | [optional] [default to undefined]|
 |**customHeaders** | [**WebhookCustomHeaders**](WebhookCustomHeaders.md) |  | [optional] [default to undefined]|
 

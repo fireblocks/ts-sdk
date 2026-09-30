@@ -8,8 +8,9 @@
 |**entityName** | **string** | Legal entity display name. | [default to undefined]|
 |**jurisdiction** | **string** | Jurisdiction (e.g. ISO 3166-1 alpha-2 country code). | [default to undefined]|
 |**lei** | **string** | Legal Entity Identifier when available. Empty when &#x60;leiData&#x60; is &#x60;false&#x60;. | [default to undefined]|
-|**travelRuleProviders** | [**Array&lt;AddressRegistryTravelRuleProvider&gt;**](AddressRegistryTravelRuleProvider.md) |  | [default to undefined]|
+|**travelRuleProviders** | **Array&lt;string&gt;** |  | [default to undefined]|
 |**email** | **string** | Travel Rule contact email when available. | [default to undefined]|
+|**proofOfOwnershipAvailable** | **boolean** | Whether the caller can currently create a Proof of Ownership PDF for this address (&#x60;POST /v1/address_registry/proof_of_ownership_exports&#x60;). | [default to undefined]|
 
 
 

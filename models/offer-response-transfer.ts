@@ -38,7 +38,7 @@ export interface OfferResponseTransfer {
 }
 
 export const OfferResponseTransferDomainEnum = {
-    Transfers: 'TRANSFERS'
+    Transfer: 'TRANSFER'
 } as const;
 
 export type OfferResponseTransferDomainEnum = typeof OfferResponseTransferDomainEnum[keyof typeof OfferResponseTransferDomainEnum];

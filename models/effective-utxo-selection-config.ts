@@ -13,24 +13,32 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { UtxoSelectionConfigSourceEnum } from './utxo-selection-config-source-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { UtxoSelectionStrategyEnum } from './utxo-selection-strategy-enum';
 
 /**
- * Error body for address registry operations (4xx and 5xx).
+ * 
  * @export
- * @interface AddressRegistryError
+ * @interface EffectiveUtxoSelectionConfig
  */
-export interface AddressRegistryError {
+export interface EffectiveUtxoSelectionConfig {
     /**
-     * Human-readable error message
-     * @type {string}
-     * @memberof AddressRegistryError
+     * 
+     * @type {UtxoSelectionStrategyEnum}
+     * @memberof EffectiveUtxoSelectionConfig
      */
-    'message': string;
+    'strategy': UtxoSelectionStrategyEnum;
     /**
-     * Application error code when present. For HTTP 400 on legal-entity lookup, distinguish: 4100 — request validation (e.g. missing, empty, or whitespace-only `address` after trim); 2140 — workspace not opted in to the address registry (`AR_OPT_IN_REQUIRED`). 2142 — not found (404). Other codes may appear, including on server errors. 
-     * @type {number}
-     * @memberof AddressRegistryError
+     * 
+     * @type {UtxoSelectionConfigSourceEnum}
+     * @memberof EffectiveUtxoSelectionConfig
      */
-    'code'?: number;
+    'source': UtxoSelectionConfigSourceEnum;
 }
+
+
 

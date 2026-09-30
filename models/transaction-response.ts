@@ -27,6 +27,9 @@ import { AuthorizationInfo } from './authorization-info';
 import { BlockInfo } from './block-info';
 // May contain unused imports in some cases
 // @ts-ignore
+import { CantonDetails } from './canton-details';
+// May contain unused imports in some cases
+// @ts-ignore
 import { ComplianceResults } from './compliance-results';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -221,6 +224,12 @@ export interface TransactionResponse {
      * @memberof TransactionResponse
      */
     'requestedFeeCurrency'?: string;
+    /**
+     * 
+     * @type {CantonDetails}
+     * @memberof TransactionResponse
+     */
+    'cantonDetails'?: CantonDetails;
     /**
      * In case a single transaction resulted with multiple transfers, for example a result of a contract call, then this parameter specifies each transfer that took place on the blockchain. In case of a single transfer transaction, this parameter is empty.
      * @type {Array<NetworkRecord>}

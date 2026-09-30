@@ -19,7 +19,7 @@ BlockchainsAssetsApi,
 ComplianceApi, 
 ComplianceOrchestratorBetaApi, 
 ComplianceScreeningConfigurationApi, 
-ConnectedAccountsBetaApi, 
+ConnectedAccountsApi, 
 ConsoleUserApi, 
 ContactsApi, 
 ContractInteractionsApi, 
@@ -80,7 +80,7 @@ let mockBlockchainsAssetsApi: jest.Mock;
 let mockComplianceApi: jest.Mock;
 let mockComplianceOrchestratorBetaApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
-let mockConnectedAccountsBetaApi: jest.Mock;
+let mockConnectedAccountsApi: jest.Mock;
 let mockConsoleUserApi: jest.Mock;
 let mockContactsApi: jest.Mock;
 let mockContractInteractionsApi: jest.Mock;
@@ -138,7 +138,7 @@ jest.mock('../api', () => {
     mockComplianceApi = jest.fn();
     mockComplianceOrchestratorBetaApi = jest.fn();
     mockComplianceScreeningConfigurationApi = jest.fn();
-    mockConnectedAccountsBetaApi = jest.fn();
+    mockConnectedAccountsApi = jest.fn();
     mockConsoleUserApi = jest.fn();
     mockContactsApi = jest.fn();
     mockContractInteractionsApi = jest.fn();
@@ -197,7 +197,7 @@ jest.mock('../api', () => {
         ComplianceApi: mockComplianceApi,
         ComplianceOrchestratorBetaApi: mockComplianceOrchestratorBetaApi,
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
-        ConnectedAccountsBetaApi: mockConnectedAccountsBetaApi,
+        ConnectedAccountsApi: mockConnectedAccountsApi,
         ConsoleUserApi: mockConsoleUserApi,
         ContactsApi: mockContactsApi,
         ContractInteractionsApi: mockContractInteractionsApi,
@@ -356,9 +356,9 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.complianceScreeningConfiguration).toBeInstanceOf(ComplianceScreeningConfigurationApi);
             expect(mockComplianceScreeningConfigurationApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return ConnectedAccountsBetaApi', async () => {
-            expect(fireblocks.connectedAccountsBeta).toBeInstanceOf(ConnectedAccountsBetaApi);
-            expect(mockConnectedAccountsBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return ConnectedAccountsApi', async () => {
+            expect(fireblocks.connectedAccounts).toBeInstanceOf(ConnectedAccountsApi);
+            expect(mockConnectedAccountsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ConsoleUserApi', async () => {
             expect(fireblocks.consoleUser).toBeInstanceOf(ConsoleUserApi);

@@ -38,7 +38,7 @@ export interface OfferResponseAllocation {
 }
 
 export const OfferResponseAllocationDomainEnum = {
-    Allocations: 'ALLOCATIONS'
+    Allocation: 'ALLOCATION'
 } as const;
 
 export type OfferResponseAllocationDomainEnum = typeof OfferResponseAllocationDomainEnum[keyof typeof OfferResponseAllocationDomainEnum];

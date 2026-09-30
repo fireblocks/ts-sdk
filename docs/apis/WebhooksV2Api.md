@@ -5,8 +5,10 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createWebhook**](#createWebhook) | **POST** /webhooks | Create a new webhook
+[**createWebhookMtlsConfig**](#createWebhookMtlsConfig) | **POST** /webhooks_settings/mtls | Create an mTLS configuration
 [**createWebhookOauth**](#createWebhookOauth) | **POST** /webhooks_settings/oauth | Create OAuth credentials
 [**deleteWebhook**](#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
+[**deleteWebhookMtlsConfig**](#deleteWebhookMtlsConfig) | **DELETE** /webhooks_settings/mtls/{webhookMtlsId} | Delete an mTLS configuration
 [**deleteWebhookOauth**](#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 [**getMetrics**](#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
 [**getMtlsCsr**](#getMtlsCsr) | **GET** /webhooks_settings/mtls_csr | Get mTLS CSR
@@ -16,6 +18,8 @@ Method | HTTP request | Description
 [**getResendByQueryJobStatus**](#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 [**getResendJobStatus**](#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 [**getWebhook**](#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
+[**getWebhookMtlsConfig**](#getWebhookMtlsConfig) | **GET** /webhooks_settings/mtls/{webhookMtlsId} | Get an mTLS configuration by id
+[**getWebhookMtlsConfigs**](#getWebhookMtlsConfigs) | **GET** /webhooks_settings/mtls | List the uploaded mTLS configurations
 [**getWebhookOauth**](#getWebhookOauth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id
 [**getWebhookOauths**](#getWebhookOauths) | **GET** /webhooks_settings/oauth | Get all OAuth credentials
 [**getWebhooks**](#getWebhooks) | **GET** /webhooks | Get all webhooks
@@ -24,6 +28,7 @@ Method | HTTP request | Description
 [**resendNotificationsByQuery**](#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 [**resendNotificationsByResourceId**](#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
 [**updateWebhook**](#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
+[**updateWebhookMtlsConfig**](#updateWebhookMtlsConfig) | **PATCH** /webhooks_settings/mtls/{webhookMtlsId} | Update an mTLS configuration
 [**updateWebhookOauth**](#updateWebhookOauth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials
 
 
@@ -86,6 +91,69 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | created new webhook successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createWebhookMtlsConfig**
+> WebhookMtlsConfig createWebhookMtlsConfig(createWebhookMtlsConfigRequest)
+
+Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiCreateWebhookMtlsConfigRequest, WebhookMtlsConfig } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiCreateWebhookMtlsConfigRequest = {
+  // CreateWebhookMtlsConfigRequest
+  createWebhookMtlsConfigRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2.createWebhookMtlsConfig(body).then((res: FireblocksResponse<WebhookMtlsConfig>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createWebhookMtlsConfigRequest** | **[CreateWebhookMtlsConfigRequest](../models/CreateWebhookMtlsConfigRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[WebhookMtlsConfig](../models/WebhookMtlsConfig.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | The stored mTLS configuration |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -209,6 +277,70 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Deleted webhook object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteWebhookMtlsConfig**
+> DeleteWebhookMtlsConfigResponse deleteWebhookMtlsConfig()
+
+Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiDeleteWebhookMtlsConfigRequest, DeleteWebhookMtlsConfigResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiDeleteWebhookMtlsConfigRequest = {
+  // string | The unique identifier of the mTLS configuration
+  webhookMtlsId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+  // boolean | Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in `detachedWebhookIds` and `detachedWebhookOauthIds`. Leave it unset, or `false`, to get a `409 Conflict` whenever anything still references the configuration. (optional)
+  forceDelete: true,
+};
+
+fireblocks.webhooksV2.deleteWebhookMtlsConfig(body).then((res: FireblocksResponse<DeleteWebhookMtlsConfigResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookMtlsId** | [**string**] | The unique identifier of the mTLS configuration | defaults to undefined
+ **forceDelete** | [**boolean**] | Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the configuration. | (optional) defaults to false
+
+
+### Return type
+
+**[DeleteWebhookMtlsConfigResponse](../models/DeleteWebhookMtlsConfigResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The deleted mTLS configuration, plus the ids of any webhooks and OAuth credentials that were detached from it |  * X-Request-ID -  <br>  |
+**409** | Webhooks or OAuth credentials still reference this configuration and &#x60;forceDelete&#x60; was not set. Nothing was deleted. The error message names the reason and the ids of what references it — detach those webhooks and OAuth credentials, or retry with &#x60;forceDelete&#x3D;true&#x60;. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -808,6 +940,126 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getWebhookMtlsConfig**
+> WebhookMtlsConfig getWebhookMtlsConfig()
+
+Retrieve one stored mTLS configuration by its id. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiGetWebhookMtlsConfigRequest, WebhookMtlsConfig } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiGetWebhookMtlsConfigRequest = {
+  // string | The unique identifier of the mTLS configuration
+  webhookMtlsId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+};
+
+fireblocks.webhooksV2.getWebhookMtlsConfig(body).then((res: FireblocksResponse<WebhookMtlsConfig>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookMtlsId** | [**string**] | The unique identifier of the mTLS configuration | defaults to undefined
+
+
+### Return type
+
+**[WebhookMtlsConfig](../models/WebhookMtlsConfig.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | An mTLS configuration |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getWebhookMtlsConfigs**
+> WebhookMtlsConfigsList getWebhookMtlsConfigs()
+
+Lists the workspace\'s mTLS configurations, newest first. Pass `ids` to ask about particular ones instead — useful for resolving the `webhookMtlsId` values on a set of webhooks in one call. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiGetWebhookMtlsConfigsRequest, WebhookMtlsConfigsList } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiGetWebhookMtlsConfigsRequest = {
+  // Array<string> | Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request. (optional)
+  ids: ["6f1b7c62-0f2e-4f1a-9a5e-9f2b1c3d4e5f"],
+};
+
+fireblocks.webhooksV2.getWebhookMtlsConfigs(body).then((res: FireblocksResponse<WebhookMtlsConfigsList>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **ids** | **Array&lt;string&gt;** | Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request. | (optional) defaults to undefined
+
+
+### Return type
+
+**[WebhookMtlsConfigsList](../models/WebhookMtlsConfigsList.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The workspace\&#39;s mTLS configurations |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getWebhookOauth**
 > WebhookOauthCredentials getWebhookOauth()
 
@@ -1317,10 +1569,74 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **updateWebhookMtlsConfig**
+> WebhookMtlsConfig updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest, )
+
+Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.  Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.  Sending `name: null` removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiUpdateWebhookMtlsConfigRequest, WebhookMtlsConfig } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiUpdateWebhookMtlsConfigRequest = {
+  // UpdateWebhookMtlsConfigRequest
+  updateWebhookMtlsConfigRequest: param_value,
+  // string | The unique identifier of the mTLS configuration
+  webhookMtlsId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+};
+
+fireblocks.webhooksV2.updateWebhookMtlsConfig(body).then((res: FireblocksResponse<WebhookMtlsConfig>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateWebhookMtlsConfigRequest** | **[UpdateWebhookMtlsConfigRequest](../models/UpdateWebhookMtlsConfigRequest.md)**|  |
+ **webhookMtlsId** | [**string**] | The unique identifier of the mTLS configuration | defaults to undefined
+
+
+### Return type
+
+**[WebhookMtlsConfig](../models/WebhookMtlsConfig.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The updated mTLS configuration |  * X-Request-ID -  <br>  |
+**400** | Neither &#x60;name&#x60; nor &#x60;signedCert&#x60; was provided, so there is nothing to change, or the replacement certificate was rejected — it is not valid X.509, or it was not issued for a private key this workspace holds. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **updateWebhookOauth**
 > WebhookOauthCredentials updateWebhookOauth(updateWebhookOauthRequest, )
 
-Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

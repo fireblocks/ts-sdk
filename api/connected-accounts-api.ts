@@ -61,13 +61,13 @@ import { UpdateConnectedAccountCredentialsRequest } from '../models';
 // @ts-ignore
 import { UpdateConnectedAccountCredentialsResponse } from '../models';
 /**
- * ConnectedAccountsBetaApi - axios parameter creator
+ * ConnectedAccountsApi - axios parameter creator
  * @export
  */
-export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const ConnectedAccountsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin. 
          * @summary Add a connected account
          * @param {AddConnectedAccountRequest} addConnectedAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -107,7 +107,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
+         * Disconnect a connected account by ID. 
          * @summary Disconnect connected account
          * @param {string} accountId The ID of the account to disconnect.
          * @param {*} [options] Override http request option.
@@ -140,7 +140,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieve detailed information about a specific connected account by ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve detailed information about a specific connected account by ID. 
          * @summary Get connected account
          * @param {string} accountId The ID of the account to fetch.
          * @param {*} [options] Override http request option.
@@ -173,7 +173,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Retrieves the address allowlist for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {AllowlistEntryStatus} [status] Filter by allowlist entry status
@@ -241,7 +241,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get a single allowlist entry for a connected account
          * @param {string} accountId The connected account identifier
          * @param {string} allowlistId The Fireblocks allowlist entry identifier
@@ -277,7 +277,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`). 
          * @summary Get balances for an account
          * @param {string} accountId The ID of the account to fetch balances for.
          * @param {number} [pageSize] Page size for pagination.
@@ -320,7 +320,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieve current exchange rates for converting between specific assets in a connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve current exchange rates for converting between specific assets in a connected account. 
          * @summary Get exchange rates for an account
          * @param {string} accountId The ID of the account to fetch rates for.
          * @param {string} baseAssetId The ID of the asset to fetch rates for.
@@ -365,7 +365,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`). 
          * @summary Get supported trading pairs for an account
          * @param {string} accountId The ID of the account to fetch supported pairs for.
          * @param {number} [pageSize] Page size for pagination.
@@ -408,7 +408,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Returns all connected accounts.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns all connected accounts. 
          * @summary Get connected accounts
          * @param {boolean} [mainAccounts] Whether to include only main accounts in the response.
          * @param {number} [pageSize] Page size for pagination.
@@ -453,7 +453,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context. 
          * @summary Get public key to encrypt connected account credentials
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -483,7 +483,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Rename a connected account by account ID. 
          * @summary Rename Connected Account
          * @param {RenameConnectedAccountRequest} renameConnectedAccountRequest 
          * @param {string} accountId The unique identifier of the connected account
@@ -526,7 +526,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Sync allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -564,7 +564,7 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
             };
         },
         /**
-         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin. 
          * @summary Update connected account credentials
          * @param {UpdateConnectedAccountCredentialsRequest} updateConnectedAccountCredentialsRequest 
          * @param {string} accountId The unique identifier of the connected account whose API key credentials are being replaced.
@@ -610,14 +610,14 @@ export const ConnectedAccountsBetaApiAxiosParamCreator = function (configuration
 };
 
 /**
- * ConnectedAccountsBetaApi - functional programming interface
+ * ConnectedAccountsApi - functional programming interface
  * @export
  */
-export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = ConnectedAccountsBetaApiAxiosParamCreator(configuration)
+export const ConnectedAccountsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ConnectedAccountsApiAxiosParamCreator(configuration)
     return {
         /**
-         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin. 
          * @summary Add a connected account
          * @param {AddConnectedAccountRequest} addConnectedAccountRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -627,11 +627,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async addConnectedAccount(addConnectedAccountRequest: AddConnectedAccountRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddConnectedAccountResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addConnectedAccount(addConnectedAccountRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.addConnectedAccount']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.addConnectedAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
+         * Disconnect a connected account by ID. 
          * @summary Disconnect connected account
          * @param {string} accountId The ID of the account to disconnect.
          * @param {*} [options] Override http request option.
@@ -640,11 +640,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async disconnectConnectedAccount(accountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.disconnectConnectedAccount(accountId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.disconnectConnectedAccount']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.disconnectConnectedAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve detailed information about a specific connected account by ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve detailed information about a specific connected account by ID. 
          * @summary Get connected account
          * @param {string} accountId The ID of the account to fetch.
          * @param {*} [options] Override http request option.
@@ -653,11 +653,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccount(accountId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectedSingleAccountResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccount(accountId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccount']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Retrieves the address allowlist for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {AllowlistEntryStatus} [status] Filter by allowlist entry status
@@ -673,11 +673,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccountAllowlist(accountId: string, status?: AllowlistEntryStatus, assetId?: string, networkId?: string, address?: string, pageCursor?: string, pageSize?: number, order?: GetConnectedAccountAllowlistOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlist(accountId, status, assetId, networkId, address, pageCursor, pageSize, order, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountAllowlist']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccountAllowlist']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get a single allowlist entry for a connected account
          * @param {string} accountId The connected account identifier
          * @param {string} allowlistId The Fireblocks allowlist entry identifier
@@ -687,11 +687,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccountAllowlistEntry(accountId: string, allowlistId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AllowlistEntryResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountAllowlistEntry(accountId, allowlistId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountAllowlistEntry']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccountAllowlistEntry']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`). 
          * @summary Get balances for an account
          * @param {string} accountId The ID of the account to fetch balances for.
          * @param {number} [pageSize] Page size for pagination.
@@ -702,11 +702,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccountBalances(accountId: string, pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectedAccountBalancesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountBalances(accountId, pageSize, pageCursor, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountBalances']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccountBalances']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve current exchange rates for converting between specific assets in a connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve current exchange rates for converting between specific assets in a connected account. 
          * @summary Get exchange rates for an account
          * @param {string} accountId The ID of the account to fetch rates for.
          * @param {string} baseAssetId The ID of the asset to fetch rates for.
@@ -717,11 +717,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccountRates(accountId: string, baseAssetId: string, quoteAssetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectedAccountRateResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountRates(accountId, baseAssetId, quoteAssetId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountRates']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccountRates']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`). 
          * @summary Get supported trading pairs for an account
          * @param {string} accountId The ID of the account to fetch supported pairs for.
          * @param {number} [pageSize] Page size for pagination.
@@ -732,11 +732,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccountTradingPairs(accountId: string, pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectedAccountTradingPairsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountTradingPairs(accountId, pageSize, pageCursor, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountTradingPairs']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccountTradingPairs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns all connected accounts.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns all connected accounts. 
          * @summary Get connected accounts
          * @param {boolean} [mainAccounts] Whether to include only main accounts in the response.
          * @param {number} [pageSize] Page size for pagination.
@@ -747,11 +747,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccounts(mainAccounts?: boolean, pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ConnectedAccountsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccounts(mainAccounts, pageSize, pageCursor, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccounts']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccounts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context. 
          * @summary Get public key to encrypt connected account credentials
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -759,11 +759,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async getConnectedAccountsCredentialsPublicKey(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetConnectedAccountsCredentialsPublicKeyResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getConnectedAccountsCredentialsPublicKey(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.getConnectedAccountsCredentialsPublicKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.getConnectedAccountsCredentialsPublicKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Rename a connected account by account ID. 
          * @summary Rename Connected Account
          * @param {RenameConnectedAccountRequest} renameConnectedAccountRequest 
          * @param {string} accountId The unique identifier of the connected account
@@ -774,11 +774,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async renameConnectedAccount(renameConnectedAccountRequest: RenameConnectedAccountRequest, accountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RenameConnectedAccountResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.renameConnectedAccount(renameConnectedAccountRequest, accountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.renameConnectedAccount']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.renameConnectedAccount']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Sync allowlist for connected account
          * @param {string} accountId The connected account identifier
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -788,11 +788,11 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async syncConnectedAccountAllowlist(accountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.syncConnectedAccountAllowlist(accountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.syncConnectedAccountAllowlist']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.syncConnectedAccountAllowlist']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin. 
          * @summary Update connected account credentials
          * @param {UpdateConnectedAccountCredentialsRequest} updateConnectedAccountCredentialsRequest 
          * @param {string} accountId The unique identifier of the connected account whose API key credentials are being replaced.
@@ -803,111 +803,111 @@ export const ConnectedAccountsBetaApiFp = function(configuration?: Configuration
         async updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest: UpdateConnectedAccountCredentialsRequest, accountId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateConnectedAccountCredentialsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateConnectedAccountCredentials(updateConnectedAccountCredentialsRequest, accountId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['ConnectedAccountsBetaApi.updateConnectedAccountCredentials']?.[index]?.url;
+            const operationBasePath = operationServerMap['ConnectedAccountsApi.updateConnectedAccountCredentials']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * ConnectedAccountsBetaApi - factory interface
+ * ConnectedAccountsApi - factory interface
  * @export
  */
-export const ConnectedAccountsBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = ConnectedAccountsBetaApiFp(configuration)
+export const ConnectedAccountsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ConnectedAccountsApiFp(configuration)
     return {
         /**
-         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin. 
          * @summary Add a connected account
-         * @param {ConnectedAccountsBetaApiAddConnectedAccountRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiAddConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addConnectedAccount(requestParameters: ConnectedAccountsBetaApiAddConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddConnectedAccountResponse> {
+        addConnectedAccount(requestParameters: ConnectedAccountsApiAddConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddConnectedAccountResponse> {
             return localVarFp.addConnectedAccount(requestParameters.addConnectedAccountRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
+         * Disconnect a connected account by ID. 
          * @summary Disconnect connected account
-         * @param {ConnectedAccountsBetaApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        disconnectConnectedAccount(requestParameters: ConnectedAccountsBetaApiDisconnectConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        disconnectConnectedAccount(requestParameters: ConnectedAccountsApiDisconnectConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.disconnectConnectedAccount(requestParameters.accountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve detailed information about a specific connected account by ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve detailed information about a specific connected account by ID. 
          * @summary Get connected account
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccount(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedSingleAccountResponse> {
+        getConnectedAccount(requestParameters: ConnectedAccountsApiGetConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedSingleAccountResponse> {
             return localVarFp.getConnectedAccount(requestParameters.accountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Retrieves the address allowlist for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get allowlist for connected account
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistResponse> {
+        getConnectedAccountAllowlist(requestParameters: ConnectedAccountsApiGetConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistResponse> {
             return localVarFp.getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Get a single allowlist entry for a connected account
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistEntryResponse> {
+        getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest, options?: RawAxiosRequestConfig): AxiosPromise<AllowlistEntryResponse> {
             return localVarFp.getConnectedAccountAllowlistEntry(requestParameters.accountId, requestParameters.allowlistId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`). 
          * @summary Get balances for an account
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountBalancesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountBalances(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountBalancesResponse> {
+        getConnectedAccountBalances(requestParameters: ConnectedAccountsApiGetConnectedAccountBalancesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountBalancesResponse> {
             return localVarFp.getConnectedAccountBalances(requestParameters.accountId, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve current exchange rates for converting between specific assets in a connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve current exchange rates for converting between specific assets in a connected account. 
          * @summary Get exchange rates for an account
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountRatesRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountRatesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountRates(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountRatesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountRateResponse> {
+        getConnectedAccountRates(requestParameters: ConnectedAccountsApiGetConnectedAccountRatesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountRateResponse> {
             return localVarFp.getConnectedAccountRates(requestParameters.accountId, requestParameters.baseAssetId, requestParameters.quoteAssetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`). 
          * @summary Get supported trading pairs for an account
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountTradingPairsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccountTradingPairs(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountTradingPairsResponse> {
+        getConnectedAccountTradingPairs(requestParameters: ConnectedAccountsApiGetConnectedAccountTradingPairsRequest, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountTradingPairsResponse> {
             return localVarFp.getConnectedAccountTradingPairs(requestParameters.accountId, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns all connected accounts.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns all connected accounts. 
          * @summary Get connected accounts
-         * @param {ConnectedAccountsBetaApiGetConnectedAccountsRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiGetConnectedAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getConnectedAccounts(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountsResponse> {
+        getConnectedAccounts(requestParameters: ConnectedAccountsApiGetConnectedAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ConnectedAccountsResponse> {
             return localVarFp.getConnectedAccounts(requestParameters.mainAccounts, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context. 
          * @summary Get public key to encrypt connected account credentials
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -916,520 +916,520 @@ export const ConnectedAccountsBetaApiFactory = function (configuration?: Configu
             return localVarFp.getConnectedAccountsCredentialsPublicKey(options).then((request) => request(axios, basePath));
         },
         /**
-         * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Rename a connected account by account ID. 
          * @summary Rename Connected Account
-         * @param {ConnectedAccountsBetaApiRenameConnectedAccountRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiRenameConnectedAccountRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        renameConnectedAccount(requestParameters: ConnectedAccountsBetaApiRenameConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<RenameConnectedAccountResponse> {
+        renameConnectedAccount(requestParameters: ConnectedAccountsApiRenameConnectedAccountRequest, options?: RawAxiosRequestConfig): AxiosPromise<RenameConnectedAccountResponse> {
             return localVarFp.renameConnectedAccount(requestParameters.renameConnectedAccountRequest, requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+         * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
          * @summary Sync allowlist for connected account
-         * @param {ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsApiSyncConnectedAccountAllowlistRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin. 
          * @summary Update connected account credentials
-         * @param {ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest} requestParameters Request parameters.
+         * @param {ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateConnectedAccountCredentials(requestParameters: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateConnectedAccountCredentialsResponse> {
+        updateConnectedAccountCredentials(requestParameters: ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateConnectedAccountCredentialsResponse> {
             return localVarFp.updateConnectedAccountCredentials(requestParameters.updateConnectedAccountCredentialsRequest, requestParameters.accountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for addConnectedAccount operation in ConnectedAccountsBetaApi.
+ * Request parameters for addConnectedAccount operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiAddConnectedAccountRequest
+ * @interface ConnectedAccountsApiAddConnectedAccountRequest
  */
-export interface ConnectedAccountsBetaApiAddConnectedAccountRequest {
+export interface ConnectedAccountsApiAddConnectedAccountRequest {
     /**
      * 
      * @type {AddConnectedAccountRequest}
-     * @memberof ConnectedAccountsBetaApiAddConnectedAccount
+     * @memberof ConnectedAccountsApiAddConnectedAccount
      */
     readonly addConnectedAccountRequest: AddConnectedAccountRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiAddConnectedAccount
+     * @memberof ConnectedAccountsApiAddConnectedAccount
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for disconnectConnectedAccount operation in ConnectedAccountsBetaApi.
+ * Request parameters for disconnectConnectedAccount operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiDisconnectConnectedAccountRequest
+ * @interface ConnectedAccountsApiDisconnectConnectedAccountRequest
  */
-export interface ConnectedAccountsBetaApiDisconnectConnectedAccountRequest {
+export interface ConnectedAccountsApiDisconnectConnectedAccountRequest {
     /**
      * The ID of the account to disconnect.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiDisconnectConnectedAccount
+     * @memberof ConnectedAccountsApiDisconnectConnectedAccount
      */
     readonly accountId: string
 }
 
 /**
- * Request parameters for getConnectedAccount operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccount operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountRequest {
+export interface ConnectedAccountsApiGetConnectedAccountRequest {
     /**
      * The ID of the account to fetch.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccount
+     * @memberof ConnectedAccountsApiGetConnectedAccount
      */
     readonly accountId: string
 }
 
 /**
- * Request parameters for getConnectedAccountAllowlist operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccountAllowlist operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountAllowlistRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest {
+export interface ConnectedAccountsApiGetConnectedAccountAllowlistRequest {
     /**
      * The connected account identifier
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly accountId: string
 
     /**
      * Filter by allowlist entry status
      * @type {AllowlistEntryStatus}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly status?: AllowlistEntryStatus
 
     /**
      * Filter by Fireblocks asset ID.  See [List assets](https://developers.fireblocks.com/reference/listassets) for the canonical list of Fireblocks asset IDs. 
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly assetId?: string
 
     /**
      * Filter by Fireblocks network ID.  See [List blockchains](https://developers.fireblocks.com/reference/listblockchains) for the canonical list of Fireblocks blockchain identifiers. 
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly networkId?: string
 
     /**
      * Filter by specific address
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly address?: string
 
     /**
      * Pagination cursor for next page
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly pageCursor?: string
 
     /**
      * Maximum number of entries to return
      * @type {number}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly pageSize?: number
 
     /**
      * Sort order (ASC or DESC).
      * @type {'ASC' | 'DESC'}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlist
      */
     readonly order?: GetConnectedAccountAllowlistOrderEnum
 }
 
 /**
- * Request parameters for getConnectedAccountAllowlistEntry operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccountAllowlistEntry operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest {
+export interface ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest {
     /**
      * The connected account identifier
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntry
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlistEntry
      */
     readonly accountId: string
 
     /**
      * The Fireblocks allowlist entry identifier
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntry
+     * @memberof ConnectedAccountsApiGetConnectedAccountAllowlistEntry
      */
     readonly allowlistId: string
 }
 
 /**
- * Request parameters for getConnectedAccountBalances operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccountBalances operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountBalancesRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest {
+export interface ConnectedAccountsApiGetConnectedAccountBalancesRequest {
     /**
      * The ID of the account to fetch balances for.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountBalances
+     * @memberof ConnectedAccountsApiGetConnectedAccountBalances
      */
     readonly accountId: string
 
     /**
      * Page size for pagination.
      * @type {number}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountBalances
+     * @memberof ConnectedAccountsApiGetConnectedAccountBalances
      */
     readonly pageSize?: number
 
     /**
      * Page cursor for pagination.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountBalances
+     * @memberof ConnectedAccountsApiGetConnectedAccountBalances
      */
     readonly pageCursor?: string
 }
 
 /**
- * Request parameters for getConnectedAccountRates operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccountRates operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountRatesRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountRatesRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountRatesRequest {
+export interface ConnectedAccountsApiGetConnectedAccountRatesRequest {
     /**
      * The ID of the account to fetch rates for.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountRates
+     * @memberof ConnectedAccountsApiGetConnectedAccountRates
      */
     readonly accountId: string
 
     /**
      * The ID of the asset to fetch rates for.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountRates
+     * @memberof ConnectedAccountsApiGetConnectedAccountRates
      */
     readonly baseAssetId: string
 
     /**
      * The ID of the asset to get the rates nominally.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountRates
+     * @memberof ConnectedAccountsApiGetConnectedAccountRates
      */
     readonly quoteAssetId: string
 }
 
 /**
- * Request parameters for getConnectedAccountTradingPairs operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccountTradingPairs operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountTradingPairsRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest {
+export interface ConnectedAccountsApiGetConnectedAccountTradingPairsRequest {
     /**
      * The ID of the account to fetch supported pairs for.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountTradingPairs
+     * @memberof ConnectedAccountsApiGetConnectedAccountTradingPairs
      */
     readonly accountId: string
 
     /**
      * Page size for pagination.
      * @type {number}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountTradingPairs
+     * @memberof ConnectedAccountsApiGetConnectedAccountTradingPairs
      */
     readonly pageSize?: number
 
     /**
      * Page cursor for pagination.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccountTradingPairs
+     * @memberof ConnectedAccountsApiGetConnectedAccountTradingPairs
      */
     readonly pageCursor?: string
 }
 
 /**
- * Request parameters for getConnectedAccounts operation in ConnectedAccountsBetaApi.
+ * Request parameters for getConnectedAccounts operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiGetConnectedAccountsRequest
+ * @interface ConnectedAccountsApiGetConnectedAccountsRequest
  */
-export interface ConnectedAccountsBetaApiGetConnectedAccountsRequest {
+export interface ConnectedAccountsApiGetConnectedAccountsRequest {
     /**
      * Whether to include only main accounts in the response.
      * @type {boolean}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccounts
+     * @memberof ConnectedAccountsApiGetConnectedAccounts
      */
     readonly mainAccounts?: boolean
 
     /**
      * Page size for pagination.
      * @type {number}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccounts
+     * @memberof ConnectedAccountsApiGetConnectedAccounts
      */
     readonly pageSize?: number
 
     /**
      * Page cursor for pagination.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiGetConnectedAccounts
+     * @memberof ConnectedAccountsApiGetConnectedAccounts
      */
     readonly pageCursor?: string
 }
 
 /**
- * Request parameters for renameConnectedAccount operation in ConnectedAccountsBetaApi.
+ * Request parameters for renameConnectedAccount operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiRenameConnectedAccountRequest
+ * @interface ConnectedAccountsApiRenameConnectedAccountRequest
  */
-export interface ConnectedAccountsBetaApiRenameConnectedAccountRequest {
+export interface ConnectedAccountsApiRenameConnectedAccountRequest {
     /**
      * 
      * @type {RenameConnectedAccountRequest}
-     * @memberof ConnectedAccountsBetaApiRenameConnectedAccount
+     * @memberof ConnectedAccountsApiRenameConnectedAccount
      */
     readonly renameConnectedAccountRequest: RenameConnectedAccountRequest
 
     /**
      * The unique identifier of the connected account
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiRenameConnectedAccount
+     * @memberof ConnectedAccountsApiRenameConnectedAccount
      */
     readonly accountId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiRenameConnectedAccount
+     * @memberof ConnectedAccountsApiRenameConnectedAccount
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for syncConnectedAccountAllowlist operation in ConnectedAccountsBetaApi.
+ * Request parameters for syncConnectedAccountAllowlist operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest
+ * @interface ConnectedAccountsApiSyncConnectedAccountAllowlistRequest
  */
-export interface ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest {
+export interface ConnectedAccountsApiSyncConnectedAccountAllowlistRequest {
     /**
      * The connected account identifier
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiSyncConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiSyncConnectedAccountAllowlist
      */
     readonly accountId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiSyncConnectedAccountAllowlist
+     * @memberof ConnectedAccountsApiSyncConnectedAccountAllowlist
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for updateConnectedAccountCredentials operation in ConnectedAccountsBetaApi.
+ * Request parameters for updateConnectedAccountCredentials operation in ConnectedAccountsApi.
  * @export
- * @interface ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest
+ * @interface ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest
  */
-export interface ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest {
+export interface ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest {
     /**
      * 
      * @type {UpdateConnectedAccountCredentialsRequest}
-     * @memberof ConnectedAccountsBetaApiUpdateConnectedAccountCredentials
+     * @memberof ConnectedAccountsApiUpdateConnectedAccountCredentials
      */
     readonly updateConnectedAccountCredentialsRequest: UpdateConnectedAccountCredentialsRequest
 
     /**
      * The unique identifier of the connected account whose API key credentials are being replaced.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiUpdateConnectedAccountCredentials
+     * @memberof ConnectedAccountsApiUpdateConnectedAccountCredentials
      */
     readonly accountId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof ConnectedAccountsBetaApiUpdateConnectedAccountCredentials
+     * @memberof ConnectedAccountsApiUpdateConnectedAccountCredentials
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * ConnectedAccountsBetaApi - object-oriented interface
+ * ConnectedAccountsApi - object-oriented interface
  * @export
- * @class ConnectedAccountsBetaApi
+ * @class ConnectedAccountsApi
  * @extends {BaseAPI}
  */
-export class ConnectedAccountsBetaApi extends BaseAPI {
+export class ConnectedAccountsApi extends BaseAPI {
     /**
-     * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Creates a new connected account for the authenticated tenant.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob. Use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption.  The `providerType` is derived server-side from the `providerId` — callers do not supply it.  Endpoint Permission: Editor, Admin, Non-Signing Admin. 
      * @summary Add a connected account
-     * @param {ConnectedAccountsBetaApiAddConnectedAccountRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiAddConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public addConnectedAccount(requestParameters: ConnectedAccountsBetaApiAddConnectedAccountRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).addConnectedAccount(requestParameters.addConnectedAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public addConnectedAccount(requestParameters: ConnectedAccountsApiAddConnectedAccountRequest) {
+        return ConnectedAccountsApiFp(this.configuration).addConnectedAccount(requestParameters.addConnectedAccountRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Disconnect a connected account by ID.  **Note**: - This endpoint is currently in beta and might be subject to changes. 
+     * Disconnect a connected account by ID. 
      * @summary Disconnect connected account
-     * @param {ConnectedAccountsBetaApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiDisconnectConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public disconnectConnectedAccount(requestParameters: ConnectedAccountsBetaApiDisconnectConnectedAccountRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).disconnectConnectedAccount(requestParameters.accountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public disconnectConnectedAccount(requestParameters: ConnectedAccountsApiDisconnectConnectedAccountRequest) {
+        return ConnectedAccountsApiFp(this.configuration).disconnectConnectedAccount(requestParameters.accountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve detailed information about a specific connected account by ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Retrieve detailed information about a specific connected account by ID. 
      * @summary Get connected account
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccount(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccount(requestParameters.accountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccount(requestParameters: ConnectedAccountsApiGetConnectedAccountRequest) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccount(requestParameters.accountId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieves the address allowlist for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+     * Retrieves the address allowlist for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
      * @summary Get allowlist for connected account
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountAllowlistRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccountAllowlist(requestParameters: ConnectedAccountsApiGetConnectedAccountAllowlistRequest) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccountAllowlist(requestParameters.accountId, requestParameters.status, requestParameters.assetId, requestParameters.networkId, requestParameters.address, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+     * Retrieves a single allowlist entry by its Fireblocks identifier for a specified connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
      * @summary Get a single allowlist entry for a connected account
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountAllowlistEntryRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountAllowlistEntry(requestParameters.accountId, requestParameters.allowlistId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccountAllowlistEntry(requestParameters: ConnectedAccountsApiGetConnectedAccountAllowlistEntryRequest) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccountAllowlistEntry(requestParameters.accountId, requestParameters.allowlistId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Retrieve current asset balances for a specific connected account as a flat list (one row per `assetId`, `balanceType`). 
      * @summary Get balances for an account
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountBalancesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccountBalances(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountBalancesRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountBalances(requestParameters.accountId, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccountBalances(requestParameters: ConnectedAccountsApiGetConnectedAccountBalancesRequest) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccountBalances(requestParameters.accountId, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve current exchange rates for converting between specific assets in a connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Retrieve current exchange rates for converting between specific assets in a connected account. 
      * @summary Get exchange rates for an account
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountRatesRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountRatesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccountRates(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountRatesRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountRates(requestParameters.accountId, requestParameters.baseAssetId, requestParameters.quoteAssetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccountRates(requestParameters: ConnectedAccountsApiGetConnectedAccountRatesRequest) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccountRates(requestParameters.accountId, requestParameters.baseAssetId, requestParameters.quoteAssetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`).  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Retrieve all asset trading pairs supported by a specific connected account, including the pair type (`quote`, `market`, `onOffRamp`). 
      * @summary Get supported trading pairs for an account
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountTradingPairsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccountTradingPairs(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountTradingPairsRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountTradingPairs(requestParameters.accountId, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccountTradingPairs(requestParameters: ConnectedAccountsApiGetConnectedAccountTradingPairsRequest) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccountTradingPairs(requestParameters.accountId, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns all connected accounts.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Returns all connected accounts. 
      * @summary Get connected accounts
-     * @param {ConnectedAccountsBetaApiGetConnectedAccountsRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiGetConnectedAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public getConnectedAccounts(requestParameters: ConnectedAccountsBetaApiGetConnectedAccountsRequest = {}) {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccounts(requestParameters.mainAccounts, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getConnectedAccounts(requestParameters: ConnectedAccountsApiGetConnectedAccountsRequest = {}) {
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccounts(requestParameters.mainAccounts, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Returns the RSA public key used to encrypt the `creds` field before calling `POST /connected_accounts`.  The key is a singleton resource scoped to the connected-accounts credentials domain — there is one per tenant context. 
      * @summary Get public key to encrypt connected account credentials
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
     public getConnectedAccountsCredentialsPublicKey() {
-        return ConnectedAccountsBetaApiFp(this.configuration).getConnectedAccountsCredentialsPublicKey().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return ConnectedAccountsApiFp(this.configuration).getConnectedAccountsCredentialsPublicKey().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Rename a connected account by account ID.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Rename a connected account by account ID. 
      * @summary Rename Connected Account
-     * @param {ConnectedAccountsBetaApiRenameConnectedAccountRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiRenameConnectedAccountRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public renameConnectedAccount(requestParameters: ConnectedAccountsBetaApiRenameConnectedAccountRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).renameConnectedAccount(requestParameters.renameConnectedAccountRequest, requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public renameConnectedAccount(requestParameters: ConnectedAccountsApiRenameConnectedAccountRequest) {
+        return ConnectedAccountsApiFp(this.configuration).renameConnectedAccount(requestParameters.renameConnectedAccountRequest, requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** This endpoint is currently in beta and might be subject to changes. Currently supports CoinbaseExchange/Binance accounts only. 
+     * Triggers an on-demand sync from the exchange, bypassing the cache and fetching live data immediately.  **Rate limit:** 1 request per minute per connected account.  **Note:** Currently supports CoinbaseExchange/Binance accounts only. 
      * @summary Sync allowlist for connected account
-     * @param {ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiSyncConnectedAccountAllowlistRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsBetaApiSyncConnectedAccountAllowlistRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public syncConnectedAccountAllowlist(requestParameters: ConnectedAccountsApiSyncConnectedAccountAllowlistRequest) {
+        return ConnectedAccountsApiFp(this.configuration).syncConnectedAccountAllowlist(requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin.  **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Replace the API credentials (secret + API key) of a connected account.  Credentials belong to an API key, which can back a single account or an entire hierarchy. Updating them affects all accounts sharing that key, so the endpoint returns an array of modified accounts.  The `creds` field must be a Base64-encoded RSA-encrypted credential blob; use `GET /connected_accounts/credentials/public_key` to retrieve the public key for encryption. Both `creds` and `apiKey` are mandatory.  Validation against the exchange is synchronous, but the update itself is **pending mobile approval** — the existing credentials stay live until the change is approved, so none of the affected accounts are disconnected in the meantime.  Endpoint Permission: Admin, Non-Signing Admin. 
      * @summary Update connected account credentials
-     * @param {ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest} requestParameters Request parameters.
+     * @param {ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof ConnectedAccountsBetaApi
+     * @memberof ConnectedAccountsApi
      */
-    public updateConnectedAccountCredentials(requestParameters: ConnectedAccountsBetaApiUpdateConnectedAccountCredentialsRequest) {
-        return ConnectedAccountsBetaApiFp(this.configuration).updateConnectedAccountCredentials(requestParameters.updateConnectedAccountCredentialsRequest, requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateConnectedAccountCredentials(requestParameters: ConnectedAccountsApiUpdateConnectedAccountCredentialsRequest) {
+        return ConnectedAccountsApiFp(this.configuration).updateConnectedAccountCredentials(requestParameters.updateConnectedAccountCredentialsRequest, requestParameters.accountId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

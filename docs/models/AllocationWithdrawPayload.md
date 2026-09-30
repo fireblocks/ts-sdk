@@ -4,18 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**vaultAccountId** | **string** | The vault account whose Canton wallet acts here. | [default to undefined]|
-|**asset** | **string** | Chain asset — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;. | [default to undefined]|
 |**allocationTransactionId** | **string** | The Fireblocks transaction id of the outgoing response that created the allocation. The allocation is resolved from it — Canton contract ids are never accepted here. | [default to undefined]|
-
-
-## Enum: AllocationWithdrawPayloadAssetEnum
-
-
-* `Canton` (value: `'CANTON'`)
-
-* `CantonTest` (value: `'CANTON_TEST'`)
-
 
 
 

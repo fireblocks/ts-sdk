@@ -40,19 +40,7 @@ export interface TravelRuleIssuers {
      * @type {TravelRuleIssuer}
      * @memberof TravelRuleIssuers
      */
-    'regulatoryAuthorities': TravelRuleIssuer;
-    /**
-     * 
-     * @type {TravelRuleIssuer}
-     * @memberof TravelRuleIssuers
-     */
     'name': TravelRuleIssuer;
-    /**
-     * 
-     * @type {TravelRuleIssuer}
-     * @memberof TravelRuleIssuers
-     */
-    'logo': TravelRuleIssuer;
     /**
      * 
      * @type {TravelRuleIssuer}
@@ -106,6 +94,18 @@ export interface TravelRuleIssuers {
      * @type {TravelRuleIssuer}
      * @memberof TravelRuleIssuers
      */
-    'description': TravelRuleIssuer;
+    'regulatoryAuthorities'?: TravelRuleIssuer;
+    /**
+     * 
+     * @type {TravelRuleIssuer}
+     * @memberof TravelRuleIssuers
+     */
+    'logo'?: TravelRuleIssuer;
+    /**
+     * 
+     * @type {TravelRuleIssuer}
+     * @memberof TravelRuleIssuers
+     */
+    'description'?: TravelRuleIssuer;
 }
 

@@ -61,6 +61,16 @@
 
 * `MissingWorkspaceDetails` (value: `'MISSING_WORKSPACE_DETAILS'`)
 
+* `CreditLimitExceeded` (value: `'CREDIT_LIMIT_EXCEEDED'`)
+
+* `QuoteExpired` (value: `'QUOTE_EXPIRED'`)
+
+* `DeskRejected` (value: `'DESK_REJECTED'`)
+
+* `RequoteWorsePrice` (value: `'REQUOTE_WORSE_PRICE'`)
+
+* `FokKilled` (value: `'FOK_KILLED'`)
+
 
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

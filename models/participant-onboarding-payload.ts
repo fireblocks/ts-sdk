@@ -39,12 +39,6 @@ export interface ParticipantOnboardingPayload {
      */
     'operator': string;
     /**
-     * DTCC provider party id.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'provider': string;
-    /**
      * DTCC compliance party id.
      * @type {string}
      * @memberof ParticipantOnboardingPayload
@@ -62,6 +56,12 @@ export interface ParticipantOnboardingPayload {
      * @memberof ParticipantOnboardingPayload
      */
     'clientOnboarder': string;
+    /**
+     * DTCC upgrader party id — the Model Upgrade Tool authority. Supplied by DTCC during the off-chain registration, alongside the other party ids.
+     * @type {string}
+     * @memberof ParticipantOnboardingPayload
+     */
+    'upgrader': string;
     /**
      * When the onboarding request expires if it has not been answered. RFC 3339.
      * @type {string}

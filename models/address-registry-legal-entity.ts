@@ -13,9 +13,6 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { AddressRegistryTravelRuleProvider } from './address-registry-travel-rule-provider';
 
 /**
  * Legal entity details for a blockchain address.
@@ -49,15 +46,21 @@ export interface AddressRegistryLegalEntity {
     'lei': string;
     /**
      * 
-     * @type {Array<AddressRegistryTravelRuleProvider>}
+     * @type {Array<string>}
      * @memberof AddressRegistryLegalEntity
      */
-    'travelRuleProviders': Array<AddressRegistryTravelRuleProvider>;
+    'travelRuleProviders': Array<string>;
     /**
      * Travel Rule contact email when available.
      * @type {string}
      * @memberof AddressRegistryLegalEntity
      */
     'email': string;
+    /**
+     * Whether the caller can currently create a Proof of Ownership PDF for this address (`POST /v1/address_registry/proof_of_ownership_exports`).
+     * @type {boolean}
+     * @memberof AddressRegistryLegalEntity
+     */
+    'proofOfOwnershipAvailable': boolean;
 }
 

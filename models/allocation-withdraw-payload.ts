@@ -21,30 +21,10 @@
  */
 export interface AllocationWithdrawPayload {
     /**
-     * The vault account whose Canton wallet acts here.
-     * @type {string}
-     * @memberof AllocationWithdrawPayload
-     */
-    'vaultAccountId': string;
-    /**
-     * Chain asset — `CANTON` or `CANTON_TEST`.
-     * @type {string}
-     * @memberof AllocationWithdrawPayload
-     */
-    'asset': AllocationWithdrawPayloadAssetEnum;
-    /**
      * The Fireblocks transaction id of the outgoing response that created the allocation. The allocation is resolved from it — Canton contract ids are never accepted here.
      * @type {string}
      * @memberof AllocationWithdrawPayload
      */
     'allocationTransactionId': string;
 }
-
-export const AllocationWithdrawPayloadAssetEnum = {
-    Canton: 'CANTON',
-    CantonTest: 'CANTON_TEST'
-} as const;
-
-export type AllocationWithdrawPayloadAssetEnum = typeof AllocationWithdrawPayloadAssetEnum[keyof typeof AllocationWithdrawPayloadAssetEnum];
-
 

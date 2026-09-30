@@ -21,7 +21,10 @@ import { AccountReference } from './account-reference';
 import { DVPSettlement } from './dvpsettlement';
 // May contain unused imports in some cases
 // @ts-ignore
-import { DVPSettlementType } from './dvpsettlement-type';
+import { PostTradeSettlement } from './post-trade-settlement';
+// May contain unused imports in some cases
+// @ts-ignore
+import { PostTradeSettlementType } from './post-trade-settlement-type';
 // May contain unused imports in some cases
 // @ts-ignore
 import { PrefundedSettlement } from './prefunded-settlement';
@@ -34,6 +37,6 @@ import { SettlementSourceAccount } from './settlement-source-account';
  * Settlement configuration for the order
  * @export
  */
-export type Settlement = { type: 'DVP' } & DVPSettlement | { type: 'PREFUNDED' } & PrefundedSettlement;
+export type Settlement = { type: 'DVP' } & DVPSettlement | { type: 'POST_TRADE' } & PostTradeSettlement | { type: 'PREFUNDED' } & PrefundedSettlement;
 
 

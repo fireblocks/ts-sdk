@@ -49,7 +49,12 @@ export const FailureReason = {
     UnsupportedRegion: 'UNSUPPORTED_REGION',
     DestinationNotWhitelisted: 'DESTINATION_NOT_WHITELISTED',
     MissingDestinationDetails: 'MISSING_DESTINATION_DETAILS',
-    MissingWorkspaceDetails: 'MISSING_WORKSPACE_DETAILS'
+    MissingWorkspaceDetails: 'MISSING_WORKSPACE_DETAILS',
+    CreditLimitExceeded: 'CREDIT_LIMIT_EXCEEDED',
+    QuoteExpired: 'QUOTE_EXPIRED',
+    DeskRejected: 'DESK_REJECTED',
+    RequoteWorsePrice: 'REQUOTE_WORSE_PRICE',
+    FokKilled: 'FOK_KILLED'
 } as const;
 
 export type FailureReason = typeof FailureReason[keyof typeof FailureReason];
