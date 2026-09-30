@@ -28,6 +28,7 @@
 |**feeInfo** | [**FeeInfo**](FeeInfo.md) |  | [optional] [default to undefined]|
 |**feeCurrency** | **string** | The asset which was withdrawn to pay the transaction fee, for example ETH for EVM-based blockchains, BTC for Tether Omni. | [optional] [default to undefined]|
 |**requestedFeeCurrency** | **string** | The fee-paying asset requested at transaction creation via the &#x60;feeCurrency&#x60; field, if any. | [optional] [default to undefined]|
+|**cantonDetails** | [**CantonDetails**](CantonDetails.md) |  | [optional] [default to undefined]|
 |**networkRecords** | [**Array&lt;NetworkRecord&gt;**](NetworkRecord.md) | In case a single transaction resulted with multiple transfers, for example a result of a contract call, then this parameter specifies each transfer that took place on the blockchain. In case of a single transfer transaction, this parameter is empty. | [optional] [default to undefined]|
 |**createdAt** | **number** | The transaction’s creation date and time, in unix timestamp. | [optional] [default to undefined]|
 |**lastUpdated** | **number** | The transaction’s last update date and time, in unix timestamp. | [optional] [default to undefined]|

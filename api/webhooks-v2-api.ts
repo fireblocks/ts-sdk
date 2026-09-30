@@ -27,9 +27,13 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { CreateWebhookMtlsConfigRequest } from '../models';
+// @ts-ignore
 import { CreateWebhookOauthRequest } from '../models';
 // @ts-ignore
 import { CreateWebhookRequest } from '../models';
+// @ts-ignore
+import { DeleteWebhookMtlsConfigResponse } from '../models';
 // @ts-ignore
 import { DeleteWebhookOauthResponse } from '../models';
 // @ts-ignore
@@ -55,6 +59,8 @@ import { ResendFailedNotificationsResponse } from '../models';
 // @ts-ignore
 import { ResendNotificationsByResourceIdRequest } from '../models';
 // @ts-ignore
+import { UpdateWebhookMtlsConfigRequest } from '../models';
+// @ts-ignore
 import { UpdateWebhookOauthRequest } from '../models';
 // @ts-ignore
 import { UpdateWebhookRequest } from '../models';
@@ -64,6 +70,10 @@ import { Webhook } from '../models';
 import { WebhookEvent } from '../models';
 // @ts-ignore
 import { WebhookMetric } from '../models';
+// @ts-ignore
+import { WebhookMtlsConfig } from '../models';
+// @ts-ignore
+import { WebhookMtlsConfigsList } from '../models';
 // @ts-ignore
 import { WebhookMtlsCsrResponse } from '../models';
 // @ts-ignore
@@ -112,6 +122,46 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createWebhookRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create an mTLS configuration
+         * @param {CreateWebhookMtlsConfigRequest} createWebhookMtlsConfigRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWebhookMtlsConfig: async (createWebhookMtlsConfigRequest: CreateWebhookMtlsConfigRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createWebhookMtlsConfig', 'createWebhookMtlsConfigRequest', createWebhookMtlsConfigRequest)
+            const localVarPath = `/webhooks_settings/mtls`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createWebhookMtlsConfigRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -179,6 +229,44 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete an mTLS configuration
+         * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
+         * @param {boolean} [forceDelete] Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the configuration.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWebhookMtlsConfig: async (webhookMtlsId: string, forceDelete?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteWebhookMtlsConfig', 'webhookMtlsId', webhookMtlsId)
+            const localVarPath = `/webhooks_settings/mtls/{webhookMtlsId}`
+                .replace(`{${"webhookMtlsId"}}`, encodeURIComponent(String(webhookMtlsId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (forceDelete !== undefined) {
+                localVarQueryParameter['forceDelete'] = forceDelete;
+            }
 
 
     
@@ -571,6 +659,74 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Retrieve one stored mTLS configuration by its id. 
+         * @summary Get an mTLS configuration by id
+         * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookMtlsConfig: async (webhookMtlsId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getWebhookMtlsConfig', 'webhookMtlsId', webhookMtlsId)
+            const localVarPath = `/webhooks_settings/mtls/{webhookMtlsId}`
+                .replace(`{${"webhookMtlsId"}}`, encodeURIComponent(String(webhookMtlsId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists the workspace\'s mTLS configurations, newest first. Pass `ids` to ask about particular ones instead — useful for resolving the `webhookMtlsId` values on a set of webhooks in one call. 
+         * @summary List the uploaded mTLS configurations
+         * @param {Array<string>} [ids] Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookMtlsConfigs: async (ids?: Array<string>, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks_settings/mtls`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (ids) {
+                localVarQueryParameter['ids'] = ids;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve an OAuth credential set by its id. The client secret is never returned. 
          * @summary Get OAuth credentials by id
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -887,7 +1043,45 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.  Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.  Sending `name: null` removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update an mTLS configuration
+         * @param {UpdateWebhookMtlsConfigRequest} updateWebhookMtlsConfigRequest 
+         * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWebhookMtlsConfig: async (updateWebhookMtlsConfigRequest: UpdateWebhookMtlsConfigRequest, webhookMtlsId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateWebhookMtlsConfig', 'updateWebhookMtlsConfigRequest', updateWebhookMtlsConfigRequest)
+            assertParamExistsAndNotEmpty('updateWebhookMtlsConfig', 'webhookMtlsId', webhookMtlsId)
+            const localVarPath = `/webhooks_settings/mtls/{webhookMtlsId}`
+                .replace(`{${"webhookMtlsId"}}`, encodeURIComponent(String(webhookMtlsId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateWebhookMtlsConfigRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {UpdateWebhookOauthRequest} updateWebhookOauthRequest 
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -949,6 +1143,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create an mTLS configuration
+         * @param {CreateWebhookMtlsConfigRequest} createWebhookMtlsConfigRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createWebhookMtlsConfig(createWebhookMtlsConfigRequest: CreateWebhookMtlsConfigRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsConfig>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhookMtlsConfig(createWebhookMtlsConfigRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.createWebhookMtlsConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create OAuth credentials
          * @param {CreateWebhookOauthRequest} createWebhookOauthRequest 
@@ -973,6 +1181,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(webhookId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhook']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete an mTLS configuration
+         * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
+         * @param {boolean} [forceDelete] Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the configuration.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteWebhookMtlsConfig(webhookMtlsId: string, forceDelete?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteWebhookMtlsConfigResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhookMtlsConfig(webhookMtlsId, forceDelete, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhookMtlsConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1111,6 +1333,32 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieve one stored mTLS configuration by its id. 
+         * @summary Get an mTLS configuration by id
+         * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWebhookMtlsConfig(webhookMtlsId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsConfig>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhookMtlsConfig(webhookMtlsId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhookMtlsConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Lists the workspace\'s mTLS configurations, newest first. Pass `ids` to ask about particular ones instead — useful for resolving the `webhookMtlsId` values on a set of webhooks in one call. 
+         * @summary List the uploaded mTLS configurations
+         * @param {Array<string>} [ids] Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWebhookMtlsConfigs(ids?: Array<string>, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsConfigsList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhookMtlsConfigs(ids, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhookMtlsConfigs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Retrieve an OAuth credential set by its id. The client secret is never returned. 
          * @summary Get OAuth credentials by id
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -1225,7 +1473,21 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.  Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.  Sending `name: null` removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update an mTLS configuration
+         * @param {UpdateWebhookMtlsConfigRequest} updateWebhookMtlsConfigRequest 
+         * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest: UpdateWebhookMtlsConfigRequest, webhookMtlsId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookMtlsConfig>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhookMtlsConfig(updateWebhookMtlsConfigRequest, webhookMtlsId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.updateWebhookMtlsConfig']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {UpdateWebhookOauthRequest} updateWebhookOauthRequest 
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -1259,6 +1521,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create an mTLS configuration
+         * @param {WebhooksV2ApiCreateWebhookMtlsConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWebhookMtlsConfig(requestParameters: WebhooksV2ApiCreateWebhookMtlsConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsConfig> {
+            return localVarFp.createWebhookMtlsConfig(requestParameters.createWebhookMtlsConfigRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create OAuth credentials
          * @param {WebhooksV2ApiCreateWebhookOauthRequest} requestParameters Request parameters.
@@ -1277,6 +1549,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          */
         deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.deleteWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete an mTLS configuration
+         * @param {WebhooksV2ApiDeleteWebhookMtlsConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWebhookMtlsConfig(requestParameters: WebhooksV2ApiDeleteWebhookMtlsConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteWebhookMtlsConfigResponse> {
+            return localVarFp.deleteWebhookMtlsConfig(requestParameters.webhookMtlsId, requestParameters.forceDelete, options).then((request) => request(axios, basePath));
         },
         /**
          * Deletes an OAuth credential set. By default the delete is refused while the credentials are still in use: if any webhook references them, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the referencing webhooks. This protects a shared credential set from being removed out from under the webhooks that depend on it, since several webhooks may reference the same one.  Pass `forceDelete=true` to delete anyway. That detaches every referencing webhook — it clears each webhook\'s `webhookOauthId`, it does **not** delete the webhook — then deletes the credential set and returns the deleted resource together with `detachedWebhookIds`. The detached webhooks keep delivering notifications, but without an `Authorization` header, so their endpoints will see unauthenticated deliveries from that point on.  When nothing references the credentials the delete succeeds either way, and `detachedWebhookIds` comes back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
@@ -1369,6 +1651,26 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieve one stored mTLS configuration by its id. 
+         * @summary Get an mTLS configuration by id
+         * @param {WebhooksV2ApiGetWebhookMtlsConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookMtlsConfig(requestParameters: WebhooksV2ApiGetWebhookMtlsConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsConfig> {
+            return localVarFp.getWebhookMtlsConfig(requestParameters.webhookMtlsId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists the workspace\'s mTLS configurations, newest first. Pass `ids` to ask about particular ones instead — useful for resolving the `webhookMtlsId` values on a set of webhooks in one call. 
+         * @summary List the uploaded mTLS configurations
+         * @param {WebhooksV2ApiGetWebhookMtlsConfigsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookMtlsConfigs(requestParameters: WebhooksV2ApiGetWebhookMtlsConfigsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsConfigsList> {
+            return localVarFp.getWebhookMtlsConfigs(requestParameters.ids, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve an OAuth credential set by its id. The client secret is never returned. 
          * @summary Get OAuth credentials by id
          * @param {WebhooksV2ApiGetWebhookOauthRequest} requestParameters Request parameters.
@@ -1448,7 +1750,17 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.  Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.  Sending `name: null` removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update an mTLS configuration
+         * @param {WebhooksV2ApiUpdateWebhookMtlsConfigRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWebhookMtlsConfig(requestParameters: WebhooksV2ApiUpdateWebhookMtlsConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookMtlsConfig> {
+            return localVarFp.updateWebhookMtlsConfig(requestParameters.updateWebhookMtlsConfigRequest, requestParameters.webhookMtlsId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {WebhooksV2ApiUpdateWebhookOauthRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1477,6 +1789,27 @@ export interface WebhooksV2ApiCreateWebhookRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof WebhooksV2ApiCreateWebhook
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createWebhookMtlsConfig operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiCreateWebhookMtlsConfigRequest
+ */
+export interface WebhooksV2ApiCreateWebhookMtlsConfigRequest {
+    /**
+     * 
+     * @type {CreateWebhookMtlsConfigRequest}
+     * @memberof WebhooksV2ApiCreateWebhookMtlsConfig
+     */
+    readonly createWebhookMtlsConfigRequest: CreateWebhookMtlsConfigRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiCreateWebhookMtlsConfig
      */
     readonly idempotencyKey?: string
 }
@@ -1514,6 +1847,27 @@ export interface WebhooksV2ApiDeleteWebhookRequest {
      * @memberof WebhooksV2ApiDeleteWebhook
      */
     readonly webhookId: string
+}
+
+/**
+ * Request parameters for deleteWebhookMtlsConfig operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiDeleteWebhookMtlsConfigRequest
+ */
+export interface WebhooksV2ApiDeleteWebhookMtlsConfigRequest {
+    /**
+     * The unique identifier of the mTLS configuration
+     * @type {string}
+     * @memberof WebhooksV2ApiDeleteWebhookMtlsConfig
+     */
+    readonly webhookMtlsId: string
+
+    /**
+     * Delete the configuration even while webhooks or OAuth credentials still reference it, detaching them instead of refusing; their ids are returned in &#x60;detachedWebhookIds&#x60; and &#x60;detachedWebhookOauthIds&#x60;. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still references the configuration.
+     * @type {boolean}
+     * @memberof WebhooksV2ApiDeleteWebhookMtlsConfig
+     */
+    readonly forceDelete?: boolean
 }
 
 /**
@@ -1769,6 +2123,34 @@ export interface WebhooksV2ApiGetWebhookRequest {
 }
 
 /**
+ * Request parameters for getWebhookMtlsConfig operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetWebhookMtlsConfigRequest
+ */
+export interface WebhooksV2ApiGetWebhookMtlsConfigRequest {
+    /**
+     * The unique identifier of the mTLS configuration
+     * @type {string}
+     * @memberof WebhooksV2ApiGetWebhookMtlsConfig
+     */
+    readonly webhookMtlsId: string
+}
+
+/**
+ * Request parameters for getWebhookMtlsConfigs operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetWebhookMtlsConfigsRequest
+ */
+export interface WebhooksV2ApiGetWebhookMtlsConfigsRequest {
+    /**
+     * Return only the configurations with these ids, instead of all of them. Repeat the parameter for each id. An id belonging to another workspace, or to nothing, is left out of the response rather than failing the request.
+     * @type {Array<string>}
+     * @memberof WebhooksV2ApiGetWebhookMtlsConfigs
+     */
+    readonly ids?: Array<string>
+}
+
+/**
  * Request parameters for getWebhookOauth operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiGetWebhookOauthRequest
@@ -1944,6 +2326,27 @@ export interface WebhooksV2ApiUpdateWebhookRequest {
 }
 
 /**
+ * Request parameters for updateWebhookMtlsConfig operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiUpdateWebhookMtlsConfigRequest
+ */
+export interface WebhooksV2ApiUpdateWebhookMtlsConfigRequest {
+    /**
+     * 
+     * @type {UpdateWebhookMtlsConfigRequest}
+     * @memberof WebhooksV2ApiUpdateWebhookMtlsConfig
+     */
+    readonly updateWebhookMtlsConfigRequest: UpdateWebhookMtlsConfigRequest
+
+    /**
+     * The unique identifier of the mTLS configuration
+     * @type {string}
+     * @memberof WebhooksV2ApiUpdateWebhookMtlsConfig
+     */
+    readonly webhookMtlsId: string
+}
+
+/**
  * Request parameters for updateWebhookOauth operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiUpdateWebhookOauthRequest
@@ -1984,6 +2387,18 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Create an mTLS configuration
+     * @param {WebhooksV2ApiCreateWebhookMtlsConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public createWebhookMtlsConfig(requestParameters: WebhooksV2ApiCreateWebhookMtlsConfigRequest) {
+        return WebhooksV2ApiFp(this.configuration).createWebhookMtlsConfig(requestParameters.createWebhookMtlsConfigRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Create OAuth credentials
      * @param {WebhooksV2ApiCreateWebhookOauthRequest} requestParameters Request parameters.
@@ -2005,6 +2420,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest) {
         return WebhooksV2ApiFp(this.configuration).deleteWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Delete an mTLS configuration
+     * @param {WebhooksV2ApiDeleteWebhookMtlsConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public deleteWebhookMtlsConfig(requestParameters: WebhooksV2ApiDeleteWebhookMtlsConfigRequest) {
+        return WebhooksV2ApiFp(this.configuration).deleteWebhookMtlsConfig(requestParameters.webhookMtlsId, requestParameters.forceDelete).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2116,6 +2543,30 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Retrieve one stored mTLS configuration by its id. 
+     * @summary Get an mTLS configuration by id
+     * @param {WebhooksV2ApiGetWebhookMtlsConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getWebhookMtlsConfig(requestParameters: WebhooksV2ApiGetWebhookMtlsConfigRequest) {
+        return WebhooksV2ApiFp(this.configuration).getWebhookMtlsConfig(requestParameters.webhookMtlsId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Lists the workspace\'s mTLS configurations, newest first. Pass `ids` to ask about particular ones instead — useful for resolving the `webhookMtlsId` values on a set of webhooks in one call. 
+     * @summary List the uploaded mTLS configurations
+     * @param {WebhooksV2ApiGetWebhookMtlsConfigsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getWebhookMtlsConfigs(requestParameters: WebhooksV2ApiGetWebhookMtlsConfigsRequest = {}) {
+        return WebhooksV2ApiFp(this.configuration).getWebhookMtlsConfigs(requestParameters.ids).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Retrieve an OAuth credential set by its id. The client secret is never returned. 
      * @summary Get OAuth credentials by id
      * @param {WebhooksV2ApiGetWebhookOauthRequest} requestParameters Request parameters.
@@ -2211,7 +2662,19 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `mtlsClientSignedCert` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.  Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.  Sending `name: null` removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Update an mTLS configuration
+     * @param {WebhooksV2ApiUpdateWebhookMtlsConfigRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public updateWebhookMtlsConfig(requestParameters: WebhooksV2ApiUpdateWebhookMtlsConfigRequest) {
+        return WebhooksV2ApiFp(this.configuration).updateWebhookMtlsConfig(requestParameters.updateWebhookMtlsConfigRequest, requestParameters.webhookMtlsId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Update OAuth credentials
      * @param {WebhooksV2ApiUpdateWebhookOauthRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

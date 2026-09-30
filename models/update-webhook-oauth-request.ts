@@ -24,7 +24,7 @@ import { WebhookOauthCustomHeadersUpdate } from './webhook-oauth-custom-headers-
 import { WebhookOauthCustomJwtClaimsUpdate } from './webhook-oauth-custom-jwt-claims-update';
 
 /**
- * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `mtlsClientSignedCert` is a scalar, so `null` there removes it.
+ * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `webhookMtlsId` is a scalar, so `null` there removes it.
  * @export
  * @interface UpdateWebhookOauthRequest
  */
@@ -78,10 +78,10 @@ export interface UpdateWebhookOauthRequest {
      */
     'customHeaders'?: WebhookOauthCustomHeadersUpdate | null;
     /**
-     * PEM-encoded client certificate for mTLS. Must be a valid X.509 certificate inside its validity window. Omit to leave it unchanged, or send `null` to remove it.
+     * The id of the mTLS configuration presented to the token endpoint, from `/v1/webhooks_settings/mtls`. Omit to leave it unchanged, or send `null` to stop using mTLS for the token request. Requires the mTLS feature to be enabled for the workspace (`403` otherwise), a configuration of this workspace (`404` otherwise), and one linked to a private key (`400` otherwise).
      * @type {string}
      * @memberof UpdateWebhookOauthRequest
      */
-    'mtlsClientSignedCert'?: string | null;
+    'webhookMtlsId'?: string | null;
 }
 

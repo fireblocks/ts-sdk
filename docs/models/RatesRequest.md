@@ -7,6 +7,7 @@
 |**scope** | [**Array&lt;ScopeItem&gt;**](ScopeItem.md) | One or more providers/accounts to request rates from. At least one scope item is required. | [default to undefined]|
 |**baseAssetId** | **string** | The source asset identifier. | [default to undefined]|
 |**quoteAssetId** | **string** | The target asset identifier. | [default to undefined]|
+|**baseAmount** | **string** | The amount to convert from | [optional] [default to undefined]|
 
 
 

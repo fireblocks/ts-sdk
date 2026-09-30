@@ -31,7 +31,9 @@ import { AddressRegistryAddVaultOptOutsRequest } from '../models';
 // @ts-ignore
 import { AddressRegistryAddVaultOptOutsResponse } from '../models';
 // @ts-ignore
-import { AddressRegistryError } from '../models';
+import { AddressRegistryCreateProofOfOwnershipRequest } from '../models';
+// @ts-ignore
+import { AddressRegistryCreateProofOfOwnershipResponse } from '../models';
 // @ts-ignore
 import { AddressRegistryGetVaultOptOutResponse } from '../models';
 // @ts-ignore
@@ -46,6 +48,10 @@ import { AddressRegistryRemoveVaultOptOutResponse } from '../models';
 import { AddressRegistryTenantRegistryResponse } from '../models';
 // @ts-ignore
 import { AddressRegistryVaultListOrder } from '../models';
+// @ts-ignore
+import { AddressRegistryVerifyProofOfOwnershipRequest } from '../models';
+// @ts-ignore
+import { AddressRegistryVerifyProofOfOwnershipResponse } from '../models';
 // @ts-ignore
 import { AmlVerdictManualRequest } from '../models';
 // @ts-ignore
@@ -255,6 +261,46 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(assignVaultsToLegalEntityRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with `POST /v1/address_registry/proof_of_ownership_exports/verify`.  Check `proofOfOwnershipAvailable` on `GET /v1/address_registry/legal_entities/{address}` first if you want to know whether create is likely to succeed.
+         * @summary Create a Proof of Ownership PDF for an address
+         * @param {AddressRegistryCreateProofOfOwnershipRequest} addressRegistryCreateProofOfOwnershipRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAddressRegistryProofOfOwnership: async (addressRegistryCreateProofOfOwnershipRequest: AddressRegistryCreateProofOfOwnershipRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createAddressRegistryProofOfOwnership', 'addressRegistryCreateProofOfOwnershipRequest', addressRegistryCreateProofOfOwnershipRequest)
+            const localVarPath = `/address_registry/proof_of_ownership_exports`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addressRegistryCreateProofOfOwnershipRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1555,6 +1601,46 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Verifies a Proof of Ownership export against the record Fireblocks stored at creation. Returns `valid: false` (not 404) for an unknown, expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just the export\'s original owner.
+         * @summary Verify a Proof of Ownership export
+         * @param {AddressRegistryVerifyProofOfOwnershipRequest} addressRegistryVerifyProofOfOwnershipRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyAddressRegistryProofOfOwnership: async (addressRegistryVerifyProofOfOwnershipRequest: AddressRegistryVerifyProofOfOwnershipRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('verifyAddressRegistryProofOfOwnership', 'addressRegistryVerifyProofOfOwnershipRequest', addressRegistryVerifyProofOfOwnershipRequest)
+            const localVarPath = `/address_registry/proof_of_ownership_exports/verify`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(addressRegistryVerifyProofOfOwnershipRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -1618,6 +1704,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.assignVaultsToLegalEntity(assignVaultsToLegalEntityRequest, legalEntityId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ComplianceApi.assignVaultsToLegalEntity']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with `POST /v1/address_registry/proof_of_ownership_exports/verify`.  Check `proofOfOwnershipAvailable` on `GET /v1/address_registry/legal_entities/{address}` first if you want to know whether create is likely to succeed.
+         * @summary Create a Proof of Ownership PDF for an address
+         * @param {AddressRegistryCreateProofOfOwnershipRequest} addressRegistryCreateProofOfOwnershipRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest: AddressRegistryCreateProofOfOwnershipRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryCreateProofOfOwnershipResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.createAddressRegistryProofOfOwnership']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -2100,6 +2200,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['ComplianceApi.updateTravelRuleConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Verifies a Proof of Ownership export against the record Fireblocks stored at creation. Returns `valid: false` (not 404) for an unknown, expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just the export\'s original owner.
+         * @summary Verify a Proof of Ownership export
+         * @param {AddressRegistryVerifyProofOfOwnershipRequest} addressRegistryVerifyProofOfOwnershipRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest: AddressRegistryVerifyProofOfOwnershipRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryVerifyProofOfOwnershipResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.verifyAddressRegistryProofOfOwnership']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -2149,6 +2263,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
          */
         assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest, options?: RawAxiosRequestConfig): AxiosPromise<AssignVaultsToLegalEntityResponse> {
             return localVarFp.assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with `POST /v1/address_registry/proof_of_ownership_exports/verify`.  Check `proofOfOwnershipAvailable` on `GET /v1/address_registry/legal_entities/{address}` first if you want to know whether create is likely to succeed.
+         * @summary Create a Proof of Ownership PDF for an address
+         * @param {ComplianceApiCreateAddressRegistryProofOfOwnershipRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createAddressRegistryProofOfOwnership(requestParameters: ComplianceApiCreateAddressRegistryProofOfOwnershipRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryCreateProofOfOwnershipResponse> {
+            return localVarFp.createAddressRegistryProofOfOwnership(requestParameters.addressRegistryCreateProofOfOwnershipRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new counterparty group.  **Endpoint Permissions:** Admin, Non-Signing Admin. 
@@ -2502,6 +2626,16 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
         updateTravelRuleConfig(requestParameters: ComplianceApiUpdateTravelRuleConfigRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ScreeningConfigurationsRequest> {
             return localVarFp.updateTravelRuleConfig(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
+        /**
+         * Verifies a Proof of Ownership export against the record Fireblocks stored at creation. Returns `valid: false` (not 404) for an unknown, expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just the export\'s original owner.
+         * @summary Verify a Proof of Ownership export
+         * @param {ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        verifyAddressRegistryProofOfOwnership(requestParameters: ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryVerifyProofOfOwnershipResponse> {
+            return localVarFp.verifyAddressRegistryProofOfOwnership(requestParameters.addressRegistryVerifyProofOfOwnershipRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
     };
 };
 
@@ -2578,6 +2712,27 @@ export interface ComplianceApiAssignVaultsToLegalEntityRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof ComplianceApiAssignVaultsToLegalEntity
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createAddressRegistryProofOfOwnership operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiCreateAddressRegistryProofOfOwnershipRequest
+ */
+export interface ComplianceApiCreateAddressRegistryProofOfOwnershipRequest {
+    /**
+     * 
+     * @type {AddressRegistryCreateProofOfOwnershipRequest}
+     * @memberof ComplianceApiCreateAddressRegistryProofOfOwnership
+     */
+    readonly addressRegistryCreateProofOfOwnershipRequest: AddressRegistryCreateProofOfOwnershipRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiCreateAddressRegistryProofOfOwnership
      */
     readonly idempotencyKey?: string
 }
@@ -3115,6 +3270,27 @@ export interface ComplianceApiUpdateTravelRuleConfigRequest {
 }
 
 /**
+ * Request parameters for verifyAddressRegistryProofOfOwnership operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest
+ */
+export interface ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest {
+    /**
+     * 
+     * @type {AddressRegistryVerifyProofOfOwnershipRequest}
+     * @memberof ComplianceApiVerifyAddressRegistryProofOfOwnership
+     */
+    readonly addressRegistryVerifyProofOfOwnershipRequest: AddressRegistryVerifyProofOfOwnershipRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiVerifyAddressRegistryProofOfOwnership
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * ComplianceApi - object-oriented interface
  * @export
  * @class ComplianceApi
@@ -3167,6 +3343,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public assignVaultsToLegalEntity(requestParameters: ComplianceApiAssignVaultsToLegalEntityRequest) {
         return ComplianceApiFp(this.configuration).assignVaultsToLegalEntity(requestParameters.assignVaultsToLegalEntityRequest, requestParameters.legalEntityId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with `POST /v1/address_registry/proof_of_ownership_exports/verify`.  Check `proofOfOwnershipAvailable` on `GET /v1/address_registry/legal_entities/{address}` first if you want to know whether create is likely to succeed.
+     * @summary Create a Proof of Ownership PDF for an address
+     * @param {ComplianceApiCreateAddressRegistryProofOfOwnershipRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public createAddressRegistryProofOfOwnership(requestParameters: ComplianceApiCreateAddressRegistryProofOfOwnershipRequest) {
+        return ComplianceApiFp(this.configuration).createAddressRegistryProofOfOwnership(requestParameters.addressRegistryCreateProofOfOwnershipRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -3591,6 +3779,18 @@ export class ComplianceApi extends BaseAPI {
      */
     public updateTravelRuleConfig(requestParameters: ComplianceApiUpdateTravelRuleConfigRequest = {}) {
         return ComplianceApiFp(this.configuration).updateTravelRuleConfig(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Verifies a Proof of Ownership export against the record Fireblocks stored at creation. Returns `valid: false` (not 404) for an unknown, expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just the export\'s original owner.
+     * @summary Verify a Proof of Ownership export
+     * @param {ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public verifyAddressRegistryProofOfOwnership(requestParameters: ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest) {
+        return ComplianceApiFp(this.configuration).verifyAddressRegistryProofOfOwnership(requestParameters.addressRegistryVerifyProofOfOwnershipRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

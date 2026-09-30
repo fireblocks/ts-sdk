@@ -78,7 +78,7 @@ export interface Quote {
      */
     'side': Side;
     /**
-     * The expiration time of the quote in ISO 8601 format.
+     * The expiration time of the quote in ISO 8601 format, taken verbatim from the provider. This is not safety-margined by the server — integrators must apply their own margin if one is needed. 
      * @type {string}
      * @memberof Quote
      */

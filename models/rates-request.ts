@@ -41,5 +41,11 @@ export interface RatesRequest {
      * @memberof RatesRequest
      */
     'quoteAssetId': string;
+    /**
+     * The amount to convert from
+     * @type {string}
+     * @memberof RatesRequest
+     */
+    'baseAmount'?: string;
 }
 

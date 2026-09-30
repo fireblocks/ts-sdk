@@ -22,7 +22,8 @@
 
 export const ExecutionRequestDetailsType = {
     Quote: 'QUOTE',
-    Market: 'MARKET'
+    Market: 'MARKET',
+    Limit: 'LIMIT'
 } as const;
 
 export type ExecutionRequestDetailsType = typeof ExecutionRequestDetailsType[keyof typeof ExecutionRequestDetailsType];

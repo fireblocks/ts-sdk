@@ -13,21 +13,15 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookMtlsConfig } from './webhook-mtls-config';
 
 /**
- * Travel Rule provider identifier (string enum value).
+ * @type DeleteWebhookMtlsConfigResponse
+ * The deleted mTLS configuration, plus the ids of any webhooks and OAuth credentials the delete detached from it. They are only detached by `forceDelete=true`; without it a delete is refused with `409` while anything still references the configuration.
  * @export
- * @enum {string}
  */
-
-export const AddressRegistryTravelRuleProvider = {
-    Notabene: 'TRAVEL_RULE_PROVIDER_NOTABENE',
-    Sygna: 'TRAVEL_RULE_PROVIDER_SYGNA',
-    Trisa: 'TRAVEL_RULE_PROVIDER_TRISA',
-    Openvasp: 'TRAVEL_RULE_PROVIDER_OPENVASP'
-} as const;
-
-export type AddressRegistryTravelRuleProvider = typeof AddressRegistryTravelRuleProvider[keyof typeof AddressRegistryTravelRuleProvider];
-
+export type DeleteWebhookMtlsConfigResponse = WebhookMtlsConfig;
 
 

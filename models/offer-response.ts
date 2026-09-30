@@ -30,6 +30,6 @@ import { TransferResponse } from './transfer-response';
  * @type OfferResponse
  * @export
  */
-export type OfferResponse = { domain: 'ALLOCATIONS' } & OfferResponseAllocation | { domain: 'ONBOARDING' } & OfferResponseOnboarding | { domain: 'TRANSFERS' } & OfferResponseTransfer;
+export type OfferResponse = { domain: 'ALLOCATION' } & OfferResponseAllocation | { domain: 'ONBOARDING' } & OfferResponseOnboarding | { domain: 'TRANSFER' } & OfferResponseTransfer;
 
 

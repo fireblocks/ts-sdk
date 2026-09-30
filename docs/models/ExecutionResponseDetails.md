@@ -4,13 +4,15 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**type** | [**QuoteExecutionTypeEnum**](QuoteExecutionTypeEnum.md) |  | [default to undefined]|
+|**type** | [**LimitTypeEnum**](LimitTypeEnum.md) |  | [default to undefined]|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**baseAmount** | **string** | Amount to convert | [default to undefined]|
 |**baseAssetId** | **string** | Source asset identifier | [default to undefined]|
 |**quoteAssetId** | **string** | Target asset identifier | [default to undefined]|
 |**quoteId** | **string** | Quote ID for quote orders | [default to undefined]|
 |**quoteAmount** | **string** | Quote amount for quote orders | [default to undefined]|
+|**price** | **string** | Limit price for the order | [default to undefined]|
+|**timeInForce** | [**TimeInForce**](TimeInForce.md) |  | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**reQuote** | [**ReQuoteDetailsReQuote**](ReQuoteDetailsReQuote.md) |  | [optional] [default to undefined]|

@@ -8,6 +8,7 @@ Method | HTTP request | Description
 [**activateByorkConfig**](#activateByorkConfig) | **POST** /screening/byork/config/activate | Activate BYORK Light
 [**addAddressRegistryVaultOptOuts**](#addAddressRegistryVaultOptOuts) | **POST** /address_registry/vaults | Add vault accounts to the address registry opt-out list
 [**assignVaultsToLegalEntity**](#assignVaultsToLegalEntity) | **POST** /legal_entities/{legalEntityId}/vaults | Assign vault accounts to a legal entity
+[**createAddressRegistryProofOfOwnership**](#createAddressRegistryProofOfOwnership) | **POST** /address_registry/proof_of_ownership_exports | Create a Proof of Ownership PDF for an address
 [**createCounterpartyGroup**](#createCounterpartyGroup) | **POST** /counterparty_groups | Create a counterparty group
 [**deactivateArsConfig**](#deactivateArsConfig) | **POST** /screening/ars/config/deactivate | Deactivate ARS (Address Registry Screening)
 [**deactivateByorkConfig**](#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
@@ -44,6 +45,7 @@ Method | HTTP request | Description
 [**updateLegalEntity**](#updateLegalEntity) | **PUT** /legal_entities/{legalEntityId} | Update legal entity
 [**updateScreeningConfiguration**](#updateScreeningConfiguration) | **PUT** /screening/configurations | Tenant - Screening Configuration
 [**updateTravelRuleConfig**](#updateTravelRuleConfig) | **PUT** /screening/travel_rule/policy_configuration | Update Travel Rule Configuration
+[**verifyAddressRegistryProofOfOwnership**](#verifyAddressRegistryProofOfOwnership) | **POST** /address_registry/proof_of_ownership_exports/verify | Verify a Proof of Ownership export
 
 
 # **activateArsConfig**
@@ -295,6 +297,75 @@ No authorization required
 |-------------|-------------|------------------|
 **201** | Vault accounts assigned successfully |  * X-Request-ID -  <br>  |
 **404** | Legal entity registration not found |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createAddressRegistryProofOfOwnership**
+> AddressRegistryCreateProofOfOwnershipResponse createAddressRegistryProofOfOwnership(addressRegistryCreateProofOfOwnershipRequest)
+
+Creates a Proof of Ownership PDF for a blockchain address owned by the authenticated workspace — for example, to share with a counterparty or bank as compliance evidence. Recipients can confirm it with `POST /v1/address_registry/proof_of_ownership_exports/verify`.  Check `proofOfOwnershipAvailable` on `GET /v1/address_registry/legal_entities/{address}` first if you want to know whether create is likely to succeed.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiCreateAddressRegistryProofOfOwnershipRequest, AddressRegistryCreateProofOfOwnershipResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiCreateAddressRegistryProofOfOwnershipRequest = {
+  // AddressRegistryCreateProofOfOwnershipRequest
+  addressRegistryCreateProofOfOwnershipRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.createAddressRegistryProofOfOwnership(body).then((res: FireblocksResponse<AddressRegistryCreateProofOfOwnershipResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **addressRegistryCreateProofOfOwnershipRequest** | **[AddressRegistryCreateProofOfOwnershipRequest](../models/AddressRegistryCreateProofOfOwnershipRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[AddressRegistryCreateProofOfOwnershipResponse](../models/AddressRegistryCreateProofOfOwnershipResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | PDF export created |  * X-Request-ID -  <br>  |
+**400** | - Missing, empty, or whitespace-only &#x60;address&#x60;. Error code 4100. - Workspace not opted in to the address registry. Error code 2140.  |  * X-Request-ID -  <br>  |
+**403** | This workspace is blocked from creating Proof of Ownership exports. Error code 2146. |  * X-Request-ID -  <br>  |
+**404** | Address not found, not owned by this workspace, or not usable for export. Error code 2142. |  * X-Request-ID -  <br>  |
+**429** | Rate limited. Error code 2145. Retry-safe after backing off. |  * X-Request-ID -  <br>  |
+**500** | Internal error. No PDF is returned. Not retry-safe. Error code 2143. |  * X-Request-ID -  <br>  |
+**503** | Rate-limit infrastructure temporarily unavailable. Safe to retry with backoff. Error code 2143 — same as the 500 case; use the HTTP status to tell them apart. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1124,8 +1195,10 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Legal entity found |  * X-Request-ID -  <br>  |
-**400** | Bad request — either request validation (path &#x60;{address}&#x60; empty or whitespace-only after trim, e.g. encoded spaces only; numeric code 4100), or the authenticated workspace is not opted in to the address registry (numeric code 2140). The &#x60;message&#x60; field describes the failure; use &#x60;code&#x60; to distinguish. |  * X-Request-ID -  <br>  |
-**404** | Not found (error code 2142) — unresolved address, no legal entity for a resolved address, or the same not-found outcome in other cases. |  * X-Request-ID -  <br>  |
+**400** | - &#x60;{address}&#x60; empty or whitespace-only after trim. Error code 4100. - Workspace not opted in to the address registry. Error code 2140.  |  * X-Request-ID -  <br>  |
+**403** | This workspace is blocked from Address Registry public lookup. Error code 2146. |  * X-Request-ID -  <br>  |
+**404** | Address not found, owner not opted in, or legal entity not usable for lookup. Error code 2142. |  * X-Request-ID -  <br>  |
+**429** | Rate limited. Error code 2145. Retry-safe after backing off. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -2493,6 +2566,70 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Configuration updated successfully. |  -  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **verifyAddressRegistryProofOfOwnership**
+> AddressRegistryVerifyProofOfOwnershipResponse verifyAddressRegistryProofOfOwnership(addressRegistryVerifyProofOfOwnershipRequest)
+
+Verifies a Proof of Ownership export against the record Fireblocks stored at creation. Returns `valid: false` (not 404) for an unknown, expired, or mismatched export. Available to any authenticated Fireblocks workspace, not just the export\'s original owner.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest, AddressRegistryVerifyProofOfOwnershipResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiVerifyAddressRegistryProofOfOwnershipRequest = {
+  // AddressRegistryVerifyProofOfOwnershipRequest
+  addressRegistryVerifyProofOfOwnershipRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.verifyAddressRegistryProofOfOwnership(body).then((res: FireblocksResponse<AddressRegistryVerifyProofOfOwnershipResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **addressRegistryVerifyProofOfOwnershipRequest** | **[AddressRegistryVerifyProofOfOwnershipRequest](../models/AddressRegistryVerifyProofOfOwnershipRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[AddressRegistryVerifyProofOfOwnershipResponse](../models/AddressRegistryVerifyProofOfOwnershipResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Verification result |  * X-Request-ID -  <br>  |
+**400** | Missing, empty, or whitespace-only &#x60;exportId&#x60;, &#x60;verificationHash&#x60;, or &#x60;address&#x60;, or &#x60;expiresAt&#x60; not empty and not a valid &#x60;YYYY-MM-DD&#x60; date. Error code 4100. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 

@@ -22,7 +22,8 @@
 
 export const SettlementTypeEnum = {
     Dvp: 'DVP',
-    Prefunded: 'PREFUNDED'
+    Prefunded: 'PREFUNDED',
+    PostTrade: 'POST_TRADE'
 } as const;
 
 export type SettlementTypeEnum = typeof SettlementTypeEnum[keyof typeof SettlementTypeEnum];

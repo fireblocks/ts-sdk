@@ -15,10 +15,13 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { MarketExecutionRequestDetails } from './market-execution-request-details';
+import { LimitExecutionRequestDetails } from './limit-execution-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
-import { QuoteExecutionTypeEnum } from './quote-execution-type-enum';
+import { LimitTypeEnum } from './limit-type-enum';
+// May contain unused imports in some cases
+// @ts-ignore
+import { MarketExecutionRequestDetails } from './market-execution-request-details';
 // May contain unused imports in some cases
 // @ts-ignore
 import { QuoteExecutionWithRequoteRequestDetails } from './quote-execution-with-requote-request-details';
@@ -30,6 +33,9 @@ import { ReQuoteDetailsReQuote } from './re-quote-details-re-quote';
 import { Side } from './side';
 // May contain unused imports in some cases
 // @ts-ignore
+import { TimeInForce } from './time-in-force';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransferRail } from './transfer-rail';
 
 /**
@@ -37,6 +43,6 @@ import { TransferRail } from './transfer-rail';
  * Order execution details
  * @export
  */
-export type ExecutionRequestDetails = { type: 'MARKET' } & MarketExecutionRequestDetails | { type: 'QUOTE' } & QuoteExecutionWithRequoteRequestDetails;
+export type ExecutionRequestDetails = { type: 'LIMIT' } & LimitExecutionRequestDetails | { type: 'MARKET' } & MarketExecutionRequestDetails | { type: 'QUOTE' } & QuoteExecutionWithRequoteRequestDetails;
 
 

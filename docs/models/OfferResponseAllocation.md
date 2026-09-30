@@ -11,7 +11,7 @@
 ## Enum: OfferResponseAllocationDomainEnum
 
 
-* `Allocations` (value: `'ALLOCATIONS'`)
+* `Allocation` (value: `'ALLOCATION'`)
 
 
 

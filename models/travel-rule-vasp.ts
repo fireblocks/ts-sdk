@@ -148,19 +148,19 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'addressLine2'?: string;
+    'addressLine2'?: string | null;
     /**
      * URL to the logo of the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'logo'?: string;
+    'logo'?: string | null;
     /**
      * Other names the VASP is known by. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'otherNames'?: string;
+    'otherNames'?: string | null;
     /**
      * The type of identification used by the VASP.
      * @type {string}
@@ -172,7 +172,7 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'identificationCountry'?: string;
+    'identificationCountry'?: string | null;
     /**
      * The business registration number of the VASP.
      * @type {string}
@@ -184,7 +184,7 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'regulatoryAuthorities'?: string;
+    'regulatoryAuthorities'?: string | null;
     /**
      * The division of the VASP\'s registered address, where applicable.
      * @type {string}
@@ -196,7 +196,7 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'street'?: string;
+    'street'?: string | null;
     /**
      * The building number of the VASP\'s address. May be returned as an empty string when not supplied.
      * @type {string}
@@ -208,7 +208,7 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'unit'?: string;
+    'unit'?: string | null;
     /**
      * The postal code of the VASP\'s location.
      * @type {string}
@@ -304,61 +304,61 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'certificates'?: string;
+    'certificates'?: string | null;
     /**
      * A brief description of the VASP. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'description'?: string;
+    'description'?: string | null;
     /**
      * Travel rule compliance status for OpenVASP. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_OPENVASP'?: string;
+    'travelRule_OPENVASP'?: string | null;
     /**
      * Travel rule compliance status for Sygna. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_SYGNA'?: string;
+    'travelRule_SYGNA'?: string | null;
     /**
      * Travel rule compliance status for TRISA. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_TRISA'?: string;
+    'travelRule_TRISA'?: string | null;
     /**
      * Travel rule compliance status for EMAIL. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_EMAIL'?: string;
+    'travelRule_EMAIL'?: string | null;
     /**
      * Travel rule compliance status for TRP. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_TRP'?: string;
+    'travelRule_TRP'?: string | null;
     /**
      * Travel rule compliance status for Shyft. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_SHYFT'?: string;
+    'travelRule_SHYFT'?: string | null;
     /**
      * Travel rule compliance status for US Travel Rule WG. Null when the VASP does not support this protocol.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'travelRule_USTRAVELRULEWG'?: string;
+    'travelRule_USTRAVELRULEWG'?: string | null;
     /**
      * The DID of the party that created the VASP record. May be null.
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'createdBy'?: string;
+    'createdBy'?: string | null;
     /**
      * Timestamp of the last update to the VASP record.
      * @type {string}
@@ -388,7 +388,7 @@ export interface TravelRuleVASP {
      * @type {string}
      * @memberof TravelRuleVASP
      */
-    'documents'?: string;
+    'documents'?: string | null;
     /**
      * The regulatory status of the VASP, as free text.
      * @type {string}

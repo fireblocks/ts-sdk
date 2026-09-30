@@ -15,16 +15,16 @@
 
 
 /**
- * mTLS configuration for the webhook. On responses, present only when a signed client certificate is set. On requests, provide a signed client certificate to enable mTLS, or null to remove it.
+ * Request body for creating an Address Registry Proof of Ownership PDF export.
  * @export
- * @interface WebhookMtls
+ * @interface AddressRegistryCreateProofOfOwnershipRequest
  */
-export interface WebhookMtls {
+export interface AddressRegistryCreateProofOfOwnershipRequest {
     /**
-     * Signed client certificate PEM used for mTLS when delivering notifications.
+     * Blockchain address to prove ownership for (must resolve to the caller\'s workspace). Same format expectations as the `address` path parameter on `GET /v1/address_registry/legal_entities/{address}`.
      * @type {string}
-     * @memberof WebhookMtls
+     * @memberof AddressRegistryCreateProofOfOwnershipRequest
      */
-    'clientSignedCert': string;
+    'address': string;
 }
 

@@ -11,7 +11,7 @@
 |**baseAmount** | **string** | The amount of the base asset. | [default to undefined]|
 |**quoteAmount** | **string** | The amount of the quote asset. | [default to undefined]|
 |**side** | [**Side**](Side.md) |  | [default to undefined]|
-|**expiresAt** | **string** | The expiration time of the quote in ISO 8601 format. | [default to undefined]|
+|**expiresAt** | **string** | The expiration time of the quote in ISO 8601 format, taken verbatim from the provider. This is not safety-margined by the server — integrators must apply their own margin if one is needed.  | [default to undefined]|
 |**type** | **string** | The type of the quote. | [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|

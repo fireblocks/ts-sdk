@@ -19,9 +19,6 @@ import { WebhookCustomHeaders } from './webhook-custom-headers';
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookEvent } from './webhook-event';
-// May contain unused imports in some cases
-// @ts-ignore
-import { WebhookMtls } from './webhook-mtls';
 
 /**
  * 
@@ -54,11 +51,11 @@ export interface CreateWebhookRequest {
      */
     'enabled'?: boolean;
     /**
-     * 
-     * @type {WebhookMtls}
+     * The id of the mTLS configuration this webhook presents when delivering, from `/v1/webhooks_settings/mtls`. Several webhooks may share one configuration, so replacing its certificate covers all of them at once. Send `null` to stop using mTLS for this webhook.
+     * @type {string}
      * @memberof CreateWebhookRequest
      */
-    'mtls'?: WebhookMtls | null;
+    'webhookMtlsId'?: string | null;
     /**
      * The id of the OAuth credentials this webhook authenticates with, from `/v1/webhooks_settings/oauth`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send `null` to stop using OAuth for this webhook. Cannot be combined with an `authorization` custom header on the same webhook; a request that would leave both set is rejected.
      * @type {string}

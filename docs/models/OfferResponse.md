@@ -11,7 +11,7 @@
 ## Enum: OfferResponseDomainEnum
 
 
-* `Transfers` (value: `'TRANSFERS'`)
+* `Transfer` (value: `'TRANSFER'`)
 
 
 
