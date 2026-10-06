@@ -1,4 +1,4 @@
-# OfferResponse
+# OfferResponseDtccOnboardingReject
 
 ## Properties
 
@@ -8,10 +8,10 @@
 |**payload** | [**DtccOnboardingRejectPayload**](DtccOnboardingRejectPayload.md) |  | [default to undefined]|
 
 
-## Enum: OfferResponseResponseTypeEnum
+## Enum: OfferResponseDtccOnboardingRejectResponseTypeEnum
 
 
-* `TransferWithdraw` (value: `'TRANSFER_WITHDRAW'`)
+* `DtccEndInvestorOnboardingReject` (value: `'DTCC_END_INVESTOR_ONBOARDING_REJECT'`)
 
 
 

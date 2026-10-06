@@ -31,6 +31,8 @@ import { ApprovalRequestItem } from '../models';
 // @ts-ignore
 import { ApproveApprovalRequest } from '../models';
 // @ts-ignore
+import { DeleteApprovalApiKeyResponse } from '../models';
+// @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
 import { ListApprovalApiKeysResponse } from '../models';
@@ -90,7 +92,7 @@ export const ApprovalsBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Registration may require approval. In that case the response carries `ccrIdPendingRegistration`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION` and cannot sign until the request is approved. A rejected request removes the key.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
          * @summary Register an approval key
          * @param {RegisterApprovalApiKeyRequest} registerApprovalApiKeyRequest 
          * @param {string} userId The ID of the API user to register the approval key for.
@@ -133,7 +135,7 @@ export const ApprovalsBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * Delete (revoke) an approval public key for the specified API user. The deletion may require approval: it always does for the API user\'s last key or another user\'s key. In that case the response carries `ccrIdPendingDeletion`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_DELETION` and stays active until the request is approved. A rejected request leaves the key enabled.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
          * @summary Delete an approval key
          * @param {string} userId The ID of the API user whose approval key to delete.
          * @param {string} keyId The ID of the approval key to delete.
@@ -383,7 +385,7 @@ export const ApprovalsBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Registration may require approval. In that case the response carries `ccrIdPendingRegistration`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION` and cannot sign until the request is approved. A rejected request removes the key.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
          * @summary Register an approval key
          * @param {RegisterApprovalApiKeyRequest} registerApprovalApiKeyRequest 
          * @param {string} userId The ID of the API user to register the approval key for.
@@ -398,7 +400,7 @@ export const ApprovalsBetaApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * Delete (revoke) an approval public key for the specified API user. The deletion may require approval: it always does for the API user\'s last key or another user\'s key. In that case the response carries `ccrIdPendingDeletion`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_DELETION` and stays active until the request is approved. A rejected request leaves the key enabled.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
          * @summary Delete an approval key
          * @param {string} userId The ID of the API user whose approval key to delete.
          * @param {string} keyId The ID of the approval key to delete.
@@ -406,7 +408,7 @@ export const ApprovalsBetaApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async deleteApprovalKey(userId: string, keyId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async deleteApprovalKey(userId: string, keyId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteApprovalApiKeyResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteApprovalKey(userId, keyId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['ApprovalsBetaApi.deleteApprovalKey']?.[index]?.url;
@@ -495,7 +497,7 @@ export const ApprovalsBetaApiFactory = function (configuration?: Configuration, 
             return localVarFp.approveApproval(requestParameters.approveApprovalRequest, requestParameters.requestId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Registration may require approval. In that case the response carries `ccrIdPendingRegistration`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION` and cannot sign until the request is approved. A rejected request removes the key.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
          * @summary Register an approval key
          * @param {ApprovalsBetaApiCreateApprovalKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -505,13 +507,13 @@ export const ApprovalsBetaApiFactory = function (configuration?: Configuration, 
             return localVarFp.createApprovalKey(requestParameters.registerApprovalApiKeyRequest, requestParameters.userId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+         * Delete (revoke) an approval public key for the specified API user. The deletion may require approval: it always does for the API user\'s last key or another user\'s key. In that case the response carries `ccrIdPendingDeletion`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_DELETION` and stays active until the request is approved. A rejected request leaves the key enabled.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
          * @summary Delete an approval key
          * @param {ApprovalsBetaApiDeleteApprovalKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        deleteApprovalKey(requestParameters: ApprovalsBetaApiDeleteApprovalKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        deleteApprovalKey(requestParameters: ApprovalsBetaApiDeleteApprovalKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteApprovalApiKeyResponse> {
             return localVarFp.deleteApprovalKey(requestParameters.userId, requestParameters.keyId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
@@ -787,7 +789,7 @@ export class ApprovalsBetaApi extends BaseAPI {
     }
 
     /**
-     * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * Register an approval public key for an API user, used to sign approval requests. Up to 2 active keys are supported per API user. Returns the server-generated key ID used for deletion.  The `userId` must be the authenticated API user\'s own ID. Registering a key for another user is not supported and is rejected.  Registration may require approval. In that case the response carries `ccrIdPendingRegistration`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION` and cannot sign until the request is approved. A rejected request removes the key.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
      * @summary Register an approval key
      * @param {ApprovalsBetaApiCreateApprovalKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -799,7 +801,7 @@ export class ApprovalsBetaApi extends BaseAPI {
     }
 
     /**
-     * Delete (revoke) an approval public key for the specified API user. Revoking the last key disables the API user\'s ability to sign approvals.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
+     * Delete (revoke) an approval public key for the specified API user. The deletion may require approval: it always does for the API user\'s last key or another user\'s key. In that case the response carries `ccrIdPendingDeletion`, the key reads as `APPROVAL_API_KEY_STATUS_PENDING_DELETION` and stays active until the request is approved. A rejected request leaves the key enabled.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Approver, Signer, Security Admin.
      * @summary Delete an approval key
      * @param {ApprovalsBetaApiDeleteApprovalKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

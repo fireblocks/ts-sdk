@@ -15,21 +15,39 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { OfferResponseAllocation } from './offer-response-allocation';
+import { DtccOnboardingRejectPayload } from './dtcc-onboarding-reject-payload';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OfferResponseOnboarding } from './offer-response-onboarding';
+import { OfferResponseAllocationAccept } from './offer-response-allocation-accept';
 // May contain unused imports in some cases
 // @ts-ignore
-import { OfferResponseTransfer } from './offer-response-transfer';
+import { OfferResponseAllocationReject } from './offer-response-allocation-reject';
 // May contain unused imports in some cases
 // @ts-ignore
-import { TransferResponse } from './transfer-response';
+import { OfferResponseDtccOnboardingAccept } from './offer-response-dtcc-onboarding-accept';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OfferResponseDtccOnboardingReject } from './offer-response-dtcc-onboarding-reject';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OfferResponseTradewebAccept } from './offer-response-tradeweb-accept';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OfferResponseTradewebReject } from './offer-response-tradeweb-reject';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OfferResponseTransferAccept } from './offer-response-transfer-accept';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OfferResponseTransferReject } from './offer-response-transfer-reject';
+// May contain unused imports in some cases
+// @ts-ignore
+import { OfferResponseTransferWithdraw } from './offer-response-transfer-withdraw';
 
 /**
  * @type OfferResponse
  * @export
  */
-export type OfferResponse = { domain: 'ALLOCATION' } & OfferResponseAllocation | { domain: 'ONBOARDING' } & OfferResponseOnboarding | { domain: 'TRANSFER' } & OfferResponseTransfer;
+export type OfferResponse = { responseType: 'ALLOCATION_ACCEPT' } & OfferResponseAllocationAccept | { responseType: 'ALLOCATION_REJECT' } & OfferResponseAllocationReject | { responseType: 'DTCC_END_INVESTOR_ONBOARDING_ACCEPT' } & OfferResponseDtccOnboardingAccept | { responseType: 'DTCC_END_INVESTOR_ONBOARDING_REJECT' } & OfferResponseDtccOnboardingReject | { responseType: 'TRADEWEB_COSIGNING_DELEGATION_ACCEPT' } & OfferResponseTradewebAccept | { responseType: 'TRADEWEB_COSIGNING_DELEGATION_REJECT' } & OfferResponseTradewebReject | { responseType: 'TRANSFER_ACCEPT' } & OfferResponseTransferAccept | { responseType: 'TRANSFER_REJECT' } & OfferResponseTransferReject | { responseType: 'TRANSFER_WITHDRAW' } & OfferResponseTransferWithdraw;
 
 

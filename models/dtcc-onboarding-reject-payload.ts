@@ -15,22 +15,16 @@
 
 
 /**
- * The result of registering an approval API key.
+ * 
  * @export
- * @interface RegisterApprovalApiKeyResponse
+ * @interface DtccOnboardingRejectPayload
  */
-export interface RegisterApprovalApiKeyResponse {
+export interface DtccOnboardingRejectPayload {
     /**
-     * The server-generated ID of the registered key, used for deletion.
+     * Why the offer is being rejected. Recorded on-chain, where the counterparty can read it.
      * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
+     * @memberof DtccOnboardingRejectPayload
      */
-    'keyId': string;
-    /**
-     * Always returned. An empty string when the key is active immediately. Otherwise, the ID of the approval request that must be approved before the key becomes active. The request appears in `GET /v1/approvals`.
-     * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
-     */
-    'ccrIdPendingRegistration': string;
+    'reason': string;
 }
 

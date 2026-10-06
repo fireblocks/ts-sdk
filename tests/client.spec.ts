@@ -53,6 +53,7 @@ SmartTransferApi,
 StakingApi, 
 TRLinkApi, 
 TagsApi, 
+TempoBetaApi, 
 TokenizationApi, 
 TradingBetaApi, 
 TransactionsApi, 
@@ -114,6 +115,7 @@ let mockSmartTransferApi: jest.Mock;
 let mockStakingApi: jest.Mock;
 let mockTRLinkApi: jest.Mock;
 let mockTagsApi: jest.Mock;
+let mockTempoBetaApi: jest.Mock;
 let mockTokenizationApi: jest.Mock;
 let mockTradingBetaApi: jest.Mock;
 let mockTransactionsApi: jest.Mock;
@@ -172,6 +174,7 @@ jest.mock('../api', () => {
     mockStakingApi = jest.fn();
     mockTRLinkApi = jest.fn();
     mockTagsApi = jest.fn();
+    mockTempoBetaApi = jest.fn();
     mockTokenizationApi = jest.fn();
     mockTradingBetaApi = jest.fn();
     mockTransactionsApi = jest.fn();
@@ -231,6 +234,7 @@ jest.mock('../api', () => {
         StakingApi: mockStakingApi,
         TRLinkApi: mockTRLinkApi,
         TagsApi: mockTagsApi,
+        TempoBetaApi: mockTempoBetaApi,
         TokenizationApi: mockTokenizationApi,
         TradingBetaApi: mockTradingBetaApi,
         TransactionsApi: mockTransactionsApi,
@@ -491,6 +495,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return TagsApi', async () => {
             expect(fireblocks.tags).toBeInstanceOf(TagsApi);
             expect(mockTagsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return TempoBetaApi', async () => {
+            expect(fireblocks.tempoBeta).toBeInstanceOf(TempoBetaApi);
+            expect(mockTempoBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return TokenizationApi', async () => {
             expect(fireblocks.tokenization).toBeInstanceOf(TokenizationApi);

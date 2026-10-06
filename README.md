@@ -459,6 +459,7 @@ Class | Method | HTTP request | Description
 *TagsApi* | [**getTag**](docs/apis/TagsApi.md#getTag) | **GET** /tags/{tagId} | Get a tag
 *TagsApi* | [**getTags**](docs/apis/TagsApi.md#getTags) | **GET** /tags | Get list of tags
 *TagsApi* | [**updateTag**](docs/apis/TagsApi.md#updateTag) | **PATCH** /tags/{tagId} | Update a tag
+*TempoBetaApi* | [**createTempoTransfer**](docs/apis/TempoBetaApi.md#createTempoTransfer) | **POST** /operations/tempo/transfer | Create a Tempo transfer transaction
 *TokenizationApi* | [**burnCollectionToken**](docs/apis/TokenizationApi.md#burnCollectionToken) | **POST** /tokenization/collections/{id}/tokens/burn | Burn tokens
 *TokenizationApi* | [**createNewCollection**](docs/apis/TokenizationApi.md#createNewCollection) | **POST** /tokenization/collections | Create a new collection
 *TokenizationApi* | [**deactivateAndUnlinkAdapters**](docs/apis/TokenizationApi.md#deactivateAndUnlinkAdapters) | **DELETE** /tokenization/multichain/bridge/layerzero | Remove LayerZero adapters
@@ -566,6 +567,7 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getVaultBalanceByAsset**](docs/apis/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset
 *VaultsApi* | [**hideVaultAccount**](docs/apis/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 *VaultsApi* | [**lookupVaultByAddress**](docs/apis/VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address
+*VaultsApi* | [**registerTempoOmnibusWallet**](docs/apis/VaultsApi.md#registerTempoOmnibusWallet) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register | Register a Tempo omnibus wallet
 *VaultsApi* | [**setCustomerRefIdForAddress**](docs/apis/VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
 *VaultsApi* | [**setUsdcGatewayDepositAutomationBeta**](docs/apis/VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account
 *VaultsApi* | [**setVaultAccountAutoFuel**](docs/apis/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
@@ -684,9 +686,6 @@ Class | Method | HTTP request | Description
  - [AddressesFilters](docs/models/AddressesFilters.md)
  - [AlertExposureTypeEnum](docs/models/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/models/AlertLevelEnum.md)
- - [AllocationResponse](docs/models/AllocationResponse.md)
- - [AllocationResponseAccept](docs/models/AllocationResponseAccept.md)
- - [AllocationResponseReject](docs/models/AllocationResponseReject.md)
  - [AllocationWithdrawPayload](docs/models/AllocationWithdrawPayload.md)
  - [AllowListPayload](docs/models/AllowListPayload.md)
  - [AllowlistEntry](docs/models/AllowlistEntry.md)
@@ -814,7 +813,6 @@ Class | Method | HTTP request | Description
  - [CantonCallEndInvestorInviteCancel](docs/models/CantonCallEndInvestorInviteCancel.md)
  - [CantonCallEndInvestorOffboard](docs/models/CantonCallEndInvestorOffboard.md)
  - [CantonCallParticipantOnboarding](docs/models/CantonCallParticipantOnboarding.md)
- - [CantonCallTransferWithdraw](docs/models/CantonCallTransferWithdraw.md)
  - [CantonDetails](docs/models/CantonDetails.md)
  - [CantonDomainEnum](docs/models/CantonDomainEnum.md)
  - [CantonOfferResponseDetails](docs/models/CantonOfferResponseDetails.md)
@@ -957,6 +955,8 @@ Class | Method | HTTP request | Description
  - [CreateSigningKeyDto](docs/models/CreateSigningKeyDto.md)
  - [CreateSigningKeyDtoProofOfOwnership](docs/models/CreateSigningKeyDtoProofOfOwnership.md)
  - [CreateTagRequest](docs/models/CreateTagRequest.md)
+ - [CreateTempoTransferRequest](docs/models/CreateTempoTransferRequest.md)
+ - [CreateTempoTransferResponse](docs/models/CreateTempoTransferResponse.md)
  - [CreateTokenRequestDto](docs/models/CreateTokenRequestDto.md)
  - [CreateTokenRequestDtoCreateParams](docs/models/CreateTokenRequestDtoCreateParams.md)
  - [CreateTransactionResponse](docs/models/CreateTransactionResponse.md)
@@ -981,6 +981,7 @@ Class | Method | HTTP request | Description
  - [Delegation](docs/models/Delegation.md)
  - [DelegationBlockchainPositionInfo](docs/models/DelegationBlockchainPositionInfo.md)
  - [DelegationSummary](docs/models/DelegationSummary.md)
+ - [DeleteApprovalApiKeyResponse](docs/models/DeleteApprovalApiKeyResponse.md)
  - [DeleteNetworkConnectionResponse](docs/models/DeleteNetworkConnectionResponse.md)
  - [DeleteNetworkIdResponse](docs/models/DeleteNetworkIdResponse.md)
  - [DeleteWebhookMtlsConfigResponse](docs/models/DeleteWebhookMtlsConfigResponse.md)
@@ -1024,6 +1025,7 @@ Class | Method | HTTP request | Description
  - [DraftReviewAndValidationResponse](docs/models/DraftReviewAndValidationResponse.md)
  - [DropTransactionRequest](docs/models/DropTransactionRequest.md)
  - [DropTransactionResponse](docs/models/DropTransactionResponse.md)
+ - [DtccOnboardingRejectPayload](docs/models/DtccOnboardingRejectPayload.md)
  - [DvnConfig](docs/models/DvnConfig.md)
  - [DvnConfigWithConfirmations](docs/models/DvnConfigWithConfirmations.md)
  - [EVMTokenCreateParamsDto](docs/models/EVMTokenCreateParamsDto.md)
@@ -1313,15 +1315,16 @@ Class | Method | HTTP request | Description
  - [Offer](docs/models/Offer.md)
  - [OfferResponse](docs/models/OfferResponse.md)
  - [OfferResponseAccepted](docs/models/OfferResponseAccepted.md)
- - [OfferResponseAllocation](docs/models/OfferResponseAllocation.md)
- - [OfferResponseOnboarding](docs/models/OfferResponseOnboarding.md)
- - [OfferResponseTransfer](docs/models/OfferResponseTransfer.md)
+ - [OfferResponseAllocationAccept](docs/models/OfferResponseAllocationAccept.md)
+ - [OfferResponseAllocationReject](docs/models/OfferResponseAllocationReject.md)
+ - [OfferResponseDtccOnboardingAccept](docs/models/OfferResponseDtccOnboardingAccept.md)
+ - [OfferResponseDtccOnboardingReject](docs/models/OfferResponseDtccOnboardingReject.md)
+ - [OfferResponseTradewebAccept](docs/models/OfferResponseTradewebAccept.md)
+ - [OfferResponseTradewebReject](docs/models/OfferResponseTradewebReject.md)
+ - [OfferResponseTransferAccept](docs/models/OfferResponseTransferAccept.md)
+ - [OfferResponseTransferReject](docs/models/OfferResponseTransferReject.md)
+ - [OfferResponseTransferWithdraw](docs/models/OfferResponseTransferWithdraw.md)
  - [OffersResponse](docs/models/OffersResponse.md)
- - [OnboardingResponse](docs/models/OnboardingResponse.md)
- - [OnboardingResponseDtccAccept](docs/models/OnboardingResponseDtccAccept.md)
- - [OnboardingResponseDtccReject](docs/models/OnboardingResponseDtccReject.md)
- - [OnboardingResponseTradewebAccept](docs/models/OnboardingResponseTradewebAccept.md)
- - [OnboardingResponseTradewebReject](docs/models/OnboardingResponseTradewebReject.md)
  - [OnchainTransaction](docs/models/OnchainTransaction.md)
  - [OnchainTransactionsPagedResponse](docs/models/OnchainTransactionsPagedResponse.md)
  - [OnchainTransactionsPagedResponse2](docs/models/OnchainTransactionsPagedResponse2.md)
@@ -1757,6 +1760,9 @@ Class | Method | HTTP request | Description
  - [TagType](docs/models/TagType.md)
  - [TagsPagedResponse](docs/models/TagsPagedResponse.md)
  - [TemplatesPaginatedResponse](docs/models/TemplatesPaginatedResponse.md)
+ - [TempoTransferDestination](docs/models/TempoTransferDestination.md)
+ - [TempoTransferDestinationItem](docs/models/TempoTransferDestinationItem.md)
+ - [TempoTransferSource](docs/models/TempoTransferSource.md)
  - [ThirdPartyRouting](docs/models/ThirdPartyRouting.md)
  - [TimeBasedTrigger](docs/models/TimeBasedTrigger.md)
  - [TimeInForce](docs/models/TimeInForce.md)
@@ -1822,11 +1828,7 @@ Class | Method | HTTP request | Description
  - [TransferPeerTypeEnum2](docs/models/TransferPeerTypeEnum2.md)
  - [TransferRail](docs/models/TransferRail.md)
  - [TransferReceipt](docs/models/TransferReceipt.md)
- - [TransferResponse](docs/models/TransferResponse.md)
- - [TransferResponseAccept](docs/models/TransferResponseAccept.md)
- - [TransferResponseReject](docs/models/TransferResponseReject.md)
  - [TransferValidationFailure](docs/models/TransferValidationFailure.md)
- - [TransferWithdrawPayload](docs/models/TransferWithdrawPayload.md)
  - [TravelRuleActionEnum](docs/models/TravelRuleActionEnum.md)
  - [TravelRuleAddress](docs/models/TravelRuleAddress.md)
  - [TravelRuleCreateTransactionRequest](docs/models/TravelRuleCreateTransactionRequest.md)

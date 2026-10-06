@@ -59,5 +59,21 @@ export interface ApprovalApiKey {
      * @memberof ApprovalApiKey
      */
     'userId': string;
+    /**
+     * The state of the key. `APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION` - registered but waiting for approval, cannot sign yet. `APPROVAL_API_KEY_STATUS_ENABLED` - active. `APPROVAL_API_KEY_STATUS_PENDING_DELETION` - removal is waiting for approval, the key stays active until then. `APPROVAL_API_KEY_STATUS_UNSPECIFIED` - unknown.
+     * @type {string}
+     * @memberof ApprovalApiKey
+     */
+    'status': ApprovalApiKeyStatusEnum;
 }
+
+export const ApprovalApiKeyStatusEnum = {
+    Unspecified: 'APPROVAL_API_KEY_STATUS_UNSPECIFIED',
+    PendingRegistration: 'APPROVAL_API_KEY_STATUS_PENDING_REGISTRATION',
+    Enabled: 'APPROVAL_API_KEY_STATUS_ENABLED',
+    PendingDeletion: 'APPROVAL_API_KEY_STATUS_PENDING_DELETION'
+} as const;
+
+export type ApprovalApiKeyStatusEnum = typeof ApprovalApiKeyStatusEnum[keyof typeof ApprovalApiKeyStatusEnum];
+
 
