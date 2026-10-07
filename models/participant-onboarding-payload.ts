@@ -27,11 +27,11 @@ export interface ParticipantOnboardingPayload {
      */
     'vaultAccountId': string;
     /**
-     * Chain asset — CANTON or CANTON_TEST.
+     * The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
      * @type {string}
      * @memberof ParticipantOnboardingPayload
      */
-    'asset': ParticipantOnboardingPayloadAssetEnum;
+    'blockchainId': ParticipantOnboardingPayloadBlockchainIdEnum;
     /**
      * DTCC infra operator party id.
      * @type {string}
@@ -70,11 +70,11 @@ export interface ParticipantOnboardingPayload {
     'expiresAt'?: string;
 }
 
-export const ParticipantOnboardingPayloadAssetEnum = {
+export const ParticipantOnboardingPayloadBlockchainIdEnum = {
     Canton: 'CANTON',
     CantonTest: 'CANTON_TEST'
 } as const;
 
-export type ParticipantOnboardingPayloadAssetEnum = typeof ParticipantOnboardingPayloadAssetEnum[keyof typeof ParticipantOnboardingPayloadAssetEnum];
+export type ParticipantOnboardingPayloadBlockchainIdEnum = typeof ParticipantOnboardingPayloadBlockchainIdEnum[keyof typeof ParticipantOnboardingPayloadBlockchainIdEnum];
 
 

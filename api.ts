@@ -56,6 +56,7 @@ export * from './api/smart-transfer-api';
 export * from './api/staking-api';
 export * from './api/trlink-api';
 export * from './api/tags-api';
+export * from './api/tempo-beta-api';
 export * from './api/tokenization-api';
 export * from './api/trading-beta-api';
 export * from './api/transactions-api';

@@ -15,22 +15,16 @@
 
 
 /**
- * The result of registering an approval API key.
+ * The result of deleting an approval API key.
  * @export
- * @interface RegisterApprovalApiKeyResponse
+ * @interface DeleteApprovalApiKeyResponse
  */
-export interface RegisterApprovalApiKeyResponse {
+export interface DeleteApprovalApiKeyResponse {
     /**
-     * The server-generated ID of the registered key, used for deletion.
+     * Always returned. An empty string when the key was deleted immediately. Otherwise, the ID of the approval request that must be approved before the key is removed; the key stays active until then. The request appears in `GET /v1/approvals`.
      * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
+     * @memberof DeleteApprovalApiKeyResponse
      */
-    'keyId': string;
-    /**
-     * Always returned. An empty string when the key is active immediately. Otherwise, the ID of the approval request that must be approved before the key becomes active. The request appears in `GET /v1/approvals`.
-     * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
-     */
-    'ccrIdPendingRegistration': string;
+    'ccrIdPendingDeletion': string;
 }
 

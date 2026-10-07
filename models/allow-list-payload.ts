@@ -27,11 +27,11 @@ export interface AllowListPayload {
      */
     'vaultAccountId': string;
     /**
-     * Chain asset — `CANTON` or `CANTON_TEST`.
+     * The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
      * @type {string}
      * @memberof AllowListPayload
      */
-    'asset': AllowListPayloadAssetEnum;
+    'blockchainId': AllowListPayloadBlockchainIdEnum;
     /**
      * Canton party ids to add or remove.
      * @type {Array<string>}
@@ -40,11 +40,11 @@ export interface AllowListPayload {
     'wallets': Array<string>;
 }
 
-export const AllowListPayloadAssetEnum = {
+export const AllowListPayloadBlockchainIdEnum = {
     Canton: 'CANTON',
     CantonTest: 'CANTON_TEST'
 } as const;
 
-export type AllowListPayloadAssetEnum = typeof AllowListPayloadAssetEnum[keyof typeof AllowListPayloadAssetEnum];
+export type AllowListPayloadBlockchainIdEnum = typeof AllowListPayloadBlockchainIdEnum[keyof typeof AllowListPayloadBlockchainIdEnum];
 
 

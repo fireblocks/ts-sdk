@@ -27,11 +27,11 @@ export interface EndInvestorPayload {
      */
     'vaultAccountId': string;
     /**
-     * Chain asset — `CANTON` or `CANTON_TEST`.
+     * The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
      * @type {string}
      * @memberof EndInvestorPayload
      */
-    'asset': EndInvestorPayloadAssetEnum;
+    'blockchainId': EndInvestorPayloadBlockchainIdEnum;
     /**
      * The end investor\'s Canton party id.
      * @type {string}
@@ -40,11 +40,11 @@ export interface EndInvestorPayload {
     'endInvestor': string;
 }
 
-export const EndInvestorPayloadAssetEnum = {
+export const EndInvestorPayloadBlockchainIdEnum = {
     Canton: 'CANTON',
     CantonTest: 'CANTON_TEST'
 } as const;
 
-export type EndInvestorPayloadAssetEnum = typeof EndInvestorPayloadAssetEnum[keyof typeof EndInvestorPayloadAssetEnum];
+export type EndInvestorPayloadBlockchainIdEnum = typeof EndInvestorPayloadBlockchainIdEnum[keyof typeof EndInvestorPayloadBlockchainIdEnum];
 
 

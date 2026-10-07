@@ -54,6 +54,7 @@ import { ApiUserApi,
          StakingApi, 
          TRLinkApi, 
          TagsApi, 
+         TempoBetaApi, 
          TokenizationApi, 
          TradingBetaApi, 
          TransactionsApi, 
@@ -117,6 +118,7 @@ export class Fireblocks {
     private _staking?: StakingApi;
     private _trLink?: TRLinkApi;
     private _tags?: TagsApi;
+    private _tempoBeta?: TempoBetaApi;
     private _tokenization?: TokenizationApi;
     private _tradingBeta?: TradingBetaApi;
     private _transactions?: TransactionsApi;
@@ -277,6 +279,9 @@ export class Fireblocks {
     }
     get tags(): TagsApi {
         return this._tags ?? new TagsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get tempoBeta(): TempoBetaApi {
+        return this._tempoBeta ?? new TempoBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get tokenization(): TokenizationApi {
         return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);

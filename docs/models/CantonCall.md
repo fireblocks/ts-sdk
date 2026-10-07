@@ -5,7 +5,7 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | Which call to make. Selects the shape of &#x60;payload&#x60;. | [default to undefined]|
-|**payload** | [**TransferWithdrawPayload**](TransferWithdrawPayload.md) |  | [default to undefined]|
+|**payload** | [**AllocationWithdrawPayload**](AllocationWithdrawPayload.md) |  | [default to undefined]|
 
 
 ## Enum: CantonCallTypeEnum
@@ -24,8 +24,6 @@
 * `DtccAllowListRemove` (value: `'DTCC_ALLOW_LIST_REMOVE'`)
 
 * `AllocationWithdraw` (value: `'ALLOCATION_WITHDRAW'`)
-
-* `TransferWithdraw` (value: `'TRANSFER_WITHDRAW'`)
 
 
 

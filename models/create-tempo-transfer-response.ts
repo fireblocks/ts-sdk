@@ -15,22 +15,22 @@
 
 
 /**
- * The result of registering an approval API key.
+ * 
  * @export
- * @interface RegisterApprovalApiKeyResponse
+ * @interface CreateTempoTransferResponse
  */
-export interface RegisterApprovalApiKeyResponse {
+export interface CreateTempoTransferResponse {
     /**
-     * The server-generated ID of the registered key, used for deletion.
+     * The Fireblocks transaction ID.
      * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
+     * @memberof CreateTempoTransferResponse
      */
-    'keyId': string;
+    'id'?: string;
     /**
-     * Always returned. An empty string when the key is active immediately. Otherwise, the ID of the approval request that must be approved before the key becomes active. The request appears in `GET /v1/approvals`.
+     * The current status of the transaction.
      * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
+     * @memberof CreateTempoTransferResponse
      */
-    'ccrIdPendingRegistration': string;
+    'status'?: string;
 }
 

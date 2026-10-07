@@ -15,22 +15,36 @@
 
 
 /**
- * The result of registering an approval API key.
+ * The transfer\'s source.
  * @export
- * @interface RegisterApprovalApiKeyResponse
+ * @interface TempoTransferSource
  */
-export interface RegisterApprovalApiKeyResponse {
+export interface TempoTransferSource {
     /**
-     * The server-generated ID of the registered key, used for deletion.
+     * The kind of source.
      * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
+     * @memberof TempoTransferSource
      */
-    'keyId': string;
+    'type': TempoTransferSourceTypeEnum;
     /**
-     * Always returned. An empty string when the key is active immediately. Otherwise, the ID of the approval request that must be approved before the key becomes active. The request appears in `GET /v1/approvals`.
+     * Required when type is VAULT_ACCOUNT — the vault account ID.
      * @type {string}
-     * @memberof RegisterApprovalApiKeyResponse
+     * @memberof TempoTransferSource
      */
-    'ccrIdPendingRegistration': string;
+    'id'?: string;
+    /**
+     * Required when type is EMBEDDED_WALLET.
+     * @type {string}
+     * @memberof TempoTransferSource
+     */
+    'walletId'?: string;
 }
+
+export const TempoTransferSourceTypeEnum = {
+    VaultAccount: 'VAULT_ACCOUNT',
+    EmbeddedWallet: 'EMBEDDED_WALLET'
+} as const;
+
+export type TempoTransferSourceTypeEnum = typeof TempoTransferSourceTypeEnum[keyof typeof TempoTransferSourceTypeEnum];
+
 
