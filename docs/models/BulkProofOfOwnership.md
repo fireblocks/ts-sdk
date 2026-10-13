@@ -1,10 +1,11 @@
-# AllocationWithdrawPayload
+# BulkProofOfOwnership
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**allocationTransactionId** | **string** | The Fireblocks transaction id of the outgoing response that created the allocation. The allocation is resolved from it — Canton contract ids are never accepted here. | [default to undefined]|
+|**message** | **string** | The message to be signed by the key as proof of ownership. 64 to 1024 bytes in hexadecimal format. | [default to undefined]|
+|**signature** | **string** | The signature of the message. 64 bytes in hexadecimal format. | [default to undefined]|
 
 
 

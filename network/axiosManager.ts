@@ -18,6 +18,7 @@ import axios from 'axios';
 import { BearerTokenProvider } from "./bearerTokenProvider";
 import { AdditionalOptions } from "../client/clientConfiguration";
 import { handleError } from "../error/fireblocksError";
+import { operationIdFromConfig, warnOnLifecycleState } from "../utils/lifecycleWarning";
 
 const API_KEY_HEADER_NAME = "X-API-Key";
 const AUTHORIZATION_HEADER_NAME = "Authorization"
@@ -55,11 +56,21 @@ export class AxiosManager {
 
         // Response interceptor for API calls
         this.axiosInstance.interceptors.response.use(
-            response => response,
+            response => {
+                this.warnOnLifecycle(response.headers, response.config, response.status);
+                return response;
+            },
             (error: any) => {
+                // The lifecycle header is present on allowed error responses too, so
+                // warn before rethrowing. Network errors carry no response at all.
+                this.warnOnLifecycle(error?.response?.headers, error?.config, error?.response?.status);
                 throw handleError(error);
             }
         );
+    }
+
+    private warnOnLifecycle(headers: unknown, config: unknown, status?: number): void {
+        warnOnLifecycleState(headers, operationIdFromConfig(config), status);
     }
 
     public getHeaders(config: InternalAxiosRequestConfig): Record<string, string> {

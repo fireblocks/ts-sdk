@@ -39,7 +39,7 @@ export interface CantonCallDetails {
      */
     'domain'?: CantonDomainEnum;
     /**
-     * The call type, matching the `type` sent when the call was created.
+     * The call type, matching the `type` sent when the call was created. Transactions created before a type moved to the offers endpoint keep the value they were written with — `ALLOCATION_WITHDRAW` is one; new withdraws are offer responses.
      * @type {string}
      * @memberof CantonCallDetails
      */
@@ -51,7 +51,7 @@ export interface CantonCallDetails {
      */
     'vendor'?: CantonVendorEnum;
     /**
-     * The transaction this call acts on. On a withdraw it is the allocation that was withdrawn, so the withdraw transaction read on its own still says what it withdrew.
+     * The transaction this call acts on, where it acts on one.
      * @type {string}
      * @memberof CantonCallDetails
      */

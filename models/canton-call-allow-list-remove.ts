@@ -30,6 +30,18 @@ export interface CantonCallAllowListRemove {
      */
     'type': CantonCallAllowListRemoveTypeEnum;
     /**
+     * The vault account whose Canton wallet makes this call.
+     * @type {string}
+     * @memberof CantonCallAllowListRemove
+     */
+    'vaultAccountId': string;
+    /**
+     * The blockchain the vault account\'s Canton party is connected to — `CANTON` or `CANTON_TEST`.
+     * @type {string}
+     * @memberof CantonCallAllowListRemove
+     */
+    'blockchainId': CantonCallAllowListRemoveBlockchainIdEnum;
+    /**
      * 
      * @type {AllowListPayload}
      * @memberof CantonCallAllowListRemove
@@ -42,5 +54,11 @@ export const CantonCallAllowListRemoveTypeEnum = {
 } as const;
 
 export type CantonCallAllowListRemoveTypeEnum = typeof CantonCallAllowListRemoveTypeEnum[keyof typeof CantonCallAllowListRemoveTypeEnum];
+export const CantonCallAllowListRemoveBlockchainIdEnum = {
+    Canton: 'CANTON',
+    CantonTest: 'CANTON_TEST'
+} as const;
+
+export type CantonCallAllowListRemoveBlockchainIdEnum = typeof CantonCallAllowListRemoveBlockchainIdEnum[keyof typeof CantonCallAllowListRemoveBlockchainIdEnum];
 
 

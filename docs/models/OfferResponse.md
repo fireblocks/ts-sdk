@@ -11,7 +11,7 @@
 ## Enum: OfferResponseResponseTypeEnum
 
 
-* `TransferWithdraw` (value: `'TRANSFER_WITHDRAW'`)
+* `AllocationWithdraw` (value: `'ALLOCATION_WITHDRAW'`)
 
 
 

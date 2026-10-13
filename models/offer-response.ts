@@ -24,6 +24,9 @@ import { OfferResponseAllocationAccept } from './offer-response-allocation-accep
 import { OfferResponseAllocationReject } from './offer-response-allocation-reject';
 // May contain unused imports in some cases
 // @ts-ignore
+import { OfferResponseAllocationWithdraw } from './offer-response-allocation-withdraw';
+// May contain unused imports in some cases
+// @ts-ignore
 import { OfferResponseDtccOnboardingAccept } from './offer-response-dtcc-onboarding-accept';
 // May contain unused imports in some cases
 // @ts-ignore
@@ -48,6 +51,6 @@ import { OfferResponseTransferWithdraw } from './offer-response-transfer-withdra
  * @type OfferResponse
  * @export
  */
-export type OfferResponse = { responseType: 'ALLOCATION_ACCEPT' } & OfferResponseAllocationAccept | { responseType: 'ALLOCATION_REJECT' } & OfferResponseAllocationReject | { responseType: 'DTCC_END_INVESTOR_ONBOARDING_ACCEPT' } & OfferResponseDtccOnboardingAccept | { responseType: 'DTCC_END_INVESTOR_ONBOARDING_REJECT' } & OfferResponseDtccOnboardingReject | { responseType: 'TRADEWEB_COSIGNING_DELEGATION_ACCEPT' } & OfferResponseTradewebAccept | { responseType: 'TRADEWEB_COSIGNING_DELEGATION_REJECT' } & OfferResponseTradewebReject | { responseType: 'TRANSFER_ACCEPT' } & OfferResponseTransferAccept | { responseType: 'TRANSFER_REJECT' } & OfferResponseTransferReject | { responseType: 'TRANSFER_WITHDRAW' } & OfferResponseTransferWithdraw;
+export type OfferResponse = { responseType: 'ALLOCATION_ACCEPT' } & OfferResponseAllocationAccept | { responseType: 'ALLOCATION_REJECT' } & OfferResponseAllocationReject | { responseType: 'ALLOCATION_WITHDRAW' } & OfferResponseAllocationWithdraw | { responseType: 'DTCC_END_INVESTOR_ONBOARDING_ACCEPT' } & OfferResponseDtccOnboardingAccept | { responseType: 'DTCC_END_INVESTOR_ONBOARDING_REJECT' } & OfferResponseDtccOnboardingReject | { responseType: 'TRADEWEB_COSIGNING_DELEGATION_ACCEPT' } & OfferResponseTradewebAccept | { responseType: 'TRADEWEB_COSIGNING_DELEGATION_REJECT' } & OfferResponseTradewebReject | { responseType: 'TRANSFER_ACCEPT' } & OfferResponseTransferAccept | { responseType: 'TRANSFER_REJECT' } & OfferResponseTransferReject | { responseType: 'TRANSFER_WITHDRAW' } & OfferResponseTransferWithdraw;
 
 

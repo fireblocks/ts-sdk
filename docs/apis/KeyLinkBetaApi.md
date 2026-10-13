@@ -4,9 +4,12 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createBulkSigningKeys**](#createBulkSigningKeys) | **POST** /key_link/signing_keys/bulk | Register signing keys in bulk
 [**createSigningKey**](#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key
 [**createValidationKey**](#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key
 [**disableValidationKey**](#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key
+[**getBulkSigningKeysJob**](#getBulkSigningKeysJob) | **GET** /key_link/signing_keys/bulk/jobs/{jobId} | Get a bulk registration job
+[**getBulkSigningKeysJobs**](#getBulkSigningKeysJobs) | **GET** /key_link/signing_keys/bulk/jobs | Get bulk registration jobs
 [**getSigningKey**](#getSigningKey) | **GET** /key_link/signing_keys/{keyId} | Get a signing key by &#x60;keyId&#x60;
 [**getSigningKeysList**](#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys
 [**getValidationKey**](#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60;
@@ -14,6 +17,70 @@ Method | HTTP request | Description
 [**setAgentId**](#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id
 [**updateSigningKey**](#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing keyId
 
+
+# **createBulkSigningKeys**
+> CreateBulkSigningKeysResponse createBulkSigningKeys(createBulkSigningKeys)
+
+Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkBetaApiCreateBulkSigningKeysRequest, CreateBulkSigningKeysResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: KeyLinkBetaApiCreateBulkSigningKeysRequest = {
+  // CreateBulkSigningKeys
+  createBulkSigningKeys: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.keyLinkBeta.createBulkSigningKeys(body).then((res: FireblocksResponse<CreateBulkSigningKeysResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createBulkSigningKeys** | **[CreateBulkSigningKeys](../models/CreateBulkSigningKeys.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CreateBulkSigningKeysResponse](../models/CreateBulkSigningKeysResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**202** | Registration is queued |  * X-Request-ID -  <br>  |
+**409** | Error Response |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **createSigningKey**
 > SigningKeyDto createSigningKey(createSigningKeyDto)
@@ -200,6 +267,129 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Modified validation key data |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getBulkSigningKeysJob**
+> BulkSigningKeyJob getBulkSigningKeysJob()
+
+Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkBetaApiGetBulkSigningKeysJobRequest, BulkSigningKeyJob } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: KeyLinkBetaApiGetBulkSigningKeysJobRequest = {
+  // string | The id of the bulk registration job
+  jobId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
+};
+
+fireblocks.keyLinkBeta.getBulkSigningKeysJob(body).then((res: FireblocksResponse<BulkSigningKeyJob>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **jobId** | [**string**] | The id of the bulk registration job | defaults to undefined
+
+
+### Return type
+
+**[BulkSigningKeyJob](../models/BulkSigningKeyJob.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The bulk registration job |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getBulkSigningKeysJobs**
+> GetBulkSigningKeysJobsResponse getBulkSigningKeysJobs()
+
+Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkBetaApiGetBulkSigningKeysJobsRequest, GetBulkSigningKeysJobsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: KeyLinkBetaApiGetBulkSigningKeysJobsRequest = {
+  // string | Cursor to the next page (optional)
+  pageCursor: pageCursor_example,
+  // number | Amount of results to return in the next page (optional)
+  pageSize: 56,
+};
+
+fireblocks.keyLinkBeta.getBulkSigningKeysJobs(body).then((res: FireblocksResponse<GetBulkSigningKeysJobsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **pageCursor** | [**string**] | Cursor to the next page | (optional) defaults to undefined
+ **pageSize** | [**number**] | Amount of results to return in the next page | (optional) defaults to 10
+
+
+### Return type
+
+**[GetBulkSigningKeysJobsResponse](../models/GetBulkSigningKeysJobsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Bulk registration jobs for the workspace |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

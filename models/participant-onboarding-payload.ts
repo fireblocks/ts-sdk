@@ -15,66 +15,46 @@
 
 
 /**
- * 
+ * Optional, and so is every field in it: omit `payload` entirely to onboard with DTCC\'s published parties for the blockchain and the default expiry.
  * @export
  * @interface ParticipantOnboardingPayload
  */
 export interface ParticipantOnboardingPayload {
-    /**
-     * The vault account that acts as the participant. Its Canton party is derived for you.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'vaultAccountId': string;
-    /**
-     * The blockchain this party is connected to — `CANTON` or `CANTON_TEST`.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'blockchainId': ParticipantOnboardingPayloadBlockchainIdEnum;
-    /**
-     * DTCC infra operator party id.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'operator': string;
-    /**
-     * DTCC compliance party id.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'compliance': string;
-    /**
-     * DTCC registrar party id — co-signs the accept.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'registrar': string;
-    /**
-     * DTCC client onboarder party id — co-signs the accept.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'clientOnboarder': string;
-    /**
-     * DTCC upgrader party id — the Model Upgrade Tool authority. Supplied by DTCC during the off-chain registration, alongside the other party ids.
-     * @type {string}
-     * @memberof ParticipantOnboardingPayload
-     */
-    'upgrader': string;
     /**
      * When the onboarding request expires if it has not been answered. RFC 3339.
      * @type {string}
      * @memberof ParticipantOnboardingPayload
      */
     'expiresAt'?: string;
+    /**
+     * DTCC infra operator party id. Optional — overrides the service\'s default for the blockchain.
+     * @type {string}
+     * @memberof ParticipantOnboardingPayload
+     */
+    'operator'?: string;
+    /**
+     * DTCC compliance party id. Optional — overrides the service\'s default for the blockchain.
+     * @type {string}
+     * @memberof ParticipantOnboardingPayload
+     */
+    'compliance'?: string;
+    /**
+     * DTCC registrar party id — co-signs the accept. Optional — overrides the service\'s default for the blockchain.
+     * @type {string}
+     * @memberof ParticipantOnboardingPayload
+     */
+    'registrar'?: string;
+    /**
+     * DTCC client onboarder party id — co-signs the accept. Optional — overrides the service\'s default for the blockchain.
+     * @type {string}
+     * @memberof ParticipantOnboardingPayload
+     */
+    'clientOnboarder'?: string;
+    /**
+     * DTCC upgrader party id — the Model Upgrade Tool authority. Optional — overrides the service\'s default for the blockchain.
+     * @type {string}
+     * @memberof ParticipantOnboardingPayload
+     */
+    'upgrader'?: string;
 }
-
-export const ParticipantOnboardingPayloadBlockchainIdEnum = {
-    Canton: 'CANTON',
-    CantonTest: 'CANTON_TEST'
-} as const;
-
-export type ParticipantOnboardingPayloadBlockchainIdEnum = typeof ParticipantOnboardingPayloadBlockchainIdEnum[keyof typeof ParticipantOnboardingPayloadBlockchainIdEnum];
-
 

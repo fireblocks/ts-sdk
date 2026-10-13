@@ -21,7 +21,7 @@ import { CantonDomainEnum } from './canton-domain-enum';
 import { CantonVendorEnum } from './canton-vendor-enum';
 
 /**
- * The transaction belongs to an offer conversation: the offer itself, the response to it, or a leg that carries no answer of its own. The only block that changes over a transaction\'s lifetime.
+ * The transaction belongs to an offer conversation: the offer itself, a response to it, or a leg that carries no answer of its own. The only block that changes over a transaction\'s lifetime. An offer can have more than one response — an allocation offer is accepted and later withdrawn — so every response transaction states which answer it is in `responseType`.
  * @export
  * @interface CantonOfferResponseDetails
  */
@@ -45,7 +45,7 @@ export interface CantonOfferResponseDetails {
      */
     'vendor'?: CantonVendorEnum;
     /**
-     * The responses that can be sent for this offer right now. An empty array means nothing is answerable on this transaction — which is the difference between an actionable offer and a linked leg that shares its sub-status.
+     * The responses this offer accepts — copy one into `responseType` to answer it. Present on the offer only, set when it arrives and never changed: it states what the offer TYPE accepts, not whether it is answerable right now. The respond endpoint is the authority on that, and answers `409` when the offer\'s state or expiry rules a response out — for example an `ALLOCATION_WITHDRAW` sent before the accept has settled. An empty array means nothing is answerable on this transaction — the difference between an actionable offer and a linked leg that shares its sub-status.
      * @type {Array<string>}
      * @memberof CantonOfferResponseDetails
      */
@@ -68,6 +68,18 @@ export interface CantonOfferResponseDetails {
      * @memberof CantonOfferResponseDetails
      */
     'originalTransactionId'?: string;
+    /**
+     * On a response transaction, which answer it is — the `responseType` that was sent. Absent on the offer itself.
+     * @type {string}
+     * @memberof CantonOfferResponseDetails
+     */
+    'responseType'?: string;
+    /**
+     * On an `ALLOCATION_WITHDRAW` response only — the accept whose allocation this withdraw released, so the withdraw transaction read on its own says what it undid.
+     * @type {string}
+     * @memberof CantonOfferResponseDetails
+     */
+    'allocationTransactionId'?: string;
     /**
      * The outcome, set once the transaction reaches a terminal status.
      * @type {string}

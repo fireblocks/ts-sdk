@@ -5,25 +5,34 @@
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
 |**type** | **string** | Which call to make. Selects the shape of &#x60;payload&#x60;. | [default to undefined]|
-|**payload** | [**AllocationWithdrawPayload**](AllocationWithdrawPayload.md) |  | [default to undefined]|
+|**vaultAccountId** | **string** | The vault account whose Canton wallet makes this call. | [default to undefined]|
+|**blockchainId** | **string** | The blockchain the vault account\&#39;s Canton party is connected to — &#x60;CANTON&#x60; or &#x60;CANTON_TEST&#x60;. | [default to undefined]|
+|**payload** | [**AllowListPayload**](AllowListPayload.md) |  | [default to undefined]|
 
 
 ## Enum: CantonCallTypeEnum
 
 
-* `DtccParticipantOnboarding` (value: `'DTCC_PARTICIPANT_ONBOARDING'`)
+* `ParticipantOnboarding` (value: `'DTCC_PARTICIPANT_ONBOARDING'`)
 
-* `DtccEndInvestorInvite` (value: `'DTCC_END_INVESTOR_INVITE'`)
+* `EndInvestorInvite` (value: `'DTCC_END_INVESTOR_INVITE'`)
 
-* `DtccEndInvestorInviteCancel` (value: `'DTCC_END_INVESTOR_INVITE_CANCEL'`)
+* `EndInvestorInviteCancel` (value: `'DTCC_END_INVESTOR_INVITE_CANCEL'`)
 
-* `DtccEndInvestorOffboard` (value: `'DTCC_END_INVESTOR_OFFBOARD'`)
+* `EndInvestorOffboard` (value: `'DTCC_END_INVESTOR_OFFBOARD'`)
 
-* `DtccAllowListAdd` (value: `'DTCC_ALLOW_LIST_ADD'`)
+* `AllowListAdd` (value: `'DTCC_ALLOW_LIST_ADD'`)
 
-* `DtccAllowListRemove` (value: `'DTCC_ALLOW_LIST_REMOVE'`)
+* `AllowListRemove` (value: `'DTCC_ALLOW_LIST_REMOVE'`)
 
-* `AllocationWithdraw` (value: `'ALLOCATION_WITHDRAW'`)
+
+
+## Enum: CantonCallBlockchainIdEnum
+
+
+* `Canton` (value: `'CANTON'`)
+
+* `CantonTest` (value: `'CANTON_TEST'`)
 
 
 

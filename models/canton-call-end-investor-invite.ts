@@ -30,6 +30,18 @@ export interface CantonCallEndInvestorInvite {
      */
     'type': CantonCallEndInvestorInviteTypeEnum;
     /**
+     * The vault account whose Canton wallet makes this call.
+     * @type {string}
+     * @memberof CantonCallEndInvestorInvite
+     */
+    'vaultAccountId': string;
+    /**
+     * The blockchain the vault account\'s Canton party is connected to — `CANTON` or `CANTON_TEST`.
+     * @type {string}
+     * @memberof CantonCallEndInvestorInvite
+     */
+    'blockchainId': CantonCallEndInvestorInviteBlockchainIdEnum;
+    /**
      * 
      * @type {EndInvestorPayload}
      * @memberof CantonCallEndInvestorInvite
@@ -42,5 +54,11 @@ export const CantonCallEndInvestorInviteTypeEnum = {
 } as const;
 
 export type CantonCallEndInvestorInviteTypeEnum = typeof CantonCallEndInvestorInviteTypeEnum[keyof typeof CantonCallEndInvestorInviteTypeEnum];
+export const CantonCallEndInvestorInviteBlockchainIdEnum = {
+    Canton: 'CANTON',
+    CantonTest: 'CANTON_TEST'
+} as const;
+
+export type CantonCallEndInvestorInviteBlockchainIdEnum = typeof CantonCallEndInvestorInviteBlockchainIdEnum[keyof typeof CantonCallEndInvestorInviteBlockchainIdEnum];
 
 

@@ -30,11 +30,23 @@ export interface CantonCallParticipantOnboarding {
      */
     'type': CantonCallParticipantOnboardingTypeEnum;
     /**
+     * The vault account whose Canton wallet makes this call.
+     * @type {string}
+     * @memberof CantonCallParticipantOnboarding
+     */
+    'vaultAccountId': string;
+    /**
+     * The blockchain the vault account\'s Canton party is connected to — `CANTON` or `CANTON_TEST`.
+     * @type {string}
+     * @memberof CantonCallParticipantOnboarding
+     */
+    'blockchainId': CantonCallParticipantOnboardingBlockchainIdEnum;
+    /**
      * 
      * @type {ParticipantOnboardingPayload}
      * @memberof CantonCallParticipantOnboarding
      */
-    'payload': ParticipantOnboardingPayload;
+    'payload'?: ParticipantOnboardingPayload;
 }
 
 export const CantonCallParticipantOnboardingTypeEnum = {
@@ -42,5 +54,11 @@ export const CantonCallParticipantOnboardingTypeEnum = {
 } as const;
 
 export type CantonCallParticipantOnboardingTypeEnum = typeof CantonCallParticipantOnboardingTypeEnum[keyof typeof CantonCallParticipantOnboardingTypeEnum];
+export const CantonCallParticipantOnboardingBlockchainIdEnum = {
+    Canton: 'CANTON',
+    CantonTest: 'CANTON_TEST'
+} as const;
+
+export type CantonCallParticipantOnboardingBlockchainIdEnum = typeof CantonCallParticipantOnboardingBlockchainIdEnum[keyof typeof CantonCallParticipantOnboardingBlockchainIdEnum];
 
 

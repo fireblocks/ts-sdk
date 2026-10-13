@@ -55,7 +55,7 @@ TRLinkApi,
 TagsApi, 
 TempoBetaApi, 
 TokenizationApi, 
-TradingBetaApi, 
+TradingApi, 
 TransactionsApi, 
 TravelRuleApi, 
 UTXOManagementBetaApi, 
@@ -117,7 +117,7 @@ let mockTRLinkApi: jest.Mock;
 let mockTagsApi: jest.Mock;
 let mockTempoBetaApi: jest.Mock;
 let mockTokenizationApi: jest.Mock;
-let mockTradingBetaApi: jest.Mock;
+let mockTradingApi: jest.Mock;
 let mockTransactionsApi: jest.Mock;
 let mockTravelRuleApi: jest.Mock;
 let mockUTXOManagementBetaApi: jest.Mock;
@@ -176,7 +176,7 @@ jest.mock('../api', () => {
     mockTagsApi = jest.fn();
     mockTempoBetaApi = jest.fn();
     mockTokenizationApi = jest.fn();
-    mockTradingBetaApi = jest.fn();
+    mockTradingApi = jest.fn();
     mockTransactionsApi = jest.fn();
     mockTravelRuleApi = jest.fn();
     mockUTXOManagementBetaApi = jest.fn();
@@ -236,7 +236,7 @@ jest.mock('../api', () => {
         TagsApi: mockTagsApi,
         TempoBetaApi: mockTempoBetaApi,
         TokenizationApi: mockTokenizationApi,
-        TradingBetaApi: mockTradingBetaApi,
+        TradingApi: mockTradingApi,
         TransactionsApi: mockTransactionsApi,
         TravelRuleApi: mockTravelRuleApi,
         UTXOManagementBetaApi: mockUTXOManagementBetaApi,
@@ -504,9 +504,9 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.tokenization).toBeInstanceOf(TokenizationApi);
             expect(mockTokenizationApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return TradingBetaApi', async () => {
-            expect(fireblocks.tradingBeta).toBeInstanceOf(TradingBetaApi);
-            expect(mockTradingBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return TradingApi', async () => {
+            expect(fireblocks.trading).toBeInstanceOf(TradingApi);
+            expect(mockTradingApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return TransactionsApi', async () => {
             expect(fireblocks.transactions).toBeInstanceOf(TransactionsApi);

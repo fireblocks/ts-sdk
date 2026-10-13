@@ -15,32 +15,37 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AllocationWithdrawPayload } from './allocation-withdraw-payload';
+import { BulkProofOfOwnership } from './bulk-proof-of-ownership';
 
 /**
  * 
  * @export
- * @interface CantonCallAllocationWithdraw
+ * @interface BulkSigningKey
  */
-export interface CantonCallAllocationWithdraw {
+export interface BulkSigningKey {
     /**
-     * Which call to make. Selects the shape of `payload`.
+     * The ID, name or label of the key specified on the customer\'s signing device.
      * @type {string}
-     * @memberof CantonCallAllocationWithdraw
+     * @memberof BulkSigningKey
      */
-    'type': CantonCallAllocationWithdrawTypeEnum;
+    'signingDeviceKeyId': string;
+    /**
+     * The signed certificate that includes the public key PEM of the signing key, signed by the validation key declared for the request.
+     * @type {string}
+     * @memberof BulkSigningKey
+     */
+    'signedCertPem': string;
+    /**
+     * Id of user to which this key belongs
+     * @type {string}
+     * @memberof BulkSigningKey
+     */
+    'agentUserId': string;
     /**
      * 
-     * @type {AllocationWithdrawPayload}
-     * @memberof CantonCallAllocationWithdraw
+     * @type {BulkProofOfOwnership}
+     * @memberof BulkSigningKey
      */
-    'payload': AllocationWithdrawPayload;
+    'proofOfOwnership': BulkProofOfOwnership;
 }
-
-export const CantonCallAllocationWithdrawTypeEnum = {
-    AllocationWithdraw: 'ALLOCATION_WITHDRAW'
-} as const;
-
-export type CantonCallAllocationWithdrawTypeEnum = typeof CantonCallAllocationWithdrawTypeEnum[keyof typeof CantonCallAllocationWithdrawTypeEnum];
-
 

@@ -15,16 +15,22 @@
 
 
 /**
- * 
+ * Proof that the customer holds the private key. Required for every key, unlike the single key endpoint: bulk registration has no interactive step in which a proof can arrive later.
  * @export
- * @interface AllocationWithdrawPayload
+ * @interface BulkProofOfOwnership
  */
-export interface AllocationWithdrawPayload {
+export interface BulkProofOfOwnership {
     /**
-     * The Fireblocks transaction id of the outgoing response that created the allocation. The allocation is resolved from it — Canton contract ids are never accepted here.
+     * The message to be signed by the key as proof of ownership. 64 to 1024 bytes in hexadecimal format.
      * @type {string}
-     * @memberof AllocationWithdrawPayload
+     * @memberof BulkProofOfOwnership
      */
-    'allocationTransactionId': string;
+    'message': string;
+    /**
+     * The signature of the message. 64 bytes in hexadecimal format.
+     * @type {string}
+     * @memberof BulkProofOfOwnership
+     */
+    'signature': string;
 }
 
