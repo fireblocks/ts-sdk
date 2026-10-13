@@ -27,6 +27,12 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { BulkSigningKeyJob } from '../models';
+// @ts-ignore
+import { CreateBulkSigningKeys } from '../models';
+// @ts-ignore
+import { CreateBulkSigningKeysResponse } from '../models';
+// @ts-ignore
 import { CreateSigningKeyDto } from '../models';
 // @ts-ignore
 import { CreateValidationKeyDto } from '../models';
@@ -34,6 +40,8 @@ import { CreateValidationKeyDto } from '../models';
 import { CreateValidationKeyResponseDto } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
+// @ts-ignore
+import { GetBulkSigningKeysJobsResponse } from '../models';
 // @ts-ignore
 import { GetSigningKeyResponseDto } from '../models';
 // @ts-ignore
@@ -55,6 +63,50 @@ import { ValidationKeyDto } from '../models';
 export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
+         * @summary Register signing keys in bulk
+         * @param {CreateBulkSigningKeys} createBulkSigningKeys 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createBulkSigningKeys: async (createBulkSigningKeys: CreateBulkSigningKeys, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createBulkSigningKeys', 'createBulkSigningKeys', createBulkSigningKeys)
+            const localVarPath = `/key_link/signing_keys/bulk`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createBulkSigningKeys';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createBulkSigningKeys, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
          * @summary Add a new signing key
          * @param {CreateSigningKeyDto} createSigningKeyDto 
@@ -73,6 +125,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createSigningKey';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -113,6 +169,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createValidationKey';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -155,6 +215,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'disableValidationKey';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -166,6 +230,87 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(modifyValidationKeyDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
+         * @summary Get a bulk registration job
+         * @param {string} jobId The id of the bulk registration job
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulkSigningKeysJob: async (jobId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getBulkSigningKeysJob', 'jobId', jobId)
+            const localVarPath = `/key_link/signing_keys/bulk/jobs/{jobId}`
+                .replace(`{${"jobId"}}`, encodeURIComponent(String(jobId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getBulkSigningKeysJob';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
+         * @summary Get bulk registration jobs
+         * @param {string} [pageCursor] Cursor to the next page
+         * @param {number} [pageSize] Amount of results to return in the next page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulkSigningKeysJobs: async (pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/key_link/signing_keys/bulk/jobs`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getBulkSigningKeysJobs';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -191,6 +336,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getSigningKey';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -232,6 +381,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getSigningKeysList';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -309,6 +462,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getValidationKey';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -343,6 +500,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getValidationKeysList';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -394,6 +555,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'setAgentId';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -432,6 +597,10 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'updateSigningKey';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -459,6 +628,20 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
 export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = KeyLinkBetaApiAxiosParamCreator(configuration)
     return {
+        /**
+         * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
+         * @summary Register signing keys in bulk
+         * @param {CreateBulkSigningKeys} createBulkSigningKeys 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createBulkSigningKeys(createBulkSigningKeys: CreateBulkSigningKeys, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateBulkSigningKeysResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createBulkSigningKeys(createBulkSigningKeys, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['KeyLinkBetaApi.createBulkSigningKeys']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
         /**
          * Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
          * @summary Add a new signing key
@@ -499,6 +682,33 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.disableValidationKey(modifyValidationKeyDto, keyId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['KeyLinkBetaApi.disableValidationKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
+         * @summary Get a bulk registration job
+         * @param {string} jobId The id of the bulk registration job
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBulkSigningKeysJob(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BulkSigningKeyJob>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBulkSigningKeysJob(jobId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['KeyLinkBetaApi.getBulkSigningKeysJob']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
+         * @summary Get bulk registration jobs
+         * @param {string} [pageCursor] Cursor to the next page
+         * @param {number} [pageSize] Amount of results to return in the next page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getBulkSigningKeysJobs(pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBulkSigningKeysJobsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getBulkSigningKeysJobs(pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['KeyLinkBetaApi.getBulkSigningKeysJobs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -605,6 +815,16 @@ export const KeyLinkBetaApiFactory = function (configuration?: Configuration, ba
     const localVarFp = KeyLinkBetaApiFp(configuration)
     return {
         /**
+         * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
+         * @summary Register signing keys in bulk
+         * @param {KeyLinkBetaApiCreateBulkSigningKeysRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createBulkSigningKeys(requestParameters: KeyLinkBetaApiCreateBulkSigningKeysRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateBulkSigningKeysResponse> {
+            return localVarFp.createBulkSigningKeys(requestParameters.createBulkSigningKeys, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
          * @summary Add a new signing key
          * @param {KeyLinkBetaApiCreateSigningKeyRequest} requestParameters Request parameters.
@@ -633,6 +853,26 @@ export const KeyLinkBetaApiFactory = function (configuration?: Configuration, ba
          */
         disableValidationKey(requestParameters: KeyLinkBetaApiDisableValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidationKeyDto> {
             return localVarFp.disableValidationKey(requestParameters.modifyValidationKeyDto, requestParameters.keyId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
+         * @summary Get a bulk registration job
+         * @param {KeyLinkBetaApiGetBulkSigningKeysJobRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulkSigningKeysJob(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<BulkSigningKeyJob> {
+            return localVarFp.getBulkSigningKeysJob(requestParameters.jobId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
+         * @summary Get bulk registration jobs
+         * @param {KeyLinkBetaApiGetBulkSigningKeysJobsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getBulkSigningKeysJobs(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetBulkSigningKeysJobsResponse> {
+            return localVarFp.getBulkSigningKeysJobs(requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a signing key if it exists, identified by the specified `keyId`.
@@ -698,6 +938,27 @@ export const KeyLinkBetaApiFactory = function (configuration?: Configuration, ba
 };
 
 /**
+ * Request parameters for createBulkSigningKeys operation in KeyLinkBetaApi.
+ * @export
+ * @interface KeyLinkBetaApiCreateBulkSigningKeysRequest
+ */
+export interface KeyLinkBetaApiCreateBulkSigningKeysRequest {
+    /**
+     * 
+     * @type {CreateBulkSigningKeys}
+     * @memberof KeyLinkBetaApiCreateBulkSigningKeys
+     */
+    readonly createBulkSigningKeys: CreateBulkSigningKeys
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof KeyLinkBetaApiCreateBulkSigningKeys
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for createSigningKey operation in KeyLinkBetaApi.
  * @export
  * @interface KeyLinkBetaApiCreateSigningKeyRequest
@@ -758,6 +1019,41 @@ export interface KeyLinkBetaApiDisableValidationKeyRequest {
      * @memberof KeyLinkBetaApiDisableValidationKey
      */
     readonly keyId: string
+}
+
+/**
+ * Request parameters for getBulkSigningKeysJob operation in KeyLinkBetaApi.
+ * @export
+ * @interface KeyLinkBetaApiGetBulkSigningKeysJobRequest
+ */
+export interface KeyLinkBetaApiGetBulkSigningKeysJobRequest {
+    /**
+     * The id of the bulk registration job
+     * @type {string}
+     * @memberof KeyLinkBetaApiGetBulkSigningKeysJob
+     */
+    readonly jobId: string
+}
+
+/**
+ * Request parameters for getBulkSigningKeysJobs operation in KeyLinkBetaApi.
+ * @export
+ * @interface KeyLinkBetaApiGetBulkSigningKeysJobsRequest
+ */
+export interface KeyLinkBetaApiGetBulkSigningKeysJobsRequest {
+    /**
+     * Cursor to the next page
+     * @type {string}
+     * @memberof KeyLinkBetaApiGetBulkSigningKeysJobs
+     */
+    readonly pageCursor?: string
+
+    /**
+     * Amount of results to return in the next page
+     * @type {number}
+     * @memberof KeyLinkBetaApiGetBulkSigningKeysJobs
+     */
+    readonly pageSize?: number
 }
 
 /**
@@ -957,6 +1253,18 @@ export interface KeyLinkBetaApiUpdateSigningKeyRequest {
  */
 export class KeyLinkBetaApi extends BaseAPI {
     /**
+     * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
+     * @summary Register signing keys in bulk
+     * @param {KeyLinkBetaApiCreateBulkSigningKeysRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KeyLinkBetaApi
+     */
+    public createBulkSigningKeys(requestParameters: KeyLinkBetaApiCreateBulkSigningKeysRequest) {
+        return KeyLinkBetaApiFp(this.configuration).createBulkSigningKeys(requestParameters.createBulkSigningKeys, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
      * @summary Add a new signing key
      * @param {KeyLinkBetaApiCreateSigningKeyRequest} requestParameters Request parameters.
@@ -990,6 +1298,30 @@ export class KeyLinkBetaApi extends BaseAPI {
      */
     public disableValidationKey(requestParameters: KeyLinkBetaApiDisableValidationKeyRequest) {
         return KeyLinkBetaApiFp(this.configuration).disableValidationKey(requestParameters.modifyValidationKeyDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
+     * @summary Get a bulk registration job
+     * @param {KeyLinkBetaApiGetBulkSigningKeysJobRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KeyLinkBetaApi
+     */
+    public getBulkSigningKeysJob(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobRequest) {
+        return KeyLinkBetaApiFp(this.configuration).getBulkSigningKeysJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
+     * @summary Get bulk registration jobs
+     * @param {KeyLinkBetaApiGetBulkSigningKeysJobsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KeyLinkBetaApi
+     */
+    public getBulkSigningKeysJobs(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobsRequest = {}) {
+        return KeyLinkBetaApiFp(this.configuration).getBulkSigningKeysJobs(requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

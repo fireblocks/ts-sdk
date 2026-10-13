@@ -15,10 +15,7 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { AllocationWithdrawPayload } from './allocation-withdraw-payload';
-// May contain unused imports in some cases
-// @ts-ignore
-import { CantonCallAllocationWithdraw } from './canton-call-allocation-withdraw';
+import { AllowListPayload } from './allow-list-payload';
 // May contain unused imports in some cases
 // @ts-ignore
 import { CantonCallAllowListAdd } from './canton-call-allow-list-add';
@@ -42,6 +39,6 @@ import { CantonCallParticipantOnboarding } from './canton-call-participant-onboa
  * @type CantonCall
  * @export
  */
-export type CantonCall = { type: 'ALLOCATION_WITHDRAW' } & CantonCallAllocationWithdraw | { type: 'DTCC_ALLOW_LIST_ADD' } & CantonCallAllowListAdd | { type: 'DTCC_ALLOW_LIST_REMOVE' } & CantonCallAllowListRemove | { type: 'DTCC_END_INVESTOR_INVITE' } & CantonCallEndInvestorInvite | { type: 'DTCC_END_INVESTOR_INVITE_CANCEL' } & CantonCallEndInvestorInviteCancel | { type: 'DTCC_END_INVESTOR_OFFBOARD' } & CantonCallEndInvestorOffboard | { type: 'DTCC_PARTICIPANT_ONBOARDING' } & CantonCallParticipantOnboarding;
+export type CantonCall = { type: 'DTCC_ALLOW_LIST_ADD' } & CantonCallAllowListAdd | { type: 'DTCC_ALLOW_LIST_REMOVE' } & CantonCallAllowListRemove | { type: 'DTCC_END_INVESTOR_INVITE' } & CantonCallEndInvestorInvite | { type: 'DTCC_END_INVESTOR_INVITE_CANCEL' } & CantonCallEndInvestorInviteCancel | { type: 'DTCC_END_INVESTOR_OFFBOARD' } & CantonCallEndInvestorOffboard | { type: 'DTCC_PARTICIPANT_ONBOARDING' } & CantonCallParticipantOnboarding;
 
 

@@ -59,13 +59,13 @@ import { TradingErrorSchema } from '../models';
 // @ts-ignore
 import { TradingProvider } from '../models';
 /**
- * TradingBetaApi - axios parameter creator
+ * TradingApi - axios parameter creator
  * @export
  */
-export const TradingBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const TradingApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create an order
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -83,6 +83,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createOrder';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -105,7 +109,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create a quote
          * @param {CreateQuote} createQuote 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -123,6 +127,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createQuote';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -145,7 +153,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get all offers
          * @param {CreateOffersRequest} createOffersRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -163,6 +171,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'fetchAllOffers';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -185,7 +197,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get rates
          * @param {RatesRequest} ratesRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -203,6 +215,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'fetchRates';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -225,7 +241,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve detailed information about a specific order by its ID.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve detailed information about a specific order by its ID.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get order details
          * @param {string} orderId The ID of the order to fetch.
          * @param {*} [options] Override http request option.
@@ -243,6 +259,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getOrder';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -258,7 +278,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get order requirement details for an order
          * @param {string} orderId The ID of the order for which the order requirement is issued.
          * @param {*} [options] Override http request option.
@@ -276,6 +296,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getOrderRequirements';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -291,7 +315,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get orders
          * @param {number} pageSize pageSize for pagination.
          * @param {string} [pageCursor] 
@@ -316,6 +340,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getOrders';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -367,7 +395,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {string} providerId The unique identifier of the provider.
          * @param {*} [options] Override http request option.
@@ -385,6 +413,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getTradingProviderById';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -400,7 +432,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a list of all available external providers supporting trading activities through the platform.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get providers
          * @param {number} [pageSize] Page size for pagination.
          * @param {string} [pageCursor] Page cursor for pagination.
@@ -417,6 +449,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getTradingProviders';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -440,7 +476,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Submit a response to an order requirement
          * @param {SubmitOrderRequirementRequest} submitOrderRequirementRequest 
          * @param {string} orderId The ID of the order to submit the order requirement response for.
@@ -461,6 +497,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'submitOrderRequirements';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -483,7 +523,7 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Upload a file for an order requirement
          * @param {string} fileKey Identifier of the required file this upload satisfies. Must match a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response.
          * @param {File} file The binary file content. The file\\\&#39;s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part.
@@ -506,6 +546,10 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'uploadOrderRequirementFile';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
             const localVarFormParams = new ((configuration && configuration.formDataCtor) || FormData)();
@@ -540,14 +584,14 @@ export const TradingBetaApiAxiosParamCreator = function (configuration?: Configu
 };
 
 /**
- * TradingBetaApi - functional programming interface
+ * TradingApi - functional programming interface
  * @export
  */
-export const TradingBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = TradingBetaApiAxiosParamCreator(configuration)
+export const TradingApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = TradingApiAxiosParamCreator(configuration)
     return {
         /**
-         * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create an order
          * @param {CreateOrderRequest} createOrderRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -557,11 +601,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async createOrder(createOrderRequest: CreateOrderRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderDetails>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createOrder(createOrderRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.createOrder']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.createOrder']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create a quote
          * @param {CreateQuote} createQuote 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -571,11 +615,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async createQuote(createQuote: CreateQuote, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QuotesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createQuote(createQuote, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.createQuote']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.createQuote']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get all offers
          * @param {CreateOffersRequest} createOffersRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -585,11 +629,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async fetchAllOffers(createOffersRequest: CreateOffersRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OffersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.fetchAllOffers(createOffersRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.fetchAllOffers']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.fetchAllOffers']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get rates
          * @param {RatesRequest} ratesRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -599,11 +643,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async fetchRates(ratesRequest: RatesRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RatesResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.fetchRates(ratesRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.fetchRates']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.fetchRates']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve detailed information about a specific order by its ID.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve detailed information about a specific order by its ID.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get order details
          * @param {string} orderId The ID of the order to fetch.
          * @param {*} [options] Override http request option.
@@ -612,11 +656,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async getOrder(orderId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderDetails>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrder(orderId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.getOrder']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.getOrder']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get order requirement details for an order
          * @param {string} orderId The ID of the order for which the order requirement is issued.
          * @param {*} [options] Override http request option.
@@ -625,11 +669,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async getOrderRequirements(orderId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<OrderRequirementDetails>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrderRequirements(orderId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.getOrderRequirements']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.getOrderRequirements']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get orders
          * @param {number} pageSize pageSize for pagination.
          * @param {string} [pageCursor] 
@@ -646,11 +690,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async getOrders(pageSize: number, pageCursor?: string, order?: GetOrdersOrderEnum, accountId?: Array<string>, providerId?: Array<string>, statuses?: Array<OrderStatus>, startTime?: number, endTime?: number, assetConversionType?: GetOrdersAssetConversionTypeEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetOrdersResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getOrders(pageSize, pageCursor, order, accountId, providerId, statuses, startTime, endTime, assetConversionType, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.getOrders']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.getOrders']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {string} providerId The unique identifier of the provider.
          * @param {*} [options] Override http request option.
@@ -659,11 +703,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async getTradingProviderById(providerId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TradingProvider>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTradingProviderById(providerId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.getTradingProviderById']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.getTradingProviderById']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a list of all available external providers supporting trading activities through the platform.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get providers
          * @param {number} [pageSize] Page size for pagination.
          * @param {string} [pageCursor] Page cursor for pagination.
@@ -673,11 +717,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async getTradingProviders(pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProvidersListResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTradingProviders(pageSize, pageCursor, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.getTradingProviders']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.getTradingProviders']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Submit a response to an order requirement
          * @param {SubmitOrderRequirementRequest} submitOrderRequirementRequest 
          * @param {string} orderId The ID of the order to submit the order requirement response for.
@@ -688,11 +732,11 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async submitOrderRequirements(submitOrderRequirementRequest: SubmitOrderRequirementRequest, orderId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.submitOrderRequirements(submitOrderRequirementRequest, orderId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.submitOrderRequirements']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.submitOrderRequirements']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Upload a file for an order requirement
          * @param {string} fileKey Identifier of the required file this upload satisfies. Must match a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response.
          * @param {File} file The binary file content. The file\\\&#39;s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part.
@@ -704,549 +748,549 @@ export const TradingBetaApiFp = function(configuration?: Configuration) {
         async uploadOrderRequirementFile(fileKey: string, file: File, orderId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.uploadOrderRequirementFile(fileKey, file, orderId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['TradingBetaApi.uploadOrderRequirementFile']?.[index]?.url;
+            const operationBasePath = operationServerMap['TradingApi.uploadOrderRequirementFile']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * TradingBetaApi - factory interface
+ * TradingApi - factory interface
  * @export
  */
-export const TradingBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = TradingBetaApiFp(configuration)
+export const TradingApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = TradingApiFp(configuration)
     return {
         /**
-         * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create an order
-         * @param {TradingBetaApiCreateOrderRequest} requestParameters Request parameters.
+         * @param {TradingApiCreateOrderRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createOrder(requestParameters: TradingBetaApiCreateOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrderDetails> {
+        createOrder(requestParameters: TradingApiCreateOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrderDetails> {
             return localVarFp.createOrder(requestParameters.createOrderRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create a quote
-         * @param {TradingBetaApiCreateQuoteRequest} requestParameters Request parameters.
+         * @param {TradingApiCreateQuoteRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createQuote(requestParameters: TradingBetaApiCreateQuoteRequest, options?: RawAxiosRequestConfig): AxiosPromise<QuotesResponse> {
+        createQuote(requestParameters: TradingApiCreateQuoteRequest, options?: RawAxiosRequestConfig): AxiosPromise<QuotesResponse> {
             return localVarFp.createQuote(requestParameters.createQuote, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get all offers
-         * @param {TradingBetaApiFetchAllOffersRequest} requestParameters Request parameters.
+         * @param {TradingApiFetchAllOffersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fetchAllOffers(requestParameters: TradingBetaApiFetchAllOffersRequest, options?: RawAxiosRequestConfig): AxiosPromise<OffersResponse> {
+        fetchAllOffers(requestParameters: TradingApiFetchAllOffersRequest, options?: RawAxiosRequestConfig): AxiosPromise<OffersResponse> {
             return localVarFp.fetchAllOffers(requestParameters.createOffersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get rates
-         * @param {TradingBetaApiFetchRatesRequest} requestParameters Request parameters.
+         * @param {TradingApiFetchRatesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        fetchRates(requestParameters: TradingBetaApiFetchRatesRequest, options?: RawAxiosRequestConfig): AxiosPromise<RatesResponse> {
+        fetchRates(requestParameters: TradingApiFetchRatesRequest, options?: RawAxiosRequestConfig): AxiosPromise<RatesResponse> {
             return localVarFp.fetchRates(requestParameters.ratesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve detailed information about a specific order by its ID.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve detailed information about a specific order by its ID.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get order details
-         * @param {TradingBetaApiGetOrderRequest} requestParameters Request parameters.
+         * @param {TradingApiGetOrderRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrder(requestParameters: TradingBetaApiGetOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrderDetails> {
+        getOrder(requestParameters: TradingApiGetOrderRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrderDetails> {
             return localVarFp.getOrder(requestParameters.orderId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get order requirement details for an order
-         * @param {TradingBetaApiGetOrderRequirementsRequest} requestParameters Request parameters.
+         * @param {TradingApiGetOrderRequirementsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrderRequirements(requestParameters: TradingBetaApiGetOrderRequirementsRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrderRequirementDetails> {
+        getOrderRequirements(requestParameters: TradingApiGetOrderRequirementsRequest, options?: RawAxiosRequestConfig): AxiosPromise<OrderRequirementDetails> {
             return localVarFp.getOrderRequirements(requestParameters.orderId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get orders
-         * @param {TradingBetaApiGetOrdersRequest} requestParameters Request parameters.
+         * @param {TradingApiGetOrdersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getOrders(requestParameters: TradingBetaApiGetOrdersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOrdersResponse> {
+        getOrders(requestParameters: TradingApiGetOrdersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOrdersResponse> {
             return localVarFp.getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
-         * @param {TradingBetaApiGetTradingProviderByIdRequest} requestParameters Request parameters.
+         * @param {TradingApiGetTradingProviderByIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTradingProviderById(requestParameters: TradingBetaApiGetTradingProviderByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<TradingProvider> {
+        getTradingProviderById(requestParameters: TradingApiGetTradingProviderByIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<TradingProvider> {
             return localVarFp.getTradingProviderById(requestParameters.providerId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * Retrieve a list of all available external providers supporting trading activities through the platform.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get providers
-         * @param {TradingBetaApiGetTradingProvidersRequest} requestParameters Request parameters.
+         * @param {TradingApiGetTradingProvidersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getTradingProviders(requestParameters: TradingBetaApiGetTradingProvidersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ProvidersListResponse> {
+        getTradingProviders(requestParameters: TradingApiGetTradingProvidersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<ProvidersListResponse> {
             return localVarFp.getTradingProviders(requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
         },
         /**
-         * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Submit a response to an order requirement
-         * @param {TradingBetaApiSubmitOrderRequirementsRequest} requestParameters Request parameters.
+         * @param {TradingApiSubmitOrderRequirementsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        submitOrderRequirements(requestParameters: TradingBetaApiSubmitOrderRequirementsRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        submitOrderRequirements(requestParameters: TradingApiSubmitOrderRequirementsRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.submitOrderRequirements(requestParameters.submitOrderRequirementRequest, requestParameters.orderId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Upload a file for an order requirement
-         * @param {TradingBetaApiUploadOrderRequirementFileRequest} requestParameters Request parameters.
+         * @param {TradingApiUploadOrderRequirementFileRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        uploadOrderRequirementFile(requestParameters: TradingBetaApiUploadOrderRequirementFileRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        uploadOrderRequirementFile(requestParameters: TradingApiUploadOrderRequirementFileRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.uploadOrderRequirementFile(requestParameters.fileKey, requestParameters.file, requestParameters.orderId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for createOrder operation in TradingBetaApi.
+ * Request parameters for createOrder operation in TradingApi.
  * @export
- * @interface TradingBetaApiCreateOrderRequest
+ * @interface TradingApiCreateOrderRequest
  */
-export interface TradingBetaApiCreateOrderRequest {
+export interface TradingApiCreateOrderRequest {
     /**
      * 
      * @type {CreateOrderRequest}
-     * @memberof TradingBetaApiCreateOrder
+     * @memberof TradingApiCreateOrder
      */
     readonly createOrderRequest: CreateOrderRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof TradingBetaApiCreateOrder
+     * @memberof TradingApiCreateOrder
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for createQuote operation in TradingBetaApi.
+ * Request parameters for createQuote operation in TradingApi.
  * @export
- * @interface TradingBetaApiCreateQuoteRequest
+ * @interface TradingApiCreateQuoteRequest
  */
-export interface TradingBetaApiCreateQuoteRequest {
+export interface TradingApiCreateQuoteRequest {
     /**
      * 
      * @type {CreateQuote}
-     * @memberof TradingBetaApiCreateQuote
+     * @memberof TradingApiCreateQuote
      */
     readonly createQuote: CreateQuote
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof TradingBetaApiCreateQuote
+     * @memberof TradingApiCreateQuote
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for fetchAllOffers operation in TradingBetaApi.
+ * Request parameters for fetchAllOffers operation in TradingApi.
  * @export
- * @interface TradingBetaApiFetchAllOffersRequest
+ * @interface TradingApiFetchAllOffersRequest
  */
-export interface TradingBetaApiFetchAllOffersRequest {
+export interface TradingApiFetchAllOffersRequest {
     /**
      * 
      * @type {CreateOffersRequest}
-     * @memberof TradingBetaApiFetchAllOffers
+     * @memberof TradingApiFetchAllOffers
      */
     readonly createOffersRequest: CreateOffersRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof TradingBetaApiFetchAllOffers
+     * @memberof TradingApiFetchAllOffers
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for fetchRates operation in TradingBetaApi.
+ * Request parameters for fetchRates operation in TradingApi.
  * @export
- * @interface TradingBetaApiFetchRatesRequest
+ * @interface TradingApiFetchRatesRequest
  */
-export interface TradingBetaApiFetchRatesRequest {
+export interface TradingApiFetchRatesRequest {
     /**
      * 
      * @type {RatesRequest}
-     * @memberof TradingBetaApiFetchRates
+     * @memberof TradingApiFetchRates
      */
     readonly ratesRequest: RatesRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof TradingBetaApiFetchRates
+     * @memberof TradingApiFetchRates
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for getOrder operation in TradingBetaApi.
+ * Request parameters for getOrder operation in TradingApi.
  * @export
- * @interface TradingBetaApiGetOrderRequest
+ * @interface TradingApiGetOrderRequest
  */
-export interface TradingBetaApiGetOrderRequest {
+export interface TradingApiGetOrderRequest {
     /**
      * The ID of the order to fetch.
      * @type {string}
-     * @memberof TradingBetaApiGetOrder
+     * @memberof TradingApiGetOrder
      */
     readonly orderId: string
 }
 
 /**
- * Request parameters for getOrderRequirements operation in TradingBetaApi.
+ * Request parameters for getOrderRequirements operation in TradingApi.
  * @export
- * @interface TradingBetaApiGetOrderRequirementsRequest
+ * @interface TradingApiGetOrderRequirementsRequest
  */
-export interface TradingBetaApiGetOrderRequirementsRequest {
+export interface TradingApiGetOrderRequirementsRequest {
     /**
      * The ID of the order for which the order requirement is issued.
      * @type {string}
-     * @memberof TradingBetaApiGetOrderRequirements
+     * @memberof TradingApiGetOrderRequirements
      */
     readonly orderId: string
 }
 
 /**
- * Request parameters for getOrders operation in TradingBetaApi.
+ * Request parameters for getOrders operation in TradingApi.
  * @export
- * @interface TradingBetaApiGetOrdersRequest
+ * @interface TradingApiGetOrdersRequest
  */
-export interface TradingBetaApiGetOrdersRequest {
+export interface TradingApiGetOrdersRequest {
     /**
      * pageSize for pagination.
      * @type {number}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly pageSize: number
 
     /**
      * 
      * @type {string}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly pageCursor?: string
 
     /**
      * ASC / DESC ordering (default DESC)
      * @type {'ASC' | 'DESC'}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly order?: GetOrdersOrderEnum
 
     /**
      * Filter by accountId.
      * @type {Array<string>}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly accountId?: Array<string>
 
     /**
      * Filter by providerId.
      * @type {Array<string>}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly providerId?: Array<string>
 
     /**
      * Filter by order status.
      * @type {Array<OrderStatus>}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly statuses?: Array<OrderStatus>
 
     /**
      * 
      * @type {number}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly startTime?: number
 
     /**
      * 
      * @type {number}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly endTime?: number
 
     /**
      * 
      * @type {'DIGITAL_ONLY' | 'FIAT'}
-     * @memberof TradingBetaApiGetOrders
+     * @memberof TradingApiGetOrders
      */
     readonly assetConversionType?: GetOrdersAssetConversionTypeEnum
 }
 
 /**
- * Request parameters for getTradingProviderById operation in TradingBetaApi.
+ * Request parameters for getTradingProviderById operation in TradingApi.
  * @export
- * @interface TradingBetaApiGetTradingProviderByIdRequest
+ * @interface TradingApiGetTradingProviderByIdRequest
  */
-export interface TradingBetaApiGetTradingProviderByIdRequest {
+export interface TradingApiGetTradingProviderByIdRequest {
     /**
      * The unique identifier of the provider.
      * @type {string}
-     * @memberof TradingBetaApiGetTradingProviderById
+     * @memberof TradingApiGetTradingProviderById
      */
     readonly providerId: string
 }
 
 /**
- * Request parameters for getTradingProviders operation in TradingBetaApi.
+ * Request parameters for getTradingProviders operation in TradingApi.
  * @export
- * @interface TradingBetaApiGetTradingProvidersRequest
+ * @interface TradingApiGetTradingProvidersRequest
  */
-export interface TradingBetaApiGetTradingProvidersRequest {
+export interface TradingApiGetTradingProvidersRequest {
     /**
      * Page size for pagination.
      * @type {number}
-     * @memberof TradingBetaApiGetTradingProviders
+     * @memberof TradingApiGetTradingProviders
      */
     readonly pageSize?: number
 
     /**
      * Page cursor for pagination.
      * @type {string}
-     * @memberof TradingBetaApiGetTradingProviders
+     * @memberof TradingApiGetTradingProviders
      */
     readonly pageCursor?: string
 }
 
 /**
- * Request parameters for submitOrderRequirements operation in TradingBetaApi.
+ * Request parameters for submitOrderRequirements operation in TradingApi.
  * @export
- * @interface TradingBetaApiSubmitOrderRequirementsRequest
+ * @interface TradingApiSubmitOrderRequirementsRequest
  */
-export interface TradingBetaApiSubmitOrderRequirementsRequest {
+export interface TradingApiSubmitOrderRequirementsRequest {
     /**
      * 
      * @type {SubmitOrderRequirementRequest}
-     * @memberof TradingBetaApiSubmitOrderRequirements
+     * @memberof TradingApiSubmitOrderRequirements
      */
     readonly submitOrderRequirementRequest: SubmitOrderRequirementRequest
 
     /**
      * The ID of the order to submit the order requirement response for.
      * @type {string}
-     * @memberof TradingBetaApiSubmitOrderRequirements
+     * @memberof TradingApiSubmitOrderRequirements
      */
     readonly orderId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof TradingBetaApiSubmitOrderRequirements
+     * @memberof TradingApiSubmitOrderRequirements
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for uploadOrderRequirementFile operation in TradingBetaApi.
+ * Request parameters for uploadOrderRequirementFile operation in TradingApi.
  * @export
- * @interface TradingBetaApiUploadOrderRequirementFileRequest
+ * @interface TradingApiUploadOrderRequirementFileRequest
  */
-export interface TradingBetaApiUploadOrderRequirementFileRequest {
+export interface TradingApiUploadOrderRequirementFileRequest {
     /**
      * Identifier of the required file this upload satisfies. Must match a &#x60;fileKey&#x60; from &#x60;requiredFiles&#x60; on the GET response.
      * @type {string}
-     * @memberof TradingBetaApiUploadOrderRequirementFile
+     * @memberof TradingApiUploadOrderRequirementFile
      */
     readonly fileKey: string
 
     /**
      * The binary file content. The file\\\&#39;s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part.
      * @type {File}
-     * @memberof TradingBetaApiUploadOrderRequirementFile
+     * @memberof TradingApiUploadOrderRequirementFile
      */
     readonly file: File
 
     /**
      * The ID of the order to upload the order requirement file for.
      * @type {string}
-     * @memberof TradingBetaApiUploadOrderRequirementFile
+     * @memberof TradingApiUploadOrderRequirementFile
      */
     readonly orderId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof TradingBetaApiUploadOrderRequirementFile
+     * @memberof TradingApiUploadOrderRequirementFile
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * TradingBetaApi - object-oriented interface
+ * TradingApi - object-oriented interface
  * @export
- * @class TradingBetaApi
+ * @class TradingApi
  * @extends {BaseAPI}
  */
-export class TradingBetaApi extends BaseAPI {
+export class TradingApi extends BaseAPI {
     /**
-     * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Create an order to buy or sell an asset. If no source is given, an external source will be use.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Create an order
-     * @param {TradingBetaApiCreateOrderRequest} requestParameters Request parameters.
+     * @param {TradingApiCreateOrderRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public createOrder(requestParameters: TradingBetaApiCreateOrderRequest) {
-        return TradingBetaApiFp(this.configuration).createOrder(requestParameters.createOrderRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createOrder(requestParameters: TradingApiCreateOrderRequest) {
+        return TradingApiFp(this.configuration).createOrder(requestParameters.createOrderRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Create a quote
-     * @param {TradingBetaApiCreateQuoteRequest} requestParameters Request parameters.
+     * @param {TradingApiCreateQuoteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public createQuote(requestParameters: TradingBetaApiCreateQuoteRequest) {
-        return TradingBetaApiFp(this.configuration).createQuote(requestParameters.createQuote, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createQuote(requestParameters: TradingApiCreateQuoteRequest) {
+        return TradingApiFp(this.configuration).createQuote(requestParameters.createQuote, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get all offers
-     * @param {TradingBetaApiFetchAllOffersRequest} requestParameters Request parameters.
+     * @param {TradingApiFetchAllOffersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public fetchAllOffers(requestParameters: TradingBetaApiFetchAllOffersRequest) {
-        return TradingBetaApiFp(this.configuration).fetchAllOffers(requestParameters.createOffersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public fetchAllOffers(requestParameters: TradingApiFetchAllOffersRequest) {
+        return TradingApiFp(this.configuration).fetchAllOffers(requestParameters.createOffersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get rates
-     * @param {TradingBetaApiFetchRatesRequest} requestParameters Request parameters.
+     * @param {TradingApiFetchRatesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public fetchRates(requestParameters: TradingBetaApiFetchRatesRequest) {
-        return TradingBetaApiFp(this.configuration).fetchRates(requestParameters.ratesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public fetchRates(requestParameters: TradingApiFetchRatesRequest) {
+        return TradingApiFp(this.configuration).fetchRates(requestParameters.ratesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve detailed information about a specific order by its ID.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Retrieve detailed information about a specific order by its ID.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get order details
-     * @param {TradingBetaApiGetOrderRequest} requestParameters Request parameters.
+     * @param {TradingApiGetOrderRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public getOrder(requestParameters: TradingBetaApiGetOrderRequest) {
-        return TradingBetaApiFp(this.configuration).getOrder(requestParameters.orderId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getOrder(requestParameters: TradingApiGetOrderRequest) {
+        return TradingApiFp(this.configuration).getOrder(requestParameters.orderId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get order requirement details for an order
-     * @param {TradingBetaApiGetOrderRequirementsRequest} requestParameters Request parameters.
+     * @param {TradingApiGetOrderRequirementsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public getOrderRequirements(requestParameters: TradingBetaApiGetOrderRequirementsRequest) {
-        return TradingBetaApiFp(this.configuration).getOrderRequirements(requestParameters.orderId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getOrderRequirements(requestParameters: TradingApiGetOrderRequirementsRequest) {
+        return TradingApiFp(this.configuration).getOrderRequirements(requestParameters.orderId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get orders
-     * @param {TradingBetaApiGetOrdersRequest} requestParameters Request parameters.
+     * @param {TradingApiGetOrdersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public getOrders(requestParameters: TradingBetaApiGetOrdersRequest) {
-        return TradingBetaApiFp(this.configuration).getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getOrders(requestParameters: TradingApiGetOrdersRequest) {
+        return TradingApiFp(this.configuration).getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+     * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
      * @summary Get trading provider by ID
-     * @param {TradingBetaApiGetTradingProviderByIdRequest} requestParameters Request parameters.
+     * @param {TradingApiGetTradingProviderByIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public getTradingProviderById(requestParameters: TradingBetaApiGetTradingProviderByIdRequest) {
-        return TradingBetaApiFp(this.configuration).getTradingProviderById(requestParameters.providerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getTradingProviderById(requestParameters: TradingApiGetTradingProviderByIdRequest) {
+        return TradingApiFp(this.configuration).getTradingProviderById(requestParameters.providerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+     * Retrieve a list of all available external providers supporting trading activities through the platform.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
      * @summary Get providers
-     * @param {TradingBetaApiGetTradingProvidersRequest} requestParameters Request parameters.
+     * @param {TradingApiGetTradingProvidersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public getTradingProviders(requestParameters: TradingBetaApiGetTradingProvidersRequest = {}) {
-        return TradingBetaApiFp(this.configuration).getTradingProviders(requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getTradingProviders(requestParameters: TradingApiGetTradingProvidersRequest = {}) {
+        return TradingApiFp(this.configuration).getTradingProviders(requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Submit a response to an order requirement
-     * @param {TradingBetaApiSubmitOrderRequirementsRequest} requestParameters Request parameters.
+     * @param {TradingApiSubmitOrderRequirementsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public submitOrderRequirements(requestParameters: TradingBetaApiSubmitOrderRequirementsRequest) {
-        return TradingBetaApiFp(this.configuration).submitOrderRequirements(requestParameters.submitOrderRequirementRequest, requestParameters.orderId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public submitOrderRequirements(requestParameters: TradingApiSubmitOrderRequirementsRequest) {
+        return TradingApiFp(this.configuration).submitOrderRequirements(requestParameters.submitOrderRequirementRequest, requestParameters.orderId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Upload a file for an order requirement
-     * @param {TradingBetaApiUploadOrderRequirementFileRequest} requestParameters Request parameters.
+     * @param {TradingApiUploadOrderRequirementFileRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof TradingBetaApi
+     * @memberof TradingApi
      */
-    public uploadOrderRequirementFile(requestParameters: TradingBetaApiUploadOrderRequirementFileRequest) {
-        return TradingBetaApiFp(this.configuration).uploadOrderRequirementFile(requestParameters.fileKey, requestParameters.file, requestParameters.orderId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public uploadOrderRequirementFile(requestParameters: TradingApiUploadOrderRequirementFileRequest) {
+        return TradingApiFp(this.configuration).uploadOrderRequirementFile(requestParameters.fileKey, requestParameters.file, requestParameters.orderId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

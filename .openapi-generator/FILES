@@ -71,7 +71,6 @@ AddressReverseLookupResponse.md
 AddressesFilters.md
 AlertExposureTypeEnum.md
 AlertLevelEnum.md
-AllocationWithdrawPayload.md
 AllowListPayload.md
 AllowlistEntry.md
 AllowlistEntryProviderMetadata.md
@@ -179,6 +178,9 @@ BlockchainStateFilter.md
 BlockchainTransfer.md
 BlockchainsAssetsApi.md
 BpsFee.md
+BulkProofOfOwnership.md
+BulkSigningKey.md
+BulkSigningKeyJob.md
 BusinessEntityTypeEnum.md
 BusinessIdentification.md
 ByorkConfigResponse.md
@@ -195,7 +197,6 @@ CallbackHandler.md
 CallbackHandlerRequest.md
 CancelTransactionResponse.md
 CantonCall.md
-CantonCallAllocationWithdraw.md
 CantonCallAllowListAdd.md
 CantonCallAllowListRemove.md
 CantonCallDetails.md
@@ -325,6 +326,8 @@ CreateAddressesReportRequest.md
 CreateAssetsRequest.md
 CreateBlockchainRequest.md
 CreateBlockchainResponse.md
+CreateBulkSigningKeys.md
+CreateBulkSigningKeysResponse.md
 CreateConfigOperationRequest.md
 CreateConnectionRequest.md
 CreateConnectionResponse.md
@@ -548,6 +551,7 @@ GetAuditLogsResponse.md
 GetAutomationSettingsResponse.md
 GetBillingInfoResponse.md
 GetBlockchainByIdResponse.md
+GetBulkSigningKeysJobsResponse.md
 GetByorkVerdictResponse.md
 GetConnectedAccountsCredentialsPublicKeyResponse.md
 GetConnectionsResponse.md
@@ -733,6 +737,7 @@ OfferResponse.md
 OfferResponseAccepted.md
 OfferResponseAllocationAccept.md
 OfferResponseAllocationReject.md
+OfferResponseAllocationWithdraw.md
 OfferResponseDtccOnboardingAccept.md
 OfferResponseDtccOnboardingReject.md
 OfferResponseTradewebAccept.md
@@ -1218,7 +1223,7 @@ TotalSupplyItemDto.md
 TotalSupplyPagedResponse.md
 TotalSupplyPagedResponse2.md
 TradingAccountType.md
-TradingBetaApi.md
+TradingApi.md
 TradingErrorSchema.md
 TradingProvider.md
 Transaction.md
@@ -1481,7 +1486,7 @@ api/staking-api.ts
 api/tags-api.ts
 api/tempo-beta-api.ts
 api/tokenization-api.ts
-api/trading-beta-api.ts
+api/trading-api.ts
 api/transactions-api.ts
 api/travel-rule-api.ts
 api/trlink-api.ts
@@ -1571,7 +1576,6 @@ models/address-reverse-lookup-response.ts
 models/addresses-filters.ts
 models/alert-exposure-type-enum.ts
 models/alert-level-enum.ts
-models/allocation-withdraw-payload.ts
 models/allow-list-payload.ts
 models/allowlist-entry-provider-metadata.ts
 models/allowlist-entry-response.ts
@@ -1676,6 +1680,9 @@ models/blockchain-state-filter.ts
 models/blockchain-transfer.ts
 models/blockchain.ts
 models/bps-fee.ts
+models/bulk-proof-of-ownership.ts
+models/bulk-signing-key-job.ts
+models/bulk-signing-key.ts
 models/business-entity-type-enum.ts
 models/business-identification.ts
 models/byork-config-response.ts
@@ -1691,7 +1698,6 @@ models/call-accepted.ts
 models/callback-handler-request.ts
 models/callback-handler.ts
 models/cancel-transaction-response.ts
-models/canton-call-allocation-withdraw.ts
 models/canton-call-allow-list-add.ts
 models/canton-call-allow-list-remove.ts
 models/canton-call-details.ts
@@ -1812,6 +1818,8 @@ models/create-apiuser.ts
 models/create-assets-request.ts
 models/create-blockchain-request.ts
 models/create-blockchain-response.ts
+models/create-bulk-signing-keys-response.ts
+models/create-bulk-signing-keys.ts
 models/create-config-operation-request.ts
 models/create-connection-request.ts
 models/create-connection-response.ts
@@ -2027,6 +2035,7 @@ models/get-audit-logs-response.ts
 models/get-automation-settings-response.ts
 models/get-billing-info-response.ts
 models/get-blockchain-by-id-response.ts
+models/get-bulk-signing-keys-jobs-response.ts
 models/get-byork-verdict-response.ts
 models/get-connected-accounts-credentials-public-key-response.ts
 models/get-connections-response.ts
@@ -2203,6 +2212,7 @@ models/notification.ts
 models/offer-response-accepted.ts
 models/offer-response-allocation-accept.ts
 models/offer-response-allocation-reject.ts
+models/offer-response-allocation-withdraw.ts
 models/offer-response-dtcc-onboarding-accept.ts
 models/offer-response-dtcc-onboarding-reject.ts
 models/offer-response-tradeweb-accept.ts
@@ -2891,6 +2901,8 @@ tests/bearerTokenProvider.spec.ts
 tests/client.spec.ts
 tests/fireblocksError.spec.ts
 tests/fireblocksResponse.spec.ts
+tests/lifecycleWarning.spec.ts
 tests/validation_utils.spec.ts
 tsconfig.json
+utils/lifecycleWarning.ts
 utils/validation_utils.ts

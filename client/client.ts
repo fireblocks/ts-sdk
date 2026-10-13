@@ -56,7 +56,7 @@ import { ApiUserApi,
          TagsApi, 
          TempoBetaApi, 
          TokenizationApi, 
-         TradingBetaApi, 
+         TradingApi, 
          TransactionsApi, 
          TravelRuleApi, 
          UTXOManagementBetaApi, 
@@ -120,7 +120,7 @@ export class Fireblocks {
     private _tags?: TagsApi;
     private _tempoBeta?: TempoBetaApi;
     private _tokenization?: TokenizationApi;
-    private _tradingBeta?: TradingBetaApi;
+    private _trading?: TradingApi;
     private _transactions?: TransactionsApi;
     private _travelRule?: TravelRuleApi;
     private _utxoManagementBeta?: UTXOManagementBetaApi;
@@ -286,8 +286,8 @@ export class Fireblocks {
     get tokenization(): TokenizationApi {
         return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);
     }
-    get tradingBeta(): TradingBetaApi {
-        return this._tradingBeta ?? new TradingBetaApi(this.config, undefined, this.axiosManager.axios);
+    get trading(): TradingApi {
+        return this._trading ?? new TradingApi(this.config, undefined, this.axiosManager.axios);
     }
     get transactions(): TransactionsApi {
         return this._transactions ?? new TransactionsApi(this.config, undefined, this.axiosManager.axios);

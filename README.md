@@ -15,6 +15,10 @@ Install the SDK using npm:
 npm install @fireblocks/ts-sdk
 ```
 
+## Versioning
+
+This SDK follows [semantic versioning](https://semver.org), with one exception: operations in the `beta` lifecycle state. Beta operations are not generally available and may not be accessible to all customers. They can change or be removed without notice.
+
 ## Usage
 ### Initializing the SDK
 You can initialize the Fireblocks SDK in two ways, either by setting environment variables or providing the parameters directly:
@@ -119,6 +123,34 @@ async function createTransaction(assetId, amount, srcId, destId) {
 }
 ```
 
+
+## API Lifecycle Warnings
+
+When you call an operation that is not generally available, the SDK logs a warning
+naming the operation and its lifecycle state. The state is read from a response
+header, so it is always current - it does not depend on the SDK version you have
+installed.
+
+```
+Operation 'createTransaction' is in 'beta' lifecycle state and is not generally available. It may change or be removed without notice.
+```
+
+Deprecated operations report their sunset date, and the replacement and migration
+guide when the API provides them.
+
+An operation that has been closed answers `410 Gone` to most callers and logs nothing.
+If your account still has temporary access to it, calls that are served log a warning
+saying so.
+
+Warnings are written with `console.warn`. To suppress them, set:
+
+```shell
+export FIREBLOCKS_SDK_SUPPRESS_LIFECYCLE_WARNING=1
+```
+
+> **If your production build strips `console` calls** - terser `drop_console`,
+> Next.js `compiler.removeConsole`, esbuild `drop: ['console']` - these warnings are
+> removed from the bundle along with them, and you will not see them.
 
 ## Documentation for API Endpoints
 
@@ -318,9 +350,12 @@ Class | Method | HTTP request | Description
 *InternalWalletsApi* | [**getInternalWalletAssetsPaginated**](docs/apis/InternalWalletsApi.md#getInternalWalletAssetsPaginated) | **GET** /internal_wallets/{walletId}/assets | List assets in an internal wallet (Paginated)
 *InternalWalletsApi* | [**getInternalWallets**](docs/apis/InternalWalletsApi.md#getInternalWallets) | **GET** /internal_wallets | List internal wallets
 *InternalWalletsApi* | [**setCustomerRefIdForInternalWallet**](docs/apis/InternalWalletsApi.md#setCustomerRefIdForInternalWallet) | **POST** /internal_wallets/{walletId}/set_customer_ref_id | Set an AML/KYT customer reference ID for internal wallet
+*KeyLinkBetaApi* | [**createBulkSigningKeys**](docs/apis/KeyLinkBetaApi.md#createBulkSigningKeys) | **POST** /key_link/signing_keys/bulk | Register signing keys in bulk
 *KeyLinkBetaApi* | [**createSigningKey**](docs/apis/KeyLinkBetaApi.md#createSigningKey) | **POST** /key_link/signing_keys | Add a new signing key
 *KeyLinkBetaApi* | [**createValidationKey**](docs/apis/KeyLinkBetaApi.md#createValidationKey) | **POST** /key_link/validation_keys | Add a new validation key
 *KeyLinkBetaApi* | [**disableValidationKey**](docs/apis/KeyLinkBetaApi.md#disableValidationKey) | **PATCH** /key_link/validation_keys/{keyId} | Disables a validation key
+*KeyLinkBetaApi* | [**getBulkSigningKeysJob**](docs/apis/KeyLinkBetaApi.md#getBulkSigningKeysJob) | **GET** /key_link/signing_keys/bulk/jobs/{jobId} | Get a bulk registration job
+*KeyLinkBetaApi* | [**getBulkSigningKeysJobs**](docs/apis/KeyLinkBetaApi.md#getBulkSigningKeysJobs) | **GET** /key_link/signing_keys/bulk/jobs | Get bulk registration jobs
 *KeyLinkBetaApi* | [**getSigningKey**](docs/apis/KeyLinkBetaApi.md#getSigningKey) | **GET** /key_link/signing_keys/{keyId} | Get a signing key by &#x60;keyId&#x60;
 *KeyLinkBetaApi* | [**getSigningKeysList**](docs/apis/KeyLinkBetaApi.md#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys
 *KeyLinkBetaApi* | [**getValidationKey**](docs/apis/KeyLinkBetaApi.md#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60;
@@ -494,17 +529,17 @@ Class | Method | HTTP request | Description
 *TokenizationApi* | [**unlink**](docs/apis/TokenizationApi.md#unlink) | **DELETE** /tokenization/tokens/{id} | Unlink a token
 *TokenizationApi* | [**unlinkCollection**](docs/apis/TokenizationApi.md#unlinkCollection) | **DELETE** /tokenization/collections/{id} | Delete a collection link
 *TokenizationApi* | [**validateLayerZeroChannelConfig**](docs/apis/TokenizationApi.md#validateLayerZeroChannelConfig) | **GET** /tokenization/multichain/bridge/layerzero/validate | Validate LayerZero channel configuration
-*TradingBetaApi* | [**createOrder**](docs/apis/TradingBetaApi.md#createOrder) | **POST** /trading/orders | Create an order
-*TradingBetaApi* | [**createQuote**](docs/apis/TradingBetaApi.md#createQuote) | **POST** /trading/quotes | Create a quote
-*TradingBetaApi* | [**fetchAllOffers**](docs/apis/TradingBetaApi.md#fetchAllOffers) | **POST** /trading/offers | Get all offers
-*TradingBetaApi* | [**fetchRates**](docs/apis/TradingBetaApi.md#fetchRates) | **POST** /trading/rates | Get rates
-*TradingBetaApi* | [**getOrder**](docs/apis/TradingBetaApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
-*TradingBetaApi* | [**getOrderRequirements**](docs/apis/TradingBetaApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order
-*TradingBetaApi* | [**getOrders**](docs/apis/TradingBetaApi.md#getOrders) | **GET** /trading/orders | Get orders
-*TradingBetaApi* | [**getTradingProviderById**](docs/apis/TradingBetaApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
-*TradingBetaApi* | [**getTradingProviders**](docs/apis/TradingBetaApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
-*TradingBetaApi* | [**submitOrderRequirements**](docs/apis/TradingBetaApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement
-*TradingBetaApi* | [**uploadOrderRequirementFile**](docs/apis/TradingBetaApi.md#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement
+*TradingApi* | [**createOrder**](docs/apis/TradingApi.md#createOrder) | **POST** /trading/orders | Create an order
+*TradingApi* | [**createQuote**](docs/apis/TradingApi.md#createQuote) | **POST** /trading/quotes | Create a quote
+*TradingApi* | [**fetchAllOffers**](docs/apis/TradingApi.md#fetchAllOffers) | **POST** /trading/offers | Get all offers
+*TradingApi* | [**fetchRates**](docs/apis/TradingApi.md#fetchRates) | **POST** /trading/rates | Get rates
+*TradingApi* | [**getOrder**](docs/apis/TradingApi.md#getOrder) | **GET** /trading/orders/{orderId} | Get order details
+*TradingApi* | [**getOrderRequirements**](docs/apis/TradingApi.md#getOrderRequirements) | **GET** /trading/orders/{orderId}/requirement | Get order requirement details for an order
+*TradingApi* | [**getOrders**](docs/apis/TradingApi.md#getOrders) | **GET** /trading/orders | Get orders
+*TradingApi* | [**getTradingProviderById**](docs/apis/TradingApi.md#getTradingProviderById) | **GET** /trading/providers/{providerId} | Get trading provider by ID
+*TradingApi* | [**getTradingProviders**](docs/apis/TradingApi.md#getTradingProviders) | **GET** /trading/providers | Get providers
+*TradingApi* | [**submitOrderRequirements**](docs/apis/TradingApi.md#submitOrderRequirements) | **POST** /trading/orders/{orderId}/requirement/data | Submit a response to an order requirement
+*TradingApi* | [**uploadOrderRequirementFile**](docs/apis/TradingApi.md#uploadOrderRequirementFile) | **POST** /trading/orders/{orderId}/requirement/file | Upload a file for an order requirement
 *TransactionsApi* | [**cancelTransaction**](docs/apis/TransactionsApi.md#cancelTransaction) | **POST** /transactions/{txId}/cancel | Cancel a transaction
 *TransactionsApi* | [**createTransaction**](docs/apis/TransactionsApi.md#createTransaction) | **POST** /transactions | Create a new transaction
 *TransactionsApi* | [**dropTransaction**](docs/apis/TransactionsApi.md#dropTransaction) | **POST** /transactions/{txId}/drop | Drop ETH (EVM) transaction by ID
@@ -567,7 +602,6 @@ Class | Method | HTTP request | Description
 *VaultsApi* | [**getVaultBalanceByAsset**](docs/apis/VaultsApi.md#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset
 *VaultsApi* | [**hideVaultAccount**](docs/apis/VaultsApi.md#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 *VaultsApi* | [**lookupVaultByAddress**](docs/apis/VaultsApi.md#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address
-*VaultsApi* | [**registerTempoOmnibusWallet**](docs/apis/VaultsApi.md#registerTempoOmnibusWallet) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/omnibus/tempo/register | Register a Tempo omnibus wallet
 *VaultsApi* | [**setCustomerRefIdForAddress**](docs/apis/VaultsApi.md#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
 *VaultsApi* | [**setUsdcGatewayDepositAutomationBeta**](docs/apis/VaultsApi.md#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account
 *VaultsApi* | [**setVaultAccountAutoFuel**](docs/apis/VaultsApi.md#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
@@ -686,7 +720,6 @@ Class | Method | HTTP request | Description
  - [AddressesFilters](docs/models/AddressesFilters.md)
  - [AlertExposureTypeEnum](docs/models/AlertExposureTypeEnum.md)
  - [AlertLevelEnum](docs/models/AlertLevelEnum.md)
- - [AllocationWithdrawPayload](docs/models/AllocationWithdrawPayload.md)
  - [AllowListPayload](docs/models/AllowListPayload.md)
  - [AllowlistEntry](docs/models/AllowlistEntry.md)
  - [AllowlistEntryProviderMetadata](docs/models/AllowlistEntryProviderMetadata.md)
@@ -789,6 +822,9 @@ Class | Method | HTTP request | Description
  - [BlockchainStateFilter](docs/models/BlockchainStateFilter.md)
  - [BlockchainTransfer](docs/models/BlockchainTransfer.md)
  - [BpsFee](docs/models/BpsFee.md)
+ - [BulkProofOfOwnership](docs/models/BulkProofOfOwnership.md)
+ - [BulkSigningKey](docs/models/BulkSigningKey.md)
+ - [BulkSigningKeyJob](docs/models/BulkSigningKeyJob.md)
  - [BusinessEntityTypeEnum](docs/models/BusinessEntityTypeEnum.md)
  - [BusinessIdentification](docs/models/BusinessIdentification.md)
  - [ByorkConfigResponse](docs/models/ByorkConfigResponse.md)
@@ -805,7 +841,6 @@ Class | Method | HTTP request | Description
  - [CallbackHandlerRequest](docs/models/CallbackHandlerRequest.md)
  - [CancelTransactionResponse](docs/models/CancelTransactionResponse.md)
  - [CantonCall](docs/models/CantonCall.md)
- - [CantonCallAllocationWithdraw](docs/models/CantonCallAllocationWithdraw.md)
  - [CantonCallAllowListAdd](docs/models/CantonCallAllowListAdd.md)
  - [CantonCallAllowListRemove](docs/models/CantonCallAllowListRemove.md)
  - [CantonCallDetails](docs/models/CantonCallDetails.md)
@@ -925,6 +960,8 @@ Class | Method | HTTP request | Description
  - [CreateAssetsRequest](docs/models/CreateAssetsRequest.md)
  - [CreateBlockchainRequest](docs/models/CreateBlockchainRequest.md)
  - [CreateBlockchainResponse](docs/models/CreateBlockchainResponse.md)
+ - [CreateBulkSigningKeys](docs/models/CreateBulkSigningKeys.md)
+ - [CreateBulkSigningKeysResponse](docs/models/CreateBulkSigningKeysResponse.md)
  - [CreateConfigOperationRequest](docs/models/CreateConfigOperationRequest.md)
  - [CreateConnectionRequest](docs/models/CreateConnectionRequest.md)
  - [CreateConnectionResponse](docs/models/CreateConnectionResponse.md)
@@ -1140,6 +1177,7 @@ Class | Method | HTTP request | Description
  - [GetAutomationSettingsResponse](docs/models/GetAutomationSettingsResponse.md)
  - [GetBillingInfoResponse](docs/models/GetBillingInfoResponse.md)
  - [GetBlockchainByIdResponse](docs/models/GetBlockchainByIdResponse.md)
+ - [GetBulkSigningKeysJobsResponse](docs/models/GetBulkSigningKeysJobsResponse.md)
  - [GetByorkVerdictResponse](docs/models/GetByorkVerdictResponse.md)
  - [GetConnectedAccountsCredentialsPublicKeyResponse](docs/models/GetConnectedAccountsCredentialsPublicKeyResponse.md)
  - [GetConnectionsResponse](docs/models/GetConnectionsResponse.md)
@@ -1317,6 +1355,7 @@ Class | Method | HTTP request | Description
  - [OfferResponseAccepted](docs/models/OfferResponseAccepted.md)
  - [OfferResponseAllocationAccept](docs/models/OfferResponseAllocationAccept.md)
  - [OfferResponseAllocationReject](docs/models/OfferResponseAllocationReject.md)
+ - [OfferResponseAllocationWithdraw](docs/models/OfferResponseAllocationWithdraw.md)
  - [OfferResponseDtccOnboardingAccept](docs/models/OfferResponseDtccOnboardingAccept.md)
  - [OfferResponseDtccOnboardingReject](docs/models/OfferResponseDtccOnboardingReject.md)
  - [OfferResponseTradewebAccept](docs/models/OfferResponseTradewebAccept.md)

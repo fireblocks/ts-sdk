@@ -58,7 +58,7 @@ export * from './api/trlink-api';
 export * from './api/tags-api';
 export * from './api/tempo-beta-api';
 export * from './api/tokenization-api';
-export * from './api/trading-beta-api';
+export * from './api/trading-api';
 export * from './api/transactions-api';
 export * from './api/travel-rule-api';
 export * from './api/utxomanagement-beta-api';

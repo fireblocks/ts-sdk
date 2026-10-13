@@ -60,6 +60,10 @@ export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createConsoleUser';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -82,7 +86,7 @@ export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - The workspace must have a \"Delete users\" approval policy (admin quorum or approval group). If \"Delete users\" is Owner-only, which is the default, the request is refused with OWNER_ONLY (2760) and the Owner deletes users in the Console. With an admin quorum, the requesting API user\'s own approval counts toward the quorum. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Request deletion of a console user
          * @param {string} id The ID of the console user to delete
          * @param {boolean} [force] Acknowledges the impact of removing this user and proceeds anyway. Overrides both USER_REFERENCED_IN_TAP and QUORUM_INTEGRITY, the same way the acknowledgement checkbox does in the console.
@@ -101,6 +105,10 @@ export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'deleteConsoleUser';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -135,6 +143,10 @@ export const ConsoleUserApiAxiosParamCreator = function (configuration?: Configu
             }
 
             const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getConsoleUsers';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -174,7 +186,7 @@ export const ConsoleUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - The workspace must have a \"Delete users\" approval policy (admin quorum or approval group). If \"Delete users\" is Owner-only, which is the default, the request is refused with OWNER_ONLY (2760) and the Owner deletes users in the Console. With an admin quorum, the requesting API user\'s own approval counts toward the quorum. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Request deletion of a console user
          * @param {string} id The ID of the console user to delete
          * @param {boolean} [force] Acknowledges the impact of removing this user and proceeds anyway. Overrides both USER_REFERENCED_IN_TAP and QUORUM_INTEGRITY, the same way the acknowledgement checkbox does in the console.
@@ -220,7 +232,7 @@ export const ConsoleUserApiFactory = function (configuration?: Configuration, ba
             return localVarFp.createConsoleUser(requestParameters.createConsoleUser, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - The workspace must have a \"Delete users\" approval policy (admin quorum or approval group). If \"Delete users\" is Owner-only, which is the default, the request is refused with OWNER_ONLY (2760) and the Owner deletes users in the Console. With an admin quorum, the requesting API user\'s own approval counts toward the quorum. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
          * @summary Request deletion of a console user
          * @param {ConsoleUserApiDeleteConsoleUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -303,7 +315,7 @@ export class ConsoleUserApi extends BaseAPI {
     }
 
     /**
-     * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Requests deletion of a console user. The request is asynchronous: it goes through the workspace\'s configured \"Delete users\" approval policy (Settings > Quorums), exactly as deleting a user from the console does, and the user is removed only once that approval completes. - The workspace must have a \"Delete users\" approval policy (admin quorum or approval group). If \"Delete users\" is Owner-only, which is the default, the request is refused with OWNER_ONLY (2760) and the Owner deletes users in the Console. With an admin quorum, the requesting API user\'s own approval counts toward the quorum. - Track progress by polling GET /management/users; deletion is complete when the user is disabled. - Please note that this endpoint is available only for API keys with Admin/Non Signing Admin/Security Admin permissions. Endpoint Permission: Admin, Non-Signing Admin, Security Admin. **Note:** This endpoint is currently in beta and might be subject to changes.
      * @summary Request deletion of a console user
      * @param {ConsoleUserApiDeleteConsoleUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

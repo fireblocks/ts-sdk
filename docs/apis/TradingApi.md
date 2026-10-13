@@ -1,4 +1,4 @@
-# TradingBetaApi
+# TradingApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -20,7 +20,7 @@ Method | HTTP request | Description
 # **createOrder**
 > OrderDetails createOrder(createOrderRequest)
 
-Create an order to buy or sell an asset. If no source is given, an external source will be use.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Create an order to buy or sell an asset. If no source is given, an external source will be use.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -28,7 +28,7 @@ Create an order to buy or sell an asset. If no source is given, an external sour
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiCreateOrderRequest, OrderDetails } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiCreateOrderRequest, OrderDetails } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -37,14 +37,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiCreateOrderRequest = {
+let body: TradingApiCreateOrderRequest = {
   // CreateOrderRequest
   createOrderRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.tradingBeta.createOrder(body).then((res: FireblocksResponse<OrderDetails>) => {
+fireblocks.trading.createOrder(body).then((res: FireblocksResponse<OrderDetails>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -88,7 +88,7 @@ No authorization required
 # **createQuote**
 > QuotesResponse createQuote(createQuote)
 
-Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -96,7 +96,7 @@ Generate a time-limited quote for asset conversion, providing exchange rate and 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiCreateQuoteRequest, QuotesResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiCreateQuoteRequest, QuotesResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -105,14 +105,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiCreateQuoteRequest = {
+let body: TradingApiCreateQuoteRequest = {
   // CreateQuote
   createQuote: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.tradingBeta.createQuote(body).then((res: FireblocksResponse<QuotesResponse>) => {
+fireblocks.trading.createQuote(body).then((res: FireblocksResponse<QuotesResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -156,7 +156,7 @@ No authorization required
 # **fetchAllOffers**
 > OffersResponse fetchAllOffers(createOffersRequest)
 
-Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -164,7 +164,7 @@ Retrieve all available offers across the workspace for a given asset pair. Alway
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiFetchAllOffersRequest, OffersResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiFetchAllOffersRequest, OffersResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -173,14 +173,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiFetchAllOffersRequest = {
+let body: TradingApiFetchAllOffersRequest = {
   // CreateOffersRequest
   createOffersRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.tradingBeta.fetchAllOffers(body).then((res: FireblocksResponse<OffersResponse>) => {
+fireblocks.trading.fetchAllOffers(body).then((res: FireblocksResponse<OffersResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -224,7 +224,7 @@ No authorization required
 # **fetchRates**
 > RatesResponse fetchRates(ratesRequest)
 
-Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -232,7 +232,7 @@ Retrieve indicative exchange rate from specified providers for a given asset pai
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiFetchRatesRequest, RatesResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiFetchRatesRequest, RatesResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -241,14 +241,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiFetchRatesRequest = {
+let body: TradingApiFetchRatesRequest = {
   // RatesRequest
   ratesRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.tradingBeta.fetchRates(body).then((res: FireblocksResponse<RatesResponse>) => {
+fireblocks.trading.fetchRates(body).then((res: FireblocksResponse<RatesResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -292,7 +292,7 @@ No authorization required
 # **getOrder**
 > OrderDetails getOrder()
 
-Retrieve detailed information about a specific order by its ID.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve detailed information about a specific order by its ID.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -300,7 +300,7 @@ Retrieve detailed information about a specific order by its ID.  Note:These endp
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiGetOrderRequest, OrderDetails } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiGetOrderRequest, OrderDetails } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -309,12 +309,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiGetOrderRequest = {
+let body: TradingApiGetOrderRequest = {
   // string | The ID of the order to fetch.
   orderId: orderId_example,
 };
 
-fireblocks.tradingBeta.getOrder(body).then((res: FireblocksResponse<OrderDetails>) => {
+fireblocks.trading.getOrder(body).then((res: FireblocksResponse<OrderDetails>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -357,7 +357,7 @@ No authorization required
 # **getOrderRequirements**
 > OrderRequirementDetails getOrderRequirements()
 
-Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Fetch order requirement details for an order that is in `AWAITING_INFORMATION` status.  The response includes `requirementId` and `dueBy` metadata, a `requiredData` JSON Schema (Draft-7) describing the shape of the `data` object expected on `POST /trading/orders/{orderId}/requirement/data`, and `requiredFiles` descriptors for any files the provider requires (uploaded via `POST /trading/orders/{orderId}/requirement/file`).  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -365,7 +365,7 @@ Fetch order requirement details for an order that is in `AWAITING_INFORMATION` s
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiGetOrderRequirementsRequest, OrderRequirementDetails } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiGetOrderRequirementsRequest, OrderRequirementDetails } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -374,12 +374,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiGetOrderRequirementsRequest = {
+let body: TradingApiGetOrderRequirementsRequest = {
   // string | The ID of the order for which the order requirement is issued.
   orderId: orderId_example,
 };
 
-fireblocks.tradingBeta.getOrderRequirements(body).then((res: FireblocksResponse<OrderRequirementDetails>) => {
+fireblocks.trading.getOrderRequirements(body).then((res: FireblocksResponse<OrderRequirementDetails>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -423,7 +423,7 @@ No authorization required
 # **getOrders**
 > GetOrdersResponse getOrders()
 
-Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Note:These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Retrieve a paginated list of orders with optional filtering by account, provider, status, and time range.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -431,7 +431,7 @@ Retrieve a paginated list of orders with optional filtering by account, provider
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiGetOrdersRequest, GetOrdersResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiGetOrdersRequest, GetOrdersResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -440,7 +440,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiGetOrdersRequest = {
+let body: TradingApiGetOrdersRequest = {
   // number | pageSize for pagination.
   pageSize: 56,
   // string (optional)
@@ -461,7 +461,7 @@ let body: TradingBetaApiGetOrdersRequest = {
   assetConversionType: assetConversionType_example,
 };
 
-fireblocks.tradingBeta.getOrders(body).then((res: FireblocksResponse<GetOrdersResponse>) => {
+fireblocks.trading.getOrders(body).then((res: FireblocksResponse<GetOrdersResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -511,7 +511,7 @@ No authorization required
 # **getTradingProviderById**
 > TradingProvider getTradingProviderById()
 
-Retrieve a single provider by ID.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
 
 ### Example
 
@@ -519,7 +519,7 @@ Retrieve a single provider by ID.  **Note:** These endpoints are currently in be
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiGetTradingProviderByIdRequest, TradingProvider } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiGetTradingProviderByIdRequest, TradingProvider } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -528,12 +528,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiGetTradingProviderByIdRequest = {
+let body: TradingApiGetTradingProviderByIdRequest = {
   // string | The unique identifier of the provider.
   providerId: providerId_example,
 };
 
-fireblocks.tradingBeta.getTradingProviderById(body).then((res: FireblocksResponse<TradingProvider>) => {
+fireblocks.trading.getTradingProviderById(body).then((res: FireblocksResponse<TradingProvider>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -576,7 +576,7 @@ No authorization required
 # **getTradingProviders**
 > ProvidersListResponse getTradingProviders()
 
-Retrieve a list of all available external providers supporting trading activities through the platform.  **Note:** These endpoints are currently in beta and might be subject to changes. If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+Retrieve a list of all available external providers supporting trading activities through the platform.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
 
 ### Example
 
@@ -584,7 +584,7 @@ Retrieve a list of all available external providers supporting trading activitie
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiGetTradingProvidersRequest, ProvidersListResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiGetTradingProvidersRequest, ProvidersListResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -593,14 +593,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiGetTradingProvidersRequest = {
+let body: TradingApiGetTradingProvidersRequest = {
   // number | Page size for pagination. (optional)
   pageSize: 56,
   // string | Page cursor for pagination. (optional)
   pageCursor: pageCursor_example,
 };
 
-fireblocks.tradingBeta.getTradingProviders(body).then((res: FireblocksResponse<ProvidersListResponse>) => {
+fireblocks.trading.getTradingProviders(body).then((res: FireblocksResponse<ProvidersListResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -643,7 +643,7 @@ No authorization required
 # **submitOrderRequirements**
 > submitOrderRequirements(submitOrderRequirementRequest, )
 
-Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Submit the user\'s textual response to an order requirement on an order that is in `AWAITING_INFORMATION` status.  The request body carries `data` — a free-form object conforming to the `requiredData` JSON Schema returned by the GET endpoint. Any required files are uploaded separately via `POST /trading/orders/{orderId}/requirement/file`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -651,7 +651,7 @@ Submit the user\'s textual response to an order requirement on an order that is 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiSubmitOrderRequirementsRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiSubmitOrderRequirementsRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -660,7 +660,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiSubmitOrderRequirementsRequest = {
+let body: TradingApiSubmitOrderRequirementsRequest = {
   // SubmitOrderRequirementRequest
   submitOrderRequirementRequest: param_value,
   // string | The ID of the order to submit the order requirement response for.
@@ -669,7 +669,7 @@ let body: TradingBetaApiSubmitOrderRequirementsRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.tradingBeta.submitOrderRequirements(body).then((res: FireblocksResponse<any>) => {
+fireblocks.trading.submitOrderRequirements(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -716,7 +716,7 @@ No authorization required
 # **uploadOrderRequirementFile**
 > uploadOrderRequirementFile()
 
-Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Note: These endpoints are currently in beta and might be subject to changes.  If you want to participate and learn more about the Fireblocks Trading, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+Upload a single file (multipart/form-data) in response to an order requirement on an order that is in `AWAITING_INFORMATION` status. Call this endpoint once per required file.  Send `fileKey` (matching a `fileKey` from `requiredFiles` on the GET response) and the binary `file`. Its type must be one of the supported file formats. Fireblocks encrypts each file and uploads it individually to the underlying provider. The textual response is submitted separately via `POST /trading/orders/{orderId}/requirement/data`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
 
 ### Example
 
@@ -724,7 +724,7 @@ Upload a single file (multipart/form-data) in response to an order requirement o
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, TradingBetaApiUploadOrderRequirementFileRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TradingApiUploadOrderRequirementFileRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -733,7 +733,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: TradingBetaApiUploadOrderRequirementFileRequest = {
+let body: TradingApiUploadOrderRequirementFileRequest = {
   // string | Identifier of the required file this upload satisfies. Must match a `fileKey` from `requiredFiles` on the GET response.
   fileKey: fileKey_example,
   // File | The binary file content. The file\\\'s type must be one of the supported OrderRequirementAllowedFileType values; the file name and type are derived from the uploaded part.
@@ -744,7 +744,7 @@ let body: TradingBetaApiUploadOrderRequirementFileRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.tradingBeta.uploadOrderRequirementFile(body).then((res: FireblocksResponse<any>) => {
+fireblocks.trading.uploadOrderRequirementFile(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
