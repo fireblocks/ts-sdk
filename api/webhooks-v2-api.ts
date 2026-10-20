@@ -382,7 +382,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
+         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Get mTLS CSR
          * @param {GetMtlsCsrKeyAlgorithmEnum} [keyAlgorithm] Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default.
          * @param {*} [options] Override http request option.
@@ -1330,7 +1330,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
+         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Get mTLS CSR
          * @param {GetMtlsCsrKeyAlgorithmEnum} [keyAlgorithm] Algorithm of the private key the CSR is generated for. ECDSA keys are smaller and quicker to issue, but the certificate authority signing the request has to accept an EC subject key, which some do not by default.
          * @param {*} [options] Override http request option.
@@ -1685,7 +1685,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getMetrics(requestParameters.webhookId, requestParameters.metricName, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
+         * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Get mTLS CSR
          * @param {WebhooksV2ApiGetMtlsCsrRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2563,7 +2563,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time. 
+     * Returns the Certificate Signing Request (CSR) PEM that customers use to generate their signed client certificate.  The private key the CSR is built from is held by Fireblocks and is specific to this workspace. It is created on the first request for a given key type, and the same CSR is returned on subsequent requests for that type.  Pass `keyAlgorithm` to choose RSA or ECDSA. A workspace may hold one key of each: the CSR returned is always the one for the type requested, so a certificate signed against it matches the key used at delivery time.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Get mTLS CSR
      * @param {WebhooksV2ApiGetMtlsCsrRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

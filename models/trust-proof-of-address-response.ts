@@ -41,6 +41,12 @@ export interface TrustProofOfAddressResponse {
      * @memberof TrustProofOfAddressResponse
      */
     'signature': string;
+    /**
+     * Hex public key of the Fireblocks vault key that produced the signature. Present only when `status` is `SIGNED` or `COMPLETED`, and only if Fireblocks returned it. TRUST requires this key for SUI, TON and XTZ (as `auxProofData.encryptedPublicKey`). 
+     * @type {string}
+     * @memberof TrustProofOfAddressResponse
+     */
+    'publicKey'?: string;
 }
 
 

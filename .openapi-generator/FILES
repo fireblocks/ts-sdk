@@ -196,6 +196,7 @@ CallAccepted.md
 CallbackHandler.md
 CallbackHandlerRequest.md
 CancelTransactionResponse.md
+CantonBetaApi.md
 CantonCall.md
 CantonCallAllowListAdd.md
 CantonCallAllowListRemove.md
@@ -1448,6 +1449,7 @@ api/approvals-beta-api.ts
 api/audit-logs-api.ts
 api/blockchain-link-beta-api.ts
 api/blockchains-assets-api.ts
+api/canton-beta-api.ts
 api/compliance-api.ts
 api/compliance-orchestrator-beta-api.ts
 api/compliance-screening-configuration-api.ts

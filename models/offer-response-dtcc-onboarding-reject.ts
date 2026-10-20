@@ -24,7 +24,7 @@ import { DtccOnboardingRejectPayload } from './dtcc-onboarding-reject-payload';
  */
 export interface OfferResponseDtccOnboardingReject {
     /**
-     * How you are answering the offer. Must be one of the values listed in the transaction\'s `cantonDetails.offerResponse.availableResponses` — TOP-LEVEL on the transaction, not nested under an `additionalInfo` envelope, which does not exist on `TransactionResponse`. `availableResponses` states what this offer TYPE accepts. It is set when the offer arrives and does not change, so it does NOT tell you whether the offer is still answerable — check `expiresAt` and the transaction\'s status for that, and expect this endpoint to be the authority: it re-checks state and expiry on every call and answers 409 when either has moved.
+     * How you are answering the offer — one of the offer transaction\'s `cantonDetails.offerResponse.availableResponses`. That list does not change after the offer arrives; check `expiresAt` and the transaction status to see whether it is still answerable.
      * @type {string}
      * @memberof OfferResponseDtccOnboardingReject
      */

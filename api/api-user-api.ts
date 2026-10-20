@@ -120,7 +120,7 @@ export const ApiUserApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. - This is the same pairing token that the API Co-signer requests during installation and when you pair an additional API user with an existing Co-signer. You can use this endpoint instead of copying the token from Pair API user in the Console. The token is valid for one hour.
          * @summary Issue API user pairing token
          * @param {string} userId The ID of the api user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -198,7 +198,7 @@ export const ApiUserApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. - This is the same pairing token that the API Co-signer requests during installation and when you pair an additional API user with an existing Co-signer. You can use this endpoint instead of copying the token from Pair API user in the Console. The token is valid for one hour.
          * @summary Issue API user pairing token
          * @param {string} userId The ID of the api user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -241,7 +241,7 @@ export const ApiUserApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.getApiUsers(options).then((request) => request(axios, basePath));
         },
         /**
-         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+         * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. - This is the same pairing token that the API Co-signer requests during installation and when you pair an additional API user with an existing Co-signer. You can use this endpoint instead of copying the token from Pair API user in the Console. The token is valid for one hour.
          * @summary Issue API user pairing token
          * @param {ApiUserApiIssueApiUserPairingTokenRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -326,7 +326,7 @@ export class ApiUserApi extends BaseAPI {
     }
 
     /**
-     * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. Endpoint Permission: Owner, Admin, Non-Signing Admin.
+     * Issues a device pairing token for the given user and returns the user\'s info along with the token. - The API user must be in PENDING_ACTIVATION status. If the user is already set up (enabled), the request is rejected with a 409 Conflict. - Please note that this endpoint is available only for API keys with Owner/Admin/Non Signing Admin permissions. - This is the same pairing token that the API Co-signer requests during installation and when you pair an additional API user with an existing Co-signer. You can use this endpoint instead of copying the token from Pair API user in the Console. The token is valid for one hour.
      * @summary Issue API user pairing token
      * @param {ApiUserApiIssueApiUserPairingTokenRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
