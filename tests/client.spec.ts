@@ -16,6 +16,7 @@ ApprovalsBetaApi,
 AuditLogsApi, 
 BlockchainLinkBetaApi, 
 BlockchainsAssetsApi, 
+CantonBetaApi, 
 ComplianceApi, 
 ComplianceOrchestratorBetaApi, 
 ComplianceScreeningConfigurationApi, 
@@ -78,6 +79,7 @@ let mockApprovalsBetaApi: jest.Mock;
 let mockAuditLogsApi: jest.Mock;
 let mockBlockchainLinkBetaApi: jest.Mock;
 let mockBlockchainsAssetsApi: jest.Mock;
+let mockCantonBetaApi: jest.Mock;
 let mockComplianceApi: jest.Mock;
 let mockComplianceOrchestratorBetaApi: jest.Mock;
 let mockComplianceScreeningConfigurationApi: jest.Mock;
@@ -137,6 +139,7 @@ jest.mock('../api', () => {
     mockAuditLogsApi = jest.fn();
     mockBlockchainLinkBetaApi = jest.fn();
     mockBlockchainsAssetsApi = jest.fn();
+    mockCantonBetaApi = jest.fn();
     mockComplianceApi = jest.fn();
     mockComplianceOrchestratorBetaApi = jest.fn();
     mockComplianceScreeningConfigurationApi = jest.fn();
@@ -197,6 +200,7 @@ jest.mock('../api', () => {
         AuditLogsApi: mockAuditLogsApi,
         BlockchainLinkBetaApi: mockBlockchainLinkBetaApi,
         BlockchainsAssetsApi: mockBlockchainsAssetsApi,
+        CantonBetaApi: mockCantonBetaApi,
         ComplianceApi: mockComplianceApi,
         ComplianceOrchestratorBetaApi: mockComplianceOrchestratorBetaApi,
         ComplianceScreeningConfigurationApi: mockComplianceScreeningConfigurationApi,
@@ -347,6 +351,10 @@ describe("Fireblocks Client Tests", () => {
         it('Should return BlockchainsAssetsApi', async () => {
             expect(fireblocks.blockchainsAssets).toBeInstanceOf(BlockchainsAssetsApi);
             expect(mockBlockchainsAssetsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        });
+        it('Should return CantonBetaApi', async () => {
+            expect(fireblocks.cantonBeta).toBeInstanceOf(CantonBetaApi);
+            expect(mockCantonBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return ComplianceApi', async () => {
             expect(fireblocks.compliance).toBeInstanceOf(ComplianceApi);

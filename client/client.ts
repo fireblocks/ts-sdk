@@ -17,6 +17,7 @@ import { ApiUserApi,
          AuditLogsApi, 
          BlockchainLinkBetaApi, 
          BlockchainsAssetsApi, 
+         CantonBetaApi, 
          ComplianceApi, 
          ComplianceOrchestratorBetaApi, 
          ComplianceScreeningConfigurationApi, 
@@ -81,6 +82,7 @@ export class Fireblocks {
     private _auditLogs?: AuditLogsApi;
     private _blockchainLinkBeta?: BlockchainLinkBetaApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
+    private _cantonBeta?: CantonBetaApi;
     private _compliance?: ComplianceApi;
     private _complianceOrchestratorBeta?: ComplianceOrchestratorBetaApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
@@ -168,6 +170,9 @@ export class Fireblocks {
     }
     get blockchainsAssets(): BlockchainsAssetsApi {
         return this._blockchainsAssets ?? new BlockchainsAssetsApi(this.config, undefined, this.axiosManager.axios);
+    }
+    get cantonBeta(): CantonBetaApi {
+        return this._cantonBeta ?? new CantonBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get compliance(): ComplianceApi {
         return this._compliance ?? new ComplianceApi(this.config, undefined, this.axiosManager.axios);

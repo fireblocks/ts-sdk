@@ -19,6 +19,7 @@ export * from './api/approvals-beta-api';
 export * from './api/audit-logs-api';
 export * from './api/blockchain-link-beta-api';
 export * from './api/blockchains-assets-api';
+export * from './api/canton-beta-api';
 export * from './api/compliance-api';
 export * from './api/compliance-orchestrator-beta-api';
 export * from './api/compliance-screening-configuration-api';

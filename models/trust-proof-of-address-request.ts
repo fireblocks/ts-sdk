@@ -44,5 +44,11 @@ export interface TrustProofOfAddressRequest {
      * @memberof TrustProofOfAddressRequest
      */
     'trustUuid': string;
+    /**
+     * Optional non-default (derived) address of the vault account to prove. Supported for UTXO assets only (`BTC`, `BTC_TEST`). The address must belong to the vault account for the given asset. Both SegWit and Legacy address forms are accepted. When omitted, the proof is created for the default (index 0) address of the vault account. 
+     * @type {string}
+     * @memberof TrustProofOfAddressRequest
+     */
+    'address'?: string;
 }
 
