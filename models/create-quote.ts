@@ -24,7 +24,7 @@ import { DVPSettlement } from './dvpsettlement';
 import { ParticipantsIdentification } from './participants-identification';
 // May contain unused imports in some cases
 // @ts-ignore
-import { Side } from './side';
+import { PricingSide } from './pricing-side';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransferRail } from './transfer-rail';
@@ -61,12 +61,6 @@ export interface CreateQuote {
     'baseAmount': string;
     /**
      * 
-     * @type {Side}
-     * @memberof CreateQuote
-     */
-    'side': Side;
-    /**
-     * 
      * @type {TransferRail}
      * @memberof CreateQuote
      */
@@ -89,6 +83,12 @@ export interface CreateQuote {
      * @memberof CreateQuote
      */
     'settlement'?: DVPSettlement;
+    /**
+     * 
+     * @type {PricingSide}
+     * @memberof CreateQuote
+     */
+    'side'?: PricingSide;
     /**
      * 
      * @type {ParticipantsIdentification}

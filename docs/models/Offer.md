@@ -8,11 +8,11 @@
 |**baseAssetId** | **string** | The source asset identifier. | [default to undefined]|
 |**quoteAssetId** | **string** | The target asset identifier. | [default to undefined]|
 |**rate** | **string** | The indicative exchange rate — the number of units of the quote asset that equal 1 unit of the base asset. For example, if base is BTC and quote is USD, a rate of 75000 means 1 BTC &#x3D; 75,000 USD. | [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**offerType** | **string** | The type of offer — QUOTE for executable committed quotes. | [default to undefined]|
 |**id** | **string** | The unique identifier of the quote. | [default to undefined]|
 |**baseAmount** | **string** | The amount of the base asset. | [default to undefined]|
 |**quoteAmount** | **string** | The amount of the quote asset. | [default to undefined]|
-|**side** | [**Side**](Side.md) |  | [default to undefined]|
 |**expiresAt** | **string** | The expiration time of the quote in ISO 8601 format, taken verbatim from the provider. This is not safety-margined by the server — integrators must apply their own margin if one is needed.  | [default to undefined]|
 |**type** | **string** | The type of the quote. | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|

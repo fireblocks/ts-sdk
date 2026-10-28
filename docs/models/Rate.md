@@ -10,6 +10,7 @@
 |**rate** | **string** | The indicative exchange rate — the number of units of the quote asset that equal 1 unit of the base asset. For example, if base is BTC and quote is USD, a rate of 75000 means 1 BTC &#x3D; 75,000 USD. | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [optional] [default to undefined]|
 
 
 

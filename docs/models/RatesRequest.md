@@ -8,6 +8,7 @@
 |**baseAssetId** | **string** | The source asset identifier. | [default to undefined]|
 |**quoteAssetId** | **string** | The target asset identifier. | [default to undefined]|
 |**baseAmount** | **string** | The amount to convert from | [optional] [default to undefined]|
+|**side** | [**PricingSide**](PricingSide.md) |  | [optional] [default to undefined]|
 
 
 

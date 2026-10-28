@@ -57,6 +57,7 @@ AddressRegistryAddVaultOptOutsRequestVaultAccountIdsInner.md
 AddressRegistryAddVaultOptOutsResponse.md
 AddressRegistryCreateProofOfOwnershipRequest.md
 AddressRegistryCreateProofOfOwnershipResponse.md
+AddressRegistryCustomerRegistryResponse.md
 AddressRegistryGetVaultOptOutResponse.md
 AddressRegistryLegalEntity.md
 AddressRegistryListVaultOptOutsResponse.md
@@ -851,6 +852,7 @@ PostalAddress.md
 PreScreening.md
 PrefundedSettlement.md
 PrefundedSettlementType.md
+PricingSide.md
 ProgramCallConfig.md
 ProgramCallDecodedDataItem.md
 ProgramCallInstructionData.md
@@ -1059,6 +1061,7 @@ SolanaInstruction.md
 SolanaInstructionWithValue.md
 SolanaRewardsBreakdown.md
 SolanaSimpleCreateParams.md
+SorobanCallData.md
 SourceConfig.md
 SourceOfFunds.md
 SourceTransferPeerPath.md
@@ -1564,6 +1567,7 @@ models/address-registry-add-vault-opt-outs-request.ts
 models/address-registry-add-vault-opt-outs-response.ts
 models/address-registry-create-proof-of-ownership-request.ts
 models/address-registry-create-proof-of-ownership-response.ts
+models/address-registry-customer-registry-response.ts
 models/address-registry-get-vault-opt-out-response.ts
 models/address-registry-legal-entity.ts
 models/address-registry-list-vault-opt-outs-response.ts
@@ -2324,6 +2328,7 @@ models/postal-address.ts
 models/pre-screening.ts
 models/prefunded-settlement-type.ts
 models/prefunded-settlement.ts
+models/pricing-side.ts
 models/program-call-config.ts
 models/program-call-decoded-data-item.ts
 models/program-call-instruction-data.ts
@@ -2527,6 +2532,7 @@ models/solana-instruction-with-value.ts
 models/solana-instruction.ts
 models/solana-rewards-breakdown.ts
 models/solana-simple-create-params.ts
+models/soroban-call-data.ts
 models/source-config.ts
 models/source-of-funds.ts
 models/source-transfer-peer-path-response.ts

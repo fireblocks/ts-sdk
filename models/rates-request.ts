@@ -15,6 +15,9 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
+import { PricingSide } from './pricing-side';
+// May contain unused imports in some cases
+// @ts-ignore
 import { ScopeItem } from './scope-item';
 
 /**
@@ -47,5 +50,13 @@ export interface RatesRequest {
      * @memberof RatesRequest
      */
     'baseAmount'?: string;
+    /**
+     * 
+     * @type {PricingSide}
+     * @memberof RatesRequest
+     */
+    'side'?: PricingSide;
 }
+
+
 

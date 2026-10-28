@@ -37,7 +37,8 @@ export const TransferPeerPathType = {
     ProgramCall: 'PROGRAM_CALL',
     MultiDestination: 'MULTI_DESTINATION',
     OecPartner: 'OEC_PARTNER',
-    WalletPool: 'WALLET_POOL'
+    WalletPool: 'WALLET_POOL',
+    SorobanContract: 'SOROBAN_CONTRACT'
 } as const;
 
 export type TransferPeerPathType = typeof TransferPeerPathType[keyof typeof TransferPeerPathType];

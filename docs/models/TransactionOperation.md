@@ -11,6 +11,8 @@
 
 * `ProgramCall` (value: `'PROGRAM_CALL'`)
 
+* `SorobanCall` (value: `'SOROBAN_CALL'`)
+
 * `Mint` (value: `'MINT'`)
 
 * `Raw` (value: `'RAW'`)

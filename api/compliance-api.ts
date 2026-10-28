@@ -35,6 +35,8 @@ import { AddressRegistryCreateProofOfOwnershipRequest } from '../models';
 // @ts-ignore
 import { AddressRegistryCreateProofOfOwnershipResponse } from '../models';
 // @ts-ignore
+import { AddressRegistryCustomerRegistryResponse } from '../models';
+// @ts-ignore
 import { AddressRegistryGetVaultOptOutResponse } from '../models';
 // @ts-ignore
 import { AddressRegistryLegalEntity } from '../models';
@@ -524,8 +526,42 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
-         * @summary Get address registry participation status for the authenticated workspace
+         * Read your customer\'s organization-wide address registry setting. Workspaces without their own choice use this as the default. Returns `NOT_SET` when no choice has been made yet, or `OPTED_IN` / `OPTED_OUT` when one has.
+         * @summary Get your customer\'s address registry default
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAddressRegistryCustomerParticipationStatus: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/customer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getAddressRegistryCustomerParticipationStatus';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Check whether this workspace uses the address registry. The response is `OPTED_IN` or `OPTED_OUT`. If this workspace has not been configured yet, it follows your customer\'s default (see `GET /v1/address_registry/customer`) when that default is `OPTED_IN` or `OPTED_OUT`; otherwise the workspace is opted in by default.
+         * @summary Get address registry status for this workspace
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1142,8 +1178,47 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
-         * @summary Opt the workspace in to the address registry
+         * Set your customer\'s default to opted in. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_IN`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+         * @summary Opt your customer in to the address registry
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optInAddressRegistryCustomer: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/customer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'optInAddressRegistryCustomer';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Turn on the address registry for this workspace. No request body. Returns `OPTED_IN`.
+         * @summary Opt this workspace in to the address registry
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -1181,8 +1256,42 @@ export const ComplianceApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
-         * @summary Opt the workspace out of the address registry
+         * Set your customer\'s default to opted out. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_OUT`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+         * @summary Opt your customer out of the address registry
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optOutAddressRegistryCustomer: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/address_registry/customer`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'optOutAddressRegistryCustomer';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Turn off the address registry for this workspace. No request body. Returns `OPTED_OUT`.
+         * @summary Opt this workspace out of the address registry
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1955,8 +2064,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
-         * @summary Get address registry participation status for the authenticated workspace
+         * Read your customer\'s organization-wide address registry setting. Workspaces without their own choice use this as the default. Returns `NOT_SET` when no choice has been made yet, or `OPTED_IN` / `OPTED_OUT` when one has.
+         * @summary Get your customer\'s address registry default
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAddressRegistryCustomerParticipationStatus(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryCustomerRegistryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAddressRegistryCustomerParticipationStatus(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.getAddressRegistryCustomerParticipationStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Check whether this workspace uses the address registry. The response is `OPTED_IN` or `OPTED_OUT`. If this workspace has not been configured yet, it follows your customer\'s default (see `GET /v1/address_registry/customer`) when that default is `OPTED_IN` or `OPTED_OUT`; otherwise the workspace is opted in by default.
+         * @summary Get address registry status for this workspace
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2164,8 +2285,21 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
-         * @summary Opt the workspace in to the address registry
+         * Set your customer\'s default to opted in. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_IN`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+         * @summary Opt your customer in to the address registry
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async optInAddressRegistryCustomer(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryCustomerRegistryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.optInAddressRegistryCustomer(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.optInAddressRegistryCustomer']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Turn on the address registry for this workspace. No request body. Returns `OPTED_IN`.
+         * @summary Opt this workspace in to the address registry
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2177,8 +2311,20 @@ export const ComplianceApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
-         * @summary Opt the workspace out of the address registry
+         * Set your customer\'s default to opted out. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_OUT`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+         * @summary Opt your customer out of the address registry
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async optOutAddressRegistryCustomer(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddressRegistryCustomerRegistryResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.optOutAddressRegistryCustomer(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['ComplianceApi.optOutAddressRegistryCustomer']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Turn off the address registry for this workspace. No request body. Returns `OPTED_OUT`.
+         * @summary Opt this workspace out of the address registry
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2493,8 +2639,17 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.deleteLegalEntity(requestParameters.legalEntityId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
-         * @summary Get address registry participation status for the authenticated workspace
+         * Read your customer\'s organization-wide address registry setting. Workspaces without their own choice use this as the default. Returns `NOT_SET` when no choice has been made yet, or `OPTED_IN` / `OPTED_OUT` when one has.
+         * @summary Get your customer\'s address registry default
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAddressRegistryCustomerParticipationStatus(options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryCustomerRegistryResponse> {
+            return localVarFp.getAddressRegistryCustomerParticipationStatus(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Check whether this workspace uses the address registry. The response is `OPTED_IN` or `OPTED_OUT`. If this workspace has not been configured yet, it follows your customer\'s default (see `GET /v1/address_registry/customer`) when that default is `OPTED_IN` or `OPTED_OUT`; otherwise the workspace is opted in by default.
+         * @summary Get address registry status for this workspace
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2647,8 +2802,18 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.listVaultsForLegalEntity(requestParameters.legalEntityId, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
-         * @summary Opt the workspace in to the address registry
+         * Set your customer\'s default to opted in. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_IN`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+         * @summary Opt your customer in to the address registry
+         * @param {ComplianceApiOptInAddressRegistryCustomerRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optInAddressRegistryCustomer(requestParameters: ComplianceApiOptInAddressRegistryCustomerRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryCustomerRegistryResponse> {
+            return localVarFp.optInAddressRegistryCustomer(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Turn on the address registry for this workspace. No request body. Returns `OPTED_IN`.
+         * @summary Opt this workspace in to the address registry
          * @param {ComplianceApiOptInAddressRegistryTenantRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2657,8 +2822,17 @@ export const ComplianceApiFactory = function (configuration?: Configuration, bas
             return localVarFp.optInAddressRegistryTenant(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
-         * @summary Opt the workspace out of the address registry
+         * Set your customer\'s default to opted out. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_OUT`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+         * @summary Opt your customer out of the address registry
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        optOutAddressRegistryCustomer(options?: RawAxiosRequestConfig): AxiosPromise<AddressRegistryCustomerRegistryResponse> {
+            return localVarFp.optOutAddressRegistryCustomer(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Turn off the address registry for this workspace. No request body. Returns `OPTED_OUT`.
+         * @summary Opt this workspace out of the address registry
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3172,6 +3346,20 @@ export interface ComplianceApiListVaultsForLegalEntityRequest {
 }
 
 /**
+ * Request parameters for optInAddressRegistryCustomer operation in ComplianceApi.
+ * @export
+ * @interface ComplianceApiOptInAddressRegistryCustomerRequest
+ */
+export interface ComplianceApiOptInAddressRegistryCustomerRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof ComplianceApiOptInAddressRegistryCustomer
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for optInAddressRegistryTenant operation in ComplianceApi.
  * @export
  * @interface ComplianceApiOptInAddressRegistryTenantRequest
@@ -3586,8 +3774,19 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
-     * @summary Get address registry participation status for the authenticated workspace
+     * Read your customer\'s organization-wide address registry setting. Workspaces without their own choice use this as the default. Returns `NOT_SET` when no choice has been made yet, or `OPTED_IN` / `OPTED_OUT` when one has.
+     * @summary Get your customer\'s address registry default
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public getAddressRegistryCustomerParticipationStatus() {
+        return ComplianceApiFp(this.configuration).getAddressRegistryCustomerParticipationStatus().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Check whether this workspace uses the address registry. The response is `OPTED_IN` or `OPTED_OUT`. If this workspace has not been configured yet, it follows your customer\'s default (see `GET /v1/address_registry/customer`) when that default is `OPTED_IN` or `OPTED_OUT`; otherwise the workspace is opted in by default.
+     * @summary Get address registry status for this workspace
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ComplianceApi
@@ -3772,8 +3971,20 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
-     * @summary Opt the workspace in to the address registry
+     * Set your customer\'s default to opted in. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_IN`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+     * @summary Opt your customer in to the address registry
+     * @param {ComplianceApiOptInAddressRegistryCustomerRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public optInAddressRegistryCustomer(requestParameters: ComplianceApiOptInAddressRegistryCustomerRequest = {}) {
+        return ComplianceApiFp(this.configuration).optInAddressRegistryCustomer(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Turn on the address registry for this workspace. No request body. Returns `OPTED_IN`.
+     * @summary Opt this workspace in to the address registry
      * @param {ComplianceApiOptInAddressRegistryTenantRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -3784,8 +3995,19 @@ export class ComplianceApi extends BaseAPI {
     }
 
     /**
-     * Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
-     * @summary Opt the workspace out of the address registry
+     * Set your customer\'s default to opted out. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_OUT`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+     * @summary Opt your customer out of the address registry
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ComplianceApi
+     */
+    public optOutAddressRegistryCustomer() {
+        return ComplianceApiFp(this.configuration).optOutAddressRegistryCustomer().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Turn off the address registry for this workspace. No request body. Returns `OPTED_OUT`.
+     * @summary Opt this workspace out of the address registry
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ComplianceApi
