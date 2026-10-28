@@ -109,7 +109,7 @@ export const TradingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get quotes for each side the provider supports in a single call; providers that support only one side return that side only. Every returned quote carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create a quote
          * @param {CreateQuote} createQuote 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -153,7 +153,7 @@ export const TradingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get offers for each side the provider supports in a single call; providers that support only one side return that side only. Every returned offer carries a concrete `BUY` or `SELL` side, never `BOTH`.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get all offers
          * @param {CreateOffersRequest} createOffersRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -197,7 +197,7 @@ export const TradingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get rates for each side the provider supports in a single call; providers that support only one side return that side only. Every returned rate carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get rates
          * @param {RatesRequest} ratesRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -605,7 +605,7 @@ export const TradingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get quotes for each side the provider supports in a single call; providers that support only one side return that side only. Every returned quote carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create a quote
          * @param {CreateQuote} createQuote 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -619,7 +619,7 @@ export const TradingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get offers for each side the provider supports in a single call; providers that support only one side return that side only. Every returned offer carries a concrete `BUY` or `SELL` side, never `BOTH`.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get all offers
          * @param {CreateOffersRequest} createOffersRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -633,7 +633,7 @@ export const TradingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get rates for each side the provider supports in a single call; providers that support only one side return that side only. Every returned rate carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get rates
          * @param {RatesRequest} ratesRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -772,7 +772,7 @@ export const TradingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.createOrder(requestParameters.createOrderRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get quotes for each side the provider supports in a single call; providers that support only one side return that side only. Every returned quote carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Create a quote
          * @param {TradingApiCreateQuoteRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -782,7 +782,7 @@ export const TradingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.createQuote(requestParameters.createQuote, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get offers for each side the provider supports in a single call; providers that support only one side return that side only. Every returned offer carries a concrete `BUY` or `SELL` side, never `BOTH`.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get all offers
          * @param {TradingApiFetchAllOffersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -792,7 +792,7 @@ export const TradingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.fetchAllOffers(requestParameters.createOffersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+         * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get rates for each side the provider supports in a single call; providers that support only one side return that side only. Every returned rate carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
          * @summary Get rates
          * @param {TradingApiFetchRatesRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1174,7 +1174,7 @@ export class TradingApi extends BaseAPI {
     }
 
     /**
-     * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Generate a time-limited quote for asset conversion, providing exchange rate and amount calculations.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get quotes for each side the provider supports in a single call; providers that support only one side return that side only. Every returned quote carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Create a quote
      * @param {TradingApiCreateQuoteRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1186,7 +1186,7 @@ export class TradingApi extends BaseAPI {
     }
 
     /**
-     * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Retrieve all available offers across the workspace for a given asset pair. Always operates in open scope — no provider or account selection required. Returns a mix of indicative rates and committed quotes as applicable per provider.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get offers for each side the provider supports in a single call; providers that support only one side return that side only. Every returned offer carries a concrete `BUY` or `SELL` side, never `BOTH`.  If no slippageBps is provided, it defaults to 50 bps (0.5%). Slippage and settlement configuration do not affect the returned rate.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Editor.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get all offers
      * @param {TradingApiFetchAllOffersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1198,7 +1198,7 @@ export class TradingApi extends BaseAPI {
     }
 
     /**
-     * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
+     * Retrieve indicative exchange rate from specified providers for a given asset pair. Rates are non-executable price signals intended for discovery and display purposes.  If `side` is omitted it defaults to `SELL`. Use `side: BOTH` to get rates for each side the provider supports in a single call; providers that support only one side return that side only. Every returned rate carries a concrete `BUY` or `SELL` side, never `BOTH`.  Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes).
      * @summary Get rates
      * @param {TradingApiFetchRatesRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.

@@ -11,6 +11,7 @@
 |**offerType** | **string** | The type of offer — RATE for indicative pricing. | [default to undefined]|
 |**baseAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
 |**quoteAssetRail** | [**TransferRail**](TransferRail.md) |  | [optional] [default to undefined]|
+|**side** | [**Side**](Side.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: RateOfferOfferTypeEnum

@@ -18,7 +18,7 @@
 import { DVPSettlement } from './dvpsettlement';
 // May contain unused imports in some cases
 // @ts-ignore
-import { Side } from './side';
+import { PricingSide } from './pricing-side';
 // May contain unused imports in some cases
 // @ts-ignore
 import { TransferRail } from './transfer-rail';
@@ -49,12 +49,6 @@ export interface CreateOffersRequest {
     'baseAmount': string;
     /**
      * 
-     * @type {Side}
-     * @memberof CreateOffersRequest
-     */
-    'side': Side;
-    /**
-     * 
      * @type {TransferRail}
      * @memberof CreateOffersRequest
      */
@@ -77,6 +71,12 @@ export interface CreateOffersRequest {
      * @memberof CreateOffersRequest
      */
     'settlement'?: DVPSettlement;
+    /**
+     * 
+     * @type {PricingSide}
+     * @memberof CreateOffersRequest
+     */
+    'side'?: PricingSide;
 }
 
 

@@ -790,7 +790,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * **UTXO assets only.**  Retrieve the maximum amount of the specified asset that can be spent in a single transaction from the specified vault account.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
          * @summary Get max spendable amount in a transaction
-         * @param {string} vaultAccountId The ID of the vault account, or \&#39;default\&#39; for the default vault account
+         * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {boolean} [manualSignging] False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
          * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
@@ -2126,7 +2126,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
         /**
          * **UTXO assets only.**  Retrieve the maximum amount of the specified asset that can be spent in a single transaction from the specified vault account.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer. 
          * @summary Get max spendable amount in a transaction
-         * @param {string} vaultAccountId The ID of the vault account, or \&#39;default\&#39; for the default vault account
+         * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {boolean} [manualSignging] False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
          * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
@@ -3268,7 +3268,7 @@ export interface VaultsApiGetMaxBipIndexUsedRequest {
  */
 export interface VaultsApiGetMaxSpendableAmountRequest {
     /**
-     * The ID of the vault account, or \&#39;default\&#39; for the default vault account
+     * The ID of the vault account
      * @type {string}
      * @memberof VaultsApiGetMaxSpendableAmount
      */

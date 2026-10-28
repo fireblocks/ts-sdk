@@ -14,7 +14,8 @@ Method | HTTP request | Description
 [**deactivateByorkConfig**](#deactivateByorkConfig) | **POST** /screening/byork/config/deactivate | Deactivate BYORK Light
 [**deleteCounterpartyGroup**](#deleteCounterpartyGroup) | **DELETE** /counterparty_groups/{groupId} | Delete a counterparty group
 [**deleteLegalEntity**](#deleteLegalEntity) | **DELETE** /legal_entities/{legalEntityId} | Delete a legal entity
-[**getAddressRegistryTenantParticipationStatus**](#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry participation status for the authenticated workspace
+[**getAddressRegistryCustomerParticipationStatus**](#getAddressRegistryCustomerParticipationStatus) | **GET** /address_registry/customer | Get your customer\&#39;s address registry default
+[**getAddressRegistryTenantParticipationStatus**](#getAddressRegistryTenantParticipationStatus) | **GET** /address_registry/tenant | Get address registry status for this workspace
 [**getAddressRegistryVaultOptOut**](#getAddressRegistryVaultOptOut) | **GET** /address_registry/vaults/{vaultAccountId} | Get whether a vault account is opted out of the address registry
 [**getAmlPostScreeningPolicy**](#getAmlPostScreeningPolicy) | **GET** /screening/aml/post_screening_policy | AML - View Post-Screening Policy
 [**getAmlScreeningPolicy**](#getAmlScreeningPolicy) | **GET** /screening/aml/screening_policy | AML - View Screening Policy
@@ -30,8 +31,10 @@ Method | HTTP request | Description
 [**listCounterpartyGroups**](#listCounterpartyGroups) | **GET** /counterparty_groups | List counterparty groups
 [**listLegalEntities**](#listLegalEntities) | **GET** /legal_entities | List legal entities (Paginated)
 [**listVaultsForLegalEntity**](#listVaultsForLegalEntity) | **GET** /legal_entities/{legalEntityId}/vaults | List vault accounts for a legal entity (Paginated)
-[**optInAddressRegistryTenant**](#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt the workspace in to the address registry
-[**optOutAddressRegistryTenant**](#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt the workspace out of the address registry
+[**optInAddressRegistryCustomer**](#optInAddressRegistryCustomer) | **POST** /address_registry/customer | Opt your customer in to the address registry
+[**optInAddressRegistryTenant**](#optInAddressRegistryTenant) | **POST** /address_registry/tenant | Opt this workspace in to the address registry
+[**optOutAddressRegistryCustomer**](#optOutAddressRegistryCustomer) | **DELETE** /address_registry/customer | Opt your customer out of the address registry
+[**optOutAddressRegistryTenant**](#optOutAddressRegistryTenant) | **DELETE** /address_registry/tenant | Opt this workspace out of the address registry
 [**registerLegalEntity**](#registerLegalEntity) | **POST** /legal_entities | Register a new legal entity
 [**removeAddressRegistryVaultOptOut**](#removeAddressRegistryVaultOptOut) | **DELETE** /address_registry/vaults/{vaultAccountId} | Remove a single vault account from the address registry opt-out list
 [**removeAllAddressRegistryVaultOptOuts**](#removeAllAddressRegistryVaultOptOuts) | **DELETE** /address_registry/vaults | Remove all vault-level address registry opt-outs for the workspace
@@ -678,10 +681,64 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getAddressRegistryCustomerParticipationStatus**
+> AddressRegistryCustomerRegistryResponse getAddressRegistryCustomerParticipationStatus()
+
+Read your customer\'s organization-wide address registry setting. Workspaces without their own choice use this as the default. Returns `NOT_SET` when no choice has been made yet, or `OPTED_IN` / `OPTED_OUT` when one has.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, AddressRegistryCustomerRegistryResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.compliance.getAddressRegistryCustomerParticipationStatus(body).then((res: FireblocksResponse<AddressRegistryCustomerRegistryResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[AddressRegistryCustomerRegistryResponse](../models/AddressRegistryCustomerRegistryResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Customer registry status in the response body |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getAddressRegistryTenantParticipationStatus**
 > AddressRegistryTenantRegistryResponse getAddressRegistryTenantParticipationStatus()
 
-Returns whether the workspace is `OPTED_IN` or `OPTED_OUT` of the address registry.
+Check whether this workspace uses the address registry. The response is `OPTED_IN` or `OPTED_OUT`. If this workspace has not been configured yet, it follows your customer\'s default (see `GET /v1/address_registry/customer`) when that default is `OPTED_IN` or `OPTED_OUT`; otherwise the workspace is opted in by default.
 
 ### Example
 
@@ -1632,10 +1689,71 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **optInAddressRegistryCustomer**
+> AddressRegistryCustomerRegistryResponse optInAddressRegistryCustomer()
+
+Set your customer\'s default to opted in. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_IN`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, ComplianceApiOptInAddressRegistryCustomerRequest, AddressRegistryCustomerRegistryResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: ComplianceApiOptInAddressRegistryCustomerRequest = {
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.compliance.optInAddressRegistryCustomer(body).then((res: FireblocksResponse<AddressRegistryCustomerRegistryResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[AddressRegistryCustomerRegistryResponse](../models/AddressRegistryCustomerRegistryResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success; response body includes status OPTED_IN |  * X-Request-ID -  <br>  |
+**404** | The customer for this workspace could not be determined (error code 2147) |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **optInAddressRegistryTenant**
 > AddressRegistryTenantRegistryResponse optInAddressRegistryTenant()
 
-Opts the workspace in. No request body. Response uses the same JSON shape as GET; status is OPTED_IN.
+Turn on the address registry for this workspace. No request body. Returns `OPTED_IN`.
 
 ### Example
 
@@ -1692,10 +1810,65 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **optOutAddressRegistryCustomer**
+> AddressRegistryCustomerRegistryResponse optOutAddressRegistryCustomer()
+
+Set your customer\'s default to opted out. Workspaces without their own setting will follow this default. No request body. Returns `OPTED_OUT`. If the customer for this workspace cannot be determined, returns HTTP 404 with error code **2147**.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, AddressRegistryCustomerRegistryResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.compliance.optOutAddressRegistryCustomer(body).then((res: FireblocksResponse<AddressRegistryCustomerRegistryResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[AddressRegistryCustomerRegistryResponse](../models/AddressRegistryCustomerRegistryResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success; response body includes status OPTED_OUT |  * X-Request-ID -  <br>  |
+**404** | The customer for this workspace could not be determined (error code 2147) |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **optOutAddressRegistryTenant**
 > AddressRegistryTenantRegistryResponse optOutAddressRegistryTenant()
 
-Opts the workspace out. No request body. Response uses the same JSON shape as GET; status is OPTED_OUT.
+Turn off the address registry for this workspace. No request body. Returns `OPTED_OUT`.
 
 ### Example
 

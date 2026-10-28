@@ -1043,7 +1043,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 const fireblocks = new Fireblocks();
 
 let body: VaultsApiGetMaxSpendableAmountRequest = {
-  // string | The ID of the vault account, or \'default\' for the default vault account
+  // string | The ID of the vault account
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
   assetId: assetId_example,
@@ -1073,7 +1073,7 @@ fireblocks.vaults.getMaxSpendableAmount(body).then((res: FireblocksResponse<GetM
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **vaultAccountId** | [**string**] | The ID of the vault account, or \&#39;default\&#39; for the default vault account | defaults to undefined
+ **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **manualSignging** | [**boolean**] | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. | (optional) defaults to undefined
  **includeAllLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined

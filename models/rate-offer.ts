@@ -24,6 +24,9 @@ import { Rate } from './rate';
 import { RateOfferType } from './rate-offer-type';
 // May contain unused imports in some cases
 // @ts-ignore
+import { Side } from './side';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TransferRail } from './transfer-rail';
 
 /**

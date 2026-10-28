@@ -8,6 +8,7 @@
 |**rawMessageData** | **{ [key: string]: any; }** |  | [optional] [default to undefined]|
 |**contractCallData** | **string** |  | [optional] [default to undefined]|
 |**programCallData** | **string** |  | [optional] [default to undefined]|
+|**sorobanCallData** | [**SorobanCallData**](SorobanCallData.md) |  | [optional] [default to undefined]|
 |**inputsSelection** | **{ [key: string]: any; }** |  | [optional] [default to undefined]|
 |**allowBaseAssetAddress** | **boolean** |  | [optional] [default to undefined]|
 |**piiData** | **{ [key: string]: any; }** |  | [optional] [default to undefined]|
