@@ -41,6 +41,12 @@ export interface TempoTransferDestination {
      * @memberof TempoTransferDestination
      */
     'oneTimeAddress'?: OneTimeAddress;
+    /**
+     * Tempo TIP-20 memo, sent on-chain with the transfer to this destination. Exactly 32 bytes once UTF-8 encoded.  NOTES:     - The memo is public and permanent on-chain, so do not put sensitive data in it.     - A memo is currently supported only for a transfer with a single destination
+     * @type {string}
+     * @memberof TempoTransferDestination
+     */
+    'memo'?: string;
 }
 
 export const TempoTransferDestinationTypeEnum = {

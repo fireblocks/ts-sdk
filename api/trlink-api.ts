@@ -327,7 +327,7 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+         * Accept or reject destinations waiting for a Travel Rule message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a destination enters the missing-TRM wait; if it can\'t be updated immediately, the decision is applied on the next processing attempt instead (status ACCEPTED). Check `status` in the response to see whether the decision has been applied.
          * @summary Manual decision for missing TRM
          * @param {TRLinkManualDecisionRequest} tRLinkManualDecisionRequest 
          * @param {string} customerIntegrationId Customer integration unique identifier
@@ -668,6 +668,46 @@ export const TRLinkApiAxiosParamCreator = function (configuration?: Configuratio
             // the wire) so the response interceptor can name the operation in the
             // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
             (localVarRequestOptions as any).fireblocksOperationId = 'getTRLinkIntegrationPublicKey';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the current manual missing-TRM decision for a transaction. Use to follow a decision that is not yet applied, or to check status at any time.
+         * @summary Get manual decision for missing TRM
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} txId Fireblocks transaction unique identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTRLinkManualDecision: async (customerIntegrationId: string, txId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getTRLinkManualDecision', 'customerIntegrationId', customerIntegrationId)
+            assertParamExistsAndNotEmpty('getTRLinkManualDecision', 'txId', txId)
+            const localVarPath = `/screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision`
+                .replace(`{${"customerIntegrationId"}}`, encodeURIComponent(String(customerIntegrationId)))
+                .replace(`{${"txId"}}`, encodeURIComponent(String(txId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getTRLinkManualDecision';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -1372,7 +1412,7 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+         * Accept or reject destinations waiting for a Travel Rule message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a destination enters the missing-TRM wait; if it can\'t be updated immediately, the decision is applied on the next processing attempt instead (status ACCEPTED). Check `status` in the response to see whether the decision has been applied.
          * @summary Manual decision for missing TRM
          * @param {TRLinkManualDecisionRequest} tRLinkManualDecisionRequest 
          * @param {string} customerIntegrationId Customer integration unique identifier
@@ -1491,6 +1531,20 @@ export const TRLinkApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getTRLinkIntegrationPublicKey(customerIntegrationId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['TRLinkApi.getTRLinkIntegrationPublicKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the current manual missing-TRM decision for a transaction. Use to follow a decision that is not yet applied, or to check status at any time.
+         * @summary Get manual decision for missing TRM
+         * @param {string} customerIntegrationId Customer integration unique identifier
+         * @param {string} txId Fireblocks transaction unique identifier
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTRLinkManualDecision(customerIntegrationId: string, txId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TRLinkManualDecisionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTRLinkManualDecision(customerIntegrationId, txId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TRLinkApi.getTRLinkManualDecision']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1755,7 +1809,7 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createTRLinkIntegration(requestParameters.tRLinkCreateIntegrationRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+         * Accept or reject destinations waiting for a Travel Rule message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a destination enters the missing-TRM wait; if it can\'t be updated immediately, the decision is applied on the next processing attempt instead (status ACCEPTED). Check `status` in the response to see whether the decision has been applied.
          * @summary Manual decision for missing TRM
          * @param {TRLinkApiCreateTRLinkManualDecisionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1842,6 +1896,16 @@ export const TRLinkApiFactory = function (configuration?: Configuration, basePat
          */
         getTRLinkIntegrationPublicKey(requestParameters: TRLinkApiGetTRLinkIntegrationPublicKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<TRLinkPublicKeyResponse> {
             return localVarFp.getTRLinkIntegrationPublicKey(requestParameters.customerIntegrationId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the current manual missing-TRM decision for a transaction. Use to follow a decision that is not yet applied, or to check status at any time.
+         * @summary Get manual decision for missing TRM
+         * @param {TRLinkApiGetTRLinkManualDecisionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTRLinkManualDecision(requestParameters: TRLinkApiGetTRLinkManualDecisionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TRLinkManualDecisionResponse> {
+            return localVarFp.getTRLinkManualDecision(requestParameters.customerIntegrationId, requestParameters.txId, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieves a list of all available Travel Rule Support integration partners. Partners provide Travel Rule compliance services such as VASP discovery, TRM exchange, and PII encryption.
@@ -2272,6 +2336,27 @@ export interface TRLinkApiGetTRLinkIntegrationPublicKeyRequest {
 }
 
 /**
+ * Request parameters for getTRLinkManualDecision operation in TRLinkApi.
+ * @export
+ * @interface TRLinkApiGetTRLinkManualDecisionRequest
+ */
+export interface TRLinkApiGetTRLinkManualDecisionRequest {
+    /**
+     * Customer integration unique identifier
+     * @type {string}
+     * @memberof TRLinkApiGetTRLinkManualDecision
+     */
+    readonly customerIntegrationId: string
+
+    /**
+     * Fireblocks transaction unique identifier
+     * @type {string}
+     * @memberof TRLinkApiGetTRLinkManualDecision
+     */
+    readonly txId: string
+}
+
+/**
  * Request parameters for getTRLinkSupportedAsset operation in TRLinkApi.
  * @export
  * @interface TRLinkApiGetTRLinkSupportedAssetRequest
@@ -2654,7 +2739,7 @@ export class TRLinkApi extends BaseAPI {
     }
 
     /**
-     * Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+     * Accept or reject destinations waiting for a Travel Rule message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a destination enters the missing-TRM wait; if it can\'t be updated immediately, the decision is applied on the next processing attempt instead (status ACCEPTED). Check `status` in the response to see whether the decision has been applied.
      * @summary Manual decision for missing TRM
      * @param {TRLinkApiCreateTRLinkManualDecisionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2758,6 +2843,18 @@ export class TRLinkApi extends BaseAPI {
      */
     public getTRLinkIntegrationPublicKey(requestParameters: TRLinkApiGetTRLinkIntegrationPublicKeyRequest) {
         return TRLinkApiFp(this.configuration).getTRLinkIntegrationPublicKey(requestParameters.customerIntegrationId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the current manual missing-TRM decision for a transaction. Use to follow a decision that is not yet applied, or to check status at any time.
+     * @summary Get manual decision for missing TRM
+     * @param {TRLinkApiGetTRLinkManualDecisionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TRLinkApi
+     */
+    public getTRLinkManualDecision(requestParameters: TRLinkApiGetTRLinkManualDecisionRequest) {
+        return TRLinkApiFp(this.configuration).getTRLinkManualDecision(requestParameters.customerIntegrationId, requestParameters.txId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

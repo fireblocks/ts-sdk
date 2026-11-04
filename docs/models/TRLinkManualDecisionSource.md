@@ -3,9 +3,9 @@
 ## Enum
 
 
-* `Manual` (value: `'MANUAL'`)
+* `Manual` (value: `'manual'`)
 
-* `Policy` (value: `'POLICY'`)
+* `Policy` (value: `'policy'`)
 
 
 

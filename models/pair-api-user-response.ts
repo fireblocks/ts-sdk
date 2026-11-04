@@ -15,25 +15,25 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { ApiKey } from './api-key';
+import { CallbackHandlerRequest } from './callback-handler-request';
 
 /**
  * 
  * @export
- * @interface ApiKeysPaginatedResponse
+ * @interface PairApiUserResponse
  */
-export interface ApiKeysPaginatedResponse {
+export interface PairApiUserResponse {
     /**
-     * The data of the current page
-     * @type {Array<ApiKey>}
-     * @memberof ApiKeysPaginatedResponse
-     */
-    'data': Array<ApiKey>;
-    /**
-     * The ID of the next page
+     * The unique identifier of the API user
      * @type {string}
-     * @memberof ApiKeysPaginatedResponse
+     * @memberof PairApiUserResponse
      */
-    'next'?: string | null;
+    'id': string;
+    /**
+     * 
+     * @type {CallbackHandlerRequest}
+     * @memberof PairApiUserResponse
+     */
+    'callbackHandler'?: CallbackHandlerRequest;
 }
 

@@ -56,5 +56,25 @@ export interface CreateMultipleAccountsRequest {
      * @memberof CreateMultipleAccountsRequest
      */
     'tagIds'?: Array<string>;
+    /**
+     * Type of vault accounts to create. The default type is MPC. KEY_LINK creates Key Link vault accounts. It requires a Key Link workspace. With autoAssign set to true, the vault accounts are bound to the workspace\'s Key Link signing keys, assigned automatically from the available keys, and only one KEY_LINK bulk creation with autoAssign set to true can run per workspace at a time. With autoAssign set to false (the default), the vault accounts are created without keys. With KEY_LINK, names, vaultAccountNamesStartingIndex, prefix and tagIds work as they do for MPC, and baseAssetIds may be empty to create vault accounts without wallets. 
+     * @type {string}
+     * @memberof CreateMultipleAccountsRequest
+     */
+    'vaultType'?: CreateMultipleAccountsRequestVaultTypeEnum;
+    /**
+     * Applicable only when vaultType is KEY_LINK. For MPC, this parameter is ignored. If set to true, keys are assigned to every created vault account. If there are not enough available keys to assign, the request returns an error and no vault accounts are created. If set to false, the vault accounts are created without any keys, and baseAssetIds must be empty because wallets can only be created for vault accounts that have keys. 
+     * @type {boolean}
+     * @memberof CreateMultipleAccountsRequest
+     */
+    'autoAssign'?: boolean;
 }
+
+export const CreateMultipleAccountsRequestVaultTypeEnum = {
+    Mpc: 'MPC',
+    KeyLink: 'KEY_LINK'
+} as const;
+
+export type CreateMultipleAccountsRequestVaultTypeEnum = typeof CreateMultipleAccountsRequestVaultTypeEnum[keyof typeof CreateMultipleAccountsRequestVaultTypeEnum];
+
 

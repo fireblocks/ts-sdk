@@ -27,7 +27,7 @@ import { ApiUserApi,
          ContractInteractionsApi, 
          ContractTemplatesApi, 
          ContractsApi, 
-         CosignersBetaApi, 
+         CosignersApi, 
          DeployedContractsApi, 
          EarnApi, 
          EmbeddedWalletsApi, 
@@ -37,8 +37,8 @@ import { ApiUserApi,
          GasStationsApi, 
          GenieBetaApi, 
          InternalWalletsApi, 
-         KeyLinkBetaApi, 
-         KeysBetaApi, 
+         KeyLinkApi, 
+         KeysApi, 
          NFTsApi, 
          NetworkConnectionsApi, 
          OTABetaApi, 
@@ -92,7 +92,7 @@ export class Fireblocks {
     private _contractInteractions?: ContractInteractionsApi;
     private _contractTemplates?: ContractTemplatesApi;
     private _contracts?: ContractsApi;
-    private _cosignersBeta?: CosignersBetaApi;
+    private _cosigners?: CosignersApi;
     private _deployedContracts?: DeployedContractsApi;
     private _earn?: EarnApi;
     private _embeddedWallets?: EmbeddedWalletsApi;
@@ -102,8 +102,8 @@ export class Fireblocks {
     private _gasStations?: GasStationsApi;
     private _genieBeta?: GenieBetaApi;
     private _internalWallets?: InternalWalletsApi;
-    private _keyLinkBeta?: KeyLinkBetaApi;
-    private _keysBeta?: KeysBetaApi;
+    private _keyLink?: KeyLinkApi;
+    private _keys?: KeysApi;
     private _nfts?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
     private _otaBeta?: OTABetaApi;
@@ -201,8 +201,8 @@ export class Fireblocks {
     get contracts(): ContractsApi {
         return this._contracts ?? new ContractsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get cosignersBeta(): CosignersBetaApi {
-        return this._cosignersBeta ?? new CosignersBetaApi(this.config, undefined, this.axiosManager.axios);
+    get cosigners(): CosignersApi {
+        return this._cosigners ?? new CosignersApi(this.config, undefined, this.axiosManager.axios);
     }
     get deployedContracts(): DeployedContractsApi {
         return this._deployedContracts ?? new DeployedContractsApi(this.config, undefined, this.axiosManager.axios);
@@ -231,11 +231,11 @@ export class Fireblocks {
     get internalWallets(): InternalWalletsApi {
         return this._internalWallets ?? new InternalWalletsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get keyLinkBeta(): KeyLinkBetaApi {
-        return this._keyLinkBeta ?? new KeyLinkBetaApi(this.config, undefined, this.axiosManager.axios);
+    get keyLink(): KeyLinkApi {
+        return this._keyLink ?? new KeyLinkApi(this.config, undefined, this.axiosManager.axios);
     }
-    get keysBeta(): KeysBetaApi {
-        return this._keysBeta ?? new KeysBetaApi(this.config, undefined, this.axiosManager.axios);
+    get keys(): KeysApi {
+        return this._keys ?? new KeysApi(this.config, undefined, this.axiosManager.axios);
     }
     get nfts(): NFTsApi {
         return this._nfts ?? new NFTsApi(this.config, undefined, this.axiosManager.axios);

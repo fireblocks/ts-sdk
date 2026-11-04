@@ -31,13 +31,13 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { GetMpcKeysResponse } from '../models';
 /**
- * KeysBetaApi - axios parameter creator
+ * KeysApi - axios parameter creator
  * @export
  */
-export const KeysBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const KeysApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached. **Note:**  This endpoint is currently in beta and might be subject to changes.
+         * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached.
          * @summary Get list of mpc keys
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -71,7 +71,7 @@ export const KeysBetaApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
          * @summary Get list of mpc keys by `userId`
          * @param {string} userId The id for the user
          * @param {*} [options] Override http request option.
@@ -111,14 +111,14 @@ export const KeysBetaApiAxiosParamCreator = function (configuration?: Configurat
 };
 
 /**
- * KeysBetaApi - functional programming interface
+ * KeysApi - functional programming interface
  * @export
  */
-export const KeysBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = KeysBetaApiAxiosParamCreator(configuration)
+export const KeysApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = KeysApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached. **Note:**  This endpoint is currently in beta and might be subject to changes.
+         * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached.
          * @summary Get list of mpc keys
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -126,11 +126,11 @@ export const KeysBetaApiFp = function(configuration?: Configuration) {
         async getMpcKeysList(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMpcKeysResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMpcKeysList(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeysBetaApi.getMpcKeysList']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeysApi.getMpcKeysList']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
          * @summary Get list of mpc keys by `userId`
          * @param {string} userId The id for the user
          * @param {*} [options] Override http request option.
@@ -139,21 +139,21 @@ export const KeysBetaApiFp = function(configuration?: Configuration) {
         async getMpcKeysListByUser(userId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetMpcKeysResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getMpcKeysListByUser(userId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeysBetaApi.getMpcKeysListByUser']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeysApi.getMpcKeysListByUser']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * KeysBetaApi - factory interface
+ * KeysApi - factory interface
  * @export
  */
-export const KeysBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = KeysBetaApiFp(configuration)
+export const KeysApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = KeysApiFp(configuration)
     return {
         /**
-         * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached. **Note:**  This endpoint is currently in beta and might be subject to changes.
+         * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached.
          * @summary Get list of mpc keys
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -162,60 +162,60 @@ export const KeysBetaApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getMpcKeysList(options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
          * @summary Get list of mpc keys by `userId`
-         * @param {KeysBetaApiGetMpcKeysListByUserRequest} requestParameters Request parameters.
+         * @param {KeysApiGetMpcKeysListByUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMpcKeysListByUser(requestParameters: KeysBetaApiGetMpcKeysListByUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMpcKeysResponse> {
+        getMpcKeysListByUser(requestParameters: KeysApiGetMpcKeysListByUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetMpcKeysResponse> {
             return localVarFp.getMpcKeysListByUser(requestParameters.userId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for getMpcKeysListByUser operation in KeysBetaApi.
+ * Request parameters for getMpcKeysListByUser operation in KeysApi.
  * @export
- * @interface KeysBetaApiGetMpcKeysListByUserRequest
+ * @interface KeysApiGetMpcKeysListByUserRequest
  */
-export interface KeysBetaApiGetMpcKeysListByUserRequest {
+export interface KeysApiGetMpcKeysListByUserRequest {
     /**
      * The id for the user
      * @type {string}
-     * @memberof KeysBetaApiGetMpcKeysListByUser
+     * @memberof KeysApiGetMpcKeysListByUser
      */
     readonly userId: string
 }
 
 /**
- * KeysBetaApi - object-oriented interface
+ * KeysApi - object-oriented interface
  * @export
- * @class KeysBetaApi
+ * @class KeysApi
  * @extends {BaseAPI}
  */
-export class KeysBetaApi extends BaseAPI {
+export class KeysApi extends BaseAPI {
     /**
-     * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached. **Note:**  This endpoint is currently in beta and might be subject to changes.
+     * Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached.
      * @summary Get list of mpc keys
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeysBetaApi
+     * @memberof KeysApi
      */
     public getMpcKeysList() {
-        return KeysBetaApiFp(this.configuration).getMpcKeysList().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return KeysApiFp(this.configuration).getMpcKeysList().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
      * @summary Get list of mpc keys by `userId`
-     * @param {KeysBetaApiGetMpcKeysListByUserRequest} requestParameters Request parameters.
+     * @param {KeysApiGetMpcKeysListByUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeysBetaApi
+     * @memberof KeysApi
      */
-    public getMpcKeysListByUser(requestParameters: KeysBetaApiGetMpcKeysListByUserRequest) {
-        return KeysBetaApiFp(this.configuration).getMpcKeysListByUser(requestParameters.userId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getMpcKeysListByUser(requestParameters: KeysApiGetMpcKeysListByUserRequest) {
+        return KeysApiFp(this.configuration).getMpcKeysListByUser(requestParameters.userId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

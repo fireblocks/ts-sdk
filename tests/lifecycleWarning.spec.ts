@@ -12,6 +12,8 @@
 
 
 import {
+    BETA_STATE,
+    EA_STATE,
     LIFECYCLE_STATE_HEADER,
     LINK_HEADER,
     OPERATION_ID_CONFIG_KEY,
@@ -20,6 +22,7 @@ import {
     buildLifecycleWarning,
     isSuppressed,
     operationIdFromConfig,
+    WARNING_STATES,
     warnOnLifecycleState,
 } from '../utils/lifecycleWarning';
 
@@ -59,20 +62,20 @@ describe('lifecycleWarning', () => {
 
     describe('emission', () => {
         it('emits one warning for a non-GA state', () => {
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
             expect(consoleWarn).toHaveBeenCalledTimes(1);
             expect(consoleWarn.mock.calls[0][0]).toContain('createTransaction');
-            expect(consoleWarn.mock.calls[0][0]).toContain('beta');
+            expect(consoleWarn.mock.calls[0][0]).toContain('EA (Early Availability)');
         });
 
         it('emits per execution, not once per operation', () => {
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
             expect(consoleWarn).toHaveBeenCalledTimes(2);
         });
 
         it('emits for each distinct operation', () => {
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
             warnOnLifecycleState(headers('closed'), 'getVaultAccount', 200);
             expect(consoleWarn).toHaveBeenCalledTimes(2);
         });
@@ -83,7 +86,8 @@ describe('lifecycleWarning', () => {
             'ga',
             'internal',
             'unlisted',
-            'private_beta', // the old name for beta: no longer recognised
+            'beta', // retired names for ea: no longer recognised
+            'private_beta',
             'quantum_preview',
             '',
             '   ',
@@ -106,13 +110,13 @@ describe('lifecycleWarning', () => {
         });
 
         it('stays silent without an operation id', () => {
-            warnOnLifecycleState(headers('beta'), undefined);
+            warnOnLifecycleState(headers('ea'), undefined);
             expect(consoleWarn).not.toHaveBeenCalled();
         });
 
         it('does not throw when console.warn itself throws', () => {
             consoleWarn.mockImplementation(() => { throw new Error('console is patched badly'); });
-            expect(() => warnOnLifecycleState(headers('beta'), 'op')).not.toThrow();
+            expect(() => warnOnLifecycleState(headers('ea'), 'op')).not.toThrow();
         });
     });
 
@@ -127,13 +131,14 @@ describe('lifecycleWarning', () => {
             'fireblocks-lifecycle-state',
             'FIREBLOCKS-LIFECYCLE-STATE',
         ])('looks the header name up case-insensitively: %s', (name) => {
-            expect(buildLifecycleWarning({ [name]: 'beta' }, 'op')).toBeDefined();
+            expect(buildLifecycleWarning({ [name]: 'ea' }, 'op')).toBeDefined();
         });
 
-        it('renders the state verbatim as snake_case', () => {
-            const message = buildLifecycleWarning(headers('beta'), 'op');
-            expect(message).toContain("'beta'");
-            expect(message).not.toContain('Private Beta');
+        it('names the state as EA', () => {
+            const message = buildLifecycleWarning(headers('ea'), 'op');
+            expect(message).toContain('EA (Early Availability)');
+            expect(message).not.toContain("'ea'");
+            expect(message?.toLowerCase()).not.toContain('beta');
         });
     });
 
@@ -273,21 +278,21 @@ describe('lifecycleWarning', () => {
         );
     });
 
-    describe('beta wording, closed handling and HTTP status', () => {
-        const BETA_TEXT =
-            "Operation 'op' is in 'beta' lifecycle state and is not generally available."
-            + ' It may change or be removed without notice.';
+    describe('EA wording, closed handling and HTTP status', () => {
+        const EA_TEXT =
+            "Operation 'op' is in EA (Early Availability) and is not generally available."
+            + ' It may change or break before it reaches GA.';
         const CLOSED_TEXT =
             "Operation 'op' has been closed and is no longer supported."
             + ' Your access is provided under a temporary exception and may be revoked.'
             + ' Contact your Customer Success Manager for migration support';
 
-        it('uses the beta message text', () => {
-            expect(buildLifecycleWarning(headers('beta'), 'op')).toBe(BETA_TEXT);
+        it('uses the EA message text', () => {
+            expect(buildLifecycleWarning(headers('ea'), 'op')).toBe(EA_TEXT);
         });
 
-        it.each([undefined, 200, 400, 403, 500])('beta warns for status %p', (status) => {
-            expect(buildLifecycleWarning(headers('beta'), 'op', status)).toBe(BETA_TEXT);
+        it.each([undefined, 200, 400, 403, 500])('EA warns for status %p', (status) => {
+            expect(buildLifecycleWarning(headers('ea'), 'op', status)).toBe(EA_TEXT);
         });
 
         it('is silent for closed with 410', () => {
@@ -350,20 +355,28 @@ describe('lifecycleWarning', () => {
 
         it.each(['1', 'true', 'yes'])('suppresses when set to %p', (value) => {
             process.env[SUPPRESS_ENV_VAR] = value;
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
             expect(consoleWarn).not.toHaveBeenCalled();
         });
 
         it.each(['0', 'false', ''])('does not suppress when set to %p', (value) => {
             process.env[SUPPRESS_ENV_VAR] = value;
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
             expect(consoleWarn).toHaveBeenCalledTimes(1);
         });
 
         it('does not suppress when unset', () => {
             delete process.env[SUPPRESS_ENV_VAR];
-            warnOnLifecycleState(headers('beta'), 'createTransaction');
+            warnOnLifecycleState(headers('ea'), 'createTransaction');
             expect(consoleWarn).toHaveBeenCalledTimes(1);
         });
+    });
+});
+
+describe('deprecated BETA_STATE alias', () => {
+    it('is still exported but no longer warns', () => {
+        expect(BETA_STATE).toBe('beta');
+        expect(WARNING_STATES.has(BETA_STATE)).toBe(false);
+        expect(WARNING_STATES.has(EA_STATE)).toBe(true);
     });
 });

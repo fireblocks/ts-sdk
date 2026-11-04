@@ -1,4 +1,4 @@
-# KeyLinkBetaApi
+# KeyLinkApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -14,6 +14,7 @@ Method | HTTP request | Description
 [**getSigningKeysList**](#getSigningKeysList) | **GET** /key_link/signing_keys | Get list of signing keys
 [**getValidationKey**](#getValidationKey) | **GET** /key_link/validation_keys/{keyId} | Get a validation key by &#x60;keyId&#x60;
 [**getValidationKeysList**](#getValidationKeysList) | **GET** /key_link/validation_keys | Get list of registered validation keys
+[**revokeValidationKey**](#revokeValidationKey) | **POST** /key_link/validation_keys/{keyId}/revoke | Revokes a validation key
 [**setAgentId**](#setAgentId) | **PATCH** /key_link/signing_keys/{keyId}/agent_user_id | Set agent user id
 [**updateSigningKey**](#updateSigningKey) | **PATCH** /key_link/signing_keys/{keyId} | Modify the signing keyId
 
@@ -29,7 +30,7 @@ Accepts a set of signing keys certified by a single validation key and queues th
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiCreateBulkSigningKeysRequest, CreateBulkSigningKeysResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiCreateBulkSigningKeysRequest, CreateBulkSigningKeysResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -38,14 +39,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiCreateBulkSigningKeysRequest = {
+let body: KeyLinkApiCreateBulkSigningKeysRequest = {
   // CreateBulkSigningKeys
   createBulkSigningKeys: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.keyLinkBeta.createBulkSigningKeys(body).then((res: FireblocksResponse<CreateBulkSigningKeysResponse>) => {
+fireblocks.keyLink.createBulkSigningKeys(body).then((res: FireblocksResponse<CreateBulkSigningKeysResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -93,7 +94,7 @@ Adds a new signing key to the workspace. The added key will be linked to the spe
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiCreateSigningKeyRequest, SigningKeyDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiCreateSigningKeyRequest, SigningKeyDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -102,14 +103,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiCreateSigningKeyRequest = {
+let body: KeyLinkApiCreateSigningKeyRequest = {
   // CreateSigningKeyDto
   createSigningKeyDto: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.keyLinkBeta.createSigningKey(body).then((res: FireblocksResponse<SigningKeyDto>) => {
+fireblocks.keyLink.createSigningKey(body).then((res: FireblocksResponse<SigningKeyDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -156,7 +157,7 @@ Adds a new validation key used to validate signing keys. The new validation key 
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiCreateValidationKeyRequest, CreateValidationKeyResponseDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiCreateValidationKeyRequest, CreateValidationKeyResponseDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -165,14 +166,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiCreateValidationKeyRequest = {
+let body: KeyLinkApiCreateValidationKeyRequest = {
   // CreateValidationKeyDto
   createValidationKeyDto: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.keyLinkBeta.createValidationKey(body).then((res: FireblocksResponse<CreateValidationKeyResponseDto>) => {
+fireblocks.keyLink.createValidationKey(body).then((res: FireblocksResponse<CreateValidationKeyResponseDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -211,7 +212,7 @@ No authorization required
 # **disableValidationKey**
 > ValidationKeyDto disableValidationKey(modifyValidationKeyDto, )
 
-Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+DEPRECATED - Please use `POST /key_link/validation_keys/{keyId}/revoke` instead. Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
 
 ### Example
 
@@ -219,7 +220,7 @@ Allows disabling validation key even if it has not expired yet. It is not allowe
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiDisableValidationKeyRequest, ValidationKeyDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiDisableValidationKeyRequest, ValidationKeyDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -228,14 +229,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiDisableValidationKeyRequest = {
+let body: KeyLinkApiDisableValidationKeyRequest = {
   // ModifyValidationKeyDto
   modifyValidationKeyDto: param_value,
   // string | The unique identifier for the validation key provided by Fireblocks
   keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
 };
 
-fireblocks.keyLinkBeta.disableValidationKey(body).then((res: FireblocksResponse<ValidationKeyDto>) => {
+fireblocks.keyLink.disableValidationKey(body).then((res: FireblocksResponse<ValidationKeyDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -282,7 +283,7 @@ Returns the progress and outcome of a bulk registration job. `created + alreadyR
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiGetBulkSigningKeysJobRequest, BulkSigningKeyJob } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiGetBulkSigningKeysJobRequest, BulkSigningKeyJob } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -291,12 +292,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiGetBulkSigningKeysJobRequest = {
+let body: KeyLinkApiGetBulkSigningKeysJobRequest = {
   // string | The id of the bulk registration job
   jobId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
 };
 
-fireblocks.keyLinkBeta.getBulkSigningKeysJob(body).then((res: FireblocksResponse<BulkSigningKeyJob>) => {
+fireblocks.keyLink.getBulkSigningKeysJob(body).then((res: FireblocksResponse<BulkSigningKeyJob>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -342,7 +343,7 @@ Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiGetBulkSigningKeysJobsRequest, GetBulkSigningKeysJobsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiGetBulkSigningKeysJobsRequest, GetBulkSigningKeysJobsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -351,14 +352,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiGetBulkSigningKeysJobsRequest = {
+let body: KeyLinkApiGetBulkSigningKeysJobsRequest = {
   // string | Cursor to the next page (optional)
   pageCursor: pageCursor_example,
   // number | Amount of results to return in the next page (optional)
   pageSize: 56,
 };
 
-fireblocks.keyLinkBeta.getBulkSigningKeysJobs(body).then((res: FireblocksResponse<GetBulkSigningKeysJobsResponse>) => {
+fireblocks.keyLink.getBulkSigningKeysJobs(body).then((res: FireblocksResponse<GetBulkSigningKeysJobsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -405,7 +406,7 @@ Returns a signing key if it exists, identified by the specified `keyId`.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiGetSigningKeyRequest, SigningKeyDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiGetSigningKeyRequest, SigningKeyDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -414,12 +415,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiGetSigningKeyRequest = {
+let body: KeyLinkApiGetSigningKeyRequest = {
   // string | The unique identifier for the signing key provided by Fireblocks
   keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
 };
 
-fireblocks.keyLinkBeta.getSigningKey(body).then((res: FireblocksResponse<SigningKeyDto>) => {
+fireblocks.keyLink.getSigningKey(body).then((res: FireblocksResponse<SigningKeyDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -465,7 +466,7 @@ Returns the list of signing keys in the workspace
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiGetSigningKeysListRequest, GetSigningKeyResponseDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiGetSigningKeysListRequest, GetSigningKeyResponseDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -474,7 +475,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiGetSigningKeysListRequest = {
+let body: KeyLinkApiGetSigningKeysListRequest = {
   // string | Cursor to the next page (optional)
   pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
   // number | Amount of results to return in the next page (optional)
@@ -499,7 +500,7 @@ let body: KeyLinkBetaApiGetSigningKeysListRequest = {
   keyPrefix: keyPrefix_example,
 };
 
-fireblocks.keyLinkBeta.getSigningKeysList(body).then((res: FireblocksResponse<GetSigningKeyResponseDto>) => {
+fireblocks.keyLink.getSigningKeysList(body).then((res: FireblocksResponse<GetSigningKeyResponseDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -555,7 +556,7 @@ Returns a validation key if it exists, identified by the specified `keyId`.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiGetValidationKeyRequest, ValidationKeyDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiGetValidationKeyRequest, ValidationKeyDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -564,12 +565,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiGetValidationKeyRequest = {
+let body: KeyLinkApiGetValidationKeyRequest = {
   // string
   keyId: keyId_example,
 };
 
-fireblocks.keyLinkBeta.getValidationKey(body).then((res: FireblocksResponse<ValidationKeyDto>) => {
+fireblocks.keyLink.getValidationKey(body).then((res: FireblocksResponse<ValidationKeyDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -607,7 +608,7 @@ No authorization required
 # **getValidationKeysList**
 > GetValidationKeyResponseDto getValidationKeysList()
 
-Returns the list of validation keys in the workspace
+Returns the list of validation keys in the workspace. By default, revoked keys are filtered out. Use `includeRevoked=true` to show all keys.
 
 ### Example
 
@@ -615,7 +616,7 @@ Returns the list of validation keys in the workspace
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiGetValidationKeysListRequest, GetValidationKeyResponseDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiGetValidationKeysListRequest, GetValidationKeyResponseDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -624,7 +625,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiGetValidationKeysListRequest = {
+let body: KeyLinkApiGetValidationKeysListRequest = {
   // string | Cursor to the next page (optional)
   pageCursor: MjAyMy0xMi0xMyAyMDozNjowOC4zMDI=:MTEwMA==,
   // number | Amount of results to return in the next page (optional)
@@ -633,9 +634,11 @@ let body: KeyLinkBetaApiGetValidationKeysListRequest = {
   sortBy: sortBy_example,
   // 'ASC' | 'DESC' | Is the order ascending or descending (optional)
   order: order_example,
+  // boolean | Include revoked validation keys in the response (optional)
+  includeRevoked: true,
 };
 
-fireblocks.keyLinkBeta.getValidationKeysList(body).then((res: FireblocksResponse<GetValidationKeyResponseDto>) => {
+fireblocks.keyLink.getValidationKeysList(body).then((res: FireblocksResponse<GetValidationKeyResponseDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -649,6 +652,7 @@ Name | Type | Description  | Notes
  **pageSize** | [**number**] | Amount of results to return in the next page | (optional) defaults to 10
  **sortBy** | [**&#39;createdAt&#39;**]**Array<&#39;createdAt&#39;>** | Field(s) to use for sorting | (optional) defaults to 'createdAt'
  **order** | [**&#39;ASC&#39; | &#39;DESC&#39;**]**Array<&#39;ASC&#39; &#124; &#39;DESC&#39;>** | Is the order ascending or descending | (optional) defaults to 'ASC'
+ **includeRevoked** | [**boolean**] | Include revoked validation keys in the response | (optional) defaults to false
 
 
 ### Return type
@@ -673,6 +677,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **revokeValidationKey**
+> ValidationKeyDto revokeValidationKey()
+
+Revokes a validation key, making it permanently unusable for validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future validations.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiRevokeValidationKeyRequest, ValidationKeyDto } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: KeyLinkApiRevokeValidationKeyRequest = {
+  // string | The unique identifier for the validation key provided by Fireblocks
+  keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.keyLink.revokeValidationKey(body).then((res: FireblocksResponse<ValidationKeyDto>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **keyId** | [**string**] | The unique identifier for the validation key provided by Fireblocks | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[ValidationKeyDto](../models/ValidationKeyDto.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Revoked validation key data |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **setAgentId**
 > setAgentId(modifySigningKeyAgentIdDto, )
 
@@ -684,7 +751,7 @@ Can modify existing signing key id if the key is not enabled. The change done in
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiSetAgentIdRequest } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiSetAgentIdRequest } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -693,14 +760,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiSetAgentIdRequest = {
+let body: KeyLinkApiSetAgentIdRequest = {
   // ModifySigningKeyAgentIdDto
   modifySigningKeyAgentIdDto: param_value,
   // string | The unique identifier for the signing key provided by Fireblocks
   keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
 };
 
-fireblocks.keyLinkBeta.setAgentId(body).then((res: FireblocksResponse<any>) => {
+fireblocks.keyLink.setAgentId(body).then((res: FireblocksResponse<any>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -747,7 +814,7 @@ Allows assigning the signing key to a vault account, if it hasn\'t been assigned
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeyLinkBetaApiUpdateSigningKeyRequest, SigningKeyDto } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeyLinkApiUpdateSigningKeyRequest, SigningKeyDto } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -756,14 +823,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeyLinkBetaApiUpdateSigningKeyRequest = {
+let body: KeyLinkApiUpdateSigningKeyRequest = {
   // ModifySigningKeyDto
   modifySigningKeyDto: param_value,
   // string | The unique identifier for the signing key provided by Fireblocks
   keyId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
 };
 
-fireblocks.keyLinkBeta.updateSigningKey(body).then((res: FireblocksResponse<SigningKeyDto>) => {
+fireblocks.keyLink.updateSigningKey(body).then((res: FireblocksResponse<SigningKeyDto>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

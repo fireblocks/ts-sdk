@@ -9,6 +9,8 @@
 |**daysTillExpired** | **number** |  | [default to undefined]|
 |**enabled** | **boolean** | True if the validation key is enabled. | [default to undefined]|
 |**createdAt** | **number** | Creation date (timestamp) in milliseconds. | [default to undefined]|
+|**expirationTime** | **number** | Expiration date (Unix timestamp) in milliseconds. | [default to undefined]|
+|**revoked** | **boolean** | True if the validation key is revoked. | [default to false]|
 
 
 

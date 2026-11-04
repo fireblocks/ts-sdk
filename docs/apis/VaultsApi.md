@@ -312,7 +312,7 @@ No authorization required
 # **createMultipleAccounts**
 > JobCreated createMultipleAccounts(createMultipleAccountsRequest)
 
-Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation.  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 

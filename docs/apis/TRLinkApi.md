@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**getTRLinkCustomerIntegrations**](#getTRLinkCustomerIntegrations) | **GET** /screening/trlink/customers/{customerId}/integrations | Get customer integrations
 [**getTRLinkCustomers**](#getTRLinkCustomers) | **GET** /screening/trlink/customers | Get all customers
 [**getTRLinkIntegrationPublicKey**](#getTRLinkIntegrationPublicKey) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/public_key | Get public key for PII encryption
+[**getTRLinkManualDecision**](#getTRLinkManualDecision) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/transactions/{txId}/manual_decision | Get manual decision for missing TRM
 [**getTRLinkPartners**](#getTRLinkPartners) | **GET** /screening/trlink/partners | List available TRSupport partners
 [**getTRLinkPolicy**](#getTRLinkPolicy) | **GET** /screening/trlink/policy | Get TRLink policy
 [**getTRLinkSupportedAsset**](#getTRLinkSupportedAsset) | **GET** /screening/trlink/customers/integration/{customerIntegrationId}/assets/{assetId} | Get supported asset by ID
@@ -364,7 +365,7 @@ No authorization required
 # **createTRLinkManualDecision**
 > TRLinkManualDecisionResponse createTRLinkManualDecision(tRLinkManualDecisionRequest, )
 
-Accept or reject destinations stuck in NoTRM step without waiting for TRP webhook or policy timeout.
+Accept or reject destinations waiting for a Travel Rule message (missing TRM), without waiting for a TRP webhook or the missing-TRM policy timeout. You can submit before a destination enters the missing-TRM wait; if it can\'t be updated immediately, the decision is applied on the next processing attempt instead (status ACCEPTED). Check `status` in the response to see whether the decision has been applied.
 
 ### Example
 
@@ -425,7 +426,10 @@ No authorization required
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**200** | Decision applied successfully |  -  |
+**200** | Decision applied (status APPLIED), accepted for the next processing attempt (status ACCEPTED), or accepted early (status PRE_ACCEPTED). |  * X-Request-ID -  <br>  |
+**404** | Customer integration not found or not owned by tenant (code 2125). |  * X-Request-ID -  <br>  |
+**409** | Manual decision already final for this transaction (code 2127) or transaction screening already completed (code 2129). |  * X-Request-ID -  <br>  |
+**425** | Too Early - screening has not started for this transaction yet. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -909,6 +913,70 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Public key retrieved successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getTRLinkManualDecision**
+> TRLinkManualDecisionResponse getTRLinkManualDecision()
+
+Returns the current manual missing-TRM decision for a transaction. Use to follow a decision that is not yet applied, or to check status at any time.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TRLinkApiGetTRLinkManualDecisionRequest, TRLinkManualDecisionResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TRLinkApiGetTRLinkManualDecisionRequest = {
+  // string | Customer integration unique identifier
+  customerIntegrationId: 3fa85f64-5717-4562-b3fc-2c963f66afa6,
+  // string | Fireblocks transaction unique identifier
+  txId: b70701f4-d7b1-4795-a8ee-b09cdb5b850e,
+};
+
+fireblocks.trLink.getTRLinkManualDecision(body).then((res: FireblocksResponse<TRLinkManualDecisionResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **customerIntegrationId** | [**string**] | Customer integration unique identifier | defaults to undefined
+ **txId** | [**string**] | Fireblocks transaction unique identifier | defaults to undefined
+
+
+### Return type
+
+**[TRLinkManualDecisionResponse](../models/TRLinkManualDecisionResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Current manual decision (status APPLIED, ACCEPTED, or PRE_ACCEPTED). |  * X-Request-ID -  <br>  |
+**404** | No manual decision for this transaction (code 2128), or customer integration not found or not owned by tenant (code 2125). |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)

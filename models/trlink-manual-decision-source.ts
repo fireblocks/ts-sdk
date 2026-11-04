@@ -15,14 +15,14 @@
 
 
 /**
- * Source of the manual decision
+ * Source of the manual decision. Values are lowercase.
  * @export
  * @enum {string}
  */
 
 export const TRLinkManualDecisionSource = {
-    Manual: 'MANUAL',
-    Policy: 'POLICY'
+    Manual: 'manual',
+    Policy: 'policy'
 } as const;
 
 export type TRLinkManualDecisionSource = typeof TRLinkManualDecisionSource[keyof typeof TRLinkManualDecisionSource];

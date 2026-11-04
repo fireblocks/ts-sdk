@@ -164,12 +164,6 @@ export interface CreateTempoTransferRequest {
      * @memberof CreateTempoTransferRequest
      */
     'nonceLane'?: number;
-    /**
-     * Beta. Tempo TIP-20 memo (max 32 bytes).
-     * @type {string}
-     * @memberof CreateTempoTransferRequest
-     */
-    'memo'?: string;
 }
 
 export const CreateTempoTransferRequestFeeLevelEnum = {

@@ -21,14 +21,23 @@ import { TRLinkManualDecisionAction } from './trlink-manual-decision-action';
 import { TRLinkManualDecisionDestinationDetail } from './trlink-manual-decision-destination-detail';
 // May contain unused imports in some cases
 // @ts-ignore
+import { TRLinkManualDecisionResponseStatusEnum } from './trlink-manual-decision-response-status-enum';
+// May contain unused imports in some cases
+// @ts-ignore
 import { TRLinkManualDecisionSource } from './trlink-manual-decision-source';
 
 /**
- * Response containing the result of the manual decision
+ * Response containing the result of a manual missing-TRM decision (POST write or GET read).
  * @export
  * @interface TRLinkManualDecisionResponse
  */
 export interface TRLinkManualDecisionResponse {
+    /**
+     * 
+     * @type {TRLinkManualDecisionResponseStatusEnum}
+     * @memberof TRLinkManualDecisionResponse
+     */
+    'status': TRLinkManualDecisionResponseStatusEnum;
     /**
      * 
      * @type {TRLinkManualDecisionAction}
