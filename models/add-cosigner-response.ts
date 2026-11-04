@@ -21,11 +21,11 @@
  */
 export interface AddCosignerResponse {
     /**
-     * The id of the API key to be paired with the cosigner
+     * The id of the API user to be paired with the cosigner
      * @type {string}
      * @memberof AddCosignerResponse
      */
-    'apiKeyId': string;
+    'apiUserId': string;
     /**
      * The name of the cosigner
      * @type {string}

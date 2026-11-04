@@ -15,11 +15,15 @@
 
 * `Pending3RdParty` (value: `'PENDING_3RD_PARTY'`)
 
+* `Signed` (value: `'SIGNED'`)
+
 * `Broadcasting` (value: `'BROADCASTING'`)
 
 * `PendingAmlScreening` (value: `'PENDING_AML_SCREENING'`)
 
 * `Confirming` (value: `'CONFIRMING'`)
+
+* `Completed` (value: `'COMPLETED'`)
 
 * `PartiallyCompleted` (value: `'PARTIALLY_COMPLETED'`)
 

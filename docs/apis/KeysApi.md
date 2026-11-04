@@ -1,4 +1,4 @@
-# KeysBetaApi
+# KeysApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -11,7 +11,7 @@ Method | HTTP request | Description
 # **getMpcKeysList**
 > GetMpcKeysResponse getMpcKeysList()
 
-Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached. **Note:**  This endpoint is currently in beta and might be subject to changes.
+Returns a list of MPC signing keys of the workspace. For each key, the list of players associated with it is attached.
 
 ### Example
 
@@ -30,7 +30,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.keysBeta.getMpcKeysList(body).then((res: FireblocksResponse<GetMpcKeysResponse>) => {
+fireblocks.keys.getMpcKeysList(body).then((res: FireblocksResponse<GetMpcKeysResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -65,7 +65,7 @@ No authorization required
 # **getMpcKeysListByUser**
 > GetMpcKeysResponse getMpcKeysListByUser()
 
-Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached. **Note:** This endpoint is currently in beta and might be subject to changes.
+Returns a list of MPC signing keys of a specific user. For each key, the list of players associated with it is attached.
 
 ### Example
 
@@ -73,7 +73,7 @@ Returns a list of MPC signing keys of a specific user. For each key, the list of
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, KeysBetaApiGetMpcKeysListByUserRequest, GetMpcKeysResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, KeysApiGetMpcKeysListByUserRequest, GetMpcKeysResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -82,12 +82,12 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: KeysBetaApiGetMpcKeysListByUserRequest = {
+let body: KeysApiGetMpcKeysListByUserRequest = {
   // string | The id for the user
   userId: 46a92767-5f93-4a46-9eed-f012196bb4fc,
 };
 
-fireblocks.keysBeta.getMpcKeysListByUser(body).then((res: FireblocksResponse<GetMpcKeysResponse>) => {
+fireblocks.keys.getMpcKeysListByUser(body).then((res: FireblocksResponse<GetMpcKeysResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

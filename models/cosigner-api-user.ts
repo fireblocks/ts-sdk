@@ -15,19 +15,31 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { CallbackHandlerRequest } from './callback-handler-request';
+import { CallbackHandler } from './callback-handler';
 
 /**
  * 
  * @export
- * @interface PairApiKeyRequest
+ * @interface CosignerApiUser
  */
-export interface PairApiKeyRequest {
+export interface CosignerApiUser {
+    /**
+     * The unique identifier of the API user
+     * @type {string}
+     * @memberof CosignerApiUser
+     */
+    'id': string;
+    /**
+     * The date the API user was last seen
+     * @type {string}
+     * @memberof CosignerApiUser
+     */
+    'lastSeen'?: string;
     /**
      * 
-     * @type {CallbackHandlerRequest}
-     * @memberof PairApiKeyRequest
+     * @type {CallbackHandler}
+     * @memberof CosignerApiUser
      */
-    'callbackHandler'?: CallbackHandlerRequest;
+    'callbackHandler'?: CallbackHandler;
 }
 

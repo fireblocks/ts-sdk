@@ -1,11 +1,11 @@
-# PairApiKeyResponse
+# ApiUsersPaginatedResponse
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**id** | **string** | The unique identifier of the API key | [default to undefined]|
-|**callbackHandler** | [**CallbackHandlerRequest**](CallbackHandlerRequest.md) |  | [optional] [default to undefined]|
+|**data** | [**Array&lt;CosignerApiUser&gt;**](CosignerApiUser.md) | The data of the current page | [default to undefined]|
+|**next** | **string** | The ID of the next page | [optional] [default to undefined]|
 
 
 

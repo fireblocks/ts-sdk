@@ -4,7 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**apiKeyId** | **string** | The id of the API key to be paired with the cosigner | [default to undefined]|
+|**apiUserId** | **string** | The id of the API user to be paired with the cosigner | [default to undefined]|
 |**name** | **string** | The name of the cosigner | [default to undefined]|
 |**existingCosigner** | **boolean** | Whether the cosigner already exists in another workspace | [optional] [default to false]|
 

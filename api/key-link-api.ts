@@ -57,10 +57,10 @@ import { SigningKeyDto } from '../models';
 // @ts-ignore
 import { ValidationKeyDto } from '../models';
 /**
- * KeyLinkBetaApi - axios parameter creator
+ * KeyLinkApi - axios parameter creator
  * @export
  */
-export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const KeyLinkApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
          * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
@@ -195,11 +195,12 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+         * DEPRECATED - Please use `POST /key_link/validation_keys/{keyId}/revoke` instead. Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
          * @summary Disables a validation key
          * @param {ModifyValidationKeyDto} modifyValidationKeyDto 
          * @param {string} keyId The unique identifier for the validation key provided by Fireblocks
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         disableValidationKey: async (modifyValidationKeyDto: ModifyValidationKeyDto, keyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
@@ -481,16 +482,17 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
             };
         },
         /**
-         * Returns the list of validation keys in the workspace
+         * Returns the list of validation keys in the workspace. By default, revoked keys are filtered out. Use `includeRevoked=true` to show all keys.
          * @summary Get list of registered validation keys
          * @param {string} [pageCursor] Cursor to the next page
          * @param {number} [pageSize] Amount of results to return in the next page
          * @param {GetValidationKeysListSortByEnum} [sortBy] Field(s) to use for sorting
          * @param {GetValidationKeysListOrderEnum} [order] Is the order ascending or descending
+         * @param {boolean} [includeRevoked] Include revoked validation keys in the response
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getValidationKeysList: async (pageCursor?: string, pageSize?: number, sortBy?: GetValidationKeysListSortByEnum, order?: GetValidationKeysListOrderEnum, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getValidationKeysList: async (pageCursor?: string, pageSize?: number, sortBy?: GetValidationKeysListSortByEnum, order?: GetValidationKeysListOrderEnum, includeRevoked?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/key_link/validation_keys`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -521,6 +523,52 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
 
             if (order !== undefined) {
                 localVarQueryParameter['order'] = order;
+            }
+
+            if (includeRevoked !== undefined) {
+                localVarQueryParameter['includeRevoked'] = includeRevoked;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Revokes a validation key, making it permanently unusable for validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future validations.
+         * @summary Revokes a validation key
+         * @param {string} keyId The unique identifier for the validation key provided by Fireblocks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeValidationKey: async (keyId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('revokeValidationKey', 'keyId', keyId)
+            const localVarPath = `/key_link/validation_keys/{keyId}/revoke`
+                .replace(`{${"keyId"}}`, encodeURIComponent(String(keyId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'revokeValidationKey';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
 
@@ -622,11 +670,11 @@ export const KeyLinkBetaApiAxiosParamCreator = function (configuration?: Configu
 };
 
 /**
- * KeyLinkBetaApi - functional programming interface
+ * KeyLinkApi - functional programming interface
  * @export
  */
-export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = KeyLinkBetaApiAxiosParamCreator(configuration)
+export const KeyLinkApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = KeyLinkApiAxiosParamCreator(configuration)
     return {
         /**
          * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
@@ -639,7 +687,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async createBulkSigningKeys(createBulkSigningKeys: CreateBulkSigningKeys, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateBulkSigningKeysResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createBulkSigningKeys(createBulkSigningKeys, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.createBulkSigningKeys']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.createBulkSigningKeys']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -653,7 +701,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async createSigningKey(createSigningKeyDto: CreateSigningKeyDto, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigningKeyDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createSigningKey(createSigningKeyDto, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.createSigningKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.createSigningKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -667,21 +715,22 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async createValidationKey(createValidationKeyDto: CreateValidationKeyDto, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateValidationKeyResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createValidationKey(createValidationKeyDto, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.createValidationKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.createValidationKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+         * DEPRECATED - Please use `POST /key_link/validation_keys/{keyId}/revoke` instead. Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
          * @summary Disables a validation key
          * @param {ModifyValidationKeyDto} modifyValidationKeyDto 
          * @param {string} keyId The unique identifier for the validation key provided by Fireblocks
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         async disableValidationKey(modifyValidationKeyDto: ModifyValidationKeyDto, keyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidationKeyDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.disableValidationKey(modifyValidationKeyDto, keyId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.disableValidationKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.disableValidationKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -694,7 +743,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async getBulkSigningKeysJob(jobId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BulkSigningKeyJob>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBulkSigningKeysJob(jobId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.getBulkSigningKeysJob']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.getBulkSigningKeysJob']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -708,7 +757,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async getBulkSigningKeysJobs(pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetBulkSigningKeysJobsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getBulkSigningKeysJobs(pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.getBulkSigningKeysJobs']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.getBulkSigningKeysJobs']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -721,7 +770,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async getSigningKey(keyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigningKeyDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKey(keyId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.getSigningKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.getSigningKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -744,7 +793,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async getSigningKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetSigningKeysListSortByEnum, order?: GetSigningKeysListOrderEnum, vaultAccountId?: number, agentUserId?: string, algorithm?: GetSigningKeysListAlgorithmEnum, enabled?: boolean, available?: boolean, isAssigned?: boolean | null, keyPrefix?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetSigningKeyResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getSigningKeysList(pageCursor, pageSize, sortBy, order, vaultAccountId, agentUserId, algorithm, enabled, available, isAssigned, keyPrefix, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.getSigningKeysList']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.getSigningKeysList']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -757,23 +806,38 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async getValidationKey(keyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidationKeyDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getValidationKey(keyId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.getValidationKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.getValidationKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the list of validation keys in the workspace
+         * Returns the list of validation keys in the workspace. By default, revoked keys are filtered out. Use `includeRevoked=true` to show all keys.
          * @summary Get list of registered validation keys
          * @param {string} [pageCursor] Cursor to the next page
          * @param {number} [pageSize] Amount of results to return in the next page
          * @param {GetValidationKeysListSortByEnum} [sortBy] Field(s) to use for sorting
          * @param {GetValidationKeysListOrderEnum} [order] Is the order ascending or descending
+         * @param {boolean} [includeRevoked] Include revoked validation keys in the response
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getValidationKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetValidationKeysListSortByEnum, order?: GetValidationKeysListOrderEnum, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetValidationKeyResponseDto>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getValidationKeysList(pageCursor, pageSize, sortBy, order, options);
+        async getValidationKeysList(pageCursor?: string, pageSize?: number, sortBy?: GetValidationKeysListSortByEnum, order?: GetValidationKeysListOrderEnum, includeRevoked?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetValidationKeyResponseDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getValidationKeysList(pageCursor, pageSize, sortBy, order, includeRevoked, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.getValidationKeysList']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.getValidationKeysList']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Revokes a validation key, making it permanently unusable for validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future validations.
+         * @summary Revokes a validation key
+         * @param {string} keyId The unique identifier for the validation key provided by Fireblocks
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async revokeValidationKey(keyId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ValidationKeyDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.revokeValidationKey(keyId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['KeyLinkApi.revokeValidationKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -787,7 +851,7 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async setAgentId(modifySigningKeyAgentIdDto: ModifySigningKeyAgentIdDto, keyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.setAgentId(modifySigningKeyAgentIdDto, keyId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.setAgentId']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.setAgentId']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -801,599 +865,651 @@ export const KeyLinkBetaApiFp = function(configuration?: Configuration) {
         async updateSigningKey(modifySigningKeyDto: ModifySigningKeyDto, keyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<SigningKeyDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateSigningKey(modifySigningKeyDto, keyId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['KeyLinkBetaApi.updateSigningKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['KeyLinkApi.updateSigningKey']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * KeyLinkBetaApi - factory interface
+ * KeyLinkApi - factory interface
  * @export
  */
-export const KeyLinkBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = KeyLinkBetaApiFp(configuration)
+export const KeyLinkApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = KeyLinkApiFp(configuration)
     return {
         /**
          * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
          * @summary Register signing keys in bulk
-         * @param {KeyLinkBetaApiCreateBulkSigningKeysRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiCreateBulkSigningKeysRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBulkSigningKeys(requestParameters: KeyLinkBetaApiCreateBulkSigningKeysRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateBulkSigningKeysResponse> {
+        createBulkSigningKeys(requestParameters: KeyLinkApiCreateBulkSigningKeysRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateBulkSigningKeysResponse> {
             return localVarFp.createBulkSigningKeys(requestParameters.createBulkSigningKeys, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
          * @summary Add a new signing key
-         * @param {KeyLinkBetaApiCreateSigningKeyRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiCreateSigningKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createSigningKey(requestParameters: KeyLinkBetaApiCreateSigningKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SigningKeyDto> {
+        createSigningKey(requestParameters: KeyLinkApiCreateSigningKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SigningKeyDto> {
             return localVarFp.createSigningKey(requestParameters.createSigningKeyDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Adds a new validation key used to validate signing keys. The new validation key will undergo an approval process by the workspace quorum.
          * @summary Add a new validation key
-         * @param {KeyLinkBetaApiCreateValidationKeyRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiCreateValidationKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createValidationKey(requestParameters: KeyLinkBetaApiCreateValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateValidationKeyResponseDto> {
+        createValidationKey(requestParameters: KeyLinkApiCreateValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateValidationKeyResponseDto> {
             return localVarFp.createValidationKey(requestParameters.createValidationKeyDto, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+         * DEPRECATED - Please use `POST /key_link/validation_keys/{keyId}/revoke` instead. Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
          * @summary Disables a validation key
-         * @param {KeyLinkBetaApiDisableValidationKeyRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiDisableValidationKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
-        disableValidationKey(requestParameters: KeyLinkBetaApiDisableValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidationKeyDto> {
+        disableValidationKey(requestParameters: KeyLinkApiDisableValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidationKeyDto> {
             return localVarFp.disableValidationKey(requestParameters.modifyValidationKeyDto, requestParameters.keyId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
          * @summary Get a bulk registration job
-         * @param {KeyLinkBetaApiGetBulkSigningKeysJobRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiGetBulkSigningKeysJobRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBulkSigningKeysJob(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<BulkSigningKeyJob> {
+        getBulkSigningKeysJob(requestParameters: KeyLinkApiGetBulkSigningKeysJobRequest, options?: RawAxiosRequestConfig): AxiosPromise<BulkSigningKeyJob> {
             return localVarFp.getBulkSigningKeysJob(requestParameters.jobId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
          * @summary Get bulk registration jobs
-         * @param {KeyLinkBetaApiGetBulkSigningKeysJobsRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiGetBulkSigningKeysJobsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBulkSigningKeysJobs(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetBulkSigningKeysJobsResponse> {
+        getBulkSigningKeysJobs(requestParameters: KeyLinkApiGetBulkSigningKeysJobsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetBulkSigningKeysJobsResponse> {
             return localVarFp.getBulkSigningKeysJobs(requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a signing key if it exists, identified by the specified `keyId`.
          * @summary Get a signing key by `keyId`
-         * @param {KeyLinkBetaApiGetSigningKeyRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiGetSigningKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSigningKey(requestParameters: KeyLinkBetaApiGetSigningKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SigningKeyDto> {
+        getSigningKey(requestParameters: KeyLinkApiGetSigningKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SigningKeyDto> {
             return localVarFp.getSigningKey(requestParameters.keyId, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns the list of signing keys in the workspace
          * @summary Get list of signing keys
-         * @param {KeyLinkBetaApiGetSigningKeysListRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiGetSigningKeysListRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getSigningKeysList(requestParameters: KeyLinkBetaApiGetSigningKeysListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetSigningKeyResponseDto> {
+        getSigningKeysList(requestParameters: KeyLinkApiGetSigningKeysListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetSigningKeyResponseDto> {
             return localVarFp.getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned, requestParameters.keyPrefix, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns a validation key if it exists, identified by the specified `keyId`.
          * @summary Get a validation key by `keyId`
-         * @param {KeyLinkBetaApiGetValidationKeyRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiGetValidationKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getValidationKey(requestParameters: KeyLinkBetaApiGetValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidationKeyDto> {
+        getValidationKey(requestParameters: KeyLinkApiGetValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidationKeyDto> {
             return localVarFp.getValidationKey(requestParameters.keyId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the list of validation keys in the workspace
+         * Returns the list of validation keys in the workspace. By default, revoked keys are filtered out. Use `includeRevoked=true` to show all keys.
          * @summary Get list of registered validation keys
-         * @param {KeyLinkBetaApiGetValidationKeysListRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiGetValidationKeysListRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getValidationKeysList(requestParameters: KeyLinkBetaApiGetValidationKeysListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetValidationKeyResponseDto> {
-            return localVarFp.getValidationKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, options).then((request) => request(axios, basePath));
+        getValidationKeysList(requestParameters: KeyLinkApiGetValidationKeysListRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetValidationKeyResponseDto> {
+            return localVarFp.getValidationKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.includeRevoked, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Revokes a validation key, making it permanently unusable for validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future validations.
+         * @summary Revokes a validation key
+         * @param {KeyLinkApiRevokeValidationKeyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeValidationKey(requestParameters: KeyLinkApiRevokeValidationKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ValidationKeyDto> {
+            return localVarFp.revokeValidationKey(requestParameters.keyId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Can modify existing signing key id if the key is not enabled. The change done in background and will be visible once applied. If key is already enabled (after proof of ownership) the user cannot be changed.
          * @summary Set agent user id
-         * @param {KeyLinkBetaApiSetAgentIdRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiSetAgentIdRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        setAgentId(requestParameters: KeyLinkBetaApiSetAgentIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        setAgentId(requestParameters: KeyLinkApiSetAgentIdRequest, options?: RawAxiosRequestConfig): AxiosPromise<void> {
             return localVarFp.setAgentId(requestParameters.modifySigningKeyAgentIdDto, requestParameters.keyId, options).then((request) => request(axios, basePath));
         },
         /**
          * Allows assigning the signing key to a vault account, if it hasn\'t been assigned to any other vault accounts yet.
          * @summary Modify the signing keyId
-         * @param {KeyLinkBetaApiUpdateSigningKeyRequest} requestParameters Request parameters.
+         * @param {KeyLinkApiUpdateSigningKeyRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateSigningKey(requestParameters: KeyLinkBetaApiUpdateSigningKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SigningKeyDto> {
+        updateSigningKey(requestParameters: KeyLinkApiUpdateSigningKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<SigningKeyDto> {
             return localVarFp.updateSigningKey(requestParameters.modifySigningKeyDto, requestParameters.keyId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for createBulkSigningKeys operation in KeyLinkBetaApi.
+ * Request parameters for createBulkSigningKeys operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiCreateBulkSigningKeysRequest
+ * @interface KeyLinkApiCreateBulkSigningKeysRequest
  */
-export interface KeyLinkBetaApiCreateBulkSigningKeysRequest {
+export interface KeyLinkApiCreateBulkSigningKeysRequest {
     /**
      * 
      * @type {CreateBulkSigningKeys}
-     * @memberof KeyLinkBetaApiCreateBulkSigningKeys
+     * @memberof KeyLinkApiCreateBulkSigningKeys
      */
     readonly createBulkSigningKeys: CreateBulkSigningKeys
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof KeyLinkBetaApiCreateBulkSigningKeys
+     * @memberof KeyLinkApiCreateBulkSigningKeys
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for createSigningKey operation in KeyLinkBetaApi.
+ * Request parameters for createSigningKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiCreateSigningKeyRequest
+ * @interface KeyLinkApiCreateSigningKeyRequest
  */
-export interface KeyLinkBetaApiCreateSigningKeyRequest {
+export interface KeyLinkApiCreateSigningKeyRequest {
     /**
      * 
      * @type {CreateSigningKeyDto}
-     * @memberof KeyLinkBetaApiCreateSigningKey
+     * @memberof KeyLinkApiCreateSigningKey
      */
     readonly createSigningKeyDto: CreateSigningKeyDto
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof KeyLinkBetaApiCreateSigningKey
+     * @memberof KeyLinkApiCreateSigningKey
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for createValidationKey operation in KeyLinkBetaApi.
+ * Request parameters for createValidationKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiCreateValidationKeyRequest
+ * @interface KeyLinkApiCreateValidationKeyRequest
  */
-export interface KeyLinkBetaApiCreateValidationKeyRequest {
+export interface KeyLinkApiCreateValidationKeyRequest {
     /**
      * 
      * @type {CreateValidationKeyDto}
-     * @memberof KeyLinkBetaApiCreateValidationKey
+     * @memberof KeyLinkApiCreateValidationKey
      */
     readonly createValidationKeyDto: CreateValidationKeyDto
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof KeyLinkBetaApiCreateValidationKey
+     * @memberof KeyLinkApiCreateValidationKey
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for disableValidationKey operation in KeyLinkBetaApi.
+ * Request parameters for disableValidationKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiDisableValidationKeyRequest
+ * @interface KeyLinkApiDisableValidationKeyRequest
  */
-export interface KeyLinkBetaApiDisableValidationKeyRequest {
+export interface KeyLinkApiDisableValidationKeyRequest {
     /**
      * 
      * @type {ModifyValidationKeyDto}
-     * @memberof KeyLinkBetaApiDisableValidationKey
+     * @memberof KeyLinkApiDisableValidationKey
      */
     readonly modifyValidationKeyDto: ModifyValidationKeyDto
 
     /**
      * The unique identifier for the validation key provided by Fireblocks
      * @type {string}
-     * @memberof KeyLinkBetaApiDisableValidationKey
+     * @memberof KeyLinkApiDisableValidationKey
      */
     readonly keyId: string
 }
 
 /**
- * Request parameters for getBulkSigningKeysJob operation in KeyLinkBetaApi.
+ * Request parameters for getBulkSigningKeysJob operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiGetBulkSigningKeysJobRequest
+ * @interface KeyLinkApiGetBulkSigningKeysJobRequest
  */
-export interface KeyLinkBetaApiGetBulkSigningKeysJobRequest {
+export interface KeyLinkApiGetBulkSigningKeysJobRequest {
     /**
      * The id of the bulk registration job
      * @type {string}
-     * @memberof KeyLinkBetaApiGetBulkSigningKeysJob
+     * @memberof KeyLinkApiGetBulkSigningKeysJob
      */
     readonly jobId: string
 }
 
 /**
- * Request parameters for getBulkSigningKeysJobs operation in KeyLinkBetaApi.
+ * Request parameters for getBulkSigningKeysJobs operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiGetBulkSigningKeysJobsRequest
+ * @interface KeyLinkApiGetBulkSigningKeysJobsRequest
  */
-export interface KeyLinkBetaApiGetBulkSigningKeysJobsRequest {
+export interface KeyLinkApiGetBulkSigningKeysJobsRequest {
     /**
      * Cursor to the next page
      * @type {string}
-     * @memberof KeyLinkBetaApiGetBulkSigningKeysJobs
+     * @memberof KeyLinkApiGetBulkSigningKeysJobs
      */
     readonly pageCursor?: string
 
     /**
      * Amount of results to return in the next page
      * @type {number}
-     * @memberof KeyLinkBetaApiGetBulkSigningKeysJobs
+     * @memberof KeyLinkApiGetBulkSigningKeysJobs
      */
     readonly pageSize?: number
 }
 
 /**
- * Request parameters for getSigningKey operation in KeyLinkBetaApi.
+ * Request parameters for getSigningKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiGetSigningKeyRequest
+ * @interface KeyLinkApiGetSigningKeyRequest
  */
-export interface KeyLinkBetaApiGetSigningKeyRequest {
+export interface KeyLinkApiGetSigningKeyRequest {
     /**
      * The unique identifier for the signing key provided by Fireblocks
      * @type {string}
-     * @memberof KeyLinkBetaApiGetSigningKey
+     * @memberof KeyLinkApiGetSigningKey
      */
     readonly keyId: string
 }
 
 /**
- * Request parameters for getSigningKeysList operation in KeyLinkBetaApi.
+ * Request parameters for getSigningKeysList operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiGetSigningKeysListRequest
+ * @interface KeyLinkApiGetSigningKeysListRequest
  */
-export interface KeyLinkBetaApiGetSigningKeysListRequest {
+export interface KeyLinkApiGetSigningKeysListRequest {
     /**
      * Cursor to the next page
      * @type {string}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly pageCursor?: string
 
     /**
      * Amount of results to return in the next page
      * @type {number}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly pageSize?: number
 
     /**
      * Field(s) to use for sorting
      * @type {'createdAt'}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly sortBy?: GetSigningKeysListSortByEnum
 
     /**
      * Is the order ascending or descending
      * @type {'ASC' | 'DESC'}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly order?: GetSigningKeysListOrderEnum
 
     /**
      * Return keys assigned to a specific vault
      * @type {number}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly vaultAccountId?: number
 
     /**
      * Return keys associated with a specific agent user
      * @type {string}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly agentUserId?: string
 
     /**
      * Return only keys with a specific algorithm
      * @type {'ECDSA_SECP256K1' | 'EDDSA_ED25519'}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly algorithm?: GetSigningKeysListAlgorithmEnum
 
     /**
      * Return keys that have been proof of ownership
      * @type {boolean}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly enabled?: boolean
 
     /**
      * Return keys that are proof of ownership but not assigned. Available filter can be used only when vaultAccountId and enabled filters are not set
      * @type {boolean}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly available?: boolean
 
     /**
      * Return keys that are assigned to a vault account
      * @type {boolean}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly isAssigned?: boolean | null
 
     /**
      * A case-insensitive prefix filter that matches records where either keyId or signingDeviceKeyID starts with the specified value.
      * @type {string}
-     * @memberof KeyLinkBetaApiGetSigningKeysList
+     * @memberof KeyLinkApiGetSigningKeysList
      */
     readonly keyPrefix?: string
 }
 
 /**
- * Request parameters for getValidationKey operation in KeyLinkBetaApi.
+ * Request parameters for getValidationKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiGetValidationKeyRequest
+ * @interface KeyLinkApiGetValidationKeyRequest
  */
-export interface KeyLinkBetaApiGetValidationKeyRequest {
+export interface KeyLinkApiGetValidationKeyRequest {
     /**
      * 
      * @type {string}
-     * @memberof KeyLinkBetaApiGetValidationKey
+     * @memberof KeyLinkApiGetValidationKey
      */
     readonly keyId: string
 }
 
 /**
- * Request parameters for getValidationKeysList operation in KeyLinkBetaApi.
+ * Request parameters for getValidationKeysList operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiGetValidationKeysListRequest
+ * @interface KeyLinkApiGetValidationKeysListRequest
  */
-export interface KeyLinkBetaApiGetValidationKeysListRequest {
+export interface KeyLinkApiGetValidationKeysListRequest {
     /**
      * Cursor to the next page
      * @type {string}
-     * @memberof KeyLinkBetaApiGetValidationKeysList
+     * @memberof KeyLinkApiGetValidationKeysList
      */
     readonly pageCursor?: string
 
     /**
      * Amount of results to return in the next page
      * @type {number}
-     * @memberof KeyLinkBetaApiGetValidationKeysList
+     * @memberof KeyLinkApiGetValidationKeysList
      */
     readonly pageSize?: number
 
     /**
      * Field(s) to use for sorting
      * @type {'createdAt'}
-     * @memberof KeyLinkBetaApiGetValidationKeysList
+     * @memberof KeyLinkApiGetValidationKeysList
      */
     readonly sortBy?: GetValidationKeysListSortByEnum
 
     /**
      * Is the order ascending or descending
      * @type {'ASC' | 'DESC'}
-     * @memberof KeyLinkBetaApiGetValidationKeysList
+     * @memberof KeyLinkApiGetValidationKeysList
      */
     readonly order?: GetValidationKeysListOrderEnum
+
+    /**
+     * Include revoked validation keys in the response
+     * @type {boolean}
+     * @memberof KeyLinkApiGetValidationKeysList
+     */
+    readonly includeRevoked?: boolean
 }
 
 /**
- * Request parameters for setAgentId operation in KeyLinkBetaApi.
+ * Request parameters for revokeValidationKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiSetAgentIdRequest
+ * @interface KeyLinkApiRevokeValidationKeyRequest
  */
-export interface KeyLinkBetaApiSetAgentIdRequest {
+export interface KeyLinkApiRevokeValidationKeyRequest {
+    /**
+     * The unique identifier for the validation key provided by Fireblocks
+     * @type {string}
+     * @memberof KeyLinkApiRevokeValidationKey
+     */
+    readonly keyId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof KeyLinkApiRevokeValidationKey
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for setAgentId operation in KeyLinkApi.
+ * @export
+ * @interface KeyLinkApiSetAgentIdRequest
+ */
+export interface KeyLinkApiSetAgentIdRequest {
     /**
      * 
      * @type {ModifySigningKeyAgentIdDto}
-     * @memberof KeyLinkBetaApiSetAgentId
+     * @memberof KeyLinkApiSetAgentId
      */
     readonly modifySigningKeyAgentIdDto: ModifySigningKeyAgentIdDto
 
     /**
      * The unique identifier for the signing key provided by Fireblocks
      * @type {string}
-     * @memberof KeyLinkBetaApiSetAgentId
+     * @memberof KeyLinkApiSetAgentId
      */
     readonly keyId: string
 }
 
 /**
- * Request parameters for updateSigningKey operation in KeyLinkBetaApi.
+ * Request parameters for updateSigningKey operation in KeyLinkApi.
  * @export
- * @interface KeyLinkBetaApiUpdateSigningKeyRequest
+ * @interface KeyLinkApiUpdateSigningKeyRequest
  */
-export interface KeyLinkBetaApiUpdateSigningKeyRequest {
+export interface KeyLinkApiUpdateSigningKeyRequest {
     /**
      * 
      * @type {ModifySigningKeyDto}
-     * @memberof KeyLinkBetaApiUpdateSigningKey
+     * @memberof KeyLinkApiUpdateSigningKey
      */
     readonly modifySigningKeyDto: ModifySigningKeyDto
 
     /**
      * The unique identifier for the signing key provided by Fireblocks
      * @type {string}
-     * @memberof KeyLinkBetaApiUpdateSigningKey
+     * @memberof KeyLinkApiUpdateSigningKey
      */
     readonly keyId: string
 }
 
 /**
- * KeyLinkBetaApi - object-oriented interface
+ * KeyLinkApi - object-oriented interface
  * @export
- * @class KeyLinkBetaApi
+ * @class KeyLinkApi
  * @extends {BaseAPI}
  */
-export class KeyLinkBetaApi extends BaseAPI {
+export class KeyLinkApi extends BaseAPI {
     /**
      * Accepts a set of signing keys certified by a single validation key and queues them for registration in the background. Returns a job id to poll. A workspace can have one bulk registration at a time; submitting another while one is QUEUED or IN_PROGRESS is rejected with 409. Bulk registrations from different workspaces share a limited number of slots, so a job may wait QUEUED behind another workspace\'s before it starts. Keys already registered in the workspace are recognized and skipped, so resubmitting the same request after a failure is safe and only processes what is missing. Every key must carry its own proof of ownership; a bulk registration has no interactive step in which one can arrive later.
      * @summary Register signing keys in bulk
-     * @param {KeyLinkBetaApiCreateBulkSigningKeysRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiCreateBulkSigningKeysRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public createBulkSigningKeys(requestParameters: KeyLinkBetaApiCreateBulkSigningKeysRequest) {
-        return KeyLinkBetaApiFp(this.configuration).createBulkSigningKeys(requestParameters.createBulkSigningKeys, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createBulkSigningKeys(requestParameters: KeyLinkApiCreateBulkSigningKeysRequest) {
+        return KeyLinkApiFp(this.configuration).createBulkSigningKeys(requestParameters.createBulkSigningKeys, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Adds a new signing key to the workspace. The added key will be linked to the specific Fireblocks agent user ID. The same user will receive the proof of ownership message to be signed, and upon successful proof, the key will become enabled.
      * @summary Add a new signing key
-     * @param {KeyLinkBetaApiCreateSigningKeyRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiCreateSigningKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public createSigningKey(requestParameters: KeyLinkBetaApiCreateSigningKeyRequest) {
-        return KeyLinkBetaApiFp(this.configuration).createSigningKey(requestParameters.createSigningKeyDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createSigningKey(requestParameters: KeyLinkApiCreateSigningKeyRequest) {
+        return KeyLinkApiFp(this.configuration).createSigningKey(requestParameters.createSigningKeyDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Adds a new validation key used to validate signing keys. The new validation key will undergo an approval process by the workspace quorum.
      * @summary Add a new validation key
-     * @param {KeyLinkBetaApiCreateValidationKeyRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiCreateValidationKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public createValidationKey(requestParameters: KeyLinkBetaApiCreateValidationKeyRequest) {
-        return KeyLinkBetaApiFp(this.configuration).createValidationKey(requestParameters.createValidationKeyDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public createValidationKey(requestParameters: KeyLinkApiCreateValidationKeyRequest) {
+        return KeyLinkApiFp(this.configuration).createValidationKey(requestParameters.createValidationKeyDto, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
+     * DEPRECATED - Please use `POST /key_link/validation_keys/{keyId}/revoke` instead. Allows disabling validation key even if it has not expired yet. It is not allowed to enable the validation key back. Another key has to be used for future validations.
      * @summary Disables a validation key
-     * @param {KeyLinkBetaApiDisableValidationKeyRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiDisableValidationKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
+     * @deprecated
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public disableValidationKey(requestParameters: KeyLinkBetaApiDisableValidationKeyRequest) {
-        return KeyLinkBetaApiFp(this.configuration).disableValidationKey(requestParameters.modifyValidationKeyDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public disableValidationKey(requestParameters: KeyLinkApiDisableValidationKeyRequest) {
+        return KeyLinkApiFp(this.configuration).disableValidationKey(requestParameters.modifyValidationKeyDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Returns the progress and outcome of a bulk registration job. `created + alreadyRegistered` reaching `total` means every submitted key is present.
      * @summary Get a bulk registration job
-     * @param {KeyLinkBetaApiGetBulkSigningKeysJobRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiGetBulkSigningKeysJobRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public getBulkSigningKeysJob(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobRequest) {
-        return KeyLinkBetaApiFp(this.configuration).getBulkSigningKeysJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getBulkSigningKeysJob(requestParameters: KeyLinkApiGetBulkSigningKeysJobRequest) {
+        return KeyLinkApiFp(this.configuration).getBulkSigningKeysJob(requestParameters.jobId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Returns the workspace\'s bulk registration jobs, newest first, a page at a time.
      * @summary Get bulk registration jobs
-     * @param {KeyLinkBetaApiGetBulkSigningKeysJobsRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiGetBulkSigningKeysJobsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public getBulkSigningKeysJobs(requestParameters: KeyLinkBetaApiGetBulkSigningKeysJobsRequest = {}) {
-        return KeyLinkBetaApiFp(this.configuration).getBulkSigningKeysJobs(requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getBulkSigningKeysJobs(requestParameters: KeyLinkApiGetBulkSigningKeysJobsRequest = {}) {
+        return KeyLinkApiFp(this.configuration).getBulkSigningKeysJobs(requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Returns a signing key if it exists, identified by the specified `keyId`.
      * @summary Get a signing key by `keyId`
-     * @param {KeyLinkBetaApiGetSigningKeyRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiGetSigningKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public getSigningKey(requestParameters: KeyLinkBetaApiGetSigningKeyRequest) {
-        return KeyLinkBetaApiFp(this.configuration).getSigningKey(requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getSigningKey(requestParameters: KeyLinkApiGetSigningKeyRequest) {
+        return KeyLinkApiFp(this.configuration).getSigningKey(requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Returns the list of signing keys in the workspace
      * @summary Get list of signing keys
-     * @param {KeyLinkBetaApiGetSigningKeysListRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiGetSigningKeysListRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public getSigningKeysList(requestParameters: KeyLinkBetaApiGetSigningKeysListRequest = {}) {
-        return KeyLinkBetaApiFp(this.configuration).getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned, requestParameters.keyPrefix).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getSigningKeysList(requestParameters: KeyLinkApiGetSigningKeysListRequest = {}) {
+        return KeyLinkApiFp(this.configuration).getSigningKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.vaultAccountId, requestParameters.agentUserId, requestParameters.algorithm, requestParameters.enabled, requestParameters.available, requestParameters.isAssigned, requestParameters.keyPrefix).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Returns a validation key if it exists, identified by the specified `keyId`.
      * @summary Get a validation key by `keyId`
-     * @param {KeyLinkBetaApiGetValidationKeyRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiGetValidationKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public getValidationKey(requestParameters: KeyLinkBetaApiGetValidationKeyRequest) {
-        return KeyLinkBetaApiFp(this.configuration).getValidationKey(requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getValidationKey(requestParameters: KeyLinkApiGetValidationKeyRequest) {
+        return KeyLinkApiFp(this.configuration).getValidationKey(requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns the list of validation keys in the workspace
+     * Returns the list of validation keys in the workspace. By default, revoked keys are filtered out. Use `includeRevoked=true` to show all keys.
      * @summary Get list of registered validation keys
-     * @param {KeyLinkBetaApiGetValidationKeysListRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiGetValidationKeysListRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public getValidationKeysList(requestParameters: KeyLinkBetaApiGetValidationKeysListRequest = {}) {
-        return KeyLinkBetaApiFp(this.configuration).getValidationKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getValidationKeysList(requestParameters: KeyLinkApiGetValidationKeysListRequest = {}) {
+        return KeyLinkApiFp(this.configuration).getValidationKeysList(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sortBy, requestParameters.order, requestParameters.includeRevoked).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Revokes a validation key, making it permanently unusable for validation. Once revoked, a key cannot be un-revoked. Another key has to be used for future validations.
+     * @summary Revokes a validation key
+     * @param {KeyLinkApiRevokeValidationKeyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof KeyLinkApi
+     */
+    public revokeValidationKey(requestParameters: KeyLinkApiRevokeValidationKeyRequest) {
+        return KeyLinkApiFp(this.configuration).revokeValidationKey(requestParameters.keyId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Can modify existing signing key id if the key is not enabled. The change done in background and will be visible once applied. If key is already enabled (after proof of ownership) the user cannot be changed.
      * @summary Set agent user id
-     * @param {KeyLinkBetaApiSetAgentIdRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiSetAgentIdRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public setAgentId(requestParameters: KeyLinkBetaApiSetAgentIdRequest) {
-        return KeyLinkBetaApiFp(this.configuration).setAgentId(requestParameters.modifySigningKeyAgentIdDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public setAgentId(requestParameters: KeyLinkApiSetAgentIdRequest) {
+        return KeyLinkApiFp(this.configuration).setAgentId(requestParameters.modifySigningKeyAgentIdDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Allows assigning the signing key to a vault account, if it hasn\'t been assigned to any other vault accounts yet.
      * @summary Modify the signing keyId
-     * @param {KeyLinkBetaApiUpdateSigningKeyRequest} requestParameters Request parameters.
+     * @param {KeyLinkApiUpdateSigningKeyRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof KeyLinkBetaApi
+     * @memberof KeyLinkApi
      */
-    public updateSigningKey(requestParameters: KeyLinkBetaApiUpdateSigningKeyRequest) {
-        return KeyLinkBetaApiFp(this.configuration).updateSigningKey(requestParameters.modifySigningKeyDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateSigningKey(requestParameters: KeyLinkApiUpdateSigningKeyRequest) {
+        return KeyLinkApiFp(this.configuration).updateSigningKey(requestParameters.modifySigningKeyDto, requestParameters.keyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 

@@ -33,7 +33,7 @@ export interface TRLinkManualDecisionDestinationDetail {
      */
     'applied': boolean;
     /**
-     * Reason if the destination was skipped
+     * Reason when applied is false. Common values: deferred apply (destination could not be updated immediately), already applied, status changed, trmId exists, destination not found.
      * @type {string}
      * @memberof TRLinkManualDecisionDestinationDetail
      */

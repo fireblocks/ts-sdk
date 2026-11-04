@@ -31,19 +31,19 @@ import { AddCosignerRequest } from '../models';
 // @ts-ignore
 import { AddCosignerResponse } from '../models';
 // @ts-ignore
-import { ApiKey } from '../models';
-// @ts-ignore
-import { ApiKeysPaginatedResponse } from '../models';
+import { ApiUsersPaginatedResponse } from '../models';
 // @ts-ignore
 import { Cosigner } from '../models';
+// @ts-ignore
+import { CosignerApiUser } from '../models';
 // @ts-ignore
 import { CosignersPaginatedResponse } from '../models';
 // @ts-ignore
 import { ErrorSchema } from '../models';
 // @ts-ignore
-import { PairApiKeyRequest } from '../models';
+import { PairApiUserRequest } from '../models';
 // @ts-ignore
-import { PairApiKeyResponse } from '../models';
+import { PairApiUserResponse } from '../models';
 // @ts-ignore
 import { RenameCosigner } from '../models';
 // @ts-ignore
@@ -53,13 +53,13 @@ import { UpdateCallbackHandlerRequest } from '../models';
 // @ts-ignore
 import { UpdateCallbackHandlerResponse } from '../models';
 /**
- * CosignersBetaApi - axios parameter creator
+ * CosignersApi - axios parameter creator
  * @export
  */
-export const CosignersBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CosignersApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired Endpoint Permission: Admin and Non-Signing Admin.
+         * Add a new cosigner. The cosigner will be pending pairing until the API user is manually paired (see `pairCosignerApiUser`). Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Add cosigner
          * @param {AddCosignerRequest} addCosignerRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -103,99 +103,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get API key
-         * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getApiKey: async (cosignerId: string, apiKeyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getApiKey', 'cosignerId', cosignerId)
-            assertParamExistsAndNotEmpty('getApiKey', 'apiKeyId', apiKeyId)
-            const localVarPath = `/cosigners/{cosignerId}/api_keys/{apiKeyId}`
-                .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
-                .replace(`{${"apiKeyId"}}`, encodeURIComponent(String(apiKeyId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            // Stamped onto the request config (not the headers, so it never goes on
-            // the wire) so the response interceptor can name the operation in the
-            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
-            (localVarRequestOptions as any).fireblocksOperationId = 'getApiKey';
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get all API keys
-         * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {GetApiKeysOrderEnum} [order] ASC / DESC ordering (default DESC)
-         * @param {string} [pageCursor] Cursor of the required page
-         * @param {number} [pageSize] Maximum number of items in the page
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getApiKeys: async (cosignerId: string, order?: GetApiKeysOrderEnum, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getApiKeys', 'cosignerId', cosignerId)
-            const localVarPath = `/cosigners/{cosignerId}/api_keys`
-                .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            // Stamped onto the request config (not the headers, so it never goes on
-            // the wire) so the response interceptor can name the operation in the
-            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
-            (localVarRequestOptions as any).fireblocksOperationId = 'getApiKeys';
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (order !== undefined) {
-                localVarQueryParameter['order'] = order;
-            }
-
-            if (pageCursor !== undefined) {
-                localVarQueryParameter['pageCursor'] = pageCursor;
-            }
-
-            if (pageSize !== undefined) {
-                localVarQueryParameter['pageSize'] = pageSize;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Get a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Get cosigner
          * @param {string} cosignerId The unique identifier of the cosigner
          * @param {*} [options] Override http request option.
@@ -232,7 +140,142 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Get an API user by ID. Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get API user
+         * @param {string} cosignerId The unique identifier of the cosigner
+         * @param {string} apiUserId The unique identifier of the API user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCosignerApiUser: async (cosignerId: string, apiUserId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCosignerApiUser', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('getCosignerApiUser', 'apiUserId', apiUserId)
+            const localVarPath = `/cosigners/{cosignerId}/api_users/{apiUserId}`
+                .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
+                .replace(`{${"apiUserId"}}`, encodeURIComponent(String(apiUserId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getCosignerApiUser';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get API user request status
+         * @param {string} cosignerId The unique identifier of the cosigner
+         * @param {string} apiUserId The unique identifier of the API user
+         * @param {string} requestId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCosignerApiUserRequestStatus: async (cosignerId: string, apiUserId: string, requestId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCosignerApiUserRequestStatus', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('getCosignerApiUserRequestStatus', 'apiUserId', apiUserId)
+            assertParamExistsAndNotEmpty('getCosignerApiUserRequestStatus', 'requestId', requestId)
+            const localVarPath = `/cosigners/{cosignerId}/api_users/{apiUserId}/{requestId}`
+                .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
+                .replace(`{${"apiUserId"}}`, encodeURIComponent(String(apiUserId)))
+                .replace(`{${"requestId"}}`, encodeURIComponent(String(requestId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getCosignerApiUserRequestStatus';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all cosigner paired API users (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get all API users
+         * @param {string} cosignerId The unique identifier of the cosigner
+         * @param {GetCosignerApiUsersOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCosignerApiUsers: async (cosignerId: string, order?: GetCosignerApiUsersOrderEnum, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getCosignerApiUsers', 'cosignerId', cosignerId)
+            const localVarPath = `/cosigners/{cosignerId}/api_users`
+                .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getCosignerApiUsers';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (order !== undefined) {
+                localVarQueryParameter['order'] = order;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get all workspace cosigners (paginated). Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Get all cosigners
          * @param {GetCosignersOrderEnum} [order] ASC / DESC ordering (default DESC)
          * @param {string} [pageCursor] Cursor of the required page
@@ -281,65 +324,22 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get request status
+         * Pair an API user to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Pair API user
+         * @param {PairApiUserRequest} pairApiUserRequest 
          * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
-         * @param {string} requestId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getRequestStatus: async (cosignerId: string, apiKeyId: string, requestId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('getRequestStatus', 'cosignerId', cosignerId)
-            assertParamExistsAndNotEmpty('getRequestStatus', 'apiKeyId', apiKeyId)
-            assertParamExistsAndNotEmpty('getRequestStatus', 'requestId', requestId)
-            const localVarPath = `/cosigners/{cosignerId}/api_keys/{apiKeyId}/{requestId}`
-                .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
-                .replace(`{${"apiKeyId"}}`, encodeURIComponent(String(apiKeyId)))
-                .replace(`{${"requestId"}}`, encodeURIComponent(String(requestId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            // Stamped onto the request config (not the headers, so it never goes on
-            // the wire) so the response interceptor can name the operation in the
-            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
-            (localVarRequestOptions as any).fireblocksOperationId = 'getRequestStatus';
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Pair API key
-         * @param {PairApiKeyRequest} pairApiKeyRequest 
-         * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
+         * @param {string} apiUserId The unique identifier of the API user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pairApiKey: async (pairApiKeyRequest: PairApiKeyRequest, cosignerId: string, apiKeyId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('pairApiKey', 'pairApiKeyRequest', pairApiKeyRequest)
-            assertParamExistsAndNotEmpty('pairApiKey', 'cosignerId', cosignerId)
-            assertParamExistsAndNotEmpty('pairApiKey', 'apiKeyId', apiKeyId)
-            const localVarPath = `/cosigners/{cosignerId}/api_keys/{apiKeyId}`
+        pairCosignerApiUser: async (pairApiUserRequest: PairApiUserRequest, cosignerId: string, apiUserId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('pairCosignerApiUser', 'pairApiUserRequest', pairApiUserRequest)
+            assertParamExistsAndNotEmpty('pairCosignerApiUser', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('pairCosignerApiUser', 'apiUserId', apiUserId)
+            const localVarPath = `/cosigners/{cosignerId}/api_users/{apiUserId}`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
-                .replace(`{${"apiKeyId"}}`, encodeURIComponent(String(apiKeyId)));
+                .replace(`{${"apiUserId"}}`, encodeURIComponent(String(apiUserId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -351,7 +351,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             // Stamped onto the request config (not the headers, so it never goes on
             // the wire) so the response interceptor can name the operation in the
             // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
-            (localVarRequestOptions as any).fireblocksOperationId = 'pairApiKey';
+            (localVarRequestOptions as any).fireblocksOperationId = 'pairCosignerApiUser';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -366,7 +366,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(pairApiKeyRequest, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(pairApiUserRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -374,7 +374,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Rename a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Rename cosigner
          * @param {RenameCosigner} renameCosigner 
          * @param {string} cosignerId The unique identifier of the cosigner
@@ -416,19 +416,19 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Unpair API key
+         * Unpair an API user from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Unpair API user
          * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
+         * @param {string} apiUserId The unique identifier of the API user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unpairApiKey: async (cosignerId: string, apiKeyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExistsAndNotEmpty('unpairApiKey', 'cosignerId', cosignerId)
-            assertParamExistsAndNotEmpty('unpairApiKey', 'apiKeyId', apiKeyId)
-            const localVarPath = `/cosigners/{cosignerId}/api_keys/{apiKeyId}`
+        unpairCosignerApiUser: async (cosignerId: string, apiUserId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('unpairCosignerApiUser', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('unpairCosignerApiUser', 'apiUserId', apiUserId)
+            const localVarPath = `/cosigners/{cosignerId}/api_users/{apiUserId}`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
-                .replace(`{${"apiKeyId"}}`, encodeURIComponent(String(apiKeyId)));
+                .replace(`{${"apiUserId"}}`, encodeURIComponent(String(apiUserId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -440,7 +440,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             // Stamped onto the request config (not the headers, so it never goes on
             // the wire) so the response interceptor can name the operation in the
             // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
-            (localVarRequestOptions as any).fireblocksOperationId = 'unpairApiKey';
+            (localVarRequestOptions as any).fireblocksOperationId = 'unpairCosignerApiUser';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -456,21 +456,21 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             };
         },
         /**
-         * Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Update API key callback handler
+         * Update the callback handler of an API user Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Update API user callback handler
          * @param {UpdateCallbackHandlerRequest} updateCallbackHandlerRequest 
          * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
+         * @param {string} apiUserId The unique identifier of the API user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCallbackHandler: async (updateCallbackHandlerRequest: UpdateCallbackHandlerRequest, cosignerId: string, apiKeyId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
-            assertParamExists('updateCallbackHandler', 'updateCallbackHandlerRequest', updateCallbackHandlerRequest)
-            assertParamExistsAndNotEmpty('updateCallbackHandler', 'cosignerId', cosignerId)
-            assertParamExistsAndNotEmpty('updateCallbackHandler', 'apiKeyId', apiKeyId)
-            const localVarPath = `/cosigners/{cosignerId}/api_keys/{apiKeyId}`
+        updateCosignerApiUserCallbackHandler: async (updateCallbackHandlerRequest: UpdateCallbackHandlerRequest, cosignerId: string, apiUserId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateCosignerApiUserCallbackHandler', 'updateCallbackHandlerRequest', updateCallbackHandlerRequest)
+            assertParamExistsAndNotEmpty('updateCosignerApiUserCallbackHandler', 'cosignerId', cosignerId)
+            assertParamExistsAndNotEmpty('updateCosignerApiUserCallbackHandler', 'apiUserId', apiUserId)
+            const localVarPath = `/cosigners/{cosignerId}/api_users/{apiUserId}`
                 .replace(`{${"cosignerId"}}`, encodeURIComponent(String(cosignerId)))
-                .replace(`{${"apiKeyId"}}`, encodeURIComponent(String(apiKeyId)));
+                .replace(`{${"apiUserId"}}`, encodeURIComponent(String(apiUserId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -482,7 +482,7 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
             // Stamped onto the request config (not the headers, so it never goes on
             // the wire) so the response interceptor can name the operation in the
             // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
-            (localVarRequestOptions as any).fireblocksOperationId = 'updateCallbackHandler';
+            (localVarRequestOptions as any).fireblocksOperationId = 'updateCosignerApiUserCallbackHandler';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
@@ -504,14 +504,14 @@ export const CosignersBetaApiAxiosParamCreator = function (configuration?: Confi
 };
 
 /**
- * CosignersBetaApi - functional programming interface
+ * CosignersApi - functional programming interface
  * @export
  */
-export const CosignersBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CosignersBetaApiAxiosParamCreator(configuration)
+export const CosignersApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CosignersApiAxiosParamCreator(configuration)
     return {
         /**
-         * Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired Endpoint Permission: Admin and Non-Signing Admin.
+         * Add a new cosigner. The cosigner will be pending pairing until the API user is manually paired (see `pairCosignerApiUser`). Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Add cosigner
          * @param {AddCosignerRequest} addCosignerRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -521,41 +521,11 @@ export const CosignersBetaApiFp = function(configuration?: Configuration) {
         async addCosigner(addCosignerRequest: AddCosignerRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AddCosignerResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.addCosigner(addCosignerRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.addCosigner']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.addCosigner']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get API key
-         * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getApiKey(cosignerId: string, apiKeyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiKey>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiKey(cosignerId, apiKeyId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.getApiKey']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get all API keys
-         * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {GetApiKeysOrderEnum} [order] ASC / DESC ordering (default DESC)
-         * @param {string} [pageCursor] Cursor of the required page
-         * @param {number} [pageSize] Maximum number of items in the page
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getApiKeys(cosignerId: string, order?: GetApiKeysOrderEnum, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiKeysPaginatedResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getApiKeys(cosignerId, order, pageCursor, pageSize, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.getApiKeys']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Get a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Get cosigner
          * @param {string} cosignerId The unique identifier of the cosigner
          * @param {*} [options] Override http request option.
@@ -564,11 +534,56 @@ export const CosignersBetaApiFp = function(configuration?: Configuration) {
         async getCosigner(cosignerId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Cosigner>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCosigner(cosignerId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.getCosigner']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.getCosigner']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Get an API user by ID. Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get API user
+         * @param {string} cosignerId The unique identifier of the cosigner
+         * @param {string} apiUserId The unique identifier of the API user
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCosignerApiUser(cosignerId: string, apiUserId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CosignerApiUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCosignerApiUser(cosignerId, apiUserId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['CosignersApi.getCosignerApiUser']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get API user request status
+         * @param {string} cosignerId The unique identifier of the cosigner
+         * @param {string} apiUserId The unique identifier of the API user
+         * @param {string} requestId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCosignerApiUserRequestStatus(cosignerId: string, apiUserId: string, requestId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Status>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCosignerApiUserRequestStatus(cosignerId, apiUserId, requestId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['CosignersApi.getCosignerApiUserRequestStatus']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get all cosigner paired API users (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get all API users
+         * @param {string} cosignerId The unique identifier of the cosigner
+         * @param {GetCosignerApiUsersOrderEnum} [order] ASC / DESC ordering (default DESC)
+         * @param {string} [pageCursor] Cursor of the required page
+         * @param {number} [pageSize] Maximum number of items in the page
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getCosignerApiUsers(cosignerId: string, order?: GetCosignerApiUsersOrderEnum, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiUsersPaginatedResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getCosignerApiUsers(cosignerId, order, pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['CosignersApi.getCosignerApiUsers']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Get all workspace cosigners (paginated). Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Get all cosigners
          * @param {GetCosignersOrderEnum} [order] ASC / DESC ordering (default DESC)
          * @param {string} [pageCursor] Cursor of the required page
@@ -579,42 +594,27 @@ export const CosignersBetaApiFp = function(configuration?: Configuration) {
         async getCosigners(order?: GetCosignersOrderEnum, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CosignersPaginatedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getCosigners(order, pageCursor, pageSize, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.getCosigners']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.getCosigners']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get request status
+         * Pair an API user to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Pair API user
+         * @param {PairApiUserRequest} pairApiUserRequest 
          * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
-         * @param {string} requestId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getRequestStatus(cosignerId: string, apiKeyId: string, requestId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Status>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRequestStatus(cosignerId, apiKeyId, requestId, options);
-            const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.getRequestStatus']?.[index]?.url;
-            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
-        },
-        /**
-         * Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Pair API key
-         * @param {PairApiKeyRequest} pairApiKeyRequest 
-         * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
+         * @param {string} apiUserId The unique identifier of the API user
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async pairApiKey(pairApiKeyRequest: PairApiKeyRequest, cosignerId: string, apiKeyId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PairApiKeyResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.pairApiKey(pairApiKeyRequest, cosignerId, apiKeyId, idempotencyKey, options);
+        async pairCosignerApiUser(pairApiUserRequest: PairApiUserRequest, cosignerId: string, apiUserId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PairApiUserResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.pairCosignerApiUser(pairApiUserRequest, cosignerId, apiUserId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.pairApiKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.pairCosignerApiUser']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Rename a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Rename cosigner
          * @param {RenameCosigner} renameCosigner 
          * @param {string} cosignerId The unique identifier of the cosigner
@@ -624,539 +624,539 @@ export const CosignersBetaApiFp = function(configuration?: Configuration) {
         async renameCosigner(renameCosigner: RenameCosigner, cosignerId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Cosigner>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.renameCosigner(renameCosigner, cosignerId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.renameCosigner']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.renameCosigner']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Unpair API key
+         * Unpair an API user from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Unpair API user
          * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
+         * @param {string} apiUserId The unique identifier of the API user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async unpairApiKey(cosignerId: string, apiKeyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ApiKey>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.unpairApiKey(cosignerId, apiKeyId, options);
+        async unpairCosignerApiUser(cosignerId: string, apiUserId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CosignerApiUser>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.unpairCosignerApiUser(cosignerId, apiUserId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.unpairApiKey']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.unpairCosignerApiUser']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Update API key callback handler
+         * Update the callback handler of an API user Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Update API user callback handler
          * @param {UpdateCallbackHandlerRequest} updateCallbackHandlerRequest 
          * @param {string} cosignerId The unique identifier of the cosigner
-         * @param {string} apiKeyId The unique identifier of the API key
+         * @param {string} apiUserId The unique identifier of the API user
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async updateCallbackHandler(updateCallbackHandlerRequest: UpdateCallbackHandlerRequest, cosignerId: string, apiKeyId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateCallbackHandlerResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiKeyId, options);
+        async updateCosignerApiUserCallbackHandler(updateCallbackHandlerRequest: UpdateCallbackHandlerRequest, cosignerId: string, apiUserId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UpdateCallbackHandlerResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCosignerApiUserCallbackHandler(updateCallbackHandlerRequest, cosignerId, apiUserId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['CosignersBetaApi.updateCallbackHandler']?.[index]?.url;
+            const operationBasePath = operationServerMap['CosignersApi.updateCosignerApiUserCallbackHandler']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * CosignersBetaApi - factory interface
+ * CosignersApi - factory interface
  * @export
  */
-export const CosignersBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CosignersBetaApiFp(configuration)
+export const CosignersApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CosignersApiFp(configuration)
     return {
         /**
-         * Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired Endpoint Permission: Admin and Non-Signing Admin.
+         * Add a new cosigner. The cosigner will be pending pairing until the API user is manually paired (see `pairCosignerApiUser`). Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Add cosigner
-         * @param {CosignersBetaApiAddCosignerRequest} requestParameters Request parameters.
+         * @param {CosignersApiAddCosignerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        addCosigner(requestParameters: CosignersBetaApiAddCosignerRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddCosignerResponse> {
+        addCosigner(requestParameters: CosignersApiAddCosignerRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddCosignerResponse> {
             return localVarFp.addCosigner(requestParameters.addCosignerRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get API key
-         * @param {CosignersBetaApiGetApiKeyRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getApiKey(requestParameters: CosignersBetaApiGetApiKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApiKey> {
-            return localVarFp.getApiKey(requestParameters.cosignerId, requestParameters.apiKeyId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get all API keys
-         * @param {CosignersBetaApiGetApiKeysRequest} requestParameters Request parameters.
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getApiKeys(requestParameters: CosignersBetaApiGetApiKeysRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApiKeysPaginatedResponse> {
-            return localVarFp.getApiKeys(requestParameters.cosignerId, requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Get a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Get cosigner
-         * @param {CosignersBetaApiGetCosignerRequest} requestParameters Request parameters.
+         * @param {CosignersApiGetCosignerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCosigner(requestParameters: CosignersBetaApiGetCosignerRequest, options?: RawAxiosRequestConfig): AxiosPromise<Cosigner> {
+        getCosigner(requestParameters: CosignersApiGetCosignerRequest, options?: RawAxiosRequestConfig): AxiosPromise<Cosigner> {
             return localVarFp.getCosigner(requestParameters.cosignerId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get all cosigners
-         * @param {CosignersBetaApiGetCosignersRequest} requestParameters Request parameters.
+         * Get an API user by ID. Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get API user
+         * @param {CosignersApiGetCosignerApiUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getCosigners(requestParameters: CosignersBetaApiGetCosignersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CosignersPaginatedResponse> {
-            return localVarFp.getCosigners(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        getCosignerApiUser(requestParameters: CosignersApiGetCosignerApiUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<CosignerApiUser> {
+            return localVarFp.getCosignerApiUser(requestParameters.cosignerId, requestParameters.apiUserId, options).then((request) => request(axios, basePath));
         },
         /**
          * Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Get request status
-         * @param {CosignersBetaApiGetRequestStatusRequest} requestParameters Request parameters.
+         * @summary Get API user request status
+         * @param {CosignersApiGetCosignerApiUserRequestStatusRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getRequestStatus(requestParameters: CosignersBetaApiGetRequestStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<Status> {
-            return localVarFp.getRequestStatus(requestParameters.cosignerId, requestParameters.apiKeyId, requestParameters.requestId, options).then((request) => request(axios, basePath));
+        getCosignerApiUserRequestStatus(requestParameters: CosignersApiGetCosignerApiUserRequestStatusRequest, options?: RawAxiosRequestConfig): AxiosPromise<Status> {
+            return localVarFp.getCosignerApiUserRequestStatus(requestParameters.cosignerId, requestParameters.apiUserId, requestParameters.requestId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Pair API key
-         * @param {CosignersBetaApiPairApiKeyRequest} requestParameters Request parameters.
+         * Get all cosigner paired API users (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get all API users
+         * @param {CosignersApiGetCosignerApiUsersRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        pairApiKey(requestParameters: CosignersBetaApiPairApiKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<PairApiKeyResponse> {
-            return localVarFp.pairApiKey(requestParameters.pairApiKeyRequest, requestParameters.cosignerId, requestParameters.apiKeyId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        getCosignerApiUsers(requestParameters: CosignersApiGetCosignerApiUsersRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApiUsersPaginatedResponse> {
+            return localVarFp.getCosignerApiUsers(requestParameters.cosignerId, requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
         },
         /**
-         * Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+         * Get all workspace cosigners (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Get all cosigners
+         * @param {CosignersApiGetCosignersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getCosigners(requestParameters: CosignersApiGetCosignersRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<CosignersPaginatedResponse> {
+            return localVarFp.getCosigners(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Pair an API user to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Pair API user
+         * @param {CosignersApiPairCosignerApiUserRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        pairCosignerApiUser(requestParameters: CosignersApiPairCosignerApiUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<PairApiUserResponse> {
+            return localVarFp.pairCosignerApiUser(requestParameters.pairApiUserRequest, requestParameters.cosignerId, requestParameters.apiUserId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Rename a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
          * @summary Rename cosigner
-         * @param {CosignersBetaApiRenameCosignerRequest} requestParameters Request parameters.
+         * @param {CosignersApiRenameCosignerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        renameCosigner(requestParameters: CosignersBetaApiRenameCosignerRequest, options?: RawAxiosRequestConfig): AxiosPromise<Cosigner> {
+        renameCosigner(requestParameters: CosignersApiRenameCosignerRequest, options?: RawAxiosRequestConfig): AxiosPromise<Cosigner> {
             return localVarFp.renameCosigner(requestParameters.renameCosigner, requestParameters.cosignerId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Unpair API key
-         * @param {CosignersBetaApiUnpairApiKeyRequest} requestParameters Request parameters.
+         * Unpair an API user from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Unpair API user
+         * @param {CosignersApiUnpairCosignerApiUserRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        unpairApiKey(requestParameters: CosignersBetaApiUnpairApiKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ApiKey> {
-            return localVarFp.unpairApiKey(requestParameters.cosignerId, requestParameters.apiKeyId, options).then((request) => request(axios, basePath));
+        unpairCosignerApiUser(requestParameters: CosignersApiUnpairCosignerApiUserRequest, options?: RawAxiosRequestConfig): AxiosPromise<CosignerApiUser> {
+            return localVarFp.unpairCosignerApiUser(requestParameters.cosignerId, requestParameters.apiUserId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing Admin.
-         * @summary Update API key callback handler
-         * @param {CosignersBetaApiUpdateCallbackHandlerRequest} requestParameters Request parameters.
+         * Update the callback handler of an API user Endpoint Permission: Admin and Non-Signing Admin.
+         * @summary Update API user callback handler
+         * @param {CosignersApiUpdateCosignerApiUserCallbackHandlerRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateCallbackHandler(requestParameters: CosignersBetaApiUpdateCallbackHandlerRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateCallbackHandlerResponse> {
-            return localVarFp.updateCallbackHandler(requestParameters.updateCallbackHandlerRequest, requestParameters.cosignerId, requestParameters.apiKeyId, options).then((request) => request(axios, basePath));
+        updateCosignerApiUserCallbackHandler(requestParameters: CosignersApiUpdateCosignerApiUserCallbackHandlerRequest, options?: RawAxiosRequestConfig): AxiosPromise<UpdateCallbackHandlerResponse> {
+            return localVarFp.updateCosignerApiUserCallbackHandler(requestParameters.updateCallbackHandlerRequest, requestParameters.cosignerId, requestParameters.apiUserId, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for addCosigner operation in CosignersBetaApi.
+ * Request parameters for addCosigner operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiAddCosignerRequest
+ * @interface CosignersApiAddCosignerRequest
  */
-export interface CosignersBetaApiAddCosignerRequest {
+export interface CosignersApiAddCosignerRequest {
     /**
      * 
      * @type {AddCosignerRequest}
-     * @memberof CosignersBetaApiAddCosigner
+     * @memberof CosignersApiAddCosigner
      */
     readonly addCosignerRequest: AddCosignerRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof CosignersBetaApiAddCosigner
+     * @memberof CosignersApiAddCosigner
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for getApiKey operation in CosignersBetaApi.
+ * Request parameters for getCosigner operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiGetApiKeyRequest
+ * @interface CosignersApiGetCosignerRequest
  */
-export interface CosignersBetaApiGetApiKeyRequest {
+export interface CosignersApiGetCosignerRequest {
     /**
      * The unique identifier of the cosigner
      * @type {string}
-     * @memberof CosignersBetaApiGetApiKey
+     * @memberof CosignersApiGetCosigner
+     */
+    readonly cosignerId: string
+}
+
+/**
+ * Request parameters for getCosignerApiUser operation in CosignersApi.
+ * @export
+ * @interface CosignersApiGetCosignerApiUserRequest
+ */
+export interface CosignersApiGetCosignerApiUserRequest {
+    /**
+     * The unique identifier of the cosigner
+     * @type {string}
+     * @memberof CosignersApiGetCosignerApiUser
      */
     readonly cosignerId: string
 
     /**
-     * The unique identifier of the API key
+     * The unique identifier of the API user
      * @type {string}
-     * @memberof CosignersBetaApiGetApiKey
+     * @memberof CosignersApiGetCosignerApiUser
      */
-    readonly apiKeyId: string
+    readonly apiUserId: string
 }
 
 /**
- * Request parameters for getApiKeys operation in CosignersBetaApi.
+ * Request parameters for getCosignerApiUserRequestStatus operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiGetApiKeysRequest
+ * @interface CosignersApiGetCosignerApiUserRequestStatusRequest
  */
-export interface CosignersBetaApiGetApiKeysRequest {
+export interface CosignersApiGetCosignerApiUserRequestStatusRequest {
     /**
      * The unique identifier of the cosigner
      * @type {string}
-     * @memberof CosignersBetaApiGetApiKeys
+     * @memberof CosignersApiGetCosignerApiUserRequestStatus
+     */
+    readonly cosignerId: string
+
+    /**
+     * The unique identifier of the API user
+     * @type {string}
+     * @memberof CosignersApiGetCosignerApiUserRequestStatus
+     */
+    readonly apiUserId: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof CosignersApiGetCosignerApiUserRequestStatus
+     */
+    readonly requestId: string
+}
+
+/**
+ * Request parameters for getCosignerApiUsers operation in CosignersApi.
+ * @export
+ * @interface CosignersApiGetCosignerApiUsersRequest
+ */
+export interface CosignersApiGetCosignerApiUsersRequest {
+    /**
+     * The unique identifier of the cosigner
+     * @type {string}
+     * @memberof CosignersApiGetCosignerApiUsers
      */
     readonly cosignerId: string
 
     /**
      * ASC / DESC ordering (default DESC)
      * @type {'ASC' | 'DESC'}
-     * @memberof CosignersBetaApiGetApiKeys
+     * @memberof CosignersApiGetCosignerApiUsers
      */
-    readonly order?: GetApiKeysOrderEnum
+    readonly order?: GetCosignerApiUsersOrderEnum
 
     /**
      * Cursor of the required page
      * @type {string}
-     * @memberof CosignersBetaApiGetApiKeys
+     * @memberof CosignersApiGetCosignerApiUsers
      */
     readonly pageCursor?: string
 
     /**
      * Maximum number of items in the page
      * @type {number}
-     * @memberof CosignersBetaApiGetApiKeys
+     * @memberof CosignersApiGetCosignerApiUsers
      */
     readonly pageSize?: number
 }
 
 /**
- * Request parameters for getCosigner operation in CosignersBetaApi.
+ * Request parameters for getCosigners operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiGetCosignerRequest
+ * @interface CosignersApiGetCosignersRequest
  */
-export interface CosignersBetaApiGetCosignerRequest {
-    /**
-     * The unique identifier of the cosigner
-     * @type {string}
-     * @memberof CosignersBetaApiGetCosigner
-     */
-    readonly cosignerId: string
-}
-
-/**
- * Request parameters for getCosigners operation in CosignersBetaApi.
- * @export
- * @interface CosignersBetaApiGetCosignersRequest
- */
-export interface CosignersBetaApiGetCosignersRequest {
+export interface CosignersApiGetCosignersRequest {
     /**
      * ASC / DESC ordering (default DESC)
      * @type {'ASC' | 'DESC'}
-     * @memberof CosignersBetaApiGetCosigners
+     * @memberof CosignersApiGetCosigners
      */
     readonly order?: GetCosignersOrderEnum
 
     /**
      * Cursor of the required page
      * @type {string}
-     * @memberof CosignersBetaApiGetCosigners
+     * @memberof CosignersApiGetCosigners
      */
     readonly pageCursor?: string
 
     /**
      * Maximum number of items in the page
      * @type {number}
-     * @memberof CosignersBetaApiGetCosigners
+     * @memberof CosignersApiGetCosigners
      */
     readonly pageSize?: number
 }
 
 /**
- * Request parameters for getRequestStatus operation in CosignersBetaApi.
+ * Request parameters for pairCosignerApiUser operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiGetRequestStatusRequest
+ * @interface CosignersApiPairCosignerApiUserRequest
  */
-export interface CosignersBetaApiGetRequestStatusRequest {
-    /**
-     * The unique identifier of the cosigner
-     * @type {string}
-     * @memberof CosignersBetaApiGetRequestStatus
-     */
-    readonly cosignerId: string
-
-    /**
-     * The unique identifier of the API key
-     * @type {string}
-     * @memberof CosignersBetaApiGetRequestStatus
-     */
-    readonly apiKeyId: string
-
+export interface CosignersApiPairCosignerApiUserRequest {
     /**
      * 
-     * @type {string}
-     * @memberof CosignersBetaApiGetRequestStatus
+     * @type {PairApiUserRequest}
+     * @memberof CosignersApiPairCosignerApiUser
      */
-    readonly requestId: string
-}
-
-/**
- * Request parameters for pairApiKey operation in CosignersBetaApi.
- * @export
- * @interface CosignersBetaApiPairApiKeyRequest
- */
-export interface CosignersBetaApiPairApiKeyRequest {
-    /**
-     * 
-     * @type {PairApiKeyRequest}
-     * @memberof CosignersBetaApiPairApiKey
-     */
-    readonly pairApiKeyRequest: PairApiKeyRequest
+    readonly pairApiUserRequest: PairApiUserRequest
 
     /**
      * The unique identifier of the cosigner
      * @type {string}
-     * @memberof CosignersBetaApiPairApiKey
+     * @memberof CosignersApiPairCosignerApiUser
      */
     readonly cosignerId: string
 
     /**
-     * The unique identifier of the API key
+     * The unique identifier of the API user
      * @type {string}
-     * @memberof CosignersBetaApiPairApiKey
+     * @memberof CosignersApiPairCosignerApiUser
      */
-    readonly apiKeyId: string
+    readonly apiUserId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof CosignersBetaApiPairApiKey
+     * @memberof CosignersApiPairCosignerApiUser
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for renameCosigner operation in CosignersBetaApi.
+ * Request parameters for renameCosigner operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiRenameCosignerRequest
+ * @interface CosignersApiRenameCosignerRequest
  */
-export interface CosignersBetaApiRenameCosignerRequest {
+export interface CosignersApiRenameCosignerRequest {
     /**
      * 
      * @type {RenameCosigner}
-     * @memberof CosignersBetaApiRenameCosigner
+     * @memberof CosignersApiRenameCosigner
      */
     readonly renameCosigner: RenameCosigner
 
     /**
      * The unique identifier of the cosigner
      * @type {string}
-     * @memberof CosignersBetaApiRenameCosigner
+     * @memberof CosignersApiRenameCosigner
      */
     readonly cosignerId: string
 }
 
 /**
- * Request parameters for unpairApiKey operation in CosignersBetaApi.
+ * Request parameters for unpairCosignerApiUser operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiUnpairApiKeyRequest
+ * @interface CosignersApiUnpairCosignerApiUserRequest
  */
-export interface CosignersBetaApiUnpairApiKeyRequest {
+export interface CosignersApiUnpairCosignerApiUserRequest {
     /**
      * The unique identifier of the cosigner
      * @type {string}
-     * @memberof CosignersBetaApiUnpairApiKey
+     * @memberof CosignersApiUnpairCosignerApiUser
      */
     readonly cosignerId: string
 
     /**
-     * The unique identifier of the API key
+     * The unique identifier of the API user
      * @type {string}
-     * @memberof CosignersBetaApiUnpairApiKey
+     * @memberof CosignersApiUnpairCosignerApiUser
      */
-    readonly apiKeyId: string
+    readonly apiUserId: string
 }
 
 /**
- * Request parameters for updateCallbackHandler operation in CosignersBetaApi.
+ * Request parameters for updateCosignerApiUserCallbackHandler operation in CosignersApi.
  * @export
- * @interface CosignersBetaApiUpdateCallbackHandlerRequest
+ * @interface CosignersApiUpdateCosignerApiUserCallbackHandlerRequest
  */
-export interface CosignersBetaApiUpdateCallbackHandlerRequest {
+export interface CosignersApiUpdateCosignerApiUserCallbackHandlerRequest {
     /**
      * 
      * @type {UpdateCallbackHandlerRequest}
-     * @memberof CosignersBetaApiUpdateCallbackHandler
+     * @memberof CosignersApiUpdateCosignerApiUserCallbackHandler
      */
     readonly updateCallbackHandlerRequest: UpdateCallbackHandlerRequest
 
     /**
      * The unique identifier of the cosigner
      * @type {string}
-     * @memberof CosignersBetaApiUpdateCallbackHandler
+     * @memberof CosignersApiUpdateCosignerApiUserCallbackHandler
      */
     readonly cosignerId: string
 
     /**
-     * The unique identifier of the API key
+     * The unique identifier of the API user
      * @type {string}
-     * @memberof CosignersBetaApiUpdateCallbackHandler
+     * @memberof CosignersApiUpdateCosignerApiUserCallbackHandler
      */
-    readonly apiKeyId: string
+    readonly apiUserId: string
 }
 
 /**
- * CosignersBetaApi - object-oriented interface
+ * CosignersApi - object-oriented interface
  * @export
- * @class CosignersBetaApi
+ * @class CosignersApi
  * @extends {BaseAPI}
  */
-export class CosignersBetaApi extends BaseAPI {
+export class CosignersApi extends BaseAPI {
     /**
-     * Add a new cosigner. The cosigner will be pending pairing until the API key is manually paired Endpoint Permission: Admin and Non-Signing Admin.
+     * Add a new cosigner. The cosigner will be pending pairing until the API user is manually paired (see `pairCosignerApiUser`). Endpoint Permission: Admin and Non-Signing Admin.
      * @summary Add cosigner
-     * @param {CosignersBetaApiAddCosignerRequest} requestParameters Request parameters.
+     * @param {CosignersApiAddCosignerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public addCosigner(requestParameters: CosignersBetaApiAddCosignerRequest) {
-        return CosignersBetaApiFp(this.configuration).addCosigner(requestParameters.addCosignerRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public addCosigner(requestParameters: CosignersApiAddCosignerRequest) {
+        return CosignersApiFp(this.configuration).addCosigner(requestParameters.addCosignerRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get an API key by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Get API key
-     * @param {CosignersBetaApiGetApiKeyRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CosignersBetaApi
-     */
-    public getApiKey(requestParameters: CosignersBetaApiGetApiKeyRequest) {
-        return CosignersBetaApiFp(this.configuration).getApiKey(requestParameters.cosignerId, requestParameters.apiKeyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Get all cosigner paired API keys (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Get all API keys
-     * @param {CosignersBetaApiGetApiKeysRequest} requestParameters Request parameters.
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CosignersBetaApi
-     */
-    public getApiKeys(requestParameters: CosignersBetaApiGetApiKeysRequest) {
-        return CosignersBetaApiFp(this.configuration).getApiKeys(requestParameters.cosignerId, requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
-    }
-
-    /**
-     * Get a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+     * Get a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
      * @summary Get cosigner
-     * @param {CosignersBetaApiGetCosignerRequest} requestParameters Request parameters.
+     * @param {CosignersApiGetCosignerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public getCosigner(requestParameters: CosignersBetaApiGetCosignerRequest) {
-        return CosignersBetaApiFp(this.configuration).getCosigner(requestParameters.cosignerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getCosigner(requestParameters: CosignersApiGetCosignerRequest) {
+        return CosignersApiFp(this.configuration).getCosigner(requestParameters.cosignerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Get all workspace cosigners (paginated). **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Get all cosigners
-     * @param {CosignersBetaApiGetCosignersRequest} requestParameters Request parameters.
+     * Get an API user by ID. Endpoint Permission: Admin and Non-Signing Admin.
+     * @summary Get API user
+     * @param {CosignersApiGetCosignerApiUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public getCosigners(requestParameters: CosignersBetaApiGetCosignersRequest = {}) {
-        return CosignersBetaApiFp(this.configuration).getCosigners(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getCosignerApiUser(requestParameters: CosignersApiGetCosignerApiUserRequest) {
+        return CosignersApiFp(this.configuration).getCosignerApiUser(requestParameters.cosignerId, requestParameters.apiUserId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
      * Get the status of an asynchronous request Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Get request status
-     * @param {CosignersBetaApiGetRequestStatusRequest} requestParameters Request parameters.
+     * @summary Get API user request status
+     * @param {CosignersApiGetCosignerApiUserRequestStatusRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public getRequestStatus(requestParameters: CosignersBetaApiGetRequestStatusRequest) {
-        return CosignersBetaApiFp(this.configuration).getRequestStatus(requestParameters.cosignerId, requestParameters.apiKeyId, requestParameters.requestId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getCosignerApiUserRequestStatus(requestParameters: CosignersApiGetCosignerApiUserRequestStatusRequest) {
+        return CosignersApiFp(this.configuration).getCosignerApiUserRequestStatus(requestParameters.cosignerId, requestParameters.apiUserId, requestParameters.requestId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Pair an API key to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Pair API key
-     * @param {CosignersBetaApiPairApiKeyRequest} requestParameters Request parameters.
+     * Get all cosigner paired API users (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+     * @summary Get all API users
+     * @param {CosignersApiGetCosignerApiUsersRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public pairApiKey(requestParameters: CosignersBetaApiPairApiKeyRequest) {
-        return CosignersBetaApiFp(this.configuration).pairApiKey(requestParameters.pairApiKeyRequest, requestParameters.cosignerId, requestParameters.apiKeyId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getCosignerApiUsers(requestParameters: CosignersApiGetCosignerApiUsersRequest) {
+        return CosignersApiFp(this.configuration).getCosignerApiUsers(requestParameters.cosignerId, requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Rename a cosigner by ID. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin and Non-Signing Admin.
+     * Get all workspace cosigners (paginated). Endpoint Permission: Admin and Non-Signing Admin.
+     * @summary Get all cosigners
+     * @param {CosignersApiGetCosignersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CosignersApi
+     */
+    public getCosigners(requestParameters: CosignersApiGetCosignersRequest = {}) {
+        return CosignersApiFp(this.configuration).getCosigners(requestParameters.order, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Pair an API user to a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+     * @summary Pair API user
+     * @param {CosignersApiPairCosignerApiUserRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CosignersApi
+     */
+    public pairCosignerApiUser(requestParameters: CosignersApiPairCosignerApiUserRequest) {
+        return CosignersApiFp(this.configuration).pairCosignerApiUser(requestParameters.pairApiUserRequest, requestParameters.cosignerId, requestParameters.apiUserId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Rename a cosigner by ID. Endpoint Permission: Admin and Non-Signing Admin.
      * @summary Rename cosigner
-     * @param {CosignersBetaApiRenameCosignerRequest} requestParameters Request parameters.
+     * @param {CosignersApiRenameCosignerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public renameCosigner(requestParameters: CosignersBetaApiRenameCosignerRequest) {
-        return CosignersBetaApiFp(this.configuration).renameCosigner(requestParameters.renameCosigner, requestParameters.cosignerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public renameCosigner(requestParameters: CosignersApiRenameCosignerRequest) {
+        return CosignersApiFp(this.configuration).renameCosigner(requestParameters.renameCosigner, requestParameters.cosignerId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Unpair an API key from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Unpair API key
-     * @param {CosignersBetaApiUnpairApiKeyRequest} requestParameters Request parameters.
+     * Unpair an API user from a cosigner Endpoint Permission: Admin and Non-Signing Admin.
+     * @summary Unpair API user
+     * @param {CosignersApiUnpairCosignerApiUserRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public unpairApiKey(requestParameters: CosignersBetaApiUnpairApiKeyRequest) {
-        return CosignersBetaApiFp(this.configuration).unpairApiKey(requestParameters.cosignerId, requestParameters.apiKeyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public unpairCosignerApiUser(requestParameters: CosignersApiUnpairCosignerApiUserRequest) {
+        return CosignersApiFp(this.configuration).unpairCosignerApiUser(requestParameters.cosignerId, requestParameters.apiUserId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Update the callback handler of an API key Endpoint Permission: Admin and Non-Signing Admin.
-     * @summary Update API key callback handler
-     * @param {CosignersBetaApiUpdateCallbackHandlerRequest} requestParameters Request parameters.
+     * Update the callback handler of an API user Endpoint Permission: Admin and Non-Signing Admin.
+     * @summary Update API user callback handler
+     * @param {CosignersApiUpdateCosignerApiUserCallbackHandlerRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CosignersBetaApi
+     * @memberof CosignersApi
      */
-    public updateCallbackHandler(requestParameters: CosignersBetaApiUpdateCallbackHandlerRequest) {
-        return CosignersBetaApiFp(this.configuration).updateCallbackHandler(requestParameters.updateCallbackHandlerRequest, requestParameters.cosignerId, requestParameters.apiKeyId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateCosignerApiUserCallbackHandler(requestParameters: CosignersApiUpdateCosignerApiUserCallbackHandlerRequest) {
+        return CosignersApiFp(this.configuration).updateCosignerApiUserCallbackHandler(requestParameters.updateCallbackHandlerRequest, requestParameters.cosignerId, requestParameters.apiUserId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
 /**
  * @export
  */
-export const GetApiKeysOrderEnum = {
+export const GetCosignerApiUsersOrderEnum = {
     Asc: 'ASC',
     Desc: 'DESC'
 } as const;
-export type GetApiKeysOrderEnum = typeof GetApiKeysOrderEnum[keyof typeof GetApiKeysOrderEnum];
+export type GetCosignerApiUsersOrderEnum = typeof GetCosignerApiUsersOrderEnum[keyof typeof GetCosignerApiUsersOrderEnum];
 /**
  * @export
  */

@@ -4,6 +4,7 @@
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
+|**status** | [**TRLinkManualDecisionResponseStatusEnum**](TRLinkManualDecisionResponseStatusEnum.md) |  | [default to undefined]|
 |**action** | [**TRLinkManualDecisionAction**](TRLinkManualDecisionAction.md) |  | [default to undefined]|
 |**source** | [**TRLinkManualDecisionSource**](TRLinkManualDecisionSource.md) |  | [default to undefined]|
 |**txId** | **string** | Transaction ID | [default to undefined]|

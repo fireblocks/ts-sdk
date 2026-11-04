@@ -13,27 +13,20 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { CallbackHandlerRequest } from './callback-handler-request';
 
 /**
- * 
+ * APPLIED - Decision applied to at least one destination immediately. ACCEPTED - Intent stored for deferred apply on the next processing attempt. PRE_ACCEPTED - Intent stored on the transaction before destinations entered the missing-TRM wait. 
  * @export
- * @interface PairApiKeyResponse
+ * @enum {string}
  */
-export interface PairApiKeyResponse {
-    /**
-     * The unique identifier of the API key
-     * @type {string}
-     * @memberof PairApiKeyResponse
-     */
-    'id': string;
-    /**
-     * 
-     * @type {CallbackHandlerRequest}
-     * @memberof PairApiKeyResponse
-     */
-    'callbackHandler'?: CallbackHandlerRequest;
-}
+
+export const TRLinkManualDecisionResponseStatusEnum = {
+    Applied: 'APPLIED',
+    Accepted: 'ACCEPTED',
+    PreAccepted: 'PRE_ACCEPTED'
+} as const;
+
+export type TRLinkManualDecisionResponseStatusEnum = typeof TRLinkManualDecisionResponseStatusEnum[keyof typeof TRLinkManualDecisionResponseStatusEnum];
+
+
 

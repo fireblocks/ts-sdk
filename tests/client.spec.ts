@@ -26,7 +26,7 @@ ContactsApi,
 ContractInteractionsApi, 
 ContractTemplatesApi, 
 ContractsApi, 
-CosignersBetaApi, 
+CosignersApi, 
 DeployedContractsApi, 
 EarnApi, 
 EmbeddedWalletsApi, 
@@ -36,8 +36,8 @@ FiatAccountsApi,
 GasStationsApi, 
 GenieBetaApi, 
 InternalWalletsApi, 
-KeyLinkBetaApi, 
-KeysBetaApi, 
+KeyLinkApi, 
+KeysApi, 
 NFTsApi, 
 NetworkConnectionsApi, 
 OTABetaApi, 
@@ -89,7 +89,7 @@ let mockContactsApi: jest.Mock;
 let mockContractInteractionsApi: jest.Mock;
 let mockContractTemplatesApi: jest.Mock;
 let mockContractsApi: jest.Mock;
-let mockCosignersBetaApi: jest.Mock;
+let mockCosignersApi: jest.Mock;
 let mockDeployedContractsApi: jest.Mock;
 let mockEarnApi: jest.Mock;
 let mockEmbeddedWalletsApi: jest.Mock;
@@ -99,8 +99,8 @@ let mockFiatAccountsApi: jest.Mock;
 let mockGasStationsApi: jest.Mock;
 let mockGenieBetaApi: jest.Mock;
 let mockInternalWalletsApi: jest.Mock;
-let mockKeyLinkBetaApi: jest.Mock;
-let mockKeysBetaApi: jest.Mock;
+let mockKeyLinkApi: jest.Mock;
+let mockKeysApi: jest.Mock;
 let mockNFTsApi: jest.Mock;
 let mockNetworkConnectionsApi: jest.Mock;
 let mockOTABetaApi: jest.Mock;
@@ -149,7 +149,7 @@ jest.mock('../api', () => {
     mockContractInteractionsApi = jest.fn();
     mockContractTemplatesApi = jest.fn();
     mockContractsApi = jest.fn();
-    mockCosignersBetaApi = jest.fn();
+    mockCosignersApi = jest.fn();
     mockDeployedContractsApi = jest.fn();
     mockEarnApi = jest.fn();
     mockEmbeddedWalletsApi = jest.fn();
@@ -159,8 +159,8 @@ jest.mock('../api', () => {
     mockGasStationsApi = jest.fn();
     mockGenieBetaApi = jest.fn();
     mockInternalWalletsApi = jest.fn();
-    mockKeyLinkBetaApi = jest.fn();
-    mockKeysBetaApi = jest.fn();
+    mockKeyLinkApi = jest.fn();
+    mockKeysApi = jest.fn();
     mockNFTsApi = jest.fn();
     mockNetworkConnectionsApi = jest.fn();
     mockOTABetaApi = jest.fn();
@@ -210,7 +210,7 @@ jest.mock('../api', () => {
         ContractInteractionsApi: mockContractInteractionsApi,
         ContractTemplatesApi: mockContractTemplatesApi,
         ContractsApi: mockContractsApi,
-        CosignersBetaApi: mockCosignersBetaApi,
+        CosignersApi: mockCosignersApi,
         DeployedContractsApi: mockDeployedContractsApi,
         EarnApi: mockEarnApi,
         EmbeddedWalletsApi: mockEmbeddedWalletsApi,
@@ -220,8 +220,8 @@ jest.mock('../api', () => {
         GasStationsApi: mockGasStationsApi,
         GenieBetaApi: mockGenieBetaApi,
         InternalWalletsApi: mockInternalWalletsApi,
-        KeyLinkBetaApi: mockKeyLinkBetaApi,
-        KeysBetaApi: mockKeysBetaApi,
+        KeyLinkApi: mockKeyLinkApi,
+        KeysApi: mockKeysApi,
         NFTsApi: mockNFTsApi,
         NetworkConnectionsApi: mockNetworkConnectionsApi,
         OTABetaApi: mockOTABetaApi,
@@ -392,9 +392,9 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.contracts).toBeInstanceOf(ContractsApi);
             expect(mockContractsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return CosignersBetaApi', async () => {
-            expect(fireblocks.cosignersBeta).toBeInstanceOf(CosignersBetaApi);
-            expect(mockCosignersBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return CosignersApi', async () => {
+            expect(fireblocks.cosigners).toBeInstanceOf(CosignersApi);
+            expect(mockCosignersApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return DeployedContractsApi', async () => {
             expect(fireblocks.deployedContracts).toBeInstanceOf(DeployedContractsApi);
@@ -432,13 +432,13 @@ describe("Fireblocks Client Tests", () => {
             expect(fireblocks.internalWallets).toBeInstanceOf(InternalWalletsApi);
             expect(mockInternalWalletsApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return KeyLinkBetaApi', async () => {
-            expect(fireblocks.keyLinkBeta).toBeInstanceOf(KeyLinkBetaApi);
-            expect(mockKeyLinkBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return KeyLinkApi', async () => {
+            expect(fireblocks.keyLink).toBeInstanceOf(KeyLinkApi);
+            expect(mockKeyLinkApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
-        it('Should return KeysBetaApi', async () => {
-            expect(fireblocks.keysBeta).toBeInstanceOf(KeysBetaApi);
-            expect(mockKeysBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
+        it('Should return KeysApi', async () => {
+            expect(fireblocks.keys).toBeInstanceOf(KeysApi);
+            expect(mockKeysApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return NFTsApi', async () => {
             expect(fireblocks.nfts).toBeInstanceOf(NFTsApi);

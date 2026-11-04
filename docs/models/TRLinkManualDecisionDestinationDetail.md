@@ -6,7 +6,7 @@
 |------------ | ------------- | ------------- | -------------|
 |**destinationScreeningId** | **string** | Destination screening record ID | [default to undefined]|
 |**applied** | **boolean** | Whether the decision was applied to this destination | [default to undefined]|
-|**skipReason** | **string** | Reason if the destination was skipped | [optional] [default to undefined]|
+|**skipReason** | **string** | Reason when applied is false. Common values: deferred apply (destination could not be updated immediately), already applied, status changed, trmId exists, destination not found. | [optional] [default to undefined]|
 
 
 

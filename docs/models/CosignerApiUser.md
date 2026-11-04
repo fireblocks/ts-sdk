@@ -1,11 +1,11 @@
-# ApiKey
+# CosignerApiUser
 
 ## Properties
 
 |Name | Type | Description | Notes|
 |------------ | ------------- | ------------- | -------------|
-|**id** | **string** | The unique identifier of the API key | [default to undefined]|
-|**lastSeen** | **string** | The date the API key was last seen | [optional] [default to undefined]|
+|**id** | **string** | The unique identifier of the API user | [default to undefined]|
+|**lastSeen** | **string** | The date the API user was last seen | [optional] [default to undefined]|
 |**callbackHandler** | [**CallbackHandler**](CallbackHandler.md) |  | [optional] [default to undefined]|
 
 

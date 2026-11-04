@@ -26,7 +26,6 @@
 |**feePayerAccountId** | **string** | Vault account ID of the fee payer sponsoring this transfer. | [optional] [default to undefined]|
 |**nonceStrategy** | **string** | Tempo\&#39;s 2-dimensional nonce strategy: &#x60;SEQUENTIAL&#x60; runs under a single nonce lane (lane 0); &#x60;USER_DEFINED_LANE&#x60; runs in parallel under a specified lane (1–16), and requires &#x60;nonceLane&#x60;; &#x60;EXPIRING&#x60; marks the transaction with an expiry of up to 5 minutes (Tempo-defined) and does not use &#x60;nonceLane&#x60;. | [optional] [default to undefined]|
 |**nonceLane** | **number** | The nonce lane to use, 1–16. Required and only meaningful when nonceStrategy is USER_DEFINED_LANE; not used for SEQUENTIAL or EXPIRING. | [optional] [default to undefined]|
-|**memo** | **string** | Beta. Tempo TIP-20 memo (max 32 bytes). | [optional] [default to undefined]|
 
 
 ## Enum: CreateTempoTransferRequestFeeLevelEnum

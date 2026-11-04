@@ -50,5 +50,17 @@ export interface ValidationKeyDto {
      * @memberof ValidationKeyDto
      */
     'createdAt': number;
+    /**
+     * Expiration date (Unix timestamp) in milliseconds.
+     * @type {number}
+     * @memberof ValidationKeyDto
+     */
+    'expirationTime': number;
+    /**
+     * True if the validation key is revoked.
+     * @type {boolean}
+     * @memberof ValidationKeyDto
+     */
+    'revoked': boolean;
 }
 

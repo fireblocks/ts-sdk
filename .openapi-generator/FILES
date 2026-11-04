@@ -97,9 +97,8 @@ AmountOverTimeConfig.md
 AmountRange.md
 AmountRangeMinMax.md
 AmountRangeMinMax2.md
-ApiKey.md
-ApiKeysPaginatedResponse.md
 ApiUserApi.md
+ApiUsersPaginatedResponse.md
 ApprovalApiKey.md
 ApprovalApiPublicKey.md
 ApprovalRequest.md
@@ -317,7 +316,8 @@ ConversionValidationFailure.md
 ConvertAssetsRequest.md
 ConvertAssetsResponse.md
 Cosigner.md
-CosignersBetaApi.md
+CosignerApiUser.md
+CosignersApi.md
 CosignersPaginatedResponse.md
 CounterpartyGroup.md
 CounterpartyGroupsPaginatedResponse.md
@@ -627,8 +627,8 @@ InvalidParamaterValueError.md
 IssueApiUserPairingTokenResponse.md
 IssueTokenMultichainResponse.md
 JobCreated.md
-KeyLinkBetaApi.md
-KeysBetaApi.md
+KeyLinkApi.md
+KeysApi.md
 LICENSE
 LayerZeroAdapterCreateParams.md
 LbtPaymentInfo.md
@@ -774,8 +774,8 @@ PaginatedAssetWalletResponse.md
 PaginatedAssetWalletResponsePaging.md
 PaginatedAssetsResponse.md
 Paging.md
-PairApiKeyRequest.md
-PairApiKeyResponse.md
+PairApiUserRequest.md
+PairApiUserResponse.md
 Parameter.md
 ParameterWithValue.md
 ParameterWithValueList.md
@@ -1131,6 +1131,7 @@ TRLinkManualDecisionAction.md
 TRLinkManualDecisionDestinationDetail.md
 TRLinkManualDecisionRequest.md
 TRLinkManualDecisionResponse.md
+TRLinkManualDecisionResponseStatusEnum.md
 TRLinkManualDecisionSource.md
 TRLinkMissingTrmAction.md
 TRLinkMissingTrmAction2.md
@@ -1462,7 +1463,7 @@ api/contacts-api.ts
 api/contract-interactions-api.ts
 api/contract-templates-api.ts
 api/contracts-api.ts
-api/cosigners-beta-api.ts
+api/cosigners-api.ts
 api/deployed-contracts-api.ts
 api/earn-api.ts
 api/embedded-wallets-api.ts
@@ -1472,8 +1473,8 @@ api/fiat-accounts-api.ts
 api/gas-stations-api.ts
 api/genie-beta-api.ts
 api/internal-wallets-api.ts
-api/key-link-beta-api.ts
-api/keys-beta-api.ts
+api/key-link-api.ts
+api/keys-api.ts
 api/network-connections-api.ts
 api/nfts-api.ts
 api/off-exchanges-api.ts
@@ -1607,8 +1608,7 @@ models/amount-over-time-config.ts
 models/amount-range-min-max.ts
 models/amount-range-min-max2.ts
 models/amount-range.ts
-models/api-key.ts
-models/api-keys-paginated-response.ts
+models/api-users-paginated-response.ts
 models/apiuser.ts
 models/apiusers.ts
 models/approval-api-key.ts
@@ -1813,6 +1813,7 @@ models/conversion-operation-type.ts
 models/conversion-validation-failure.ts
 models/convert-assets-request.ts
 models/convert-assets-response.ts
+models/cosigner-api-user.ts
 models/cosigner.ts
 models/cosigners-paginated-response.ts
 models/counterparty-group.ts
@@ -2254,8 +2255,8 @@ models/paginated-asset-wallet-response-paging.ts
 models/paginated-asset-wallet-response.ts
 models/paginated-assets-response.ts
 models/paging.ts
-models/pair-api-key-request.ts
-models/pair-api-key-response.ts
+models/pair-api-user-request.ts
+models/pair-api-user-response.ts
 models/parameter-with-value-list.ts
 models/parameter-with-value.ts
 models/parameter.ts
@@ -2727,6 +2728,7 @@ models/trlink-jwk-public-key.ts
 models/trlink-manual-decision-action.ts
 models/trlink-manual-decision-destination-detail.ts
 models/trlink-manual-decision-request.ts
+models/trlink-manual-decision-response-status-enum.ts
 models/trlink-manual-decision-response.ts
 models/trlink-manual-decision-source.ts
 models/trlink-missing-trm-action-enum.ts
