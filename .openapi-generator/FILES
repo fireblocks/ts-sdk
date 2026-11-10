@@ -939,6 +939,7 @@ RewardsInfo.md
 RiskLevelEnum.md
 RoleDetails.md
 RoleDetails2.md
+RoleFeeInfo.md
 RoleGrantee.md
 Rule.md
 RuleActionEnum.md
@@ -1227,9 +1228,13 @@ TokensPaginatedResponse.md
 TotalSupplyItemDto.md
 TotalSupplyPagedResponse.md
 TotalSupplyPagedResponse2.md
+TradeClass.md
 TradingAccountType.md
 TradingApi.md
 TradingErrorSchema.md
+TradingPair.md
+TradingPairSide.md
+TradingPairsListPage.md
 TradingProvider.md
 Transaction.md
 TransactionConfigurations.md
@@ -1334,7 +1339,7 @@ TxLog.md
 TypedMessageTransactionStatusEnum.md
 USWireAddress.md
 USWireDestination.md
-UTXOManagementBetaApi.md
+UTXOManagementApi.md
 UnfreezeTransactionResponse.md
 UnmanagedWallet.md
 UnspentInput.md
@@ -1498,7 +1503,7 @@ api/travel-rule-api.ts
 api/trlink-api.ts
 api/user-groups-beta-api.ts
 api/users-api.ts
-api/utxomanagement-beta-api.ts
+api/utxomanagement-api.ts
 api/vaults-api.ts
 api/web3-connections-api.ts
 api/webhooks-api.ts
@@ -2413,6 +2418,7 @@ models/rewards-info.ts
 models/risk-level-enum.ts
 models/role-details.ts
 models/role-details2.ts
+models/role-fee-info.ts
 models/role-grantee.ts
 models/rule-action-enum.ts
 models/rule-condition-operator-enum.ts
@@ -2600,8 +2606,12 @@ models/tokens-paginated-response.ts
 models/total-supply-item-dto.ts
 models/total-supply-paged-response.ts
 models/total-supply-paged-response2.ts
+models/trade-class.ts
 models/trading-account-type.ts
 models/trading-error-schema.ts
+models/trading-pair-side.ts
+models/trading-pair.ts
+models/trading-pairs-list-page.ts
 models/trading-provider.ts
 models/transaction-configurations.ts
 models/transaction-direction.ts

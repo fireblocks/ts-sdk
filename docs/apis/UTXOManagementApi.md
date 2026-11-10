@@ -1,4 +1,4 @@
-# UTXOManagementBetaApi
+# UTXOManagementApi
 
 All URIs are relative to https://developers.fireblocks.com/reference/
 
@@ -15,7 +15,7 @@ Method | HTTP request | Description
 # **getUtxoSelectionConfig**
 > UtxoSelectionConfigResponse getUtxoSelectionConfig()
 
-Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -34,7 +34,7 @@ const fireblocks = new Fireblocks();
 
 let body:any = {};
 
-fireblocks.utxoManagementBeta.getUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
+fireblocks.utxoManagement.getUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -69,7 +69,7 @@ No authorization required
 # **getUtxos**
 > ListUtxosResponse getUtxos()
 
-Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -77,7 +77,7 @@ Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, UTXOManagementBetaApiGetUtxosRequest, ListUtxosResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, UTXOManagementApiGetUtxosRequest, ListUtxosResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -86,7 +86,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: UTXOManagementBetaApiGetUtxosRequest = {
+let body: UTXOManagementApiGetUtxosRequest = {
   // string | The ID of the vault account
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
@@ -119,7 +119,7 @@ let body: UTXOManagementBetaApiGetUtxosRequest = {
   maxAmount: 1.0,
 };
 
-fireblocks.utxoManagementBeta.getUtxos(body).then((res: FireblocksResponse<ListUtxosResponse>) => {
+fireblocks.utxoManagement.getUtxos(body).then((res: FireblocksResponse<ListUtxosResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -171,7 +171,7 @@ No authorization required
 # **getVaultAssetUtxoSelectionConfig**
 > UtxoSelectionConfigResponse getVaultAssetUtxoSelectionConfig()
 
-Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -179,7 +179,7 @@ Returns the config stored at this vault-and-asset scope, if any, and the effecti
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest, UtxoSelectionConfigResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest, UtxoSelectionConfigResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -188,14 +188,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest = {
+let body: UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest = {
   // string | The ID of the vault account.
   vaultAccountId: vaultAccountId_example,
   // string | The ID of the asset
   assetId: assetId_example,
 };
 
-fireblocks.utxoManagementBeta.getVaultAssetUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
+fireblocks.utxoManagement.getVaultAssetUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -234,7 +234,7 @@ No authorization required
 # **updateUtxoLabels**
 > AttachDetachUtxoLabelsResponse updateUtxoLabels(attachDetachUtxoLabelsRequest, )
 
-Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  **Note:** These endpoints are currently in beta and might be subject to changes.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 
@@ -242,7 +242,7 @@ Attach or detach labels to/from UTXOs in a vault account. Labels can be used for
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, UTXOManagementBetaApiUpdateUtxoLabelsRequest, AttachDetachUtxoLabelsResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, UTXOManagementApiUpdateUtxoLabelsRequest, AttachDetachUtxoLabelsResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -251,7 +251,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: UTXOManagementBetaApiUpdateUtxoLabelsRequest = {
+let body: UTXOManagementApiUpdateUtxoLabelsRequest = {
   // AttachDetachUtxoLabelsRequest
   attachDetachUtxoLabelsRequest: param_value,
   // string | The ID of the vault account
@@ -262,7 +262,7 @@ let body: UTXOManagementBetaApiUpdateUtxoLabelsRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.utxoManagementBeta.updateUtxoLabels(body).then((res: FireblocksResponse<AttachDetachUtxoLabelsResponse>) => {
+fireblocks.utxoManagement.updateUtxoLabels(body).then((res: FireblocksResponse<AttachDetachUtxoLabelsResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -304,7 +304,7 @@ No authorization required
 # **upsertUtxoSelectionConfig**
 > UtxoSelectionConfigResponse upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest)
 
-Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -312,7 +312,7 @@ Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is re
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest, UtxoSelectionConfigResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, UTXOManagementApiUpsertUtxoSelectionConfigRequest, UtxoSelectionConfigResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -321,14 +321,14 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest = {
+let body: UTXOManagementApiUpsertUtxoSelectionConfigRequest = {
   // UpsertUtxoSelectionConfigRequest
   upsertUtxoSelectionConfigRequest: param_value,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.utxoManagementBeta.upsertUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
+fireblocks.utxoManagement.upsertUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```
@@ -367,7 +367,7 @@ No authorization required
 # **upsertVaultAssetUtxoSelectionConfig**
 > UtxoSelectionConfigResponse upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, )
 
-Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
 
 ### Example
 
@@ -375,7 +375,7 @@ Creates or updates the UTXO selection strategy for this vault account and asset.
 ```typescript
 import { readFileSync } from 'fs';
 import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
-import type { FireblocksResponse, UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest, UtxoSelectionConfigResponse } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest, UtxoSelectionConfigResponse } from '@fireblocks/ts-sdk';
 
 // Set the environment variables for authentication
 process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
@@ -384,7 +384,7 @@ process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf
 
 const fireblocks = new Fireblocks();
 
-let body: UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest = {
+let body: UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest = {
   // UpsertUtxoSelectionConfigRequest
   upsertUtxoSelectionConfigRequest: param_value,
   // string | The ID of the vault account.
@@ -395,7 +395,7 @@ let body: UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest = {
   idempotencyKey: idempotencyKey_example,
 };
 
-fireblocks.utxoManagementBeta.upsertVaultAssetUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
+fireblocks.utxoManagement.upsertVaultAssetUtxoSelectionConfig(body).then((res: FireblocksResponse<UtxoSelectionConfigResponse>) => {
   console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
 }).catch((error:any) => console.error(error));
 ```

@@ -55,9 +55,17 @@ import { RatesResponse } from '../models';
 // @ts-ignore
 import { SubmitOrderRequirementRequest } from '../models';
 // @ts-ignore
+import { TradeClass } from '../models';
+// @ts-ignore
 import { TradingErrorSchema } from '../models';
 // @ts-ignore
+import { TradingPairSide } from '../models';
+// @ts-ignore
+import { TradingPairsListPage } from '../models';
+// @ts-ignore
 import { TradingProvider } from '../models';
+// @ts-ignore
+import { TransferRail } from '../models';
 /**
  * TradingApi - axios parameter creator
  * @export
@@ -395,6 +403,115 @@ export const TradingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
+         * Retrieve the base/quote trading pairs supported by the tenant\'s trading providers. All filters are optional and combined with AND.  A provider can return several rows for one pair, one per side and per connected account, each with its own `tradeClass`. Rows may use the wildcard `*` asset ID or the `BOTH` side and are returned unexpanded (see the `baseAsset`, `side` and `baseChain` filters for how they match).  **Examples**   - Which providers support ETH/USDC: `?baseAsset=ETH&quoteAsset=USDC`. Add `providerId` to check one provider; an empty `data` array means it does not support the pair.   - All pairs of one account: `?providerId=ACME&accountId=<ACCOUNT_ID>`. Page through large results with `pageSize` and `pageCursor`.   - Everything you can buy with euro: `?baseAsset=EUR&tradeClass=ON_RAMP`.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * @summary Get trading pairs
+         * @param {string} [baseAsset] Filter by base asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset.
+         * @param {string} [quoteAsset] Filter by quote asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset.
+         * @param {string} [baseChain] Filter by base asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain.
+         * @param {string} [quoteChain] Filter by quote asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain.
+         * @param {TransferRail} [baseRail] Filter by base asset transfer rail.
+         * @param {TransferRail} [quoteRail] Filter by quote asset transfer rail.
+         * @param {TradingPairSide} [side] Filter by trading side. &#x60;BUY&#x60; or &#x60;SELL&#x60; also matches rows whose side is &#x60;BOTH&#x60;; &#x60;BOTH&#x60; matches rows of any side.
+         * @param {TradeClass} [tradeClass] Filter by trade class.
+         * @param {Array<string>} [providerId] Filter by provider ID. Repeat the parameter to match any of several providers, up to 50.
+         * @param {Array<string>} [accountId] Filter by connected account ID. Repeat the parameter to match any of several accounts, up to 50.
+         * @param {boolean} [prefunded] Filter by whether the pair requires prefunding.
+         * @param {string} [min] An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;min&#x60; field (the smallest base-asset amount the pair accepts) is at most this value, i.e. pairs that can serve an order of this size. For example, &#x60;min&#x3D;10&#x60; returns pairs with a &#x60;min&#x60; of 10 or less.
+         * @param {string} [max] An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;max&#x60; field (the largest base-asset amount the pair accepts) is at least this value. For example, &#x60;max&#x3D;1000&#x60; returns pairs with a &#x60;max&#x60; of 1000 or more.
+         * @param {number} [pageSize] Page size for pagination.
+         * @param {string} [pageCursor] Page cursor for pagination.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTradingPairs: async (baseAsset?: string, quoteAsset?: string, baseChain?: string, quoteChain?: string, baseRail?: TransferRail, quoteRail?: TransferRail, side?: TradingPairSide, tradeClass?: TradeClass, providerId?: Array<string>, accountId?: Array<string>, prefunded?: boolean, min?: string, max?: string, pageSize?: number, pageCursor?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/trading/pairs`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getTradingPairs';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (baseAsset !== undefined) {
+                localVarQueryParameter['baseAsset'] = baseAsset;
+            }
+
+            if (quoteAsset !== undefined) {
+                localVarQueryParameter['quoteAsset'] = quoteAsset;
+            }
+
+            if (baseChain !== undefined) {
+                localVarQueryParameter['baseChain'] = baseChain;
+            }
+
+            if (quoteChain !== undefined) {
+                localVarQueryParameter['quoteChain'] = quoteChain;
+            }
+
+            if (baseRail !== undefined) {
+                localVarQueryParameter['baseRail'] = baseRail;
+            }
+
+            if (quoteRail !== undefined) {
+                localVarQueryParameter['quoteRail'] = quoteRail;
+            }
+
+            if (side !== undefined) {
+                localVarQueryParameter['side'] = side;
+            }
+
+            if (tradeClass !== undefined) {
+                localVarQueryParameter['tradeClass'] = tradeClass;
+            }
+
+            if (providerId) {
+                localVarQueryParameter['providerId'] = providerId;
+            }
+
+            if (accountId) {
+                localVarQueryParameter['accountId'] = accountId;
+            }
+
+            if (prefunded !== undefined) {
+                localVarQueryParameter['prefunded'] = prefunded;
+            }
+
+            if (min !== undefined) {
+                localVarQueryParameter['min'] = min;
+            }
+
+            if (max !== undefined) {
+                localVarQueryParameter['max'] = max;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {string} providerId The unique identifier of the provider.
@@ -694,6 +811,33 @@ export const TradingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieve the base/quote trading pairs supported by the tenant\'s trading providers. All filters are optional and combined with AND.  A provider can return several rows for one pair, one per side and per connected account, each with its own `tradeClass`. Rows may use the wildcard `*` asset ID or the `BOTH` side and are returned unexpanded (see the `baseAsset`, `side` and `baseChain` filters for how they match).  **Examples**   - Which providers support ETH/USDC: `?baseAsset=ETH&quoteAsset=USDC`. Add `providerId` to check one provider; an empty `data` array means it does not support the pair.   - All pairs of one account: `?providerId=ACME&accountId=<ACCOUNT_ID>`. Page through large results with `pageSize` and `pageCursor`.   - Everything you can buy with euro: `?baseAsset=EUR&tradeClass=ON_RAMP`.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * @summary Get trading pairs
+         * @param {string} [baseAsset] Filter by base asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset.
+         * @param {string} [quoteAsset] Filter by quote asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset.
+         * @param {string} [baseChain] Filter by base asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain.
+         * @param {string} [quoteChain] Filter by quote asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain.
+         * @param {TransferRail} [baseRail] Filter by base asset transfer rail.
+         * @param {TransferRail} [quoteRail] Filter by quote asset transfer rail.
+         * @param {TradingPairSide} [side] Filter by trading side. &#x60;BUY&#x60; or &#x60;SELL&#x60; also matches rows whose side is &#x60;BOTH&#x60;; &#x60;BOTH&#x60; matches rows of any side.
+         * @param {TradeClass} [tradeClass] Filter by trade class.
+         * @param {Array<string>} [providerId] Filter by provider ID. Repeat the parameter to match any of several providers, up to 50.
+         * @param {Array<string>} [accountId] Filter by connected account ID. Repeat the parameter to match any of several accounts, up to 50.
+         * @param {boolean} [prefunded] Filter by whether the pair requires prefunding.
+         * @param {string} [min] An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;min&#x60; field (the smallest base-asset amount the pair accepts) is at most this value, i.e. pairs that can serve an order of this size. For example, &#x60;min&#x3D;10&#x60; returns pairs with a &#x60;min&#x60; of 10 or less.
+         * @param {string} [max] An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;max&#x60; field (the largest base-asset amount the pair accepts) is at least this value. For example, &#x60;max&#x3D;1000&#x60; returns pairs with a &#x60;max&#x60; of 1000 or more.
+         * @param {number} [pageSize] Page size for pagination.
+         * @param {string} [pageCursor] Page cursor for pagination.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getTradingPairs(baseAsset?: string, quoteAsset?: string, baseChain?: string, quoteChain?: string, baseRail?: TransferRail, quoteRail?: TransferRail, side?: TradingPairSide, tradeClass?: TradeClass, providerId?: Array<string>, accountId?: Array<string>, prefunded?: boolean, min?: string, max?: string, pageSize?: number, pageCursor?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TradingPairsListPage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getTradingPairs(baseAsset, quoteAsset, baseChain, quoteChain, baseRail, quoteRail, side, tradeClass, providerId, accountId, prefunded, min, max, pageSize, pageCursor, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TradingApi.getTradingPairs']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
          * @summary Get trading provider by ID
          * @param {string} providerId The unique identifier of the provider.
@@ -830,6 +974,16 @@ export const TradingApiFactory = function (configuration?: Configuration, basePa
          */
         getOrders(requestParameters: TradingApiGetOrdersRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetOrdersResponse> {
             return localVarFp.getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Retrieve the base/quote trading pairs supported by the tenant\'s trading providers. All filters are optional and combined with AND.  A provider can return several rows for one pair, one per side and per connected account, each with its own `tradeClass`. Rows may use the wildcard `*` asset ID or the `BOTH` side and are returned unexpanded (see the `baseAsset`, `side` and `baseChain` filters for how they match).  **Examples**   - Which providers support ETH/USDC: `?baseAsset=ETH&quoteAsset=USDC`. Add `providerId` to check one provider; an empty `data` array means it does not support the pair.   - All pairs of one account: `?providerId=ACME&accountId=<ACCOUNT_ID>`. Page through large results with `pageSize` and `pageCursor`.   - Everything you can buy with euro: `?baseAsset=EUR&tradeClass=ON_RAMP`.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+         * @summary Get trading pairs
+         * @param {TradingApiGetTradingPairsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getTradingPairs(requestParameters: TradingApiGetTradingPairsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<TradingPairsListPage> {
+            return localVarFp.getTradingPairs(requestParameters.baseAsset, requestParameters.quoteAsset, requestParameters.baseChain, requestParameters.quoteChain, requestParameters.baseRail, requestParameters.quoteRail, requestParameters.side, requestParameters.tradeClass, requestParameters.providerId, requestParameters.accountId, requestParameters.prefunded, requestParameters.min, requestParameters.max, requestParameters.pageSize, requestParameters.pageCursor, options).then((request) => request(axios, basePath));
         },
         /**
          * Retrieve a single provider by ID.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
@@ -1057,6 +1211,118 @@ export interface TradingApiGetOrdersRequest {
 }
 
 /**
+ * Request parameters for getTradingPairs operation in TradingApi.
+ * @export
+ * @interface TradingApiGetTradingPairsRequest
+ */
+export interface TradingApiGetTradingPairsRequest {
+    /**
+     * Filter by base asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly baseAsset?: string
+
+    /**
+     * Filter by quote asset ID. Also matches &#x60;*&#x60; rows on the chain of this asset.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly quoteAsset?: string
+
+    /**
+     * Filter by base asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly baseChain?: string
+
+    /**
+     * Filter by quote asset blockchain &#x60;legacyId&#x60; (e.g. &#x60;ETH&#x60;, &#x60;BASECHAIN_ETH&#x60;, &#x60;SOL&#x60;). Matches both concrete-asset rows and &#x60;*&#x60; rows on that chain.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly quoteChain?: string
+
+    /**
+     * Filter by base asset transfer rail.
+     * @type {TransferRail}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly baseRail?: TransferRail
+
+    /**
+     * Filter by quote asset transfer rail.
+     * @type {TransferRail}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly quoteRail?: TransferRail
+
+    /**
+     * Filter by trading side. &#x60;BUY&#x60; or &#x60;SELL&#x60; also matches rows whose side is &#x60;BOTH&#x60;; &#x60;BOTH&#x60; matches rows of any side.
+     * @type {TradingPairSide}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly side?: TradingPairSide
+
+    /**
+     * Filter by trade class.
+     * @type {TradeClass}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly tradeClass?: TradeClass
+
+    /**
+     * Filter by provider ID. Repeat the parameter to match any of several providers, up to 50.
+     * @type {Array<string>}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly providerId?: Array<string>
+
+    /**
+     * Filter by connected account ID. Repeat the parameter to match any of several accounts, up to 50.
+     * @type {Array<string>}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly accountId?: Array<string>
+
+    /**
+     * Filter by whether the pair requires prefunding.
+     * @type {boolean}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly prefunded?: boolean
+
+    /**
+     * An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;min&#x60; field (the smallest base-asset amount the pair accepts) is at most this value, i.e. pairs that can serve an order of this size. For example, &#x60;min&#x3D;10&#x60; returns pairs with a &#x60;min&#x60; of 10 or less.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly min?: string
+
+    /**
+     * An order-size filter, not a bound on the result. Only returns pairs whose own &#x60;max&#x60; field (the largest base-asset amount the pair accepts) is at least this value. For example, &#x60;max&#x3D;1000&#x60; returns pairs with a &#x60;max&#x60; of 1000 or more.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly max?: string
+
+    /**
+     * Page size for pagination.
+     * @type {number}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly pageSize?: number
+
+    /**
+     * Page cursor for pagination.
+     * @type {string}
+     * @memberof TradingApiGetTradingPairs
+     */
+    readonly pageCursor?: string
+}
+
+/**
  * Request parameters for getTradingProviderById operation in TradingApi.
  * @export
  * @interface TradingApiGetTradingProviderByIdRequest
@@ -1243,6 +1509,18 @@ export class TradingApi extends BaseAPI {
      */
     public getOrders(requestParameters: TradingApiGetOrdersRequest) {
         return TradingApiFp(this.configuration).getOrders(requestParameters.pageSize, requestParameters.pageCursor, requestParameters.order, requestParameters.accountId, requestParameters.providerId, requestParameters.statuses, requestParameters.startTime, requestParameters.endTime, requestParameters.assetConversionType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Retrieve the base/quote trading pairs supported by the tenant\'s trading providers. All filters are optional and combined with AND.  A provider can return several rows for one pair, one per side and per connected account, each with its own `tradeClass`. Rows may use the wildcard `*` asset ID or the `BOTH` side and are returned unexpanded (see the `baseAsset`, `side` and `baseChain` filters for how they match).  **Examples**   - Which providers support ETH/USDC: `?baseAsset=ETH&quoteAsset=USDC`. Add `providerId` to check one provider; an empty `data` array means it does not support the pair.   - All pairs of one account: `?providerId=ACME&accountId=<ACCOUNT_ID>`. Page through large results with `pageSize` and `pageCursor`.   - Everything you can buy with euro: `?baseAsset=EUR&tradeClass=ON_RAMP`.  **Endpoint Permission:** Owner, Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.  For detailed information about error codes and troubleshooting, please refer to our [API Error Codes documentation](https://developers.fireblocks.com/reference/api-error-codes). 
+     * @summary Get trading pairs
+     * @param {TradingApiGetTradingPairsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TradingApi
+     */
+    public getTradingPairs(requestParameters: TradingApiGetTradingPairsRequest = {}) {
+        return TradingApiFp(this.configuration).getTradingPairs(requestParameters.baseAsset, requestParameters.quoteAsset, requestParameters.baseChain, requestParameters.quoteChain, requestParameters.baseRail, requestParameters.quoteRail, requestParameters.side, requestParameters.tradeClass, requestParameters.providerId, requestParameters.accountId, requestParameters.prefunded, requestParameters.min, requestParameters.max, requestParameters.pageSize, requestParameters.pageCursor).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

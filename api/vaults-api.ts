@@ -793,12 +793,12 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {boolean} [manualSignging] False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
-         * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {Array<string>} [includeAnyLabels] Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {string} [address] Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {string} [minAmount] Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {string} [maxAmount] Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager.
+         * @param {Array<string>} [includeAnyLabels] Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager.
+         * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager.
+         * @param {string} [address] Only include UTXOs from this specific address. Requires the UTXO Manager.
+         * @param {string} [minAmount] Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager.
+         * @param {string} [maxAmount] Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -2129,12 +2129,12 @@ export const VaultsApiFp = function(configuration?: Configuration) {
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
          * @param {boolean} [manualSignging] False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device.
-         * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {Array<string>} [includeAnyLabels] Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {string} [address] Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {string} [minAmount] Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
-         * @param {string} [maxAmount] Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+         * @param {Array<string>} [includeAllLabels] Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager.
+         * @param {Array<string>} [includeAnyLabels] Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager.
+         * @param {Array<string>} [excludeAnyLabels] Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager.
+         * @param {string} [address] Only include UTXOs from this specific address. Requires the UTXO Manager.
+         * @param {string} [minAmount] Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager.
+         * @param {string} [maxAmount] Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -3289,42 +3289,42 @@ export interface VaultsApiGetMaxSpendableAmountRequest {
     readonly manualSignging?: boolean
 
     /**
-     * Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager.
      * @type {Array<string>}
      * @memberof VaultsApiGetMaxSpendableAmount
      */
     readonly includeAllLabels?: Array<string>
 
     /**
-     * Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager.
      * @type {Array<string>}
      * @memberof VaultsApiGetMaxSpendableAmount
      */
     readonly includeAnyLabels?: Array<string>
 
     /**
-     * Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager.
      * @type {Array<string>}
      * @memberof VaultsApiGetMaxSpendableAmount
      */
     readonly excludeAnyLabels?: Array<string>
 
     /**
-     * Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * Only include UTXOs from this specific address. Requires the UTXO Manager.
      * @type {string}
      * @memberof VaultsApiGetMaxSpendableAmount
      */
     readonly address?: string
 
     /**
-     * Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager.
      * @type {string}
      * @memberof VaultsApiGetMaxSpendableAmount
      */
     readonly minAmount?: string
 
     /**
-     * Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes.
+     * Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager.
      * @type {string}
      * @memberof VaultsApiGetMaxSpendableAmount
      */

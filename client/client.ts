@@ -60,7 +60,7 @@ import { ApiUserApi,
          TradingApi, 
          TransactionsApi, 
          TravelRuleApi, 
-         UTXOManagementBetaApi, 
+         UTXOManagementApi, 
          UserGroupsBetaApi, 
          UsersApi, 
          VaultsApi, 
@@ -125,7 +125,7 @@ export class Fireblocks {
     private _trading?: TradingApi;
     private _transactions?: TransactionsApi;
     private _travelRule?: TravelRuleApi;
-    private _utxoManagementBeta?: UTXOManagementBetaApi;
+    private _utxoManagement?: UTXOManagementApi;
     private _userGroupsBeta?: UserGroupsBetaApi;
     private _users?: UsersApi;
     private _vaults?: VaultsApi;
@@ -300,8 +300,8 @@ export class Fireblocks {
     get travelRule(): TravelRuleApi {
         return this._travelRule ?? new TravelRuleApi(this.config, undefined, this.axiosManager.axios);
     }
-    get utxoManagementBeta(): UTXOManagementBetaApi {
-        return this._utxoManagementBeta ?? new UTXOManagementBetaApi(this.config, undefined, this.axiosManager.axios);
+    get utxoManagement(): UTXOManagementApi {
+        return this._utxoManagement ?? new UTXOManagementApi(this.config, undefined, this.axiosManager.axios);
     }
     get userGroupsBeta(): UserGroupsBetaApi {
         return this._userGroupsBeta ?? new UserGroupsBetaApi(this.config, undefined, this.axiosManager.axios);

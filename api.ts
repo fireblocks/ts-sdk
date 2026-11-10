@@ -62,7 +62,7 @@ export * from './api/tokenization-api';
 export * from './api/trading-api';
 export * from './api/transactions-api';
 export * from './api/travel-rule-api';
-export * from './api/utxomanagement-beta-api';
+export * from './api/utxomanagement-api';
 export * from './api/user-groups-beta-api';
 export * from './api/users-api';
 export * from './api/vaults-api';
