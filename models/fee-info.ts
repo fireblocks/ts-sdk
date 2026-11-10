@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { RoleFeeInfo } from './role-fee-info';
 
 /**
  * Details of the transaction\'s fee.
@@ -80,6 +83,18 @@ export interface FeeInfo {
      * @memberof FeeInfo
      */
     'feeUSD'?: string;
+    /**
+     * 
+     * @type {RoleFeeInfo}
+     * @memberof FeeInfo
+     */
+    'sender'?: RoleFeeInfo;
+    /**
+     * 
+     * @type {RoleFeeInfo}
+     * @memberof FeeInfo
+     */
+    'recipient'?: RoleFeeInfo;
 }
 
 export const FeeInfoRelayTypeEnum = {

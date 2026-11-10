@@ -1049,17 +1049,17 @@ let body: VaultsApiGetMaxSpendableAmountRequest = {
   assetId: assetId_example,
   // boolean | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. (optional)
   manualSignging: true,
-  // Array<string> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  // Array<string> | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. (optional)
   includeAllLabels: param_value,
-  // Array<string> | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  // Array<string> | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. (optional)
   includeAnyLabels: param_value,
-  // Array<string> | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  // Array<string> | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. (optional)
   excludeAnyLabels: param_value,
-  // string | Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  // string | Only include UTXOs from this specific address. Requires the UTXO Manager. (optional)
   address: address_example,
-  // string | Minimum UTXO amount in the asset\'s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  // string | Minimum UTXO amount in the asset\'s base unit. Requires the UTXO Manager. (optional)
   minAmount: minAmount_example,
-  // string | Maximum UTXO amount in the asset\'s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. (optional)
+  // string | Maximum UTXO amount in the asset\'s base unit. Requires the UTXO Manager. (optional)
   maxAmount: maxAmount_example,
 };
 
@@ -1076,12 +1076,12 @@ Name | Type | Description  | Notes
  **vaultAccountId** | [**string**] | The ID of the vault account | defaults to undefined
  **assetId** | [**string**] | The ID of the asset | defaults to undefined
  **manualSignging** | [**boolean**] | False by default. The maximum number of inputs depends if the transaction will be signed by an automated co-signer server or on a mobile device. | (optional) defaults to undefined
- **includeAllLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
- **includeAnyLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
- **excludeAnyLabels** | **Array&lt;string&gt;** | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
- **address** | [**string**] | Only include UTXOs from this specific address. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
- **minAmount** | [**string**] | Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
- **maxAmount** | [**string**] | Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. This feature is currently in beta and might be subject to changes. | (optional) defaults to undefined
+ **includeAllLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ALL of these labels (AND logic). Requires the UTXO Manager. | (optional) defaults to undefined
+ **includeAnyLabels** | **Array&lt;string&gt;** | Only include UTXOs that have ANY of these labels (OR logic). Requires the UTXO Manager. | (optional) defaults to undefined
+ **excludeAnyLabels** | **Array&lt;string&gt;** | Exclude UTXOs that have ANY of these labels. Requires the UTXO Manager. | (optional) defaults to undefined
+ **address** | [**string**] | Only include UTXOs from this specific address. Requires the UTXO Manager. | (optional) defaults to undefined
+ **minAmount** | [**string**] | Minimum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. | (optional) defaults to undefined
+ **maxAmount** | [**string**] | Maximum UTXO amount in the asset\&#39;s base unit. Requires the UTXO Manager. | (optional) defaults to undefined
 
 
 ### Return type

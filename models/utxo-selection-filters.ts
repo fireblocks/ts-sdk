@@ -15,7 +15,7 @@
 
 
 /**
- * Narrow the UTXO candidate pool. All specified filters are AND-ed together. This feature is currently in beta and might be subject to changes. 
+ * Narrow the UTXO candidate pool. All specified filters are AND-ed together. 
  * @export
  * @interface UtxoSelectionFilters
  */

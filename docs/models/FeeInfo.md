@@ -14,6 +14,8 @@
 |**relayId** | **string** | The vault account ID of the relay | [optional] [default to undefined]|
 |**relayName** | **string** | The name of the tenant, only for THIRD_PARTY relays | [optional] [default to undefined]|
 |**feeUSD** | **string** | The USD value of the fee | [optional] [default to undefined]|
+|**sender** | [**RoleFeeInfo**](RoleFeeInfo.md) |  | [optional] [default to undefined]|
+|**recipient** | [**RoleFeeInfo**](RoleFeeInfo.md) |  | [optional] [default to undefined]|
 
 
 ## Enum: FeeInfoRelayTypeEnum

@@ -41,13 +41,13 @@ import { UtxoLabelsErrorResponse } from '../models';
 // @ts-ignore
 import { UtxoSelectionConfigResponse } from '../models';
 /**
- * UTXOManagementBetaApi - axios parameter creator
+ * UTXOManagementApi - axios parameter creator
  * @export
  */
-export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: Configuration) {
+export const UTXOManagementApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get UTXO selection config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -81,7 +81,7 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List unspent outputs (UTXOs)
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -186,7 +186,7 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault and asset UTXO selection config
          * @param {string} vaultAccountId The ID of the vault account.
          * @param {string} assetId The ID of the asset
@@ -226,7 +226,7 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  **Note:** These endpoints are currently in beta and might be subject to changes.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Attach or detach labels to/from UTXOs
          * @param {AttachDetachUtxoLabelsRequest} attachDetachUtxoLabelsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -276,7 +276,7 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Upsert UTXO selection config
          * @param {UpsertUtxoSelectionConfigRequest} upsertUtxoSelectionConfigRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -320,7 +320,7 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
             };
         },
         /**
-         * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Upsert vault and asset UTXO selection config
          * @param {UpsertUtxoSelectionConfigRequest} upsertUtxoSelectionConfigRequest 
          * @param {string} vaultAccountId The ID of the vault account.
@@ -373,14 +373,14 @@ export const UTXOManagementBetaApiAxiosParamCreator = function (configuration?: 
 };
 
 /**
- * UTXOManagementBetaApi - functional programming interface
+ * UTXOManagementApi - functional programming interface
  * @export
  */
-export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = UTXOManagementBetaApiAxiosParamCreator(configuration)
+export const UTXOManagementApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UTXOManagementApiAxiosParamCreator(configuration)
     return {
         /**
-         * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get UTXO selection config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -388,11 +388,11 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
         async getUtxoSelectionConfig(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UtxoSelectionConfigResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUtxoSelectionConfig(options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['UTXOManagementBetaApi.getUtxoSelectionConfig']?.[index]?.url;
+            const operationBasePath = operationServerMap['UTXOManagementApi.getUtxoSelectionConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List unspent outputs (UTXOs)
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} assetId The ID of the asset
@@ -415,11 +415,11 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
         async getUtxos(vaultAccountId: string, assetId: string, pageCursor?: string, pageSize?: number, sort?: GetUtxosSortEnum, order?: GetUtxosOrderEnum, includeAllLabels?: Array<string>, includeAnyLabels?: Array<string>, excludeAnyLabels?: Array<string>, includeStatuses?: Array<string>, address?: string, txHash?: string, txId?: string, minAmount?: string, maxAmount?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListUtxosResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getUtxos(vaultAccountId, assetId, pageCursor, pageSize, sort, order, includeAllLabels, includeAnyLabels, excludeAnyLabels, includeStatuses, address, txHash, txId, minAmount, maxAmount, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['UTXOManagementBetaApi.getUtxos']?.[index]?.url;
+            const operationBasePath = operationServerMap['UTXOManagementApi.getUtxos']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault and asset UTXO selection config
          * @param {string} vaultAccountId The ID of the vault account.
          * @param {string} assetId The ID of the asset
@@ -429,11 +429,11 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
         async getVaultAssetUtxoSelectionConfig(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UtxoSelectionConfigResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAssetUtxoSelectionConfig(vaultAccountId, assetId, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['UTXOManagementBetaApi.getVaultAssetUtxoSelectionConfig']?.[index]?.url;
+            const operationBasePath = operationServerMap['UTXOManagementApi.getVaultAssetUtxoSelectionConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  **Note:** These endpoints are currently in beta and might be subject to changes.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Attach or detach labels to/from UTXOs
          * @param {AttachDetachUtxoLabelsRequest} attachDetachUtxoLabelsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -445,11 +445,11 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
         async updateUtxoLabels(attachDetachUtxoLabelsRequest: AttachDetachUtxoLabelsRequest, vaultAccountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<AttachDetachUtxoLabelsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateUtxoLabels(attachDetachUtxoLabelsRequest, vaultAccountId, assetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['UTXOManagementBetaApi.updateUtxoLabels']?.[index]?.url;
+            const operationBasePath = operationServerMap['UTXOManagementApi.updateUtxoLabels']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Upsert UTXO selection config
          * @param {UpsertUtxoSelectionConfigRequest} upsertUtxoSelectionConfigRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -459,11 +459,11 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
         async upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest: UpsertUtxoSelectionConfigRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UtxoSelectionConfigResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.upsertUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['UTXOManagementBetaApi.upsertUtxoSelectionConfig']?.[index]?.url;
+            const operationBasePath = operationServerMap['UTXOManagementApi.upsertUtxoSelectionConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Upsert vault and asset UTXO selection config
          * @param {UpsertUtxoSelectionConfigRequest} upsertUtxoSelectionConfigRequest 
          * @param {string} vaultAccountId The ID of the vault account.
@@ -475,21 +475,21 @@ export const UTXOManagementBetaApiFp = function(configuration?: Configuration) {
         async upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest: UpsertUtxoSelectionConfigRequest, vaultAccountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UtxoSelectionConfigResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.upsertVaultAssetUtxoSelectionConfig(upsertUtxoSelectionConfigRequest, vaultAccountId, assetId, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
-            const operationBasePath = operationServerMap['UTXOManagementBetaApi.upsertVaultAssetUtxoSelectionConfig']?.[index]?.url;
+            const operationBasePath = operationServerMap['UTXOManagementApi.upsertVaultAssetUtxoSelectionConfig']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
     }
 };
 
 /**
- * UTXOManagementBetaApi - factory interface
+ * UTXOManagementApi - factory interface
  * @export
  */
-export const UTXOManagementBetaApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = UTXOManagementBetaApiFp(configuration)
+export const UTXOManagementApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UTXOManagementApiFp(configuration)
     return {
         /**
-         * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get UTXO selection config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -498,358 +498,358 @@ export const UTXOManagementBetaApiFactory = function (configuration?: Configurat
             return localVarFp.getUtxoSelectionConfig(options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary List unspent outputs (UTXOs)
-         * @param {UTXOManagementBetaApiGetUtxosRequest} requestParameters Request parameters.
+         * @param {UTXOManagementApiGetUtxosRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUtxos(requestParameters: UTXOManagementBetaApiGetUtxosRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListUtxosResponse> {
+        getUtxos(requestParameters: UTXOManagementApiGetUtxosRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListUtxosResponse> {
             return localVarFp.getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.txHash, requestParameters.txId, requestParameters.minAmount, requestParameters.maxAmount, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault and asset UTXO selection config
-         * @param {UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
+         * @param {UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<UtxoSelectionConfigResponse> {
+        getVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<UtxoSelectionConfigResponse> {
             return localVarFp.getVaultAssetUtxoSelectionConfig(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  **Note:** These endpoints are currently in beta and might be subject to changes.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Attach or detach labels to/from UTXOs
-         * @param {UTXOManagementBetaApiUpdateUtxoLabelsRequest} requestParameters Request parameters.
+         * @param {UTXOManagementApiUpdateUtxoLabelsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        updateUtxoLabels(requestParameters: UTXOManagementBetaApiUpdateUtxoLabelsRequest, options?: RawAxiosRequestConfig): AxiosPromise<AttachDetachUtxoLabelsResponse> {
+        updateUtxoLabels(requestParameters: UTXOManagementApiUpdateUtxoLabelsRequest, options?: RawAxiosRequestConfig): AxiosPromise<AttachDetachUtxoLabelsResponse> {
             return localVarFp.updateUtxoLabels(requestParameters.attachDetachUtxoLabelsRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Upsert UTXO selection config
-         * @param {UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest} requestParameters Request parameters.
+         * @param {UTXOManagementApiUpsertUtxoSelectionConfigRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        upsertUtxoSelectionConfig(requestParameters: UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<UtxoSelectionConfigResponse> {
+        upsertUtxoSelectionConfig(requestParameters: UTXOManagementApiUpsertUtxoSelectionConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<UtxoSelectionConfigResponse> {
             return localVarFp.upsertUtxoSelectionConfig(requestParameters.upsertUtxoSelectionConfigRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+         * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
          * @summary Upsert vault and asset UTXO selection config
-         * @param {UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
+         * @param {UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        upsertVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<UtxoSelectionConfigResponse> {
+        upsertVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest, options?: RawAxiosRequestConfig): AxiosPromise<UtxoSelectionConfigResponse> {
             return localVarFp.upsertVaultAssetUtxoSelectionConfig(requestParameters.upsertUtxoSelectionConfigRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * Request parameters for getUtxos operation in UTXOManagementBetaApi.
+ * Request parameters for getUtxos operation in UTXOManagementApi.
  * @export
- * @interface UTXOManagementBetaApiGetUtxosRequest
+ * @interface UTXOManagementApiGetUtxosRequest
  */
-export interface UTXOManagementBetaApiGetUtxosRequest {
+export interface UTXOManagementApiGetUtxosRequest {
     /**
      * The ID of the vault account
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly vaultAccountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly assetId: string
 
     /**
      * Cursor for the next page of results
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly pageCursor?: string
 
     /**
      * Number of results per page (max 250, default 50)
      * @type {number}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly pageSize?: number
 
     /**
      * Field to sort by
      * @type {'AMOUNT' | 'CONFIRMATIONS'}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly sort?: GetUtxosSortEnum
 
     /**
      * Sort order
      * @type {'ASC' | 'DESC'}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly order?: GetUtxosOrderEnum
 
     /**
      * Only return UTXOs that have ALL of these labels (AND logic).
      * @type {Array<string>}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly includeAllLabels?: Array<string>
 
     /**
      * Return UTXOs that have ANY of these labels (OR logic).
      * @type {Array<string>}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly includeAnyLabels?: Array<string>
 
     /**
      * Exclude UTXOs that have ANY of these labels.
      * @type {Array<string>}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly excludeAnyLabels?: Array<string>
 
     /**
      * Filter by UTXO statuses to include.
      * @type {Array<string>}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly includeStatuses?: Array<string>
 
     /**
      * Filter by address
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly address?: string
 
     /**
      * Filter by the on-chain hash of the transaction that created the UTXOs. Returns all UTXOs originating from that transaction.
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly txHash?: string
 
     /**
      * Filter by the Fireblocks transaction ID that created the UTXOs.
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly txId?: string
 
     /**
      * Minimum amount filter
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly minAmount?: string
 
     /**
      * Maximum amount filter
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetUtxos
+     * @memberof UTXOManagementApiGetUtxos
      */
     readonly maxAmount?: string
 }
 
 /**
- * Request parameters for getVaultAssetUtxoSelectionConfig operation in UTXOManagementBetaApi.
+ * Request parameters for getVaultAssetUtxoSelectionConfig operation in UTXOManagementApi.
  * @export
- * @interface UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest
+ * @interface UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest
  */
-export interface UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest {
+export interface UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest {
     /**
      * The ID of the vault account.
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfig
+     * @memberof UTXOManagementApiGetVaultAssetUtxoSelectionConfig
      */
     readonly vaultAccountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfig
+     * @memberof UTXOManagementApiGetVaultAssetUtxoSelectionConfig
      */
     readonly assetId: string
 }
 
 /**
- * Request parameters for updateUtxoLabels operation in UTXOManagementBetaApi.
+ * Request parameters for updateUtxoLabels operation in UTXOManagementApi.
  * @export
- * @interface UTXOManagementBetaApiUpdateUtxoLabelsRequest
+ * @interface UTXOManagementApiUpdateUtxoLabelsRequest
  */
-export interface UTXOManagementBetaApiUpdateUtxoLabelsRequest {
+export interface UTXOManagementApiUpdateUtxoLabelsRequest {
     /**
      * 
      * @type {AttachDetachUtxoLabelsRequest}
-     * @memberof UTXOManagementBetaApiUpdateUtxoLabels
+     * @memberof UTXOManagementApiUpdateUtxoLabels
      */
     readonly attachDetachUtxoLabelsRequest: AttachDetachUtxoLabelsRequest
 
     /**
      * The ID of the vault account
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpdateUtxoLabels
+     * @memberof UTXOManagementApiUpdateUtxoLabels
      */
     readonly vaultAccountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpdateUtxoLabels
+     * @memberof UTXOManagementApiUpdateUtxoLabels
      */
     readonly assetId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpdateUtxoLabels
+     * @memberof UTXOManagementApiUpdateUtxoLabels
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for upsertUtxoSelectionConfig operation in UTXOManagementBetaApi.
+ * Request parameters for upsertUtxoSelectionConfig operation in UTXOManagementApi.
  * @export
- * @interface UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest
+ * @interface UTXOManagementApiUpsertUtxoSelectionConfigRequest
  */
-export interface UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest {
+export interface UTXOManagementApiUpsertUtxoSelectionConfigRequest {
     /**
      * 
      * @type {UpsertUtxoSelectionConfigRequest}
-     * @memberof UTXOManagementBetaApiUpsertUtxoSelectionConfig
+     * @memberof UTXOManagementApiUpsertUtxoSelectionConfig
      */
     readonly upsertUtxoSelectionConfigRequest: UpsertUtxoSelectionConfigRequest
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpsertUtxoSelectionConfig
+     * @memberof UTXOManagementApiUpsertUtxoSelectionConfig
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * Request parameters for upsertVaultAssetUtxoSelectionConfig operation in UTXOManagementBetaApi.
+ * Request parameters for upsertVaultAssetUtxoSelectionConfig operation in UTXOManagementApi.
  * @export
- * @interface UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest
+ * @interface UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest
  */
-export interface UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest {
+export interface UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest {
     /**
      * 
      * @type {UpsertUtxoSelectionConfigRequest}
-     * @memberof UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfig
+     * @memberof UTXOManagementApiUpsertVaultAssetUtxoSelectionConfig
      */
     readonly upsertUtxoSelectionConfigRequest: UpsertUtxoSelectionConfigRequest
 
     /**
      * The ID of the vault account.
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfig
+     * @memberof UTXOManagementApiUpsertVaultAssetUtxoSelectionConfig
      */
     readonly vaultAccountId: string
 
     /**
      * The ID of the asset
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfig
+     * @memberof UTXOManagementApiUpsertVaultAssetUtxoSelectionConfig
      */
     readonly assetId: string
 
     /**
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
-     * @memberof UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfig
+     * @memberof UTXOManagementApiUpsertVaultAssetUtxoSelectionConfig
      */
     readonly idempotencyKey?: string
 }
 
 /**
- * UTXOManagementBetaApi - object-oriented interface
+ * UTXOManagementApi - object-oriented interface
  * @export
- * @class UTXOManagementBetaApi
+ * @class UTXOManagementApi
  * @extends {BaseAPI}
  */
-export class UTXOManagementBetaApi extends BaseAPI {
+export class UTXOManagementApi extends BaseAPI {
     /**
-     * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns the workspace-level configured selection strategy and the effective strategy after runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this workspace, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get UTXO selection config
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UTXOManagementBetaApi
+     * @memberof UTXOManagementApi
      */
     public getUtxoSelectionConfig() {
-        return UTXOManagementBetaApiFp(this.configuration).getUtxoSelectionConfig().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+        return UTXOManagementApiFp(this.configuration).getUtxoSelectionConfig().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns a paginated list of unspent transaction outputs (UTXOs) for a UTXO-based asset in a vault account, with optional filters for labels, statuses, amounts, and more. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary List unspent outputs (UTXOs)
-     * @param {UTXOManagementBetaApiGetUtxosRequest} requestParameters Request parameters.
+     * @param {UTXOManagementApiGetUtxosRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UTXOManagementBetaApi
+     * @memberof UTXOManagementApi
      */
-    public getUtxos(requestParameters: UTXOManagementBetaApiGetUtxosRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.txHash, requestParameters.txId, requestParameters.minAmount, requestParameters.maxAmount).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getUtxos(requestParameters: UTXOManagementApiGetUtxosRequest) {
+        return UTXOManagementApiFp(this.configuration).getUtxos(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.includeStatuses, requestParameters.address, requestParameters.txHash, requestParameters.txId, requestParameters.minAmount, requestParameters.maxAmount).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns the config stored at this vault-and-asset scope, if any, and the effective strategy after workspace fallback and runtime resolution. `ADAPTIVE` is the recommended strategy. When no row is stored at this scope and none is inherited from the workspace (source `DEFAULT`), `effective` is `ADAPTIVE` if adaptive selection is serving for this scope, otherwise `ASC`. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get vault and asset UTXO selection config
-     * @param {UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
+     * @param {UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UTXOManagementBetaApi
+     * @memberof UTXOManagementApi
      */
-    public getVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementBetaApiGetVaultAssetUtxoSelectionConfigRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).getVaultAssetUtxoSelectionConfig(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public getVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementApiGetVaultAssetUtxoSelectionConfigRequest) {
+        return UTXOManagementApiFp(this.configuration).getVaultAssetUtxoSelectionConfig(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  **Note:** These endpoints are currently in beta and might be subject to changes.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * Attach or detach labels to/from UTXOs in a vault account. Labels can be used for organizing and filtering UTXOs.  Labels are applied additively — `labelsToAttach` adds to the existing label set and `labelsToDetach` removes from it. Neither operation replaces the full set.  The request is all-or-nothing: if any identifier cannot be labelled, no UTXO is labelled and the request fails with `400`. The response lists every failed identifier in `failures`, each with its own `reason` — use it, not the status, to decide what to do: - `NOT_FOUND` — not found in this vault and asset. - `NOT_LABELLABLE` — spent, or removed, and can no longer be labelled.  A UTXO removed within the last hour is reported as `NOT_FOUND` with `utxoStatus: REMOVED`; if it does not reappear, it becomes `NOT_LABELLABLE` after about an hour. A `400` without `failures` means the request itself is malformed.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Attach or detach labels to/from UTXOs
-     * @param {UTXOManagementBetaApiUpdateUtxoLabelsRequest} requestParameters Request parameters.
+     * @param {UTXOManagementApiUpdateUtxoLabelsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UTXOManagementBetaApi
+     * @memberof UTXOManagementApi
      */
-    public updateUtxoLabels(requestParameters: UTXOManagementBetaApiUpdateUtxoLabelsRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).updateUtxoLabels(requestParameters.attachDetachUtxoLabelsRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public updateUtxoLabels(requestParameters: UTXOManagementApiUpdateUtxoLabelsRequest) {
+        return UTXOManagementApiFp(this.configuration).updateUtxoLabels(requestParameters.attachDetachUtxoLabelsRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+     * Creates or updates the workspace-level UTXO selection strategy. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Upsert UTXO selection config
-     * @param {UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest} requestParameters Request parameters.
+     * @param {UTXOManagementApiUpsertUtxoSelectionConfigRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UTXOManagementBetaApi
+     * @memberof UTXOManagementApi
      */
-    public upsertUtxoSelectionConfig(requestParameters: UTXOManagementBetaApiUpsertUtxoSelectionConfigRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).upsertUtxoSelectionConfig(requestParameters.upsertUtxoSelectionConfigRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public upsertUtxoSelectionConfig(requestParameters: UTXOManagementApiUpsertUtxoSelectionConfigRequest) {
+        return UTXOManagementApiFp(this.configuration).upsertUtxoSelectionConfig(requestParameters.upsertUtxoSelectionConfigRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
-     * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. **Note:** These endpoints are currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin.
+     * Creates or updates the UTXO selection strategy for this vault account and asset. `ADAPTIVE` is recommended. Endpoint Permission: Admin, Non-Signing Admin.
      * @summary Upsert vault and asset UTXO selection config
-     * @param {UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
+     * @param {UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof UTXOManagementBetaApi
+     * @memberof UTXOManagementApi
      */
-    public upsertVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementBetaApiUpsertVaultAssetUtxoSelectionConfigRequest) {
-        return UTXOManagementBetaApiFp(this.configuration).upsertVaultAssetUtxoSelectionConfig(requestParameters.upsertUtxoSelectionConfigRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    public upsertVaultAssetUtxoSelectionConfig(requestParameters: UTXOManagementApiUpsertVaultAssetUtxoSelectionConfigRequest) {
+        return UTXOManagementApiFp(this.configuration).upsertVaultAssetUtxoSelectionConfig(requestParameters.upsertUtxoSelectionConfigRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
