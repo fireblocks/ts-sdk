@@ -17,9 +17,11 @@
   "license": "MIT License",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
+  "module": "./dist/esm/index.js",
+  "sideEffects": false,
   "scripts": {
-    "build": "tsc && npm run copy:package",
-    "copy:package": "cp package.json dist/",
+    "build": "tsc && tsc -p tsconfig.esm.json && npm run copy:package",
+    "copy:package": "cp package.json dist/ && cp package.json dist/esm/",
     "prepare": "npm run build",
     "postversion": "if [ \"$SKIP_POSTVERSION\" != \"true\" ]; then git push && git push --tags; fi",
     "test": "jest --coverage --passWithNoTests --runInBand --detectOpenHandles --forceExit",

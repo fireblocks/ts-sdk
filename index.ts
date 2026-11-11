@@ -15,5 +15,7 @@ export { ConfigurationOptions, AdditionalOptions, BasePath } from "./client/clie
 export { Fireblocks } from "./client/client"
 export { FireblocksResponse } from "./response/fireblocksResponse"
 export { FireblocksError } from "./error/fireblocksError"
+export { AxiosManager } from "./network/axiosManager"
+export { Configuration, ConfigurationParameters } from "./configuration"
 export * from "./api";
 export * from "./models";
