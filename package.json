@@ -19,6 +19,9 @@
   "typings": "./dist/index.d.ts",
   "module": "./dist/esm/index.js",
   "sideEffects": false,
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc && tsc -p tsconfig.esm.json && npm run copy:package",
     "copy:package": "cp package.json dist/ && cp package.json dist/esm/",
