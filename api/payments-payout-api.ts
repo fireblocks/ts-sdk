@@ -46,6 +46,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @param {CreatePayoutRequest} [createPayoutRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         createPayout: async (createPayoutRequest?: CreatePayoutRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
@@ -89,6 +90,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @param {string} payoutId the payout id received from the creation of the payout instruction set
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         executePayoutAction: async (payoutId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
@@ -130,6 +132,7 @@ export const PaymentsPayoutApiAxiosParamCreator = function (configuration?: Conf
          * @summary Get the status of a payout instruction set
          * @param {string} payoutId the payout id received from the creation of the payout instruction set
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         getPayout: async (payoutId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
@@ -178,6 +181,7 @@ export const PaymentsPayoutApiFp = function(configuration?: Configuration) {
          * @param {CreatePayoutRequest} [createPayoutRequest] 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         async createPayout(createPayoutRequest?: CreatePayoutRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
@@ -192,6 +196,7 @@ export const PaymentsPayoutApiFp = function(configuration?: Configuration) {
          * @param {string} payoutId the payout id received from the creation of the payout instruction set
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         async executePayoutAction(payoutId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DispatchPayoutResponse>> {
@@ -205,6 +210,7 @@ export const PaymentsPayoutApiFp = function(configuration?: Configuration) {
          * @summary Get the status of a payout instruction set
          * @param {string} payoutId the payout id received from the creation of the payout instruction set
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         async getPayout(payoutId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PayoutResponse>> {
@@ -228,6 +234,7 @@ export const PaymentsPayoutApiFactory = function (configuration?: Configuration,
          * @summary Create a payout instruction set
          * @param {PaymentsPayoutApiCreatePayoutRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         createPayout(requestParameters: PaymentsPayoutApiCreatePayoutRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<PayoutResponse> {
@@ -238,6 +245,7 @@ export const PaymentsPayoutApiFactory = function (configuration?: Configuration,
          * @summary Execute a payout instruction set
          * @param {PaymentsPayoutApiExecutePayoutActionRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         executePayoutAction(requestParameters: PaymentsPayoutApiExecutePayoutActionRequest, options?: RawAxiosRequestConfig): AxiosPromise<DispatchPayoutResponse> {
@@ -248,6 +256,7 @@ export const PaymentsPayoutApiFactory = function (configuration?: Configuration,
          * @summary Get the status of a payout instruction set
          * @param {PaymentsPayoutApiGetPayoutRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
+         * @deprecated
          * @throws {RequiredError}
          */
         getPayout(requestParameters: PaymentsPayoutApiGetPayoutRequest, options?: RawAxiosRequestConfig): AxiosPromise<PayoutResponse> {
@@ -324,6 +333,7 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @summary Create a payout instruction set
      * @param {PaymentsPayoutApiCreatePayoutRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
+     * @deprecated
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
@@ -336,6 +346,7 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @summary Execute a payout instruction set
      * @param {PaymentsPayoutApiExecutePayoutActionRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
+     * @deprecated
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */
@@ -348,6 +359,7 @@ export class PaymentsPayoutApi extends BaseAPI {
      * @summary Get the status of a payout instruction set
      * @param {PaymentsPayoutApiGetPayoutRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
+     * @deprecated
      * @throws {RequiredError}
      * @memberof PaymentsPayoutApi
      */

@@ -45,7 +45,6 @@ import { ApiUserApi,
          OffExchangesApi, 
          OnchainDataApi, 
          PaymentsPayoutApi, 
-         PolicyEditorBetaApi, 
          PolicyEditorV2Api, 
          PolicyEditorV2BetaApi, 
          ReportsBetaApi, 
@@ -110,7 +109,6 @@ export class Fireblocks {
     private _offExchanges?: OffExchangesApi;
     private _onchainData?: OnchainDataApi;
     private _paymentsPayout?: PaymentsPayoutApi;
-    private _policyEditorBeta?: PolicyEditorBetaApi;
     private _policyEditorV2?: PolicyEditorV2Api;
     private _policyEditorV2Beta?: PolicyEditorV2BetaApi;
     private _reportsBeta?: ReportsBetaApi;
@@ -254,9 +252,6 @@ export class Fireblocks {
     }
     get paymentsPayout(): PaymentsPayoutApi {
         return this._paymentsPayout ?? new PaymentsPayoutApi(this.config, undefined, this.axiosManager.axios);
-    }
-    get policyEditorBeta(): PolicyEditorBetaApi {
-        return this._policyEditorBeta ?? new PolicyEditorBetaApi(this.config, undefined, this.axiosManager.axios);
     }
     get policyEditorV2(): PolicyEditorV2Api {
         return this._policyEditorV2 ?? new PolicyEditorV2Api(this.config, undefined, this.axiosManager.axios);
