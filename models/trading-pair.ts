@@ -66,6 +66,18 @@ export interface TradingPair {
      */
     'accountId'?: string;
     /**
+     * Display symbol of the base asset, for readability when `baseAssetId` is not self-explanatory (a privately listed asset or a UUID). `*` when `baseAssetId` is `*`. Absent when the asset could not be resolved. Informational only, not an identifier.
+     * @type {string}
+     * @memberof TradingPair
+     */
+    'baseSymbol'?: string;
+    /**
+     * Display symbol of the quote asset, for readability when `quoteAssetId` is not self-explanatory (a privately listed asset or a UUID). `*` when `quoteAssetId` is `*`. Absent when the asset could not be resolved. Informational only, not an identifier.
+     * @type {string}
+     * @memberof TradingPair
+     */
+    'quoteSymbol'?: string;
+    /**
      * Blockchain `legacyId` of the base asset (e.g. `ETH`, `BASECHAIN_ETH`, `ETH-AETH`, `SOL`). Set for leaf crypto assets; absent for fiat and virtual assets.
      * @type {string}
      * @memberof TradingPair

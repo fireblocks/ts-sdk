@@ -44,7 +44,6 @@ OTABetaApi,
 OffExchangesApi, 
 OnchainDataApi, 
 PaymentsPayoutApi, 
-PolicyEditorBetaApi, 
 PolicyEditorV2Api, 
 PolicyEditorV2BetaApi, 
 ReportsBetaApi, 
@@ -107,7 +106,6 @@ let mockOTABetaApi: jest.Mock;
 let mockOffExchangesApi: jest.Mock;
 let mockOnchainDataApi: jest.Mock;
 let mockPaymentsPayoutApi: jest.Mock;
-let mockPolicyEditorBetaApi: jest.Mock;
 let mockPolicyEditorV2Api: jest.Mock;
 let mockPolicyEditorV2BetaApi: jest.Mock;
 let mockReportsBetaApi: jest.Mock;
@@ -167,7 +165,6 @@ jest.mock('../api', () => {
     mockOffExchangesApi = jest.fn();
     mockOnchainDataApi = jest.fn();
     mockPaymentsPayoutApi = jest.fn();
-    mockPolicyEditorBetaApi = jest.fn();
     mockPolicyEditorV2Api = jest.fn();
     mockPolicyEditorV2BetaApi = jest.fn();
     mockReportsBetaApi = jest.fn();
@@ -228,7 +225,6 @@ jest.mock('../api', () => {
         OffExchangesApi: mockOffExchangesApi,
         OnchainDataApi: mockOnchainDataApi,
         PaymentsPayoutApi: mockPaymentsPayoutApi,
-        PolicyEditorBetaApi: mockPolicyEditorBetaApi,
         PolicyEditorV2Api: mockPolicyEditorV2Api,
         PolicyEditorV2BetaApi: mockPolicyEditorV2BetaApi,
         ReportsBetaApi: mockReportsBetaApi,
@@ -463,10 +459,6 @@ describe("Fireblocks Client Tests", () => {
         it('Should return PaymentsPayoutApi', async () => {
             expect(fireblocks.paymentsPayout).toBeInstanceOf(PaymentsPayoutApi);
             expect(mockPaymentsPayoutApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
-        });
-        it('Should return PolicyEditorBetaApi', async () => {
-            expect(fireblocks.policyEditorBeta).toBeInstanceOf(PolicyEditorBetaApi);
-            expect(mockPolicyEditorBetaApi).toHaveBeenCalledWith(expectedConfig, undefined, mockAxios);
         });
         it('Should return PolicyEditorV2Api', async () => {
             expect(fireblocks.policyEditorV2).toBeInstanceOf(PolicyEditorV2Api);

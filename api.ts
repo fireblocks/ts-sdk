@@ -47,7 +47,6 @@ export * from './api/otabeta-api';
 export * from './api/off-exchanges-api';
 export * from './api/onchain-data-api';
 export * from './api/payments-payout-api';
-export * from './api/policy-editor-beta-api';
 export * from './api/policy-editor-v2-api';
 export * from './api/policy-editor-v2-beta-api';
 export * from './api/reports-beta-api';

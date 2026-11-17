@@ -413,11 +413,6 @@ Class | Method | HTTP request | Description
 *PaymentsPayoutApi* | [**createPayout**](docs/apis/PaymentsPayoutApi.md#createPayout) | **POST** /payments/payout | Create a payout instruction set
 *PaymentsPayoutApi* | [**executePayoutAction**](docs/apis/PaymentsPayoutApi.md#executePayoutAction) | **POST** /payments/payout/{payoutId}/actions/execute | Execute a payout instruction set
 *PaymentsPayoutApi* | [**getPayout**](docs/apis/PaymentsPayoutApi.md#getPayout) | **GET** /payments/payout/{payoutId} | Get the status of a payout instruction set
-*PolicyEditorBetaApi* | [**getActivePolicyLegacy**](docs/apis/PolicyEditorBetaApi.md#getActivePolicyLegacy) | **GET** /tap/active_policy | Get the active policy and its validation
-*PolicyEditorBetaApi* | [**getDraftLegacy**](docs/apis/PolicyEditorBetaApi.md#getDraftLegacy) | **GET** /tap/draft | Get the active draft
-*PolicyEditorBetaApi* | [**publishDraftLegacy**](docs/apis/PolicyEditorBetaApi.md#publishDraftLegacy) | **POST** /tap/draft | Send publish request for a certain draft id
-*PolicyEditorBetaApi* | [**publishPolicyRules**](docs/apis/PolicyEditorBetaApi.md#publishPolicyRules) | **POST** /tap/publish | Send publish request for a set of policy rules
-*PolicyEditorBetaApi* | [**updateDraftLegacy**](docs/apis/PolicyEditorBetaApi.md#updateDraftLegacy) | **PUT** /tap/draft | Update the draft with a new set of rules
 *PolicyEditorV2Api* | [**getActivePolicy**](docs/apis/PolicyEditorV2Api.md#getActivePolicy) | **GET** /policy/active_policy | Get the active policy and its validation by policy type
 *PolicyEditorV2Api* | [**getDraft**](docs/apis/PolicyEditorV2Api.md#getDraft) | **GET** /policy/draft | Get the active draft by policy type
 *PolicyEditorV2Api* | [**publishDraft**](docs/apis/PolicyEditorV2Api.md#publishDraft) | **POST** /policy/draft | Send publish request for a certain draft id
@@ -1194,7 +1189,6 @@ Class | Method | HTTP request | Description
  - [GetContractsResponse](docs/models/GetContractsResponse.md)
  - [GetDeployableAddressRequest](docs/models/GetDeployableAddressRequest.md)
  - [GetExchangeAccountsCredentialsPublicKeyResponse](docs/models/GetExchangeAccountsCredentialsPublicKeyResponse.md)
- - [GetExchangeAccountsResponse](docs/models/GetExchangeAccountsResponse.md)
  - [GetExternalWalletsResponse](docs/models/GetExternalWalletsResponse.md)
  - [GetFiatAccountsResponse](docs/models/GetFiatAccountsResponse.md)
  - [GetFilterParameter](docs/models/GetFilterParameter.md)
@@ -1264,35 +1258,6 @@ Class | Method | HTTP request | Description
  - [LeanAbiFunction](docs/models/LeanAbiFunction.md)
  - [LeanContractDto](docs/models/LeanContractDto.md)
  - [LeanDeployedContractResponseDto](docs/models/LeanDeployedContractResponseDto.md)
- - [LegacyAmountAggregationTimePeriodMethod](docs/models/LegacyAmountAggregationTimePeriodMethod.md)
- - [LegacyDraftResponse](docs/models/LegacyDraftResponse.md)
- - [LegacyDraftReviewAndValidationResponse](docs/models/LegacyDraftReviewAndValidationResponse.md)
- - [LegacyPolicyAndValidationResponse](docs/models/LegacyPolicyAndValidationResponse.md)
- - [LegacyPolicyCheckResult](docs/models/LegacyPolicyCheckResult.md)
- - [LegacyPolicyMetadata](docs/models/LegacyPolicyMetadata.md)
- - [LegacyPolicyResponse](docs/models/LegacyPolicyResponse.md)
- - [LegacyPolicyRule](docs/models/LegacyPolicyRule.md)
- - [LegacyPolicyRuleAmount](docs/models/LegacyPolicyRuleAmount.md)
- - [LegacyPolicyRuleAmountAggregation](docs/models/LegacyPolicyRuleAmountAggregation.md)
- - [LegacyPolicyRuleAuthorizationGroups](docs/models/LegacyPolicyRuleAuthorizationGroups.md)
- - [LegacyPolicyRuleAuthorizationGroupsGroupsInner](docs/models/LegacyPolicyRuleAuthorizationGroupsGroupsInner.md)
- - [LegacyPolicyRuleCheckResult](docs/models/LegacyPolicyRuleCheckResult.md)
- - [LegacyPolicyRuleDesignatedSigners](docs/models/LegacyPolicyRuleDesignatedSigners.md)
- - [LegacyPolicyRuleDst](docs/models/LegacyPolicyRuleDst.md)
- - [LegacyPolicyRuleError](docs/models/LegacyPolicyRuleError.md)
- - [LegacyPolicyRuleOperators](docs/models/LegacyPolicyRuleOperators.md)
- - [LegacyPolicyRuleRawMessageSigning](docs/models/LegacyPolicyRuleRawMessageSigning.md)
- - [LegacyPolicyRuleRawMessageSigningDerivationPath](docs/models/LegacyPolicyRuleRawMessageSigningDerivationPath.md)
- - [LegacyPolicyRuleSrc](docs/models/LegacyPolicyRuleSrc.md)
- - [LegacyPolicyRules](docs/models/LegacyPolicyRules.md)
- - [LegacyPolicySrcOrDestSubType](docs/models/LegacyPolicySrcOrDestSubType.md)
- - [LegacyPolicySrcOrDestType](docs/models/LegacyPolicySrcOrDestType.md)
- - [LegacyPolicyStatus](docs/models/LegacyPolicyStatus.md)
- - [LegacyPolicyValidation](docs/models/LegacyPolicyValidation.md)
- - [LegacyPublishDraftRequest](docs/models/LegacyPublishDraftRequest.md)
- - [LegacyPublishResult](docs/models/LegacyPublishResult.md)
- - [LegacySrcOrDestAttributes](docs/models/LegacySrcOrDestAttributes.md)
- - [LegacySrcOrDestAttributesInner](docs/models/LegacySrcOrDestAttributesInner.md)
  - [LegalEntityRegistration](docs/models/LegalEntityRegistration.md)
  - [LeiStatus](docs/models/LeiStatus.md)
  - [LimitExecutionRequestDetails](docs/models/LimitExecutionRequestDetails.md)
@@ -1612,8 +1577,6 @@ Class | Method | HTTP request | Description
  - [SepaPaymentInfo](docs/models/SepaPaymentInfo.md)
  - [SessionDTO](docs/models/SessionDTO.md)
  - [SessionMetadata](docs/models/SessionMetadata.md)
- - [SetAdminQuorumThresholdRequest](docs/models/SetAdminQuorumThresholdRequest.md)
- - [SetAdminQuorumThresholdResponse](docs/models/SetAdminQuorumThresholdResponse.md)
  - [SetAssetPriceRequest](docs/models/SetAssetPriceRequest.md)
  - [SetAutoFuelRequest](docs/models/SetAutoFuelRequest.md)
  - [SetConfirmationsThresholdRequest](docs/models/SetConfirmationsThresholdRequest.md)
