@@ -16,6 +16,9 @@
 // May contain unused imports in some cases
 // @ts-ignore
 import { WebhookOauthCredentials } from './webhook-oauth-credentials';
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookOauthSigningAlg } from './webhook-oauth-signing-alg';
 
 /**
  * @type DeleteWebhookOauthResponse

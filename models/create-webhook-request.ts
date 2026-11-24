@@ -15,9 +15,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookCustomHeaders } from './webhook-custom-headers';
-// May contain unused imports in some cases
-// @ts-ignore
 import { WebhookEvent } from './webhook-event';
 
 /**
@@ -51,22 +48,22 @@ export interface CreateWebhookRequest {
      */
     'enabled'?: boolean;
     /**
-     * The id of the mTLS configuration this webhook presents when delivering, from `/v1/webhooks_settings/mtls`. Several webhooks may share one configuration, so replacing its certificate covers all of them at once. Send `null` to stop using mTLS for this webhook.
+     * The id of the mTLS configuration this webhook presents when delivering, from `/v1/webhooks_settings/mtls`. Several webhooks may share one configuration, so replacing its certificate covers all of them at once. Send `null` to stop using mTLS for this webhook. Requires advanced webhook controls to be enabled for the workspace (`403` otherwise).
      * @type {string}
      * @memberof CreateWebhookRequest
      */
     'webhookMtlsId'?: string | null;
     /**
-     * The id of the OAuth credentials this webhook authenticates with, from `/v1/webhooks_settings/oauth`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send `null` to stop using OAuth for this webhook. Cannot be combined with an `authorization` custom header on the same webhook; a request that would leave both set is rejected.
+     * The id of the OAuth credentials this webhook authenticates with, from `/v1/webhooks_settings/oauth`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. Send `null` to stop using OAuth for this webhook. When the webhook has OAuth credentials, Fireblocks sends its own `Authorization` header (the bearer token), and a custom `Authorization` header from the attached set is not sent. Requires advanced webhook controls to be enabled for the workspace (`403` otherwise).
      * @type {string}
      * @memberof CreateWebhookRequest
      */
     'webhookOauthId'?: string | null;
     /**
-     * 
-     * @type {WebhookCustomHeaders}
+     * The id of the set of custom HTTP headers sent with this webhook\'s notifications, from `/v1/webhooks_settings/custom_headers`. Several webhooks, and OAuth credentials, may share one set, so changing it covers all of them at once. Validated when the set is created or changed; attaching checks only that it exists in your workspace. Replaces the inline `customHeaders` field, which is now refused with a `400`, so use `webhookCustomHeadersId`. Requires advanced webhook controls to be enabled for the workspace (`403` otherwise). An unknown id, or one belonging to another workspace, is a `404`.
+     * @type {string}
      * @memberof CreateWebhookRequest
      */
-    'customHeaders'?: WebhookCustomHeaders;
+    'webhookCustomHeadersId'?: string | null;
 }
 

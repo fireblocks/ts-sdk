@@ -84,7 +84,7 @@ export interface TransactionRequest {
      */
     'externalTxId'?: string;
     /**
-     * For Tempo-based transactions only, the asset used to pay the transaction\'s network fee, as an asset ID ([see supported assets](https://developers.fireblocks.com/api-reference/blockchains-&-assets/list-assets)). For any other blockchain, this value is ignored. This feature is currently in beta and might be subject to changes.
+     * For Tempo-based transactions only, the asset used to pay the transaction\'s network fee, as an asset ID ([see supported assets](https://developers.fireblocks.com/api-reference/blockchains-&-assets/list-assets)). For any other blockchain, this value is ignored. This feature is currently in early availability and might be subject to changes.
      * @type {string}
      * @memberof TransactionRequest
      */

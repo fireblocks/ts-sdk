@@ -908,6 +908,67 @@ export const EmbeddedWalletsApiAxiosParamCreator = function (configuration?: Con
             };
         },
         /**
+         * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+         * @summary Get the public key of an asset
+         * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} walletId The ID of the Non-Custodial wallet
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {number} change BIP44 derivation path - change value
+         * @param {number} addressIndex BIP44 derivation path - index value
+         * @param {boolean} [compressed] Compressed/Uncompressed public key format
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getPublicKeyInfoForAddressNcw: async (xEndUserWalletId: string, walletId: string, accountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'xEndUserWalletId', xEndUserWalletId)
+            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'walletId', walletId)
+            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'accountId', accountId)
+            assertParamExistsAndNotEmpty('getPublicKeyInfoForAddressNcw', 'assetId', assetId)
+            assertParamExists('getPublicKeyInfoForAddressNcw', 'change', change)
+            assertParamExists('getPublicKeyInfoForAddressNcw', 'addressIndex', addressIndex)
+            const localVarPath = `/ncw/{walletId}/accounts/{accountId}/{assetId}/{change}/{addressIndex}/public_key_info`
+                .replace(`{${"walletId"}}`, encodeURIComponent(String(walletId)))
+                .replace(`{${"accountId"}}`, encodeURIComponent(String(accountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)))
+                .replace(`{${"change"}}`, encodeURIComponent(String(change)))
+                .replace(`{${"addressIndex"}}`, encodeURIComponent(String(addressIndex)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getPublicKeyInfoForAddressNcw';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (compressed !== undefined) {
+                localVarQueryParameter['compressed'] = compressed;
+            }
+
+            if (xEndUserWalletId != null) {
+                localVarHeaderParameter['X-End-User-Wallet-Id'] = String(xEndUserWalletId);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Gets the public key information based on derivation path and signing algorithm within a Non-Custodial Wallet
          * @summary Get the public key for a derivation path
          * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -1397,6 +1458,26 @@ export const EmbeddedWalletsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+         * @summary Get the public key of an asset
+         * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+         * @param {string} walletId The ID of the Non-Custodial wallet
+         * @param {string} accountId The ID of the account
+         * @param {string} assetId The ID of the asset
+         * @param {number} change BIP44 derivation path - change value
+         * @param {number} addressIndex BIP44 derivation path - index value
+         * @param {boolean} [compressed] Compressed/Uncompressed public key format
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        async getPublicKeyInfoForAddressNcw(xEndUserWalletId: string, walletId: string, accountId: string, assetId: string, change: number, addressIndex: number, compressed?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PublicKeyInformation>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPublicKeyInfoForAddressNcw(xEndUserWalletId, walletId, accountId, assetId, change, addressIndex, compressed, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['EmbeddedWalletsApi.getPublicKeyInfoForAddressNcw']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Gets the public key information based on derivation path and signing algorithm within a Non-Custodial Wallet
          * @summary Get the public key for a derivation path
          * @param {string} xEndUserWalletId Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
@@ -1649,6 +1730,17 @@ export const EmbeddedWalletsApiFactory = function (configuration?: Configuration
          */
         getEmbeddedWallets(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<EmbeddedWalletPaginatedWalletsResponse> {
             return localVarFp.getEmbeddedWallets(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.enabled, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+         * @summary Get the public key of an asset
+         * @param {EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getPublicKeyInfoForAddressNcw(requestParameters: EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest, options?: RawAxiosRequestConfig): AxiosPromise<PublicKeyInformation> {
+            return localVarFp.getPublicKeyInfoForAddressNcw(requestParameters.xEndUserWalletId, requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets the public key information based on derivation path and signing algorithm within a Non-Custodial Wallet
@@ -2226,6 +2318,62 @@ export interface EmbeddedWalletsApiGetEmbeddedWalletsRequest {
 }
 
 /**
+ * Request parameters for getPublicKeyInfoForAddressNcw operation in EmbeddedWalletsApi.
+ * @export
+ * @interface EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest
+ */
+export interface EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest {
+    /**
+     * Unique ID of the End-User wallet to the API request. Required for end-user wallet operations.
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly xEndUserWalletId: string
+
+    /**
+     * The ID of the Non-Custodial wallet
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly walletId: string
+
+    /**
+     * The ID of the account
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly accountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly assetId: string
+
+    /**
+     * BIP44 derivation path - change value
+     * @type {number}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly change: number
+
+    /**
+     * BIP44 derivation path - index value
+     * @type {number}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly addressIndex: number
+
+    /**
+     * Compressed/Uncompressed public key format
+     * @type {boolean}
+     * @memberof EmbeddedWalletsApiGetPublicKeyInfoForAddressNcw
+     */
+    readonly compressed?: boolean
+}
+
+/**
  * Request parameters for getPublicKeyInfoNcw operation in EmbeddedWalletsApi.
  * @export
  * @interface EmbeddedWalletsApiGetPublicKeyInfoNcwRequest
@@ -2586,6 +2734,19 @@ export class EmbeddedWalletsApi extends BaseAPI {
      */
     public getEmbeddedWallets(requestParameters: EmbeddedWalletsApiGetEmbeddedWalletsRequest = {}) {
         return EmbeddedWalletsApiFp(this.configuration).getEmbeddedWallets(requestParameters.pageCursor, requestParameters.pageSize, requestParameters.sort, requestParameters.order, requestParameters.enabled).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Gets the public key of an asset associated with a specific account within a Non-Custodial Wallet
+     * @summary Get the public key of an asset
+     * @param {EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @deprecated
+     * @throws {RequiredError}
+     * @memberof EmbeddedWalletsApi
+     */
+    public getPublicKeyInfoForAddressNcw(requestParameters: EmbeddedWalletsApiGetPublicKeyInfoForAddressNcwRequest) {
+        return EmbeddedWalletsApiFp(this.configuration).getPublicKeyInfoForAddressNcw(requestParameters.xEndUserWalletId, requestParameters.walletId, requestParameters.accountId, requestParameters.assetId, requestParameters.change, requestParameters.addressIndex, requestParameters.compressed).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

@@ -94,7 +94,7 @@ No authorization required
 # **claimRewards**
 > claimRewards(claimRewardsRequest, )
 
-Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
+Claims available staking rewards for the specified chain and vault. Supported chains: Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol reward distribution.
 
 ### Example
 
@@ -114,7 +114,7 @@ const fireblocks = new Fireblocks();
 let body: StakingApiClaimRewardsRequest = {
   // ClaimRewardsRequest
   claimRewardsRequest: param_value,
-  // 'SOL' | 'SOL_TEST' | 'MATIC' | 'POL' | 'POL_TEST' | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
+  // 'SOL' | 'SOL_TEST' | 'MATIC' | 'POL' | 'POL_TEST' | 'CELESTIA' | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL/CELESTIA).
   chainDescriptor: SOL,
   // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
   idempotencyKey: idempotencyKey_example,
@@ -131,7 +131,7 @@ fireblocks.staking.claimRewards(body).then((res: FireblocksResponse<any>) => {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **claimRewardsRequest** | **[ClaimRewardsRequest](../models/ClaimRewardsRequest.md)**|  |
- **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39; | &#39;MATIC&#39; | &#39;POL&#39; | &#39;POL_TEST&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39; &#124; &#39;MATIC&#39; &#124; &#39;POL&#39; &#124; &#39;POL_TEST&#39;>** | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL). | defaults to undefined
+ **chainDescriptor** | [**&#39;SOL&#39; | &#39;SOL_TEST&#39; | &#39;MATIC&#39; | &#39;POL&#39; | &#39;POL_TEST&#39; | &#39;CELESTIA&#39;**]**Array<&#39;SOL&#39; &#124; &#39;SOL_TEST&#39; &#124; &#39;MATIC&#39; &#124; &#39;POL&#39; &#124; &#39;POL_TEST&#39; &#124; &#39;CELESTIA&#39;>** | Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL/CELESTIA). | defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 
 
@@ -165,7 +165,7 @@ No authorization required
 # **consolidate**
 > MergeStakeAccountsResponse consolidate(mergeStakeAccountsRequest, )
 
-Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
 
 ### Example
 

@@ -10,6 +10,7 @@ Method | HTTP request | Description
 [**createLegacyAddress**](#createLegacyAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/create_legacy | Convert a segwit address to legacy format
 [**createMultipleAccounts**](#createMultipleAccounts) | **POST** /vault/accounts/bulk | Bulk creation of new vault accounts
 [**createMultipleDepositAddresses**](#createMultipleDepositAddresses) | **POST** /vault/accounts/addresses/bulk | Bulk creation of new deposit addresses
+[**createOmnibusAddresses**](#createOmnibusAddresses) | **POST** /vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses/bulk | Create omnibus deposit addresses
 [**createVaultAccount**](#createVaultAccount) | **POST** /vault/accounts | Create a new vault account
 [**createVaultAccountAsset**](#createVaultAccountAsset) | **POST** /vault/accounts/{vaultAccountId}/{assetId} | Create a new vault wallet
 [**createVaultAccountAssetAddress**](#createVaultAccountAssetAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Create new asset deposit address
@@ -20,6 +21,7 @@ Method | HTTP request | Description
 [**getCreateMultipleVaultAccountsJobStatus**](#getCreateMultipleVaultAccountsJobStatus) | **GET** /vault/accounts/bulk/{jobId} | Get job status of bulk creation of new vault accounts
 [**getMaxBipIndexUsed**](#getMaxBipIndexUsed) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_bip44_index_used | Get maximum BIP44 index used
 [**getMaxSpendableAmount**](#getMaxSpendableAmount) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/max_spendable_amount | Get max spendable amount in a transaction
+[**getOmnibusAddresses**](#getOmnibusAddresses) | **GET** /vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses | List omnibus deposit addresses
 [**getPagedVaultAccounts**](#getPagedVaultAccounts) | **GET** /vault/accounts_paged | Get vault accounts (Paginated)
 [**getPublicKeyInfo**](#getPublicKeyInfo) | **GET** /vault/public_key_info | Get the public key for a derivation path
 [**getPublicKeyInfoForAddress**](#getPublicKeyInfoForAddress) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/{change}/{addressIndex}/public_key_info | Get an asset\&#39;s public key
@@ -28,11 +30,14 @@ Method | HTTP request | Description
 [**getUsdcGatewayWalletInfoBeta**](#getUsdcGatewayWalletInfoBeta) | **GET** /vault/accounts/{vaultAccountId}/usdc_gateway | Get USDC Gateway wallet info
 [**getVaultAccount**](#getVaultAccount) | **GET** /vault/accounts/{vaultAccountId} | Get a vault account by ID
 [**getVaultAccountAsset**](#getVaultAccountAsset) | **GET** /vault/accounts/{vaultAccountId}/{assetId} | Get the asset balance for a vault account
+[**getVaultAccountAssetAddresses**](#getVaultAccountAssetAddresses) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses | Get asset addresses
 [**getVaultAccountAssetAddressesPaginated**](#getVaultAccountAssetAddressesPaginated) | **GET** /vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated | Get addresses (Paginated)
+[**getVaultAccounts**](#getVaultAccounts) | **GET** /vault/accounts | Get vault accounts
 [**getVaultAssets**](#getVaultAssets) | **GET** /vault/assets | Get asset balance for chosen assets
 [**getVaultBalanceByAsset**](#getVaultBalanceByAsset) | **GET** /vault/assets/{assetId} | Get vault balance by an asset
 [**hideVaultAccount**](#hideVaultAccount) | **POST** /vault/accounts/{vaultAccountId}/hide | Hide a vault account in the console
 [**lookupVaultByAddress**](#lookupVaultByAddress) | **GET** /vault/lookup_by_address | Look up a vault account by blockchain address
+[**registerTempoOmnibusWallet**](#registerTempoOmnibusWallet) | **POST** /vault/accounts/{vaultAccountId}/omnibus/TEMPO/{assetId}/register | Register a Tempo omnibus wallet
 [**setCustomerRefIdForAddress**](#setCustomerRefIdForAddress) | **POST** /vault/accounts/{vaultAccountId}/{assetId}/addresses/{addressId}/set_customer_ref_id | Assign AML customer reference ID
 [**setUsdcGatewayDepositAutomationBeta**](#setUsdcGatewayDepositAutomationBeta) | **POST** /vault/accounts/{vaultAccountId}/virtual_asset_wallet/usdc_gateway/deposit_automation | Set up a USDC Gateway deposit automation for a vault account
 [**setVaultAccountAutoFuel**](#setVaultAccountAutoFuel) | **POST** /vault/accounts/{vaultAccountId}/set_auto_fuel | Set auto fueling to on or off
@@ -116,7 +121,7 @@ No authorization required
 # **activateUsdcGatewayWalletBeta**
 > UsdcGatewayWalletStatusResponse activateUsdcGatewayWalletBeta()
 
-Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -312,7 +317,7 @@ No authorization required
 # **createMultipleAccounts**
 > JobCreated createMultipleAccounts(createMultipleAccountsRequest)
 
-Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
 
 ### Example
 
@@ -431,6 +436,78 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A JobCreated object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createOmnibusAddresses**
+> CreateOmnibusAddressesResponse createOmnibusAddresses(createOmnibusAddressesRequest, )
+
+Creates a batch of deposit addresses for the omnibus account of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiCreateOmnibusAddressesRequest, CreateOmnibusAddressesResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiCreateOmnibusAddressesRequest = {
+  // CreateOmnibusAddressesRequest
+  createOmnibusAddressesRequest: param_value,
+  // string | The ID of the omnibus vault account
+  vaultAccountId: vaultAccountId_example,
+  // 'EVM' | 'TEMPO' | The omnibus protocol
+  protocol: protocol_example,
+  // string | The ID of the asset
+  assetId: assetId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.createOmnibusAddresses(body).then((res: FireblocksResponse<CreateOmnibusAddressesResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createOmnibusAddressesRequest** | **[CreateOmnibusAddressesRequest](../models/CreateOmnibusAddressesRequest.md)**|  |
+ **vaultAccountId** | [**string**] | The ID of the omnibus vault account | defaults to undefined
+ **protocol** | [**&#39;EVM&#39; | &#39;TEMPO&#39;**]**Array<&#39;EVM&#39; &#124; &#39;TEMPO&#39;>** | The omnibus protocol | defaults to undefined
+ **assetId** | [**string**] | The ID of the asset | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[CreateOmnibusAddressesResponse](../models/CreateOmnibusAddressesResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | The created deposit addresses |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -642,7 +719,7 @@ No authorization required
 # **deactivateUsdcGatewayWalletBeta**
 > UsdcGatewayWalletStatusResponse deactivateUsdcGatewayWalletBeta()
 
-Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -705,7 +782,7 @@ No authorization required
 # **disableUsdcGatewayDepositAutomationScheduleBeta**
 > disableUsdcGatewayDepositAutomationScheduleBeta()
 
-Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -1106,6 +1183,84 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getOmnibusAddresses**
+> ListOmnibusAddressesResponse getOmnibusAddresses()
+
+Returns a page of the deposit addresses of the omnibus account of the given vault account, protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetOmnibusAddressesRequest, ListOmnibusAddressesResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetOmnibusAddressesRequest = {
+  // string | The ID of the omnibus vault account
+  vaultAccountId: vaultAccountId_example,
+  // 'EVM' | 'TEMPO' | The omnibus protocol
+  protocol: protocol_example,
+  // string | The ID of the asset
+  assetId: assetId_example,
+  // number | Return only addresses with an index greater than or equal to this value. (optional)
+  fromIndex: 56,
+  // string | Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored. (optional)
+  search: search_example,
+  // string | The cursor returned in `next` of the previous page. Omit for the first page. (optional)
+  pageCursor: pageCursor_example,
+  // number | The number of addresses per page. (optional)
+  pageSize: 56,
+};
+
+fireblocks.vaults.getOmnibusAddresses(body).then((res: FireblocksResponse<ListOmnibusAddressesResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the omnibus vault account | defaults to undefined
+ **protocol** | [**&#39;EVM&#39; | &#39;TEMPO&#39;**]**Array<&#39;EVM&#39; &#124; &#39;TEMPO&#39;>** | The omnibus protocol | defaults to undefined
+ **assetId** | [**string**] | The ID of the asset | defaults to undefined
+ **fromIndex** | [**number**] | Return only addresses with an index greater than or equal to this value. | (optional) defaults to undefined
+ **search** | [**string**] | Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored. | (optional) defaults to undefined
+ **pageCursor** | [**string**] | The cursor returned in &#x60;next&#x60; of the previous page. Omit for the first page. | (optional) defaults to undefined
+ **pageSize** | [**number**] | The number of addresses per page. | (optional) defaults to 100
+
+
+### Return type
+
+**[ListOmnibusAddressesResponse](../models/ListOmnibusAddressesResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A page of deposit addresses |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getPagedVaultAccounts**
 > VaultAccountsPagedResponse getPagedVaultAccounts()
 
@@ -1399,7 +1554,7 @@ No authorization required
 # **getUsdcGatewayDepositAutomationBeta**
 > GetAutomationSettingsResponse getUsdcGatewayDepositAutomationBeta()
 
-Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the USDC Gateway deposit automations configured for the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1459,7 +1614,7 @@ No authorization required
 # **getUsdcGatewayWalletInfoBeta**
 > UsdcGatewayWalletInfoResponse getUsdcGatewayWalletInfoBeta()
 
-Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+Returns the USDC Gateway wallet information associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
 
 ### Example
 
@@ -1639,6 +1794,69 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getVaultAccountAssetAddresses**
+> GetVaultAccountAssetAddressesResponse getVaultAccountAssetAddresses()
+
+DEPRECATED!  - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetVaultAccountAssetAddressesRequest, GetVaultAccountAssetAddressesResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetVaultAccountAssetAddressesRequest = {
+  // string | The ID of the vault account to return
+  vaultAccountId: vaultAccountId_example,
+  // string | The ID of the asset
+  assetId: assetId_example,
+};
+
+fireblocks.vaults.getVaultAccountAssetAddresses(body).then((res: FireblocksResponse<GetVaultAccountAssetAddressesResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the vault account to return | defaults to undefined
+ **assetId** | [**string**] | The ID of the asset | defaults to undefined
+
+
+### Return type
+
+**[GetVaultAccountAssetAddressesResponse](../models/GetVaultAccountAssetAddressesResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of deposit addresses |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getVaultAccountAssetAddressesPaginated**
 > PaginatedAddressResponse getVaultAccountAssetAddressesPaginated()
 
@@ -1707,6 +1925,75 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | A paginated list of addresses, and pagination info. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getVaultAccounts**
+> GetVaultAccountsResponse getVaultAccounts()
+
+DEPRECATED - Please use `/vault/accounts_paged` endpoint instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiGetVaultAccountsRequest, GetVaultAccountsResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiGetVaultAccountsRequest = {
+  // string (optional)
+  namePrefix: namePrefix_example,
+  // string (optional)
+  nameSuffix: nameSuffix_example,
+  // number (optional)
+  minAmountThreshold: 8.14,
+  // string (optional)
+  assetId: assetId_example,
+};
+
+fireblocks.vaults.getVaultAccounts(body).then((res: FireblocksResponse<GetVaultAccountsResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **namePrefix** | [**string**] |  | (optional) defaults to undefined
+ **nameSuffix** | [**string**] |  | (optional) defaults to undefined
+ **minAmountThreshold** | [**number**] |  | (optional) defaults to undefined
+ **assetId** | [**string**] |  | (optional) defaults to undefined
+
+
+### Return type
+
+**[GetVaultAccountsResponse](../models/GetVaultAccountsResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A list of vault accounts |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1900,7 +2187,7 @@ No authorization required
 # **lookupVaultByAddress**
 > AddressReverseLookupResponse lookupVaultByAddress()
 
-Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. 
 
 ### Example
 
@@ -1956,6 +2243,73 @@ No authorization required
 **401** | Unauthorized. Missing / invalid JWT token in Authorization header. |  * X-Request-ID -  <br>  |
 **403** | Feature is not enabled for the workspace. |  * X-Request-ID -  <br>  |
 **404** | Vault account not found for the supplied address |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **registerTempoOmnibusWallet**
+> RegisterTempoOmnibusResponse registerTempoOmnibusWallet()
+
+Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, VaultsApiRegisterTempoOmnibusWalletRequest, RegisterTempoOmnibusResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: VaultsApiRegisterTempoOmnibusWalletRequest = {
+  // string | The ID of the omnibus vault account
+  vaultAccountId: vaultAccountId_example,
+  // string | The Tempo network asset to register for the vault account.
+  assetId: assetId_example,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.vaults.registerTempoOmnibusWallet(body).then((res: FireblocksResponse<RegisterTempoOmnibusResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **vaultAccountId** | [**string**] | The ID of the omnibus vault account | defaults to undefined
+ **assetId** | [**string**] | The Tempo network asset to register for the vault account. | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RegisterTempoOmnibusResponse](../models/RegisterTempoOmnibusResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The wallet is already active |  * X-Request-ID -  <br>  |
+**202** | The wallet activation transaction was submitted |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -2035,7 +2389,7 @@ No authorization required
 # **setUsdcGatewayDepositAutomationBeta**
 > SaveAutomationSettingsResponse setUsdcGatewayDepositAutomationBeta(automationSettingsRequest, )
 
-Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 
@@ -2296,7 +2650,7 @@ No authorization required
 # **updateUsdcGatewayDepositAutomationBeta**
 > AutomationSettingsResponse updateUsdcGatewayDepositAutomationBeta(updateAutomationSettingsRequest, )
 
-Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+Changes an existing USDC Gateway deposit automation for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
 
 ### Example
 

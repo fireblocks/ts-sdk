@@ -33,10 +33,22 @@ export interface SolanaRewardsBreakdown {
      */
     'mev': string;
     /**
-     * The last time the rewards were synced (ISO Date).
+     * The time (UTC) of the last sync that fetched this position\'s rewards from the rewards provider. It is updated on every sync, including when nothing new was found, so it is not the date of the newest reward (see latestInflationRewardDate and latestMevRewardDate).
      * @type {string}
      * @memberof SolanaRewardsBreakdown
      */
     'lastRewardSyncedAt': string;
+    /**
+     * The date (UTC, YYYY-MM-DD) of the newest inflation reward the rewards provider has returned for this stake account. Null until the provider returns one.
+     * @type {string}
+     * @memberof SolanaRewardsBreakdown
+     */
+    'latestInflationRewardDate'?: string | null;
+    /**
+     * The date (UTC, YYYY-MM-DD) of the newest MEV reward the rewards provider has returned for this stake account. Null until the provider returns one, and for validators without MEV rewards.
+     * @type {string}
+     * @memberof SolanaRewardsBreakdown
+     */
+    'latestMevRewardDate'?: string | null;
 }
 

@@ -15,9 +15,6 @@
 
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookCustomHeadersResponse } from './webhook-custom-headers-response';
-// May contain unused imports in some cases
-// @ts-ignore
 import { WebhookEvent } from './webhook-event';
 
 /**
@@ -81,11 +78,11 @@ export interface Webhook {
      */
     'webhookOauthId'?: string;
     /**
-     * 
-     * @type {WebhookCustomHeadersResponse}
+     * The id of the set of custom headers sent with this webhook\'s notifications. Absent when the webhook sends none. Read the set itself from `/v1/webhooks_settings/custom_headers/{webhookCustomHeadersId}`.
+     * @type {string}
      * @memberof Webhook
      */
-    'customHeaders'?: WebhookCustomHeadersResponse;
+    'webhookCustomHeadersId'?: string;
 }
 
 export const WebhookStatusEnum = {

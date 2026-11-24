@@ -13,7 +13,7 @@
 |**description** | **string** | description of the webhook of what it is used for | [optional] [default to undefined]|
 |**webhookMtlsId** | **string** | The id of the mTLS configuration this webhook presents when delivering, from &#x60;/v1/webhooks_settings/mtls&#x60;. Absent when the webhook does not use mTLS. | [optional] [default to undefined]|
 |**webhookOauthId** | **string** | The id of the OAuth credentials this webhook authenticates with. Absent when the webhook does not use OAuth. Read the credentials themselves from &#x60;/v1/webhooks_settings/oauth/{webhookOauthId}&#x60;. | [optional] [default to undefined]|
-|**customHeaders** | [**WebhookCustomHeadersResponse**](WebhookCustomHeadersResponse.md) |  | [optional] [default to undefined]|
+|**webhookCustomHeadersId** | **string** | The id of the set of custom headers sent with this webhook\&#39;s notifications. Absent when the webhook sends none. Read the set itself from &#x60;/v1/webhooks_settings/custom_headers/{webhookCustomHeadersId}&#x60;. | [optional] [default to undefined]|
 
 
 ## Enum: WebhookStatusEnum

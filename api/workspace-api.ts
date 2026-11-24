@@ -37,6 +37,45 @@ import { Workspace } from '../models';
 export const WorkspaceApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
+         * Freezes a Workspace so that ALL operations by ANY user are blocked. You should only perform this action when the workspace faces imminent risk, such as when you have a security breach. To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks Support. **NOTE:**  - This operation can only be performed by the workspace Admins - Your workspace continues to receive incoming transfers during this time. Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Freeze
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        freezeWorkspace: async (idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/workspace/freeze`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'freezeWorkspace';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns the workspace ID and name for the authenticated user. 
          * @summary Get workspace
          * @param {*} [options] Override http request option.
@@ -81,6 +120,19 @@ export const WorkspaceApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = WorkspaceApiAxiosParamCreator(configuration)
     return {
         /**
+         * Freezes a Workspace so that ALL operations by ANY user are blocked. You should only perform this action when the workspace faces imminent risk, such as when you have a security breach. To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks Support. **NOTE:**  - This operation can only be performed by the workspace Admins - Your workspace continues to receive incoming transfers during this time. Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Freeze
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async freezeWorkspace(idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.freezeWorkspace(idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WorkspaceApi.freezeWorkspace']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns the workspace ID and name for the authenticated user. 
          * @summary Get workspace
          * @param {*} [options] Override http request option.
@@ -103,6 +155,16 @@ export const WorkspaceApiFactory = function (configuration?: Configuration, base
     const localVarFp = WorkspaceApiFp(configuration)
     return {
         /**
+         * Freezes a Workspace so that ALL operations by ANY user are blocked. You should only perform this action when the workspace faces imminent risk, such as when you have a security breach. To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks Support. **NOTE:**  - This operation can only be performed by the workspace Admins - Your workspace continues to receive incoming transfers during this time. Endpoint Permission: Admin, Non-Signing Admin.
+         * @summary Freeze
+         * @param {WorkspaceApiFreezeWorkspaceRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        freezeWorkspace(requestParameters: WorkspaceApiFreezeWorkspaceRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+            return localVarFp.freezeWorkspace(requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns the workspace ID and name for the authenticated user. 
          * @summary Get workspace
          * @param {*} [options] Override http request option.
@@ -115,12 +177,38 @@ export const WorkspaceApiFactory = function (configuration?: Configuration, base
 };
 
 /**
+ * Request parameters for freezeWorkspace operation in WorkspaceApi.
+ * @export
+ * @interface WorkspaceApiFreezeWorkspaceRequest
+ */
+export interface WorkspaceApiFreezeWorkspaceRequest {
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WorkspaceApiFreezeWorkspace
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * WorkspaceApi - object-oriented interface
  * @export
  * @class WorkspaceApi
  * @extends {BaseAPI}
  */
 export class WorkspaceApi extends BaseAPI {
+    /**
+     * Freezes a Workspace so that ALL operations by ANY user are blocked. You should only perform this action when the workspace faces imminent risk, such as when you have a security breach. To unfreeze a workspace, the workspace Owner must submit a request to Fireblocks Support. **NOTE:**  - This operation can only be performed by the workspace Admins - Your workspace continues to receive incoming transfers during this time. Endpoint Permission: Admin, Non-Signing Admin.
+     * @summary Freeze
+     * @param {WorkspaceApiFreezeWorkspaceRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WorkspaceApi
+     */
+    public freezeWorkspace(requestParameters: WorkspaceApiFreezeWorkspaceRequest = {}) {
+        return WorkspaceApiFp(this.configuration).freezeWorkspace(requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
     /**
      * Returns the workspace ID and name for the authenticated user. 
      * @summary Get workspace

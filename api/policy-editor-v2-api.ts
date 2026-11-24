@@ -33,11 +33,17 @@ import { ErrorSchema } from '../models';
 // @ts-ignore
 import { PolicyAndValidationResponse } from '../models';
 // @ts-ignore
+import { PolicyRuleQuotaRequest } from '../models';
+// @ts-ignore
+import { PolicyRuleQuotaResponse } from '../models';
+// @ts-ignore
 import { PolicyType } from '../models';
 // @ts-ignore
 import { PublishDraftRequest } from '../models';
 // @ts-ignore
 import { PublishResult } from '../models';
+// @ts-ignore
+import { ReadOnlyDraftReviewAndValidationResponse } from '../models';
 // @ts-ignore
 import { UpdateDraftRequest } from '../models';
 /**
@@ -120,6 +126,90 @@ export const PolicyEditorV2ApiAxiosParamCreator = function (configuration?: Conf
             setSearchParams(localVarUrlObj, localVarQueryParameter);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the active draft and its validation for a specific policy type, without taking the edit lock. If no draft exists, the active policy is returned with a null draftId.
+         * @summary Get the current draft without starting an edit session
+         * @param {PolicyType} policyType The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDraftReadOnly: async (policyType: PolicyType, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('getDraftReadOnly', 'policyType', policyType)
+            const localVarPath = `/policy/draft/read_only`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getDraftReadOnly';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (policyType !== undefined) {
+                localVarQueryParameter['policyType'] = policyType;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Returns the Amount Over Time (AOT) quota calculated for a specific policy rule.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
+         * @summary Calculate the AOT quota for a policy rule
+         * @param {PolicyRuleQuotaRequest} policyRuleQuotaRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPolicyRuleQuota: async (policyRuleQuotaRequest: PolicyRuleQuotaRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('getPolicyRuleQuota', 'policyRuleQuotaRequest', policyRuleQuotaRequest)
+            const localVarPath = `/policy/rules/quota`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getPolicyRuleQuota';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(policyRuleQuotaRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -251,6 +341,33 @@ export const PolicyEditorV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns the active draft and its validation for a specific policy type, without taking the edit lock. If no draft exists, the active policy is returned with a null draftId.
+         * @summary Get the current draft without starting an edit session
+         * @param {PolicyType} policyType The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getDraftReadOnly(policyType: PolicyType, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ReadOnlyDraftReviewAndValidationResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getDraftReadOnly(policyType, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorV2Api.getDraftReadOnly']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Returns the Amount Over Time (AOT) quota calculated for a specific policy rule.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
+         * @summary Calculate the AOT quota for a policy rule
+         * @param {PolicyRuleQuotaRequest} policyRuleQuotaRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPolicyRuleQuota(policyRuleQuotaRequest: PolicyRuleQuotaRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PolicyRuleQuotaResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPolicyRuleQuota(policyRuleQuotaRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['PolicyEditorV2Api.getPolicyRuleQuota']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Send publish request of certain draft id and returns the response.  **⚠️ IMPORTANT SECURITY NOTICE:**  The Fireblocks Policy is a critical security guardrail. Programmatically modifying your policy via the API introduces significant security risks. As an industry best practice, Fireblocks strongly recommends manual editing accompanied by strict human oversight and approval workflows for all policy changes. Programmatic updates should only be implemented by advanced users with comprehensive, multi-layer security controls in place.  If you want to learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PublishDraftRequest} publishDraftRequest 
@@ -309,6 +426,26 @@ export const PolicyEditorV2ApiFactory = function (configuration?: Configuration,
             return localVarFp.getDraft(requestParameters.policyType, options).then((request) => request(axios, basePath));
         },
         /**
+         * Returns the active draft and its validation for a specific policy type, without taking the edit lock. If no draft exists, the active policy is returned with a null draftId.
+         * @summary Get the current draft without starting an edit session
+         * @param {PolicyEditorV2ApiGetDraftReadOnlyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getDraftReadOnly(requestParameters: PolicyEditorV2ApiGetDraftReadOnlyRequest, options?: RawAxiosRequestConfig): AxiosPromise<ReadOnlyDraftReviewAndValidationResponse> {
+            return localVarFp.getDraftReadOnly(requestParameters.policyType, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Returns the Amount Over Time (AOT) quota calculated for a specific policy rule.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
+         * @summary Calculate the AOT quota for a policy rule
+         * @param {PolicyEditorV2ApiGetPolicyRuleQuotaRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPolicyRuleQuota(requestParameters: PolicyEditorV2ApiGetPolicyRuleQuotaRequest, options?: RawAxiosRequestConfig): AxiosPromise<PolicyRuleQuotaResponse> {
+            return localVarFp.getPolicyRuleQuota(requestParameters.policyRuleQuotaRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Send publish request of certain draft id and returns the response.  **⚠️ IMPORTANT SECURITY NOTICE:**  The Fireblocks Policy is a critical security guardrail. Programmatically modifying your policy via the API introduces significant security risks. As an industry best practice, Fireblocks strongly recommends manual editing accompanied by strict human oversight and approval workflows for all policy changes. Programmatic updates should only be implemented by advanced users with comprehensive, multi-layer security controls in place.  If you want to learn more about the Fireblocks Policy Editor, please contact your Fireblocks Customer Success Manager or send an email to CSM@fireblocks.com. 
          * @summary Send publish request for a certain draft id
          * @param {PolicyEditorV2ApiPublishDraftRequest} requestParameters Request parameters.
@@ -357,6 +494,41 @@ export interface PolicyEditorV2ApiGetDraftRequest {
      * @memberof PolicyEditorV2ApiGetDraft
      */
     readonly policyType: PolicyType
+}
+
+/**
+ * Request parameters for getDraftReadOnly operation in PolicyEditorV2Api.
+ * @export
+ * @interface PolicyEditorV2ApiGetDraftReadOnlyRequest
+ */
+export interface PolicyEditorV2ApiGetDraftReadOnlyRequest {
+    /**
+     * The policy type(s) to retrieve. Can be a single type or multiple types by repeating the parameter (e.g., ?policyType&#x3D;TRANSFER&amp;policyType&#x3D;MINT).
+     * @type {PolicyType}
+     * @memberof PolicyEditorV2ApiGetDraftReadOnly
+     */
+    readonly policyType: PolicyType
+}
+
+/**
+ * Request parameters for getPolicyRuleQuota operation in PolicyEditorV2Api.
+ * @export
+ * @interface PolicyEditorV2ApiGetPolicyRuleQuotaRequest
+ */
+export interface PolicyEditorV2ApiGetPolicyRuleQuotaRequest {
+    /**
+     * 
+     * @type {PolicyRuleQuotaRequest}
+     * @memberof PolicyEditorV2ApiGetPolicyRuleQuota
+     */
+    readonly policyRuleQuotaRequest: PolicyRuleQuotaRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof PolicyEditorV2ApiGetPolicyRuleQuota
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -430,6 +602,30 @@ export class PolicyEditorV2Api extends BaseAPI {
      */
     public getDraft(requestParameters: PolicyEditorV2ApiGetDraftRequest) {
         return PolicyEditorV2ApiFp(this.configuration).getDraft(requestParameters.policyType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the active draft and its validation for a specific policy type, without taking the edit lock. If no draft exists, the active policy is returned with a null draftId.
+     * @summary Get the current draft without starting an edit session
+     * @param {PolicyEditorV2ApiGetDraftReadOnlyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PolicyEditorV2Api
+     */
+    public getDraftReadOnly(requestParameters: PolicyEditorV2ApiGetDraftReadOnlyRequest) {
+        return PolicyEditorV2ApiFp(this.configuration).getDraftReadOnly(requestParameters.policyType).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Returns the Amount Over Time (AOT) quota calculated for a specific policy rule.  Endpoint Permissions: Owner, Admin, Non-Signing Admin. 
+     * @summary Calculate the AOT quota for a policy rule
+     * @param {PolicyEditorV2ApiGetPolicyRuleQuotaRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof PolicyEditorV2Api
+     */
+    public getPolicyRuleQuota(requestParameters: PolicyEditorV2ApiGetPolicyRuleQuotaRequest) {
+        return PolicyEditorV2ApiFp(this.configuration).getPolicyRuleQuota(requestParameters.policyRuleQuotaRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**

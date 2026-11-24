@@ -13,9 +13,12 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { WebhookOauthSigningAlg } from './webhook-oauth-signing-alg';
 
 /**
- * A stored OAuth 2.0 client credential set, referenced by webhooks through their `webhookOauthId`. Deliveries for a webhook that references one carry `Authorization: Bearer {token}`, using a token fetched from `url` and cached until it expires, so your authorization server sees far fewer token requests than deliveries. Secret material is never returned: `clientSecret` is absent from this schema entirely, and the `customJwtClaims`, `customBodyParams` and `customHeaders` fields are reduced to their names, without the configured values.
+ * A stored OAuth 2.0 client credential set, referenced by webhooks through their `webhookOauthId`. Deliveries for a webhook that references one carry `Authorization: Bearer {token}`, using a token fetched from `url` and cached until it expires, so your authorization server sees far fewer token requests than deliveries. Secret material is never returned: `clientSecret` is absent from this schema entirely, and the `customJwtClaims` and `customBodyParams` fields are reduced to their names, without the configured values. Extra token request headers are a separate resource, referenced by `webhookCustomHeadersId`. The key pairs of `private_key_jwt` credentials are never returned here either; their public halves are published at the URL in `jwksUri`.
  * @export
  * @interface WebhookOauthCredentials
  */
@@ -45,7 +48,7 @@ export interface WebhookOauthCredentials {
      */
     'url': string;
     /**
-     * How the client credentials are presented to the token endpoint: `client_secret_basic`, `client_secret_post` or `client_secret_jwt`. Credentials created without this field report `client_secret_basic`, which is what they use.
+     * How the client credentials are presented to the token endpoint: `client_secret_basic`, `client_secret_post`, `client_secret_jwt` or `private_key_jwt`. Credentials created without this field report `client_secret_basic`, which is what they use.
      * @type {string}
      * @memberof WebhookOauthCredentials
      */
@@ -63,6 +66,12 @@ export interface WebhookOauthCredentials {
      */
     'updatedAt': number;
     /**
+     * Algorithm of the key pairs, and of the assertions signed with them. Present only when `authMethod` is `private_key_jwt`. Which key is signing is never returned; each assertion names it in its `kid` header. Defaults to `RS256` on create only.
+     * @type {WebhookOauthSigningAlg}
+     * @memberof WebhookOauthCredentials
+     */
+    'signingAlg'?: WebhookOauthSigningAlg;
+    /**
      * Names of the additional claims placed in the JWT assertion. Claim values are write-only and are never returned. Absent when no custom claims are configured.
      * @type {Array<string>}
      * @memberof WebhookOauthCredentials
@@ -75,16 +84,24 @@ export interface WebhookOauthCredentials {
      */
     'customBodyParams'?: Array<string>;
     /**
-     * Names of the additional HTTP headers added to **the token request sent to the authorization server** — not to the webhook delivery, which has its own separate `customHeaders`. Header values are write-only and are never returned. Absent when no custom headers are configured.
-     * @type {Array<string>}
+     * The id of the set of custom headers added to **the token request sent to the authorization server** — not to the webhook delivery. Absent when the token request adds none. Header values are write-only and are never returned; read the header names from `/v1/webhooks_settings/custom_headers/{webhookCustomHeadersId}`.
+     * @type {string}
      * @memberof WebhookOauthCredentials
      */
-    'customHeaders'?: Array<string>;
+    'webhookCustomHeadersId'?: string;
     /**
      * The id of the mTLS configuration presented to the token endpoint. Absent when the token request does not use mTLS. Read the certificate from `/v1/webhooks_settings/mtls/{id}`.
      * @type {string}
      * @memberof WebhookOauthCredentials
      */
     'webhookMtlsId'?: string;
+    /**
+     * The public URL of these credentials\' JWKS. Register it as the client\'s jwks_uri on your authorization server. Present for private_key_jwt only.
+     * @type {string}
+     * @memberof WebhookOauthCredentials
+     */
+    'jwksUri'?: string;
 }
+
+
 

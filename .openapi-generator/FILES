@@ -103,7 +103,7 @@ ApprovalApiKey.md
 ApprovalApiPublicKey.md
 ApprovalRequest.md
 ApprovalRequestItem.md
-ApprovalsBetaApi.md
+ApprovalsApi.md
 ApproveApprovalRequest.md
 ApproversConfig.md
 ApproversConfigApprovalGroupsInner.md
@@ -137,7 +137,6 @@ AssetResponse.md
 AssetScope.md
 AssetTypeResponse.md
 AssetTypesConfig.md
-AssetTypesConfigInner.md
 AssetWallet.md
 AssignVaultsToLegalEntityRequest.md
 AssignVaultsToLegalEntityResponse.md
@@ -166,7 +165,7 @@ BlockchainDeclaredProperties.md
 BlockchainDestination.md
 BlockchainEnvironment.md
 BlockchainExplorer.md
-BlockchainLinkBetaApi.md
+BlockchainLinkApi.md
 BlockchainMedia.md
 BlockchainMetadata.md
 BlockchainNotFoundErrorResponse.md
@@ -196,7 +195,7 @@ CallAccepted.md
 CallbackHandler.md
 CallbackHandlerRequest.md
 CancelTransactionResponse.md
-CantonBetaApi.md
+CantonApi.md
 CantonCall.md
 CantonCallAllowListAdd.md
 CantonCallAllowListRemove.md
@@ -234,7 +233,7 @@ CollectionTokenMetadataAttributeDto.md
 CollectionTokenMetadataDto.md
 CollectionType.md
 ComplianceApi.md
-ComplianceOrchestratorBetaApi.md
+ComplianceOrchestratorApi.md
 ComplianceRequirement.md
 ComplianceResultFullPayload.md
 ComplianceResultStatusesEnum.md
@@ -256,6 +255,7 @@ ConnectedAccountAssetType.md
 ConnectedAccountBalances.md
 ConnectedAccountBalancesResponse.md
 ConnectedAccountCapability.md
+ConnectedAccountCredit.md
 ConnectedAccountErrorResponse.md
 ConnectedAccountManifest.md
 ConnectedAccountRateResponse.md
@@ -351,6 +351,8 @@ CreateMultipleVaultAccountsJobStatus.md
 CreateNcwConnectionRequest.md
 CreateNetworkIdRequest.md
 CreateOffersRequest.md
+CreateOmnibusAddressesRequest.md
+CreateOmnibusAddressesResponse.md
 CreateOrderRequest.md
 CreatePayoutRequest.md
 CreateQuote.md
@@ -373,6 +375,7 @@ CreateVaultAccountConnectionRequest.md
 CreateVaultAccountRequest.md
 CreateVaultAssetResponse.md
 CreateWalletRequest.md
+CreateWebhookCustomHeadersRequest.md
 CreateWebhookMtlsConfigRequest.md
 CreateWebhookOauthRequest.md
 CreateWebhookRequest.md
@@ -389,6 +392,7 @@ DelegationSummary.md
 DeleteApprovalApiKeyResponse.md
 DeleteNetworkConnectionResponse.md
 DeleteNetworkIdResponse.md
+DeleteWebhookCustomHeadersResponse.md
 DeleteWebhookMtlsConfigResponse.md
 DeleteWebhookOauthResponse.md
 DeployLayerZeroAdaptersRequest.md
@@ -542,7 +546,7 @@ GasStationsApi.md
 GaslessInfo.md
 GasslessStandardConfigurations.md
 GasslessStandardConfigurationsGaslessStandardConfigurationsValue.md
-GenieBetaApi.md
+GenieApi.md
 GenieChatMessage.md
 GenieCreateSessionResponse.md
 GenieSendMessageRequest.md
@@ -647,6 +651,7 @@ ListAssetsResponse.md
 ListBlockchainsResponse.md
 ListBlockchainsResponse2.md
 ListLegalEntitiesResponse.md
+ListOmnibusAddressesResponse.md
 ListOwnedCollectionsResponse.md
 ListOwnedTokensResponse.md
 ListUtxosResponse.md
@@ -702,7 +707,7 @@ NotificationAttemptsPaginatedResponse.md
 NotificationPaginatedResponse.md
 NotificationStatus.md
 NotificationWithData.md
-OTABetaApi.md
+OTAApi.md
 OffExchangesApi.md
 Offer.md
 OfferResponse.md
@@ -718,6 +723,7 @@ OfferResponseTransferAccept.md
 OfferResponseTransferReject.md
 OfferResponseTransferWithdraw.md
 OffersResponse.md
+OmnibusAddress.md
 OnchainDataApi.md
 OnchainTransaction.md
 OnchainTransactionsPagedResponse.md
@@ -793,7 +799,6 @@ PolicyAndValidationResponse.md
 PolicyCheckResult.md
 PolicyCurrency.md
 PolicyEditorV2Api.md
-PolicyEditorV2BetaApi.md
 PolicyGroupIds.md
 PolicyMetadata.md
 PolicyMetadataEntry.md
@@ -858,6 +863,8 @@ ReQuoteDetailsReQuote.md
 ReadAbiFunction.md
 ReadCallFunctionDto.md
 ReadCallFunctionDtoAbiFunction.md
+ReadOnlyDraftResponse.md
+ReadOnlyDraftReviewAndValidationResponse.md
 ReasonForPaymentEnum.md
 RecipientHandle.md
 RedeemFundsToLinkedDDAResponse.md
@@ -865,6 +872,7 @@ RegisterApprovalApiKeyRequest.md
 RegisterApprovalApiKeyResponse.md
 RegisterLegalEntityRequest.md
 RegisterNewAssetRequest.md
+RegisterTempoOmnibusResponse.md
 ReissueMultichainTokenRequest.md
 RelatedRequest.md
 RelatedTransaction.md
@@ -887,7 +895,7 @@ ReportListResponse.md
 ReportOutputFormat.md
 ReportStatus.md
 ReportType.md
-ReportsBetaApi.md
+ReportsApi.md
 RescreenTransactionRequest.md
 RescreenTransactionResponse.md
 ResendByQueryRequest.md
@@ -903,6 +911,8 @@ ResetDeviceApi.md
 RespondToConnectionRequest.md
 RetryRequoteRequestDetails.md
 RetryRequoteTypeEnum.md
+RevokeWebhookOauthKeyRequest.md
+RevokeWebhookOauthKeyResponse.md
 RewardInfo.md
 RewardsInfo.md
 RiskLevelEnum.md
@@ -910,6 +920,7 @@ RoleDetails.md
 RoleDetails2.md
 RoleFeeInfo.md
 RoleGrantee.md
+RotateWebhookOauthKeyResponse.md
 Rule.md
 RuleActionEnum.md
 RuleCondition.md
@@ -1167,7 +1178,7 @@ TagType.md
 TagsApi.md
 TagsPagedResponse.md
 TemplatesPaginatedResponse.md
-TempoBetaApi.md
+TempoApi.md
 TempoTransferDestination.md
 TempoTransferDestinationItem.md
 TempoTransferSource.md
@@ -1329,6 +1340,7 @@ UpdateTokensOwnershipSpamRequest.md
 UpdateTokensOwnershipStatusRequest.md
 UpdateVaultAccountAssetAddressRequest.md
 UpdateVaultAccountRequest.md
+UpdateWebhookCustomHeadersRequest.md
 UpdateWebhookMtlsConfigRequest.md
 UpdateWebhookOauthRequest.md
 UpdateWebhookRequest.md
@@ -1343,7 +1355,7 @@ UserGroupCreateRequest.md
 UserGroupCreateResponse.md
 UserGroupResponse.md
 UserGroupUpdateRequest.md
-UserGroupsBetaApi.md
+UserGroupsApi.md
 UserGroupsResponse.md
 UserResponse.md
 UserRole.md
@@ -1386,9 +1398,10 @@ WalletAsset.md
 WalletAssetAdditionalInfo.md
 Web3ConnectionsApi.md
 Webhook.md
-WebhookCustomHeaders.md
-WebhookCustomHeadersResponse.md
-WebhookCustomHeadersUpdate.md
+WebhookCustomHeadersMap.md
+WebhookCustomHeadersMapUpdate.md
+WebhookCustomHeadersSet.md
+WebhookCustomHeadersSetList.md
 WebhookEvent.md
 WebhookMetric.md
 WebhookMtlsConfig.md
@@ -1398,11 +1411,10 @@ WebhookMtlsKeyAlgorithm.md
 WebhookOauthCredentials.md
 WebhookOauthCustomBodyParams.md
 WebhookOauthCustomBodyParamsUpdate.md
-WebhookOauthCustomHeaders.md
-WebhookOauthCustomHeadersUpdate.md
 WebhookOauthCustomJwtClaims.md
 WebhookOauthCustomJwtClaimsUpdate.md
 WebhookOauthList.md
+WebhookOauthSigningAlg.md
 WebhookPaginatedResponse.md
 WebhooksApi.md
 WebhooksV2Api.md
@@ -1414,20 +1426,20 @@ WorkflowExecutionOperation.md
 WorkflowStatusEnum.md
 Workspace.md
 WorkspaceApi.md
-WorkspaceStatusBetaApi.md
+WorkspaceStatusApi.md
 WriteAbiFunction.md
 WriteCallFunctionDto.md
 WriteCallFunctionDtoAbiFunction.md
 WriteCallFunctionResponseDto.md
 api.ts
 api/api-user-api.ts
-api/approvals-beta-api.ts
+api/approvals-api.ts
 api/audit-logs-api.ts
-api/blockchain-link-beta-api.ts
+api/blockchain-link-api.ts
 api/blockchains-assets-api.ts
-api/canton-beta-api.ts
+api/canton-api.ts
 api/compliance-api.ts
-api/compliance-orchestrator-beta-api.ts
+api/compliance-orchestrator-api.ts
 api/compliance-screening-configuration-api.ts
 api/connected-accounts-api.ts
 api/console-user-api.ts
@@ -1443,7 +1455,7 @@ api/exchange-accounts-api.ts
 api/external-wallets-api.ts
 api/fiat-accounts-api.ts
 api/gas-stations-api.ts
-api/genie-beta-api.ts
+api/genie-api.ts
 api/internal-wallets-api.ts
 api/key-link-api.ts
 api/keys-api.ts
@@ -1451,23 +1463,22 @@ api/network-connections-api.ts
 api/nfts-api.ts
 api/off-exchanges-api.ts
 api/onchain-data-api.ts
-api/otabeta-api.ts
+api/otaapi.ts
 api/payments-payout-api.ts
 api/policy-editor-v2-api.ts
-api/policy-editor-v2-beta-api.ts
-api/reports-beta-api.ts
+api/reports-api.ts
 api/reset-device-api.ts
 api/security-posture-management-api.ts
 api/smart-transfer-api.ts
 api/staking-api.ts
 api/tags-api.ts
-api/tempo-beta-api.ts
+api/tempo-api.ts
 api/tokenization-api.ts
 api/trading-api.ts
 api/transactions-api.ts
 api/travel-rule-api.ts
 api/trlink-api.ts
-api/user-groups-beta-api.ts
+api/user-groups-api.ts
 api/users-api.ts
 api/utxomanagement-api.ts
 api/vaults-api.ts
@@ -1476,7 +1487,7 @@ api/webhooks-api.ts
 api/webhooks-v2-api.ts
 api/whitelist-ip-addresses-api.ts
 api/workspace-api.ts
-api/workspace-status-beta-api.ts
+api/workspace-status-api.ts
 base.ts
 client/client.ts
 client/clientConfiguration.ts
@@ -1617,7 +1628,6 @@ models/asset-price-response.ts
 models/asset-response.ts
 models/asset-scope.ts
 models/asset-type-response.ts
-models/asset-types-config-inner.ts
 models/asset-types-config.ts
 models/asset-wallet.ts
 models/asset.ts
@@ -1730,6 +1740,7 @@ models/connected-account-asset-type.ts
 models/connected-account-balances-response.ts
 models/connected-account-balances.ts
 models/connected-account-capability.ts
+models/connected-account-credit.ts
 models/connected-account-error-response.ts
 models/connected-account-manifest.ts
 models/connected-account-rate-response.ts
@@ -1819,6 +1830,8 @@ models/create-multiple-vault-accounts-job-status.ts
 models/create-ncw-connection-request.ts
 models/create-network-id-request.ts
 models/create-offers-request.ts
+models/create-omnibus-addresses-request.ts
+models/create-omnibus-addresses-response.ts
 models/create-order-request.ts
 models/create-payout-request.ts
 models/create-quote-scope-inner.ts
@@ -1841,6 +1854,7 @@ models/create-vault-account-connection-request.ts
 models/create-vault-account-request.ts
 models/create-vault-asset-response.ts
 models/create-wallet-request.ts
+models/create-webhook-custom-headers-request.ts
 models/create-webhook-mtls-config-request.ts
 models/create-webhook-oauth-request.ts
 models/create-webhook-request.ts
@@ -1855,6 +1869,7 @@ models/delegation.ts
 models/delete-approval-api-key-response.ts
 models/delete-network-connection-response.ts
 models/delete-network-id-response.ts
+models/delete-webhook-custom-headers-response.ts
 models/delete-webhook-mtls-config-response.ts
 models/delete-webhook-oauth-response.ts
 models/deploy-layer-zero-adapters-request.ts
@@ -2104,6 +2119,7 @@ models/list-assets-response.ts
 models/list-blockchains-response.ts
 models/list-blockchains-response2.ts
 models/list-legal-entities-response.ts
+models/list-omnibus-addresses-response.ts
 models/list-owned-collections-response.ts
 models/list-owned-tokens-response.ts
 models/list-utxos-response.ts
@@ -2171,6 +2187,7 @@ models/offer-response-transfer-withdraw.ts
 models/offer-response.ts
 models/offer.ts
 models/offers-response.ts
+models/omnibus-address.ts
 models/onchain-transaction.ts
 models/onchain-transactions-paged-response.ts
 models/onchain-transactions-paged-response2.ts
@@ -2306,6 +2323,8 @@ models/re-quote-details.ts
 models/read-abi-function.ts
 models/read-call-function-dto-abi-function.ts
 models/read-call-function-dto.ts
+models/read-only-draft-response.ts
+models/read-only-draft-review-and-validation-response.ts
 models/reason-for-payment-enum.ts
 models/recipient-handle.ts
 models/redeem-funds-to-linked-ddaresponse.ts
@@ -2313,6 +2332,7 @@ models/register-approval-api-key-request.ts
 models/register-approval-api-key-response.ts
 models/register-legal-entity-request.ts
 models/register-new-asset-request.ts
+models/register-tempo-omnibus-response.ts
 models/reissue-multichain-token-request.ts
 models/related-request.ts
 models/related-transaction.ts
@@ -2349,6 +2369,8 @@ models/resend-webhooks-response.ts
 models/respond-to-connection-request.ts
 models/retry-requote-request-details.ts
 models/retry-requote-type-enum.ts
+models/revoke-webhook-oauth-key-request.ts
+models/revoke-webhook-oauth-key-response.ts
 models/reward-info.ts
 models/rewards-info.ts
 models/risk-level-enum.ts
@@ -2356,6 +2378,7 @@ models/role-details.ts
 models/role-details2.ts
 models/role-fee-info.ts
 models/role-grantee.ts
+models/rotate-webhook-oauth-key-response.ts
 models/rule-action-enum.ts
 models/rule-condition-operator-enum.ts
 models/rule-condition.ts
@@ -2762,6 +2785,7 @@ models/update-tokens-ownership-spam-request.ts
 models/update-tokens-ownership-status-request.ts
 models/update-vault-account-asset-address-request.ts
 models/update-vault-account-request.ts
+models/update-webhook-custom-headers-request.ts
 models/update-webhook-mtls-config-request.ts
 models/update-webhook-oauth-request.ts
 models/update-webhook-request.ts
@@ -2816,9 +2840,10 @@ models/verdict-config.ts
 models/version-summary.ts
 models/wallet-asset-additional-info.ts
 models/wallet-asset.ts
-models/webhook-custom-headers-response.ts
-models/webhook-custom-headers-update.ts
-models/webhook-custom-headers.ts
+models/webhook-custom-headers-map-update.ts
+models/webhook-custom-headers-map.ts
+models/webhook-custom-headers-set-list.ts
+models/webhook-custom-headers-set.ts
 models/webhook-event.ts
 models/webhook-metric.ts
 models/webhook-mtls-config.ts
@@ -2828,11 +2853,10 @@ models/webhook-mtls-key-algorithm.ts
 models/webhook-oauth-credentials.ts
 models/webhook-oauth-custom-body-params-update.ts
 models/webhook-oauth-custom-body-params.ts
-models/webhook-oauth-custom-headers-update.ts
-models/webhook-oauth-custom-headers.ts
 models/webhook-oauth-custom-jwt-claims-update.ts
 models/webhook-oauth-custom-jwt-claims.ts
 models/webhook-oauth-list.ts
+models/webhook-oauth-signing-alg.ts
 models/webhook-paginated-response.ts
 models/webhook.ts
 models/withdraw-request.ts

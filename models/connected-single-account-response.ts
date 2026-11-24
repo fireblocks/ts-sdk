@@ -21,6 +21,9 @@ import { ConnectedAccount } from './connected-account';
 import { ConnectedAccountApprovalStatus } from './connected-account-approval-status';
 // May contain unused imports in some cases
 // @ts-ignore
+import { ConnectedAccountCredit } from './connected-account-credit';
+// May contain unused imports in some cases
+// @ts-ignore
 import { ConnectedAccountManifest } from './connected-account-manifest';
 // May contain unused imports in some cases
 // @ts-ignore

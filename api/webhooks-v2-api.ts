@@ -27,11 +27,15 @@ import { assertParamExistsAndNotEmpty } from '../utils/validation_utils';
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError, operationServerMap } from '../base';
 // @ts-ignore
+import { CreateWebhookCustomHeadersRequest } from '../models';
+// @ts-ignore
 import { CreateWebhookMtlsConfigRequest } from '../models';
 // @ts-ignore
 import { CreateWebhookOauthRequest } from '../models';
 // @ts-ignore
 import { CreateWebhookRequest } from '../models';
+// @ts-ignore
+import { DeleteWebhookCustomHeadersResponse } from '../models';
 // @ts-ignore
 import { DeleteWebhookMtlsConfigResponse } from '../models';
 // @ts-ignore
@@ -59,6 +63,14 @@ import { ResendFailedNotificationsResponse } from '../models';
 // @ts-ignore
 import { ResendNotificationsByResourceIdRequest } from '../models';
 // @ts-ignore
+import { RevokeWebhookOauthKeyRequest } from '../models';
+// @ts-ignore
+import { RevokeWebhookOauthKeyResponse } from '../models';
+// @ts-ignore
+import { RotateWebhookOauthKeyResponse } from '../models';
+// @ts-ignore
+import { UpdateWebhookCustomHeadersRequest } from '../models';
+// @ts-ignore
 import { UpdateWebhookMtlsConfigRequest } from '../models';
 // @ts-ignore
 import { UpdateWebhookOauthRequest } from '../models';
@@ -66,6 +78,10 @@ import { UpdateWebhookOauthRequest } from '../models';
 import { UpdateWebhookRequest } from '../models';
 // @ts-ignore
 import { Webhook } from '../models';
+// @ts-ignore
+import { WebhookCustomHeadersSet } from '../models';
+// @ts-ignore
+import { WebhookCustomHeadersSetList } from '../models';
 // @ts-ignore
 import { WebhookEvent } from '../models';
 // @ts-ignore
@@ -133,6 +149,50 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the returned id as that webhook\'s `webhookCustomHeadersId`, to send the headers with that webhook\'s notifications, or to OAuth credentials as their `webhookCustomHeadersId`, to send them on the token request to your authorization server. Several webhooks and OAuth credentials may share one set, so changing it covers all of them at once. Header values are write-only and are never returned.  One set of rules applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a string or an array of strings (one header line per element), except `Cookie` and `Authorization`, which take a single string. Where Fireblocks sends its own `Authorization` header (an OAuth bearer token on a delivery, `client_secret_basic` on a token request), a custom `Authorization` header is not sent. Attaching a set checks only that it exists in your workspace.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create a custom headers set
+         * @param {CreateWebhookCustomHeadersRequest} createWebhookCustomHeadersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWebhookCustomHeaders: async (createWebhookCustomHeadersRequest: CreateWebhookCustomHeadersRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createWebhookCustomHeaders', 'createWebhookCustomHeadersRequest', createWebhookCustomHeadersRequest)
+            const localVarPath = `/webhooks_settings/custom_headers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createWebhookCustomHeaders';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createWebhookCustomHeadersRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create an mTLS configuration
          * @param {CreateWebhookMtlsConfigRequest} createWebhookMtlsConfigRequest 
@@ -177,7 +237,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  With `authMethod` `private_key_jwt` no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing key and its successor, and keeps the private halves. The public halves are published at the `jwksUri` returned with the credentials; register that URL as the client\'s `jwks_uri` on your authorization server.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create OAuth credentials
          * @param {CreateWebhookOauthRequest} createWebhookOauthRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -245,6 +305,48 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             (localVarRequestOptions as any).fireblocksOperationId = 'deleteWebhook';
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Deletes a custom headers set. By default the delete is refused while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the webhooks and OAuth credentials using it. This protects a shared set from being removed out from under the things that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything using the set — it clears each webhook\'s and each OAuth credential set\'s `webhookCustomHeadersId`, it does **not** delete the webhook or the credentials — then deletes the set and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. A detached webhook stops sending these headers with its notifications, and detached OAuth credentials stop sending them on the token request.  When nothing uses the set the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete a custom headers set
+         * @param {string} webhookCustomHeadersId The unique identifier of the custom headers set
+         * @param {boolean} [forceDelete] Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still uses the set.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWebhookCustomHeaders: async (webhookCustomHeadersId: string, forceDelete?: boolean, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('deleteWebhookCustomHeaders', 'webhookCustomHeadersId', webhookCustomHeadersId)
+            const localVarPath = `/webhooks_settings/custom_headers/{webhookCustomHeadersId}`
+                .replace(`{${"webhookCustomHeadersId"}}`, encodeURIComponent(String(webhookCustomHeadersId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'deleteWebhookCustomHeaders';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (forceDelete !== undefined) {
+                localVarQueryParameter['forceDelete'] = forceDelete;
+            }
 
 
     
@@ -715,6 +817,77 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Retrieve a custom headers set by its id. Header values are never returned, only the header names. 
+         * @summary Get a custom headers set by id
+         * @param {string} webhookCustomHeadersId The unique identifier of the custom headers set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookCustomHeaders: async (webhookCustomHeadersId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getWebhookCustomHeaders', 'webhookCustomHeadersId', webhookCustomHeadersId)
+            const localVarPath = `/webhooks_settings/custom_headers/{webhookCustomHeadersId}`
+                .replace(`{${"webhookCustomHeadersId"}}`, encodeURIComponent(String(webhookCustomHeadersId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getWebhookCustomHeaders';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Lists every custom headers set for the workspace. Header values are never returned, only the header names. 
+         * @summary Get all custom headers sets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookCustomHeadersList: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/webhooks_settings/custom_headers`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getWebhookCustomHeadersList';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Retrieve one stored mTLS configuration by its id. 
          * @summary Get an mTLS configuration by id
          * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
@@ -1097,6 +1270,94 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
+         * Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out of the published set immediately rather than being kept for 30 days. Revoking never causes an outage.  Without a `kid`, revokes the key Fireblocks is signing with: signing switches to the successor, which your authorization server already holds, and a new successor is generated. A cached access token is discarded, so the next delivery fetches a new one.  With the successor\'s `kid`, deletes the successor and generates a new one; signing is unchanged. With the `kid` of a key rotated out by `rotate_key` and still published, deletes that key, and a cached access token is discarded as well. Keys left behind by a `signingAlg` change drop out of the published set after 5 minutes but are kept for 30 days, and can be revoked by `kid` until then. Credentials using `private_key_jwt` always keep a key to sign with.  On credentials that no longer use `private_key_jwt`, whose keys stay published for 30 days after the switch, a `kid` is required: that key is deleted and nothing is generated. The last key they hold can be revoked too, leaving an empty set.  Returns the `kid` of the key revoked, which without a `kid` in the request is the key Fireblocks was signing with. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server. Use `rotate_key` for a routine rotation, which keeps the replaced key published for 30 days.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Revoke a signing key of OAuth credentials
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {RevokeWebhookOauthKeyRequest} [revokeWebhookOauthKeyRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeWebhookOauthKey: async (webhookOauthId: string, revokeWebhookOauthKeyRequest?: RevokeWebhookOauthKeyRequest, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('revokeWebhookOauthKey', 'webhookOauthId', webhookOauthId)
+            const localVarPath = `/webhooks_settings/oauth/{webhookOauthId}/revoke_key`
+                .replace(`{${"webhookOauthId"}}`, encodeURIComponent(String(webhookOauthId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'revokeWebhookOauthKey';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(revokeWebhookOauthKeyRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Switches the OAuth credentials to their successor key and generates a new successor, for credentials using `private_key_jwt`. Takes no body. The new signing key is one your authorization server already holds, since the successor is published from the start, so the switch causes no outage.  The key replaced is no longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by `kid`. The credentials can hold at most 5 keys in their signing algorithm at once, counting the active key, its successor and those rotated out; at that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once — after a leak — use `revoke_key` instead.  Returns the `kid` of the key rotated out. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server, before the next rotation.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Rotate the signing key of OAuth credentials
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rotateWebhookOauthKey: async (webhookOauthId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('rotateWebhookOauthKey', 'webhookOauthId', webhookOauthId)
+            const localVarPath = `/webhooks_settings/oauth/{webhookOauthId}/rotate_key`
+                .replace(`{${"webhookOauthId"}}`, encodeURIComponent(String(webhookOauthId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'rotateWebhookOauthKey';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Update webhook
          * @param {UpdateWebhookRequest} updateWebhookRequest 
@@ -1132,6 +1393,48 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(updateWebhookRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. `headers` is merged name by name rather than replaced: a header sent with a value is added or overwritten, a header sent as `null` is deleted, and a header you omit is left alone. The change applies to every webhook and OAuth credential set that uses the set.  A change that would leave the set with no headers is refused with a `400` — delete the set instead. Where Fireblocks sends its own `Authorization` header, a custom `Authorization` header is not sent: on a webhook that has OAuth credentials attached (the OAuth bearer token), and on the token request of OAuth credentials that use `client_secret_basic`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update a custom headers set
+         * @param {UpdateWebhookCustomHeadersRequest} updateWebhookCustomHeadersRequest 
+         * @param {string} webhookCustomHeadersId The unique identifier of the custom headers set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWebhookCustomHeaders: async (updateWebhookCustomHeadersRequest: UpdateWebhookCustomHeadersRequest, webhookCustomHeadersId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('updateWebhookCustomHeaders', 'updateWebhookCustomHeadersRequest', updateWebhookCustomHeadersRequest)
+            assertParamExistsAndNotEmpty('updateWebhookCustomHeaders', 'webhookCustomHeadersId', webhookCustomHeadersId)
+            const localVarPath = `/webhooks_settings/custom_headers/{webhookCustomHeadersId}`
+                .replace(`{${"webhookCustomHeadersId"}}`, encodeURIComponent(String(webhookCustomHeadersId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'PATCH', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'updateWebhookCustomHeaders';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(updateWebhookCustomHeadersRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1181,7 +1484,7 @@ export const WebhooksV2ApiAxiosParamCreator = function (configuration?: Configur
             };
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims` and `customBodyParams` are merged key by key rather than replaced: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the two to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` and `webhookCustomHeadersId` are scalars rather than maps, so `null` there does remove them. `webhookCustomHeadersId` points the credentials at a set of extra token request headers from `/v1/webhooks_settings/custom_headers`; under `client_secret_basic` Fireblocks sends its own `Authorization` header with the credentials, so a custom `Authorization` header in the set is not sent.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {UpdateWebhookOauthRequest} updateWebhookOauthRequest 
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -1247,6 +1550,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the returned id as that webhook\'s `webhookCustomHeadersId`, to send the headers with that webhook\'s notifications, or to OAuth credentials as their `webhookCustomHeadersId`, to send them on the token request to your authorization server. Several webhooks and OAuth credentials may share one set, so changing it covers all of them at once. Header values are write-only and are never returned.  One set of rules applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a string or an array of strings (one header line per element), except `Cookie` and `Authorization`, which take a single string. Where Fireblocks sends its own `Authorization` header (an OAuth bearer token on a delivery, `client_secret_basic` on a token request), a custom `Authorization` header is not sent. Attaching a set checks only that it exists in your workspace.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create a custom headers set
+         * @param {CreateWebhookCustomHeadersRequest} createWebhookCustomHeadersRequest 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createWebhookCustomHeaders(createWebhookCustomHeadersRequest: CreateWebhookCustomHeadersRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookCustomHeadersSet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createWebhookCustomHeaders(createWebhookCustomHeadersRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.createWebhookCustomHeaders']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create an mTLS configuration
          * @param {CreateWebhookMtlsConfigRequest} createWebhookMtlsConfigRequest 
@@ -1261,7 +1578,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  With `authMethod` `private_key_jwt` no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing key and its successor, and keeps the private halves. The public halves are published at the `jwksUri` returned with the credentials; register that URL as the client\'s `jwks_uri` on your authorization server.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create OAuth credentials
          * @param {CreateWebhookOauthRequest} createWebhookOauthRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1285,6 +1602,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhook(webhookId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhook']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Deletes a custom headers set. By default the delete is refused while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the webhooks and OAuth credentials using it. This protects a shared set from being removed out from under the things that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything using the set — it clears each webhook\'s and each OAuth credential set\'s `webhookCustomHeadersId`, it does **not** delete the webhook or the credentials — then deletes the set and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. A detached webhook stops sending these headers with its notifications, and detached OAuth credentials stop sending them on the token request.  When nothing uses the set the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete a custom headers set
+         * @param {string} webhookCustomHeadersId The unique identifier of the custom headers set
+         * @param {boolean} [forceDelete] Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still uses the set.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteWebhookCustomHeaders(webhookCustomHeadersId: string, forceDelete?: boolean, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DeleteWebhookCustomHeadersResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteWebhookCustomHeaders(webhookCustomHeadersId, forceDelete, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.deleteWebhookCustomHeaders']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1437,6 +1768,31 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Retrieve a custom headers set by its id. Header values are never returned, only the header names. 
+         * @summary Get a custom headers set by id
+         * @param {string} webhookCustomHeadersId The unique identifier of the custom headers set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWebhookCustomHeaders(webhookCustomHeadersId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookCustomHeadersSet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhookCustomHeaders(webhookCustomHeadersId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhookCustomHeaders']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Lists every custom headers set for the workspace. Header values are never returned, only the header names. 
+         * @summary Get all custom headers sets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getWebhookCustomHeadersList(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookCustomHeadersSetList>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getWebhookCustomHeadersList(options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.getWebhookCustomHeadersList']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Retrieve one stored mTLS configuration by its id. 
          * @summary Get an mTLS configuration by id
          * @param {string} webhookMtlsId The unique identifier of the mTLS configuration
@@ -1563,6 +1919,35 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out of the published set immediately rather than being kept for 30 days. Revoking never causes an outage.  Without a `kid`, revokes the key Fireblocks is signing with: signing switches to the successor, which your authorization server already holds, and a new successor is generated. A cached access token is discarded, so the next delivery fetches a new one.  With the successor\'s `kid`, deletes the successor and generates a new one; signing is unchanged. With the `kid` of a key rotated out by `rotate_key` and still published, deletes that key, and a cached access token is discarded as well. Keys left behind by a `signingAlg` change drop out of the published set after 5 minutes but are kept for 30 days, and can be revoked by `kid` until then. Credentials using `private_key_jwt` always keep a key to sign with.  On credentials that no longer use `private_key_jwt`, whose keys stay published for 30 days after the switch, a `kid` is required: that key is deleted and nothing is generated. The last key they hold can be revoked too, leaving an empty set.  Returns the `kid` of the key revoked, which without a `kid` in the request is the key Fireblocks was signing with. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server. Use `rotate_key` for a routine rotation, which keeps the replaced key published for 30 days.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Revoke a signing key of OAuth credentials
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {RevokeWebhookOauthKeyRequest} [revokeWebhookOauthKeyRequest] 
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async revokeWebhookOauthKey(webhookOauthId: string, revokeWebhookOauthKeyRequest?: RevokeWebhookOauthKeyRequest, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RevokeWebhookOauthKeyResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.revokeWebhookOauthKey(webhookOauthId, revokeWebhookOauthKeyRequest, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.revokeWebhookOauthKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Switches the OAuth credentials to their successor key and generates a new successor, for credentials using `private_key_jwt`. Takes no body. The new signing key is one your authorization server already holds, since the successor is published from the start, so the switch causes no outage.  The key replaced is no longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by `kid`. The credentials can hold at most 5 keys in their signing algorithm at once, counting the active key, its successor and those rotated out; at that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once — after a leak — use `revoke_key` instead.  Returns the `kid` of the key rotated out. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server, before the next rotation.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Rotate the signing key of OAuth credentials
+         * @param {string} webhookOauthId The unique identifier of the OAuth credentials
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async rotateWebhookOauthKey(webhookOauthId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RotateWebhookOauthKeyResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.rotateWebhookOauthKey(webhookOauthId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.rotateWebhookOauthKey']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Update webhook
          * @param {UpdateWebhookRequest} updateWebhookRequest 
@@ -1574,6 +1959,20 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhook(updateWebhookRequest, webhookId, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['WebhooksV2Api.updateWebhook']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. `headers` is merged name by name rather than replaced: a header sent with a value is added or overwritten, a header sent as `null` is deleted, and a header you omit is left alone. The change applies to every webhook and OAuth credential set that uses the set.  A change that would leave the set with no headers is refused with a `400` — delete the set instead. Where Fireblocks sends its own `Authorization` header, a custom `Authorization` header is not sent: on a webhook that has OAuth credentials attached (the OAuth bearer token), and on the token request of OAuth credentials that use `client_secret_basic`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update a custom headers set
+         * @param {UpdateWebhookCustomHeadersRequest} updateWebhookCustomHeadersRequest 
+         * @param {string} webhookCustomHeadersId The unique identifier of the custom headers set
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updateWebhookCustomHeaders(updateWebhookCustomHeadersRequest: UpdateWebhookCustomHeadersRequest, webhookCustomHeadersId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<WebhookCustomHeadersSet>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateWebhookCustomHeaders(updateWebhookCustomHeadersRequest, webhookCustomHeadersId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['WebhooksV2Api.updateWebhookCustomHeaders']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -1591,7 +1990,7 @@ export const WebhooksV2ApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims` and `customBodyParams` are merged key by key rather than replaced: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the two to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` and `webhookCustomHeadersId` are scalars rather than maps, so `null` there does remove them. `webhookCustomHeadersId` points the credentials at a set of extra token request headers from `/v1/webhooks_settings/custom_headers`; under `client_secret_basic` Fireblocks sends its own `Authorization` header with the credentials, so a custom `Authorization` header in the set is not sent.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {UpdateWebhookOauthRequest} updateWebhookOauthRequest 
          * @param {string} webhookOauthId The unique identifier of the OAuth credentials
@@ -1625,6 +2024,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.createWebhook(requestParameters.createWebhookRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the returned id as that webhook\'s `webhookCustomHeadersId`, to send the headers with that webhook\'s notifications, or to OAuth credentials as their `webhookCustomHeadersId`, to send them on the token request to your authorization server. Several webhooks and OAuth credentials may share one set, so changing it covers all of them at once. Header values are write-only and are never returned.  One set of rules applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a string or an array of strings (one header line per element), except `Cookie` and `Authorization`, which take a single string. Where Fireblocks sends its own `Authorization` header (an OAuth bearer token on a delivery, `client_secret_basic` on a token request), a custom `Authorization` header is not sent. Attaching a set checks only that it exists in your workspace.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Create a custom headers set
+         * @param {WebhooksV2ApiCreateWebhookCustomHeadersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createWebhookCustomHeaders(requestParameters: WebhooksV2ApiCreateWebhookCustomHeadersRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookCustomHeadersSet> {
+            return localVarFp.createWebhookCustomHeaders(requestParameters.createWebhookCustomHeadersRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create an mTLS configuration
          * @param {WebhooksV2ApiCreateWebhookMtlsConfigRequest} requestParameters Request parameters.
@@ -1635,7 +2044,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.createWebhookMtlsConfig(requestParameters.createWebhookMtlsConfigRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  With `authMethod` `private_key_jwt` no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing key and its successor, and keeps the private halves. The public halves are published at the `jwksUri` returned with the credentials; register that URL as the client\'s `jwks_uri` on your authorization server.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Create OAuth credentials
          * @param {WebhooksV2ApiCreateWebhookOauthRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1653,6 +2062,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          */
         deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.deleteWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Deletes a custom headers set. By default the delete is refused while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the webhooks and OAuth credentials using it. This protects a shared set from being removed out from under the things that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything using the set — it clears each webhook\'s and each OAuth credential set\'s `webhookCustomHeadersId`, it does **not** delete the webhook or the credentials — then deletes the set and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. A detached webhook stops sending these headers with its notifications, and detached OAuth credentials stop sending them on the token request.  When nothing uses the set the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Delete a custom headers set
+         * @param {WebhooksV2ApiDeleteWebhookCustomHeadersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteWebhookCustomHeaders(requestParameters: WebhooksV2ApiDeleteWebhookCustomHeadersRequest, options?: RawAxiosRequestConfig): AxiosPromise<DeleteWebhookCustomHeadersResponse> {
+            return localVarFp.deleteWebhookCustomHeaders(requestParameters.webhookCustomHeadersId, requestParameters.forceDelete, options).then((request) => request(axios, basePath));
         },
         /**
          * Deletes an mTLS configuration. By default the delete is refused while the configuration is still in use: if any webhook or OAuth credentials reference it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of what references it. This protects a shared configuration from being removed out from under the webhooks and token requests that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything referencing it — it clears `webhookMtlsId` on each webhook and OAuth credentials, it does **not** delete them — then deletes the configuration and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. Detached webhooks keep delivering notifications, and detached OAuth credentials keep requesting tokens, but without a client certificate, so an endpoint that requires mTLS will reject them from that point on.  When nothing references the configuration the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
@@ -1755,6 +2174,25 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.getWebhook(requestParameters.webhookId, options).then((request) => request(axios, basePath));
         },
         /**
+         * Retrieve a custom headers set by its id. Header values are never returned, only the header names. 
+         * @summary Get a custom headers set by id
+         * @param {WebhooksV2ApiGetWebhookCustomHeadersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookCustomHeaders(requestParameters: WebhooksV2ApiGetWebhookCustomHeadersRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookCustomHeadersSet> {
+            return localVarFp.getWebhookCustomHeaders(requestParameters.webhookCustomHeadersId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Lists every custom headers set for the workspace. Header values are never returned, only the header names. 
+         * @summary Get all custom headers sets
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getWebhookCustomHeadersList(options?: RawAxiosRequestConfig): AxiosPromise<WebhookCustomHeadersSetList> {
+            return localVarFp.getWebhookCustomHeadersList(options).then((request) => request(axios, basePath));
+        },
+        /**
          * Retrieve one stored mTLS configuration by its id. 
          * @summary Get an mTLS configuration by id
          * @param {WebhooksV2ApiGetWebhookMtlsConfigRequest} requestParameters Request parameters.
@@ -1844,6 +2282,26 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.resendNotificationsByResourceId(requestParameters.resendNotificationsByResourceIdRequest, requestParameters.webhookId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
+         * Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out of the published set immediately rather than being kept for 30 days. Revoking never causes an outage.  Without a `kid`, revokes the key Fireblocks is signing with: signing switches to the successor, which your authorization server already holds, and a new successor is generated. A cached access token is discarded, so the next delivery fetches a new one.  With the successor\'s `kid`, deletes the successor and generates a new one; signing is unchanged. With the `kid` of a key rotated out by `rotate_key` and still published, deletes that key, and a cached access token is discarded as well. Keys left behind by a `signingAlg` change drop out of the published set after 5 minutes but are kept for 30 days, and can be revoked by `kid` until then. Credentials using `private_key_jwt` always keep a key to sign with.  On credentials that no longer use `private_key_jwt`, whose keys stay published for 30 days after the switch, a `kid` is required: that key is deleted and nothing is generated. The last key they hold can be revoked too, leaving an empty set.  Returns the `kid` of the key revoked, which without a `kid` in the request is the key Fireblocks was signing with. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server. Use `rotate_key` for a routine rotation, which keeps the replaced key published for 30 days.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Revoke a signing key of OAuth credentials
+         * @param {WebhooksV2ApiRevokeWebhookOauthKeyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        revokeWebhookOauthKey(requestParameters: WebhooksV2ApiRevokeWebhookOauthKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<RevokeWebhookOauthKeyResponse> {
+            return localVarFp.revokeWebhookOauthKey(requestParameters.webhookOauthId, requestParameters.revokeWebhookOauthKeyRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Switches the OAuth credentials to their successor key and generates a new successor, for credentials using `private_key_jwt`. Takes no body. The new signing key is one your authorization server already holds, since the successor is published from the start, so the switch causes no outage.  The key replaced is no longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by `kid`. The credentials can hold at most 5 keys in their signing algorithm at once, counting the active key, its successor and those rotated out; at that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once — after a leak — use `revoke_key` instead.  Returns the `kid` of the key rotated out. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server, before the next rotation.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Rotate the signing key of OAuth credentials
+         * @param {WebhooksV2ApiRotateWebhookOauthKeyRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        rotateWebhookOauthKey(requestParameters: WebhooksV2ApiRotateWebhookOauthKeyRequest, options?: RawAxiosRequestConfig): AxiosPromise<RotateWebhookOauthKeyResponse> {
+            return localVarFp.rotateWebhookOauthKey(requestParameters.webhookOauthId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
          * @summary Update webhook
          * @param {WebhooksV2ApiUpdateWebhookRequest} requestParameters Request parameters.
@@ -1852,6 +2310,16 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
          */
         updateWebhook(requestParameters: WebhooksV2ApiUpdateWebhookRequest, options?: RawAxiosRequestConfig): AxiosPromise<Webhook> {
             return localVarFp.updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Updates only the fields present in the request; anything omitted is left as it is. `headers` is merged name by name rather than replaced: a header sent with a value is added or overwritten, a header sent as `null` is deleted, and a header you omit is left alone. The change applies to every webhook and OAuth credential set that uses the set.  A change that would leave the set with no headers is refused with a `400` — delete the set instead. Where Fireblocks sends its own `Authorization` header, a custom `Authorization` header is not sent: on a webhook that has OAuth credentials attached (the OAuth bearer token), and on the token request of OAuth credentials that use `client_secret_basic`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * @summary Update a custom headers set
+         * @param {WebhooksV2ApiUpdateWebhookCustomHeadersRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updateWebhookCustomHeaders(requestParameters: WebhooksV2ApiUpdateWebhookCustomHeadersRequest, options?: RawAxiosRequestConfig): AxiosPromise<WebhookCustomHeadersSet> {
+            return localVarFp.updateWebhookCustomHeaders(requestParameters.updateWebhookCustomHeadersRequest, requestParameters.webhookCustomHeadersId, options).then((request) => request(axios, basePath));
         },
         /**
          * Renames a configuration, replaces its certificate, or both. Only the fields present in the request are changed; anything omitted is left as it is, and a request with neither field is rejected with a `400`.  Replacing `signedCert` switches every webhook and OAuth credentials set using this configuration over to the new certificate in one write, and the private key it was issued for is re-derived from the certificate. A replacement that was not issued for a private key this workspace holds is rejected with a `400`.  Sending `name: null` removes the label.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
@@ -1864,7 +2332,7 @@ export const WebhooksV2ApiFactory = function (configuration?: Configuration, bas
             return localVarFp.updateWebhookMtlsConfig(requestParameters.updateWebhookMtlsConfigRequest, requestParameters.webhookMtlsId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+         * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims` and `customBodyParams` are merged key by key rather than replaced: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the two to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` and `webhookCustomHeadersId` are scalars rather than maps, so `null` there does remove them. `webhookCustomHeadersId` points the credentials at a set of extra token request headers from `/v1/webhooks_settings/custom_headers`; under `client_secret_basic` Fireblocks sends its own `Authorization` header with the credentials, so a custom `Authorization` header in the set is not sent.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
          * @summary Update OAuth credentials
          * @param {WebhooksV2ApiUpdateWebhookOauthRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1893,6 +2361,27 @@ export interface WebhooksV2ApiCreateWebhookRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof WebhooksV2ApiCreateWebhook
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createWebhookCustomHeaders operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiCreateWebhookCustomHeadersRequest
+ */
+export interface WebhooksV2ApiCreateWebhookCustomHeadersRequest {
+    /**
+     * 
+     * @type {CreateWebhookCustomHeadersRequest}
+     * @memberof WebhooksV2ApiCreateWebhookCustomHeaders
+     */
+    readonly createWebhookCustomHeadersRequest: CreateWebhookCustomHeadersRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiCreateWebhookCustomHeaders
      */
     readonly idempotencyKey?: string
 }
@@ -1951,6 +2440,27 @@ export interface WebhooksV2ApiDeleteWebhookRequest {
      * @memberof WebhooksV2ApiDeleteWebhook
      */
     readonly webhookId: string
+}
+
+/**
+ * Request parameters for deleteWebhookCustomHeaders operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiDeleteWebhookCustomHeadersRequest
+ */
+export interface WebhooksV2ApiDeleteWebhookCustomHeadersRequest {
+    /**
+     * The unique identifier of the custom headers set
+     * @type {string}
+     * @memberof WebhooksV2ApiDeleteWebhookCustomHeaders
+     */
+    readonly webhookCustomHeadersId: string
+
+    /**
+     * Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still uses the set.
+     * @type {boolean}
+     * @memberof WebhooksV2ApiDeleteWebhookCustomHeaders
+     */
+    readonly forceDelete?: boolean
 }
 
 /**
@@ -2227,6 +2737,20 @@ export interface WebhooksV2ApiGetWebhookRequest {
 }
 
 /**
+ * Request parameters for getWebhookCustomHeaders operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiGetWebhookCustomHeadersRequest
+ */
+export interface WebhooksV2ApiGetWebhookCustomHeadersRequest {
+    /**
+     * The unique identifier of the custom headers set
+     * @type {string}
+     * @memberof WebhooksV2ApiGetWebhookCustomHeaders
+     */
+    readonly webhookCustomHeadersId: string
+}
+
+/**
  * Request parameters for getWebhookMtlsConfig operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiGetWebhookMtlsConfigRequest
@@ -2409,6 +2933,55 @@ export interface WebhooksV2ApiResendNotificationsByResourceIdRequest {
 }
 
 /**
+ * Request parameters for revokeWebhookOauthKey operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiRevokeWebhookOauthKeyRequest
+ */
+export interface WebhooksV2ApiRevokeWebhookOauthKeyRequest {
+    /**
+     * The unique identifier of the OAuth credentials
+     * @type {string}
+     * @memberof WebhooksV2ApiRevokeWebhookOauthKey
+     */
+    readonly webhookOauthId: string
+
+    /**
+     * 
+     * @type {RevokeWebhookOauthKeyRequest}
+     * @memberof WebhooksV2ApiRevokeWebhookOauthKey
+     */
+    readonly revokeWebhookOauthKeyRequest?: RevokeWebhookOauthKeyRequest
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiRevokeWebhookOauthKey
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for rotateWebhookOauthKey operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiRotateWebhookOauthKeyRequest
+ */
+export interface WebhooksV2ApiRotateWebhookOauthKeyRequest {
+    /**
+     * The unique identifier of the OAuth credentials
+     * @type {string}
+     * @memberof WebhooksV2ApiRotateWebhookOauthKey
+     */
+    readonly webhookOauthId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof WebhooksV2ApiRotateWebhookOauthKey
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * Request parameters for updateWebhook operation in WebhooksV2Api.
  * @export
  * @interface WebhooksV2ApiUpdateWebhookRequest
@@ -2427,6 +3000,27 @@ export interface WebhooksV2ApiUpdateWebhookRequest {
      * @memberof WebhooksV2ApiUpdateWebhook
      */
     readonly webhookId: string
+}
+
+/**
+ * Request parameters for updateWebhookCustomHeaders operation in WebhooksV2Api.
+ * @export
+ * @interface WebhooksV2ApiUpdateWebhookCustomHeadersRequest
+ */
+export interface WebhooksV2ApiUpdateWebhookCustomHeadersRequest {
+    /**
+     * 
+     * @type {UpdateWebhookCustomHeadersRequest}
+     * @memberof WebhooksV2ApiUpdateWebhookCustomHeaders
+     */
+    readonly updateWebhookCustomHeadersRequest: UpdateWebhookCustomHeadersRequest
+
+    /**
+     * The unique identifier of the custom headers set
+     * @type {string}
+     * @memberof WebhooksV2ApiUpdateWebhookCustomHeaders
+     */
+    readonly webhookCustomHeadersId: string
 }
 
 /**
@@ -2491,6 +3085,18 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the returned id as that webhook\'s `webhookCustomHeadersId`, to send the headers with that webhook\'s notifications, or to OAuth credentials as their `webhookCustomHeadersId`, to send them on the token request to your authorization server. Several webhooks and OAuth credentials may share one set, so changing it covers all of them at once. Header values are write-only and are never returned.  One set of rules applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a string or an array of strings (one header line per element), except `Cookie` and `Authorization`, which take a single string. Where Fireblocks sends its own `Authorization` header (an OAuth bearer token on a delivery, `client_secret_basic` on a token request), a custom `Authorization` header is not sent. Attaching a set checks only that it exists in your workspace.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Create a custom headers set
+     * @param {WebhooksV2ApiCreateWebhookCustomHeadersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public createWebhookCustomHeaders(requestParameters: WebhooksV2ApiCreateWebhookCustomHeadersRequest) {
+        return WebhooksV2ApiFp(this.configuration).createWebhookCustomHeaders(requestParameters.createWebhookCustomHeadersRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Stores a certificate signed against the CSR from `GET /v1/webhooks_settings/mtls_csr` and returns its id, which is then set as `webhookMtlsId` on a webhook or on OAuth credentials. The private key the certificate was issued for is derived from the certificate, so it is never named by the caller.  Re-uploading a certificate already stored returns the existing id rather than creating a second configuration, so several webhooks and OAuth credentials can share one certificate.  A certificate that was not issued for a private key this workspace holds is rejected with a `400`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Create an mTLS configuration
      * @param {WebhooksV2ApiCreateWebhookMtlsConfigRequest} requestParameters Request parameters.
@@ -2503,7 +3109,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  With `authMethod` `private_key_jwt` no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing key and its successor, and keeps the private halves. The public halves are published at the `jwksUri` returned with the credentials; register that URL as the client\'s `jwks_uri` on your authorization server.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Create OAuth credentials
      * @param {WebhooksV2ApiCreateWebhookOauthRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -2524,6 +3130,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public deleteWebhook(requestParameters: WebhooksV2ApiDeleteWebhookRequest) {
         return WebhooksV2ApiFp(this.configuration).deleteWebhook(requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Deletes a custom headers set. By default the delete is refused while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the webhooks and OAuth credentials using it. This protects a shared set from being removed out from under the things that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything using the set — it clears each webhook\'s and each OAuth credential set\'s `webhookCustomHeadersId`, it does **not** delete the webhook or the credentials — then deletes the set and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. A detached webhook stops sending these headers with its notifications, and detached OAuth credentials stop sending them on the token request.  When nothing uses the set the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Delete a custom headers set
+     * @param {WebhooksV2ApiDeleteWebhookCustomHeadersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public deleteWebhookCustomHeaders(requestParameters: WebhooksV2ApiDeleteWebhookCustomHeadersRequest) {
+        return WebhooksV2ApiFp(this.configuration).deleteWebhookCustomHeaders(requestParameters.webhookCustomHeadersId, requestParameters.forceDelete).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2647,6 +3265,29 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Retrieve a custom headers set by its id. Header values are never returned, only the header names. 
+     * @summary Get a custom headers set by id
+     * @param {WebhooksV2ApiGetWebhookCustomHeadersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getWebhookCustomHeaders(requestParameters: WebhooksV2ApiGetWebhookCustomHeadersRequest) {
+        return WebhooksV2ApiFp(this.configuration).getWebhookCustomHeaders(requestParameters.webhookCustomHeadersId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Lists every custom headers set for the workspace. Header values are never returned, only the header names. 
+     * @summary Get all custom headers sets
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public getWebhookCustomHeadersList() {
+        return WebhooksV2ApiFp(this.configuration).getWebhookCustomHeadersList().then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Retrieve one stored mTLS configuration by its id. 
      * @summary Get an mTLS configuration by id
      * @param {WebhooksV2ApiGetWebhookMtlsConfigRequest} requestParameters Request parameters.
@@ -2754,6 +3395,30 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
+     * Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out of the published set immediately rather than being kept for 30 days. Revoking never causes an outage.  Without a `kid`, revokes the key Fireblocks is signing with: signing switches to the successor, which your authorization server already holds, and a new successor is generated. A cached access token is discarded, so the next delivery fetches a new one.  With the successor\'s `kid`, deletes the successor and generates a new one; signing is unchanged. With the `kid` of a key rotated out by `rotate_key` and still published, deletes that key, and a cached access token is discarded as well. Keys left behind by a `signingAlg` change drop out of the published set after 5 minutes but are kept for 30 days, and can be revoked by `kid` until then. Credentials using `private_key_jwt` always keep a key to sign with.  On credentials that no longer use `private_key_jwt`, whose keys stay published for 30 days after the switch, a `kid` is required: that key is deleted and nothing is generated. The last key they hold can be revoked too, leaving an empty set.  Returns the `kid` of the key revoked, which without a `kid` in the request is the key Fireblocks was signing with. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server. Use `rotate_key` for a routine rotation, which keeps the replaced key published for 30 days.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Revoke a signing key of OAuth credentials
+     * @param {WebhooksV2ApiRevokeWebhookOauthKeyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public revokeWebhookOauthKey(requestParameters: WebhooksV2ApiRevokeWebhookOauthKeyRequest) {
+        return WebhooksV2ApiFp(this.configuration).revokeWebhookOauthKey(requestParameters.webhookOauthId, requestParameters.revokeWebhookOauthKeyRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Switches the OAuth credentials to their successor key and generates a new successor, for credentials using `private_key_jwt`. Takes no body. The new signing key is one your authorization server already holds, since the successor is published from the start, so the switch causes no outage.  The key replaced is no longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by `kid`. The credentials can hold at most 5 keys in their signing algorithm at once, counting the active key, its successor and those rotated out; at that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once — after a leak — use `revoke_key` instead.  Returns the `kid` of the key rotated out. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server, before the next rotation.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Rotate the signing key of OAuth credentials
+     * @param {WebhooksV2ApiRotateWebhookOauthKeyRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public rotateWebhookOauthKey(requestParameters: WebhooksV2ApiRotateWebhookOauthKeyRequest) {
+        return WebhooksV2ApiFp(this.configuration).rotateWebhookOauthKey(requestParameters.webhookOauthId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Update a webhook by its id  Endpoint Permission: Owner, Admin, Non-Signing Admin. 
      * @summary Update webhook
      * @param {WebhooksV2ApiUpdateWebhookRequest} requestParameters Request parameters.
@@ -2763,6 +3428,18 @@ export class WebhooksV2Api extends BaseAPI {
      */
     public updateWebhook(requestParameters: WebhooksV2ApiUpdateWebhookRequest) {
         return WebhooksV2ApiFp(this.configuration).updateWebhook(requestParameters.updateWebhookRequest, requestParameters.webhookId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Updates only the fields present in the request; anything omitted is left as it is. `headers` is merged name by name rather than replaced: a header sent with a value is added or overwritten, a header sent as `null` is deleted, and a header you omit is left alone. The change applies to every webhook and OAuth credential set that uses the set.  A change that would leave the set with no headers is refused with a `400` — delete the set instead. Where Fireblocks sends its own `Authorization` header, a custom `Authorization` header is not sent: on a webhook that has OAuth credentials attached (the OAuth bearer token), and on the token request of OAuth credentials that use `client_secret_basic`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * @summary Update a custom headers set
+     * @param {WebhooksV2ApiUpdateWebhookCustomHeadersRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhooksV2Api
+     */
+    public updateWebhookCustomHeaders(requestParameters: WebhooksV2ApiUpdateWebhookCustomHeadersRequest) {
+        return WebhooksV2ApiFp(this.configuration).updateWebhookCustomHeaders(requestParameters.updateWebhookCustomHeadersRequest, requestParameters.webhookCustomHeadersId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -2778,7 +3455,7 @@ export class WebhooksV2Api extends BaseAPI {
     }
 
     /**
-     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+     * Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims` and `customBodyParams` are merged key by key rather than replaced: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the two to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` and `webhookCustomHeadersId` are scalars rather than maps, so `null` there does remove them. `webhookCustomHeadersId` points the credentials at a set of extra token request headers from `/v1/webhooks_settings/custom_headers`; under `client_secret_basic` Fireblocks sends its own `Authorization` header with the credentials, so a custom `Authorization` header in the set is not sent.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
      * @summary Update OAuth credentials
      * @param {WebhooksV2ApiUpdateWebhookOauthRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
