@@ -18,13 +18,13 @@
 import { WebhookOauthCustomBodyParams } from './webhook-oauth-custom-body-params';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOauthCustomHeaders } from './webhook-oauth-custom-headers';
+import { WebhookOauthCustomJwtClaims } from './webhook-oauth-custom-jwt-claims';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOauthCustomJwtClaims } from './webhook-oauth-custom-jwt-claims';
+import { WebhookOauthSigningAlg } from './webhook-oauth-signing-alg';
 
 /**
- * A new reusable OAuth 2.0 client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once.
+ * A new reusable OAuth 2.0 client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. With `private_key_jwt` there is no client secret: Fireblocks generates the key pairs itself and publishes their public halves at the `jwksUri` it returns.
  * @export
  * @interface CreateWebhookOauthRequest
  */
@@ -42,23 +42,29 @@ export interface CreateWebhookOauthRequest {
      */
     'clientId': string;
     /**
-     * OAuth client secret. Write-only — never returned. Limited to 480 bytes UTF-8 encoded. With `client_secret_jwt` it signs the assertion rather than being sent.
-     * @type {string}
-     * @memberof CreateWebhookOauthRequest
-     */
-    'clientSecret': string;
-    /**
      * Token endpoint URL. HTTPS on port 443 only, and the host must resolve publicly — localhost and private, link-local or loopback addresses are rejected.
      * @type {string}
      * @memberof CreateWebhookOauthRequest
      */
     'url': string;
     /**
-     * How the client credentials reach the token endpoint. `client_secret_basic` uses an HTTP Basic header, `client_secret_post` uses form fields in the body, and `client_secret_jwt` sends a JWT assertion signed with the secret, so the secret itself is never transmitted. Defaults to `client_secret_basic`.
+     * OAuth client secret. Write-only — never returned. Limited to 480 bytes UTF-8 encoded. With `client_secret_jwt` it signs the assertion rather than being sent. Required with `client_secret_basic`, `client_secret_post` and `client_secret_jwt` (`400` if missing). Must not be sent with `private_key_jwt`, which uses a Fireblocks-held key instead (`400` otherwise).
+     * @type {string}
+     * @memberof CreateWebhookOauthRequest
+     */
+    'clientSecret'?: string;
+    /**
+     * How the client credentials reach the token endpoint. `client_secret_basic` uses an HTTP Basic header, `client_secret_post` uses form fields in the body, and `client_secret_jwt` sends a JWT assertion signed with the secret, so the secret itself is never transmitted. `private_key_jwt` sends a JWT assertion signed with a private key Fireblocks generates and holds for these credentials, so there is no shared secret at all; your authorization server verifies it with the public keys at the `jwksUri` returned with the credentials. Creating credentials with `private_key_jwt` generates two key pairs, the signing key and its successor. Defaults to `client_secret_basic`.
      * @type {string}
      * @memberof CreateWebhookOauthRequest
      */
     'authMethod'?: string;
+    /**
+     * Algorithm of the key pairs generated for `private_key_jwt`, and of the assertions signed with them. Defaults to `RS256` when `authMethod` is `private_key_jwt`, where `null` is refused (`400`); omit it instead. Only valid with `private_key_jwt`: with any other method a value is a `400`, and `null`, meaning no algorithm, is accepted.
+     * @type {WebhookOauthSigningAlg}
+     * @memberof CreateWebhookOauthRequest
+     */
+    'signingAlg'?: WebhookOauthSigningAlg | null;
     /**
      * 
      * @type {WebhookOauthCustomJwtClaims}
@@ -72,16 +78,18 @@ export interface CreateWebhookOauthRequest {
      */
     'customBodyParams'?: WebhookOauthCustomBodyParams | null;
     /**
-     * 
-     * @type {WebhookOauthCustomHeaders}
+     * The id of the set of custom HTTP headers added to **the token request to your authorization server** — not to the webhook delivery — from `/v1/webhooks_settings/custom_headers`. A gateway API key is the usual case. The set can be shared with webhooks and with other credentials, and the same rules apply as for a webhook delivery. A value is a string, or an array of strings sent as one header line per element (`Cookie` and `Authorization` accept only a string), the reserved header names — the same as for a webhook delivery, including `Host`, `Content-Type` and `Content-Length` — are set by Fireblocks and cannot be overridden, and `Authorization` is sent with `client_secret_post` or `client_secret_jwt`, which send the credentials in the body — useful when your token endpoint sits behind a gateway — but is not sent with `client_secret_basic`, where Fireblocks sends its own `Authorization` header with the credentials. Replaces the inline `customHeaders` field, which is now refused with a `400`, so use `webhookCustomHeadersId`. Omit, or send `null`, for a token request with no extra headers. An unknown id, or one belonging to another workspace, is a `404`.
+     * @type {string}
      * @memberof CreateWebhookOauthRequest
      */
-    'customHeaders'?: WebhookOauthCustomHeaders | null;
+    'webhookCustomHeadersId'?: string | null;
     /**
-     * The id of the mTLS configuration presented to the token endpoint, from `/v1/webhooks_settings/mtls`. It can be the same configuration a webhook uses, so one certificate, signed from `GET /v1/webhooks_settings/mtls_csr`, serves both the token endpoint and the receiver. Omit, or send `null`, for a token request without mTLS. Requires the mTLS feature to be enabled for the workspace (`403` otherwise), a configuration of this workspace (`404` otherwise), and one linked to a private key (`400` otherwise).
+     * The id of the mTLS configuration presented to the token endpoint, from `/v1/webhooks_settings/mtls`. It can be the same configuration a webhook uses, so one certificate, signed from `GET /v1/webhooks_settings/mtls_csr`, serves both the token endpoint and the receiver. Omit, or send `null`, for a token request without mTLS. Requires a configuration of this workspace (`404` otherwise) that is linked to a private key (`400` otherwise).
      * @type {string}
      * @memberof CreateWebhookOauthRequest
      */
     'webhookMtlsId'?: string | null;
 }
+
+
 

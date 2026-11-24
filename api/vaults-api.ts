@@ -47,6 +47,10 @@ import { CreateMultipleDepositAddressesRequest } from '../models';
 // @ts-ignore
 import { CreateMultipleVaultAccountsJobStatus } from '../models';
 // @ts-ignore
+import { CreateOmnibusAddressesRequest } from '../models';
+// @ts-ignore
+import { CreateOmnibusAddressesResponse } from '../models';
+// @ts-ignore
 import { CreateVaultAccountRequest } from '../models';
 // @ts-ignore
 import { CreateVaultAssetResponse } from '../models';
@@ -61,15 +65,23 @@ import { GetMaxSpendableAmountResponse } from '../models';
 // @ts-ignore
 import { GetUnspentInputsResponse } from '../models';
 // @ts-ignore
+import { GetVaultAccountAssetAddressesResponse } from '../models';
+// @ts-ignore
+import { GetVaultAccountsResponse } from '../models';
+// @ts-ignore
 import { GetVaultAssetsResponse } from '../models';
 // @ts-ignore
 import { JobCreated } from '../models';
+// @ts-ignore
+import { ListOmnibusAddressesResponse } from '../models';
 // @ts-ignore
 import { PaginatedAddressResponse } from '../models';
 // @ts-ignore
 import { PaginatedAssetWalletResponse } from '../models';
 // @ts-ignore
 import { PublicKeyInformation } from '../models';
+// @ts-ignore
+import { RegisterTempoOmnibusResponse } from '../models';
 // @ts-ignore
 import { RenameVaultAccountResponse } from '../models';
 // @ts-ignore
@@ -159,7 +171,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Activate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -293,7 +305,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
          * @summary Bulk creation of new vault accounts
          * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -374,6 +386,59 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createMultipleDepositAddressesRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates a batch of deposit addresses for the omnibus account of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Create omnibus deposit addresses
+         * @param {CreateOmnibusAddressesRequest} createOmnibusAddressesRequest 
+         * @param {string} vaultAccountId The ID of the omnibus vault account
+         * @param {CreateOmnibusAddressesProtocolEnum} protocol The omnibus protocol
+         * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createOmnibusAddresses: async (createOmnibusAddressesRequest: CreateOmnibusAddressesRequest, vaultAccountId: string, protocol: CreateOmnibusAddressesProtocolEnum, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('createOmnibusAddresses', 'createOmnibusAddressesRequest', createOmnibusAddressesRequest)
+            assertParamExistsAndNotEmpty('createOmnibusAddresses', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('createOmnibusAddresses', 'protocol', protocol)
+            assertParamExistsAndNotEmpty('createOmnibusAddresses', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses/bulk`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"protocol"}}`, encodeURIComponent(String(protocol)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'createOmnibusAddresses';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createOmnibusAddressesRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -528,7 +593,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Deactivate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -570,7 +635,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Stop a USDC Gateway deposit automation\'s schedule
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} automationId The ID of the deposit automation, returned when it was created or read
@@ -863,6 +928,69 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * Returns a page of the deposit addresses of the omnibus account of the given vault account, protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List omnibus deposit addresses
+         * @param {string} vaultAccountId The ID of the omnibus vault account
+         * @param {GetOmnibusAddressesProtocolEnum} protocol The omnibus protocol
+         * @param {string} assetId The ID of the asset
+         * @param {number} [fromIndex] Return only addresses with an index greater than or equal to this value.
+         * @param {string} [search] Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored.
+         * @param {string} [pageCursor] The cursor returned in &#x60;next&#x60; of the previous page. Omit for the first page.
+         * @param {number} [pageSize] The number of addresses per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOmnibusAddresses: async (vaultAccountId: string, protocol: GetOmnibusAddressesProtocolEnum, assetId: string, fromIndex?: number, search?: string, pageCursor?: string, pageSize?: number, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getOmnibusAddresses', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getOmnibusAddresses', 'protocol', protocol)
+            assertParamExistsAndNotEmpty('getOmnibusAddresses', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/omnibus/{protocol}/{assetId}/addresses`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"protocol"}}`, encodeURIComponent(String(protocol)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getOmnibusAddresses';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (fromIndex !== undefined) {
+                localVarQueryParameter['fromIndex'] = fromIndex;
+            }
+
+            if (search !== undefined) {
+                localVarQueryParameter['search'] = search;
+            }
+
+            if (pageCursor !== undefined) {
+                localVarQueryParameter['pageCursor'] = pageCursor;
+            }
+
+            if (pageSize !== undefined) {
+                localVarQueryParameter['pageSize'] = pageSize;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault accounts (Paginated)
          * @param {string} [namePrefix] 
@@ -1094,7 +1222,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway deposit automations configured for the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Read the USDC Gateway deposit automations for a vault account
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -1131,7 +1259,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway wallet information associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get USDC Gateway wallet info
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -1245,6 +1373,47 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
+         * DEPRECATED!  - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get asset addresses
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getVaultAccountAssetAddresses: async (vaultAccountId: string, assetId: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('getVaultAccountAssetAddresses', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('getVaultAccountAssetAddresses', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/{assetId}/addresses`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getVaultAccountAssetAddresses';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
          * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get addresses (Paginated)
          * @param {string} vaultAccountId The ID of the vault account to return
@@ -1286,6 +1455,61 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (after !== undefined) {
                 localVarQueryParameter['after'] = after;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * DEPRECATED - Please use `/vault/accounts_paged` endpoint instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get vault accounts
+         * @param {string} [namePrefix] 
+         * @param {string} [nameSuffix] 
+         * @param {number} [minAmountThreshold] 
+         * @param {string} [assetId] 
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getVaultAccounts: async (namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/vault/accounts`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'getVaultAccounts';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (namePrefix !== undefined) {
+                localVarQueryParameter['namePrefix'] = namePrefix;
+            }
+
+            if (nameSuffix !== undefined) {
+                localVarQueryParameter['nameSuffix'] = nameSuffix;
+            }
+
+            if (minAmountThreshold !== undefined) {
+                localVarQueryParameter['minAmountThreshold'] = minAmountThreshold;
+            }
+
+            if (assetId !== undefined) {
+                localVarQueryParameter['assetId'] = assetId;
             }
 
 
@@ -1423,7 +1647,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. 
          * @summary Look up a vault account by blockchain address
          * @param {string} address The blockchain address to resolve.
          * @param {*} [options] Override http request option.
@@ -1449,6 +1673,51 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
 
             if (address !== undefined) {
                 localVarQueryParameter['address'] = address;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Register a Tempo omnibus wallet
+         * @param {string} vaultAccountId The ID of the omnibus vault account
+         * @param {string} assetId The Tempo network asset to register for the vault account.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerTempoOmnibusWallet: async (vaultAccountId: string, assetId: string, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExistsAndNotEmpty('registerTempoOmnibusWallet', 'vaultAccountId', vaultAccountId)
+            assertParamExistsAndNotEmpty('registerTempoOmnibusWallet', 'assetId', assetId)
+            const localVarPath = `/vault/accounts/{vaultAccountId}/omnibus/TEMPO/{assetId}/register`
+                .replace(`{${"vaultAccountId"}}`, encodeURIComponent(String(vaultAccountId)))
+                .replace(`{${"assetId"}}`, encodeURIComponent(String(assetId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'registerTempoOmnibusWallet';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
             }
 
 
@@ -1516,7 +1785,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Set up a USDC Gateway deposit automation for a vault account
          * @param {AutomationSettingsRequest} automationSettingsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -1699,7 +1968,7 @@ export const VaultsApiAxiosParamCreator = function (configuration?: Configuratio
             };
         },
         /**
-         * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Changes an existing USDC Gateway deposit automation for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Change a USDC Gateway deposit automation
          * @param {UpdateAutomationSettingsRequest} updateAutomationSettingsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -1919,7 +2188,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Activate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1963,7 +2232,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
          * @summary Bulk creation of new vault accounts
          * @param {CreateMultipleAccountsRequest} createMultipleAccountsRequest 
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -1988,6 +2257,23 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createMultipleDepositAddresses(createMultipleDepositAddressesRequest, idempotencyKey, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.createMultipleDepositAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Creates a batch of deposit addresses for the omnibus account of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Create omnibus deposit addresses
+         * @param {CreateOmnibusAddressesRequest} createOmnibusAddressesRequest 
+         * @param {string} vaultAccountId The ID of the omnibus vault account
+         * @param {CreateOmnibusAddressesProtocolEnum} protocol The omnibus protocol
+         * @param {string} assetId The ID of the asset
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createOmnibusAddresses(createOmnibusAddressesRequest: CreateOmnibusAddressesRequest, vaultAccountId: string, protocol: CreateOmnibusAddressesProtocolEnum, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateOmnibusAddressesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createOmnibusAddresses(createOmnibusAddressesRequest, vaultAccountId, protocol, assetId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.createOmnibusAddresses']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -2038,7 +2324,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Deactivate a USDC Gateway wallet
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
@@ -2052,7 +2338,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Stop a USDC Gateway deposit automation\'s schedule
          * @param {string} vaultAccountId The ID of the vault account
          * @param {string} automationId The ID of the deposit automation, returned when it was created or read
@@ -2145,6 +2431,25 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * Returns a page of the deposit addresses of the omnibus account of the given vault account, protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List omnibus deposit addresses
+         * @param {string} vaultAccountId The ID of the omnibus vault account
+         * @param {GetOmnibusAddressesProtocolEnum} protocol The omnibus protocol
+         * @param {string} assetId The ID of the asset
+         * @param {number} [fromIndex] Return only addresses with an index greater than or equal to this value.
+         * @param {string} [search] Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored.
+         * @param {string} [pageCursor] The cursor returned in &#x60;next&#x60; of the previous page. Omit for the first page.
+         * @param {number} [pageSize] The number of addresses per page.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getOmnibusAddresses(vaultAccountId: string, protocol: GetOmnibusAddressesProtocolEnum, assetId: string, fromIndex?: number, search?: string, pageCursor?: string, pageSize?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ListOmnibusAddressesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getOmnibusAddresses(vaultAccountId, protocol, assetId, fromIndex, search, pageCursor, pageSize, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getOmnibusAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault accounts (Paginated)
          * @param {string} [namePrefix] 
@@ -2214,7 +2519,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway deposit automations configured for the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Read the USDC Gateway deposit automations for a vault account
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -2227,7 +2532,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway wallet information associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get USDC Gateway wallet info
          * @param {string} vaultAccountId The ID of the vault account
          * @param {*} [options] Override http request option.
@@ -2267,6 +2572,21 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
+         * DEPRECATED!  - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get asset addresses
+         * @param {string} vaultAccountId The ID of the vault account to return
+         * @param {string} assetId The ID of the asset
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        async getVaultAccountAssetAddresses(vaultAccountId: string, assetId: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetVaultAccountAssetAddressesResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddresses(vaultAccountId, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAssetAddresses']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
          * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get addresses (Paginated)
          * @param {string} vaultAccountId The ID of the vault account to return
@@ -2281,6 +2601,23 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccountAssetAddressesPaginated(vaultAccountId, assetId, limit, before, after, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.getVaultAccountAssetAddressesPaginated']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * DEPRECATED - Please use `/vault/accounts_paged` endpoint instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get vault accounts
+         * @param {string} [namePrefix] 
+         * @param {string} [nameSuffix] 
+         * @param {number} [minAmountThreshold] 
+         * @param {string} [assetId] 
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        async getVaultAccounts(namePrefix?: string, nameSuffix?: string, minAmountThreshold?: number, assetId?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GetVaultAccountsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getVaultAccounts(namePrefix, nameSuffix, minAmountThreshold, assetId, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.getVaultAccounts']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -2325,7 +2662,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. 
          * @summary Look up a vault account by blockchain address
          * @param {string} address The blockchain address to resolve.
          * @param {*} [options] Override http request option.
@@ -2335,6 +2672,21 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             const localVarAxiosArgs = await localVarAxiosParamCreator.lookupVaultByAddress(address, options);
             const index = configuration?.serverIndex ?? 0;
             const operationBasePath = operationServerMap['VaultsApi.lookupVaultByAddress']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
+        /**
+         * Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Register a Tempo omnibus wallet
+         * @param {string} vaultAccountId The ID of the omnibus vault account
+         * @param {string} assetId The Tempo network asset to register for the vault account.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async registerTempoOmnibusWallet(vaultAccountId: string, assetId: string, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RegisterTempoOmnibusResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.registerTempoOmnibusWallet(vaultAccountId, assetId, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['VaultsApi.registerTempoOmnibusWallet']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
@@ -2355,7 +2707,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Set up a USDC Gateway deposit automation for a vault account
          * @param {AutomationSettingsRequest} automationSettingsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -2414,7 +2766,7 @@ export const VaultsApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Changes an existing USDC Gateway deposit automation for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Change a USDC Gateway deposit automation
          * @param {UpdateAutomationSettingsRequest} updateAutomationSettingsRequest 
          * @param {string} vaultAccountId The ID of the vault account
@@ -2497,7 +2849,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.activateAssetForVaultAccount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, requestParameters.blockchainWalletType, options).then((request) => request(axios, basePath));
         },
         /**
-         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Activate a USDC Gateway wallet
          * @param {VaultsApiActivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2527,7 +2879,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createLegacyAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+         * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
          * @summary Bulk creation of new vault accounts
          * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2545,6 +2897,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         createMultipleDepositAddresses(requestParameters: VaultsApiCreateMultipleDepositAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<JobCreated> {
             return localVarFp.createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates a batch of deposit addresses for the omnibus account of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Create omnibus deposit addresses
+         * @param {VaultsApiCreateOmnibusAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createOmnibusAddresses(requestParameters: VaultsApiCreateOmnibusAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<CreateOmnibusAddressesResponse> {
+            return localVarFp.createOmnibusAddresses(requestParameters.createOmnibusAddressesRequest, requestParameters.vaultAccountId, requestParameters.protocol, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Creates a new vault account with the requested name. **Note: ** Vault account names should consist of ASCII characters only. Learn more about Fireblocks Vault Accounts in the following [guide](https://developers.fireblocks.com/reference/create-vault-account). Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
@@ -2577,7 +2939,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.createVaultAccountAssetAddress(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.createAddressRequest, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Deactivate a USDC Gateway wallet
          * @param {VaultsApiDeactivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2587,7 +2949,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.deactivateUsdcGatewayWalletBeta(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Stop a USDC Gateway deposit automation\'s schedule
          * @param {VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2647,6 +3009,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getMaxSpendableAmount(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.manualSignging, requestParameters.includeAllLabels, requestParameters.includeAnyLabels, requestParameters.excludeAnyLabels, requestParameters.address, requestParameters.minAmount, requestParameters.maxAmount, options).then((request) => request(axios, basePath));
         },
         /**
+         * Returns a page of the deposit addresses of the omnibus account of the given vault account, protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary List omnibus deposit addresses
+         * @param {VaultsApiGetOmnibusAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getOmnibusAddresses(requestParameters: VaultsApiGetOmnibusAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<ListOmnibusAddressesResponse> {
+            return localVarFp.getOmnibusAddresses(requestParameters.vaultAccountId, requestParameters.protocol, requestParameters.assetId, requestParameters.fromIndex, requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get vault accounts (Paginated)
          * @param {VaultsApiGetPagedVaultAccountsRequest} requestParameters Request parameters.
@@ -2687,7 +3059,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getUnspentInputs(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway deposit automations configured for the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Read the USDC Gateway deposit automations for a vault account
          * @param {VaultsApiGetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2697,7 +3069,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getUsdcGatewayDepositAutomationBeta(requestParameters.vaultAccountId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * Returns the USDC Gateway wallet information associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get USDC Gateway wallet info
          * @param {VaultsApiGetUsdcGatewayWalletInfoBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2727,6 +3099,17 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.getVaultAccountAsset(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
+         * DEPRECATED!  - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get asset addresses
+         * @param {VaultsApiGetVaultAccountAssetAddressesRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest, options?: RawAxiosRequestConfig): AxiosPromise<GetVaultAccountAssetAddressesResponse> {
+            return localVarFp.getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId, options).then((request) => request(axios, basePath));
+        },
+        /**
          * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
          * @summary Get addresses (Paginated)
          * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
@@ -2735,6 +3118,17 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         getVaultAccountAssetAddressesPaginated(requestParameters: VaultsApiGetVaultAccountAssetAddressesPaginatedRequest, options?: RawAxiosRequestConfig): AxiosPromise<PaginatedAddressResponse> {
             return localVarFp.getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * DEPRECATED - Please use `/vault/accounts_paged` endpoint instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Get vault accounts
+         * @param {VaultsApiGetVaultAccountsRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}, options?: RawAxiosRequestConfig): AxiosPromise<GetVaultAccountsResponse> {
+            return localVarFp.getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId, options).then((request) => request(axios, basePath));
         },
         /**
          * Gets the assets amount summary for all accounts or filtered accounts.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
@@ -2767,7 +3161,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.hideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+         * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. 
          * @summary Look up a vault account by blockchain address
          * @param {VaultsApiLookupVaultByAddressRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2775,6 +3169,16 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
          */
         lookupVaultByAddress(requestParameters: VaultsApiLookupVaultByAddressRequest, options?: RawAxiosRequestConfig): AxiosPromise<AddressReverseLookupResponse> {
             return localVarFp.lookupVaultByAddress(requestParameters.address, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+         * @summary Register a Tempo omnibus wallet
+         * @param {VaultsApiRegisterTempoOmnibusWalletRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        registerTempoOmnibusWallet(requestParameters: VaultsApiRegisterTempoOmnibusWalletRequest, options?: RawAxiosRequestConfig): AxiosPromise<RegisterTempoOmnibusResponse> {
+            return localVarFp.registerTempoOmnibusWallet(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
          * Sets an AML/KYT customer reference ID for a specific address. Endpoint Permission: Admin, Non-Signing Admin.
@@ -2787,7 +3191,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.setCustomerRefIdForAddress(requestParameters.setCustomerRefIdForAddressRequest, requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.addressId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Set up a USDC Gateway deposit automation for a vault account
          * @param {VaultsApiSetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -2827,7 +3231,7 @@ export const VaultsApiFactory = function (configuration?: Configuration, basePat
             return localVarFp.unhideVaultAccount(requestParameters.vaultAccountId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+         * Changes an existing USDC Gateway deposit automation for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
          * @summary Change a USDC Gateway deposit automation
          * @param {VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -3019,6 +3423,48 @@ export interface VaultsApiCreateMultipleDepositAddressesRequest {
      * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
      * @type {string}
      * @memberof VaultsApiCreateMultipleDepositAddresses
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
+ * Request parameters for createOmnibusAddresses operation in VaultsApi.
+ * @export
+ * @interface VaultsApiCreateOmnibusAddressesRequest
+ */
+export interface VaultsApiCreateOmnibusAddressesRequest {
+    /**
+     * 
+     * @type {CreateOmnibusAddressesRequest}
+     * @memberof VaultsApiCreateOmnibusAddresses
+     */
+    readonly createOmnibusAddressesRequest: CreateOmnibusAddressesRequest
+
+    /**
+     * The ID of the omnibus vault account
+     * @type {string}
+     * @memberof VaultsApiCreateOmnibusAddresses
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The omnibus protocol
+     * @type {'EVM' | 'TEMPO'}
+     * @memberof VaultsApiCreateOmnibusAddresses
+     */
+    readonly protocol: CreateOmnibusAddressesProtocolEnum
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof VaultsApiCreateOmnibusAddresses
+     */
+    readonly assetId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiCreateOmnibusAddresses
      */
     readonly idempotencyKey?: string
 }
@@ -3332,6 +3778,62 @@ export interface VaultsApiGetMaxSpendableAmountRequest {
 }
 
 /**
+ * Request parameters for getOmnibusAddresses operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetOmnibusAddressesRequest
+ */
+export interface VaultsApiGetOmnibusAddressesRequest {
+    /**
+     * The ID of the omnibus vault account
+     * @type {string}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The omnibus protocol
+     * @type {'EVM' | 'TEMPO'}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly protocol: GetOmnibusAddressesProtocolEnum
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly assetId: string
+
+    /**
+     * Return only addresses with an index greater than or equal to this value.
+     * @type {number}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly fromIndex?: number
+
+    /**
+     * Return only addresses that start with this value (case-insensitive). Surrounding whitespace is ignored.
+     * @type {string}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly search?: string
+
+    /**
+     * The cursor returned in &#x60;next&#x60; of the previous page. Omit for the first page.
+     * @type {string}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly pageCursor?: string
+
+    /**
+     * The number of addresses per page.
+     * @type {number}
+     * @memberof VaultsApiGetOmnibusAddresses
+     */
+    readonly pageSize?: number
+}
+
+/**
  * Request parameters for getPagedVaultAccounts operation in VaultsApi.
  * @export
  * @interface VaultsApiGetPagedVaultAccountsRequest
@@ -3570,6 +4072,27 @@ export interface VaultsApiGetVaultAccountAssetRequest {
 }
 
 /**
+ * Request parameters for getVaultAccountAssetAddresses operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetVaultAccountAssetAddressesRequest
+ */
+export interface VaultsApiGetVaultAccountAssetAddressesRequest {
+    /**
+     * The ID of the vault account to return
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccountAssetAddresses
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The ID of the asset
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccountAssetAddresses
+     */
+    readonly assetId: string
+}
+
+/**
  * Request parameters for getVaultAccountAssetAddressesPaginated operation in VaultsApi.
  * @export
  * @interface VaultsApiGetVaultAccountAssetAddressesPaginatedRequest
@@ -3609,6 +4132,41 @@ export interface VaultsApiGetVaultAccountAssetAddressesPaginatedRequest {
      * @memberof VaultsApiGetVaultAccountAssetAddressesPaginated
      */
     readonly after?: string
+}
+
+/**
+ * Request parameters for getVaultAccounts operation in VaultsApi.
+ * @export
+ * @interface VaultsApiGetVaultAccountsRequest
+ */
+export interface VaultsApiGetVaultAccountsRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccounts
+     */
+    readonly namePrefix?: string
+
+    /**
+     * 
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccounts
+     */
+    readonly nameSuffix?: string
+
+    /**
+     * 
+     * @type {number}
+     * @memberof VaultsApiGetVaultAccounts
+     */
+    readonly minAmountThreshold?: number
+
+    /**
+     * 
+     * @type {string}
+     * @memberof VaultsApiGetVaultAccounts
+     */
+    readonly assetId?: string
 }
 
 /**
@@ -3679,6 +4237,34 @@ export interface VaultsApiLookupVaultByAddressRequest {
      * @memberof VaultsApiLookupVaultByAddress
      */
     readonly address: string
+}
+
+/**
+ * Request parameters for registerTempoOmnibusWallet operation in VaultsApi.
+ * @export
+ * @interface VaultsApiRegisterTempoOmnibusWalletRequest
+ */
+export interface VaultsApiRegisterTempoOmnibusWalletRequest {
+    /**
+     * The ID of the omnibus vault account
+     * @type {string}
+     * @memberof VaultsApiRegisterTempoOmnibusWallet
+     */
+    readonly vaultAccountId: string
+
+    /**
+     * The Tempo network asset to register for the vault account.
+     * @type {string}
+     * @memberof VaultsApiRegisterTempoOmnibusWallet
+     */
+    readonly assetId: string
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof VaultsApiRegisterTempoOmnibusWallet
+     */
+    readonly idempotencyKey?: string
 }
 
 /**
@@ -3981,7 +4567,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Activates the USDC Gateway wallet associated with the given vault account. If the wallet does not yet exist it is created in an activated state. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Activate a USDC Gateway wallet
      * @param {VaultsApiActivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4017,7 +4603,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - These endpoints are currently in beta and might be subject to changes. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
+     * Create multiple vault accounts by running an async job.       - The HBAR, TON, SUI, TERRA, ALGO, and DOT blockchains are not supported. - Limited to a maximum of 10,000 accounts per operation. - With `vaultType: KEY_LINK`, creates Key Link vault accounts; set `autoAssign: true` to bind them to the workspace\'s signing keys (see `vaultType` and `autoAssign`).  **Endpoint Permissions:** Admin, Non-Signing Admin, Signer, Approver, Editor. 
      * @summary Bulk creation of new vault accounts
      * @param {VaultsApiCreateMultipleAccountsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4038,6 +4624,18 @@ export class VaultsApi extends BaseAPI {
      */
     public createMultipleDepositAddresses(requestParameters: VaultsApiCreateMultipleDepositAddressesRequest) {
         return VaultsApiFp(this.configuration).createMultipleDepositAddresses(requestParameters.createMultipleDepositAddressesRequest, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Creates a batch of deposit addresses for the omnibus account of the given vault account, protocol and asset. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * @summary Create omnibus deposit addresses
+     * @param {VaultsApiCreateOmnibusAddressesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public createOmnibusAddresses(requestParameters: VaultsApiCreateOmnibusAddressesRequest) {
+        return VaultsApiFp(this.configuration).createOmnibusAddresses(requestParameters.createOmnibusAddressesRequest, requestParameters.vaultAccountId, requestParameters.protocol, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -4077,7 +4675,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Deactivates the USDC Gateway wallet associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Deactivates the USDC Gateway wallet associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Deactivate a USDC Gateway wallet
      * @param {VaultsApiDeactivateUsdcGatewayWalletBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4089,7 +4687,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Stops the schedule for an existing deposit automation. The automation itself stays configured, only its schedule stops. Turn it back on later with PATCH, without setting up the automation again from scratch. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Stop a USDC Gateway deposit automation\'s schedule
      * @param {VaultsApiDisableUsdcGatewayDepositAutomationScheduleBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4161,6 +4759,18 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
+     * Returns a page of the deposit addresses of the omnibus account of the given vault account, protocol and asset, ordered by index, highest first. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary List omnibus deposit addresses
+     * @param {VaultsApiGetOmnibusAddressesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getOmnibusAddresses(requestParameters: VaultsApiGetOmnibusAddressesRequest) {
+        return VaultsApiFp(this.configuration).getOmnibusAddresses(requestParameters.vaultAccountId, requestParameters.protocol, requestParameters.assetId, requestParameters.fromIndex, requestParameters.search, requestParameters.pageCursor, requestParameters.pageSize).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Gets all vault accounts in your workspace. This endpoint returns a limited amount of results with a quick response time. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get vault accounts (Paginated)
      * @param {VaultsApiGetPagedVaultAccountsRequest} requestParameters Request parameters.
@@ -4209,7 +4819,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Returns the USDC Gateway deposit automations configured for the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns the USDC Gateway deposit automations configured for the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Read the USDC Gateway deposit automations for a vault account
      * @param {VaultsApiGetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4221,7 +4831,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Returns the USDC Gateway wallet information associated with the given vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * Returns the USDC Gateway wallet information associated with the given vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get USDC Gateway wallet info
      * @param {VaultsApiGetUsdcGatewayWalletInfoBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4257,6 +4867,19 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
+     * DEPRECATED!  - If your application logic or scripts rely on the deprecated endpoint, you should update to account for GET/V1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated before Mar 31,2024. - All workspaces created after Mar 31,2024. will have it disabled. If it is disabled for your workspace and you attempt to use it, you will receive the following error message: \"This endpoint is unavailable. - Please use the GET /v1/vault/accounts/{vaultAccountId}/{assetId}/addresses_paginated endpoint to return all the wallet addresses associated with the specified vault account and asset in a paginated list.  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Get asset addresses
+     * @param {VaultsApiGetVaultAccountAssetAddressesRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @deprecated
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getVaultAccountAssetAddresses(requestParameters: VaultsApiGetVaultAccountAssetAddressesRequest) {
+        return VaultsApiFp(this.configuration).getVaultAccountAssetAddresses(requestParameters.vaultAccountId, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
      * Returns a paginated response of the addresses for a given vault account and asset. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
      * @summary Get addresses (Paginated)
      * @param {VaultsApiGetVaultAccountAssetAddressesPaginatedRequest} requestParameters Request parameters.
@@ -4266,6 +4889,19 @@ export class VaultsApi extends BaseAPI {
      */
     public getVaultAccountAssetAddressesPaginated(requestParameters: VaultsApiGetVaultAccountAssetAddressesPaginatedRequest) {
         return VaultsApiFp(this.configuration).getVaultAccountAssetAddressesPaginated(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.limit, requestParameters.before, requestParameters.after).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * DEPRECATED - Please use `/vault/accounts_paged` endpoint instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Get vault accounts
+     * @param {VaultsApiGetVaultAccountsRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @deprecated
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public getVaultAccounts(requestParameters: VaultsApiGetVaultAccountsRequest = {}) {
+        return VaultsApiFp(this.configuration).getVaultAccounts(requestParameters.namePrefix, requestParameters.nameSuffix, requestParameters.minAmountThreshold, requestParameters.assetId).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -4305,7 +4941,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. **Note:** This endpoint is currently in beta and might be subject to changes. 
+     * Resolves a blockchain address to the vault account that owns it. Returns the vault account ID and the blockchains associated with the address. 
      * @summary Look up a vault account by blockchain address
      * @param {VaultsApiLookupVaultByAddressRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4314,6 +4950,18 @@ export class VaultsApi extends BaseAPI {
      */
     public lookupVaultByAddress(requestParameters: VaultsApiLookupVaultByAddressRequest) {
         return VaultsApiFp(this.configuration).lookupVaultByAddress(requestParameters.address).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Registers a Tempo omnibus wallet for the given vault account and asset. Triggering this flow requires the vault account to hold PATH_USD with a balance sufficient to cover the gas fee. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor.
+     * @summary Register a Tempo omnibus wallet
+     * @param {VaultsApiRegisterTempoOmnibusWalletRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof VaultsApi
+     */
+    public registerTempoOmnibusWallet(requestParameters: VaultsApiRegisterTempoOmnibusWalletRequest) {
+        return VaultsApiFp(this.configuration).registerTempoOmnibusWallet(requestParameters.vaultAccountId, requestParameters.assetId, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 
     /**
@@ -4329,7 +4977,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Turns on automatic deposits into the USDC Gateway wallet for the given vault account, on the schedule you choose. Returns an error if an automation already exists for this vault account and asset. Use PATCH to change it instead. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Set up a USDC Gateway deposit automation for a vault account
      * @param {VaultsApiSetUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4377,7 +5025,7 @@ export class VaultsApi extends BaseAPI {
     }
 
     /**
-     * Changes an existing USDC Gateway deposit automation for a vault account. **Note:** This endpoint is currently in beta and might be subject to changes. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
+     * Changes an existing USDC Gateway deposit automation for a vault account. Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver.
      * @summary Change a USDC Gateway deposit automation
      * @param {VaultsApiUpdateUsdcGatewayDepositAutomationBetaRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -4428,11 +5076,27 @@ export class VaultsApi extends BaseAPI {
 /**
  * @export
  */
+export const CreateOmnibusAddressesProtocolEnum = {
+    Evm: 'EVM',
+    Tempo: 'TEMPO'
+} as const;
+export type CreateOmnibusAddressesProtocolEnum = typeof CreateOmnibusAddressesProtocolEnum[keyof typeof CreateOmnibusAddressesProtocolEnum];
+/**
+ * @export
+ */
 export const GetAssetWalletsOrderByEnum = {
     Asc: 'ASC',
     Desc: 'DESC'
 } as const;
 export type GetAssetWalletsOrderByEnum = typeof GetAssetWalletsOrderByEnum[keyof typeof GetAssetWalletsOrderByEnum];
+/**
+ * @export
+ */
+export const GetOmnibusAddressesProtocolEnum = {
+    Evm: 'EVM',
+    Tempo: 'TEMPO'
+} as const;
+export type GetOmnibusAddressesProtocolEnum = typeof GetOmnibusAddressesProtocolEnum[keyof typeof GetOmnibusAddressesProtocolEnum];
 /**
  * @export
  */

@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**setVaspForVault**](#setVaspForVault) | **POST** /screening/travel_rule/vault/{vaultAccountId}/vasp | Assign VASP to vault
 [**updateVasp**](#updateVasp) | **PUT** /screening/travel_rule/vasp/update | Add jsonDidKey to VASP details
 [**validateFullTravelRuleTransaction**](#validateFullTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate/full | Validate Full Travel Rule Transaction
+[**validateTravelRuleTransaction**](#validateTravelRuleTransaction) | **POST** /screening/travel_rule/transaction/validate | Validate Travel Rule Transaction
 
 
 # **createTrustProofOfAddress**
@@ -506,6 +507,72 @@ fireblocks.travelRule.validateFullTravelRuleTransaction(body).then((res: Fireblo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **travelRuleValidateFullTransactionRequest** | **[TravelRuleValidateFullTransactionRequest](../models/TravelRuleValidateFullTransactionRequest.md)**|  |
+ **notation** | **Array<&#39;fireblocks&#39; &#124; &#39;notabene&#39;>** | Specifies the notation of the transaction. Possible values are: - &#x60;notabene&#x60;: Uses Notabene notation (default behavior). - &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for backward compatibility. **Note:** The default value for the &#x60;notation&#x60; parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your integrations accordingly. | (optional) defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[TravelRuleValidateTransactionResponse](../models/TravelRuleValidateTransactionResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Transaction validated successfully |  -  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **validateTravelRuleTransaction**
+> TravelRuleValidateTransactionResponse validateTravelRuleTransaction(travelRuleValidateTransactionRequest)
+
+Validate Travel Rule transactions. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. **Deprecation Notice** This endpoint will be deprecated soon in favor of the [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint. Please update your integrations to use the  [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint to ensure compatibility with future releases. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, TravelRuleApiValidateTravelRuleTransactionRequest, TravelRuleValidateTransactionResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: TravelRuleApiValidateTravelRuleTransactionRequest = {
+  // TravelRuleValidateTransactionRequest
+  travelRuleValidateTransactionRequest: param_value,
+  // TravelRuleNotationEnum | Specifies the notation of the transaction. Possible values are: - `notabene`: Uses Notabene notation (default behavior). - `fireblocks`: Uses Fireblocks notation, with automatic translation of asset tickers and amounts. - `<none>`: Defaults to `notabene` for backward compatibility. **Note:** The default value for the `notation` parameter will change from `notabene` to `fireblocks` Update your integrations accordingly. (optional)
+  notation: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.travelRule.validateTravelRuleTransaction(body).then((res: FireblocksResponse<TravelRuleValidateTransactionResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **travelRuleValidateTransactionRequest** | **[TravelRuleValidateTransactionRequest](../models/TravelRuleValidateTransactionRequest.md)**|  |
  **notation** | **Array<&#39;fireblocks&#39; &#124; &#39;notabene&#39;>** | Specifies the notation of the transaction. Possible values are: - &#x60;notabene&#x60;: Uses Notabene notation (default behavior). - &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for backward compatibility. **Note:** The default value for the &#x60;notation&#x60; parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your integrations accordingly. | (optional) defaults to undefined
  **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
 

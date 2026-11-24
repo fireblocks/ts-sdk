@@ -13,15 +13,12 @@
  */
 
 
-// May contain unused imports in some cases
-// @ts-ignore
-import { AssetTypesConfigInner } from './asset-types-config-inner';
 
 /**
- * List of asset types
+ * List of asset IDs the rule applies to
  * @export
  * @interface AssetTypesConfig
  */
-export interface AssetTypesConfig extends Array<AssetTypesConfigInner> {
+export interface AssetTypesConfig extends Array<string> {
 }
 

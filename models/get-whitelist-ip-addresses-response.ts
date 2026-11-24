@@ -27,7 +27,7 @@ export interface GetWhitelistIpAddressesResponse {
      */
     'userId'?: string;
     /**
-     * List of whitelisted ip addresses
+     * Allowlist entries. Each item is an IPv4 address (10.0.0.1), an IPv4 CIDR (10.0.0.0/24), an IPv4 range (10.0.0.1-10.0.0.50), or an IPv6 address (2001:db8::1).
      * @type {Array<string>}
      * @memberof GetWhitelistIpAddressesResponse
      */

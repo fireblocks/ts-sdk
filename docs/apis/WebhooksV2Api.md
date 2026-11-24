@@ -5,9 +5,11 @@ All URIs are relative to https://developers.fireblocks.com/reference/
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createWebhook**](#createWebhook) | **POST** /webhooks | Create a new webhook
+[**createWebhookCustomHeaders**](#createWebhookCustomHeaders) | **POST** /webhooks_settings/custom_headers | Create a custom headers set
 [**createWebhookMtlsConfig**](#createWebhookMtlsConfig) | **POST** /webhooks_settings/mtls | Create an mTLS configuration
 [**createWebhookOauth**](#createWebhookOauth) | **POST** /webhooks_settings/oauth | Create OAuth credentials
 [**deleteWebhook**](#deleteWebhook) | **DELETE** /webhooks/{webhookId} | Delete webhook
+[**deleteWebhookCustomHeaders**](#deleteWebhookCustomHeaders) | **DELETE** /webhooks_settings/custom_headers/{webhookCustomHeadersId} | Delete a custom headers set
 [**deleteWebhookMtlsConfig**](#deleteWebhookMtlsConfig) | **DELETE** /webhooks_settings/mtls/{webhookMtlsId} | Delete an mTLS configuration
 [**deleteWebhookOauth**](#deleteWebhookOauth) | **DELETE** /webhooks_settings/oauth/{webhookOauthId} | Delete OAuth credentials
 [**getMetrics**](#getMetrics) | **GET** /webhooks/{webhookId}/metrics/{metricName} | Get webhook metrics
@@ -18,6 +20,8 @@ Method | HTTP request | Description
 [**getResendByQueryJobStatus**](#getResendByQueryJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_by_query/jobs/{jobId} | Get resend by query job status
 [**getResendJobStatus**](#getResendJobStatus) | **GET** /webhooks/{webhookId}/notifications/resend_failed/jobs/{jobId} | Get resend job status
 [**getWebhook**](#getWebhook) | **GET** /webhooks/{webhookId} | Get webhook by id
+[**getWebhookCustomHeaders**](#getWebhookCustomHeaders) | **GET** /webhooks_settings/custom_headers/{webhookCustomHeadersId} | Get a custom headers set by id
+[**getWebhookCustomHeadersList**](#getWebhookCustomHeadersList) | **GET** /webhooks_settings/custom_headers | Get all custom headers sets
 [**getWebhookMtlsConfig**](#getWebhookMtlsConfig) | **GET** /webhooks_settings/mtls/{webhookMtlsId} | Get an mTLS configuration by id
 [**getWebhookMtlsConfigs**](#getWebhookMtlsConfigs) | **GET** /webhooks_settings/mtls | List the uploaded mTLS configurations
 [**getWebhookOauth**](#getWebhookOauth) | **GET** /webhooks_settings/oauth/{webhookOauthId} | Get OAuth credentials by id
@@ -27,7 +31,10 @@ Method | HTTP request | Description
 [**resendNotificationById**](#resendNotificationById) | **POST** /webhooks/{webhookId}/notifications/{notificationId}/resend | Resend notification by id
 [**resendNotificationsByQuery**](#resendNotificationsByQuery) | **POST** /webhooks/{webhookId}/notifications/resend_by_query | Resend notifications by query
 [**resendNotificationsByResourceId**](#resendNotificationsByResourceId) | **POST** /webhooks/{webhookId}/notifications/resend_by_resource | Resend notifications by resource Id
+[**revokeWebhookOauthKey**](#revokeWebhookOauthKey) | **POST** /webhooks_settings/oauth/{webhookOauthId}/revoke_key | Revoke a signing key of OAuth credentials
+[**rotateWebhookOauthKey**](#rotateWebhookOauthKey) | **POST** /webhooks_settings/oauth/{webhookOauthId}/rotate_key | Rotate the signing key of OAuth credentials
 [**updateWebhook**](#updateWebhook) | **PATCH** /webhooks/{webhookId} | Update webhook
+[**updateWebhookCustomHeaders**](#updateWebhookCustomHeaders) | **PATCH** /webhooks_settings/custom_headers/{webhookCustomHeadersId} | Update a custom headers set
 [**updateWebhookMtlsConfig**](#updateWebhookMtlsConfig) | **PATCH** /webhooks_settings/mtls/{webhookMtlsId} | Update an mTLS configuration
 [**updateWebhookOauth**](#updateWebhookOauth) | **PATCH** /webhooks_settings/oauth/{webhookOauthId} | Update OAuth credentials
 
@@ -91,6 +98,69 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **201** | created new webhook successfully |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **createWebhookCustomHeaders**
+> WebhookCustomHeadersSet createWebhookCustomHeaders(createWebhookCustomHeadersRequest)
+
+Creates a reusable set of custom HTTP headers. Attach it to a webhook by passing the returned id as that webhook\'s `webhookCustomHeadersId`, to send the headers with that webhook\'s notifications, or to OAuth credentials as their `webhookCustomHeadersId`, to send them on the token request to your authorization server. Several webhooks and OAuth credentials may share one set, so changing it covers all of them at once. Header values are write-only and are never returned.  One set of rules applies to every use of a set, whether a webhook or OAuth credentials attach it: a value is a string or an array of strings (one header line per element), except `Cookie` and `Authorization`, which take a single string. Where Fireblocks sends its own `Authorization` header (an OAuth bearer token on a delivery, `client_secret_basic` on a token request), a custom `Authorization` header is not sent. Attaching a set checks only that it exists in your workspace.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiCreateWebhookCustomHeadersRequest, WebhookCustomHeadersSet } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiCreateWebhookCustomHeadersRequest = {
+  // CreateWebhookCustomHeadersRequest
+  createWebhookCustomHeadersRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2.createWebhookCustomHeaders(body).then((res: FireblocksResponse<WebhookCustomHeadersSet>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createWebhookCustomHeadersRequest** | **[CreateWebhookCustomHeadersRequest](../models/CreateWebhookCustomHeadersRequest.md)**|  |
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[WebhookCustomHeadersSet](../models/WebhookCustomHeadersSet.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | created the custom headers set successfully |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -161,7 +231,7 @@ No authorization required
 # **createWebhookOauth**
 > WebhookOauthCredentials createWebhookOauth(createWebhookOauthRequest)
 
-Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Creates a reusable OAuth client credential set. Attach it to a webhook by passing the returned id as that webhook\'s `webhookOauthId`. Several webhooks may share one credential set, so rotating its client secret covers all of them at once. The client secret is write-only and is never returned.  With `authMethod` `private_key_jwt` no client secret is sent: Fireblocks generates two key pairs for the credentials, the signing key and its successor, and keeps the private halves. The public halves are published at the `jwksUri` returned with the credentials; register that URL as the client\'s `jwks_uri` on your authorization server.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 
@@ -277,6 +347,70 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Deleted webhook object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **deleteWebhookCustomHeaders**
+> DeleteWebhookCustomHeadersResponse deleteWebhookCustomHeaders()
+
+Deletes a custom headers set. By default the delete is refused while the set is still in use: if any webhook or OAuth credentials use it, nothing is deleted and the request fails with `409 Conflict`, naming the reason and listing the ids of the webhooks and OAuth credentials using it. This protects a shared set from being removed out from under the things that depend on it.  Pass `forceDelete=true` to delete anyway. That detaches everything using the set — it clears each webhook\'s and each OAuth credential set\'s `webhookCustomHeadersId`, it does **not** delete the webhook or the credentials — then deletes the set and returns the deleted resource together with `detachedWebhookIds` and `detachedWebhookOauthIds`. A detached webhook stops sending these headers with its notifications, and detached OAuth credentials stop sending them on the token request.  When nothing uses the set the delete succeeds either way, and both lists come back empty.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiDeleteWebhookCustomHeadersRequest, DeleteWebhookCustomHeadersResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiDeleteWebhookCustomHeadersRequest = {
+  // string | The unique identifier of the custom headers set
+  webhookCustomHeadersId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+  // boolean | Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or `false`, to get a `409 Conflict` whenever anything still uses the set. (optional)
+  forceDelete: true,
+};
+
+fireblocks.webhooksV2.deleteWebhookCustomHeaders(body).then((res: FireblocksResponse<DeleteWebhookCustomHeadersResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookCustomHeadersId** | [**string**] | The unique identifier of the custom headers set | defaults to undefined
+ **forceDelete** | [**boolean**] | Delete the set even while webhooks or OAuth credentials still use it, detaching them instead of refusing. Leave it unset, or &#x60;false&#x60;, to get a &#x60;409 Conflict&#x60; whenever anything still uses the set. | (optional) defaults to false
+
+
+### Return type
+
+**[DeleteWebhookCustomHeadersResponse](../models/DeleteWebhookCustomHeadersResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The deleted custom headers set, plus the ids of any webhooks and OAuth credentials that were detached from it |  * X-Request-ID -  <br>  |
+**409** | Webhooks or OAuth credentials still use this set and &#x60;forceDelete&#x60; was not set. Nothing was deleted. The error message names the reason and the ids of the webhooks and OAuth credentials using it — detach them, or retry with &#x60;forceDelete&#x3D;true&#x60;. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -940,6 +1074,120 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **getWebhookCustomHeaders**
+> WebhookCustomHeadersSet getWebhookCustomHeaders()
+
+Retrieve a custom headers set by its id. Header values are never returned, only the header names. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiGetWebhookCustomHeadersRequest, WebhookCustomHeadersSet } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiGetWebhookCustomHeadersRequest = {
+  // string | The unique identifier of the custom headers set
+  webhookCustomHeadersId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+};
+
+fireblocks.webhooksV2.getWebhookCustomHeaders(body).then((res: FireblocksResponse<WebhookCustomHeadersSet>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookCustomHeadersId** | [**string**] | The unique identifier of the custom headers set | defaults to undefined
+
+
+### Return type
+
+**[WebhookCustomHeadersSet](../models/WebhookCustomHeadersSet.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | A custom headers set |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **getWebhookCustomHeadersList**
+> WebhookCustomHeadersSetList getWebhookCustomHeadersList()
+
+Lists every custom headers set for the workspace. Header values are never returned, only the header names. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhookCustomHeadersSetList } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body:any = {};
+
+fireblocks.webhooksV2.getWebhookCustomHeadersList(body).then((res: FireblocksResponse<WebhookCustomHeadersSetList>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+This endpoint does not need any parameter.
+
+
+### Return type
+
+**[WebhookCustomHeadersSetList](../models/WebhookCustomHeadersSetList.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The workspace\&#39;s custom headers sets |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **getWebhookMtlsConfig**
 > WebhookMtlsConfig getWebhookMtlsConfig()
 
@@ -1506,6 +1754,139 @@ No authorization required
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
+# **revokeWebhookOauthKey**
+> RevokeWebhookOauthKeyResponse revokeWebhookOauthKey()
+
+Deletes a key of OAuth credentials at once, for when a key may have leaked: it drops out of the published set immediately rather than being kept for 30 days. Revoking never causes an outage.  Without a `kid`, revokes the key Fireblocks is signing with: signing switches to the successor, which your authorization server already holds, and a new successor is generated. A cached access token is discarded, so the next delivery fetches a new one.  With the successor\'s `kid`, deletes the successor and generates a new one; signing is unchanged. With the `kid` of a key rotated out by `rotate_key` and still published, deletes that key, and a cached access token is discarded as well. Keys left behind by a `signingAlg` change drop out of the published set after 5 minutes but are kept for 30 days, and can be revoked by `kid` until then. Credentials using `private_key_jwt` always keep a key to sign with.  On credentials that no longer use `private_key_jwt`, whose keys stay published for 30 days after the switch, a `kid` is required: that key is deleted and nothing is generated. The last key they hold can be revoked too, leaving an empty set.  Returns the `kid` of the key revoked, which without a `kid` in the request is the key Fireblocks was signing with. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server. Use `rotate_key` for a routine rotation, which keeps the replaced key published for 30 days.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiRevokeWebhookOauthKeyRequest, RevokeWebhookOauthKeyResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiRevokeWebhookOauthKeyRequest = {
+  // string | The unique identifier of the OAuth credentials
+  webhookOauthId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+  // RevokeWebhookOauthKeyRequest (optional)
+  revokeWebhookOauthKeyRequest: param_value,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2.revokeWebhookOauthKey(body).then((res: FireblocksResponse<RevokeWebhookOauthKeyResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **revokeWebhookOauthKeyRequest** | **[RevokeWebhookOauthKeyRequest](../models/RevokeWebhookOauthKeyRequest.md)**|  |
+ **webhookOauthId** | [**string**] | The unique identifier of the OAuth credentials | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RevokeWebhookOauthKeyResponse](../models/RevokeWebhookOauthKeyResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The key was revoked; the &#x60;kid&#x60; of the key revoked |  * X-Request-ID -  <br>  |
+**400** | The request cannot be applied: &#x60;kid&#x60; is &#x60;null&#x60;, empty or longer than 64 characters, or no &#x60;kid&#x60; was sent for credentials that no longer use &#x60;private_key_jwt&#x60;. |  * X-Request-ID -  <br>  |
+**404** | No such OAuth credentials in this workspace, or they hold no key with this &#x60;kid&#x60;. A key already deleted, by a revoke or at the end of its 30 days, is not found. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **rotateWebhookOauthKey**
+> RotateWebhookOauthKeyResponse rotateWebhookOauthKey()
+
+Switches the OAuth credentials to their successor key and generates a new successor, for credentials using `private_key_jwt`. Takes no body. The new signing key is one your authorization server already holds, since the successor is published from the start, so the switch causes no outage.  The key replaced is no longer used to sign, but stays in the published set for 30 days and is then deleted. Rotating again within those 30 days is allowed: each key rotated out keeps its own 30 days, and any of them can be revoked by `kid`. The credentials can hold at most 5 keys in their signing algorithm at once, counting the active key, its successor and those rotated out; at that limit, revoke a rotated-out key (the error names the oldest) and rotate again. To stop trusting a key at once — after a leak — use `revoke_key` instead.  Returns the `kid` of the key rotated out. The public keys are at the `jwksUri` of the credentials: fetch them again, or register the new successor with your authorization server, before the next rotation.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiRotateWebhookOauthKeyRequest, RotateWebhookOauthKeyResponse } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiRotateWebhookOauthKeyRequest = {
+  // string | The unique identifier of the OAuth credentials
+  webhookOauthId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+  // string | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. (optional)
+  idempotencyKey: idempotencyKey_example,
+};
+
+fireblocks.webhooksV2.rotateWebhookOauthKey(body).then((res: FireblocksResponse<RotateWebhookOauthKeyResponse>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **webhookOauthId** | [**string**] | The unique identifier of the OAuth credentials | defaults to undefined
+ **idempotencyKey** | [**string**] | A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours. | (optional) defaults to undefined
+
+
+### Return type
+
+**[RotateWebhookOauthKeyResponse](../models/RotateWebhookOauthKeyResponse.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | The key was rotated; the &#x60;kid&#x60; of the key rotated out |  * X-Request-ID -  <br>  |
+**400** | The credentials do not use &#x60;private_key_jwt&#x60;, so they have no signing key to rotate, or they already hold 5 keys in their signing algorithm and a rotated-out key must be revoked first. |  * X-Request-ID -  <br>  |
+**404** | No such OAuth credentials in this workspace. |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
 # **updateWebhook**
 > Webhook updateWebhook(updateWebhookRequest, )
 
@@ -1565,6 +1946,70 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Updated webhook object |  * X-Request-ID -  <br>  |
+**0** | Error Response |  * X-Request-ID -  <br>  |
+
+[[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
+
+# **updateWebhookCustomHeaders**
+> WebhookCustomHeadersSet updateWebhookCustomHeaders(updateWebhookCustomHeadersRequest, )
+
+Updates only the fields present in the request; anything omitted is left as it is. `headers` is merged name by name rather than replaced: a header sent with a value is added or overwritten, a header sent as `null` is deleted, and a header you omit is left alone. The change applies to every webhook and OAuth credential set that uses the set.  A change that would leave the set with no headers is refused with a `400` — delete the set instead. Where Fireblocks sends its own `Authorization` header, a custom `Authorization` header is not sent: on a webhook that has OAuth credentials attached (the OAuth bearer token), and on the token request of OAuth credentials that use `client_secret_basic`.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+
+### Example
+
+
+```typescript
+import { readFileSync } from 'fs';
+import { Fireblocks, BasePath } from '@fireblocks/ts-sdk';
+import type { FireblocksResponse, WebhooksV2ApiUpdateWebhookCustomHeadersRequest, WebhookCustomHeadersSet } from '@fireblocks/ts-sdk';
+
+// Set the environment variables for authentication
+process.env.FIREBLOCKS_BASE_PATH = BasePath.Sandbox; // or assign directly to "https://sandbox-api.fireblocks.io/v1"
+process.env.FIREBLOCKS_API_KEY = "my-api-key";
+process.env.FIREBLOCKS_SECRET_KEY = readFileSync("./fireblocks_secret.key", "utf8");
+
+const fireblocks = new Fireblocks();
+
+let body: WebhooksV2ApiUpdateWebhookCustomHeadersRequest = {
+  // UpdateWebhookCustomHeadersRequest
+  updateWebhookCustomHeadersRequest: param_value,
+  // string | The unique identifier of the custom headers set
+  webhookCustomHeadersId: 44fcead0-7053-4831-a53a-df7fb90d440f,
+};
+
+fireblocks.webhooksV2.updateWebhookCustomHeaders(body).then((res: FireblocksResponse<WebhookCustomHeadersSet>) => {
+  console.log('API called successfully. Returned data: ' + JSON.stringify(res, null, 2));
+}).catch((error:any) => console.error(error));
+```
+
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **updateWebhookCustomHeadersRequest** | **[UpdateWebhookCustomHeadersRequest](../models/UpdateWebhookCustomHeadersRequest.md)**|  |
+ **webhookCustomHeadersId** | [**string**] | The unique identifier of the custom headers set | defaults to undefined
+
+
+### Return type
+
+**[WebhookCustomHeadersSet](../models/WebhookCustomHeadersSet.md)**
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Updated custom headers set |  * X-Request-ID -  <br>  |
+**400** | Neither &#x60;name&#x60; nor &#x60;headers&#x60; was provided, so there is nothing to change, or the change was refused: it would leave the set with no headers, or a header breaks the rules for header names and values. Nothing was changed. |  * X-Request-ID -  <br>  |
 **0** | Error Response |  * X-Request-ID -  <br>  |
 
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
@@ -1636,7 +2081,7 @@ No authorization required
 # **updateWebhookOauth**
 > WebhookOauthCredentials updateWebhookOauth(updateWebhookOauthRequest, )
 
-Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims`, `customBodyParams` and `customHeaders` are all merged key by key rather than replaced, the same way a webhook\'s own `customHeaders` behaves: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the three to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` is a scalar rather than a map, so `null` there does remove it.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
+Updates only the fields present in the request; anything omitted is left as it is. Sending `clientSecret` on its own rotates the secret for every webhook using these credentials.  `customJwtClaims` and `customBodyParams` are merged key by key rather than replaced: a key sent with a value is added or overwritten, a key sent with a `null` value is deleted, and a key you omit is left alone. Setting one of the two to `null` as a whole clears that map, which is the quick way to empty it without naming every key. There is no ambiguity between the two uses of `null` — one names an entry to delete, the other names the field. A claim cannot be set to JSON `null`, though, on this endpoint or on create, because `null` is spent on deletion. `webhookMtlsId` and `webhookCustomHeadersId` are scalars rather than maps, so `null` there does remove them. `webhookCustomHeadersId` points the credentials at a set of extra token request headers from `/v1/webhooks_settings/custom_headers`; under `client_secret_basic` Fireblocks sends its own `Authorization` header with the credentials, so a custom `Authorization` header in the set is not sent.  **Endpoint Permissions:** Owner, Admin, Non-Signing Admin. 
 
 ### Example
 

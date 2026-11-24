@@ -87,13 +87,13 @@ export interface CreateTempoTransferRequest {
      */
     'feeLevel'?: CreateTempoTransferRequestFeeLevelEnum;
     /**
-     * Beta. An opaque travel-rule payload.
+     * Early availability. An opaque travel-rule payload.
      * @type {string}
      * @memberof CreateTempoTransferRequest
      */
     'travelRuleMessage'?: string;
     /**
-     * Beta. An identifier of a TravelRule message, already sent to the TravelRule provider.
+     * Early availability. An identifier of a TravelRule message, already sent to the TravelRule provider.
      * @type {string}
      * @memberof CreateTempoTransferRequest
      */
@@ -129,7 +129,7 @@ export interface CreateTempoTransferRequest {
      */
     'destinations'?: Array<TempoTransferDestinationItem>;
     /**
-     * Beta. If true, fail the transaction rather than sending it with a low fee.
+     * Early availability. If true, fail the transaction rather than sending it with a low fee.
      * @type {boolean}
      * @memberof CreateTempoTransferRequest
      */
@@ -141,7 +141,7 @@ export interface CreateTempoTransferRequest {
      */
     'gasLimit'?: string;
     /**
-     * Beta. The hash of the EVM transaction to replace (RBF).
+     * Early availability. The hash of the EVM transaction to replace (RBF).
      * @type {string}
      * @memberof CreateTempoTransferRequest
      */

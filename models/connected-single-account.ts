@@ -13,6 +13,9 @@
  */
 
 
+// May contain unused imports in some cases
+// @ts-ignore
+import { ConnectedAccountCredit } from './connected-account-credit';
 
 /**
  * 
@@ -26,5 +29,17 @@ export interface ConnectedSingleAccount {
      * @memberof ConnectedSingleAccount
      */
     'subAccountsIds'?: Array<string>;
+    /**
+     * Total credit line available on the account. Returned only by the single-account endpoint (Get connected account); the list endpoint does not retrieve balances and never populates it. Omitted when total credit data is unavailable or balance retrieval is skipped. Absence does not imply zero credit.
+     * @type {ConnectedAccountCredit}
+     * @memberof ConnectedSingleAccount
+     */
+    'totalCredit'?: ConnectedAccountCredit;
+    /**
+     * Remaining unused credit available on the account. Returned only by the single-account endpoint (Get connected account); the list endpoint does not retrieve balances and never populates it. Omitted when available credit data is unavailable or balance retrieval is skipped. Absence does not imply zero credit.
+     * @type {ConnectedAccountCredit}
+     * @memberof ConnectedSingleAccount
+     */
+    'availableCredit'?: ConnectedAccountCredit;
 }
 

@@ -37,6 +37,8 @@ import { TravelRuleVASP } from '../models';
 // @ts-ignore
 import { TravelRuleValidateFullTransactionRequest } from '../models';
 // @ts-ignore
+import { TravelRuleValidateTransactionRequest } from '../models';
+// @ts-ignore
 import { TravelRuleValidateTransactionResponse } from '../models';
 // @ts-ignore
 import { TravelRuleVaspForVault } from '../models';
@@ -416,6 +418,56 @@ export const TravelRuleApiAxiosParamCreator = function (configuration?: Configur
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * Validate Travel Rule transactions. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. **Deprecation Notice** This endpoint will be deprecated soon in favor of the [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint. Please update your integrations to use the  [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint to ensure compatibility with future releases. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Validate Travel Rule Transaction
+         * @param {TravelRuleValidateTransactionRequest} travelRuleValidateTransactionRequest 
+         * @param {Array<ValidateTravelRuleTransactionNotationEnum>} [notation] Specifies the notation of the transaction. Possible values are: - &#x60;notabene&#x60;: Uses Notabene notation (default behavior). - &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for backward compatibility. **Note:** The default value for the &#x60;notation&#x60; parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your integrations accordingly.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        validateTravelRuleTransaction: async (travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, notation?: Array<ValidateTravelRuleTransactionNotationEnum>, idempotencyKey?: string, options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            assertParamExists('validateTravelRuleTransaction', 'travelRuleValidateTransactionRequest', travelRuleValidateTransactionRequest)
+            const localVarPath = `/screening/travel_rule/transaction/validate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            // Stamped onto the request config (not the headers, so it never goes on
+            // the wire) so the response interceptor can name the operation in the
+            // lifecycle warning. Key must match OPERATION_ID_CONFIG_KEY in utils/lifecycleWarning.
+            (localVarRequestOptions as any).fireblocksOperationId = 'validateTravelRuleTransaction';
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (notation) {
+                localVarQueryParameter['notation'] = notation;
+            }
+
+            if (idempotencyKey != null) {
+                localVarHeaderParameter['Idempotency-Key'] = String(idempotencyKey);
+            }
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(travelRuleValidateTransactionRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -542,6 +594,22 @@ export const TravelRuleApiFp = function(configuration?: Configuration) {
             const operationBasePath = operationServerMap['TravelRuleApi.validateFullTravelRuleTransaction']?.[index]?.url;
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
+        /**
+         * Validate Travel Rule transactions. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. **Deprecation Notice** This endpoint will be deprecated soon in favor of the [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint. Please update your integrations to use the  [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint to ensure compatibility with future releases. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Validate Travel Rule Transaction
+         * @param {TravelRuleValidateTransactionRequest} travelRuleValidateTransactionRequest 
+         * @param {Array<ValidateTravelRuleTransactionNotationEnum>} [notation] Specifies the notation of the transaction. Possible values are: - &#x60;notabene&#x60;: Uses Notabene notation (default behavior). - &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for backward compatibility. **Note:** The default value for the &#x60;notation&#x60; parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your integrations accordingly.
+         * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        async validateTravelRuleTransaction(travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest, notation?: Array<ValidateTravelRuleTransactionNotationEnum>, idempotencyKey?: string, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<TravelRuleValidateTransactionResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.validateTravelRuleTransaction(travelRuleValidateTransactionRequest, notation, idempotencyKey, options);
+            const index = configuration?.serverIndex ?? 0;
+            const operationBasePath = operationServerMap['TravelRuleApi.validateTravelRuleTransaction']?.[index]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
+        },
     }
 };
 
@@ -631,6 +699,17 @@ export const TravelRuleApiFactory = function (configuration?: Configuration, bas
          */
         validateFullTravelRuleTransaction(requestParameters: TravelRuleApiValidateFullTravelRuleTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleValidateTransactionResponse> {
             return localVarFp.validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, requestParameters.notation, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Validate Travel Rule transactions. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. **Deprecation Notice** This endpoint will be deprecated soon in favor of the [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint. Please update your integrations to use the  [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint to ensure compatibility with future releases. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+         * @summary Validate Travel Rule Transaction
+         * @param {TravelRuleApiValidateTravelRuleTransactionRequest} requestParameters Request parameters.
+         * @param {*} [options] Override http request option.
+         * @deprecated
+         * @throws {RequiredError}
+         */
+        validateTravelRuleTransaction(requestParameters: TravelRuleApiValidateTravelRuleTransactionRequest, options?: RawAxiosRequestConfig): AxiosPromise<TravelRuleValidateTransactionResponse> {
+            return localVarFp.validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, requestParameters.notation, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -832,6 +911,34 @@ export interface TravelRuleApiValidateFullTravelRuleTransactionRequest {
 }
 
 /**
+ * Request parameters for validateTravelRuleTransaction operation in TravelRuleApi.
+ * @export
+ * @interface TravelRuleApiValidateTravelRuleTransactionRequest
+ */
+export interface TravelRuleApiValidateTravelRuleTransactionRequest {
+    /**
+     * 
+     * @type {TravelRuleValidateTransactionRequest}
+     * @memberof TravelRuleApiValidateTravelRuleTransaction
+     */
+    readonly travelRuleValidateTransactionRequest: TravelRuleValidateTransactionRequest
+
+    /**
+     * Specifies the notation of the transaction. Possible values are: - &#x60;notabene&#x60;: Uses Notabene notation (default behavior). - &#x60;fireblocks&#x60;: Uses Fireblocks notation, with automatic translation of asset tickers and amounts. - &#x60;&lt;none&gt;&#x60;: Defaults to &#x60;notabene&#x60; for backward compatibility. **Note:** The default value for the &#x60;notation&#x60; parameter will change from &#x60;notabene&#x60; to &#x60;fireblocks&#x60; Update your integrations accordingly.
+     * @type {TravelRuleNotationEnum}
+     * @memberof TravelRuleApiValidateTravelRuleTransaction
+     */
+    readonly notation?: Array<ValidateTravelRuleTransactionNotationEnum>
+
+    /**
+     * A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
+     * @type {string}
+     * @memberof TravelRuleApiValidateTravelRuleTransaction
+     */
+    readonly idempotencyKey?: string
+}
+
+/**
  * TravelRuleApi - object-oriented interface
  * @export
  * @class TravelRuleApi
@@ -932,6 +1039,19 @@ export class TravelRuleApi extends BaseAPI {
      */
     public validateFullTravelRuleTransaction(requestParameters: TravelRuleApiValidateFullTravelRuleTransactionRequest) {
         return TravelRuleApiFp(this.configuration).validateFullTravelRuleTransaction(requestParameters.travelRuleValidateFullTransactionRequest, requestParameters.notation, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
+    }
+
+    /**
+     * Validate Travel Rule transactions. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. **Deprecation Notice** This endpoint will be deprecated soon in favor of the [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint. Please update your integrations to use the  [validate full](https://developers.fireblocks.com/reference/validatefulltravelruletransaction) endpoint to ensure compatibility with future releases. Checks what beneficiary VASP details are required by your jurisdiction and the beneficiary\'s jurisdiction. Learn more about Fireblocks Travel Rule management in the following [guide](https://developers.fireblocks.com/docs/define-travel-rule-policies).  Endpoint Permission: Admin, Non-Signing Admin, Signer, Approver, Editor, Viewer.
+     * @summary Validate Travel Rule Transaction
+     * @param {TravelRuleApiValidateTravelRuleTransactionRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @deprecated
+     * @throws {RequiredError}
+     * @memberof TravelRuleApi
+     */
+    public validateTravelRuleTransaction(requestParameters: TravelRuleApiValidateTravelRuleTransactionRequest) {
+        return TravelRuleApiFp(this.configuration).validateTravelRuleTransaction(requestParameters.travelRuleValidateTransactionRequest, requestParameters.notation, requestParameters.idempotencyKey).then((request) => request(this.axios, this.basePath)).then(convertToFireblocksResponse);
     }
 }
 
@@ -1137,3 +1257,11 @@ export const ValidateFullTravelRuleTransactionNotationEnum = {
     Notabene: 'notabene'
 } as const;
 export type ValidateFullTravelRuleTransactionNotationEnum = typeof ValidateFullTravelRuleTransactionNotationEnum[keyof typeof ValidateFullTravelRuleTransactionNotationEnum];
+/**
+ * @export
+ */
+export const ValidateTravelRuleTransactionNotationEnum = {
+    Fireblocks: 'fireblocks',
+    Notabene: 'notabene'
+} as const;
+export type ValidateTravelRuleTransactionNotationEnum = typeof ValidateTravelRuleTransactionNotationEnum[keyof typeof ValidateTravelRuleTransactionNotationEnum];

@@ -18,13 +18,13 @@
 import { WebhookOauthCustomBodyParamsUpdate } from './webhook-oauth-custom-body-params-update';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOauthCustomHeadersUpdate } from './webhook-oauth-custom-headers-update';
+import { WebhookOauthCustomJwtClaimsUpdate } from './webhook-oauth-custom-jwt-claims-update';
 // May contain unused imports in some cases
 // @ts-ignore
-import { WebhookOauthCustomJwtClaimsUpdate } from './webhook-oauth-custom-jwt-claims-update';
+import { WebhookOauthSigningAlg } from './webhook-oauth-signing-alg';
 
 /**
- * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The three custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `webhookMtlsId` is a scalar, so `null` there removes it.
+ * A partial update. Every field is optional and an omitted field is left as it is, so `{ \"clientSecret\": \"new-secret\" }` rotates the secret and changes nothing else. A rotation applies to every webhook referencing these credentials.  The result is checked against the resulting `authMethod`, not just the fields sent: the secret methods must end up with a `clientSecret`, and a `signingAlg` value is only valid when the resulting method is `private_key_jwt`.  The two custom maps merge. A key with a value is upserted, a key with `null` is deleted, a key you leave out is untouched, and the whole field set to `null` clears the map. There is no ambiguity between the two uses of `null` — one names an entry, the other names the field. `webhookMtlsId` and `webhookCustomHeadersId` are scalars, so `null` there removes them.
  * @export
  * @interface UpdateWebhookOauthRequest
  */
@@ -42,11 +42,11 @@ export interface UpdateWebhookOauthRequest {
      */
     'clientId'?: string;
     /**
-     * A new OAuth client secret. Limited to 480 bytes when UTF-8 encoded, so a secret using non-ASCII characters fits fewer than 480 of them. Write-only — never returned in any response. Send this on its own to rotate the secret without changing anything else. Omit to leave it unchanged.
+     * A new OAuth client secret. Limited to 480 bytes when UTF-8 encoded, so a secret using non-ASCII characters fits fewer than 480 of them. Write-only — never returned in any response. Send this on its own to rotate the secret without changing anything else. Omit to leave it unchanged. Must not be sent with a value when the resulting `authMethod` is `private_key_jwt` (`400` otherwise). A secret already stored from before a switch to `private_key_jwt` is kept, unused, so switching back needs no new one; send `null` to clear it. A secret method must still end up with a secret, so `null` is refused unless the resulting method is `private_key_jwt`.
      * @type {string}
      * @memberof UpdateWebhookOauthRequest
      */
-    'clientSecret'?: string;
+    'clientSecret'?: string | null;
     /**
      * Token endpoint URL. HTTPS on port 443 only, and the host must resolve publicly. Omit to leave it unchanged.
      * @type {string}
@@ -54,11 +54,19 @@ export interface UpdateWebhookOauthRequest {
      */
     'url'?: string;
     /**
-     * `client_secret_basic`, `client_secret_post` or `client_secret_jwt`. Omit to leave it unchanged — it does not revert to the default.
+     * `client_secret_basic`, `client_secret_post`, `client_secret_jwt` or `private_key_jwt`. Omit to leave it unchanged — it does not revert to the default.  Switching to `private_key_jwt` brings back the key pairs these credentials held before, if they are still kept, and otherwise generates a signing key and its successor. Either way the first assertion names a `kid` your authorization server may not hold yet, so it fetches the JWKS again. Switching away from `private_key_jwt` empties `signingAlg`, and keeps the key pairs published for 30 days before deleting them, so switching back within that time restores them; it needs a `clientSecret`, either sent here or still stored.
      * @type {string}
      * @memberof UpdateWebhookOauthRequest
      */
     'authMethod'?: string;
+    /**
+     * A new algorithm for the key pairs of `private_key_jwt` credentials. Omit to leave it unchanged. A value is only valid when the resulting `authMethod` is `private_key_jwt` (`400` otherwise); a switch to `private_key_jwt` that omits it uses `RS256`, or the algorithm of the key pairs it brings back. `null` means no algorithm, and is accepted only when the resulting method is `client_secret_basic`, `client_secret_post` or `client_secret_jwt`; with `private_key_jwt` it is a `400`.
+
+A change generates a new signing key and successor in the new algorithm, and signing switches to them at once. The previous keys stay published for 5 minutes and are kept for 30 days: changing back within that time restores them, with their original expiry, instead of generating new ones, and `revoke_key` can delete them by `kid` until then.
+     * @type {WebhookOauthSigningAlg}
+     * @memberof UpdateWebhookOauthRequest
+     */
+    'signingAlg'?: WebhookOauthSigningAlg | null;
     /**
      * 
      * @type {WebhookOauthCustomJwtClaimsUpdate}
@@ -72,16 +80,18 @@ export interface UpdateWebhookOauthRequest {
      */
     'customBodyParams'?: WebhookOauthCustomBodyParamsUpdate | null;
     /**
-     * 
-     * @type {WebhookOauthCustomHeadersUpdate}
+     * The id of the set of custom HTTP headers added to the token request, from `/v1/webhooks_settings/custom_headers`. Omit to leave it unchanged, or send `null` to stop sending extra headers. The same rules apply as for a webhook delivery, including the reserved header names. Under `client_secret_basic` Fireblocks sends its own `Authorization` header with the credentials, and a custom `Authorization` header is not sent. Replaces the inline `customHeaders` field, which is now refused with a `400`: use `webhookCustomHeadersId`. An unknown id, or one belonging to another workspace, is a `404`.
+     * @type {string}
      * @memberof UpdateWebhookOauthRequest
      */
-    'customHeaders'?: WebhookOauthCustomHeadersUpdate | null;
+    'webhookCustomHeadersId'?: string | null;
     /**
-     * The id of the mTLS configuration presented to the token endpoint, from `/v1/webhooks_settings/mtls`. Omit to leave it unchanged, or send `null` to stop using mTLS for the token request. Requires the mTLS feature to be enabled for the workspace (`403` otherwise), a configuration of this workspace (`404` otherwise), and one linked to a private key (`400` otherwise).
+     * The id of the mTLS configuration presented to the token endpoint, from `/v1/webhooks_settings/mtls`. Omit to leave it unchanged, or send `null` to stop using mTLS for the token request. Requires a configuration of this workspace (`404` otherwise) that is linked to a private key (`400` otherwise).
      * @type {string}
      * @memberof UpdateWebhookOauthRequest
      */
     'webhookMtlsId'?: string | null;
 }
+
+
 

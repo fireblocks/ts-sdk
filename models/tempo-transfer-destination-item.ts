@@ -36,7 +36,7 @@ export interface TempoTransferDestinationItem {
      */
     'destination'?: TempoTransferDestination;
     /**
-     * Beta. An identifier of a TravelRule message, already sent to the TravelRule provider.
+     * Early availability. An identifier of a TravelRule message, already sent to the TravelRule provider.
      * @type {string}
      * @memberof TempoTransferDestinationItem
      */

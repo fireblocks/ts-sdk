@@ -119,10 +119,10 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
+         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol reward distribution.
          * @summary Claim accrued rewards
          * @param {ClaimRewardsRequest} claimRewardsRequest 
-         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
+         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL/CELESTIA).
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -166,7 +166,7 @@ export const StakingApiAxiosParamCreator = function (configuration?: Configurati
             };
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
@@ -839,10 +839,10 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
+         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol reward distribution.
          * @summary Claim accrued rewards
          * @param {ClaimRewardsRequest} claimRewardsRequest 
-         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
+         * @param {ClaimRewardsChainDescriptorEnum} chainDescriptor Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL/CELESTIA).
          * @param {string} [idempotencyKey] A unique identifier for the request. If the request is sent multiple times with the same idempotency key, the server will return the same response as the first request. The idempotency key is valid for 24 hours.
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -854,7 +854,7 @@ export const StakingApiFp = function(configuration?: Configuration) {
             return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, operationBasePath || basePath);
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {MergeStakeAccountsRequest} mergeStakeAccountsRequest 
          * @param {ConsolidateChainDescriptorEnum} chainDescriptor Protocol identifier for the staking operation (e.g., ETH).
@@ -1085,7 +1085,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.approveTermsOfServiceByProviderId(requestParameters.providerId, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
+         * Claims available staking rewards for the specified chain and vault. Supported chains: Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol reward distribution.
          * @summary Claim accrued rewards
          * @param {StakingApiClaimRewardsRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1095,7 +1095,7 @@ export const StakingApiFactory = function (configuration?: Configuration, basePa
             return localVarFp.claimRewards(requestParameters.claimRewardsRequest, requestParameters.chainDescriptor, requestParameters.idempotencyKey, options).then((request) => request(axios, basePath));
         },
         /**
-         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+         * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
          * @summary Consolidate staking positions (ETH validator consolidation)
          * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
          * @param {*} [options] Override http request option.
@@ -1278,8 +1278,8 @@ export interface StakingApiClaimRewardsRequest {
     readonly claimRewardsRequest: ClaimRewardsRequest
 
     /**
-     * Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL).
-     * @type {'SOL' | 'SOL_TEST' | 'MATIC' | 'POL' | 'POL_TEST'}
+     * Protocol identifier for the claim rewards staking operation (e.g., POL/MATIC/SOL/CELESTIA).
+     * @type {'SOL' | 'SOL_TEST' | 'MATIC' | 'POL' | 'POL_TEST' | 'CELESTIA'}
      * @memberof StakingApiClaimRewards
      */
     readonly chainDescriptor: ClaimRewardsChainDescriptorEnum
@@ -1606,7 +1606,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Claims available staking rewards for the specified chain and vault. Supported chains: Solana and Polygon (POL/Matic). Behavior depends on protocol reward distribution.
+     * Claims available staking rewards for the specified chain and vault. Supported chains: Solana, Polygon (POL/Matic) and Celestia. Behavior depends on protocol reward distribution.
      * @summary Claim accrued rewards
      * @param {StakingApiClaimRewardsRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1618,7 +1618,7 @@ export class StakingApi extends BaseAPI {
     }
 
     /**
-     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor. **Note:** This endpoint is currently in beta and might be subject to changes.
+     * Consolidates the source staking position into the destination, merging the balance into the destination and closing the source position once complete. Both positions must be from the same vault account (i.e. same withdrawal credentials).  On chain, this translates into a consolidation transaction, where the  source validator is consolidated into the destination validator.  Supported chains: Ethereum (ETH) only. Endpoint Permission: Owner, Admin, Non-Signing Admin, Signer, Approver, Editor.
      * @summary Consolidate staking positions (ETH validator consolidation)
      * @param {StakingApiConsolidateRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
@@ -1802,7 +1802,8 @@ export const ClaimRewardsChainDescriptorEnum = {
     SolTest: 'SOL_TEST',
     Matic: 'MATIC',
     Pol: 'POL',
-    PolTest: 'POL_TEST'
+    PolTest: 'POL_TEST',
+    Celestia: 'CELESTIA'
 } as const;
 export type ClaimRewardsChainDescriptorEnum = typeof ClaimRewardsChainDescriptorEnum[keyof typeof ClaimRewardsChainDescriptorEnum];
 /**

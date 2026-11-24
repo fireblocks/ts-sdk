@@ -13,13 +13,13 @@
 import type { ConfigurationOptions  } from './clientConfiguration';
 import { Configuration } from '../configuration';
 import { ApiUserApi, 
-         ApprovalsBetaApi, 
+         ApprovalsApi, 
          AuditLogsApi, 
-         BlockchainLinkBetaApi, 
+         BlockchainLinkApi, 
          BlockchainsAssetsApi, 
-         CantonBetaApi, 
+         CantonApi, 
          ComplianceApi, 
-         ComplianceOrchestratorBetaApi, 
+         ComplianceOrchestratorApi, 
          ComplianceScreeningConfigurationApi, 
          ConnectedAccountsApi, 
          ConsoleUserApi, 
@@ -35,32 +35,31 @@ import { ApiUserApi,
          ExternalWalletsApi, 
          FiatAccountsApi, 
          GasStationsApi, 
-         GenieBetaApi, 
+         GenieApi, 
          InternalWalletsApi, 
          KeyLinkApi, 
          KeysApi, 
          NFTsApi, 
          NetworkConnectionsApi, 
-         OTABetaApi, 
+         OTAApi, 
          OffExchangesApi, 
          OnchainDataApi, 
          PaymentsPayoutApi, 
          PolicyEditorV2Api, 
-         PolicyEditorV2BetaApi, 
-         ReportsBetaApi, 
+         ReportsApi, 
          ResetDeviceApi, 
          SecurityPostureManagementApi, 
          SmartTransferApi, 
          StakingApi, 
          TRLinkApi, 
          TagsApi, 
-         TempoBetaApi, 
+         TempoApi, 
          TokenizationApi, 
          TradingApi, 
          TransactionsApi, 
          TravelRuleApi, 
          UTXOManagementApi, 
-         UserGroupsBetaApi, 
+         UserGroupsApi, 
          UsersApi, 
          VaultsApi, 
          Web3ConnectionsApi, 
@@ -68,7 +67,7 @@ import { ApiUserApi,
          WebhooksV2Api, 
          WhitelistIpAddressesApi, 
          WorkspaceApi, 
-         WorkspaceStatusBetaApi
+         WorkspaceStatusApi
          } from '../api';
 import { AxiosManager } from "../network/axiosManager";
 
@@ -77,13 +76,13 @@ export class Fireblocks {
     private readonly config: Configuration;
     private readonly axiosManager: AxiosManager
     private _apiUser?: ApiUserApi;
-    private _approvalsBeta?: ApprovalsBetaApi;
+    private _approvals?: ApprovalsApi;
     private _auditLogs?: AuditLogsApi;
-    private _blockchainLinkBeta?: BlockchainLinkBetaApi;
+    private _blockchainLink?: BlockchainLinkApi;
     private _blockchainsAssets?: BlockchainsAssetsApi;
-    private _cantonBeta?: CantonBetaApi;
+    private _canton?: CantonApi;
     private _compliance?: ComplianceApi;
-    private _complianceOrchestratorBeta?: ComplianceOrchestratorBetaApi;
+    private _complianceOrchestrator?: ComplianceOrchestratorApi;
     private _complianceScreeningConfiguration?: ComplianceScreeningConfigurationApi;
     private _connectedAccounts?: ConnectedAccountsApi;
     private _consoleUser?: ConsoleUserApi;
@@ -99,32 +98,31 @@ export class Fireblocks {
     private _externalWallets?: ExternalWalletsApi;
     private _fiatAccounts?: FiatAccountsApi;
     private _gasStations?: GasStationsApi;
-    private _genieBeta?: GenieBetaApi;
+    private _genie?: GenieApi;
     private _internalWallets?: InternalWalletsApi;
     private _keyLink?: KeyLinkApi;
     private _keys?: KeysApi;
     private _nfts?: NFTsApi;
     private _networkConnections?: NetworkConnectionsApi;
-    private _otaBeta?: OTABetaApi;
+    private _ota?: OTAApi;
     private _offExchanges?: OffExchangesApi;
     private _onchainData?: OnchainDataApi;
     private _paymentsPayout?: PaymentsPayoutApi;
     private _policyEditorV2?: PolicyEditorV2Api;
-    private _policyEditorV2Beta?: PolicyEditorV2BetaApi;
-    private _reportsBeta?: ReportsBetaApi;
+    private _reports?: ReportsApi;
     private _resetDevice?: ResetDeviceApi;
     private _securityPostureManagement?: SecurityPostureManagementApi;
     private _smartTransfer?: SmartTransferApi;
     private _staking?: StakingApi;
     private _trLink?: TRLinkApi;
     private _tags?: TagsApi;
-    private _tempoBeta?: TempoBetaApi;
+    private _tempo?: TempoApi;
     private _tokenization?: TokenizationApi;
     private _trading?: TradingApi;
     private _transactions?: TransactionsApi;
     private _travelRule?: TravelRuleApi;
     private _utxoManagement?: UTXOManagementApi;
-    private _userGroupsBeta?: UserGroupsBetaApi;
+    private _userGroups?: UserGroupsApi;
     private _users?: UsersApi;
     private _vaults?: VaultsApi;
     private _web3Connections?: Web3ConnectionsApi;
@@ -132,7 +130,7 @@ export class Fireblocks {
     private _webhooksV2?: WebhooksV2Api;
     private _whitelistIpAddresses?: WhitelistIpAddressesApi;
     private _workspace?: WorkspaceApi;
-    private _workspaceStatusBeta?: WorkspaceStatusBetaApi;
+    private _workspaceStatus?: WorkspaceStatusApi;
 
 
     constructor(conf: ConfigurationOptions = {}) {
@@ -157,26 +155,26 @@ export class Fireblocks {
     get apiUser(): ApiUserApi {
         return this._apiUser ?? new ApiUserApi(this.config, undefined, this.axiosManager.axios);
     }
-    get approvalsBeta(): ApprovalsBetaApi {
-        return this._approvalsBeta ?? new ApprovalsBetaApi(this.config, undefined, this.axiosManager.axios);
+    get approvals(): ApprovalsApi {
+        return this._approvals ?? new ApprovalsApi(this.config, undefined, this.axiosManager.axios);
     }
     get auditLogs(): AuditLogsApi {
         return this._auditLogs ?? new AuditLogsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get blockchainLinkBeta(): BlockchainLinkBetaApi {
-        return this._blockchainLinkBeta ?? new BlockchainLinkBetaApi(this.config, undefined, this.axiosManager.axios);
+    get blockchainLink(): BlockchainLinkApi {
+        return this._blockchainLink ?? new BlockchainLinkApi(this.config, undefined, this.axiosManager.axios);
     }
     get blockchainsAssets(): BlockchainsAssetsApi {
         return this._blockchainsAssets ?? new BlockchainsAssetsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get cantonBeta(): CantonBetaApi {
-        return this._cantonBeta ?? new CantonBetaApi(this.config, undefined, this.axiosManager.axios);
+    get canton(): CantonApi {
+        return this._canton ?? new CantonApi(this.config, undefined, this.axiosManager.axios);
     }
     get compliance(): ComplianceApi {
         return this._compliance ?? new ComplianceApi(this.config, undefined, this.axiosManager.axios);
     }
-    get complianceOrchestratorBeta(): ComplianceOrchestratorBetaApi {
-        return this._complianceOrchestratorBeta ?? new ComplianceOrchestratorBetaApi(this.config, undefined, this.axiosManager.axios);
+    get complianceOrchestrator(): ComplianceOrchestratorApi {
+        return this._complianceOrchestrator ?? new ComplianceOrchestratorApi(this.config, undefined, this.axiosManager.axios);
     }
     get complianceScreeningConfiguration(): ComplianceScreeningConfigurationApi {
         return this._complianceScreeningConfiguration ?? new ComplianceScreeningConfigurationApi(this.config, undefined, this.axiosManager.axios);
@@ -223,8 +221,8 @@ export class Fireblocks {
     get gasStations(): GasStationsApi {
         return this._gasStations ?? new GasStationsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get genieBeta(): GenieBetaApi {
-        return this._genieBeta ?? new GenieBetaApi(this.config, undefined, this.axiosManager.axios);
+    get genie(): GenieApi {
+        return this._genie ?? new GenieApi(this.config, undefined, this.axiosManager.axios);
     }
     get internalWallets(): InternalWalletsApi {
         return this._internalWallets ?? new InternalWalletsApi(this.config, undefined, this.axiosManager.axios);
@@ -241,8 +239,8 @@ export class Fireblocks {
     get networkConnections(): NetworkConnectionsApi {
         return this._networkConnections ?? new NetworkConnectionsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get otaBeta(): OTABetaApi {
-        return this._otaBeta ?? new OTABetaApi(this.config, undefined, this.axiosManager.axios);
+    get ota(): OTAApi {
+        return this._ota ?? new OTAApi(this.config, undefined, this.axiosManager.axios);
     }
     get offExchanges(): OffExchangesApi {
         return this._offExchanges ?? new OffExchangesApi(this.config, undefined, this.axiosManager.axios);
@@ -256,11 +254,8 @@ export class Fireblocks {
     get policyEditorV2(): PolicyEditorV2Api {
         return this._policyEditorV2 ?? new PolicyEditorV2Api(this.config, undefined, this.axiosManager.axios);
     }
-    get policyEditorV2Beta(): PolicyEditorV2BetaApi {
-        return this._policyEditorV2Beta ?? new PolicyEditorV2BetaApi(this.config, undefined, this.axiosManager.axios);
-    }
-    get reportsBeta(): ReportsBetaApi {
-        return this._reportsBeta ?? new ReportsBetaApi(this.config, undefined, this.axiosManager.axios);
+    get reports(): ReportsApi {
+        return this._reports ?? new ReportsApi(this.config, undefined, this.axiosManager.axios);
     }
     get resetDevice(): ResetDeviceApi {
         return this._resetDevice ?? new ResetDeviceApi(this.config, undefined, this.axiosManager.axios);
@@ -280,8 +275,8 @@ export class Fireblocks {
     get tags(): TagsApi {
         return this._tags ?? new TagsApi(this.config, undefined, this.axiosManager.axios);
     }
-    get tempoBeta(): TempoBetaApi {
-        return this._tempoBeta ?? new TempoBetaApi(this.config, undefined, this.axiosManager.axios);
+    get tempo(): TempoApi {
+        return this._tempo ?? new TempoApi(this.config, undefined, this.axiosManager.axios);
     }
     get tokenization(): TokenizationApi {
         return this._tokenization ?? new TokenizationApi(this.config, undefined, this.axiosManager.axios);
@@ -298,8 +293,8 @@ export class Fireblocks {
     get utxoManagement(): UTXOManagementApi {
         return this._utxoManagement ?? new UTXOManagementApi(this.config, undefined, this.axiosManager.axios);
     }
-    get userGroupsBeta(): UserGroupsBetaApi {
-        return this._userGroupsBeta ?? new UserGroupsBetaApi(this.config, undefined, this.axiosManager.axios);
+    get userGroups(): UserGroupsApi {
+        return this._userGroups ?? new UserGroupsApi(this.config, undefined, this.axiosManager.axios);
     }
     get users(): UsersApi {
         return this._users ?? new UsersApi(this.config, undefined, this.axiosManager.axios);
@@ -322,8 +317,8 @@ export class Fireblocks {
     get workspace(): WorkspaceApi {
         return this._workspace ?? new WorkspaceApi(this.config, undefined, this.axiosManager.axios);
     }
-    get workspaceStatusBeta(): WorkspaceStatusBetaApi {
-        return this._workspaceStatusBeta ?? new WorkspaceStatusBetaApi(this.config, undefined, this.axiosManager.axios);
+    get workspaceStatus(): WorkspaceStatusApi {
+        return this._workspaceStatus ?? new WorkspaceStatusApi(this.config, undefined, this.axiosManager.axios);
     }
 }
 
